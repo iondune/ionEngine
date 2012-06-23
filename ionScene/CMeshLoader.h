@@ -17,6 +17,8 @@ public:
 
     static CMesh * const loadAsciiMesh(std::string const & fileName);
 
+    static CMesh * const loadObjMesh(std::string const & fileName);
+
     static CMesh * const createCubeMesh();
 
     static CMesh * const createDiscMesh(unsigned int const Triangles = 40);

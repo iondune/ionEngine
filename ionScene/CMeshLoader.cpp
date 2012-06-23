@@ -395,6 +395,129 @@ CMesh * const CMeshLoader::loadAsciiMesh(std::string const & fileName)
     return MeshWrapper;
 }
 
+CMesh * const CMeshLoader::loadObjMesh(std::string const & fileName)
+{
+    std::map<std::string, CMesh *>::iterator it = LoadedMeshes.find(fileName);
+
+    if (it != LoadedMeshes.end())
+    {
+        return it->second;
+    }
+
+    CMesh * MeshWrapper = new CMesh();
+    CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
+
+    std::ifstream File;
+    File.open((MeshDirectory + fileName).c_str());
+
+    if (! File.is_open())
+    {
+        std::cerr << "Unable to open obj mesh file: " << fileName << std::endl;
+        return 0;
+    }
+
+    while (File)
+    {
+        std::string ReadString;
+        std::getline(File, ReadString);
+
+		std::replace(ReadString.begin(), ReadString.end(), '/', ' ');
+        std::stringstream Stream(ReadString);
+
+        std::string Label;
+        Stream >> Label;
+
+        if ("v" == Label)
+        {
+            SVector3f Position;
+            Stream >> Position.X;
+            Stream >> Position.Y;
+            Stream >> Position.Z;
+
+            SVertex Vertex;
+            Vertex.Position = Position;
+
+            Mesh->Vertices.push_back(Vertex);
+        }
+		else if ("vn" == Label)
+        {
+            SVector3f Normal;
+            Stream >> Normal.X;
+            Stream >> Normal.Y;
+            Stream >> Normal.Z;
+
+			SVertex & Vertex = Mesh->Vertices.back();
+			Vertex.Normal = Normal;
+        }
+		else if ("vt" == Label)
+        {
+            SVector2f TexCoords;
+            Stream >> TexCoords.X;
+            Stream >> TexCoords.Y;
+
+			SVertex & Vertex = Mesh->Vertices.back();
+			Vertex.TextureCoordinates = TexCoords;
+        }
+		else if ("#_#tangent" == Label)
+        {
+            SVector3f Tangent;
+            Stream >> Tangent.X;
+            Stream >> Tangent.Y;
+            Stream >> Tangent.Z;
+
+			SVertex & Vertex = Mesh->Vertices.back();
+			//Vertex.Tangent = Tangent;
+        }
+		else if ("#_#binormal" == Label)
+        {
+            SVector3f Binormal;
+            Stream >> Binormal.X;
+            Stream >> Binormal.Y;
+            Stream >> Binormal.Z;
+
+			SVertex & Vertex = Mesh->Vertices.back();
+			//Vertex.Binormal = Binormal;
+        }
+        else if ("f" == Label)
+        {
+            int Vertex1, Vertex2, Vertex3;
+            Stream >> Vertex1;
+            Stream >> Vertex1;
+            Stream >> Vertex1;
+            Stream >> Vertex2;
+            Stream >> Vertex2;
+            Stream >> Vertex2;
+            Stream >> Vertex3;
+            Stream >> Vertex3;
+            Stream >> Vertex3;
+
+            CMesh::STriangle Triangle;
+            Triangle.Indices[0] = Vertex1 - 1;
+            Triangle.Indices[1] = Vertex2 - 1;
+            Triangle.Indices[2] = Vertex3 - 1;
+
+            Mesh->Triangles.push_back(Triangle);
+        }
+		else if ("#faces" == Label)
+        {
+            // Number of faces, not particularily useful to us...
+        }
+        else if ("" == Label)
+        {
+            // Just a new line, carry on...
+        }
+        else
+        {
+            std::cerr << "While parsing OBJ mesh: Unexpected label '" << Label << "'." << std::endl;
+        }
+    }
+
+    MeshWrapper->MeshBuffers.push_back(Mesh);
+
+    LoadedMeshes[fileName] = MeshWrapper;
+    return MeshWrapper;
+}
+
 CMesh * const CMeshLoader::createCubeMesh()
 {
     CMesh * MeshWrapper = new CMesh();
