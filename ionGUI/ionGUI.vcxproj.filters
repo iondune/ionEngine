@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="CGUIDialogWidget.h" />
+    <ClInclude Include="CGUIEngine.h" />
+    <ClInclude Include="CGUIFontWidget.h" />
+    <ClInclude Include="CGUIImageWidget.h" />
+    <ClInclude Include="CGUIWidget.h" />
+    <ClInclude Include=".\ionGUI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CGUIDialogWidget.cpp" />
+    <ClCompile Include="CGUIEngine.cpp" />
+    <ClCompile Include="CGUIFontWidget.cpp" />
+    <ClCompile Include="CGUIImageWidget.cpp" />
+    <ClCompile Include="CGUIWidget.cpp" />
+  </ItemGroup>
+</Project>

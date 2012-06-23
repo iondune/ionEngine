@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="CBufferObject.h" />
+    <ClInclude Include="CCameraSceneObject.h" />
+    <ClInclude Include="CDeferredShadingManager.h" />
+    <ClInclude Include="CDirectionalLightSceneObject.h" />
+    <ClInclude Include="CFrameBufferObject.h" />
+    <ClInclude Include="CImage.h" />
+    <ClInclude Include="CImageLoader.h" />
+    <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CMeshLoader.h" />
+    <ClInclude Include="CMeshSceneObject.h" />
+    <ClInclude Include="CPerspectiveCameraSceneObject.h" />
+    <ClInclude Include="CPointLightSceneObject.h" />
+    <ClInclude Include="CRenderable.h" />
+    <ClInclude Include="CRenderBufferObject.h" />
+    <ClInclude Include="CSceneEffectManager.h" />
+    <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CSceneObject.h" />
+    <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShaderContext.h" />
+    <ClInclude Include="CShaderLoader.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTextureLoader.h" />
+    <ClInclude Include="ICameraSceneObject.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="ISceneObject.Enumerations.h" />
+    <ClInclude Include="ISceneObject.h" />
+    <ClInclude Include="SAttribute.h" />
+    <ClInclude Include="SUniform.h" />
+    <ClInclude Include="SVertex.h" />
+    <ClInclude Include="ImageLoaders\Texture.h">
+      <Filter>ImageLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include=".\ionScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCameraSceneObject.cpp" />
+    <ClCompile Include="CDeferredShadingManager.cpp" />
+    <ClCompile Include="CDirectionalLightSceneObject.cpp" />
+    <ClCompile Include="CFrameBufferObject.cpp" />
+    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="CImageLoader.cpp" />
+    <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMeshLoader.cpp" />
+    <ClCompile Include="CMeshSceneObject.cpp" />
+    <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
+    <ClCompile Include="CPointLightSceneObject.cpp" />
+    <ClCompile Include="CRenderable.cpp" />
+    <ClCompile Include="CRenderable.UpdateMethods.cpp" />
+    <ClCompile Include="CRenderBufferObject.cpp" />
+    <ClCompile Include="CSceneEffectManager.cpp" />
+    <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CSceneObject.ContextManagement.cpp" />
+    <ClCompile Include="CSceneObject.cpp" />
+    <ClCompile Include="CSceneObject.RenderableManagement.cpp" />
+    <ClCompile Include="CSceneObject.ShaderManagement.cpp" />
+    <ClCompile Include="CSceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShaderContext.cpp" />
+    <ClCompile Include="CShaderLoader.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="ISceneObject.cpp" />
+    <ClCompile Include="ISceneObject.CullingMethods.cpp" />
+    <ClCompile Include="ISceneObject.StaticMethods.cpp" />
+    <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="ImageLoaders\Texture.cpp">
+      <Filter>ImageLoaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ImageLoaders">
+      <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
