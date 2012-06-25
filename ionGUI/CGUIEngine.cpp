@@ -20,8 +20,10 @@ CGUIEventReceiver::CGUIEventReceiver()
    connected = 0;
 }
 
-void CGUIEventReceiver::connect() {
-   if(!connected) {
+void CGUIEventReceiver::connect()
+{
+   if (! connected && & CApplication::get().getGUIEngine())
+   {
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetClick.connect(this, & CGUIEventReceiver::OnWidgetClick);
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetHover.connect(this, & CGUIEventReceiver::OnWidgetHover);
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetUnHover.connect(this, & CGUIEventReceiver::OnWidgetUnHover);
@@ -29,8 +31,10 @@ void CGUIEventReceiver::connect() {
    }
 }
 
-void CGUIEventReceiver::disconnect() {
-   if(connected) {
+void CGUIEventReceiver::disconnect()
+{
+   if (connected && & CApplication::get().getGUIEngine())
+   {
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetClick.disconnect(this);
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetHover.disconnect(this);
       CApplication::get().getGUIEngine().getEventManager()->OnWidgetUnHover.disconnect(this);
