@@ -22,7 +22,7 @@ public:
 
 	T & X, & Y, & Z;
 
-	SVector3Reference(float & x, float & y, float & z)
+	SVector3Reference(T & x, T & y, T & z)
 		: X(x), Y(y), Z(z)
 	{}
 
@@ -95,7 +95,7 @@ public:
 
 	T length() const
 	{
-		return sqrtf(X*X + Y*Y + Z*Z);
+		return sqrt(X*X + Y*Y + Z*Z);
 	}
 
 	SVector3Reference & operator += (SVector3Reference const & v)
@@ -213,7 +213,7 @@ public:
 	
 	template <typename U>
 	SVector3(SVector3<U> const & vec)
-		: X(vec.X), Y(vec.Y), Z(vec.Z), SVector3Reference<T>(X, Y, Z)
+		: X((T) vec.X), Y((T) vec.Y), Z((T) vec.Z), SVector3Reference<T>(X, Y, Z)
 	{}
 
 	SVector3(SVector3<T> const & vec)
