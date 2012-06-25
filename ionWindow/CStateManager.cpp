@@ -75,7 +75,7 @@ void CStateManager::doStateChange()
 	CurrentState->connect();
 	CurrentState->begin();
 
-	//CApplication::get().getSceneManager().blurSceneIn(0.3f, CApplication::get().getRunTime());
+	CApplication::get().getSceneManager().blurSceneIn(0.3f, CApplication::get().getRunTime());
 }
 
 void CStateManager::shutDown()

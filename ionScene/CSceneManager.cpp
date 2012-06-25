@@ -199,7 +199,8 @@ void CSceneManager::removeAllSceneObjects()
 	RootObject.removeChildren();
 }
 
-bool sortISOXY (ISceneObject* a, ISceneObject* b) {
+bool sortISOXY (ISceneObject* a, ISceneObject* b)
+{
 	SVector3f av = a->getAbsoluteBoundingBox().MinCorner;//getWorldBoundingBoxMinPoint();
 	SVector3f bv = b->getAbsoluteBoundingBox().MaxCorner;//
 	if(av.X == bv.X) {
