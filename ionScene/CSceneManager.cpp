@@ -158,8 +158,9 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 		glGenBuffers(1, & QuadHandle);
 		glBindBuffer(GL_ARRAY_BUFFER, QuadHandle);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-
+	
 
 	STextureCreationFlags Flags;
 	Flags.MipMaps = false;
@@ -170,13 +171,13 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 	SceneFrameBuffer = new CFrameBufferObject();
 	SceneFrameBuffer->attach(SceneDepthBuffer, GL_DEPTH_ATTACHMENT);
 	SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
-	//SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT1);
 
 	if (! SceneFrameBuffer->isValid())
 		std::cerr << "Failed to make FBO for scene drawing!!!!!!" << std::endl  << std::endl  << std::endl;
 
 	EffectManager = DefaultManager = new CSceneEffectManager(this);
-	EffectManager->setEffectEnabled(ESE_BLOOM, true);
+	if (EffectManager)
+		EffectManager->setEffectEnabled(ESE_BLOOM, true);
 
 	DeferredManager = new CDeferredShadingManager(this);
 
