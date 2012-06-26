@@ -97,6 +97,14 @@ void CApplication::updateTime()
 	Time0 = Time1;
 }
 
+EKey const ConvertSFMLKeyCode(sf::Key::Code const Code)
+{
+	if (Code >= sf::Key::A && Code <= sf::Key::Z)
+		return EKey::a + (Code - sf::Key::A);
+
+	return EKey::Unknown;
+}
+
 void CApplication::run()
 {
 	Running = true;
@@ -107,18 +115,18 @@ void CApplication::run()
 
 	while (Running && App->IsOpened())
 	{
-		/*SDL_Event Event;
-		while (SDL_PollEvent(& Event))
+		sf::Event Event;
+		while (App->GetEvent(Event))
 		{
-			switch (Event.type)
+			switch (Event.Type)
 			{
 
-			case SDL_QUIT:
+			case sf::Event::Closed:
 				Running = false;
 				break;
 
-			case SDL_MOUSEBUTTONDOWN:
-			case SDL_MOUSEBUTTONUP:
+			case sf::Event::MouseButtonPressed:
+			case sf::Event::MouseButtonReleased:
 				{
 
 					SMouseEvent MouseEvent;
@@ -126,24 +134,24 @@ void CApplication::run()
 					MouseEvent.Location = EventManager->MouseLocation;
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Pressed = Event.button.state == SDL_PRESSED;
+					MouseEvent.Pressed = Event.Type == sf::Event::MouseButtonPressed;
 
-					switch (Event.button.button)
+					switch (Event.MouseButton.Button)
 					{
 
-					case SDL_BUTTON_LEFT:
+					case sf::Mouse::Button::Left:
 						MouseEvent.Button = SMouseEvent::EButton::Left;
 						EventManager->MouseStates[SMouseEvent::EButton::Left] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case SDL_BUTTON_RIGHT:
+					case sf::Mouse::Button::Right:
 						MouseEvent.Button = SMouseEvent::EButton::Right;
 						EventManager->MouseStates[SMouseEvent::EButton::Right] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case SDL_BUTTON_MIDDLE:
+					case sf::Mouse::Button::Middle:
 						MouseEvent.Button = SMouseEvent::EButton::Middle;
 						EventManager->MouseStates[SMouseEvent::EButton::Middle] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
@@ -158,28 +166,30 @@ void CApplication::run()
 
 				}
 
-			case SDL_MOUSEMOTION:
+			case sf::Event::MouseMoved:
 				{
 
 					SMouseEvent MouseEvent;
 					MouseEvent.Type = SMouseEvent::EType::Move;
-					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.motion.x, Event.motion.y);
+					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.MouseMove.X, Event.MouseMove.Y);
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Movement = SPosition2(Event.motion.xrel, Event.motion.yrel);
+					MouseEvent.Movement = MouseEvent.Location - LastMouse;
 					EventManager->OnMouseEvent(MouseEvent);
+
+					LastMouse = MouseEvent.Location;
 
 					break;
 
 				}
 
-			case SDL_KEYDOWN:
-			case SDL_KEYUP:
+			case sf::Event::KeyPressed:
+			case sf::Event::KeyReleased:
 				{
 
 					SKeyboardEvent KeyEvent;
-					KeyEvent.Pressed = Event.key.state == SDL_PRESSED;
-					KeyEvent.Key = Event.key.keysym.sym;
+					KeyEvent.Pressed = Event.Type == sf::Event::KeyPressed;
+					KeyEvent.Key = ConvertSFMLKeyCode(Event.Key.Code);
 					EventManager->OnKeyboardEvent(KeyEvent);
 					EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
 

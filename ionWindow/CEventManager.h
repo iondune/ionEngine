@@ -12,6 +12,7 @@ struct  EKeyValues
 {	
 	enum Domain
 	{
+		Unknown, 
 		// ASCII Keys
 		BACKSPACE		= 8,
 		TAB		= 9,
@@ -171,6 +172,10 @@ struct SKeyboardEvent
 {
     bool Pressed;
     EKey Key;
+
+	SKeyboardEvent()
+		: Key(EKey::Unknown)
+	{}
 };
 
 struct SMouseEvent

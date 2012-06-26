@@ -37,6 +37,8 @@ class CApplication
 
 	sf::Clock ApplicationClock;
 
+	SPosition2 LastMouse;
+
 public:
 
 	sf::Window * App;
