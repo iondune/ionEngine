@@ -5,6 +5,8 @@
 #include <ionScene.h>
 #include <ionGUI.h>
 
+#include <SFML/Window.hpp>
+
 class CEventManager;
 class CStateManager;
 
@@ -29,11 +31,15 @@ class CApplication
     float ElapsedTime;
 	float RunTime;
 
-    unsigned int Time0, Time1;
+    float Time0, Time1;
 
 	bool Running;
 
+	sf::Clock ApplicationClock;
+
 public:
+
+	sf::Window * App;
 
     static CApplication & get();
 

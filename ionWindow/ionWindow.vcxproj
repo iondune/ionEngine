@@ -45,6 +45,7 @@
         ;$(SolutionDir)\ionScene;
         ;$(SolutionDir)\ionWindow;
         ;$(SolutionDir)\ionGUI;
+        ;$(VisualStudioDir)\SDKs\SFML-1.6\include;
         ;$(IncludePath);
     </IncludePath>
   </PropertyGroup>

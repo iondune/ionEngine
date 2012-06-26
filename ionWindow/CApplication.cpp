@@ -1,14 +1,14 @@
 #include "CApplication.h"
 
-#ifdef _WIN32
 #include <GL/glew.h>
-#endif
 
 #include <iostream>
 #include <iomanip>
 
 #include "CEventManager.h"
 #include "CStateManager.h"
+
+#include <SFML/Window.hpp>
 
 
 CApplication::CApplication()
@@ -20,37 +20,7 @@ CApplication::CApplication()
 
 void CApplication::setupRenderContext()
 {
-	SDL_VideoInfo const * video;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
-		waitForUser();
-		exit(1);
-	}
-
-	atexit(SDL_Quit);
-
-	video = SDL_GetVideoInfo();
-	if(video == NULL)
-	{
-		fprintf(stderr, "Couldn't get video information: %s\n", SDL_GetError());
-		waitForUser();
-		exit(2);
-	}
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-	if(! SDL_SetVideoMode(WindowSize.X, WindowSize.Y, video->vfmt->BitsPerPixel, SDL_OPENGL))
-	{
-		fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
-		waitForUser();
-		exit(1);
-	}
+	App = new sf::Window(sf::VideoMode(800, 600, 32), "SFML OpenGL");
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -116,13 +86,13 @@ CGUIEngine & CApplication::getGUIEngine()
 
 void CApplication::skipElapsedTime()
 {
-	Time0 = SDL_GetTicks();
+	Time0 = ApplicationClock.GetElapsedTime();
 }
 
 void CApplication::updateTime()
 {
-	Time1 = SDL_GetTicks();
-	ElapsedTime = (float) (Time1 - Time0) / 1000.f;
+	Time1 = ApplicationClock.GetElapsedTime();
+	ElapsedTime = (Time1 - Time0);
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
@@ -131,13 +101,13 @@ void CApplication::run()
 {
 	Running = true;
 
-	Time0 = SDL_GetTicks();
+	Time0 = ApplicationClock.GetElapsedTime();
 
 	RunTime = ElapsedTime = 0.f;
 
-	while (Running)
+	while (Running && App->IsOpened())
 	{
-		SDL_Event Event;
+		/*SDL_Event Event;
 		while (SDL_PollEvent(& Event))
 		{
 			switch (Event.type)
@@ -217,7 +187,7 @@ void CApplication::run()
 
 				}
 			} // switch (Event.type)
-		} // while (SDL_PollEvent(& Event))
+		} // while (SDL_PollEvent(& Event))*/
 
 		updateTime();
 

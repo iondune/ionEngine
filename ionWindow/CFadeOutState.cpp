@@ -66,7 +66,7 @@ void CFadeOutState::OnRenderStart(float const Elapsed)
 
 	DrawFrame.doPass();
 
-	SDL_GL_SwapBuffers();
+	CApplication::get().App->Display();
 }
 
 void CFadeOutState::OnRenderEnd(float const Elapsed)
