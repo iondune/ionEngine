@@ -6,6 +6,7 @@
 #include <ionGUI.h>
 
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 class CEventManager;
 class CStateManager;
@@ -41,7 +42,7 @@ class CApplication
 
 public:
 
-	sf::Window * App;
+	sf::RenderWindow * App;
 
     static CApplication & get();
 
