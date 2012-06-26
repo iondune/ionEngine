@@ -79,6 +79,8 @@ class CApplication;
 class CApplicationEventReceiver : public sigslot::has_slots<>
 {
 
+protected:
+
 	CApplication * const Application;
 
 public:
