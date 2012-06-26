@@ -64,6 +64,11 @@ public:
 	bool isShuttingDown() const;
 	void close();
 
+	void swapBuffers()
+	{
+		App->Display();
+	}
+
 };
 
 #endif

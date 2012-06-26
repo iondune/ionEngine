@@ -20,7 +20,7 @@ CApplication::CApplication()
 
 void CApplication::setupRenderContext()
 {
-	App = new sf::Window(sf::VideoMode(800, 600, 32), "SFML OpenGL");
+	App = new sf::Window(sf::VideoMode(WindowSize.X, WindowSize.Y, 32), "SFML OpenGL");
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)

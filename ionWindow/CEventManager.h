@@ -84,7 +84,7 @@ struct  EKeyValues
 		x			= 120,
 		y			= 121,
 		z			= 122,
-		DELETE		= 127,
+		DELETE_KEY		= 127,
 
 		// @name Numeric keypad
 		KP0		= 256,
