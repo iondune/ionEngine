@@ -79,7 +79,6 @@
     <ClInclude Include="CFrameBufferObject.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CImageLoader.h" />
-    <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshLoader.h" />
     <ClInclude Include="CMeshSceneObject.h" />
@@ -111,7 +110,6 @@
     <ClCompile Include="CFrameBufferObject.cpp" />
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CImageLoader.cpp" />
-    <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshLoader.cpp" />
     <ClCompile Include="CMeshSceneObject.cpp" />
