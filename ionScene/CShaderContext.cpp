@@ -29,7 +29,8 @@ CShaderContext::~CShaderContext()
 
 	if (TextureCounter)
 		glDisable(GL_TEXTURE_2D);
-
+	
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glUseProgram(0);
 }
 
@@ -49,6 +50,8 @@ void CShaderContext::bindBufferObject(std::string const & label, GLuint const Bu
     glVertexAttribPointer(it->second.Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0);
 
     EnabledVertexAttribArrays.push_back(it->second.Handle);
+	
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bufferHandle, GLuint const elementSize)
@@ -58,6 +61,8 @@ void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bu
     glVertexAttribPointer(attribHandle, elementSize, GL_FLOAT, GL_FALSE, 0, 0); // Sync Buffer Data
 
     EnabledVertexAttribArrays.push_back(attribHandle);
+	
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
