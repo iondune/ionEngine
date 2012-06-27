@@ -8,7 +8,22 @@
 #include <cstdlib>
 
 
-static inline bool printOpenGLErrors()
+bool printOpenGLErrors(char const * const Location)
+{
+    bool Succeeded = true;
+
+    GLenum glErr = glGetError();
+    while (glErr != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL Error at " << Location << ": " << gluErrorString(glErr) << std::endl;
+        Succeeded = false;
+        glErr = glGetError();
+    }
+
+    return Succeeded;
+}
+
+bool printOpenGLErrors()
 {
     bool Succeeded = true;
 

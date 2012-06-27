@@ -211,9 +211,11 @@ bool sortISOXY (ISceneObject* a, ISceneObject* b)
 
 void CSceneManager::drawAll()
 {
+	printOpenGLErrors("beginning of draw");
 	ISceneObject::resetObjectCounts();
 	CurrentScene->update();
 
+	printOpenGLErrors("pre traversal");
 	if (EffectManager)
 	{
 		for (std::vector<CSceneEffectManager::SRenderPass>::iterator it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
@@ -233,12 +235,15 @@ void CSceneManager::drawAll()
 
 			//if (it->Pass != ERenderPass::Default)
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+				
+			printOpenGLErrors("begining load");
 			load(it->Pass);
+			printOpenGLErrors("begining traversal");
 			RootObject.draw(CurrentScene, it->Pass, UseCulling);
+			printOpenGLErrors("after traversal");
 
 			if (it->Pass != ERenderPass::DeferredLights) {
-				glEnable(GL_ALPHA);
+				//glEnable(GL_ALPHA);
 				glEnable(GL_BLEND);
 				glEnable(GL_DEPTH_TEST);
 				glDepthMask(GL_FALSE);
@@ -246,11 +251,16 @@ void CSceneManager::drawAll()
 			}
 			else {
 			}
+			
 			if (it->Pass != ERenderPass::DeferredLights) {
-				glBlendFunc(GL_ONE, GL_MAX);
+				//glBlendFunc(GL_ONE, GL_MAX);
+				printOpenGLErrors("after blend func");
 				glDepthMask(GL_TRUE);
+				printOpenGLErrors("after depth mask");
 				glDisable(GL_BLEND);
-				glDisable(GL_ALPHA);
+				printOpenGLErrors("after disable blend");
+				//glDisable(GL_ALPHA);
+				printOpenGLErrors("after disable alpha");
 			}
 
 			if (it->Pass == ERenderPass::DeferredLights)
@@ -258,7 +268,9 @@ void CSceneManager::drawAll()
 				glDisable(GL_BLEND);
 				glEnable(GL_DEPTH_TEST);
 			}
+			printOpenGLErrors("after deferred");
 		}
+		printOpenGLErrors("before effects");
 
 		EffectManager->apply();
 	}
@@ -276,11 +288,15 @@ void CSceneManager::drawAll()
 		glDisable(GL_BLEND);
 		glDisable(GL_ALPHA);
 	}
+	printOpenGLErrors("after effects");
 
 	SceneChanged = false;
 
 	SceneFrameBuffer->bind();
 	//printf("Num objects: %d\n", numObjects);
+
+	
+	printOpenGLErrors("end of drawall");
 }
 
 void CSceneManager::blurSceneIn(float seconds, float const RunTime)
@@ -328,6 +344,8 @@ void CSceneManager::endDraw()
 	}
 
 	glEnable(GL_DEPTH_TEST);
+
+	printOpenGLErrors("end of enddraw");
 }
 
 CMeshSceneObject * CSceneManager::addMeshSceneObject(CMesh * Mesh)
