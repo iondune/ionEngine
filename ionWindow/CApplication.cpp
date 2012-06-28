@@ -18,9 +18,9 @@ CApplication::CApplication()
 	EventManager(0)
 {}
 
-void CApplication::setupRenderContext()
+void CApplication::setupRenderContext(std::string const & WindowTitle)
 {
-	App = new sf::RenderWindow(sf::VideoMode(WindowSize.X, WindowSize.Y, 32), "SFML OpenGL");
+	App = new sf::RenderWindow(sf::VideoMode(WindowSize.X, WindowSize.Y, 32), WindowTitle);
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -45,11 +45,11 @@ void CApplication::setupRenderContext()
 }
 
 
-void CApplication::init(SPosition2 const & windowSize)
+void CApplication::init(SPosition2 const & windowSize, std::string const & WindowTitle)
 {
 	WindowSize = windowSize;
 
-	setupRenderContext();
+	setupRenderContext(WindowTitle);
 
 	EventManager = new CEventManager();
 	StateManager = new CStateManager();

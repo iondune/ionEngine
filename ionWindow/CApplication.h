@@ -24,7 +24,7 @@ class CApplication
     SPosition2 WindowSize;
 
     // Helper functions
-    void setupRenderContext();
+    void setupRenderContext(std::string const & WindowTitle);
 
     // Private ctor - singleton
     CApplication();
@@ -46,7 +46,7 @@ public:
 
     static CApplication & get();
 
-    void init(SPosition2 const & windowSize);
+    void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / SFML / ionEngine - Application");
 
     CEventManager & getEventManager();
     CStateManager & getStateManager();
