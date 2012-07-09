@@ -82,6 +82,6 @@ bool ISceneObject::draw(IScene const * const Scene, ERenderPass const Pass, bool
 			(* it)->draw(Scene, Pass, CullingEnabled);
 
 		// Relative culling check (this object only)
-		return ! isCulled(Scene->getActiveCamera(), false);
+		return (! CullingEnabled) || (! UseCulling) || ! isCulled(Scene->getActiveCamera(), false);
 	}
 }
