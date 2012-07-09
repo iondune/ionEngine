@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include "ionUtils.h"
+#include "SPosition2.h"
 
 template <typename T>
 class SVector2;
@@ -122,7 +123,7 @@ public:
 		return * this;
 	}
 
-	SVector2Reference & operator *= (float const s)
+	SVector2Reference & operator *= (T const s)
 	{
 		X *= s;
 		Y *= s;
@@ -130,7 +131,7 @@ public:
 		return * this;
 	}
 
-	SVector2Reference & operator /= (float const s)
+	SVector2Reference & operator /= (T const s)
 	{
 		X /= s;
 		Y /= s;
@@ -179,6 +180,10 @@ public:
 
 	template <typename U>
 	SVector2(SVector2<U> const & vec)
+		: X((T) vec.X), Y((T) vec.Y), SVector2Reference<T>(X, Y)
+	{}
+
+	SVector2(SPosition2 const & vec)
 		: X((T) vec.X), Y((T) vec.Y), SVector2Reference<T>(X, Y)
 	{}
 	
