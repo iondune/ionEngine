@@ -4,6 +4,17 @@ CImage::CImage(unsigned char * const imageData, int const width, int const heigh
     : ImageData(imageData), Width(width), Height(height), Alpha(alpha)
 {}
 
+
+CImage::CImage(SColor const & Color, bool const alpha)
+	: Width(2), Height(2), Alpha(alpha)
+{
+	int Stride = Alpha ? 4 : 3;
+	ImageData = new unsigned char[4 * Stride];
+	for (int i = 0; i < 4; ++ i)
+		for (int j = 0; j < Stride; ++ j)
+			ImageData[i*3 + j] = (unsigned char) (255.f * Color[j]);
+}
+
 CImage::~CImage()
 {
     delete ImageData;

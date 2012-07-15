@@ -176,6 +176,13 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 		std::cerr << "Failed to make FBO for scene drawing!!!!!!" << std::endl  << std::endl  << std::endl;
 
 	EffectManager = DefaultManager = new CSceneEffectManager(this);
+
+	if (! EffectManager->isLoaded())
+	{
+		delete EffectManager;
+		EffectManager = 0;
+	}
+
 	if (EffectManager)
 		EffectManager->setEffectEnabled(ESE_BLOOM, true);
 

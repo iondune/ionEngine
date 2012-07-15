@@ -55,6 +55,24 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 		std::cerr << "Aborting texture creation, image not loaded!" << std::endl;
 	}
 }
+
+CTexture::CTexture(SColor const & Color, STextureCreationFlags const Flags)
+{
+	CImage * Image = new CImage(Color, false);
+
+	Size.Width = Image->getWidth();
+	Size.Height = Image->getHeight();
+
+	glGenTextures(1, & TextureHandle);
+	glBindTexture(GL_TEXTURE_2D, TextureHandle);
+
+	Flags.apply();
+
+	glTexImage2D(GL_TEXTURE_2D, 0, Image->hasAlpha() ? GL_RGBA8 : GL_RGB8, Size.Width, Size.Height, 0, 
+		Image->hasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->getImageData());
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void CTexture::setImage(void const * const Data, bool const hasAlpha)
 {
 	glBindTexture(GL_TEXTURE_2D, TextureHandle);

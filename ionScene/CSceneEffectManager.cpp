@@ -85,9 +85,9 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
 	HeatCopy = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "FBO/HeatCopy.frag");
 
-	White = CTextureLoader::loadTexture("Colors/White.bmp");
-	Black = CTextureLoader::loadTexture("Colors/Black.bmp");
-	Magenta = CTextureLoader::loadTexture("Colors/Magenta.bmp");
+	White = new CTexture(SColor(1.f, 1.f, 1.f));
+	Black = new CTexture(SColor(0.f, 0.f, 0.f));
+	Magenta = new CTexture(SColor(1.f, 0.f, 1.f));
 	CImage * HeatOffsetTextureImage = CTextureLoader::loadImage("HeatOffset.bmp");
 	STextureCreationFlags Flags;
 	Flags.Filter = GL_LINEAR;
@@ -113,9 +113,17 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	DefaultPass.Target = SceneManager->getSceneFrameBuffer();
 
 	RenderPasses.push_back(DefaultPass);
+
+	Loaded = BlendShader && QuadCopy;
 }
 
 #include <CApplication.h>
+
+
+bool const CSceneEffectManager::isLoaded() const
+{
+	return Loaded;
+}
 
 void CSceneEffectManager::apply()
 {

@@ -62,6 +62,8 @@ protected:
 
 	float Timer;
 
+	bool Loaded;
+
 public:
 
 	CSceneEffectManager(CSceneManager * sceneManager);
@@ -112,6 +114,9 @@ public:
 
 	virtual void setEffectEnabled(ESceneEffect const Effect, bool const Enabled);
 	virtual bool const isEffectEnabled(ESceneEffect const Effect);
+
+
+	virtual bool const isLoaded() const;
 
 };
 
