@@ -12,6 +12,11 @@ static bool const equals(float const a, float const b, float const epsilon = Rou
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }
 
+static int const equals(int const a, int const b, int const epsilon = 0)
+{
+	return epsilon ? (a + epsilon >= b) && (a - epsilon <= b) : a == b;
+}
+
 static bool const equals(double const a, double const b, double const epsilon = RoundingError64)
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);

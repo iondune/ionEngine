@@ -159,7 +159,7 @@ public:
 		return ! equals(v);
 	}
 
-	bool const equals(SVector2Reference const & v, float const Epsilon = RoundingError32) const
+	bool const equals(SVector2Reference const & v, T const Epsilon = RoundingError32) const
 	{
 		return ::equals(X, v.X, Epsilon) && ::equals(Y, v.Y, Epsilon);
 	}
