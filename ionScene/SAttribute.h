@@ -68,9 +68,9 @@ public:
 };
 
 template <typename T>
-static boost::shared_ptr<IAttribute const> BindAttribute(T const & attribute)
+static boost::shared_ptr<IAttribute const> BindAttribute(CBufferObject<T> & Attribute, int const ElementSize = 4)
 {
-	return new boost::shared_ptr<IAttribute const>(new SAttribute<T>(attribute));
+	return boost::shared_ptr<IAttribute const>(new SAttribute<T>(& Attribute, ElementSize));
 }
 
 #endif

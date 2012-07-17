@@ -158,6 +158,15 @@ public:
 	EDrawElementType const getDrawType() const;
 	void setDrawType(EDrawElementType const drawType);
 
+	unsigned int const getElementCount()
+	{
+		return ElementCount;
+	}
+	void setElementCount(unsigned int const elementCount)
+	{
+		ElementCount = elementCount;
+	}
+
 
 	////////////////////
 	// Update Methods //

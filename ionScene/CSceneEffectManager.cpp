@@ -115,6 +115,9 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	RenderPasses.push_back(DefaultPass);
 
 	Loaded = BlendShader && QuadCopy;
+
+	if (! Loaded)
+		std::cerr << "Failed to load required shaders for effects manager - all effects disabled." << std::endl;
 }
 
 #include <CApplication.h>
@@ -166,16 +169,18 @@ void CSceneEffectManager::apply()
 		BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
 		BloomBlurPass1.Target = ScratchTarget1;
 		BloomBlurPass1.Shader = BlurHorizontal;
-		BloomBlurPass1.Floats["DimAmount"] = 1.f;
-		BloomBlurPass1.Floats["BlurSize"] = 1.f;
+		BloomBlurPass1.Floats["DimAmount"] = 1.0f;
+		BloomBlurPass1.Floats["BlurSize"] = 0.9f;
 
 		BloomBlurPass1.doPass();
 
 		// BLUR V
 		SPostProcessPass BloomBlurPass2;
-		BloomBlurPass2.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
+		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
+		BloomBlurPass2.Floats["DimAmount"] = 1.0f;
+		BloomBlurPass2.Floats["BlurSize"] = 1.6f;
 
 		BloomBlurPass2.doPass();
 	}

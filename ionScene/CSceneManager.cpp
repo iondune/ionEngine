@@ -110,6 +110,13 @@ boost::shared_ptr<IUniform const> const CScene::getUniform(std::string const & l
 			else
 				return BindUniform(Lights[index]->Position);
 		}
+		else if (remaining == "Radius")
+		{
+			if (index >= Lights.size())
+				return BindUniform(NullLight.Radius);
+			else
+				return BindUniform(Lights[index]->Radius);
+		}
 	}
 
 	std::map<std::string, boost::shared_ptr<IUniform const> >::const_iterator it = Uniforms.find(label);
