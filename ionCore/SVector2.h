@@ -297,5 +297,7 @@ SVector2<T> SVector2Reference<T>::operator / (T const s) const
 
 typedef SVector2<float> SVector2f;
 typedef SVector2<double> SVector2d;
+typedef SVector2<int> SVector2i;
+typedef SVector2<unsigned int> SVector2u;
 
 #endif
