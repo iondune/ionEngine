@@ -10,5 +10,6 @@
 #include "SLine3.h"
 #include "ionUtils.h"
 #include "ionEnum.h"
+#include "ionRand.h"
 
 #endif

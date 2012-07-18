@@ -65,6 +65,7 @@
   <ItemGroup>
     <ClInclude Include=".\ionCore.h" />
     <ClInclude Include="ionEnum.h" />
+    <ClInclude Include="ionRand.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />

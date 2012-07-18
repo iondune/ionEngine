@@ -168,6 +168,15 @@ public:
 	}
 
 
+	STransformation3 const & getTransformation() const;
+
+	void setTranslation(SVector3f const & translation);
+	void setPosition(SVector3f const & translation);
+	void setRotation(SVector3f const & rotation);
+	void setRotation(glm::mat4 const & matrix);
+	void setScale(SVector3f const & scale);
+
+
 	////////////////////
 	// Update Methods //
 	////////////////////

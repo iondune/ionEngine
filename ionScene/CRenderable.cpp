@@ -142,6 +142,36 @@ boost::shared_ptr<IUniform const> const CRenderable::getUniform(std::string cons
 	return boost::shared_ptr<IUniform const>();
 }
 
+STransformation3 const & CRenderable::getTransformation() const
+{
+	return Transformation;
+}
+
+void CRenderable::setTranslation(SVector3f const & translation)
+{
+	Transformation.setTranslation(translation);
+}
+
+void CRenderable::setPosition(SVector3f const & translation)
+{
+	setTranslation(translation);
+}
+
+void CRenderable::setRotation(SVector3f const & rotation)
+{
+	Transformation.setRotation(rotation);
+}
+
+void CRenderable::setRotation(glm::mat4 const & matrix)
+{
+	Transformation.setRotation(matrix);
+}
+
+void CRenderable::setScale(SVector3f const & scale)
+{
+	Transformation.setScale(scale);
+}
+
 CRenderable * & CRenderable::getDebuggingNormalObject()
 {
 	return NormalObject;

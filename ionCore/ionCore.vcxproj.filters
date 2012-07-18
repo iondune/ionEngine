@@ -13,5 +13,6 @@
     <ClInclude Include="SVector3.h" />
     <ClInclude Include=".\ionCore.h" />
     <ClInclude Include=".\ionUtils.h" />
+    <ClInclude Include="ionRand.h" />
   </ItemGroup>
 </Project>
