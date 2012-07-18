@@ -20,7 +20,7 @@ bool const ISceneObject::isCulled(ICameraSceneObject const * const Camera, bool 
 		out[i] = 0;
 	}
 
-	SBoundingBox3 const & BoundingBox = Absolute ? getAbsoluteBoundingBox() : getBoundingBox();
+	SBoundingBox3f const & BoundingBox = Absolute ? getAbsoluteBoundingBox() : getBoundingBox();
 
 	for (int i = 0; i < 8; ++ i) 
 	{

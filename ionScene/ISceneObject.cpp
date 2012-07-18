@@ -47,19 +47,19 @@ void ISceneObject::setScale(SVector3f const & scale)
 	TransformationDirty = true;
 }
 
-SBoundingBox3 const & ISceneObject::getBoundingBox() const
+SBoundingBox3f const & ISceneObject::getBoundingBox() const
 {
 	return BoundingBox;
 }
 
-void ISceneObject::setBoundingBox(SBoundingBox3 const & boundingBox)
+void ISceneObject::setBoundingBox(SBoundingBox3f const & boundingBox)
 {
 	BoundingBox = boundingBox;
 
 	BoundingBoxDirty = true;
 }
 
-SBoundingBox3 const & ISceneObject::getAbsoluteBoundingBox() const
+SBoundingBox3f const & ISceneObject::getAbsoluteBoundingBox() const
 {
 	return AbsoluteBoundingBox;
 }
@@ -91,7 +91,7 @@ void ISceneObject::disableDebugData(EDebugData const type)
 		DebugDataFlags ^= type;
 }
 
-bool const ISceneObject::intersectsWithLine(SLine3 const & line) const
+bool const ISceneObject::intersectsWithLine(SLine3f const & line) const
 {
 	return BoundingBox.intersectsWithLine(line);
 }
