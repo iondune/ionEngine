@@ -54,4 +54,16 @@ static T const max(T const a, T const b, T const c)
 	return std::max(a, std::max(b, c));
 }
 
+template <typename T>
+static T const min(T const a, T const b, T const c, T const d)
+{
+	return std::min(a, min(b, c, d));
+}
+
+template <typename T>
+static T const max(T const a, T const b, T const c, T const d)
+{
+	return std::max(a, max(b, c, d));
+}
+
 #endif
