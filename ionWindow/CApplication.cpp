@@ -142,19 +142,19 @@ void CApplication::run()
 					switch (Event.MouseButton.Button)
 					{
 
-					case sf::Mouse::Button::Left:
+					case sf::Mouse::Left:
 						MouseEvent.Button = SMouseEvent::EButton::Left;
 						EventManager->MouseStates[SMouseEvent::EButton::Left] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case sf::Mouse::Button::Right:
+					case sf::Mouse::Right:
 						MouseEvent.Button = SMouseEvent::EButton::Right;
 						EventManager->MouseStates[SMouseEvent::EButton::Right] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case sf::Mouse::Button::Middle:
+					case sf::Mouse::Middle:
 						MouseEvent.Button = SMouseEvent::EButton::Middle;
 						EventManager->MouseStates[SMouseEvent::EButton::Middle] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);

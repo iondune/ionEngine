@@ -162,7 +162,7 @@ struct  EKeyValues
 		EURO		= 321,		/**< Some european keyboards */
 		UNDO		= 322,		/**< Atari keyboard has Undo */
 
-		LAST
+		LAST		= 323
 	};
 };
 
