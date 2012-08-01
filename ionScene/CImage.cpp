@@ -44,3 +44,25 @@ bool const CImage::hasAlpha() const
 {
 	return Alpha;
 }
+
+#include "ImageLoaders/BitmapWriter.hpp"
+
+void CImage::write(std::string const & fileName)
+{
+	int Stride = Alpha ? 4 : 3;
+	bitmap_image image(Width, Height);
+
+	for (int x = 0; x < Width; ++x)
+	{
+		for (int y = 0; y < Height; ++y)
+		{
+			image.set_pixel(x, Height - 1 - y, 
+				ImageData[x * Stride + y * Width * Stride + 0], 
+				ImageData[x * Stride + y * Width * Stride + 1],
+				ImageData[x * Stride + y * Width * Stride + 2]
+				);
+		}
+	}
+
+    image.save_image(fileName.c_str());
+}

@@ -95,6 +95,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureLoader.h" />
     <ClInclude Include="ICameraSceneObject.h" />
+    <ClInclude Include="ImageLoaders\BitmapWriter.hpp" />
     <ClInclude Include="ImageLoaders\Texture.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneObject.Enumerations.h" />

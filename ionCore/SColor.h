@@ -18,6 +18,16 @@ public:
         : Red(red), Green(green), Blue(blue), Alpha(1.f)
     {}
 
+	static SColor const SColori(unsigned int const red, unsigned int const green, unsigned int const blue)
+	{
+		SColor c;
+        c.Red=(red / 255.f);
+		c.Green=(green / 255.f);
+		c.Blue=(blue / 255.f);
+		c.Alpha=(1.f);
+		return c;
+    }
+
 	SColor(float red, float green, float blue, float alpha)
         : Red(red), Green(green), Blue(blue), Alpha(alpha)
     {}
@@ -91,6 +101,11 @@ public:
 		Blue *= s;
 		Alpha *= s;
 		return * this;
+	}
+
+	bool const operator == (SColor const & c)
+	{
+		return equals(Red, c.Red) && equals(Green, c.Green) && equals(Blue, c.Blue) && equals(Alpha, c.Alpha);
 	}
 
 };

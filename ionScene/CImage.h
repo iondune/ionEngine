@@ -38,6 +38,8 @@ public:
 	unsigned char * getImageData();
 	bool const hasAlpha() const;
 
+	void write(std::string const & fileName);
+
 };
 
 #endif
