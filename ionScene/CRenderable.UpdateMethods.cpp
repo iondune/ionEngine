@@ -63,6 +63,11 @@ void CRenderable::draw(IScene const * const Scene, ERenderPass const Pass, CShad
 		break;
 	};
 
+	if (ParentObject->isDebugDataEnabled(EDebugData::Wireframe))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
 	if (IndexBufferObject)
 	{
 		// If the ibo is dirty, sync it!
@@ -77,6 +82,11 @@ void CRenderable::draw(IScene const * const Scene, ERenderPass const Pass, CShad
 	else
 	{
 		glDrawArrays(ElementType, 0, ElementCount);
+	}
+
+	if (ParentObject->isDebugDataEnabled(EDebugData::Wireframe))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
 	// Draw the normal object if it is enabled

@@ -11,7 +11,8 @@ struct EDebugDataValues
 	{
 		All = 0,
 		Normals = 1,
-		NormalColors = 2
+		NormalColors = 2,
+		Wireframe = 4
 	};
 };
 

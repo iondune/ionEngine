@@ -246,9 +246,8 @@ void CSceneManager::drawAll()
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			}
-
-			//if (it->Pass != ERenderPass::Default)
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				
 			printOpenGLErrors("begining load");
 			load(it->Pass);
