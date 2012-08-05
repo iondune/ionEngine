@@ -20,10 +20,6 @@ public:
 		: Position(position), Size(size)
 	{}
 
-	SRect2(SPosition2 const & position, SPosition2 const & size)
-		: Position(position), Size(size)
-	{}
-
 	SRect2(T const x, T const y, T const w, T const h)
 		: Position(x, y), Size(w, h)
 	{}

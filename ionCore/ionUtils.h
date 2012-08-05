@@ -7,17 +7,28 @@
 const float RoundingError32 = 0.00001f;
 const double RoundingError64 = 0.00000001;
 
-static bool const equals(float const a, float const b, float const epsilon = RoundingError32)
+template <typename T>
+struct RoundingError
 {
-	return (a + epsilon >= b) && (a - epsilon <= b);
-}
+	static T const Value;
+};
+template <typename T>
+T RoundingError<T>::Value = 0;
 
-static int const equals(int const a, int const b, int const epsilon = 0)
+template <>
+struct RoundingError<float>
 {
-	return epsilon ? (a + epsilon >= b) && (a - epsilon <= b) : a == b;
-}
+	static float const Value;
+};
 
-static bool const equals(double const a, double const b, double const epsilon = RoundingError64)
+template <>
+struct RoundingError<double>
+{
+	static double const Value;
+};
+
+template <typename T>
+static bool const equals(T const a, T const b, T const epsilon = RoundingError<T>::Value)
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }

@@ -5,14 +5,35 @@
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />
-    <ClInclude Include="SPosition2.h" />
-    <ClInclude Include="SRect2.h" />
-    <ClInclude Include="SSize2.h" />
     <ClInclude Include="STransformation3.h" />
-    <ClInclude Include="SVector2.h" />
-    <ClInclude Include="SVector3.h" />
     <ClInclude Include=".\ionCore.h" />
     <ClInclude Include=".\ionUtils.h" />
     <ClInclude Include="ionRand.h" />
+    <ClInclude Include="SVector2.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SVector3.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SSize2.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SRect2.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SPosition2.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SVector.h">
+      <Filter>Vector Classes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Vector Classes">
+      <UniqueIdentifier>{bc32e6ca-0e59-402e-a4be-0e712273ecc8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ionUtils.cpp" />
   </ItemGroup>
 </Project>

@@ -177,19 +177,19 @@ public:
 		return ::equals(X, v.X, Epsilon) && ::equals(Y, v.Y, Epsilon) && ::equals(Z, v.Z, Epsilon);
 	}
 
-	SVector2Reference<T> const xy()
+	SVector2<T> const xy()
 	{
-		return SVector2Reference<T>(X, Y);
+		return SVector2<T>(X, Y, ForceReference);
 	}
 
-	SVector2Reference<T> const xz()
+	SVector2<T> const xz()
 	{
-		return SVector2Reference<T>(X, Z);
+		return SVector2<T>(X, Z, ForceReference);
 	}
 
-	SVector2Reference<T> const yz()
+	SVector2<T> const yz()
 	{
-		return SVector2Reference<T>(Y, Z);
+		return SVector2<T>(Y, Z, ForceReference);
 	}
 
 };

@@ -48,16 +48,6 @@ void SUniform<GLfloat>::bind(GLuint const handle) const
 	glUniform1f(handle, getValue());
 }
 
-void SUniform<SVector2Reference<GLfloat> >::bind(GLuint const handle) const
-{
-	glUniform2f(handle, getValue().X, getValue().Y);
-}
-
-void SUniform<SVector3Reference<GLfloat> >::bind(GLuint const handle) const
-{
-	glUniform3f(handle, getValue().X, getValue().Y, getValue().Z);
-}
-
 void SUniform<SVector3<GLfloat> >::bind(GLuint const handle) const
 {
 	glUniform3f(handle, getValue().X, getValue().Y, getValue().Z);
