@@ -211,12 +211,12 @@ public:
 
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < 4 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
 	}
 
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < 4 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
