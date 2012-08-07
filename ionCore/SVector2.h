@@ -70,4 +70,8 @@ typedef SVector2<double> SVector2d;
 typedef SVector2<int> SVector2i;
 typedef SVector2<unsigned int> SVector2u;
 
+// Legacy
+typedef SVector2i SPosition2;
+typedef SVector2i SSize2;
+
 #endif
