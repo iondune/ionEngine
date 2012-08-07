@@ -1,3 +1,5 @@
+#define _SCL_SECURE_NO_WARNINGS
+
 #include "CImage.h"
 
 CImage::CImage(unsigned char * const imageData, int const width, int const height, bool const alpha)
