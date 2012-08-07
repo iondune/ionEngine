@@ -66,7 +66,7 @@ CGUIDialogWidget::CGUIDialogWidget(std::string const & DialogFileName) {
       t->setVisible(false);
       t->setText("unset");
       t->setPosition(textPosition);
-      t->setColor(SColor(1.0f));
+      t->setColor(SColorAf(1.0f));
       Text.push_back(t);
       Engine->addWidget(t);
    }

@@ -46,7 +46,7 @@ CGUIFontWidget::CGUIFontWidget(std::string const & FileName, float const Size)
    FontSize = Size;
 
 	makeRenderer(FileName, Size);
-	setColor(SColor(0, 0, 0));
+	setColor(SColorAf(0, 0, 0));
 }
 
 void CGUIFontWidget::draw()
@@ -72,18 +72,18 @@ void CGUIFontWidget::draw()
 	glDisable(GL_BLEND);
 }
 
-SColor const CGUIFontWidget::getDropShadowColor() {
+SColorAf const CGUIFontWidget::getDropShadowColor() {
    if(!DropShadow)
-      return SColor(0.0f);
+      return SColorAf(0.0f);
    else
       return DropShadow->getColor();
 }
 
 void CGUIFontWidget::addDropShadow() {
-   addDropShadow(SColor(0.0f));   
+   addDropShadow(SColorAf(0.0f));   
 }
 
-void CGUIFontWidget::addDropShadow(SColor const & Color) {
+void CGUIFontWidget::addDropShadow(SColorAf const & Color) {
    if(DropShadow) {
       removeDropShadow();
    }
@@ -116,15 +116,15 @@ void CGUIFontWidget::setVisible(bool const visible)
       DropShadow->setVisible(visible);
 }
 
-void CGUIFontWidget::setColor(SColor const & Color)
+void CGUIFontWidget::setColor(SColorAf const & Color)
 {
 	if (Renderer)
 		Renderer->setForegroundColor(Color.Red, Color.Green, Color.Blue, Color.Alpha);
 }
 
-SColor const CGUIFontWidget::getColor()
+SColorAf const CGUIFontWidget::getColor()
 {
-	return Renderer ? SColor(Renderer->foregroundRed(), Renderer->foregroundGreen(), Renderer->foregroundBlue(), Renderer->foregroundAlpha()) : SColor();
+	return Renderer ? SColorAf(Renderer->foregroundRed(), Renderer->foregroundGreen(), Renderer->foregroundBlue(), Renderer->foregroundAlpha()) : SColorAf();
 }
 
 void CGUIFontWidget::setText(std::string const & text)
