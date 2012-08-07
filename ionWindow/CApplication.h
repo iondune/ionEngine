@@ -3,7 +3,6 @@
 
 #include <ionCore.h>
 #include <ionScene.h>
-#include <ionGUI.h>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -18,7 +17,6 @@ class CApplication
     CEventManager * EventManager;
     CStateManager * StateManager;
     CSceneManager * SceneManager;
-	CGUIEngine * GUIEngine;
 
     // Attributes
     SPosition2 WindowSize;
@@ -51,7 +49,6 @@ public:
     CEventManager & getEventManager();
     CStateManager & getStateManager();
     CSceneManager & getSceneManager();
-	CGUIEngine & getGUIEngine();
 
     void run();
 

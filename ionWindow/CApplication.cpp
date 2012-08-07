@@ -13,7 +13,6 @@
 
 CApplication::CApplication()
 	: StateManager(0),
-	GUIEngine(0),
 	SceneManager(0),
 	EventManager(0)
 {}
@@ -54,7 +53,6 @@ void CApplication::init(SPosition2 const & windowSize, std::string const & Windo
 	EventManager = new CEventManager();
 	StateManager = new CStateManager();
 	SceneManager = new CSceneManager(windowSize);
-	GUIEngine = new CGUIEngine(windowSize);
 }
 
 CApplication & CApplication::get()
@@ -77,11 +75,6 @@ CStateManager & CApplication::getStateManager()
 CSceneManager & CApplication::getSceneManager()
 {
 	return * SceneManager;
-}
-
-CGUIEngine & CApplication::getGUIEngine()
-{
-	return * GUIEngine;
 }
 
 void CApplication::skipElapsedTime()

@@ -4,11 +4,10 @@
 #include "sigslot/sigslot.h"
 
 #include "CEventManager.h"
-#include "CGUIEngine.h"
 #include "CApplication.h"
 
 
-class IState : public CGUIEventReceiver
+class IState : public sigslot::has_slots<>
 {
 
 public:
