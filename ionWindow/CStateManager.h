@@ -8,7 +8,7 @@
 #include "CApplication.h"
 
 
-class IState : public CGUIEventReceiver
+class IState : public sigslot::has_slots<>
 {
 
 public:
