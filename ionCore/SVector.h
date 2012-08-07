@@ -23,15 +23,16 @@ protected:
 public:
 
 	T Values[Dimension];
+	mutable T OutOfBounds;
 
 	T const operator[] (int i) const
 	{
-		return (i <= 0 && i < Dimension ? Values[i] : Values[Dimension - 1]);
+		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
 	T & operator[] (int i)
 	{
-		return (i <= 0 && i < Dimension ? Values[i] : Values[Dimension - 1]);
+		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
 	void reset()
@@ -72,7 +73,7 @@ public:
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += Values[i] * other[i];
+			sum += sq(Values[i]);
 		return (T) sqrt(sum);
 	}
 
@@ -89,6 +90,21 @@ public:
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
 			ret[i] = (T) v[i] * inv + Values[i] * d;
+		return ret;
+	}
+
+	void normalize()
+	{
+		T const len = length();
+		
+		for (int i = 0; i < Dimension; ++ i)
+			Values[i] /= len;
+	}
+	
+	Implementation const getNormalized() const
+	{
+		Implementation ret;
+		ret.normalize();
 		return ret;
 	}
 
@@ -255,7 +271,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= ::equals(Values[i], v[i], Epsilon);
+			result &= ::equals(Values[i], v[i], Epsilon);
 
 		return result;
 	}

@@ -3,6 +3,7 @@
 
 #include "SVector.h"
 
+
 template <typename T>
 class SVector2 : public SVector<T, 2, SVector2<T> >
 {
@@ -35,7 +36,7 @@ public:
 	{}
 
 	SVector2(SVector2<T> const & vec)
-		: X(Values[0]), Y(Values[1])	
+		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
 	}

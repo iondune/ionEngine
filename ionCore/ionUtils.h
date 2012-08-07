@@ -77,4 +77,10 @@ static T const max(T const a, T const b, T const c, T const d)
 	return std::max(a, max(b, c, d));
 }
 
+template <typename T>
+static T const sq(T const a)
+{
+	return a * a;
+}
+
 #endif

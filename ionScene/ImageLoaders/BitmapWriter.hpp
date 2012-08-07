@@ -21,6 +21,8 @@
 #ifndef INCLUDE_BITMAP_IMAGE_HPP
 #define INCLUDE_BITMAP_IMAGE_HPP
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <string>
 #include <fstream>
