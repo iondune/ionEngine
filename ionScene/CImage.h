@@ -29,7 +29,7 @@ class CImage
 public:
 
 	CImage(unsigned char * imageData, int width, int height, bool const alpha = false);
-	CImage(SColor const & Color, bool const Alpha = false);
+	CImage(SColorAf const & Color, bool const Alpha = false);
 	~CImage();
 
 	int const getWidth() const;

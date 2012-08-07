@@ -56,7 +56,7 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 	}
 }
 
-CTexture::CTexture(SColor const & Color, STextureCreationFlags const Flags)
+CTexture::CTexture(SColorAf const & Color, STextureCreationFlags const Flags)
 {
 	CImage * Image = new CImage(Color, false);
 

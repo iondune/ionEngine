@@ -10,7 +10,7 @@
 #include "IScene.h"
 
 
-CPointLightSceneObject::CPointLightSceneObject(float const radius, SColor const & color)
+CPointLightSceneObject::CPointLightSceneObject(float const radius, SColorAf const & color)
 	: Color(color)
 {
 	SphereMesh = CMeshLoader::load3dsMesh("Sphere.3ds");

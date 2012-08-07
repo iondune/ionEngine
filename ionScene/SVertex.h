@@ -14,7 +14,7 @@ public:
     SVector3f Normal;
 	SVector2f TextureCoordinates;
 
-	SColor Color;
+	SColorAf Color;
 
 };
 

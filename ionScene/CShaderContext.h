@@ -53,7 +53,7 @@ public:
     void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
     void uniform(GLuint const uniformHandle, SVector2f const & uniform);
     void uniform(GLuint const uniformHandle, SVector3f const & uniform);
-    void uniform(GLuint const uniformHandle, SColor const & uniform);
+    void uniform(GLuint const uniformHandle, SColorAf const & uniform);
 
 	template <typename T>
     void uniform(std::string const & label, T const & uniformVar)

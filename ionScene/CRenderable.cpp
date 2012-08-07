@@ -20,8 +20,8 @@ CRenderable::SMaterial::SMaterial()
 void CRenderable::SMaterial::loadDefaults()
 {
 	Shininess = 1000.0f;
-	AmbientColor = SColor(0.15f, 0.15f, 0.15f);
-	DiffuseColor = SColor(0.8f, 0.8f, 0.8f);
+	AmbientColor = SColorf(0.15f, 0.15f, 0.15f);
+	DiffuseColor = SColorf(0.8f, 0.8f, 0.8f);
 }
 
 void CRenderable::SMaterial::setTexture(unsigned int const Layer, CTexture * const Texture)

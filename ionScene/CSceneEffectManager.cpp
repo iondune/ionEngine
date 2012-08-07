@@ -51,7 +51,7 @@ void CSceneEffectManager::SPostProcessPass::end()
 	for (std::map<std::string, int>::iterator it = Ints.begin(); it != Ints.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, SColor>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
+	for (std::map<std::string, SColorAf>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
 	Context->bindBufferObject("aPosition", CSceneManager::getQuadHandle(), 2);
@@ -85,9 +85,9 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
 	HeatCopy = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "FBO/HeatCopy.frag");
 
-	White = new CTexture(SColor(1.f, 1.f, 1.f));
-	Black = new CTexture(SColor(0.f, 0.f, 0.f));
-	Magenta = new CTexture(SColor(1.f, 0.f, 1.f));
+	White = new CTexture(SColorf(1.f, 1.f, 1.f));
+	Black = new CTexture(SColorf(0.f, 0.f, 0.f));
+	Magenta = new CTexture(SColorf(1.f, 0.f, 1.f));
 	CImage * HeatOffsetTextureImage = CTextureLoader::loadImage("HeatOffset.bmp");
 	STextureCreationFlags Flags;
 	Flags.Filter = GL_LINEAR;

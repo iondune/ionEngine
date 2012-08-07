@@ -78,7 +78,7 @@ public:
 
 		std::vector<CTexture *> Textures;
 
-		SColor AmbientColor, DiffuseColor;
+		SColorAf AmbientColor, DiffuseColor;
 		float Shininess;
 
 		SMaterial();

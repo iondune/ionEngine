@@ -111,7 +111,7 @@ void CShaderContext::uniform(GLuint const uniformHandle, SVector3f const & unifo
 	glUniform3f(uniformHandle, uniform.X, uniform.Y, uniform.Z);
 }
 
-void CShaderContext::uniform(GLuint const uniformHandle, SColor const & uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, SColorAf const & uniform)
 {
 	glUniform3f(uniformHandle, uniform.Red, uniform.Green, uniform.Blue);
 }

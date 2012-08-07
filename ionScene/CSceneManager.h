@@ -28,11 +28,11 @@ class CLight
 
 public:
 
-	SColor Color;
+	SColorAf Color;
 	SVector3f Position;
 	float Radius;
 
-	SUniformReference<SColor> BindColor;
+	SUniformReference<SColorAf> BindColor;
 	SUniformReference<SVector3f> BindPosition;
 	SUniformReference<float> BindRadius;
 

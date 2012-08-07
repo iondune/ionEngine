@@ -20,15 +20,15 @@ class CGUIFontWidget : public CGUIWidget
 {
 
 	void makeRenderer(std::string const & FileName, float const Size);
-	
+
 	OGLFT::Face * Renderer;
 	std::string Text;
 
-   CGUIFontWidget *DropShadow;
-	SColor const getDropShadowColor();
+	CGUIFontWidget *DropShadow;
+	SColorAf const getDropShadowColor();
 
-   std::string FileNameString;
-   float FontSize;
+	std::string FileNameString;
+	float FontSize;
 
 
 public:
@@ -37,18 +37,18 @@ public:
 
 	void draw();
 
-	void setColor(SColor const & Color);
-	SColor const getColor();
+	void setColor(SColorAf const & Color);
+	SColorAf const getColor();
 
 	void setText(std::string const & text);
 	std::string const & getText() const;
 
-   void addDropShadow();
-   void addDropShadow(SColor const & Color);
-   void removeDropShadow();
-   bool const hasDropShadow();
+	void addDropShadow();
+	void addDropShadow(SColorAf const & Color);
+	void removeDropShadow();
+	bool const hasDropShadow();
 
-   void setVisible(bool const visible);
+	void setVisible(bool const visible);
 
 	static std::string FontDirectory;
 

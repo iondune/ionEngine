@@ -54,7 +54,7 @@ public:
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
-	virtual void set(SVector<U, otherDimension, otherImplementation> const & other)
+	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
@@ -267,7 +267,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>) const
+	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)

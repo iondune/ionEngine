@@ -15,11 +15,11 @@ protected:
 	CMesh::SMeshBuffer * MeshBuffer;
 
 	CShader * Shader;
-	SColor Color;
+	SColorAf Color;
 
 public:
 
-	CPointLightSceneObject(float const radius = 3.f, SColor const & color = SColor(1,1,1));
+	CPointLightSceneObject(float const radius = 3.f, SColorAf const & color = SColorAf(1.f));
 
 	virtual bool draw(IScene const * const scene, ERenderPass const Pass, bool const CullingEnabled);
 

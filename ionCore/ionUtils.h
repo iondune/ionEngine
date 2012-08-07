@@ -13,7 +13,7 @@ struct RoundingError
 	static T const Value;
 };
 template <typename T>
-T RoundingError<T>::Value = 0;
+T const RoundingError<T>::Value = 0;
 
 template <>
 struct RoundingError<float>

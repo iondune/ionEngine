@@ -5,7 +5,7 @@ CImage::CImage(unsigned char * const imageData, int const width, int const heigh
 {}
 
 
-CImage::CImage(SColor const & Color, bool const alpha)
+CImage::CImage(SColorAf const & Color, bool const alpha)
 	: Width(2), Height(2), Alpha(alpha)
 {
 	int Stride = Alpha ? 4 : 3;
