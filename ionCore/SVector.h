@@ -25,12 +25,12 @@ public:
 	T Values[Dimension];
 	mutable T OutOfBounds;
 
-	T const operator[] (int i) const
+	virtual T const operator[] (int i) const
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
-	T & operator[] (int i)
+	virtual T & operator[] (int i)
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
@@ -54,14 +54,14 @@ public:
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
-	void set(SVector<U, otherDimension, otherImplementation> const & other)
+	virtual void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
 
-	template <typename U, typename otherImplementation>
-	T const dotProduct(SVector<U, Dimension, otherImplementation> const & other) const
+	template <typename otherImplementation>
+	T const dotProduct(SVector<T, Dimension, otherImplementation> const & other) const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
@@ -76,15 +76,15 @@ public:
 			sum += sq(Values[i]);
 		return (T) sqrt(sum);
 	}
-
-	template <typename U, typename otherImplementation>
-	T const getDistanceFrom(SVector<U, Dimension, otherImplementation> const & v) const
+	
+	template <typename otherImplementation>
+	T const getDistanceFrom(SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		return (v - * this).length();
 	}
-
-	template <typename U, typename otherImplementation>
-	Implementation const getInterpolated(SVector<U, Dimension, otherImplementation> const & v, T const d)
+	
+	template <typename otherImplementation>
+	Implementation const getInterpolated(SVector<T, Dimension, otherImplementation> const & v, T const d)
 	{
 		T inv = (T) 1.0 - d;
 		Implementation ret;
@@ -107,27 +107,27 @@ public:
 		ret.normalize();
 		return ret;
 	}
-
-	template <typename U, typename otherImplementation>
-	Implementation const operator + (SVector<U, Dimension, otherImplementation> const & v) const
+	
+	template <typename otherImplementation>
+	Implementation const operator + (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
 			ret[i] = Values[i] + (T) v[i];
 		return ret;
 	}
-
-	template <typename U, typename otherImplementation>
-	Implementation const operator - (SVector<U, Dimension, otherImplementation> const & v) const
+	
+	template <typename otherImplementation>
+	Implementation const operator - (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
 			ret[i] = Values[i] - (T) v[i];
 		return ret;
 	}
-
-	template <typename U, typename otherImplementation>
-	Implementation const operator * (SVector<U, Dimension, otherImplementation> const & v) const
+	
+	template <typename otherImplementation>
+	Implementation const operator * (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		
 		Implementation ret;
@@ -135,9 +135,9 @@ public:
 			ret[i] = Values[i] * (T) v[i];
 		return ret;
 	}
-
-	template <typename U, typename otherImplementation>
-	Implementation const operator / (SVector<U, Dimension, otherImplementation> const & v) const
+	
+	template <typename otherImplementation>
+	Implementation const operator / (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		
 		Implementation ret;
@@ -162,17 +162,17 @@ public:
 		return ret;
 	}
 
-	template <typename U, typename otherImplementation>
-	Self & operator += (SVector<U, Dimension, otherImplementation> const & v)
+	template <typename otherImplementation>
+	Self & operator += (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] += v[i];
 
 		return * this;
 	}
-
-	template <typename U, typename otherImplementation>
-	Self & operator -= (SVector<U, Dimension, otherImplementation> const & v)
+	
+	template <typename otherImplementation>
+	Self & operator -= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] -= v[i];
@@ -180,8 +180,8 @@ public:
 		return * this;
 	}
 
-	template <typename U, typename otherImplementation>
-	Self & operator *= (SVector<U, Dimension, otherImplementation> const & v)
+	template <typename otherImplementation>
+	Self & operator *= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] *= v[i];
@@ -189,8 +189,8 @@ public:
 		return * this;
 	}
 
-	template <typename U, typename otherImplementation>
-	Self & operator /= (SVector<U, Dimension, otherImplementation> const & v)
+	template <typename otherImplementation>
+	Self & operator /= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] /= v[i];
@@ -214,8 +214,8 @@ public:
 		return * this;
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator <= (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator <= (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -224,8 +224,8 @@ public:
 		return result;
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator < (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator < (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -234,8 +234,8 @@ public:
 		return result;
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator >= (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator >= (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -244,8 +244,8 @@ public:
 		return result;
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator > (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator > (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -254,20 +254,20 @@ public:
 		return result;
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator == (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator == (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		return equals(v);
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const operator != (SVector<U, Dimension, otherImplementation> const & v) const
+	template <typename otherImplementation>
+	bool const operator != (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		return ! equals(v);
 	}
 
-	template <typename U, typename otherImplementation>
-	bool const equals(SVector<U, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>) const
+	template <typename otherImplementation>
+	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
