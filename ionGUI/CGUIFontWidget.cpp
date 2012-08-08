@@ -94,12 +94,12 @@ void CGUIFontWidget::addDropShadow(SColorAf const & Color) {
    DropShadow->setPosition(this->getPosition() + SVector2f(0.0f, -0.002f));
    DropShadow->setColor(Color);
    DropShadow->setVisible(Visible);
-   CApplication::get().getGUIEngine().addWidget(DropShadow);
+   //CApplication::get().getGUIEngine().addWidget(DropShadow);
 }
 
 void CGUIFontWidget::removeDropShadow() {
    if(DropShadow) {
-      CApplication::get().getGUIEngine().removeWidget(DropShadow);
+      //CApplication::get().getGUIEngine().removeWidget(DropShadow);
       delete DropShadow;
       DropShadow = NULL;
    }

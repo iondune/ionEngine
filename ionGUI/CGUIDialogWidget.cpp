@@ -41,7 +41,7 @@ void CGUIDialogWidget::loadDialogFile(std::string const & FileName) {
 }
 
 CGUIDialogWidget::CGUIDialogWidget(std::string const & DialogFileName) {
-   Engine = &(CApplication::get().getGUIEngine());
+   Engine = 0;//&(CApplication::get().getGUIEngine());
    loadDialogFile(DialogFileName);
 
    SPosition2 size = CApplication::get().getWindowSize();
