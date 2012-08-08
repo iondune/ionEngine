@@ -3,13 +3,13 @@
 
 #include <ionCore.h>
 #include <ionScene.h>
-#include <ionGUI.h>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
 class CEventManager;
 class CStateManager;
+
 
 class CApplication
 {
