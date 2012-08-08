@@ -33,6 +33,8 @@
     <ClInclude Include="SBoundingBox3.h">
       <Filter>Vector Classes\Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="ionPrimitives.h" />
+    <ClInclude Include="ionTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Vector Classes">
@@ -47,8 +49,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp" />
-    <ClCompile Include="SColor.cpp">
-      <Filter>Vector Classes</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

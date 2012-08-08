@@ -65,7 +65,9 @@
   <ItemGroup>
     <ClInclude Include=".\ionCore.h" />
     <ClInclude Include="ionEnum.h" />
+    <ClInclude Include="ionPrimitives.h" />
     <ClInclude Include="ionRand.h" />
+    <ClInclude Include="ionTypes.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />
@@ -80,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp" />
-    <ClCompile Include="SColor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

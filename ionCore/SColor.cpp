@@ -1,2 +1,0 @@
-#include "SColor.h"
-
