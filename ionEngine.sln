@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionScene", "ionScene\ionSce
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionWindow", "ionWindow\ionWindow.vcxproj", "{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGUI", "ionGUI\ionGUI.vcxproj", "{27FCD6F1-2A50-4CF7-9534-2B910FE35665}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,9 +25,6 @@ Global
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Debug|Win32.Build.0 = Debug|Win32
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|Win32.ActiveCfg = Release|Win32
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|Win32.Build.0 = Release|Win32
-		{27FCD6F1-2A50-4CF7-9534-2B910FE35665}.Debug|Win32.ActiveCfg = Debug|Win32
-		{27FCD6F1-2A50-4CF7-9534-2B910FE35665}.Debug|Win32.Build.0 = Debug|Win32
-		{27FCD6F1-2A50-4CF7-9534-2B910FE35665}.Release|Win32.ActiveCfg = Release|Win32
 		{27FCD6F1-2A50-4CF7-9534-2B910FE35665}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

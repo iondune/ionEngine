@@ -28,12 +28,12 @@ public:
 		SVector<T, 3, SColor<T> >::set(in);
 	}
 
-	SColor(T const x, T const y, T const z)
+	SColor(T const r, T const g, T const b)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
-		Values[0] = x;
-		Values[1] = y;
-		Values[2] = z;
+		Values[0] = r;
+		Values[1] = g;
+		Values[2] = b;
 	}
 
 	SColor(T const & r, T const & g, T const & b, ForceReference)
@@ -211,12 +211,12 @@ public:
 
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < 4 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
 	}
 
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < 4 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
