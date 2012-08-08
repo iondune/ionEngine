@@ -58,8 +58,6 @@ void CStateManager::doStateChange()
 
 	if (CurrentState)
 	{
-		//if (& CApplication::get().getGUIEngine())
-		//	CApplication::get().getGUIEngine().removeAllWidgets();
 		if (& CApplication::get().getSceneManager())
 		{
 			CApplication::get().getSceneManager().Lights.clear();
