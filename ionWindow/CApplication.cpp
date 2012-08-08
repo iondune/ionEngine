@@ -13,7 +13,6 @@
 
 CApplication::CApplication()
 	: StateManager(0),
-//	GUIEngine(0),
 	SceneManager(0),
 	EventManager(0)
 {}
@@ -40,8 +39,6 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 	}
 
 	std::cerr << "Your OpenGL Version Number: " << std::setprecision(2) << VersionNumber << std::endl << std::endl;
-
-	//glViewport(0, 0, (GLsizei)(WindowSize.X), (GLsizei)(WindowSize.Y));
 }
 
 
@@ -77,12 +74,7 @@ CSceneManager & CApplication::getSceneManager()
 {
 	return * SceneManager;
 }
-/*
-CGUIEngine & CApplication::getGUIEngine()
-{
-	return * GUIEngine;
-}
-*/
+
 void CApplication::skipElapsedTime()
 {
 	Time0 = ApplicationClock.GetElapsedTime();
