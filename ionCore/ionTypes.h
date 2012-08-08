@@ -8,10 +8,6 @@
 #include "SVector3.h"
 #include "SColor.h"
 
-#include "SBoundingBox3.h"
-#include "SLine3.h"
-#include "SRect2.h"
-
 
 typedef SVector3f vec3;
 typedef SVector3f vec3f;

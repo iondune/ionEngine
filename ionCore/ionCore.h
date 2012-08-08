@@ -15,6 +15,8 @@
 #include "SLine3.h"
 #include "SRect2.h"
 
+#include "STransformation3.h"
+
 #include "ionTypes.h"
 
 #endif
