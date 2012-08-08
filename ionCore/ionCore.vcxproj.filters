@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ionEnum.h" />
-    <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="STransformation3.h" />
     <ClInclude Include=".\ionCore.h" />
     <ClInclude Include=".\ionUtils.h" />
@@ -30,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="SColor.h">
       <Filter>Vector Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SBoundingBox3.h">
+      <Filter>Vector Classes\Extensions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
