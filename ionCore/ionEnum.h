@@ -18,6 +18,10 @@ public:
 		: Value(value)
 	{}
 
+	EnumImplementation(int const value)
+		: Value((Element) value)
+	{}
+
 	Element const getValue() const
 	{
 		return Value;
@@ -57,6 +61,10 @@ class Enum : public Domain, public EnumImplementation<Domain>
 public:
 
 	Enum(Element const value)
+		: EnumImplementation(value)
+	{}
+
+	Enum(int const value)
 		: EnumImplementation(value)
 	{}
 

@@ -15,7 +15,7 @@ class CShaderContext
 {
 
     bool Valid;
-    CShader const & Shader;
+    CShader const * Shader;
 	int TextureCounter;
 
     std::vector<GLuint> EnabledVertexAttribArrays;
@@ -26,6 +26,7 @@ public:
      * Creates a shader context, used for drawing an object with the shader
      */
     CShaderContext(CShader const & shader);
+    CShaderContext(CShader const * shader);
 
     /*!
      * Cleans up shader call... make sure that the CShaderContext leaves scope before another context is created!
@@ -52,16 +53,17 @@ public:
     void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
     void uniform(GLuint const uniformHandle, SVector2f const & uniform);
     void uniform(GLuint const uniformHandle, SVector3f const & uniform);
-    void uniform(GLuint const uniformHandle, SVector2Reference<float> const & uniform);
-    void uniform(GLuint const uniformHandle, SVector3Reference<float> const & uniform);
-    void uniform(GLuint const uniformHandle, SColor const & uniform);
+    void uniform(GLuint const uniformHandle, SColorAf const & uniform);
 
 	template <typename T>
     void uniform(std::string const & label, T const & uniformVar)
 	{
-		std::map<std::string, SShaderVariable>::const_iterator it = Shader.UniformHandles.find(label);
+		if (! Shader)
+			return;
 
-		if (it == Shader.UniformHandles.end())
+		std::map<std::string, SShaderVariable>::const_iterator it = Shader->UniformHandles.find(label);
+
+		if (it == Shader->UniformHandles.end())
 		{
 			std::cerr << "Uniform '" << label << "' was not loaded for shader. Some objects will not draw." << std::endl;
 			Valid = false;

@@ -23,7 +23,7 @@ public:
 
 	virtual void apply();
 
-	SColor OverlayColor;
+	SColorAf OverlayColor;
 
    /*
 	virtual void setEffectEnabled(ESceneEffect const Effect, bool const Enabled);

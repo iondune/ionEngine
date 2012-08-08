@@ -110,6 +110,13 @@ boost::shared_ptr<IUniform const> const CScene::getUniform(std::string const & l
 			else
 				return BindUniform(Lights[index]->Position);
 		}
+		else if (remaining == "Radius")
+		{
+			if (index >= Lights.size())
+				return BindUniform(NullLight.Radius);
+			else
+				return BindUniform(Lights[index]->Radius);
+		}
 	}
 
 	std::map<std::string, boost::shared_ptr<IUniform const> >::const_iterator it = Uniforms.find(label);
@@ -176,6 +183,13 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 		std::cerr << "Failed to make FBO for scene drawing!!!!!!" << std::endl  << std::endl  << std::endl;
 
 	EffectManager = DefaultManager = new CSceneEffectManager(this);
+
+	if (! EffectManager->isLoaded())
+	{
+		delete EffectManager;
+		EffectManager = 0;
+	}
+
 	if (EffectManager)
 		EffectManager->setEffectEnabled(ESE_BLOOM, true);
 
@@ -211,9 +225,11 @@ bool sortISOXY (ISceneObject* a, ISceneObject* b)
 
 void CSceneManager::drawAll()
 {
+	printOpenGLErrors("beginning of draw");
 	ISceneObject::resetObjectCounts();
 	CurrentScene->update();
 
+	printOpenGLErrors("pre traversal");
 	if (EffectManager)
 	{
 		for (std::vector<CSceneEffectManager::SRenderPass>::iterator it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
@@ -230,15 +246,17 @@ void CSceneManager::drawAll()
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			}
-
-			//if (it->Pass != ERenderPass::Default)
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				
+			printOpenGLErrors("begining load");
 			load(it->Pass);
+			printOpenGLErrors("begining traversal");
 			RootObject.draw(CurrentScene, it->Pass, UseCulling);
+			printOpenGLErrors("after traversal");
 
 			if (it->Pass != ERenderPass::DeferredLights) {
-				glEnable(GL_ALPHA);
+				//glEnable(GL_ALPHA);
 				glEnable(GL_BLEND);
 				glEnable(GL_DEPTH_TEST);
 				glDepthMask(GL_FALSE);
@@ -246,11 +264,16 @@ void CSceneManager::drawAll()
 			}
 			else {
 			}
+			
 			if (it->Pass != ERenderPass::DeferredLights) {
-				glBlendFunc(GL_ONE, GL_MAX);
+				//glBlendFunc(GL_ONE, GL_MAX);
+				printOpenGLErrors("after blend func");
 				glDepthMask(GL_TRUE);
+				printOpenGLErrors("after depth mask");
 				glDisable(GL_BLEND);
-				glDisable(GL_ALPHA);
+				printOpenGLErrors("after disable blend");
+				//glDisable(GL_ALPHA);
+				printOpenGLErrors("after disable alpha");
 			}
 
 			if (it->Pass == ERenderPass::DeferredLights)
@@ -258,7 +281,9 @@ void CSceneManager::drawAll()
 				glDisable(GL_BLEND);
 				glEnable(GL_DEPTH_TEST);
 			}
+			printOpenGLErrors("after deferred");
 		}
+		printOpenGLErrors("before effects");
 
 		EffectManager->apply();
 	}
@@ -276,11 +301,15 @@ void CSceneManager::drawAll()
 		glDisable(GL_BLEND);
 		glDisable(GL_ALPHA);
 	}
+	printOpenGLErrors("after effects");
 
 	SceneChanged = false;
 
 	SceneFrameBuffer->bind();
 	//printf("Num objects: %d\n", numObjects);
+
+	
+	printOpenGLErrors("end of drawall");
 }
 
 void CSceneManager::blurSceneIn(float seconds, float const RunTime)
@@ -328,6 +357,8 @@ void CSceneManager::endDraw()
 	}
 
 	glEnable(GL_DEPTH_TEST);
+
+	printOpenGLErrors("end of enddraw");
 }
 
 CMeshSceneObject * CSceneManager::addMeshSceneObject(CMesh * Mesh)

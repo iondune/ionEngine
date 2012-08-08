@@ -1,8 +1,6 @@
 #include "CApplication.h"
 
-#ifdef _WIN32
 #include <GL/glew.h>
-#endif
 
 #include <iostream>
 #include <iomanip>
@@ -10,47 +8,18 @@
 #include "CEventManager.h"
 #include "CStateManager.h"
 
+#include <SFML/Graphics.hpp>
+
 
 CApplication::CApplication()
 	: StateManager(0),
-	GUIEngine(0),
 	SceneManager(0),
 	EventManager(0)
 {}
 
-void CApplication::setupRenderContext()
+void CApplication::setupRenderContext(std::string const & WindowTitle)
 {
-	SDL_VideoInfo const * video;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
-		waitForUser();
-		exit(1);
-	}
-
-	atexit(SDL_Quit);
-
-	video = SDL_GetVideoInfo();
-	if(video == NULL)
-	{
-		fprintf(stderr, "Couldn't get video information: %s\n", SDL_GetError());
-		waitForUser();
-		exit(2);
-	}
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-	if(! SDL_SetVideoMode(WindowSize.X, WindowSize.Y, video->vfmt->BitsPerPixel, SDL_OPENGL))
-	{
-		fprintf(stderr, "Couldn't set video mode: %s\n", SDL_GetError());
-		waitForUser();
-		exit(1);
-	}
+	App = new sf::RenderWindow(sf::VideoMode(WindowSize.X, WindowSize.Y, 32), WindowTitle);
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -70,21 +39,18 @@ void CApplication::setupRenderContext()
 	}
 
 	std::cerr << "Your OpenGL Version Number: " << std::setprecision(2) << VersionNumber << std::endl << std::endl;
-
-	//glViewport(0, 0, (GLsizei)(WindowSize.X), (GLsizei)(WindowSize.Y));
 }
 
 
-void CApplication::init(SPosition2 const & windowSize)
+void CApplication::init(SPosition2 const & windowSize, std::string const & WindowTitle)
 {
 	WindowSize = windowSize;
 
-	setupRenderContext();
+	setupRenderContext(WindowTitle);
 
 	EventManager = new CEventManager();
 	StateManager = new CStateManager();
 	SceneManager = new CSceneManager(windowSize);
-	GUIEngine = new CGUIEngine(windowSize);
 }
 
 CApplication & CApplication::get()
@@ -109,46 +75,52 @@ CSceneManager & CApplication::getSceneManager()
 	return * SceneManager;
 }
 
-CGUIEngine & CApplication::getGUIEngine()
-{
-	return * GUIEngine;
-}
-
 void CApplication::skipElapsedTime()
 {
-	Time0 = SDL_GetTicks();
+	Time0 = ApplicationClock.GetElapsedTime();
 }
 
 void CApplication::updateTime()
 {
-	Time1 = SDL_GetTicks();
-	ElapsedTime = (float) (Time1 - Time0) / 1000.f;
+	Time1 = ApplicationClock.GetElapsedTime();
+	ElapsedTime = (Time1 - Time0);
 	RunTime += ElapsedTime;
 	Time0 = Time1;
+}
+
+EKey const ConvertSFMLKeyCode(sf::Key::Code const Code)
+{
+	if (Code >= sf::Key::A && Code <= sf::Key::Z)
+		return EKey::a + (Code - sf::Key::A);
+
+	if (Code >= sf::Key::Num0 && Code <= sf::Key::Num9)
+		return EKey::NUM_0 + (Code - sf::Key::Num0);
+
+	return EKey::Unknown;
 }
 
 void CApplication::run()
 {
 	Running = true;
 
-	Time0 = SDL_GetTicks();
+	Time0 = ApplicationClock.GetElapsedTime();
 
 	RunTime = ElapsedTime = 0.f;
 
-	while (Running)
+	while (Running && App->IsOpened())
 	{
-		SDL_Event Event;
-		while (SDL_PollEvent(& Event))
+		sf::Event Event;
+		while (App->GetEvent(Event))
 		{
-			switch (Event.type)
+			switch (Event.Type)
 			{
 
-			case SDL_QUIT:
+			case sf::Event::Closed:
 				Running = false;
 				break;
 
-			case SDL_MOUSEBUTTONDOWN:
-			case SDL_MOUSEBUTTONUP:
+			case sf::Event::MouseButtonPressed:
+			case sf::Event::MouseButtonReleased:
 				{
 
 					SMouseEvent MouseEvent;
@@ -156,24 +128,24 @@ void CApplication::run()
 					MouseEvent.Location = EventManager->MouseLocation;
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Pressed = Event.button.state == SDL_PRESSED;
+					MouseEvent.Pressed = Event.Type == sf::Event::MouseButtonPressed;
 
-					switch (Event.button.button)
+					switch (Event.MouseButton.Button)
 					{
 
-					case SDL_BUTTON_LEFT:
+					case sf::Mouse::Left:
 						MouseEvent.Button = SMouseEvent::EButton::Left;
 						EventManager->MouseStates[SMouseEvent::EButton::Left] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case SDL_BUTTON_RIGHT:
+					case sf::Mouse::Right:
 						MouseEvent.Button = SMouseEvent::EButton::Right;
 						EventManager->MouseStates[SMouseEvent::EButton::Right] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
 						break;
 
-					case SDL_BUTTON_MIDDLE:
+					case sf::Mouse::Middle:
 						MouseEvent.Button = SMouseEvent::EButton::Middle;
 						EventManager->MouseStates[SMouseEvent::EButton::Middle] = MouseEvent.Pressed;
 						EventManager->OnMouseEvent(MouseEvent);
@@ -188,28 +160,30 @@ void CApplication::run()
 
 				}
 
-			case SDL_MOUSEMOTION:
+			case sf::Event::MouseMoved:
 				{
 
 					SMouseEvent MouseEvent;
 					MouseEvent.Type = SMouseEvent::EType::Move;
-					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.motion.x, Event.motion.y);
+					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.MouseMove.X, Event.MouseMove.Y);
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Movement = SPosition2(Event.motion.xrel, Event.motion.yrel);
+					MouseEvent.Movement = MouseEvent.Location - LastMouse;
 					EventManager->OnMouseEvent(MouseEvent);
+
+					LastMouse = MouseEvent.Location;
 
 					break;
 
 				}
 
-			case SDL_KEYDOWN:
-			case SDL_KEYUP:
+			case sf::Event::KeyPressed:
+			case sf::Event::KeyReleased:
 				{
 
 					SKeyboardEvent KeyEvent;
-					KeyEvent.Pressed = Event.key.state == SDL_PRESSED;
-					KeyEvent.Key = Event.key.keysym.sym;
+					KeyEvent.Pressed = Event.Type == sf::Event::KeyPressed;
+					KeyEvent.Key = ConvertSFMLKeyCode(Event.Key.Code);
 					EventManager->OnKeyboardEvent(KeyEvent);
 					EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
 
@@ -217,7 +191,7 @@ void CApplication::run()
 
 				}
 			} // switch (Event.type)
-		} // while (SDL_PollEvent(& Event))
+		} // while (SDL_PollEvent(& Event))*/
 
 		updateTime();
 
@@ -246,7 +220,7 @@ float const CApplication::getRunTime() const
 
 float const CApplication::getAspectRatio()
 {
-	return (float)get().WindowSize.X/(float)get().WindowSize.Y;
+	return (float) WindowSize.X / (float) WindowSize.Y;
 }
 
 SPosition2 const & CApplication::getWindowSize() const

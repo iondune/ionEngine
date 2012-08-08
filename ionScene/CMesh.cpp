@@ -242,9 +242,9 @@ void CMesh::updateBuffers()
 	Dirty = false;
 }
 
-SBoundingBox3 const CMesh::getBoundingBox() const
+SBoundingBox3f const CMesh::getBoundingBox() const
 {
-    SBoundingBox3 Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
+    SBoundingBox3f Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
 
     for (std::vector<SMeshBuffer *>::const_iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
     for (std::vector<SVertex>::const_iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it)

@@ -1,98 +1,308 @@
 #ifndef _CABBAGE_CORE_SCOLOR_H_INCLUDED_
 #define _CABBAGE_CORE_SCOLOR_H_INCLUDED_
 
-#include "SVector3.h"
+#include "SVector.h"
 
-class SColor
+
+template <typename T>
+class SColorA;
+
+template <typename T>
+class SColor : public SVector<T, 3, SColor<T> >
 {
 
 public:
 
-    float Red, Green, Blue, Alpha;
+	T & Red, & Green, & Blue;
+	static T const Full;
 
-    SColor()
-        : Red(0.7f), Green(0.7f), Blue(0.7f), Alpha(1.f)
-    {}
+	SColor()
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	{
+		SVector<T, 3, SColor<T> >::set((T) 0);
+	}
 
-	SColor(float red, float green, float blue)
-        : Red(red), Green(green), Blue(blue), Alpha(1.f)
-    {}
+	SColor(T const in)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	{
+		SVector<T, 3, SColor<T> >::set(in);
+	}
 
-	SColor(float red, float green, float blue, float alpha)
-        : Red(red), Green(green), Blue(blue), Alpha(alpha)
-    {}
+	SColor(T const r, T const g, T const b)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	{
+		Values[0] = r;
+		Values[1] = g;
+		Values[2] = b;
+	}
 
-	SColor(SVector3f const & vector)
-		: Red(vector.X), Green(vector.Y), Blue(vector.Z), Alpha(1.f)
+	SColor(T const & r, T const & g, T const & b, ForceReference)
+		: Red(r), Green(g), Blue(b)
 	{}
 
-	float const operator[] (unsigned int i) const
+	SColor(SColor<T> const & vec)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
-		switch (i)
-		{
-		default:
-		case 0:
-			return Red;
-		case 1:
-			return Green;
-		case 2:
-			return Blue;
-		case 3:
-			return Alpha;
-		}
+		set(vec);
+	}
+	
+	template <typename U, int otherDimension, typename otherImplementation>
+	SColor(SVector<U, otherDimension, otherImplementation> const & vec)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	{
+		set(vec);
 	}
 
-	float & operator[] (unsigned int i)
+	SColor<T> & operator = (SColor<T> const & vec)
 	{
-		switch (i)
-		{
-		default:
-		case 0:
-			return Red;
-		case 1:
-			return Green;
-		case 2:
-			return Blue;
-		case 3:
-			return Alpha;
-		}
-	}
+		set(vec);
 
-	template <typename T>
-	SColor operator * (T const s) const
-	{
-		return SColor(Red*s, Green*s, Blue*s, Alpha*s);
-	}
-
-	SColor operator * (SColor const & s) const
-	{
-		return SColor(Red * s.Red, Green * s.Green, Blue * s.Blue, Alpha * s.Alpha);
-	}
-
-	SColor operator + (SColor const & s) const
-	{
-		return SColor(Red + s.Red, Green + s.Green, Blue + s.Blue, Alpha + s.Alpha);
-	}
-
-	SColor & operator *= (SColor const & s)
-	{
-		Red *= s.Red;
-		Green *= s.Green;
-		Blue *= s.Blue;
-		Alpha *= s.Alpha;
 		return * this;
 	}
 	
-	template <typename T>
-	SColor & operator *= (T const s)
+	template <typename U, int otherDimension, typename otherImplementation>
+	SColor<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
-		Red *= s;
-		Green *= s;
-		Blue *= s;
-		Alpha *= s;
+		set(v);
+
 		return * this;
 	}
 
+	virtual T const operator[] (int i) const
+	{
+		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+	}
+
+	virtual T & operator[] (int i)
+	{
+		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? OutOfBounds = Full : OutOfBounds = 0));
+	}
+
+	template <typename U, int otherDimension, typename otherImplementation>
+	void set(SVector<U, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 3; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 3; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<float, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 3; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<double, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 3; ++ i)
+			Values[i] = (T) other[i];
+	}
+
 };
+
+template <typename T>
+T const SColor<T>::Full = 1;
+
+template <>
+unsigned char const SColor<unsigned char>::Full = 255;
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColor<float>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < Dimension; ++ i)
+		Values[i] = (float) other[i] / 255.f;
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColor<double>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < Dimension; ++ i)
+		Values[i] = (double) other[i] / 255.0;
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColor<unsigned char>::set(SVector<float, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < Dimension; ++ i)
+		Values[i] = (unsigned char) (other[i] * 255);
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColor<unsigned char>::set(SVector<double, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < Dimension; ++ i)
+		Values[i] = (unsigned char) (other[i] * 255);
+}
+
+
+template <typename T>
+class SColorA : public SVector<T, 4, SColor<T> >
+{
+
+public:
+
+	T & Red, & Green, & Blue, & Alpha;
+	static T const Full;
+
+	SColorA()
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		SVector<T, 4, SColor<T> >::set((T) 0);
+	}
+
+	SColorA(T const in)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		SVector<T, 4, SColor<T> >::set(in);
+	}
+
+	SColorA(T const r, T const g, T const b, T const a = Full)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		Values[0] = r;
+		Values[1] = g;
+		Values[2] = b;
+		Values[3] = a;
+	}
+
+	SColorA(T const & r, T const & g, T const & b, T const & a, ForceReference)
+		: Red(r), Green(g), Blue(b), Alpha(a)
+	{}
+
+	SColorA(SColorA<T> const & vec)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		set(vec);
+	}
+	
+	template <typename U, int otherDimension, typename otherImplementation>
+	SColorA(SVector<U, otherDimension, otherImplementation> const & vec)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		set(vec);
+	}
+
+	SColorA<T> & operator = (SColorA<T> const & vec)
+	{
+		set(vec);
+
+		return * this;
+	}
+	
+	template <typename U, int otherDimension, typename otherImplementation>
+	SColorA<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	{
+		set(vec);
+
+		return * this;
+	}
+
+	virtual T const operator[] (int i) const
+	{
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
+	}
+
+	virtual T & operator[] (int i)
+	{
+		return (i >= 0 && i < 4 ? Values[i] : OutOfBounds = 0);
+	}
+
+	template <typename U, int otherDimension, typename otherImplementation>
+	void set(SVector<U, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 4; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 4; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<float, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 4; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+	template <int otherDimension, typename otherImplementation>
+	void set(SVector<double, otherDimension, otherImplementation> const & other)
+	{
+		for (int i = 0; i < 4; ++ i)
+			Values[i] = (T) other[i];
+	}
+
+};
+
+template <typename T>
+T const SColorA<T>::Full = 1;
+
+template <>
+unsigned char const SColorA<unsigned char>::Full = 255;
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColorA<float>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < 4; ++ i)
+		Values[i] = (float) other[i] / 255.f;
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColorA<double>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < 4; ++ i)
+		Values[i] = (double) other[i] / 255.0;
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColorA<unsigned char>::set(SVector<float, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < 4; ++ i)
+		Values[i] = (unsigned char) (other[i] * 255);
+}
+
+template <>
+template <int otherDimension, typename otherImplementation>
+void SColorA<unsigned char>::set(SVector<double, otherDimension, otherImplementation> const & other)
+{
+	for (int i = 0; i < 4; ++ i)
+		Values[i] = (unsigned char) (other[i] * 255);
+}
+
+
+typedef SColor<unsigned char> SColori;
+typedef SColor<unsigned char> SColorc;
+typedef SColorA<unsigned char> SColorAi;
+typedef SColorA<unsigned char> SColorAc;
+typedef SColor<unsigned char> SColor24;
+typedef SColorA<unsigned char> SColor32;
+
+typedef SColor<float> SColorf;
+typedef SColorA<float> SColorAf;
+typedef SColor<float> SColor72;
+typedef SColorA<float> SColor96;
+
+typedef SColor<double> SColord;
+typedef SColorA<double> SColorAd;
+typedef SColor<double> SColor192;
+typedef SColorA<double> SColor256;
 
 #endif

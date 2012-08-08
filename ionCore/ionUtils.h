@@ -7,12 +7,28 @@
 const float RoundingError32 = 0.00001f;
 const double RoundingError64 = 0.00000001;
 
-static bool const equals(float const a, float const b, float const epsilon = RoundingError32)
+template <typename T>
+struct RoundingError
 {
-	return (a + epsilon >= b) && (a - epsilon <= b);
-}
+	static T const Value;
+};
+template <typename T>
+T const RoundingError<T>::Value = 0;
 
-static bool const equals(double const a, double const b, double const epsilon = RoundingError64)
+template <>
+struct RoundingError<float>
+{
+	static float const Value;
+};
+
+template <>
+struct RoundingError<double>
+{
+	static double const Value;
+};
+
+template <typename T>
+static bool const equals(T const a, T const b, T const epsilon = RoundingError<T>::Value)
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }
@@ -47,6 +63,24 @@ template <typename T>
 static T const max(T const a, T const b, T const c)
 {
 	return std::max(a, std::max(b, c));
+}
+
+template <typename T>
+static T const min(T const a, T const b, T const c, T const d)
+{
+	return std::min(a, min(b, c, d));
+}
+
+template <typename T>
+static T const max(T const a, T const b, T const c, T const d)
+{
+	return std::max(a, max(b, c, d));
+}
+
+template <typename T>
+static T const sq(T const a)
+{
+	return a * a;
 }
 
 #endif

@@ -37,8 +37,8 @@ protected:
 	STransformation3 Transformation;
 	glm::mat4 AbsoluteTransformation;
 
-	SBoundingBox3 BoundingBox;
-	SBoundingBox3 AbsoluteBoundingBox;
+	SBoundingBox3f BoundingBox;
+	SBoundingBox3f AbsoluteBoundingBox;
 
 	// Keep vector form of transformations for easy access
 	SVector3f Rotation, Translation, Scale;
@@ -80,16 +80,16 @@ public:
 	SVector3f const & getScale() const;
 
 
-	SBoundingBox3 const & getBoundingBox() const;
-	void setBoundingBox(SBoundingBox3 const & boundingBox);
+	SBoundingBox3f const & getBoundingBox() const;
+	void setBoundingBox(SBoundingBox3f const & boundingBox);
 
-	SBoundingBox3 const & getAbsoluteBoundingBox() const;
+	SBoundingBox3f const & getAbsoluteBoundingBox() const;
 
 	bool const isDebugDataEnabled(EDebugData const type) const;
 	void enableDebugData(EDebugData const type);
 	void disableDebugData(EDebugData const type);
 	
-	bool const intersectsWithLine(SLine3 const & line) const;
+	bool const intersectsWithLine(SLine3f const & line) const;
 
 	bool const isVisible() const;
 	void setVisible(bool const isVisible);

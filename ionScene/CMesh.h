@@ -56,7 +56,7 @@ public:
 
     void updateBuffers();
 
-    SBoundingBox3 const getBoundingBox() const;
+    SBoundingBox3f const getBoundingBox() const;
 
     void linearizeIndices();
 

@@ -4,44 +4,36 @@
 #include "SVector3.h"
 #include "SLine3.h"
 
+template <typename T>
 class SBoundingBox3
 {
-private:
-	// A skeleton point is one that doesn't represent the box, but represents the innermose bounding box this box can be. Used for the spatial data structure
-	SVector3f MinSkeletonPoint, MaxSkeletonPoint;
 
 public:
 
-	SVector3f MinCorner, MaxCorner;
+	SVector3<T> MinCorner, MaxCorner;
 
-	SBoundingBox3() :
-		MinSkeletonPoint(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()),
-		MaxSkeletonPoint(-std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity())
+	SBoundingBox3()
 	{}
 
-	SBoundingBox3(SVector3f const & min, SVector3f const & max)
-		: MinCorner(min), MaxCorner(max),
-		MinSkeletonPoint(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()),
-		MaxSkeletonPoint(-std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity())
+	SBoundingBox3(SVector3<T> const & min, SVector3<T> const & max)
+		: MinCorner(min), MaxCorner(max)
 	{}
 
-	SBoundingBox3(SVector3f const & v)
-		: MinCorner(v), MaxCorner(v), 
-		MinSkeletonPoint(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity()),
-		MaxSkeletonPoint(-std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity(), -std::numeric_limits<float>::infinity())
+	SBoundingBox3(SVector3<T> const & v)
+		: MinCorner(v), MaxCorner(v)
 	{}
 
-	SVector3f const getExtent() const
+	SVector3<T> const getExtent() const
 	{
 		return MaxCorner - MinCorner;
 	}
 
-	SVector3f const getCenter() const
+	SVector3<T> const getCenter() const
 	{
-		return (MaxCorner + MinCorner) / 2.f;
+		return (MaxCorner + MinCorner) / 2;
 	}
 
-	bool isPointInside(SVector3f const & p) const
+	bool isPointInside(SVector3<T> const & p) const
 	{
 		return 
 			p.X >= MinCorner.X && p.X <= MaxCorner.X &&
@@ -49,7 +41,7 @@ public:
 			p.Z >= MinCorner.Z && p.Z <= MaxCorner.Z;
 	}
 
-	bool const intersects(SBoundingBox3 const & r) const
+	bool const intersects(SBoundingBox3<T> const & r) const
 	{
 		return (MaxCorner.Y > r.MinCorner.Y &&
 			MinCorner.Y < r.MaxCorner.Y &&
@@ -59,7 +51,7 @@ public:
 			MinCorner.Z < r.MaxCorner.Z);
 	}
 
-	void addInternalPoint(SVector3f const & v)
+	void addInternalPoint(SVector3<T> const & v)
 	{
 		if (v.X > MaxCorner.X)
 			MaxCorner.X = v.X;
@@ -74,85 +66,56 @@ public:
 			MinCorner.Y = v.Y;
 		if (v.Z < MinCorner.Z)
 			MinCorner.Z = v.Z;
-
-		// Skeleton points just keep track of the smallest/biggest points
-		if (v.X > MaxSkeletonPoint.X)
-			MaxSkeletonPoint.X = v.X;
-		if (v.Y > MaxSkeletonPoint.Y)
-			MaxSkeletonPoint.Y = v.Y;
-		if (v.Z > MaxSkeletonPoint.Z)
-			MaxSkeletonPoint.Z = v.Z;
-
-		if (v.X < MinSkeletonPoint.X)
-			MinSkeletonPoint.X = v.X;
-		if (v.Y < MinSkeletonPoint.Y)
-			MinSkeletonPoint.Y = v.Y;
-		if (v.Z < MinSkeletonPoint.Z)
-			MinSkeletonPoint.Z = v.Z;
 	}
 
-	void shrink() {
-		float const INF = std::numeric_limits<float>::infinity();
-
-		// Make sure at least two points have been placed as internal points before allowing the bounding box to be shrunk
-		assert((MinSkeletonPoint.X != INF && MinSkeletonPoint.Y != INF && MinSkeletonPoint.Z != INF) &&
-			(MaxSkeletonPoint.X != -INF && MaxSkeletonPoint.Y != -INF && MaxSkeletonPoint.Z != -INF));
-		assert(MinSkeletonPoint.X != MaxSkeletonPoint.X &&
-			MinSkeletonPoint.Y != MaxSkeletonPoint.Y && 
-			MinSkeletonPoint.Z != MaxSkeletonPoint.Z);
-
-		MinCorner = MinSkeletonPoint;
-		MaxCorner = MaxSkeletonPoint;
-	}
-
-	void addInternalBox(SBoundingBox3 const & bb)
+	void addInternalBox(SBoundingBox3<T> const & bb)
 	{
 		addInternalPoint(bb.MaxCorner);
 		addInternalPoint(bb.MinCorner);
 	}
 
 	// These intersect methods direct copies from irrlicht engine
-	bool intersectsWithLine(SLine3 const & line) const
+	bool intersectsWithLine(SLine3<T> const & line) const
 	{
 		return intersectsWithLine(line.getMiddle(), line.getVector().getNormalized(), line.length() * 0.5f);
 	}
 
 	// These intersect methods direct copies from irrlicht engine
-	bool intersectsWithLine(SVector3f const & linemiddle, SVector3f const & linevect, float halflength) const
+	bool intersectsWithLine(SVector3<T> const & linemiddle, SVector3<T> const & linevect, T halflength) const
 	{
-		const SVector3f e = getExtent() * 0.5f;
-		const SVector3f t = getCenter() - linemiddle;
+		const SVector3<T> e = getExtent() * (T) 0.5;
+		const SVector3<T> t = getCenter() - linemiddle;
 
 		if ((fabs(t.X) > e.X + halflength * fabs(linevect.X)) ||
 			(fabs(t.Y) > e.Y + halflength * fabs(linevect.Y)) ||
 			(fabs(t.Z) > e.Z + halflength * fabs(linevect.Z)))
 			return false;
 
-		float r = e.Y * fabs(linevect.Z) + e.Z * fabs(linevect.Y);
-		if (fabs(t.Y*linevect.Z - t.Z*linevect.Y) > r)
+		T r = e.Y * abs(linevect.Z) + e.Z * abs(linevect.Y);
+		if (abs(t.Y*linevect.Z - t.Z*linevect.Y) > r)
 			return false;
 
-		r = e.X * fabs(linevect.Z) + e.Z * fabs(linevect.X);
-		if (fabs(t.Z*linevect.X - t.X*linevect.Z) > r)
+		r = e.X * abs(linevect.Z) + e.Z * abs(linevect.X);
+		if (abs(t.Z*linevect.X - t.X*linevect.Z) > r)
 			return false;
 
-		r = e.X * fabs(linevect.Y) + e.Y * fabs(linevect.X);
-		if (fabs(t.X*linevect.Y - t.Y*linevect.X) > r)
+		r = e.X * abs(linevect.Y) + e.Y * abs(linevect.X);
+		if (abs(t.X*linevect.Y - t.Y*linevect.X) > r)
 			return false;
 
 		return true;
 	}
 
-	float const getMaximumRadius(SVector3f const Scale) const
+	T const getMaximumRadius(SVector3<T> const Scale) const
 	{
-		SVector3f const Extents = getExtent() / 2.f;
-		return std::max(std::max((Extents*Scale).xy().length(), (Extents*Scale).xz().length()), (Extents*Scale).yz().length());
+		SVector3<T> const Extents = getExtent() / 2;
+		return max((Extents*Scale).xy().length(), (Extents*Scale).xz().length(), (Extents*Scale).yz().length());
 	}
 
-	SVector3f const getCorner(int const i) const
+	SVector3<T> const getCorner(int const i) const
 	{
-		SVector3f const Center = getCenter();
-		SVector3f const Extent = getExtent() / 2.f;
+		SVector3<T> const Center = getCenter();
+		SVector3<T> const Extent = getExtent() / 2;
 
 		switch (i)
 		{
@@ -169,5 +132,9 @@ public:
 	}
 
 };
+
+typedef SBoundingBox3<float> SBoundingBox3f;
+typedef SBoundingBox3<double> SBoundingBox3d;
+typedef SBoundingBox3<int> SBoundingBox3i;
 
 #endif

@@ -51,7 +51,7 @@ void CSceneEffectManager::SPostProcessPass::end()
 	for (std::map<std::string, int>::iterator it = Ints.begin(); it != Ints.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, SColor>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
+	for (std::map<std::string, SColorAf>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
 	Context->bindBufferObject("aPosition", CSceneManager::getQuadHandle(), 2);
@@ -85,9 +85,9 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
 	HeatCopy = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "FBO/HeatCopy.frag");
 
-	White = CTextureLoader::loadTexture("Colors/White.bmp");
-	Black = CTextureLoader::loadTexture("Colors/Black.bmp");
-	Magenta = CTextureLoader::loadTexture("Colors/Magenta.bmp");
+	White = new CTexture(SColorf(1.f, 1.f, 1.f));
+	Black = new CTexture(SColorf(0.f, 0.f, 0.f));
+	Magenta = new CTexture(SColorf(1.f, 0.f, 1.f));
 	CImage * HeatOffsetTextureImage = CTextureLoader::loadImage("HeatOffset.bmp");
 	STextureCreationFlags Flags;
 	Flags.Filter = GL_LINEAR;
@@ -113,9 +113,20 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	DefaultPass.Target = SceneManager->getSceneFrameBuffer();
 
 	RenderPasses.push_back(DefaultPass);
+
+	Loaded = BlendShader && QuadCopy;
+
+	if (! Loaded)
+		std::cerr << "Failed to load required shaders for effects manager - all effects disabled." << std::endl;
 }
 
 #include <CApplication.h>
+
+
+bool const CSceneEffectManager::isLoaded() const
+{
+	return Loaded;
+}
 
 void CSceneEffectManager::apply()
 {
@@ -158,16 +169,18 @@ void CSceneEffectManager::apply()
 		BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
 		BloomBlurPass1.Target = ScratchTarget1;
 		BloomBlurPass1.Shader = BlurHorizontal;
-		BloomBlurPass1.Floats["DimAmount"] = 1.f;
-		BloomBlurPass1.Floats["BlurSize"] = 1.f;
+		BloomBlurPass1.Floats["DimAmount"] = 1.0f;
+		BloomBlurPass1.Floats["BlurSize"] = 0.9f;
 
 		BloomBlurPass1.doPass();
 
 		// BLUR V
 		SPostProcessPass BloomBlurPass2;
-		BloomBlurPass2.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
+		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
+		BloomBlurPass2.Floats["DimAmount"] = 1.0f;
+		BloomBlurPass2.Floats["BlurSize"] = 1.6f;
 
 		BloomBlurPass2.doPass();
 	}

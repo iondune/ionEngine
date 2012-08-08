@@ -52,6 +52,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -95,6 +96,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureLoader.h" />
     <ClInclude Include="ICameraSceneObject.h" />
+    <ClInclude Include="ImageLoaders\BitmapWriter.hpp" />
     <ClInclude Include="ImageLoaders\Texture.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneObject.Enumerations.h" />

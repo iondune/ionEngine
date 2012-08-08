@@ -78,7 +78,7 @@ public:
 
 		std::vector<CTexture *> Textures;
 
-		SColor AmbientColor, DiffuseColor;
+		SColorAf AmbientColor, DiffuseColor;
 		float Shininess;
 
 		SMaterial();
@@ -157,6 +157,24 @@ public:
 
 	EDrawElementType const getDrawType() const;
 	void setDrawType(EDrawElementType const drawType);
+
+	unsigned int const getElementCount()
+	{
+		return ElementCount;
+	}
+	void setElementCount(unsigned int const elementCount)
+	{
+		ElementCount = elementCount;
+	}
+
+
+	STransformation3 const & getTransformation() const;
+
+	void setTranslation(SVector3f const & translation);
+	void setPosition(SVector3f const & translation);
+	void setRotation(SVector3f const & rotation);
+	void setRotation(glm::mat4 const & matrix);
+	void setScale(SVector3f const & scale);
 
 
 	////////////////////

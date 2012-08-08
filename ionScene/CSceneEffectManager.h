@@ -62,6 +62,8 @@ protected:
 
 	float Timer;
 
+	bool Loaded;
+
 public:
 
 	CSceneEffectManager(CSceneManager * sceneManager);
@@ -93,7 +95,7 @@ public:
 		std::map<std::string, float> Floats;
 		std::map<std::string, int> Ints;
 		std::map<std::string, CTexture *> Textures;
-		std::map<std::string, SColor> Colors;
+		std::map<std::string, SColorAf> Colors;
 
 		void doPass();
 
@@ -112,6 +114,9 @@ public:
 
 	virtual void setEffectEnabled(ESceneEffect const Effect, bool const Enabled);
 	virtual bool const isEffectEnabled(ESceneEffect const Effect);
+
+
+	virtual bool const isLoaded() const;
 
 };
 

@@ -14,6 +14,9 @@
 #include <GL\glew.h>
 #endif
 
+bool printOpenGLErrors();
+bool printOpenGLErrors(char const * const Location);
+
 struct SShaderVariable
 {
     GLuint Handle;

@@ -34,6 +34,9 @@
       <Filter>ImageLoaders</Filter>
     </ClInclude>
     <ClInclude Include=".\ionScene.h" />
+    <ClInclude Include="ImageLoaders\BitmapWriter.hpp">
+      <Filter>ImageLoaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraSceneObject.cpp" />

@@ -1,14 +1,13 @@
 #ifndef _CABBAGE_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
 #define _CABBAGE_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
 
-#include "sigslot/sigslot.h"
+#include <sigslot/sigslot.h>
 
 #include "CEventManager.h"
-#include "CGUIEngine.h"
 #include "CApplication.h"
 
 
-class IState : public CGUIEventReceiver
+class IState : public sigslot::has_slots<>
 {
 
 public:
@@ -24,10 +23,10 @@ public:
 
     virtual void OnMouseEvent(SMouseEvent const & Event) =0;
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event) =0;
+
 };
 
 class CSceneManager;
-class CGUIEngine;
 
 template <class TImplementation>
 class CState : public IState
@@ -37,7 +36,6 @@ protected:
 
 	CApplication & Application;
 	CSceneManager & SceneManager;
-	CGUIEngine & GUIEngine;
 
 public:
 
@@ -52,7 +50,7 @@ public:
     }
 
 	CState()
-		: Application(CApplication::get()), SceneManager(CApplication::get().getSceneManager()), GUIEngine(CApplication::get().getGUIEngine())
+		: Application(CApplication::get()), SceneManager(CApplication::get().getSceneManager())
 	{}
 
 

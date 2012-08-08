@@ -28,16 +28,18 @@ class CLight
 
 public:
 
-	SColor Color;
+	SColorAf Color;
 	SVector3f Position;
+	float Radius;
 
-	SUniformReference<SColor> BindColor;
+	SUniformReference<SColorAf> BindColor;
 	SUniformReference<SVector3f> BindPosition;
+	SUniformReference<float> BindRadius;
 
 	// Todo: change values only through get/set, set scene changed when so
 
 	CLight()
-		: BindColor(Color), BindPosition(Position)
+		: BindColor(Color), BindPosition(Position), BindRadius(Radius), Radius(25.f)
 	{}
 
 };

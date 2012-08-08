@@ -58,9 +58,6 @@ void CStateManager::doStateChange()
 
 	if (CurrentState)
 	{
-		CurrentState->disconnect();
-		if (& CApplication::get().getGUIEngine())
-			CApplication::get().getGUIEngine().removeAllWidgets();
 		if (& CApplication::get().getSceneManager())
 		{
 			CApplication::get().getSceneManager().Lights.clear();
@@ -72,7 +69,6 @@ void CStateManager::doStateChange()
 	CurrentState = NextState;
 	NextState = NULL;
 
-	CurrentState->connect();
 	CurrentState->begin();
 
 	CApplication::get().getSceneManager().blurSceneIn(0.3f, CApplication::get().getRunTime());

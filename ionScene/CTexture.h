@@ -43,6 +43,7 @@ class CTexture
 public:
 
     CTexture(CImage * Image, STextureCreationFlags const Flags = STextureCreationFlags());
+    CTexture(SColorAf const & Color, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(int const Width, int const Height, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(SPosition2 const & size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(GLuint const textureHandle);

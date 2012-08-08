@@ -2,6 +2,7 @@
 #define _CABBAGE_CORE_SRECT2_H_INCLUDED_
 
 #include "SVector2.h"
+#include "SPosition2.h"
 #include "ionUtils.h"
 
 template <typename T>
@@ -57,9 +58,60 @@ public:
 			Position.X < v.X);
 	}
 
+	bool const isPointInsideOrOn(SPosition2 const & v) const
+	{
+		return (otherCorner().Y >= v.Y && 
+			Position.Y <= v.Y && 
+			otherCorner().X >= v.X && 
+			Position.X <= v.X);
+	}
+
 	T const getArea() const
 	{
 		return Size.X * Size.Y;
+	}
+
+	void bounds(SVector2<T> const & pos1, SVector2<T> const & pos2)
+	{
+		Position = pos1;
+		Size = pos2 - Position;
+		if (Size.X < 0)
+		{
+			Position.X += Size.X;
+			Size.X *= -1;
+		}
+		if (Size.Y < 0)
+		{
+			Position.Y += Size.Y;
+			Size.Y *= -1;
+		}
+	}
+	
+	void clipTo(SRect2 const & r)
+	{
+		SVector2<T> UpperLeftCorner = Position;
+		SVector2<T> LowerRightCorner = otherCorner();
+		SVector2<T> const otherUpperLeftCorner = r.Position;
+		SVector2<T> const otherLowerRightCorner = r.otherCorner();
+
+		if (otherLowerRightCorner.X <= LowerRightCorner.X)
+			LowerRightCorner.X = otherLowerRightCorner.X - 1;
+		if (otherLowerRightCorner.Y <= LowerRightCorner.Y)
+			LowerRightCorner.Y = otherLowerRightCorner.Y - 1;
+ 
+		if (otherUpperLeftCorner.X > UpperLeftCorner.X)
+			UpperLeftCorner.X = otherUpperLeftCorner.X;
+		if (otherUpperLeftCorner.Y > UpperLeftCorner.Y)
+			UpperLeftCorner.Y = otherUpperLeftCorner.Y;
+ 
+		// correct possible invalid rect resulting from clipping
+		if (UpperLeftCorner.Y > LowerRightCorner.Y)
+			UpperLeftCorner.Y = LowerRightCorner.Y;
+		if (UpperLeftCorner.X > LowerRightCorner.X)
+			UpperLeftCorner.X = LowerRightCorner.X;
+
+		Position = UpperLeftCorner;
+		Size = LowerRightCorner - UpperLeftCorner;
 	}
 
 };
