@@ -1,7 +1,7 @@
 #ifndef _CABBAGE_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
 #define _CABBAGE_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
 
-#include "sigslot/sigslot.h"
+#include <sigslot/sigslot.h>
 
 #include "CEventManager.h"
 #include "CApplication.h"
@@ -23,6 +23,7 @@ public:
 
     virtual void OnMouseEvent(SMouseEvent const & Event) =0;
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event) =0;
+
 };
 
 class CSceneManager;
