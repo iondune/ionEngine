@@ -34,8 +34,8 @@ class CState : public IState
 
 protected:
 
-	CApplication & Application;
-	CSceneManager & SceneManager;
+	CApplication * Application;
+	CSceneManager * SceneManager;
 
 public:
 
@@ -50,9 +50,13 @@ public:
     }
 
 	CState()
-		: Application(CApplication::get()), SceneManager(CApplication::get().getSceneManager())
 	{}
 
+	void loadEngineReferences()
+	{
+		Application = & CApplication::get();
+		SceneManager = & Application->getSceneManager();
+	}
 
     virtual void begin()
     {}

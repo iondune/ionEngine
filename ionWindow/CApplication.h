@@ -46,6 +46,7 @@ public:
     static CApplication & get();
 
     void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / SFML / ionEngine - Application");
+	void loadEngines();
 
     CEventManager & getEventManager();
     CStateManager & getStateManager();

@@ -47,10 +47,13 @@ void CApplication::init(SPosition2 const & windowSize, std::string const & Windo
 	WindowSize = windowSize;
 
 	setupRenderContext(WindowTitle);
+}
 
+void CApplication::loadEngines()
+{
 	EventManager = new CEventManager();
 	StateManager = new CStateManager();
-	SceneManager = new CSceneManager(windowSize);
+	SceneManager = new CSceneManager(WindowSize);
 }
 
 CApplication & CApplication::get()
