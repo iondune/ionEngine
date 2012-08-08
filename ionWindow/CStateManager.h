@@ -27,7 +27,7 @@ public:
 };
 
 class CSceneManager;
-class CGUIEngine;
+//class CGUIEngine;
 
 template <class TImplementation>
 class CState : public IState
@@ -37,7 +37,7 @@ protected:
 
 	CApplication & Application;
 	CSceneManager & SceneManager;
-	CGUIEngine & GUIEngine;
+	//CGUIEngine & GUIEngine;
 
 public:
 
@@ -52,7 +52,7 @@ public:
     }
 
 	CState()
-		: Application(CApplication::get()), SceneManager(CApplication::get().getSceneManager()), GUIEngine(CApplication::get().getGUIEngine())
+		: Application(CApplication::get()), SceneManager(CApplication::get().getSceneManager())//, GUIEngine(CApplication::get().getGUIEngine())
 	{}
 
 
