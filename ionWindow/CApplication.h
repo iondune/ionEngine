@@ -18,7 +18,7 @@ class CApplication
     CEventManager * EventManager;
     CStateManager * StateManager;
     CSceneManager * SceneManager;
-	CGUIEngine * GUIEngine;
+	//CGUIEngine * GUIEngine;
 
     // Attributes
     SPosition2 WindowSize;
@@ -51,7 +51,7 @@ public:
     CEventManager & getEventManager();
     CStateManager & getStateManager();
     CSceneManager & getSceneManager();
-	CGUIEngine & getGUIEngine();
+	//CGUIEngine & getGUIEngine();
 
     void run();
 
