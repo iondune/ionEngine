@@ -220,7 +220,7 @@ float const CApplication::getRunTime() const
 
 float const CApplication::getAspectRatio()
 {
-	return (float)get().WindowSize.X/(float)get().WindowSize.Y;
+	return (float) WindowSize.X / (float) WindowSize.Y;
 }
 
 SPosition2 const & CApplication::getWindowSize() const

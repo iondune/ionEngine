@@ -58,7 +58,7 @@ public:
     float const getRunTime() const;
 
     SPosition2 const & getWindowSize() const;
-    static float const getAspectRatio();
+    float const getAspectRatio();
 
     void skipElapsedTime();
 
