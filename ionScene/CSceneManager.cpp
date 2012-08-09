@@ -201,7 +201,7 @@ void CSceneManager::init()
 	}
 	else
 	{
-		QuadCopy = CShaderLoader::loadShader("QuadCopy");
+		QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
 
 		if (! QuadCopy)
 		{
