@@ -58,11 +58,6 @@ void CStateManager::doStateChange()
 
 	if (CurrentState)
 	{
-		if (& CApplication::get().getSceneManager())
-		{
-			CApplication::get().getSceneManager().Lights.clear();
-			CApplication::get().getSceneManager().removeAllSceneObjects();
-		}
 		CurrentState->end();
 	}
 
@@ -70,8 +65,6 @@ void CStateManager::doStateChange()
 	NextState = NULL;
 
 	CurrentState->begin();
-
-	CApplication::get().getSceneManager().blurSceneIn(0.3f, CApplication::get().getRunTime());
 }
 
 void CStateManager::shutDown()

@@ -143,14 +143,10 @@ void CScene::update()
 	RootObject.update();
 }
 
-GLuint CSceneManager::QuadHandle = 0;
-
-CSceneManager::CSceneManager(SPosition2 const & screenSize)
-	: FinalBlurSize(0.0f), SceneFrameBuffer(0),
-	EffectManager(0), ScreenSize(screenSize)
+GLuint const CSceneManager::getQuadHandle()
 {
-	CurrentScene = this;
-
+	static GLuint QuadHandle = 0;
+	
 	// Create a simple quad VBO to use for draw operations!
 	if (! QuadHandle)
 	{
@@ -167,8 +163,21 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-	
 
+	return QuadHandle;
+}
+
+CSceneManager::CSceneManager(SPosition2 const & screenSize)
+	: SceneFrameTexture(0), SceneDepthBuffer(0), SceneFrameBuffer(0),
+	EffectManager(0), DefaultManager(0), 
+	ScreenSize(screenSize)
+{
+	CurrentScene = this;
+}
+
+void CSceneManager::init()
+{
+	// Create special framebuffer for draw operations
 	STextureCreationFlags Flags;
 	Flags.MipMaps = false;
 	Flags.Wrap = GL_CLAMP_TO_EDGE;
@@ -180,22 +189,52 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 	SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
 
 	if (! SceneFrameBuffer->isValid())
-		std::cerr << "Failed to make FBO for scene drawing!!!!!!" << std::endl  << std::endl  << std::endl;
+	{
+		std::cerr << "Failed to make FBO for scene drawing!" << std::endl << std::endl << std::endl;
 
+		delete SceneFrameBuffer;
+		SceneFrameBuffer = 0;
+		delete SceneFrameTexture;
+		SceneFrameTexture = 0;
+		delete SceneDepthBuffer;
+		SceneDepthBuffer = 0;
+	}
+	else
+	{
+		QuadCopy = CShaderLoader::loadShader("QuadCopy");
+
+		if (! QuadCopy)
+		{
+			std::cerr << "Failed to load copy shader for scene drawing!" << std::endl << std::endl << std::endl;
+
+			delete SceneFrameBuffer;
+			SceneFrameBuffer = 0;
+			delete SceneFrameTexture;
+			SceneFrameTexture = 0;
+			delete SceneDepthBuffer;
+			SceneDepthBuffer = 0;
+		}
+	}
+
+
+	// Set default effect manager and initialize
 	EffectManager = DefaultManager = new CSceneEffectManager(this);
 
+	// If effects manager failed to load, revert to no-effects
 	if (! EffectManager->isLoaded())
 	{
 		delete EffectManager;
 		EffectManager = 0;
 	}
 
+	// Default-enable bloom
 	if (EffectManager)
 		EffectManager->setEffectEnabled(ESE_BLOOM, true);
 
-	DeferredManager = new CDeferredShadingManager(this);
+	// Setup deferred effecst manager
+	//DeferredManager = new CDeferredShadingManager(this);
 
-	BlurHorizontal = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "BlurH.frag");
+	getQuadHandle();
 }
 
 void CSceneManager::addSceneObject(ISceneObject * sceneObject)
@@ -213,16 +252,6 @@ void CSceneManager::removeAllSceneObjects()
 	RootObject.removeChildren();
 }
 
-bool sortISOXY (ISceneObject* a, ISceneObject* b)
-{
-	SVector3f av = a->getAbsoluteBoundingBox().MinCorner;//getWorldBoundingBoxMinPoint();
-	SVector3f bv = b->getAbsoluteBoundingBox().MaxCorner;//
-	if(av.X == bv.X) {
-		return av.Y < bv.Y;
-	}
-	else return av.X < bv.X;
-}
-
 void CSceneManager::drawAll()
 {
 	printOpenGLErrors("beginning of draw");
@@ -230,7 +259,7 @@ void CSceneManager::drawAll()
 	CurrentScene->update();
 
 	printOpenGLErrors("pre traversal");
-	if (EffectManager)
+	if (EffectManager && SceneFrameBuffer)
 	{
 		for (std::vector<CSceneEffectManager::SRenderPass>::iterator it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
 		{
@@ -255,17 +284,20 @@ void CSceneManager::drawAll()
 			RootObject.draw(CurrentScene, it->Pass, UseCulling);
 			printOpenGLErrors("after traversal");
 
-			if (it->Pass != ERenderPass::DeferredLights) {
+			if (it->Pass != ERenderPass::DeferredLights)
+			{
 				//glEnable(GL_ALPHA);
 				glEnable(GL_BLEND);
 				glEnable(GL_DEPTH_TEST);
 				glDepthMask(GL_FALSE);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
-			else {
+			else
+			{
 			}
 			
-			if (it->Pass != ERenderPass::DeferredLights) {
+			if (it->Pass != ERenderPass::DeferredLights)
+			{
 				//glBlendFunc(GL_ONE, GL_MAX);
 				printOpenGLErrors("after blend func");
 				glDepthMask(GL_TRUE);
@@ -286,10 +318,13 @@ void CSceneManager::drawAll()
 		printOpenGLErrors("before effects");
 
 		EffectManager->apply();
+
+		SceneFrameBuffer->bind();
 	}
 	else
 	{
-		SceneFrameBuffer->bind();
+		if (SceneFrameBuffer)
+			SceneFrameBuffer->bind();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_ALPHA);
@@ -304,59 +339,32 @@ void CSceneManager::drawAll()
 	printOpenGLErrors("after effects");
 
 	SceneChanged = false;
-
-	SceneFrameBuffer->bind();
 	//printf("Num objects: %d\n", numObjects);
-
 	
 	printOpenGLErrors("end of drawall");
 }
 
-void CSceneManager::blurSceneIn(float seconds, float const RunTime)
-{
-	std::cout << "Blurring in scene..." << std::endl;
-	BlurOutTime = 0;
-	BlurInTime = seconds;
-	CurTime = RunTime;
-}
-
-#include <CApplication.h>
 void CSceneManager::endDraw()
 {
-	// Do fade-in
-	if (CurTime == -1.0f)
-		Dim = 1.0f;
-
-	if (BlurInTime > 0.0f)
+	if (SceneFrameBuffer)
 	{
-		FinalBlurSize = 0.0f;
-		Dim = std::max(1.0f - (BlurInTime - (CApplication::get().getRunTime() - CurTime))/BlurInTime, 0.0f);
-		if ((CApplication::get().getRunTime() - CurTime) > BlurInTime)
+		// Draw to screen
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);
+
+		// THE FINAL RENDER
 		{
-			BlurInTime = 0.0f;
-			CurTime = -1.0f;
+			CShaderContext Context(* QuadCopy);
+
+			Context.bindTexture("uTexColor", SceneFrameTexture);
+			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
+
+			glDrawArrays(GL_QUADS, 0, 4);
 		}
+
+		glEnable(GL_DEPTH_TEST);
 	}
-
-
-	// Draw to screen
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDisable(GL_DEPTH_TEST);
-
-	// THE FINAL RENDER
-	{
-		CShaderContext Context(* BlurHorizontal);
-
-		Context.bindTexture("uTexColor", SceneFrameTexture);
-		Context.uniform("BlurSize", FinalBlurSize);
-		Context.uniform("DimAmount", Dim);
-		Context.bindBufferObject("aPosition", QuadHandle, 2);
-
-		glDrawArrays(GL_QUADS, 0, 4);
-	}
-
-	glEnable(GL_DEPTH_TEST);
 
 	printOpenGLErrors("end of enddraw");
 }
@@ -447,11 +455,6 @@ CSceneEffectManager * CSceneManager::getEffectManager()
 void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
 {
 	EffectManager = effectManager;
-}
-
-GLuint const CSceneManager::getQuadHandle()
-{
-	return QuadHandle;
 }
 
 SSize2 const & CSceneManager::getScreenSize() const

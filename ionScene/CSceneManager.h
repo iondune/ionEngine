@@ -113,17 +113,16 @@ class CSceneManager : public CScene
 	CFrameBufferObject * SceneFrameBuffer;
 	CTexture * SceneFrameTexture;
 	CRenderBufferObject * SceneDepthBuffer;
+	CShader * QuadCopy;
 
 	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
-	CShader * BlurHorizontal;
 
 	SSize2 ScreenSize;
 
 public:
-	
-	static GLuint QuadHandle;
 
 	CSceneManager(SPosition2 const & screenSize);
+	void init();
 
 	void addSceneObject(ISceneObject * sceneObject);
 	void removeSceneObject(ISceneObject * sceneObject);
@@ -137,7 +136,6 @@ public:
 
 	void drawAll();
 	void endDraw();
-	void blurSceneIn(float seconds, float const RunTime);
 
 	void load(); // Deprecated
 	void load(ERenderPass const Pass);
@@ -151,12 +149,9 @@ public:
 
 	SSize2 const & getScreenSize() const;
 
-	float FinalBlurSize, Dim;
-	float BlurInTime, BlurOutTime, CurTime;
-
-	static GLuint const getQuadHandle();
-
 	void setDeferred(bool const isDeferred);
+	
+	static GLuint const getQuadHandle();
 
 };
 #endif

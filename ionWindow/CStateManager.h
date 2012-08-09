@@ -29,19 +29,14 @@ public:
 class CSceneManager;
 
 template <class TImplementation>
-class CState : public IState
+class Singleton
 {
-
-protected:
-
-	CApplication * Application;
-	CSceneManager * SceneManager;
 
 public:
 
     static TImplementation & get()
     {
-        static TImplementation * Instance;
+        static TImplementation * Instance = 0;
 
 		if (! Instance)
 			Instance = new TImplementation();
@@ -49,10 +44,29 @@ public:
         return * Instance;
     }
 
+};
+
+template <class TImplementation>
+class CState : public IState, public Singleton<TImplementation>
+{
+
+protected:
+
+	CApplication * Application;
+	CSceneManager * SceneManager;
+
 	CState()
+		: Application(0), SceneManager(0)
 	{}
 
-	void loadEngineReferences()
+public:
+
+	virtual void load()
+	{
+		loadEngineReferences();
+	}
+
+	virtual void loadEngineReferences()
 	{
 		Application = & CApplication::get();
 		SceneManager = & Application->getSceneManager();
@@ -80,6 +94,59 @@ public:
     {}
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event)
     {}
+
+};
+
+template <class TContext>
+class CContextObject
+{
+
+protected:
+
+	TContext * Context;
+
+public:
+
+	CContextObject()
+		: Context(0)
+	{}
+
+	virtual void loadContext()
+	{
+		Context = & TContext::get();
+	}
+
+};
+
+template <class TContext>
+class CAutoContextObject : public CContextObject<TContext>
+{
+
+public:
+
+	CAutoContextObject()
+	{
+		loadContext();
+	}
+
+};
+
+template <class TImplementation, class TContext>
+class CContextState : public CState<TImplementation>, public CContextObject<TContext>
+{
+
+protected:
+
+	CContextState()
+	{}
+
+public:
+
+	virtual void load()
+	{
+		CState<TImplementation>::load();
+		loadContext();
+	}
 
 };
 
