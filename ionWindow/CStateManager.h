@@ -32,6 +32,16 @@ template <class TImplementation>
 class Singleton
 {
 
+private:
+	
+	Singleton & operator = (Singleton const &);
+	Singleton(Singleton const &);
+
+protected:
+
+	Singleton()
+	{}
+
 public:
 
     static TImplementation & get()
