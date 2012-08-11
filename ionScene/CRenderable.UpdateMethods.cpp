@@ -34,7 +34,8 @@ void CRenderable::draw(IScene const * const Scene, ERenderPass const Pass, CShad
 		for (unsigned int i = 0; i < Material.Textures.size(); ++ i)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, Material.Textures[i]->getTextureHandle());
+			if (Material.Textures[i])
+				glBindTexture(GL_TEXTURE_2D, Material.Textures[i]->getTextureHandle());
 		}
 	}
 
