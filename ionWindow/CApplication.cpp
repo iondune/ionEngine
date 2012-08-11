@@ -99,7 +99,16 @@ EKey const ConvertSFMLKeyCode(sf::Key::Code const Code)
 	if (Code >= sf::Key::Num0 && Code <= sf::Key::Num9)
 		return EKey::NUM_0 + (Code - sf::Key::Num0);
 
-	return EKey::Unknown;
+	switch (Code)
+	{
+
+	case sf::Key::Escape:
+		return EKey::ESCAPE;
+
+	default:
+		return EKey::Unknown;
+
+	};
 }
 
 void CApplication::run()
