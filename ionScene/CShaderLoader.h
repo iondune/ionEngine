@@ -15,6 +15,8 @@ public:
 	static CShader * const loadShader(std::string const & vertName, std::string const & fragName);
 
 	static std::string ShaderDirectory;
+	static bool LogOpened;
+	static std::ofstream LogFile;
 
 };
 
