@@ -148,6 +148,7 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 
     // Compile Shader
 	std::cout << "--- Compiling Shader ----------------------------------------------------------" << std::endl;
+	std::cout << vertFileName << " | " << fragFileName << std::endl;
     {
         glCompileShader(VS);
         GLint vCompiled;
