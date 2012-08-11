@@ -175,37 +175,24 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 	CurrentScene = this;
 }
 
-void CSceneManager::init()
+void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 {
-	// Create special framebuffer for draw operations
-	STextureCreationFlags Flags;
-	Flags.MipMaps = false;
-	Flags.Wrap = GL_CLAMP_TO_EDGE;
-	SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
-	SceneDepthBuffer = new CRenderBufferObject(GL_DEPTH_COMPONENT24, ScreenSize);
-
-	SceneFrameBuffer = new CFrameBufferObject();
-	SceneFrameBuffer->attach(SceneDepthBuffer, GL_DEPTH_ATTACHMENT);
-	SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
-
-	if (! SceneFrameBuffer->isValid())
+	if (FrameBuffer)
 	{
-		std::cerr << "Failed to make FBO for scene drawing!" << std::endl << std::endl << std::endl;
+		// Create special framebuffer for draw operations
+		STextureCreationFlags Flags;
+		Flags.MipMaps = false;
+		Flags.Wrap = GL_CLAMP_TO_EDGE;
+		SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
+		SceneDepthBuffer = new CRenderBufferObject(GL_DEPTH_COMPONENT24, ScreenSize);
 
-		delete SceneFrameBuffer;
-		SceneFrameBuffer = 0;
-		delete SceneFrameTexture;
-		SceneFrameTexture = 0;
-		delete SceneDepthBuffer;
-		SceneDepthBuffer = 0;
-	}
-	else
-	{
-		QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
+		SceneFrameBuffer = new CFrameBufferObject();
+		SceneFrameBuffer->attach(SceneDepthBuffer, GL_DEPTH_ATTACHMENT);
+		SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
 
-		if (! QuadCopy)
+		if (! SceneFrameBuffer->isValid())
 		{
-			std::cerr << "Failed to load copy shader for scene drawing!" << std::endl << std::endl << std::endl;
+			std::cerr << "Failed to make FBO for scene drawing!" << std::endl << std::endl << std::endl;
 
 			delete SceneFrameBuffer;
 			SceneFrameBuffer = 0;
@@ -214,27 +201,47 @@ void CSceneManager::init()
 			delete SceneDepthBuffer;
 			SceneDepthBuffer = 0;
 		}
+		else
+		{
+			QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
+
+			if (! QuadCopy)
+			{
+				std::cerr << "Failed to load copy shader for scene drawing!" << std::endl << std::endl << std::endl;
+
+				delete SceneFrameBuffer;
+				SceneFrameBuffer = 0;
+				delete SceneFrameTexture;
+				SceneFrameTexture = 0;
+				delete SceneDepthBuffer;
+				SceneDepthBuffer = 0;
+			}
+		}
+
+		getQuadHandle();
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 
 	// Set default effect manager and initialize
-	EffectManager = DefaultManager = new CSceneEffectManager(this);
-
-	// If effects manager failed to load, revert to no-effects
-	if (! EffectManager->isLoaded())
+	if (EffectsManager)
 	{
-		delete EffectManager;
-		EffectManager = 0;
+		EffectManager = DefaultManager = new CSceneEffectManager(this);
+
+		// If effects manager failed to load, revert to no-effects
+		if (! EffectManager->isLoaded())
+		{
+			delete EffectManager;
+			EffectManager = 0;
+		}
+
+		// Default-enable bloom
+		if (EffectManager)
+			EffectManager->setEffectEnabled(ESE_BLOOM, true);
+
+		// Setup deferred effecst manager
+		//DeferredManager = new CDeferredShadingManager(this);
 	}
-
-	// Default-enable bloom
-	if (EffectManager)
-		EffectManager->setEffectEnabled(ESE_BLOOM, true);
-
-	// Setup deferred effecst manager
-	//DeferredManager = new CDeferredShadingManager(this);
-
-	getQuadHandle();
 }
 
 void CSceneManager::addSceneObject(ISceneObject * sceneObject)
@@ -284,7 +291,7 @@ void CSceneManager::drawAll()
 			RootObject.draw(CurrentScene, it->Pass, UseCulling);
 			printOpenGLErrors("after traversal");
 
-			if (it->Pass != ERenderPass::DeferredLights)
+			/*if (it->Pass != ERenderPass::DeferredLights)
 			{
 				//glEnable(GL_ALPHA);
 				glEnable(GL_BLEND);
@@ -306,7 +313,7 @@ void CSceneManager::drawAll()
 				printOpenGLErrors("after disable blend");
 				//glDisable(GL_ALPHA);
 				printOpenGLErrors("after disable alpha");
-			}
+			}*/
 
 			if (it->Pass == ERenderPass::DeferredLights)
 			{
@@ -327,14 +334,8 @@ void CSceneManager::drawAll()
 			SceneFrameBuffer->bind();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glEnable(GL_ALPHA);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		RootObject.load(CurrentScene, ERenderPass::Default);
 		RootObject.draw(CurrentScene, ERenderPass::Default, UseCulling);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-		glDisable(GL_BLEND);
-		glDisable(GL_ALPHA);
 	}
 	printOpenGLErrors("after effects");
 

@@ -122,7 +122,7 @@ class CSceneManager : public CScene
 public:
 
 	CSceneManager(SPosition2 const & screenSize);
-	void init();
+	void init(bool const EffectsManager = true, bool const FrameBuffer = true);
 
 	void addSceneObject(ISceneObject * sceneObject);
 	void removeSceneObject(ISceneObject * sceneObject);
