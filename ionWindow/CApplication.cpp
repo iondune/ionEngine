@@ -104,6 +104,15 @@ EKey const ConvertSFMLKeyCode(sf::Key::Code const Code)
 
 	case sf::Key::Escape:
 		return EKey::ESCAPE;
+		
+	case sf::Key::Up:
+		return EKey::UP;
+	case sf::Key::Left:
+		return EKey::LEFT;
+	case sf::Key::Down:
+		return EKey::DOWN;
+	case sf::Key::Right:
+		return EKey::RIGHT;
 
 	default:
 		return EKey::Unknown;
@@ -198,6 +207,22 @@ void CApplication::run()
 					KeyEvent.Key = ConvertSFMLKeyCode(Event.Key.Code);
 					EventManager->OnKeyboardEvent(KeyEvent);
 					EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
+
+					break;
+
+				}
+
+			case sf::Event::Resized:
+				{
+
+					SWindowResizedEvent WindowEvent;
+					WindowEvent.Size.X = Event.Size.Width;
+					WindowEvent.Size.Y = Event.Size.Height;
+					WindowSize = WindowEvent.Size;
+					EventManager->OnWindowResized(WindowEvent);
+					
+
+					App->SetView( sf::View(sf::FloatRect(0, 0, Event.Size.Width, Event.Size.Height)) );
 
 					break;
 

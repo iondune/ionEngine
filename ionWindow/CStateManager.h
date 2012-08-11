@@ -23,6 +23,8 @@ public:
 
     virtual void OnMouseEvent(SMouseEvent const & Event) =0;
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event) =0;
+	
+	virtual void OnWindowResized(SWindowResizedEvent const & Event) =0;
 
 };
 
@@ -105,6 +107,9 @@ public:
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event)
     {}
 
+    virtual void OnWindowResized(SWindowResizedEvent const & Event)
+    {}
+
 };
 
 template <class TContext>
@@ -181,6 +186,8 @@ public:
 
     void OnMouseEvent(SMouseEvent const & Event);
     void OnKeyboardEvent(SKeyboardEvent const & Event);
+
+	void OnWindowResized(SWindowResizedEvent const & Event);
 
     void setState(IState * State);
     IState * NextState;

@@ -29,6 +29,7 @@ CApplicationEventReceiver::CApplicationEventReceiver()
 	Application->getEventManager().OnRenderEnd.connect(this, & CApplicationEventReceiver::OnRenderEnd);
 	Application->getEventManager().OnKeyboardEvent.connect(this, & CApplicationEventReceiver::OnKeyboardEvent);
 	Application->getEventManager().OnMouseEvent.connect(this, & CApplicationEventReceiver::OnMouseEvent);
+	Application->getEventManager().OnWindowResized.connect(this, & CApplicationEventReceiver::OnWindowResized);
 	Application->getEventManager().OnApplicationExit.connect(this, & CApplicationEventReceiver::OnApplicationExit);
 }
 
@@ -48,6 +49,9 @@ void CApplicationEventReceiver::OnRenderStart(float const Elapsed)
 {}
 
 void CApplicationEventReceiver::OnRenderEnd(float const Elapsed)
+{}
+
+void CApplicationEventReceiver::OnWindowResized(SWindowResizedEvent const & Event)
 {}
 
 void CApplicationEventReceiver::OnApplicationExit()

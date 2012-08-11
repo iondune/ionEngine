@@ -1,7 +1,7 @@
 #ifndef _CABBAGECOLLIDER_CEVENTMANAGER_H_INCLUDED_
 #define _CABBAGECOLLIDER_CEVENTMANAGER_H_INCLUDED_
 
-#include <SPosition2.h>
+#include <ionTypes.h>
 #include <SVector2.h>
 
 #include "sigslot/sigslot.h"
@@ -238,6 +238,11 @@ struct SMouseEvent
 
 };
 
+struct SWindowResizedEvent
+{
+	vec2i Size;
+};
+
 class CApplication;
 
 class CApplicationEventReceiver : public sigslot::has_slots<>
@@ -259,6 +264,8 @@ public:
 
 	virtual void OnRenderStart(float const Elapsed);
 	virtual void OnRenderEnd(float const Elapsed);
+
+	virtual void OnWindowResized(SWindowResizedEvent const & Event);
 
 	virtual void OnApplicationExit();
 
@@ -285,6 +292,8 @@ public:
 
     sigslot::signal1<float const> OnRenderStart;
     sigslot::signal1<float const> OnRenderEnd;
+
+	sigslot::signal1<SWindowResizedEvent const &> OnWindowResized;
 
     sigslot::signal0<> OnApplicationExit;
 
