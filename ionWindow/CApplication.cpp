@@ -222,7 +222,7 @@ void CApplication::run()
 					EventManager->OnWindowResized(WindowEvent);
 					
 
-					App->SetView( sf::View(sf::FloatRect(0, 0, Event.Size.Width, Event.Size.Height)) );
+					App->SetView(sf::View(sf::FloatRect(0, 0, (float) Event.Size.Width, (float) Event.Size.Height)));
 
 					break;
 

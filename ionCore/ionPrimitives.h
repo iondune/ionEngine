@@ -61,6 +61,7 @@
 	
 typedef Int8   s8;
 typedef Uint8  u8;
+typedef char c8;
 
 typedef Int16  s16;
 typedef Uint16 u16;
