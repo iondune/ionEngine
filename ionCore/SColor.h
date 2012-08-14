@@ -118,7 +118,7 @@ template <>
 template <int otherDimension, typename otherImplementation>
 void SColor<float>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
 {
-	for (int i = 0; i < Dimension; ++ i)
+	for (int i = 0; i < 3; ++ i)
 		Values[i] = (float) other[i] / 255.f;
 }
 
@@ -126,7 +126,7 @@ template <>
 template <int otherDimension, typename otherImplementation>
 void SColor<double>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
 {
-	for (int i = 0; i < Dimension; ++ i)
+	for (int i = 0; i < 3; ++ i)
 		Values[i] = (double) other[i] / 255.0;
 }
 
@@ -134,7 +134,7 @@ template <>
 template <int otherDimension, typename otherImplementation>
 void SColor<unsigned char>::set(SVector<float, otherDimension, otherImplementation> const & other)
 {
-	for (int i = 0; i < Dimension; ++ i)
+	for (int i = 0; i < 3; ++ i)
 		Values[i] = (unsigned char) (other[i] * 255);
 }
 
@@ -142,7 +142,7 @@ template <>
 template <int otherDimension, typename otherImplementation>
 void SColor<unsigned char>::set(SVector<double, otherDimension, otherImplementation> const & other)
 {
-	for (int i = 0; i < Dimension; ++ i)
+	for (int i = 0; i < 3; ++ i)
 		Values[i] = (unsigned char) (other[i] * 255);
 }
 
