@@ -88,7 +88,7 @@ void ISceneObject::disableDebugData(EDebugData const type)
 	if (type == EDebugData::All)
 		DebugDataFlags = 0;
 	else
-		DebugDataFlags ^= type;
+		DebugDataFlags &= ~type;
 }
 
 bool const ISceneObject::intersectsWithLine(SLine3f const & line) const
