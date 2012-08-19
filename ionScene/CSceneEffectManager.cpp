@@ -88,17 +88,17 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	White = new CTexture(SColorf(1.f, 1.f, 1.f));
 	Black = new CTexture(SColorf(0.f, 0.f, 0.f));
 	Magenta = new CTexture(SColorf(1.f, 0.f, 1.f));
-	CImage * HeatOffsetTextureImage = CTextureLoader::loadImage("HeatOffset.bmp");
+	//CImage * HeatOffsetTextureImage = CTextureLoader::loadImage("HeatOffset.bmp");
 	STextureCreationFlags Flags;
 	Flags.Filter = GL_LINEAR;
 	Flags.MipMaps = false;
 	Flags.Wrap = GL_MIRRORED_REPEAT;
 
-	HeatOffsetTexture = new CTexture(HeatOffsetTextureImage, Flags);
+	//HeatOffsetTexture = new CTexture(HeatOffsetTextureImage, Flags);
 
 
-	CImage * WaterOffsetTextureImage = CTextureLoader::loadImage("WaterOffset.bmp");
-	WaterOffsetTexture = new CTexture(WaterOffsetTextureImage, Flags);
+	//CImage * WaterOffsetTextureImage = CTextureLoader::loadImage("WaterOffset.bmp");
+	//WaterOffsetTexture = new CTexture(WaterOffsetTextureImage, Flags);
 
 	ScratchTarget1 = new CFrameBufferObject();
 	ScratchTexture1 = new CTexture(SceneManager->getScreenSize(), true, Flags);
@@ -155,8 +155,6 @@ void CSceneEffectManager::apply()
 			SSAOBlurPass2.Textures["uTexColor"] = ScratchTexture1;
 			SSAOBlurPass2.Target = SSAOResultTarget;
 			SSAOBlurPass2.Shader = BlurHorizontal;
-			SSAOBlurPass2.Floats["DimAmount"] = 1.f;
-			SSAOBlurPass2.Floats["BlurSize"] = 1.f;
 
 			SSAOBlurPass2.doPass();
 		}
@@ -169,8 +167,6 @@ void CSceneEffectManager::apply()
 		BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
 		BloomBlurPass1.Target = ScratchTarget1;
 		BloomBlurPass1.Shader = BlurHorizontal;
-		BloomBlurPass1.Floats["DimAmount"] = 1.0f;
-		BloomBlurPass1.Floats["BlurSize"] = 0.9f;
 
 		BloomBlurPass1.doPass();
 
@@ -179,8 +175,6 @@ void CSceneEffectManager::apply()
 		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
-		BloomBlurPass2.Floats["DimAmount"] = 1.0f;
-		BloomBlurPass2.Floats["BlurSize"] = 1.6f;
 
 		BloomBlurPass2.doPass();
 	}
