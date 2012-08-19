@@ -229,7 +229,7 @@ void CSceneEffectManager::setEffectEnabled(ESceneEffect const Effect, bool const
 	else
 	{
 		if (Effect)
-			EnabledEffects ^= Effect;
+			EnabledEffects &= ~Effect;
 		else
 			EnabledEffects = 0;
 	}
