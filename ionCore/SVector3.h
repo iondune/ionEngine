@@ -43,6 +43,15 @@ public:
 	{
 		set(vec);
 	}
+
+	template <typename U>
+	SVector3(glm::detail::tvec3<U> const & v)
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
+	{
+		Values[0] = (T) v.x;
+		Values[1] = (T) v.y;
+		Values[2] = (T) v.z;
+	}
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
