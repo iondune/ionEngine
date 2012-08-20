@@ -20,8 +20,10 @@ typedef SVector2d vec2d;
 typedef SVector2i vec2i;
 
 typedef SColorf  color;
+typedef SColorf  colorf;
 typedef SColori  colori;
 typedef SColorAf colora;
+typedef SColorAf coloraf;
 typedef SColorAi colorai;
 
 #endif
