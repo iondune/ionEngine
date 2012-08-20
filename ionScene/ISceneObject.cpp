@@ -112,6 +112,11 @@ STransformation3 const & ISceneObject::getTransformation() const
 	return Transformation;
 }
 
+STransformation3 & ISceneObject::getTransformation()
+{
+	return Transformation;
+}
+
 ISceneObject const * const ISceneObject::getParent() const
 {
 	return Parent;

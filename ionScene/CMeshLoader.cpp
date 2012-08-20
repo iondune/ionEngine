@@ -135,9 +135,9 @@ CMesh * const CMeshLoader::load3dsMesh(std::string const & fileName, bool const 
                 {
                     fread (& Mesh->Vertices[i].Position.X, sizeof(float), 1, l_file);
                     //printf("Vertices list x: %f\n",Mesh->Vertices[i].Position.X);
-                    fread (& Mesh->Vertices[i].Position.Y, sizeof(float), 1, l_file);
-                    //printf("Vertices list y: %f\n",Mesh->Vertices[i].Position.Y);
                     fread (& Mesh->Vertices[i].Position.Z, sizeof(float), 1, l_file);
+                    //printf("Vertices list y: %f\n",Mesh->Vertices[i].Position.Y);
+                    fread (& Mesh->Vertices[i].Position.Y, sizeof(float), 1, l_file);
                     //printf("Vertices list z: %f\n",Mesh->Vertices[i].Position.Z);
                 }
                 break;

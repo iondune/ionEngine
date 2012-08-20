@@ -67,6 +67,7 @@ public:
 
 	glm::mat4 const & getAbsoluteTransformation() const;
 	STransformation3 const & getTransformation() const;
+	STransformation3 & getTransformation();
 
 	void setTranslation(SVector3f const & translation);
 	void setPosition(SVector3f const & translation);

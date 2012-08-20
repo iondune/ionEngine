@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 #include "SVector3.h"
 
@@ -44,16 +45,15 @@ public:
 
 	void setRotation(glm::vec3 const & rotation)
 	{
-		Rotation = glm::rotate(glm::mat4(1.f), rotation.x, glm::vec3(1, 0, 0));
+		/*Rotation = glm::rotate(glm::mat4(1.f), rotation.x, glm::vec3(1, 0, 0));
 		Rotation = glm::rotate(Rotation, rotation.y, glm::vec3(0, 1, 0));
-		Rotation = glm::rotate(Rotation, rotation.z, glm::vec3(0, 0, 1));
+		Rotation = glm::rotate(Rotation, rotation.z, glm::vec3(0, 0, 1));*/
+		setRotation(SVector3f(rotation));
 	}
 
 	void setRotation(SVector3f const & rotation)
 	{
-		Rotation = glm::rotate(glm::mat4(1.f), rotation.X, glm::vec3(1, 0, 0));
-		Rotation = glm::rotate(Rotation, rotation.Y, glm::vec3(0, 1, 0));
-		Rotation = glm::rotate(Rotation, rotation.Z, glm::vec3(0, 0, 1));
+		Rotation = glm::eulerAngleYXZ(rotation.Y * 0.017453f, rotation.X * 0.017453f, rotation.Z * 0.017453f);
 	}
 
 	void setScale(glm::vec3 const & scale)
