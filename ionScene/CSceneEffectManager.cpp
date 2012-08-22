@@ -72,6 +72,36 @@ void CSceneEffectManager::SPostProcessPass::doPass()
 	end();
 }
 
+void CSceneEffectManager::OnWindowResized()
+{
+	delete ScratchTarget1;
+	delete ScratchTexture1;
+	delete BloomResultTarget;
+	delete BloomResultTexture;
+	
+	STextureCreationFlags Flags;
+	Flags.Filter = GL_LINEAR;
+	Flags.MipMaps = false;
+	Flags.Wrap = GL_MIRRORED_REPEAT;
+
+	ScratchTarget1 = new CFrameBufferObject();
+	ScratchTexture1 = new CTexture(SceneManager->getScreenSize(), true, Flags);
+	ScratchTarget1->attach(ScratchTexture1, GL_COLOR_ATTACHMENT0);
+
+	BloomResultTarget = new CFrameBufferObject();
+	BloomResultTexture = new CTexture(SceneManager->getScreenSize(), true);
+	BloomResultTarget->attach(BloomResultTexture, GL_COLOR_ATTACHMENT0);
+
+	SRenderPass DefaultPass;
+	DefaultPass.Pass = ERenderPass::Default;
+	DefaultPass.Target = SceneManager->getSceneFrameBuffer();
+
+	RenderPasses.clear();
+	RenderPasses.push_back(DefaultPass);
+
+	// TO DO : This is not robust!
+}
+
 
 CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	: EnabledEffects(0), SceneManager(sceneManager), NormalPassTarget(0), NormalPassTexture(0), RandomNormalsTexture(0),

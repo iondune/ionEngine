@@ -129,6 +129,8 @@ public:
 
 	void removeAllSceneObjects();
 
+	void OnWindowResized(SPosition2 const & screenSize);
+
 	CMeshSceneObject * addMeshSceneObject(CMesh * Mesh);
 	CMeshSceneObject * addMeshSceneObject(CMesh * Mesh, CShader * Shader, CShader * DeferredShader);
 	CMeshSceneObject * addMeshSceneObject(CMesh * Mesh, CShader * Shader, CShader * DeferredShader, CRenderable::SMaterial const & Material);

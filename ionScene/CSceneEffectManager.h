@@ -118,6 +118,8 @@ public:
 
 	virtual bool const isLoaded() const;
 
+	virtual void OnWindowResized();
+
 };
 
 #endif

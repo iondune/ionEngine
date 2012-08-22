@@ -175,6 +175,29 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 	CurrentScene = this;
 }
 
+void CSceneManager::OnWindowResized(SPosition2 const & screenSize)
+{
+	ScreenSize = screenSize;
+	if (SceneFrameBuffer)
+	{
+		printf("Making new sfb.\n");
+		delete SceneFrameBuffer;
+		delete SceneFrameTexture;
+		delete SceneDepthBuffer;
+
+		SceneFrameBuffer = 0;
+		SceneFrameTexture = 0;
+		SceneDepthBuffer = 0;
+
+		init(false, true);
+	}
+
+	if (EffectManager)
+	{
+		EffectManager->OnWindowResized();
+	}
+}
+
 void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 {
 	if (FrameBuffer)
@@ -236,8 +259,8 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 		}
 
 		// Default-enable bloom
-		if (EffectManager)
-			EffectManager->setEffectEnabled(ESE_BLOOM, true);
+		//if (EffectManager)
+		//	EffectManager->setEffectEnabled(ESE_BLOOM, true);
 
 		// Setup deferred effecst manager
 		//DeferredManager = new CDeferredShadingManager(this);

@@ -220,6 +220,7 @@ void CApplication::run()
 					WindowEvent.Size.Y = Event.Size.Height;
 					WindowSize = WindowEvent.Size;
 					EventManager->OnWindowResized(WindowEvent);
+					SceneManager->OnWindowResized(WindowSize);
 					
 
 					App->SetView(sf::View(sf::FloatRect(0, 0, (float) Event.Size.Width, (float) Event.Size.Height)));
