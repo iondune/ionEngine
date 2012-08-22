@@ -105,13 +105,15 @@ public:
 
 class CApplication;
 
+extern bool ShowDepth;
+
 class CSceneManager : public CScene
 {
 
 	CScene * CurrentScene;
 
 	CFrameBufferObject * SceneFrameBuffer;
-	CTexture * SceneFrameTexture;
+	CTexture * SceneFrameTexture, * SceneDepthTexture;
 	CRenderBufferObject * SceneDepthBuffer;
 	CShader * QuadCopy;
 
@@ -144,6 +146,7 @@ public:
 
 	CFrameBufferObject * getSceneFrameBuffer();
 	CTexture * getSceneFrameTexture();
+	CTexture * getSceneDepthTexture();
 	CRenderBufferObject * getSceneDepthBuffer();
 
 	CSceneEffectManager * getEffectManager();

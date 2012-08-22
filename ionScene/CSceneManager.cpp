@@ -203,15 +203,29 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 	if (FrameBuffer)
 	{
 		// Create special framebuffer for draw operations
-		STextureCreationFlags Flags;
-		Flags.MipMaps = false;
-		Flags.Wrap = GL_CLAMP_TO_EDGE;
-		SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
+		{
+			STextureCreationFlags Flags;
+			Flags.MipMaps = false;
+			Flags.Wrap = GL_CLAMP_TO_EDGE;
+			SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
+			Flags.PixelInternalFormat = GL_R32F;
+			SceneDepthTexture = new CTexture(ScreenSize, true, Flags);
+		}
 		SceneDepthBuffer = new CRenderBufferObject(GL_DEPTH_COMPONENT24, ScreenSize);
 
 		SceneFrameBuffer = new CFrameBufferObject();
 		SceneFrameBuffer->attach(SceneDepthBuffer, GL_DEPTH_ATTACHMENT);
 		SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
+		SceneFrameBuffer->attach(SceneDepthTexture, GL_COLOR_ATTACHMENT1);
+
+		SceneFrameBuffer->bind();
+		GLenum Buffers[] = 
+		{
+			GL_COLOR_ATTACHMENT0,
+			GL_COLOR_ATTACHMENT1
+		};
+
+		glDrawBuffers(sizeof(Buffers)/sizeof(GLenum), Buffers);
 
 		if (! SceneFrameBuffer->isValid())
 		{
@@ -307,6 +321,8 @@ void CSceneManager::drawAll()
 			}
 			
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			float DepthClearColor[] = {1.f, 1.f, 1.f, 1.f};
+			glClearBufferfv(GL_COLOR, 1, DepthClearColor);
 				
 			printOpenGLErrors("begining load");
 			load(it->Pass);
@@ -368,6 +384,8 @@ void CSceneManager::drawAll()
 	printOpenGLErrors("end of drawall");
 }
 
+bool ShowDepth = false;
+
 void CSceneManager::endDraw()
 {
 	if (SceneFrameBuffer)
@@ -381,7 +399,10 @@ void CSceneManager::endDraw()
 		{
 			CShaderContext Context(* QuadCopy);
 
-			Context.bindTexture("uTexColor", SceneFrameTexture);
+			if (ShowDepth)
+				Context.bindTexture("uTexColor", SceneDepthTexture);
+			else
+				Context.bindTexture("uTexColor", SceneFrameTexture);
 			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
 
 			glDrawArrays(GL_QUADS, 0, 4);
@@ -464,6 +485,11 @@ CFrameBufferObject * CSceneManager::getSceneFrameBuffer()
 CTexture * CSceneManager::getSceneFrameTexture()
 {
 	return SceneFrameTexture;
+}
+
+CTexture * CSceneManager::getSceneDepthTexture()
+{
+	return SceneDepthTexture;
 }
 
 CRenderBufferObject * CSceneManager::getSceneDepthBuffer()
