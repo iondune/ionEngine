@@ -67,6 +67,7 @@
     <ClInclude Include="ionEnum.h" />
     <ClInclude Include="ionPrimitives.h" />
     <ClInclude Include="ionRand.h" />
+    <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />

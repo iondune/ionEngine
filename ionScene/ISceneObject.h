@@ -9,6 +9,7 @@
 // Core
 #include <boost/shared_ptr.hpp>
 #include <ionPrimitives.h>
+#include <ionSmartPtr.h>
 #include <ionEnum.h>
 #include <SVector3.h>
 #include <SBoundingBox3.h>
@@ -18,6 +19,7 @@
 #include "CShader.h"
 #include "CTexture.h"
 #include "CShaderContext.h"
+#include "IRenderPass.h"
 
 #include "ISceneObject.Enumerations.h"
 
@@ -152,8 +154,8 @@ public:
 	void updateAbsoluteBoundingBox();
 
 	virtual void update();
-	virtual void load(IScene const * const Scene, ERenderPass const Pass);
-	virtual bool draw(IScene const * const scene, ERenderPass const Pass, bool const CullingEnabled);
+	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> const Pass);
+	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> const Pass, bool const CullingEnabled);
 
 
 	///////////////////////

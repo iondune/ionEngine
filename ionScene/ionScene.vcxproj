@@ -98,6 +98,7 @@
     <ClInclude Include="ICameraSceneObject.h" />
     <ClInclude Include="ImageLoaders\BitmapWriter.hpp" />
     <ClInclude Include="ImageLoaders\Texture.h" />
+    <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneObject.Enumerations.h" />
     <ClInclude Include="ISceneObject.h" />

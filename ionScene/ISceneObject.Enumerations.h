@@ -19,21 +19,6 @@ struct EDebugDataValues
 typedef Enum<EDebugDataValues> EDebugData;
 
 
-struct ERenderPassValues
-{
-	enum Domain
-	{
-		Default,
-		ModelSpaceNormals,
-		DeferredColors,
-		DeferredLights,
-		Count
-	};
-};
-
-typedef Enum<ERenderPassValues> ERenderPass;
-
-
 
 struct ERenderCategoryValues
 {

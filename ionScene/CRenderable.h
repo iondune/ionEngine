@@ -135,7 +135,8 @@ protected:
 	//! Type of elements to draw
 	EDrawElementType DrawElementType;
 
-	SShaderContext ShaderContexts[ERenderPass::Count];
+	//! Shader Contexts for each applicable render pass
+	std::map<smartPtr<IRenderPass>, SShaderContext> ShaderContexts;
 
 public:
 
