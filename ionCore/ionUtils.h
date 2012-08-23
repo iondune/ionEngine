@@ -10,25 +10,32 @@ const double RoundingError64 = 0.00000001;
 template <typename T>
 struct RoundingError
 {
-	static T const Value;
+	static T const Value()
+	{
+		return 0;
+	}
 };
-template <typename T>
-T const RoundingError<T>::Value = 0;
 
 template <>
 struct RoundingError<float>
 {
-	static float const Value;
+	static float const Value()
+	{
+		return RoundingError32;
+	}
 };
 
 template <>
 struct RoundingError<double>
 {
-	static double const Value;
+	static double const Value()
+	{
+		return RoundingError64;
+	}
 };
 
 template <typename T>
-static bool const equals(T const a, T const b, T const epsilon = RoundingError<T>::Value)
+static bool const equals(T const a, T const b, T const epsilon = RoundingError<T>::Value())
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }

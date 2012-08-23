@@ -267,7 +267,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value) const
+	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)

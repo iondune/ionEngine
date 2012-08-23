@@ -80,9 +80,6 @@
     <ClInclude Include="SVector3.h" />
     <ClInclude Include=".\ionUtils.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ionUtils.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

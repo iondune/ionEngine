@@ -47,7 +47,4 @@
       <UniqueIdentifier>{018614b1-b183-40bd-b8ce-f60ddc78ef9f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ionUtils.cpp" />
-  </ItemGroup>
 </Project>
