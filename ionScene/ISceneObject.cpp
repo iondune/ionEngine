@@ -64,6 +64,7 @@ void ISceneObject::setVisible(bool const isVisible)
 	Visible = isVisible;
 }
 
+
 ERenderCategory const ISceneObject::getRenderCategory() const
 {
 	return RenderCategory;

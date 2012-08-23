@@ -293,7 +293,7 @@ void CSceneManager::removeSceneObject(ISceneObject * sceneObject)
 
 void CSceneManager::removeAllSceneObjects()
 {
-	RootObject.removeChildren();
+	RootObject.removeAllChildren();
 }
 
 void CSceneManager::drawAll()
