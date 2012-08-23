@@ -1,80 +1,235 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="CBufferObject.h" />
-    <ClInclude Include="CCameraSceneObject.h" />
-    <ClInclude Include="CDeferredShadingManager.h" />
-    <ClInclude Include="CDirectionalLightSceneObject.h" />
-    <ClInclude Include="CFrameBufferObject.h" />
-    <ClInclude Include="CImage.h" />
-    <ClInclude Include="CImageLoader.h" />
-    <ClInclude Include="CMesh.h" />
-    <ClInclude Include="CMeshLoader.h" />
-    <ClInclude Include="CMeshSceneObject.h" />
-    <ClInclude Include="CPerspectiveCameraSceneObject.h" />
-    <ClInclude Include="CPointLightSceneObject.h" />
-    <ClInclude Include="CRenderable.h" />
-    <ClInclude Include="CRenderBufferObject.h" />
-    <ClInclude Include="CSceneEffectManager.h" />
-    <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="CSceneObject.h" />
-    <ClInclude Include="CShader.h" />
-    <ClInclude Include="CShaderContext.h" />
-    <ClInclude Include="CShaderLoader.h" />
-    <ClInclude Include="CTexture.h" />
-    <ClInclude Include="CTextureLoader.h" />
-    <ClInclude Include="ICameraSceneObject.h" />
-    <ClInclude Include="IScene.h" />
-    <ClInclude Include="ISceneObject.Enumerations.h" />
-    <ClInclude Include="ISceneObject.h" />
-    <ClInclude Include="SAttribute.h" />
-    <ClInclude Include="SUniform.h" />
-    <ClInclude Include="SVertex.h" />
     <ClInclude Include="ImageLoaders\Texture.h">
-      <Filter>ImageLoaders</Filter>
+      <Filter>ExternalUtilities</Filter>
     </ClInclude>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="ImageLoaders\BitmapWriter.hpp">
-      <Filter>ImageLoaders</Filter>
+      <Filter>ExternalUtilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CImageLoader.h">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CImage.h">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureLoader.h">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SAttribute.h">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SUniform.h">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderLoader.h">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderContext.h">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderBufferObject.h">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrameBufferObject.h">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CBufferObject.h">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Scene Management\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshLoader.h">
+      <Filter>Scene Management\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SVertex.h">
+      <Filter>Scene Management\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ICameraSceneObject.h">
+      <Filter>Scene Management\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraSceneObject.h">
+      <Filter>Scene Management\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CPerspectiveCameraSceneObject.h">
+      <Filter>Scene Management\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeferredShadingManager.h">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirectionalLightSceneObject.h">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="CPointLightSceneObject.h">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Scene Management\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>Scene Management\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneObject.Enumerations.h">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneObject.h">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderable.h">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshSceneObject.h">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneObject.h">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneEffectManager.h">
+      <Filter>Scene Management\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneObject.cpp" />
-    <ClCompile Include="CDeferredShadingManager.cpp" />
-    <ClCompile Include="CDirectionalLightSceneObject.cpp" />
-    <ClCompile Include="CFrameBufferObject.cpp" />
-    <ClCompile Include="CImage.cpp" />
-    <ClCompile Include="CImageLoader.cpp" />
-    <ClCompile Include="CMesh.cpp" />
-    <ClCompile Include="CMeshLoader.cpp" />
-    <ClCompile Include="CMeshSceneObject.cpp" />
-    <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
-    <ClCompile Include="CPointLightSceneObject.cpp" />
-    <ClCompile Include="CRenderable.cpp" />
-    <ClCompile Include="CRenderable.UpdateMethods.cpp" />
-    <ClCompile Include="CRenderBufferObject.cpp" />
-    <ClCompile Include="CSceneEffectManager.cpp" />
-    <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="CSceneObject.ContextManagement.cpp" />
-    <ClCompile Include="CSceneObject.cpp" />
-    <ClCompile Include="CSceneObject.RenderableManagement.cpp" />
-    <ClCompile Include="CSceneObject.ShaderManagement.cpp" />
-    <ClCompile Include="CSceneObject.UpdateMethods.cpp" />
-    <ClCompile Include="CShader.cpp" />
-    <ClCompile Include="CShaderContext.cpp" />
-    <ClCompile Include="CShaderLoader.cpp" />
-    <ClCompile Include="CTexture.cpp" />
-    <ClCompile Include="ISceneObject.cpp" />
-    <ClCompile Include="ISceneObject.CullingMethods.cpp" />
-    <ClCompile Include="ISceneObject.StaticMethods.cpp" />
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
     <ClCompile Include="ImageLoaders\Texture.cpp">
-      <Filter>ImageLoaders</Filter>
+      <Filter>ExternalUtilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CImage.cpp">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageLoader.cpp">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderContext.cpp">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderLoader.cpp">
+      <Filter>Graphics Layer\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrameBufferObject.cpp">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderBufferObject.cpp">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Scene Management\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshLoader.cpp">
+      <Filter>Scene Management\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraSceneObject.cpp">
+      <Filter>Scene Management\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CPerspectiveCameraSceneObject.cpp">
+      <Filter>Scene Management\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeferredShadingManager.cpp">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirectionalLightSceneObject.cpp">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="CPointLightSceneObject.cpp">
+      <Filter>Scene Management\Effects\Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.UpdateMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.CullingMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.StaticMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshSceneObject.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderable.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderable.UpdateMethods.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneObject.ContextManagement.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneObject.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneObject.RenderableManagement.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneObject.ShaderManagement.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneObject.UpdateMethods.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneEffectManager.cpp">
+      <Filter>Scene Management\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="ImageLoaders">
+    <Filter Include="ExternalUtilities">
       <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Layer">
+      <UniqueIdentifier>{fa1dab22-2009-4699-acf8-d809e167920c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Layer\Texture">
+      <UniqueIdentifier>{e2ef4e39-eee1-402f-9e1c-abd25206af12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management">
+      <UniqueIdentifier>{423acf27-3230-43a1-b9d8-7abb2087818d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Layer\Shader">
+      <UniqueIdentifier>{40b51a16-8588-4d67-b144-e422fe5dbe45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Layer\Objects">
+      <UniqueIdentifier>{bda278b6-198e-4f4f-a494-c80575474e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Mesh">
+      <UniqueIdentifier>{9eb993d3-609b-4de7-8fb5-ce80311578c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Camera">
+      <UniqueIdentifier>{7546853c-8ec4-4e30-b82a-8c1efd18ebac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Effects">
+      <UniqueIdentifier>{e9f02eaa-55ee-4cb8-8471-79be2509ca79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Effects\Deferred">
+      <UniqueIdentifier>{d6b0bb5c-7812-4118-a132-9efb3bd2d177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Objects">
+      <UniqueIdentifier>{648b9269-0b22-4211-b47c-7413b071df74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Scene">
+      <UniqueIdentifier>{ff9dda60-2a21-4d71-8572-177e4a3ffab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Objects\Base">
+      <UniqueIdentifier>{f747351a-da3d-4368-9275-7d2ad2410b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Objects\Standard">
+      <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
