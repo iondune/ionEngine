@@ -8,6 +8,7 @@
 
 // Core
 #include <boost/shared_ptr.hpp>
+#include <ionPrimitives.h>
 #include <ionEnum.h>
 #include <SVector3.h>
 #include <SBoundingBox3.h>
@@ -37,10 +38,12 @@ protected:
 	STransformation3 Transformation;
 	glm::mat4 AbsoluteTransformation;
 
+	// Bounding Box
 	SBoundingBox3f BoundingBox;
 	SBoundingBox3f AbsoluteBoundingBox;
 
 	// Keep vector form of transformations for easy access
+	// To Do : Store or retrieve this from within transformation class
 	SVector3f Rotation, Translation, Scale;
 
 	// Keep track of changes that require updates
@@ -48,7 +51,7 @@ protected:
 	bool BoundingBoxDirty;
 
 	// Bitfield of different debug-purposed data should be shown
-	int DebugDataFlags;
+	u32 DebugDataFlags;
 
 	// Whether or not to draw this object and all its children
 	bool Visible;
@@ -63,7 +66,40 @@ protected:
 
 public:
 
+	//! Constructor
 	ISceneObject();
+
+
+	/////////////////////
+	// General Methods //
+	/////////////////////
+
+	// Bounding Box //
+
+	SBoundingBox3f const & getAbsoluteBoundingBox() const;
+	SBoundingBox3f const & getBoundingBox() const;
+	void setBoundingBox(SBoundingBox3f const & boundingBox);
+
+	// Debug Data //
+
+	bool const isDebugDataEnabled(EDebugData const type) const;
+	void enableDebugData(EDebugData const type);
+	void disableDebugData(EDebugData const type);
+
+	// Visibility //
+
+	bool const isVisible() const;
+	void setVisible(bool const isVisible);
+
+	// Render Category //
+
+	ERenderCategory const getRenderCategory() const;
+	void setRenderCategory(ERenderCategory const RenderCategory);
+
+
+	/////////////////////////////
+	// Model Transform Methods //
+	/////////////////////////////
 
 	glm::mat4 const & getAbsoluteTransformation() const;
 	STransformation3 const & getTransformation() const;
@@ -81,31 +117,18 @@ public:
 	SVector3f const & getScale() const;
 
 
-	SBoundingBox3f const & getBoundingBox() const;
-	void setBoundingBox(SBoundingBox3f const & boundingBox);
+	/////////////////////////
+	// Scene Graph Methods //
+	/////////////////////////
 
-	SBoundingBox3f const & getAbsoluteBoundingBox() const;
-
-	bool const isDebugDataEnabled(EDebugData const type) const;
-	void enableDebugData(EDebugData const type);
-	void disableDebugData(EDebugData const type);
-	
-	bool const intersectsWithLine(SLine3f const & line) const;
-
-	bool const isVisible() const;
-	void setVisible(bool const isVisible);
-
-	ERenderCategory const getRenderCategory() const;
-	void setRenderCategory(ERenderCategory const RenderCategory);
-
-	
 	ISceneObject const * const getParent() const;
 	std::list<ISceneObject *> const & getChildren() const;
-
-	void removeChild(ISceneObject * child);
+	
 	void addChild(ISceneObject * child);
+	void removeChild(ISceneObject * child);
+
 	void setParent(ISceneObject * parent);
-	void removeChildren();
+	void removeAllChildren();
 
 
 	/////////////////////
@@ -115,6 +138,7 @@ public:
 	bool const isCulled(ICameraSceneObject const * const Camera, bool const Absolute) const;
 	bool const isCullingEnabled() const;
 	void setCullingEnabled(bool const culling);
+	bool const intersectsWithLine(SLine3f const & line) const;
 
 
 	////////////////////
@@ -132,9 +156,9 @@ public:
 	virtual bool draw(IScene const * const scene, ERenderPass const Pass, bool const CullingEnabled);
 
 
-	////////////////////
-	// Static Methods //
-	////////////////////
+	///////////////////////
+	// Statistic Methods //
+	///////////////////////
 
 	static void resetObjectCounts();
 

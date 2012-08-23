@@ -157,9 +157,6 @@
     <ClCompile Include="ISceneObject.CullingMethods.cpp">
       <Filter>Scene Management\Objects\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneObject.StaticMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
     <ClCompile Include="CMeshSceneObject.cpp">
       <Filter>Scene Management\Objects\Standard</Filter>
     </ClCompile>
@@ -186,6 +183,15 @@
     </ClCompile>
     <ClCompile Include="CSceneEffectManager.cpp">
       <Filter>Scene Management\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.StatisticMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

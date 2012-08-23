@@ -82,3 +82,8 @@ void ISceneObject::setCullingEnabled(bool const culling)
 {
 	UseCulling = culling;
 }
+
+bool const ISceneObject::intersectsWithLine(SLine3f const & line) const
+{
+	return BoundingBox.intersectsWithLine(line);
+}

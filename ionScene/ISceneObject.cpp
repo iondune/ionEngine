@@ -6,45 +6,10 @@ ISceneObject::ISceneObject()
 	RenderCategory(ERenderCategory::Default)
 {}
 
-glm::mat4 const & ISceneObject::getAbsoluteTransformation() const
+
+SBoundingBox3f const & ISceneObject::getAbsoluteBoundingBox() const
 {
-	return AbsoluteTransformation;
-}
-
-void ISceneObject::setTranslation(SVector3f const & translation)
-{
-	Translation = translation;
-	Transformation.setTranslation(translation);
-
-	TransformationDirty = true;
-}
-
-void ISceneObject::setPosition(SVector3f const & translation)
-{
-	setTranslation(translation);
-}
-
-void ISceneObject::setRotation(SVector3f const & rotation)
-{
-	Rotation = rotation;
-	Transformation.setRotation(rotation);
-
-	TransformationDirty = true;
-}
-
-void ISceneObject::setRotation(glm::mat4 const & matrix)
-{
-	Transformation.setRotation(matrix);
-
-	TransformationDirty = true;
-}
-
-void ISceneObject::setScale(SVector3f const & scale)
-{
-	Scale = scale;
-	Transformation.setScale(scale);
-
-	TransformationDirty = true;
+	return AbsoluteBoundingBox;
 }
 
 SBoundingBox3f const & ISceneObject::getBoundingBox() const
@@ -59,10 +24,6 @@ void ISceneObject::setBoundingBox(SBoundingBox3f const & boundingBox)
 	BoundingBoxDirty = true;
 }
 
-SBoundingBox3f const & ISceneObject::getAbsoluteBoundingBox() const
-{
-	return AbsoluteBoundingBox;
-}
 
 bool const ISceneObject::isDebugDataEnabled(EDebugData const type) const
 {
@@ -91,10 +52,6 @@ void ISceneObject::disableDebugData(EDebugData const type)
 		DebugDataFlags &= ~type;
 }
 
-bool const ISceneObject::intersectsWithLine(SLine3f const & line) const
-{
-	return BoundingBox.intersectsWithLine(line);
-}
 
 bool const ISceneObject::isVisible() const
 {
@@ -107,68 +64,12 @@ void ISceneObject::setVisible(bool const isVisible)
 	Visible = isVisible;
 }
 
-STransformation3 const & ISceneObject::getTransformation() const
+ERenderCategory const ISceneObject::getRenderCategory() const
 {
-	return Transformation;
+	return RenderCategory;
 }
 
-STransformation3 & ISceneObject::getTransformation()
+void ISceneObject::setRenderCategory(ERenderCategory const renderCategory)
 {
-	return Transformation;
-}
-
-ISceneObject const * const ISceneObject::getParent() const
-{
-	return Parent;
-}
-
-std::list<ISceneObject *> const & ISceneObject::getChildren() const
-{
-	return Children;
-}
-
-void ISceneObject::removeChild(ISceneObject * child)
-{
-	Children.erase(std::remove(Children.begin(), Children.end(), child), Children.end());
-	child->Parent = 0;
-}
-
-void ISceneObject::addChild(ISceneObject * child)
-{
-	Children.push_back(child);
-	child->Parent = this;
-}
-
-void ISceneObject::setParent(ISceneObject * parent)
-{
-	if (Parent)
-		Parent->removeChild(this);
-
-	if (parent)
-		parent->addChild(this);
-}
-
-void ISceneObject::removeChildren()
-{
-	Children.clear();
-}
-
-SVector3f const & ISceneObject::getRotation() const
-{
-	return Rotation;
-}
-
-SVector3f const & ISceneObject::getTranslation() const
-{
-	return Translation;
-}
-
-SVector3f const & ISceneObject::getPosition() const
-{
-	return Translation;
-}
-
-SVector3f const & ISceneObject::getScale() const
-{
-	return Scale;
+	RenderCategory = renderCategory;
 }

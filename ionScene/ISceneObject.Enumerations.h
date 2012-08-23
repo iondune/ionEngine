@@ -39,7 +39,7 @@ struct ERenderCategoryValues
 {
 	enum Domain
 	{
-		SkyBox,
+		PreProcess,
 		Default,
 		Transparent,
 		PostProcess,

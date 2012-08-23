@@ -134,7 +134,9 @@
     <ClCompile Include="ImageLoaders\Texture.cpp" />
     <ClCompile Include="ISceneObject.cpp" />
     <ClCompile Include="ISceneObject.CullingMethods.cpp" />
-    <ClCompile Include="ISceneObject.StaticMethods.cpp" />
+    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />
+    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp" />
+    <ClCompile Include="ISceneObject.StatisticMethods.cpp" />
     <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
