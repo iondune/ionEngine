@@ -48,6 +48,8 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 
 		glTexImage2D(GL_TEXTURE_2D, 0, Image->hasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
 			Image->hasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->getImageData());
+		if (Flags.MipMaps)
+			glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	else
