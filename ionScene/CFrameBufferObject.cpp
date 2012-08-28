@@ -34,10 +34,20 @@ void CFrameBufferObject::bind()
 	glBindFramebuffer(GL_FRAMEBUFFER, Handle);
 }
 
+void CFrameBufferObject::unbind()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 bool const CFrameBufferObject::isValid() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, Handle);
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	return status == GL_FRAMEBUFFER_COMPLETE;
+}
+
+void bindDeviceBackBuffer()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

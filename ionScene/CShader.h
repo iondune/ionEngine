@@ -1,18 +1,12 @@
-#ifndef _CABBAGE_SCENE_CSHADER_H_INCLUDED_
-#define _CABBAGE_SCENE_CSHADER_H_INCLUDED_
+#ifndef _IONSCENE_CSHADER_H_INCLUDED_
+#define _IONSCENE_CSHADER_H_INCLUDED_
 
 #include <string>
 #include <map>
 #include <vector>
 
-#ifdef __unix__
-#include<GL/gl.h>
-#include<GL/glu.h>
-#endif
-
-#ifdef _WIN32
 #include <GL\glew.h>
-#endif
+
 
 bool printOpenGLErrors();
 bool printOpenGLErrors(char const * const Location);

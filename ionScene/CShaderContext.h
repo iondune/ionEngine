@@ -1,22 +1,27 @@
 #ifndef _CABBAGE_SCENE_CSHADERCONTEXT_H_INCLUDED_
 #define _CABBAGE_SCENE_CSHADERCONTEXT_H_INCLUDED_
 
+#include <ionCore.h>
+#include <glm/glm.hpp>
+
 #include "CShader.h"
 #include "CTexture.h"
 
-#include "SVector3.h"
-#include "SColor.h"
-#include "STransformation3.h"
-#include "glm/glm.hpp"
-
-#include <iostream>
 
 class CShaderContext
 {
 
+	enum ETextureType
+	{
+		ETT_2D,
+		ETT_3D
+	};
+
     bool Valid;
     CShader const * Shader;
-	int TextureCounter;
+	std::vector<ETextureType> Textures;
+	bool Texture2D;
+	bool Texture3D;
 
     std::vector<GLuint> EnabledVertexAttribArrays;
 
@@ -75,9 +80,15 @@ public:
 	
 	void bindTexture(GLuint const uniformHandle, GLuint const TextureHandle);
 	void bindTexture(GLuint const uniformHandle, CTexture const * const Texture);
-
 	void bindTexture(std::string const & Label, CTexture const * const Texture);
 	void bindTexture(std::string const & Label, GLuint const TextureHandle);
+	void bindTexture2D(GLuint const uniformHandle, GLuint const TextureHandle);
+	void bindTexture2D(GLuint const uniformHandle, CTexture const * const Texture);
+	void bindTexture2D(std::string const & Label, CTexture const * const Texture);
+	void bindTexture2D(std::string const & Label, GLuint const TextureHandle);
+	void bindTexture3D(GLuint const uniformHandle, GLuint const TextureHandle);
+	void bindTexture3D(std::string const & Label, GLuint const TextureHandle);
+
 
 };
 

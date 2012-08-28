@@ -12,6 +12,7 @@
 #include "CRenderBufferObject.h"
 #include "CTexture.h"
 
+
 class CFrameBufferObject
 {
 
@@ -28,9 +29,12 @@ public:
 	GLuint const getHandle();
 
 	void bind();
+	void unbind();
 
 	bool const isValid() const;
 
 };
+
+void bindDeviceBackBuffer();
 
 #endif
