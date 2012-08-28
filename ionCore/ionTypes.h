@@ -2,6 +2,7 @@
 #define _IONTYPES_H_INCLUDED_
 
 #include "ionPrimitives.h"
+#include "ionSmartPtr.h"
 
 #include "SVector.h"
 #include "SVector2.h"

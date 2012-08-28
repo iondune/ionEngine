@@ -95,6 +95,9 @@
     <ClInclude Include="CSceneEffectManager.h">
       <Filter>Scene Management\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="IRenderPass.h">
+      <Filter>Scene Management\Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageLoaders\Texture.cpp">
