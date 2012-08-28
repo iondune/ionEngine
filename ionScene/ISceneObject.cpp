@@ -7,6 +7,10 @@ ISceneObject::ISceneObject()
 {}
 
 
+//////////////////
+// Bounding Box //
+//////////////////
+
 SBoundingBox3f const & ISceneObject::getAbsoluteBoundingBox() const
 {
 	return AbsoluteBoundingBox;
@@ -24,6 +28,10 @@ void ISceneObject::setBoundingBox(SBoundingBox3f const & boundingBox)
 	BoundingBoxDirty = true;
 }
 
+
+////////////////
+// Debug Data //
+////////////////
 
 bool const ISceneObject::isDebugDataEnabled(EDebugData const type) const
 {
@@ -53,6 +61,10 @@ void ISceneObject::disableDebugData(EDebugData const type)
 }
 
 
+////////////////
+// Visibility //
+////////////////
+
 bool const ISceneObject::isVisible() const
 {
 	return Visible;
@@ -64,6 +76,10 @@ void ISceneObject::setVisible(bool const isVisible)
 	Visible = isVisible;
 }
 
+
+/////////////////////
+// Render Category //
+/////////////////////
 
 ERenderCategory const ISceneObject::getRenderCategory() const
 {

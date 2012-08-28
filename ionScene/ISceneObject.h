@@ -32,38 +32,46 @@ class ICameraSceneObject;
 class ISceneObject
 {
 
+	//! Statistic tracking
 	static int ObjectsCulled, TotalObjects, CullChecks;
 
 protected:
 
-	// Model Transformation
+	//! Model Transformation
 	STransformation3 Transformation;
+	//! Model Transformation of this object after parent transforms
 	glm::mat4 AbsoluteTransformation;
 
-	// Bounding Box
+	//! Bounding Box
 	SBoundingBox3f BoundingBox;
+	//! Bounding Box of this object and all children
 	SBoundingBox3f AbsoluteBoundingBox;
 
-	// Keep vector form of transformations for easy access
-	// To Do : Store or retrieve this from within transformation class
+	//! Keep vector form of transformations for easy access
+	//! To Do : Store or retrieve this from within transformation class
 	SVector3f Rotation, Translation, Scale;
 
-	// Keep track of changes that require updates
+	//! Keep track of transformation changes that require updates
 	bool TransformationDirty;
+	//! Keep track of bounding box changes that require updates
 	bool BoundingBoxDirty;
 
-	// Bitfield of different debug-purposed data should be shown
+	//! Bitfield of which different debug-purposed data should be shown
+	//! See EDebugDataValues
 	u32 DebugDataFlags;
 
-	// Whether or not to draw this object and all its children
+	//! Whether or not to draw this object and all its children
 	bool Visible;
 
+	//! Node hierarchy children
 	std::list<ISceneObject *> Children;
+	//! Node hierarchy parent
 	ISceneObject * Parent;
 
-	// Should this object be checked for trivial rejection
+	//! Should this object be checked for trivial rejection
 	bool UseCulling;
 
+	//! Determines ordering of render
 	ERenderCategory RenderCategory;
 
 public:
