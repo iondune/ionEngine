@@ -3,32 +3,28 @@
 #include <CShaderLoader.h>
 
 
-CShader const * const CSceneObject::getShader() const
+CShader const * const CSceneObject::getShader(smartPtr<IRenderPass> Pass) const
 {
-	return Shaders[ERenderPass::Default];
+	auto it = Shaders.find(Pass);
+	if (it == Shaders.end())
+		return 0;
+	return it->second;
 }
 
-CShader * CSceneObject::getShader()
+CShader * CSceneObject::getShader(smartPtr<IRenderPass> Pass)
 {
-	return Shaders[ERenderPass::Default];
+	auto it = Shaders.find(Pass);
+	if (it == Shaders.end())
+		return 0;
+	return it->second;
 }
 
-CShader const * const CSceneObject::getShader(ERenderPass const Pass) const
-{
-	return Shaders[Pass];
-}
-
-CShader * CSceneObject::getShader(ERenderPass const Pass)
-{
-	return Shaders[Pass];
-}
-
-void CSceneObject::setShader(ERenderPass const Pass, CShader * shader)
+void CSceneObject::setShader(smartPtr<IRenderPass> Pass, CShader * shader)
 {
 	Shaders[Pass] = shader;
 }
 
-void CSceneObject::setShader(ERenderPass const Pass, std::string const & shader)
+void CSceneObject::setShader(smartPtr<IRenderPass> Pass, std::string const & shader)
 {
 	Shaders[Pass] = CShaderLoader::loadShader(shader);
 }

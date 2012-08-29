@@ -5,19 +5,17 @@
 
 #include "ionUtils.h"
 
-template <typename T, int Dimension, typename Implementation>
-class SVector
+template <typename T, int Dimension>
+class SVectorSimple
 {
 
 private:
 	
-	SVector & operator = (SVector const &);
-
-	typedef SVector<T, Dimension, Implementation> Self;
+	SVectorSimple & operator = (SVectorSimple const &);
 
 protected:
 
-	SVector()
+	SVectorSimple()
 	{}
 
 public:
@@ -53,6 +51,46 @@ public:
 			Values[i] = in[i];
 	}
 
+	T const length() const
+	{
+		T sum = 0;
+		for (int i = 0; i < Dimension; ++ i)
+			sum += sq(Values[i]);
+		return (T) sqrt(sum);
+	}
+	
+	T const getDistanceFrom(SVectorSimple<T, Dimension> const & v) const
+	{
+		return (v - * this).length();
+	}
+
+	void normalize()
+	{
+		T const len = length();
+		
+		for (int i = 0; i < Dimension; ++ i)
+			Values[i] /= len;
+	}
+
+};
+
+template <typename T, int Dimension, typename Implementation>
+class SVector : public SVectorSimple<T, Dimension>
+{
+
+private:
+	
+	SVector & operator = (SVector const &);
+
+	typedef SVector<T, Dimension, Implementation> Self;
+
+protected:
+
+	SVector()
+	{}
+
+public:
+
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
@@ -67,14 +105,6 @@ public:
 		for (int i = 0; i < Dimension; ++ i)
 			sum += Values[i] * other[i];
 		return sum;
-	}
-
-	T const length() const
-	{
-		T sum = 0;
-		for (int i = 0; i < Dimension; ++ i)
-			sum += sq(Values[i]);
-		return (T) sqrt(sum);
 	}
 	
 	template <typename otherImplementation>
@@ -93,14 +123,6 @@ public:
 		return ret;
 	}
 
-	void normalize()
-	{
-		T const len = length();
-		
-		for (int i = 0; i < Dimension; ++ i)
-			Values[i] /= len;
-	}
-	
 	Implementation const getNormalized() const
 	{
 		Implementation ret;

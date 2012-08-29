@@ -164,8 +164,8 @@ public:
 	void updateAbsoluteBoundingBox();
 
 	virtual void update();
-	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> const Pass);
-	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> const Pass, bool const CullingEnabled);
+	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
 
 
 	///////////////////////

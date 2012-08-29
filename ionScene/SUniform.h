@@ -25,7 +25,7 @@ class SUniform : public IUniform
 
 private:
 
-	void TypeCannotBeBoundToShader();
+	void TypeCannotBeBoundToShader() const;
 
 public:
 
@@ -53,40 +53,34 @@ void SUniform<GLint>::bind(GLuint const handle) const
 	glUniform1i(handle, getValue());
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLfloat, 2> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<f32, 2> >::bind(GLuint const handle) const
 {
 	glUniform2f(handle, getValue()[0], getValue()[1]);
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLint, 2> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<s32, 2> >::bind(GLuint const handle) const
 {
 	glUniform2i(handle, getValue()[0], getValue()[1]);
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLfloat, 3> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<f32, 3> >::bind(GLuint const handle) const
 {
-	glUniform3f(handle, getValue()[0], getValue()[1]);
+	glUniform3f(handle, getValue()[0], getValue()[1], getValue()[2]);
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLint, 3> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<s32, 3> >::bind(GLuint const handle) const
 {
-	glUniform3i(handle, getValue()[0], getValue()[1]);
+	glUniform3i(handle, getValue()[0], getValue()[1], getValue()[2]);
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLfloat, 4> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<f32, 4> >::bind(GLuint const handle) const
 {
-	glUniform4f(handle, getValue()[0], getValue()[1]);
+	glUniform4f(handle, getValue()[0], getValue()[1], getValue()[2], getValue()[3]);
 }
 
-template <typename Implementation>
-void SUniform<SVector<GLint, 4> Implementation>::bind(GLuint const handle) const
+void SUniform<SVectorSimple<s32, 4> >::bind(GLuint const handle) const
 {
-	glUniform4i(handle, getValue()[0], getValue()[1]);
+	glUniform4i(handle, getValue()[0], getValue()[1], getValue()[2], getValue()[3]);
 }
 
 void SUniform<glm::mat4>::bind(GLuint const handle) const
@@ -96,7 +90,7 @@ void SUniform<glm::mat4>::bind(GLuint const handle) const
 
 void SUniform<STransformation3>::bind(GLuint const handle) const
 {
-	glUniformMatrix4fv(handle, 1, GL_FALSE, glm::value_ptr(getValue()));
+	glUniformMatrix4fv(handle, 1, GL_FALSE, glm::value_ptr(getValue()()));
 }
 
 

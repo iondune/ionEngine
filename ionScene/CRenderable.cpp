@@ -1,16 +1,6 @@
 #include "CRenderable.h"
 
 
-// STL
-#include <iostream>
-
-// Core
-#include <glm/gtc/matrix_transform.hpp>
-
-// Scene
-#include "SUniform.h"
-
-
 // Constructor //
 
 CRenderable::CRenderable(CSceneObject * parent)

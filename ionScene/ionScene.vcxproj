@@ -80,6 +80,7 @@
     <ClInclude Include="CFrameBufferObject.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CImageLoader.h" />
+    <ClInclude Include="CLightSceneObject.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshLoader.h" />
     <ClInclude Include="CMeshSceneObject.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="CPointLightSceneObject.h" />
     <ClInclude Include="CRenderable.h" />
     <ClInclude Include="CRenderBufferObject.h" />
+    <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneEffectManager.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneObject.h" />
@@ -113,12 +115,16 @@
     <ClCompile Include="CFrameBufferObject.cpp" />
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CImageLoader.cpp" />
+    <ClCompile Include="CLightSceneObject.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshLoader.cpp" />
     <ClCompile Include="CMeshSceneObject.cpp" />
     <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
     <ClCompile Include="CPointLightSceneObject.cpp" />
     <ClCompile Include="CRenderable.cpp" />
+    <ClCompile Include="CRenderable.ShaderVariables.cpp" />
+    <ClCompile Include="CRenderable.SMaterial.cpp" />
+    <ClCompile Include="CRenderable.SShaderSetup.cpp" />
     <ClCompile Include="CRenderable.UpdateMethods.cpp" />
     <ClCompile Include="CRenderBufferObject.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />

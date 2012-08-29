@@ -4,9 +4,7 @@
 #include "ISceneObject.h"
 #include "CRenderable.h"
 
-//! 
 //! Standard implementation of ISceneObject, renders a set of CRenderables
-//! 
 class CSceneObject : public ISceneObject
 {
 
@@ -16,7 +14,7 @@ protected:
 	std::vector<CRenderable *> Renderables;
 
 	//! Shader for each render pass
-	CShader * Shaders[ERenderPass::Count];
+	std::map<smartPtr<IRenderPass>, CShader *> Shaders;
 
 	//! Local shader variables
 	std::map<std::string, boost::shared_ptr<IAttribute const> > Attributes;
@@ -80,25 +78,20 @@ public:
 	///////////////////////
 	// Shader Management //
 	///////////////////////
+	
+	virtual CShader const * const getShader(smartPtr<IRenderPass> Pass) const;
+	virtual CShader * getShader(smartPtr<IRenderPass> Pass);
 
-	//! Deprecated. Returns Default Render Pass shader
-	virtual CShader const * const getShader() const;
-	//! Deprecated. Returns Default Render Pass shader
-	virtual CShader * getShader();
-
-	virtual CShader const * const getShader(ERenderPass const Pass) const;
-	virtual CShader * getShader(ERenderPass const Pass);
-
-	virtual void setShader(ERenderPass const Pass, CShader * Shader);
-	virtual void setShader(ERenderPass const Pass, std::string const & Shader);
+	virtual void setShader(smartPtr<IRenderPass> Pass, CShader * Shader);
+	virtual void setShader(smartPtr<IRenderPass> Pass, std::string const & Shader);
 
 
 	////////////////////
 	// Update Methods //
 	////////////////////
 	
-	virtual void load(IScene const * const Scene, ERenderPass const Pass);
-	virtual bool draw(IScene const * const Scene, ERenderPass const Pass, bool const CullingEnabled);
+	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual bool draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
 
 };
 

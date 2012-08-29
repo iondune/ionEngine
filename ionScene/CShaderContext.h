@@ -56,9 +56,12 @@ public:
     void uniform(GLuint const uniformHandle, int const uniform);
     void uniform(GLuint const uniformHandle, glm::mat4 const & uniform);
     void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
-    void uniform(GLuint const uniformHandle, SVector2f const & uniform);
-    void uniform(GLuint const uniformHandle, SVector3f const & uniform);
-    void uniform(GLuint const uniformHandle, SColorAf const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform);
+    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform);
 
 	template <typename T>
     void uniform(std::string const & label, T const & uniformVar)

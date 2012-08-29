@@ -2,6 +2,8 @@
 #define _ION_SCENE_IRENDERPASS_H_INCLUDED_
 
 
+class ISceneObject;
+
 class IRenderPass
 {
 

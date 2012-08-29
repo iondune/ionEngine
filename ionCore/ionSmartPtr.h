@@ -31,22 +31,22 @@ public:
 
 	virtual T * const operator -> ()
 	{
-		return * shared_ptr;
+		return shared_ptr.get();
 	}
 
 	virtual T * const operator * ()
 	{
-		return * shared_ptr;
+		return shared_ptr.get();
 	}
 
 	virtual T const * const operator -> () const
 	{
-		return * shared_ptr;
+		return shared_ptr.get();
 	}
 
 	virtual T const * const operator * () const
 	{
-		return * shared_ptr;
+		return shared_ptr.get();
 	}
 
 	virtual void set(T * const ptr)
@@ -72,7 +72,7 @@ public:
 };
 
 template <typename T>
-class staticPtr : public smartPtr
+class staticPtr : public smartPtr<T>
 {
 
 private:
@@ -110,12 +110,12 @@ public:
 
 	virtual T const * const operator -> () const
 	{
-		return * static_ptr;
+		return static_ptr;
 	}
 
 	virtual T const * const operator * () const
 	{
-		return * static_ptr;
+		return static_ptr;
 	}
 
 	virtual void set(T * const ptr)

@@ -18,12 +18,12 @@ public:
 		: Translation(1.f), Rotation(1.f), Scale(1.f)
 	{}
 
-	operator glm::mat4 ()
+	operator glm::mat4 () const
 	{
 		return Translation * Rotation * Scale;
 	}
 
-	glm::mat4 const getGLMMat4()
+	glm::mat4 const getGLMMat4() const
 	{
 		return Translation * Rotation * Scale;
 	}

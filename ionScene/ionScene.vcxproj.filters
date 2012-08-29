@@ -98,6 +98,12 @@
     <ClInclude Include="IRenderPass.h">
       <Filter>Scene Management\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Scene Management\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CLightSceneObject.h">
+      <Filter>Scene Management\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageLoaders\Texture.cpp">
@@ -195,6 +201,18 @@
     </ClCompile>
     <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
       <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderable.SShaderSetup.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderable.SMaterial.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderable.ShaderVariables.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="CLightSceneObject.cpp">
+      <Filter>Scene Management\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

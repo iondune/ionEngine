@@ -126,19 +126,34 @@ void CShaderContext::uniform(GLuint const uniformHandle, STransformation3 const 
 	glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform()));
 }
 
-void CShaderContext::uniform(GLuint const uniformHandle, SVector2f const & uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform)
 {
-	glUniform2f(uniformHandle, uniform.X, uniform.Y);
+	glUniform2f(uniformHandle, uniform[0], uniform[1]);
 }
 
-void CShaderContext::uniform(GLuint const uniformHandle, SVector3f const & uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform)
 {
-	glUniform3f(uniformHandle, uniform.X, uniform.Y, uniform.Z);
+	glUniform3f(uniformHandle, uniform[0], uniform[1], uniform[2]);
 }
 
-void CShaderContext::uniform(GLuint const uniformHandle, SColorAf const & uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform)
 {
-	glUniform3f(uniformHandle, uniform.Red, uniform.Green, uniform.Blue);
+	glUniform4f(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform)
+{
+	glUniform2i(uniformHandle, uniform[0], uniform[1]);
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform)
+{
+	glUniform3i(uniformHandle, uniform[0], uniform[1], uniform[2]);
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform)
+{
+	glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
 }
 
 

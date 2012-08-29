@@ -19,13 +19,13 @@ public:
 	SColor()
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
-		SVector<T, 3, SColor<T> >::set((T) 0);
+		SVectorSimple<T, 3>::set((T) 0);
 	}
 
 	SColor(T const in)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
-		SVector<T, 3, SColor<T> >::set(in);
+		SVectorSimple<T, 3>::set(in);
 	}
 
 	SColor(T const r, T const g, T const b)
@@ -159,13 +159,13 @@ public:
 	SColorA()
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
-		SVector<T, 4, SColor<T> >::set((T) 0);
+		SVectorSimple<T, 4>::set((T) 0);
 	}
 
 	SColorA(T const in)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
-		SVector<T, 4, SColor<T> >::set(in);
+		SVectorSimple<T, 4>::set(in);
 	}
 
 	SColorA(T const r, T const g, T const b, T const a = Full)

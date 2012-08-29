@@ -132,66 +132,66 @@ public:
 
 	// Material //
 
-	SMaterial const & getMaterial() const;
-	void setMaterial(SMaterial const &);
+	virtual SMaterial const & getMaterial() const;
+	virtual void setMaterial(SMaterial const &);
 
 	// Textures //
 
-	void setTexture(unsigned int const Layer, CTexture * const Texture);
+	virtual void setTexture(unsigned int const Layer, CTexture * const Texture);
 
 	// Index Buffer //
 
-	CBufferObject<GLushort> * getIndexBufferObject();
-	void setIndexBufferObject(CBufferObject<GLushort> * indexBufferObject);
+	virtual CBufferObject<GLushort> * getIndexBufferObject();
+	virtual void setIndexBufferObject(CBufferObject<GLushort> * indexBufferObject);
 
 	// Primitive Draw Type //
 
-	EDrawElementType const getDrawType() const;
-	void setDrawType(EDrawElementType const drawType);
+	virtual EDrawElementType const getDrawType() const;
+	virtual void setDrawType(EDrawElementType const drawType);
 
 	// Element Count //
 
-	u32 const getElementCount();
-	void setElementCount(u32 const elementCount);
+	virtual u32 const getElementCount();
+	virtual void setElementCount(u32 const elementCount);
 
 	// Transformation //
 
-	STransformation3 const & getTransformation() const;
+	virtual STransformation3 const & getTransformation() const;
 
-	void setTranslation(SVector3f const & translation);
-	void setPosition(SVector3f const & translation);
-	void setRotation(SVector3f const & rotation);
-	void setRotation(glm::mat4 const & matrix);
-	void setScale(SVector3f const & scale);
+	virtual void setTranslation(SVector3f const & translation);
+	virtual void setPosition(SVector3f const & translation);
+	virtual void setRotation(SVector3f const & rotation);
+	virtual void setRotation(glm::mat4 const & matrix);
+	virtual void setScale(SVector3f const & scale);
 
 
 	////////////////////
 	// Update Methods //
 	////////////////////
 
-	void draw(IScene const * const scene, smartPtr<IRenderPass> Pass, CShaderContext & Context);
-	void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void draw(IScene const * const scene, smartPtr<IRenderPass> Pass, CShaderContext & Context);
+	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
 
 
 	//////////////////////
 	// Shader Varaibles //
 	//////////////////////
 
-	void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute);
-	void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
+	virtual void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute);
+	virtual void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
 
-	void removeAttribute(std::string const & label);
-	void removeUniform(std::string const & label);
+	virtual void removeAttribute(std::string const & label);
+	virtual void removeUniform(std::string const & label);
 
-	boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label);
-	boost::shared_ptr<IUniform const> const getUniform(std::string const & label);
+	virtual boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label);
+	virtual boost::shared_ptr<IUniform const> const getUniform(std::string const & label);
 
 
 	////////////////
 	// Debug Info //
 	////////////////
 
-	CRenderable * & getDebuggingNormalObject();
+	virtual CRenderable * & getDebuggingNormalObject();
 
 };
 
