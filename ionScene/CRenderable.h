@@ -44,6 +44,7 @@ class IUniform;
 class IScene;
 class CSceneObject;
 class CShaderContext;
+class IRenderPass;
 
 
 //! A CRenderable is a collection of buffer objects which can be drawn by a single OpenGL draw call.
@@ -69,7 +70,6 @@ public:
 		void setTexture(unsigned int const Layer, CTexture * const Texture);
 
 	};
-
 
 	//! Loaded shader variables
 	class SShaderSetup
@@ -118,7 +118,7 @@ protected:
 	EDrawElementType DrawElementType;
 
 	//! Shader Contexts for each applicable render pass
-	std::map<smartPtr<IRenderPass>, SShaderSetup> ShaderContexts;
+	std::map<smartPtr<IRenderPass>, SShaderSetup> ShaderSetups;
 
 public:
 
@@ -154,6 +154,7 @@ public:
 	u32 const getElementCount();
 	void setElementCount(u32 const elementCount);
 
+	// Transformation //
 
 	STransformation3 const & getTransformation() const;
 
@@ -168,8 +169,8 @@ public:
 	// Update Methods //
 	////////////////////
 
-	void draw(IScene const * const scene, ERenderPass const Pass, CShaderContext & Context);
-	void load(IScene const * const Scene, ERenderPass const Pass);
+	void draw(IScene const * const scene, smartPtr<IRenderPass> Pass, CShaderContext & Context);
+	void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
 
 
 	//////////////////////
