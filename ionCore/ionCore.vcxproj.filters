@@ -36,6 +36,8 @@
     <ClInclude Include="ionPrimitives.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionSmartPtr.h" />
+    <ClInclude Include="ionComparison.h" />
+    <ClInclude Include="ionMath.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Vector Classes">

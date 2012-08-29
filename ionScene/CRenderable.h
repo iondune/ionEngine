@@ -7,37 +7,19 @@
 #include <vector>
 
 // Core
-#include <boost/shared_ptr.hpp>
-#include <SVector3.h>
+#include <ionSmartPtr.h>
+#include <ionTypes.h>
 #include <ionEnum.h>
-#include <SColor.h>
 #include <STransformation3.h>
 
-// Scene
-/*#include "CBufferObject.h"
-#include "CCamera.h"
-#include "CShader.h"
-#include "CTexture.h"
-#include "CShaderContext.h"
-#include "ISceneObject.h"
-
-#include "CMaterial.h"
-#include "SAttribute.h"
-#include "SUniform.h"*/
-
-// TODO: Remove
-#ifdef __unix__
-#include<GL/gl.h>
-#include<GL/glu.h>
-#endif
-
-#ifdef _WIN32
+// OpenGL
 #include <GL\glew.h>
-#endif
 
+// Scene
 #include "ISceneObject.Enumerations.h"
 
 
+//! Different graphics primitives available for drawing
 struct EDrawElementTypeValues
 {
 	enum Domain
@@ -49,6 +31,7 @@ struct EDrawElementTypeValues
 	};
 };
 
+//! See EDrawElementTypeValues
 typedef Enum<EDrawElementTypeValues> EDrawElementType;
 
 
@@ -62,9 +45,8 @@ class IScene;
 class CSceneObject;
 class CShaderContext;
 
-//! 
-//! A CRenderable is some collection of buffer objects which can be drawn by a single OpenGL draw call.
-//! 
+
+//! A CRenderable is a collection of buffer objects which can be drawn by a single OpenGL draw call.
 class CRenderable
 {
 
@@ -79,7 +61,7 @@ public:
 		std::vector<CTexture *> Textures;
 
 		SColorAf AmbientColor, DiffuseColor;
-		float Shininess;
+		f32 Shininess;
 
 		SMaterial();
 		void loadDefaults();
@@ -90,7 +72,7 @@ public:
 
 
 	//! Loaded shader variables
-	class SShaderContext
+	class SShaderSetup
 	{
 
 	public:
@@ -99,7 +81,7 @@ public:
 		std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IUniform const> > LoadedUniforms;
 		bool Loaded;
 
-		SShaderContext();
+		SShaderSetup();
 
 		void unload();
 
@@ -115,7 +97,7 @@ protected:
 	glm::mat4 ModelMatrix, NormalMatrix;
 
 	//! Index buffer for indexed drawing
-	CBufferObject<GLushort> * IndexBufferObject; // TODO: Appropriate type names for this! (or abstraction)
+	CBufferObject<GLushort> * IndexBufferObject; // To Do : Appropriate type names for this! (or abstraction)
 
 	//! Number of elements drawn when no IndexBufferObject specified
 	unsigned int ElementCount;
@@ -136,7 +118,7 @@ protected:
 	EDrawElementType DrawElementType;
 
 	//! Shader Contexts for each applicable render pass
-	std::map<smartPtr<IRenderPass>, SShaderContext> ShaderContexts;
+	std::map<smartPtr<IRenderPass>, SShaderSetup> ShaderContexts;
 
 public:
 
@@ -148,25 +130,29 @@ public:
 	// Attributes //
 	////////////////
 
+	// Material //
+
 	SMaterial const & getMaterial() const;
 	void setMaterial(SMaterial const &);
 
+	// Textures //
+
 	void setTexture(unsigned int const Layer, CTexture * const Texture);
+
+	// Index Buffer //
 
 	CBufferObject<GLushort> * getIndexBufferObject();
 	void setIndexBufferObject(CBufferObject<GLushort> * indexBufferObject);
 
+	// Primitive Draw Type //
+
 	EDrawElementType const getDrawType() const;
 	void setDrawType(EDrawElementType const drawType);
 
-	unsigned int const getElementCount()
-	{
-		return ElementCount;
-	}
-	void setElementCount(unsigned int const elementCount)
-	{
-		ElementCount = elementCount;
-	}
+	// Element Count //
+
+	u32 const getElementCount();
+	void setElementCount(u32 const elementCount);
 
 
 	STransformation3 const & getTransformation() const;

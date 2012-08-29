@@ -32,6 +32,8 @@ class ICameraSceneObject;
 class ISceneObject
 {
 
+private:
+
 	//! Statistic tracking
 	static int ObjectsCulled, TotalObjects, CullChecks;
 

@@ -73,6 +73,16 @@ void CRenderable::setDrawType(EDrawElementType const drawType)
 	DrawElementType = drawType;
 }
 
+u32 const CRenderable::getElementCount()
+{
+	return ElementCount;
+}
+
+void CRenderable::setElementCount(u32 const elementCount)
+{
+	ElementCount = elementCount;
+}
+
 CBufferObject<GLushort> * CRenderable::getIndexBufferObject()
 {
 	return IndexBufferObject;

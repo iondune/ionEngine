@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ImageLoaders\Texture.h">
-      <Filter>ExternalUtilities</Filter>
+      <Filter>External Utilities</Filter>
     </ClInclude>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="ImageLoaders\BitmapWriter.hpp">
-      <Filter>ExternalUtilities</Filter>
+      <Filter>External Utilities</Filter>
     </ClInclude>
     <ClInclude Include="CImageLoader.h">
       <Filter>Graphics Layer\Texture</Filter>
@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageLoaders\Texture.cpp">
-      <Filter>ExternalUtilities</Filter>
+      <Filter>External Utilities</Filter>
     </ClCompile>
     <ClCompile Include="CImage.cpp">
       <Filter>Graphics Layer\Texture</Filter>
@@ -198,9 +198,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="ExternalUtilities">
-      <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics Layer">
       <UniqueIdentifier>{fa1dab22-2009-4699-acf8-d809e167920c}</UniqueIdentifier>
     </Filter>
@@ -239,6 +236,9 @@
     </Filter>
     <Filter Include="Scene Management\Objects\Standard">
       <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Utilities">
+      <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
