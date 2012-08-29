@@ -1,77 +1,83 @@
 #ifndef _ION_SCENE_CSCENE_H_INCLUDED_
 #define _ION_SCENE_CSCENE_H_INCLUDED_
 
-#include <list>
-
-#include "CSceneObject.h"
-#include "CMeshSceneObject.h"
-#include "CFrameBufferObject.h"
-#include "CSceneEffectManager.h"
-#include "CPerspectiveCameraSceneObject.h"
-
 #include "IScene.h"
+#include "ISceneObject.h"
+#include "CLightSceneObject.h"
 
-#include <SLine3.h>
-#include <SColor.h>
-#include <SPosition2.h>
-
-#include <SUniform.h>
-#include <SAttribute.h>
+#include "ICameraSceneObject.h"
+#include "CPerspectiveCameraSceneObject.h"
 
 
 class CScene : public IScene
 {
 
-	static CLight const NullLight;
+public:
+
+	struct SLightBinding
+	{
+		static CLightSceneObject const NullLight;
+
+		SLightBinding(CLightSceneObject const * const LightObject);
+		void bind(CLightSceneObject const * const LightObject);
+
+		SUniformReference<vec3f> PositionBind;
+		SUniformReference<f32> RadiusBind;
+		SUniformReference<color4f> ColorBind;
+
+		smartPtr<SUniformReference<vec3f> > getPositionBind();
+		smartPtr<SUniformReference<f32> > getRadiusBind();
+		smartPtr<SUniformReference<color4f> > getColorBind();
+	};
 
 protected:
-
-	CPerspectiveCameraSceneObject DefaultCamera;
+	
+	//! Camera used for drawing
 	ICameraSceneObject * ActiveCamera;
 
+	//! Default camrea to use if no other camera is specified
+	CPerspectiveCameraSceneObject DefaultCamera;
+
+	//! Camera-defined matricies
 	glm::mat4 ViewMatrix, ProjMatrix;
-	int LightCount;
 
+	//! Light bindings
+	std::vector<SLightBinding> LightBindings;
+
+	//! Light count bindings
+	s32 LightCount;
+	SUniformReference<s32> BindLightCount;
+
+	//! Bind camera matrices
 	SUniformReference<glm::mat4> BindViewMatrix, BindProjMatrix;
-	SUniformReference<int> BindLightCount;
 
-	std::map<std::string, boost::shared_ptr<IUniform const> > Uniforms;
+	//! Uniform variable bindings
+	std::map<std::string, smartPtr<IUniform const> > Uniforms;
 
+	//! Root of object tree
 	ISceneObject RootObject;
 
+	//! Whether scene should use trivial-reject culling in hierarchy operations
 	bool UseCulling;
 
 public:
 
 	CScene();
 
-	ICameraSceneObject * const getActiveCamera();
-	ICameraSceneObject const * const getActiveCamera() const;
-	void setActiveCamera(ICameraSceneObject * const activeCamera);
+	virtual ICameraSceneObject * const getActiveCamera();
+	virtual ICameraSceneObject const * const getActiveCamera() const;
+	virtual void setActiveCamera(ICameraSceneObject * const activeCamera);
 
-	template <typename T>
-	void addUniform(std::string const & label, T const & uniform)
-	{
-		Uniforms[label] = boost::shared_ptr<SUniform<T> >(new SUniformReference<T>(uniform));
-	}
-	void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
-	void removeUniform(std::string const & label);
+	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
+	virtual void removeUniform(std::string const & label);
 	
-	virtual boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label) const;
+	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label) const;
+	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const;
 
-	boost::shared_ptr<IUniform const> const getUniform(std::string const & label) const;
-
-	void update();
-
-	std::vector<CLight *> Lights;
-	bool SceneChanged;
+	virtual void update();
 
 	bool const isCullingEnabled() const;
 	void setCullingEnabled(bool const culling);
-
-	void setUseHierarchy(bool h);
-	bool getUseHierarchy();
-	void toggleUseHierarchy();
 
 	void enableDebugData(EDebugData::Domain const type);
 	void disableDebugData(EDebugData::Domain const type);

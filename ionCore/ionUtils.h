@@ -14,4 +14,22 @@ static void waitForUser()
 	std::cin.get();
 }
 
+static u32 const digitCount(s32 n)
+{
+	u32 count = 1;
+	if (n < 0)
+	{
+		n *= -1;
+		++ count;
+	}
+
+	while (n > 10)
+	{
+		++ count;
+		n /= 10;
+	}
+
+	return count;
+}
+
 #endif

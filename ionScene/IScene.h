@@ -19,8 +19,8 @@ public:
 	virtual ICameraSceneObject const * const getActiveCamera() const = 0;
 	virtual void setActiveCamera(ICameraSceneObject * const activeCamera) = 0;
 	
-	virtual boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label) const = 0;
-	virtual boost::shared_ptr<IUniform const> const getUniform(std::string const & label) const = 0;
+	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label) const = 0;
+	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const = 0;
 
 };
 

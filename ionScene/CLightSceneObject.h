@@ -18,21 +18,15 @@ class CLightSceneObject : public ISceneObject
 public:
 
 	//! Constructor
-	CLightSceneObject();
+	CLightSceneObject(color4f const & color = color4f(1.f), f32 const radius = 25.f);
 	
 	// Attributes //
 
 	SColorAf const & getColor() const;
-	f32 const getRadius() const;
+	f32 const & getRadius() const;
 
 	void setColor(SColorAf const & color);
 	void setRadius(f32 const radius);
-
-	// Variable Bindings //
-
-	smartPtr<SUniformReference<SColorAf> const> const getColorBind() const;
-	smartPtr<SUniformReference<SVector3f> const> const getPositionBind() const;
-	smartPtr<SUniformReference<f32> const> const getRadiusBind() const;
 
 };
 

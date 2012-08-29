@@ -27,4 +27,9 @@ typedef SColorAf colora;
 typedef SColorAf coloraf;
 typedef SColorAi colorai;
 
+typedef SColorf  color3f;
+typedef SColori  color3i;
+typedef SColorAf color4f;
+typedef SColorAi color4i;
+
 #endif
