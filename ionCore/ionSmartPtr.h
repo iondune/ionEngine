@@ -7,7 +7,7 @@ template <typename T>
 class smartPtr
 {
 
-private:
+protected:
 
 	boost::shared_ptr<T> shared_ptr;
 
@@ -20,13 +20,24 @@ public:
 		: shared_ptr(ptr)
 	{}
 
-	smartPtr(smartPtr const & other)
+	smartPtr(smartPtr<T> const & other)
 		: shared_ptr(other.shared_ptr)
 	{}
 
-	smartPtr & operator = (smartPtr const & other)
+	template <typename U>
+	smartPtr(smartPtr<U> const & other)
+		: shared_ptr(other.getImplementation())
+	{}
+
+	smartPtr<T> & operator = (smartPtr<T> const & other)
 	{
 		shared_ptr = other.shared_ptr;
+	}
+	
+	template <typename U>
+	smartPtr<T> & operator = (smartPtr<U> const & other)
+	{
+		shared_ptr = other.getImplementation();
 	}
 
 	virtual T * const operator -> ()
@@ -69,7 +80,23 @@ public:
 		shared_ptr.reset();
 	}
 
+	virtual bool const operator ! ()
+	{
+		return ! ** this;
+	}
+
+	virtual boost::shared_ptr<T> const & getImplementation() const
+	{
+		return shared_ptr;
+	}
+
 };
+
+template <typename T>
+static smartPtr<T> smartNew(T * t)
+{
+	return smartPtr<T>(t);
+}
 
 template <typename T>
 class staticPtr : public smartPtr<T>

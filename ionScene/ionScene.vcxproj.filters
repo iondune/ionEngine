@@ -215,7 +215,7 @@
       <Filter>Scene Management\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
+      <Filter>Scene Management\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

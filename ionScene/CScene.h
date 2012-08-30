@@ -17,17 +17,15 @@ public:
 	struct SLightBinding
 	{
 		static CLightSceneObject const NullLight;
-
+		
+		SLightBinding();
 		SLightBinding(CLightSceneObject const * const LightObject);
 		void bind(CLightSceneObject const * const LightObject);
+		void unbind();
 
-		SUniformReference<vec3f> PositionBind;
-		SUniformReference<f32> RadiusBind;
-		SUniformReference<color4f> ColorBind;
-
-		smartPtr<SUniformReference<vec3f> > getPositionBind();
-		smartPtr<SUniformReference<f32> > getRadiusBind();
-		smartPtr<SUniformReference<color4f> > getColorBind();
+		smartPtr<SUniformReference<vec3f> > PositionBind;
+		smartPtr<SUniformReference<f32> > RadiusBind;
+		smartPtr<SUniformReference<color4f> > ColorBind;
 	};
 
 protected:
@@ -42,7 +40,8 @@ protected:
 	glm::mat4 ViewMatrix, ProjMatrix;
 
 	//! Light bindings
-	std::vector<SLightBinding> LightBindings;
+	//! Mutable to allow array expansion when accessing an out-of-bounds light binding
+	mutable std::vector<SLightBinding> LightBindings;
 
 	//! Light count bindings
 	s32 LightCount;

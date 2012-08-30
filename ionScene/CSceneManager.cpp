@@ -47,7 +47,6 @@ void CSceneManager::OnWindowResized(SPosition2 const & screenSize)
 	ScreenSize = screenSize;
 	if (SceneFrameBuffer)
 	{
-		printf("Making new sfb.\n");
 		delete SceneFrameBuffer;
 		delete SceneFrameTexture;
 		delete SceneDepthBuffer;

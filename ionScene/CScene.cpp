@@ -1,9 +1,15 @@
 #include "CScene.h"
 
+#include "SAttribute.h"
 #include <sstream>
 
 
 CLightSceneObject const CScene::SLightBinding::NullLight = CLightSceneObject(color4f(0.f), 0.f);
+
+CScene::SLightBinding::SLightBinding()
+{
+	bind(& NullLight);
+}
 
 CScene::SLightBinding::SLightBinding(CLightSceneObject const * const LightObject)
 {
@@ -12,9 +18,24 @@ CScene::SLightBinding::SLightBinding(CLightSceneObject const * const LightObject
 
 void CScene::SLightBinding::bind(CLightSceneObject const * const LightObject)
 {
-	ColorBind.Value = & LightObject->getColor();
-	RadiusBind.Value = & LightObject->getRadius();
-	PositionBind.Value = & LightObject->getTranslation();
+	if (! LightObject)
+		return unbind();
+	
+	if (! ColorBind)
+		ColorBind = smartNew(new SUniformReference<color4f>());
+	if (! RadiusBind)
+		RadiusBind = smartNew(new SUniformReference<f32>());
+	if (! PositionBind)
+		PositionBind = smartNew(new SUniformReference<vec3f>());
+
+	ColorBind->Value = & LightObject->getColor();
+	RadiusBind->Value = & LightObject->getRadius();
+	PositionBind->Value = & LightObject->getTranslation();
+}
+
+void CScene::SLightBinding::unbind()
+{
+	bind(& NullLight);
 }
 
 CScene::CScene()
@@ -82,26 +103,24 @@ smartPtr<IUniform const> const CScene::getUniform(std::string const & label) con
 		std::string remaining = ss.str();
 		remaining = remaining.substr(2 + digitCount(index));
 
+		if (index >= LightBindings.size())
+		{
+			LightBindings.resize(index + 1);
+		}
+
+		SLightBinding const & LightBinding = LightBindings[index];
+
 		if (remaining == "Color")
 		{
-			if (index >= Lights.size())
-				return BindUniform(NullLight.Color);
-			else
-				return BindUniform(Lights[index]->Color);
+			return LightBinding.ColorBind;
 		}
 		else if (remaining == "Position")
 		{
-			if (index >= Lights.size())
-				return BindUniform(NullLight.Position);
-			else
-				return BindUniform(Lights[index]->Position);
+			return LightBinding.PositionBind;
 		}
 		else if (remaining == "Radius")
 		{
-			if (index >= Lights.size())
-				return BindUniform(NullLight.Radius);
-			else
-				return BindUniform(Lights[index]->Radius);
+			return LightBinding.RadiusBind;
 		}
 	}
 
@@ -119,13 +138,6 @@ void CScene::update()
 	ViewMatrix = ActiveCamera->getViewMatrix();
 	ProjMatrix = ActiveCamera->getProjectionMatrix();
 
-	if (LightCount != Lights.size())
-	{
-		SceneChanged = true;
-		LightCount = Lights.size();
-	}
-
 	RootObject.updateAbsoluteTransformation();
 	RootObject.update();
 }
-

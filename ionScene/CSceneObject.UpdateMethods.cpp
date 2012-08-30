@@ -16,6 +16,8 @@ bool CSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, 
 {
 	if (! ISceneObject::draw(Scene, Pass, CullingEnabled))
 		return false;
+
+	Pass->onPreDrawObject(this);
 	
 	auto ShaderIterator = Shaders.find(Pass);
 
@@ -40,6 +42,8 @@ bool CSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, 
 
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
 		(* it)->draw(Scene, Pass, ShaderContext);
+
+	Pass->onPostDrawObject(this);
 
 	return true;
 }
