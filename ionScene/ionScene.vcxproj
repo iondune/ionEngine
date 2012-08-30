@@ -127,6 +127,7 @@
     <ClCompile Include="CRenderable.SShaderSetup.cpp" />
     <ClCompile Include="CRenderable.UpdateMethods.cpp" />
     <ClCompile Include="CRenderBufferObject.cpp" />
+    <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneObject.ContextManagement.cpp" />

@@ -214,6 +214,9 @@
     <ClCompile Include="CLightSceneObject.cpp">
       <Filter>Scene Management\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>Scene Management\Objects\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics Layer">
