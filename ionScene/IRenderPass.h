@@ -9,6 +9,12 @@ class IRenderPass
 
 public:
 
+	virtual void onPreDraw()
+	{}
+
+	virtual void onPostDraw()
+	{}
+
 	virtual void onPreDrawObject(ISceneObject * Object)
 	{}
 

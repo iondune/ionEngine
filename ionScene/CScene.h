@@ -74,12 +74,14 @@ public:
 	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const;
 
 	virtual void update();
+	virtual void load(smartPtr<IRenderPass> const Pass);
+	virtual void draw(smartPtr<IRenderPass> const Pass);
 
-	bool const isCullingEnabled() const;
-	void setCullingEnabled(bool const culling);
+	virtual bool const isCullingEnabled() const;
+	virtual void setCullingEnabled(bool const culling);
 
-	void enableDebugData(EDebugData::Domain const type);
-	void disableDebugData(EDebugData::Domain const type);
+	virtual void enableDebugData(EDebugData::Domain const type);
+	virtual void disableDebugData(EDebugData::Domain const type);
 
 };
 

@@ -40,6 +40,7 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 	ScreenSize(screenSize)
 {
 	CurrentScene = this;
+	DefaultColorRenderPass = new CDefaultColorRenderPass();
 }
 
 void CSceneManager::OnWindowResized(SPosition2 const & screenSize)
@@ -164,70 +165,18 @@ void CSceneManager::removeAllSceneObjects()
 
 void CSceneManager::drawAll()
 {
-	printOpenGLErrors("beginning of draw");
 	ISceneObject::resetObjectCounts();
 	CurrentScene->update();
 
-	printOpenGLErrors("pre traversal");
 	if (EffectManager && SceneFrameBuffer)
 	{
 		for (std::vector<CSceneEffectManager::SRenderPass>::iterator it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
 		{
-			if (it->Target)
-				it->Target->bind();
-			else
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-			if (it->Pass == ERenderPass::DeferredLights)
-			{
-				glClearColor(0.f,0.f,0.f,0.f);
-				glDisable(GL_DEPTH_TEST);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			}
-			
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			float DepthClearColor[] = {1.f, 1.f, 1.f, 1.f};
-			glClearBufferfv(GL_COLOR, 1, DepthClearColor);
-				
-			printOpenGLErrors("begining load");
-			load(it->Pass);
-			printOpenGLErrors("begining traversal");
-			RootObject.draw(CurrentScene, it->Pass, UseCulling);
-			printOpenGLErrors("after traversal");
-
-			/*if (it->Pass != ERenderPass::DeferredLights)
-			{
-				//glEnable(GL_ALPHA);
-				glEnable(GL_BLEND);
-				glEnable(GL_DEPTH_TEST);
-				glDepthMask(GL_FALSE);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			}
-			else
-			{
-			}
-			
-			if (it->Pass != ERenderPass::DeferredLights)
-			{
-				//glBlendFunc(GL_ONE, GL_MAX);
-				printOpenGLErrors("after blend func");
-				glDepthMask(GL_TRUE);
-				printOpenGLErrors("after depth mask");
-				glDisable(GL_BLEND);
-				printOpenGLErrors("after disable blend");
-				//glDisable(GL_ALPHA);
-				printOpenGLErrors("after disable alpha");
-			}*/
-
-			if (it->Pass == ERenderPass::DeferredLights)
-			{
-				glDisable(GL_BLEND);
-				glEnable(GL_DEPTH_TEST);
-			}
-			printOpenGLErrors("after deferred");
+			it->Pass->onPreDraw();
+			CurrentScene->load(it->Pass);
+			CurrentScene->draw(it->Pass);
+			it->Pass->onPostDraw();
 		}
-		printOpenGLErrors("before effects");
 
 		EffectManager->apply();
 
@@ -235,19 +184,16 @@ void CSceneManager::drawAll()
 	}
 	else
 	{
+		DefaultColorRenderPass->onPreDraw();
+		CurrentScene->load(DefaultColorRenderPass);
+		CurrentScene->draw(DefaultColorRenderPass);
+		DefaultColorRenderPass->onPostDraw();
+
 		if (SceneFrameBuffer)
 			SceneFrameBuffer->bind();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		RootObject.load(CurrentScene, ERenderPass::Default);
-		RootObject.draw(CurrentScene, ERenderPass::Default, UseCulling);
 	}
-	printOpenGLErrors("after effects");
-
-	SceneChanged = false;
-	//printf("Num objects: %d\n", numObjects);
 	
-	printOpenGLErrors("end of drawall");
+	printOpenGLErrors("Scene Manager Draw");
 }
 
 bool ShowDepth = false;
@@ -330,12 +276,6 @@ void CScene::enableDebugData(EDebugData::Domain const type)
 void CScene::disableDebugData(EDebugData::Domain const type)
 {
 	RootObject.disableDebugData(type);
-}
-
-
-void CSceneManager::load()
-{
-	RootObject.load(this, ERenderPass::Default);
 }
 
 void CSceneManager::load(ERenderPass const Pass)

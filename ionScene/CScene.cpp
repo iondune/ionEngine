@@ -77,17 +77,6 @@ void CScene::removeUniform(std::string const & label)
 	if (it != Uniforms.end())
 		Uniforms.erase(it);
 }
-
-bool const CScene::isCullingEnabled() const
-{
-	return UseCulling;
-}
-
-void CScene::setCullingEnabled(bool const culling)
-{
-	UseCulling = culling;
-}
-
 smartPtr<IAttribute const> const CScene::getAttribute(std::string const & label) const
 {
 	return smartPtr<IAttribute const>();
@@ -140,4 +129,24 @@ void CScene::update()
 
 	RootObject.updateAbsoluteTransformation();
 	RootObject.update();
+}
+
+void CScene::load(smartPtr<IRenderPass> const Pass)
+{
+	RootObject.load(this, Pass);
+}
+
+void CScene::draw(smartPtr<IRenderPass> const Pass)
+{
+	RootObject.draw(this, Pass, UseCulling);
+}
+
+bool const CScene::isCullingEnabled() const
+{
+	return UseCulling;
+}
+
+void CScene::setCullingEnabled(bool const culling)
+{
+	UseCulling = culling;
 }

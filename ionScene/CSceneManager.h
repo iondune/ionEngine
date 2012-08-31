@@ -8,109 +8,94 @@
 #include "CFrameBufferObject.h"
 #include "CSceneEffectManager.h"
 #include "CPerspectiveCameraSceneObject.h"
-
-#include "IScene.h"
+#include "CScene.h"
 
 #include <SLine3.h>
 #include <SColor.h>
 #include <SPosition2.h>
-#define THIS_OBJECT_WILL_NEVER_MOVE_AND_ITS_BOUNDING_BOX_IS_CORRECT 3945210
-
 #include <SUniform.h>
 #include <SAttribute.h>
 
 
-class CLight
+class CDefaultColorRenderPass : public IRenderPass
 {
-	// CLight should implement ISceneObject
-	// that way light billboards will be drawable by using a scene->set debug flag
-	// and positioning,etc will be inheritted
+
+protected:
+
+	CFrameBufferObject * FrameBuffer;
 
 public:
 
-	SColorAf Color;
-	SVector3f Position;
-	float Radius;
+	CDefaultColorRenderPass()
+		: FrameBuffer(0)
+	{}
 
-	SUniformReference<SColorAf> BindColor;
-	SUniformReference<SVector3f> BindPosition;
-	SUniformReference<float> BindRadius;
+	virtual void onPreDraw()
+	{
+		if (FrameBuffer)
+			FrameBuffer->bind();
 
-	// Todo: change values only through get/set, set scene changed when so
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
-	CLight()
-		: BindColor(Color), BindPosition(Position), BindRadius(Radius), Radius(25.f)
+	virtual void onPostDraw()
+	{
+		if (FrameBuffer)
+			FrameBuffer->unbind();
+	}
+
+	virtual void onPreDrawObject(ISceneObject * Object)
+	{}
+
+	virtual void onPostDrawObject(ISceneObject * Object)
 	{}
 
 };
 
-class CScene : public IScene
+class CMultiOutRenderPass : public IRenderPass
 {
-
-	static CLight const NullLight;
 
 protected:
 
-	CPerspectiveCameraSceneObject DefaultCamera;
-	ICameraSceneObject * ActiveCamera;
-
-	glm::mat4 ViewMatrix, ProjMatrix;
-	int LightCount;
-
-	SUniformReference<glm::mat4> BindViewMatrix, BindProjMatrix;
-	SUniformReference<int> BindLightCount;
-
-	std::map<std::string, boost::shared_ptr<IUniform const> > Uniforms;
-
-	ISceneObject RootObject;
-
-	bool UseCulling;
+	CFrameBufferObject * FrameBuffer;
 
 public:
 
-	CScene();
+	CMultiOutRenderPass()
+		: FrameBuffer(0)
+	{}
 
-	ICameraSceneObject * const getActiveCamera();
-	ICameraSceneObject const * const getActiveCamera() const;
-	void setActiveCamera(ICameraSceneObject * const activeCamera);
-
-	template <typename T>
-	void addUniform(std::string const & label, T const & uniform)
+	virtual void onPreDraw()
 	{
-		Uniforms[label] = boost::shared_ptr<SUniform<T> >(new SUniformReference<T>(uniform));
+		if (FrameBuffer)
+			FrameBuffer->bind();
+
+		float DepthClearColor[] = {1.f, 1.f, 1.f, 1.f};
+		glClearBufferfv(GL_COLOR, 0, DepthClearColor);
+		glClearBufferfv(GL_COLOR, 1, DepthClearColor);
 	}
-	void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
-	void removeUniform(std::string const & label);
-	
-	virtual boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label) const;
 
-	boost::shared_ptr<IUniform const> const getUniform(std::string const & label) const;
+	virtual void onPostDraw()
+	{
+		if (FrameBuffer)
+			FrameBuffer->unbind();
+	}
 
-	void update();
+	virtual void onPreDrawObject(ISceneObject * Object)
+	{}
 
-	std::vector<CLight *> Lights;
-	bool SceneChanged;
-
-	bool const isCullingEnabled() const;
-	void setCullingEnabled(bool const culling);
-
-	void setUseHierarchy(bool h);
-	bool getUseHierarchy();
-	void toggleUseHierarchy();
-
-	void enableDebugData(EDebugData::Domain const type);
-	void disableDebugData(EDebugData::Domain const type);
+	virtual void onPostDrawObject(ISceneObject * Object)
+	{}
 
 };
 
-class CApplication;
 
-extern bool ShowDepth;
+class CApplication;
 
 class CSceneManager : public CScene
 {
 
-	CScene * CurrentScene;
+	IScene * CurrentScene;
 
 	CFrameBufferObject * SceneFrameBuffer;
 	CTexture * SceneFrameTexture, * SceneDepthTexture;
@@ -120,6 +105,8 @@ class CSceneManager : public CScene
 	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
 
 	SSize2 ScreenSize;
+
+	smartPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
 
@@ -141,8 +128,7 @@ public:
 	void drawAll();
 	void endDraw();
 
-	void load(); // Deprecated
-	void load(ERenderPass const Pass);
+	void load(IRenderPass const Pass);
 
 	CFrameBufferObject * getSceneFrameBuffer();
 	CTexture * getSceneFrameTexture();
@@ -152,11 +138,9 @@ public:
 	CSceneEffectManager * getEffectManager();
 	void setEffectManager(CSceneEffectManager * effectManager);
 
-	SSize2 const & getScreenSize() const;
-
-	void setDeferred(bool const isDeferred);
-	
+	SSize2 const & getScreenSize() const;	
 	static GLuint const getQuadHandle();
 
 };
+
 #endif
