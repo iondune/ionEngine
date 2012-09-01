@@ -1,13 +1,9 @@
 #ifndef _CABBAGE_SCENE_CFRAMEBUFFEROBJECT_H_INCLUDED_
 #define _CABBAGE_SCENE_CFRAMEBUFFEROBJECT_H_INCLUDED_
 
-#ifdef __unix__
-#include<GL/gl.h>
-#endif
-
-#ifdef _WIN32
 #include <GL/glew.h>
-#endif
+#include <map>
+#include <ionTypes.h>
 
 #include "CRenderBufferObject.h"
 #include "CTexture.h"
@@ -17,6 +13,9 @@ class CFrameBufferObject
 {
 
 	GLuint Handle;
+
+	std::map<u32, IRenderTarget *> ColorAttachments;
+	IRenderTarget * DepthAttachment;
 
 public:
 
@@ -32,6 +31,9 @@ public:
 	void unbind();
 
 	bool const isValid() const;
+
+	std::map<u32, IRenderTarget *> const & getColorAttachments();
+	IRenderTarget const * const getDepthAttachment();
 
 };
 

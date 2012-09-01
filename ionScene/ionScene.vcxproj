@@ -101,6 +101,7 @@
     <ClInclude Include="ImageLoaders\BitmapWriter.hpp" />
     <ClInclude Include="ImageLoaders\Texture.h" />
     <ClInclude Include="IRenderPass.h" />
+    <ClInclude Include="IRenderTarget.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneObject.Enumerations.h" />
     <ClInclude Include="ISceneObject.h" />
@@ -127,7 +128,12 @@
     <ClCompile Include="CRenderable.SShaderSetup.cpp" />
     <ClCompile Include="CRenderable.UpdateMethods.cpp" />
     <ClCompile Include="CRenderBufferObject.cpp" />
+    <ClCompile Include="CScene.Camera.cpp" />
     <ClCompile Include="CScene.cpp" />
+    <ClCompile Include="CScene.Details.cpp" />
+    <ClCompile Include="CScene.ShaderVariables.cpp" />
+    <ClCompile Include="CScene.SLightBinding.cpp" />
+    <ClCompile Include="CScene.Update.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneObject.ContextManagement.cpp" />

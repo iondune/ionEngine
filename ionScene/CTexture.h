@@ -2,17 +2,12 @@
 #define _CABBAGE_SCENE_CTEXTURE_H_INCLUDED_
 
 #include <string>
-
-#ifdef __unix__
-#include<GL/gl.h>
-#endif
-
-#ifdef _WIN32
 #include <GL\glew.h>
-#endif
-
 #include <SSize2.h>
+
 #include "CImage.h"
+#include "IRenderTarget.h"
+
 
 class STextureCreationFlags
 {
@@ -32,7 +27,7 @@ public:
 
 };
 
-class CTexture
+class CTexture : public IRenderTarget
 {
 
     GLuint TextureHandle;

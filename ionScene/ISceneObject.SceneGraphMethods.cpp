@@ -20,8 +20,15 @@ void ISceneObject::addChild(ISceneObject * child)
 
 void ISceneObject::removeChild(ISceneObject * child)
 {
-	Children.erase(std::remove(Children.begin(), Children.end(), child), Children.end());
-	child->Parent = 0;
+	for (auto it = Children.begin(); it != Children.end(); ++ it)
+	{
+		if (* it == child)
+		{
+			Children.erase(it);
+			child->Parent = 0;
+			return;
+		}
+	}
 }
 
 

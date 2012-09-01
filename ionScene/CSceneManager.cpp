@@ -148,21 +148,6 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 	}
 }
 
-void CSceneManager::addSceneObject(ISceneObject * sceneObject)
-{
-	RootObject.addChild(sceneObject);
-}
-
-void CSceneManager::removeSceneObject(ISceneObject * sceneObject)
-{
-	RootObject.removeChild(sceneObject);
-}
-
-void CSceneManager::removeAllSceneObjects()
-{
-	RootObject.removeAllChildren();
-}
-
 void CSceneManager::drawAll()
 {
 	ISceneObject::resetObjectCounts();
@@ -193,10 +178,8 @@ void CSceneManager::drawAll()
 			SceneFrameBuffer->bind();
 	}
 	
-	printOpenGLErrors("Scene Manager Draw");
+	printOpenGLErrors("Scene Manager :: Draw All");
 }
-
-bool ShowDepth = false;
 
 void CSceneManager::endDraw()
 {
@@ -205,67 +188,20 @@ void CSceneManager::endDraw()
 		// Draw to screen
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDisable(GL_DEPTH_TEST);
 
-		// THE FINAL RENDER
+		glDisable(GL_DEPTH_TEST);
 		{
 			CShaderContext Context(* QuadCopy);
-
-			if (ShowDepth)
-				Context.bindTexture("uTexColor", SceneDepthTexture);
-			else
-				Context.bindTexture("uTexColor", SceneFrameTexture);
+			Context.bindTexture("uTexColor", SceneFrameTexture);
 			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
 
 			glDrawArrays(GL_QUADS, 0, 4);
 		}
-
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	printOpenGLErrors("end of enddraw");
+	printOpenGLErrors("Scene Manager :: End Draw");
 }
-
-CMeshSceneObject * CSceneManager::addMeshSceneObject(CMesh * Mesh)
-{
-	CMeshSceneObject * Object = new CMeshSceneObject();
-	Object->setMesh(Mesh);
-	addSceneObject(Object);
-	return Object;
-}
-
-CMeshSceneObject * CSceneManager::addMeshSceneObject(CMesh * Mesh, CShader * Shader, CShader * DeferredShader)
-{
-	CMeshSceneObject * Object = new CMeshSceneObject();
-	Object->setMesh(Mesh);
-	Object->setShader(ERenderPass::Default, Shader);
-	Object->setShader(ERenderPass::DeferredColors, DeferredShader);
-	addSceneObject(Object);
-	return Object;
-}
-
-CMeshSceneObject * CSceneManager::addMeshSceneObject(CMesh * Mesh, CShader * Shader, CShader * DeferredShader, CRenderable::SMaterial const & Material)
-{
-	CMeshSceneObject * Object = new CMeshSceneObject();
-	Object->setMesh(Mesh);
-	Object->setShader(ERenderPass::Default, Shader);
-	Object->setShader(ERenderPass::DeferredColors, DeferredShader);
-	Object->setMaterial(Material);
-	addSceneObject(Object);
-	return Object;
-}
-
-CMeshSceneObject * CSceneManager::addMeshSceneObject(std::string const & Mesh, std::string const & Shader, std::string const & DeferredShader, CRenderable::SMaterial const & Material)
-{
-	CMeshSceneObject * Object = new CMeshSceneObject();
-	Object->setMesh(CMeshLoader::load3dsMesh(Mesh));
-	Object->setShader(ERenderPass::Default, CShaderLoader::loadShader(Shader));
-	Object->setShader(ERenderPass::DeferredColors, CShaderLoader::loadShader(DeferredShader));
-	Object->setMaterial(Material);
-	addSceneObject(Object);
-	return Object;
-}
-
 
 
 void CScene::enableDebugData(EDebugData::Domain const type)
@@ -276,11 +212,6 @@ void CScene::enableDebugData(EDebugData::Domain const type)
 void CScene::disableDebugData(EDebugData::Domain const type)
 {
 	RootObject.disableDebugData(type);
-}
-
-void CSceneManager::load(ERenderPass const Pass)
-{
-	RootObject.load(this, Pass);
 }
 
 CFrameBufferObject * CSceneManager::getSceneFrameBuffer()
@@ -316,13 +247,4 @@ void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
 SSize2 const & CSceneManager::getScreenSize() const
 {
 	return ScreenSize;
-}
-
-void CSceneManager::setDeferred(bool const isDeferred)
-{
-	EffectManager->setEffectEnabled(ESE_ALL, false);
-	if (isDeferred)
-		EffectManager = DeferredManager;
-	else
-		EffectManager = DefaultManager;
 }

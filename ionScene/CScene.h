@@ -101,6 +101,10 @@ public:
 	// Details //
 	/////////////
 
+	virtual void addSceneObject(ISceneObject * sceneObject);
+	virtual void removeSceneObject(ISceneObject * sceneObject);
+	virtual void removeAllSceneObjects();
+
 	virtual bool const isCullingEnabled() const;
 	virtual void setCullingEnabled(bool const culling);
 	

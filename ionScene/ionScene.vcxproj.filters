@@ -104,6 +104,9 @@
     <ClInclude Include="CLightSceneObject.h">
       <Filter>Scene Management\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="IRenderTarget.h">
+      <Filter>Graphics Layer\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageLoaders\Texture.cpp">
@@ -215,6 +218,21 @@
       <Filter>Scene Management\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.Camera.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.SLightBinding.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.ShaderVariables.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.Update.cpp">
+      <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.Details.cpp">
       <Filter>Scene Management\Scene</Filter>
     </ClCompile>
   </ItemGroup>

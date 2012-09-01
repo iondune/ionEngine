@@ -305,4 +305,11 @@ typedef SColorA<double> SColorAd;
 typedef SColor<double> SColor192;
 typedef SColorA<double> SColor256;
 
+
+namespace Colors
+{
+	static SColorAf const White = SColorAf(1.f, 1.f, 1.f, 1.f);
+	static SColorAf const Black = SColorAf(0.f, 0.f, 0.f, 1.f);
+}
+
 #endif

@@ -72,6 +72,16 @@ public:
 			Values[i] /= len;
 	}
 
+	T const * const getValuePointer() const
+	{
+		return Values;
+	}
+
+	T * const getValuePointer()
+	{
+		return Values;
+	}
+
 };
 
 template <typename T, int Dimension, typename Implementation>
