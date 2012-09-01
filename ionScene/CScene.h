@@ -59,13 +59,27 @@ protected:
 	//! Whether scene should use trivial-reject culling in hierarchy operations
 	bool UseCulling;
 
+	//! Bitfield of which different debug-purposed data should be shown
+	//! See EDebugDataValues
+	u32 DebugDataFlags;
+
 public:
 
 	CScene();
 
+
+	////////////
+	// Camera //
+	////////////
+
 	virtual ICameraSceneObject * const getActiveCamera();
 	virtual ICameraSceneObject const * const getActiveCamera() const;
 	virtual void setActiveCamera(ICameraSceneObject * const activeCamera);
+
+
+	//////////////////////
+	// Shader Variables //
+	//////////////////////
 
 	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
 	virtual void removeUniform(std::string const & label);
@@ -73,13 +87,24 @@ public:
 	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label) const;
 	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const;
 
+
+	////////////
+	// Update //
+	////////////
+
 	virtual void update();
 	virtual void load(smartPtr<IRenderPass> const Pass);
 	virtual void draw(smartPtr<IRenderPass> const Pass);
 
+
+	/////////////
+	// Details //
+	/////////////
+
 	virtual bool const isCullingEnabled() const;
 	virtual void setCullingEnabled(bool const culling);
-
+	
+	virtual bool const isDebugDataEnabled(EDebugData const type) const;
 	virtual void enableDebugData(EDebugData::Domain const type);
 	virtual void disableDebugData(EDebugData::Domain const type);
 

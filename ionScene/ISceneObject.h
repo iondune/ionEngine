@@ -88,80 +88,80 @@ public:
 
 	// Bounding Box //
 
-	SBoundingBox3f const & getAbsoluteBoundingBox() const;
-	SBoundingBox3f const & getBoundingBox() const;
-	void setBoundingBox(SBoundingBox3f const & boundingBox);
+	virtual SBoundingBox3f const & getAbsoluteBoundingBox() const;
+	virtual SBoundingBox3f const & getBoundingBox() const;
+	virtual void setBoundingBox(SBoundingBox3f const & boundingBox);
 
 	// Debug Data //
 
-	bool const isDebugDataEnabled(EDebugData const type) const;
-	void enableDebugData(EDebugData const type);
-	void disableDebugData(EDebugData const type);
+	virtual bool const isDebugDataEnabled(EDebugData const type) const;
+	virtual void enableDebugData(EDebugData const type);
+	virtual void disableDebugData(EDebugData const type);
 
 	// Visibility //
 
-	bool const isVisible() const;
-	void setVisible(bool const isVisible);
+	virtual bool const isVisible() const;
+	virtual void setVisible(bool const isVisible);
 
 	// Render Category //
 
-	ERenderCategory const getRenderCategory() const;
-	void setRenderCategory(ERenderCategory const RenderCategory);
+	virtual ERenderCategory const getRenderCategory() const;
+	virtual void setRenderCategory(ERenderCategory const RenderCategory);
 
 
 	/////////////////////////////
 	// Model Transform Methods //
 	/////////////////////////////
 
-	glm::mat4 const & getAbsoluteTransformation() const;
-	STransformation3 const & getTransformation() const;
-	STransformation3 & getTransformation();
+	virtual glm::mat4 const & getAbsoluteTransformation() const;
+	virtual STransformation3 const & getTransformation() const;
+	virtual STransformation3 & getTransformation();
 
-	void setTranslation(SVector3f const & translation);
-	void setPosition(SVector3f const & translation);
-	void setRotation(SVector3f const & rotation);
-	void setRotation(glm::mat4 const & matrix);
-	void setScale(SVector3f const & scale);
+	virtual void setTranslation(SVector3f const & translation);
+	virtual void setPosition(SVector3f const & translation);
+	virtual void setRotation(SVector3f const & rotation);
+	virtual void setRotation(glm::mat4 const & matrix);
+	virtual void setScale(SVector3f const & scale);
 	
-	SVector3f const & getRotation() const;
-	SVector3f const & getTranslation() const;
-	SVector3f const & getPosition() const;
-	SVector3f const & getScale() const;
+	virtual SVector3f const & getRotation() const;
+	virtual SVector3f const & getTranslation() const;
+	virtual SVector3f const & getPosition() const;
+	virtual SVector3f const & getScale() const;
 
 
 	/////////////////////////
 	// Scene Graph Methods //
 	/////////////////////////
 
-	ISceneObject const * const getParent() const;
-	std::list<ISceneObject *> const & getChildren() const;
+	virtual ISceneObject const * const getParent() const;
+	virtual std::list<ISceneObject *> const & getChildren() const;
 	
-	void addChild(ISceneObject * child);
-	void removeChild(ISceneObject * child);
+	virtual void addChild(ISceneObject * child);
+	virtual void removeChild(ISceneObject * child);
 
-	void setParent(ISceneObject * parent);
-	void removeAllChildren();
+	virtual void setParent(ISceneObject * parent);
+	virtual void removeAllChildren();
 
 
 	/////////////////////
 	// Culling Methods //
 	/////////////////////
 	
-	bool const isCulled(ICameraSceneObject const * const Camera, bool const Absolute) const;
-	bool const isCullingEnabled() const;
-	void setCullingEnabled(bool const culling);
-	bool const intersectsWithLine(SLine3f const & line) const;
+	virtual bool const isCulled(ICameraSceneObject const * const Camera, bool const Absolute) const;
+	virtual bool const isCullingEnabled() const;
+	virtual void setCullingEnabled(bool const culling);
+	virtual bool const intersectsWithLine(SLine3f const & line) const;
 
 
 	////////////////////
 	// Update Methods //
 	////////////////////
 
-	void checkAbsoluteTransformation();
-	void updateAbsoluteTransformation();
+	virtual void checkAbsoluteTransformation();
+	virtual void updateAbsoluteTransformation();
 
-	bool checkAbsoluteBoundingBox();
-	void updateAbsoluteBoundingBox();
+	virtual bool checkAbsoluteBoundingBox();
+	virtual void updateAbsoluteBoundingBox();
 
 	virtual void update();
 	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
