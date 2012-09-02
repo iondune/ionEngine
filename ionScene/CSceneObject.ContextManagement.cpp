@@ -54,54 +54,54 @@ void CSceneObject::setTexture(unsigned int const Layer, std::string const & text
 	setTexture(Layer, CImageLoader::loadTexture(texture), Renderable);
 }
 
-void CSceneObject::addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute)
+void CSceneObject::addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute)
 {
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
 		(* it)->addAttribute(label, attribute);
 }
 
-void CSceneObject::addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute, unsigned int const renderable)
+void CSceneObject::addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, unsigned int const renderable)
 {
 	Renderables[renderable]->addAttribute(label, attribute);
 }
 
-void CSceneObject::addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute, CRenderable * const Renderable)
+void CSceneObject::addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, CRenderable * const Renderable)
 {
 	Renderable->addAttribute(label, attribute);
 }
 
-void CSceneObject::addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform)
+void CSceneObject::addUniform(std::string const & label, smartPtr<IUniform const> const uniform)
 {
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
 		(* it)->addUniform(label, uniform);
 }
 
-void CSceneObject::addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform, unsigned int const renderable)
+void CSceneObject::addUniform(std::string const & label, smartPtr<IUniform const> const uniform, unsigned int const renderable)
 {
 	Renderables[renderable]->addUniform(label, uniform);
 }
 
-void CSceneObject::addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform, CRenderable * const Renderable)
+void CSceneObject::addUniform(std::string const & label, smartPtr<IUniform const> const uniform, CRenderable * const Renderable)
 {
 	Renderable->addUniform(label, uniform);
 }
 	
-boost::shared_ptr<IAttribute const> CSceneObject::getAttribute(std::string const & label)
+smartPtr<IAttribute const> CSceneObject::getAttribute(std::string const & label)
 {
-	std::map<std::string, boost::shared_ptr<IAttribute const> >::iterator it = Attributes.find(label);
+	std::map<std::string, smartPtr<IAttribute const> >::iterator it = Attributes.find(label);
 	if (it != Attributes.end())
 		return it->second;
 
-	return boost::shared_ptr<IAttribute const>();
+	return smartPtr<IAttribute const>();
 }
 
-boost::shared_ptr<IUniform const> CSceneObject::getUniform(std::string const & label)
+smartPtr<IUniform const> CSceneObject::getUniform(std::string const & label)
 {
-	std::map<std::string, boost::shared_ptr<IUniform const> >::iterator it = Uniforms.find(label);
+	std::map<std::string, smartPtr<IUniform const> >::iterator it = Uniforms.find(label);
 	if (it != Uniforms.end())
 		return it->second;
 
-	return boost::shared_ptr<IUniform const>();
+	return smartPtr<IUniform const>();
 }
 
 void CSceneObject::removeAttribute(std::string const & label)

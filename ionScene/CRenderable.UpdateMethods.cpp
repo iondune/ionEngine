@@ -34,9 +34,9 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	NormalMatrix = glm::transpose(glm::inverse(ModelMatrix));
 
 	// Pass uniform and attribute variables to shader
-	for (std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
 		it->second->bind(it->first.first);
-	for (std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IUniform const> >::iterator it = ShaderSetup.LoadedUniforms.begin(); it != ShaderSetup.LoadedUniforms.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, smartPtr<IUniform const> >::iterator it = ShaderSetup.LoadedUniforms.begin(); it != ShaderSetup.LoadedUniforms.end(); ++ it)
 		it->second->bind(it->first.first);
 
 	// Set up texturing if textures are supplied by material
@@ -111,7 +111,7 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	}
 
 	// Cleanup shader variables
-	for (std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
 		it->second->unbind(it->first.first);
 
 	// Cleanup textures if used
@@ -151,7 +151,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		{
 			std::string const & Label = it->first;
 
-			boost::shared_ptr<IAttribute const> Attribute = getAttribute(Label);
+			smartPtr<IAttribute const> Attribute = getAttribute(Label);
 
 			if (! Attribute)
 				Attribute = ParentObject->getAttribute(Label);
@@ -170,7 +170,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		{
 			std::string const & Label = it->first;
 
-			boost::shared_ptr<IUniform const> Uniform = getUniform(Label);
+			smartPtr<IUniform const> Uniform = getUniform(Label);
 
 			if (! Uniform)
 				Uniform = ParentObject->getUniform(Label);

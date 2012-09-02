@@ -7,16 +7,6 @@
 #include <algorithm>
 
 
-CSceneEffectManager::SRenderPass::SRenderPass()
-	: Pass(ERenderPass::Default)
-{}
-
-bool const CSceneEffectManager::SRenderPass::operator == (SRenderPass const & rhs)
-{
-	return Target == rhs.Target && Pass == rhs.Pass;
-}
-
-
 CSceneEffectManager::SPostProcessPass::SPostProcessPass()
 	: Target(0), Shader(0), SetTarget(true)
 {}
@@ -92,12 +82,8 @@ void CSceneEffectManager::OnWindowResized()
 	BloomResultTexture = new CTexture(SceneManager->getScreenSize(), true);
 	BloomResultTarget->attach(BloomResultTexture, GL_COLOR_ATTACHMENT0);
 
-	SRenderPass DefaultPass;
-	DefaultPass.Pass = ERenderPass::Default;
-	DefaultPass.Target = SceneManager->getSceneFrameBuffer();
-
 	RenderPasses.clear();
-	RenderPasses.push_back(DefaultPass);
+	RenderPasses.push_back(SceneManager->getDefaultColorRenderPass());
 
 	// TO DO : This is not robust!
 }
@@ -137,12 +123,8 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 	BloomResultTarget = new CFrameBufferObject();
 	BloomResultTexture = new CTexture(SceneManager->getScreenSize(), true);
 	BloomResultTarget->attach(BloomResultTexture, GL_COLOR_ATTACHMENT0);
-
-	SRenderPass DefaultPass;
-	DefaultPass.Pass = ERenderPass::Default;
-	DefaultPass.Target = SceneManager->getSceneFrameBuffer();
-
-	RenderPasses.push_back(DefaultPass);
+	
+	RenderPasses.push_back(SceneManager->getDefaultColorRenderPass());
 
 	Loaded = BlendShader && QuadCopy;
 
@@ -268,11 +250,12 @@ void CSceneEffectManager::setEffectEnabled(ESceneEffect const Effect, bool const
 	{
 	case ESE_SSAO:
 		{
-			SRenderPass normalsPass;
-			normalsPass.Pass = ERenderPass::ModelSpaceNormals;
-			normalsPass.Target = NormalPassTarget;
+			//SRenderPass normalsPass;
+			//normalsPass.Pass = ERenderPass::ModelSpaceNormals;
+			//normalsPass.Target = NormalPassTarget;
+			// To Do : Normals Pass
 
-			if (Enabled)
+			/*if (Enabled)
 			{
 				RenderPasses.push_back(normalsPass);
 
@@ -293,7 +276,7 @@ void CSceneEffectManager::setEffectEnabled(ESceneEffect const Effect, bool const
 			else
 			{
 				RenderPasses.erase(std::remove(RenderPasses.begin(), RenderPasses.end(), normalsPass), RenderPasses.end());
-			}
+			}*/
 
 			break;
 		}

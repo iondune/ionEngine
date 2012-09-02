@@ -17,6 +17,9 @@
 
 // Scene
 #include "ISceneObject.Enumerations.h"
+#include "IRenderPass.h"
+#include "SUniform.h"
+#include "SAttribute.h"
 
 
 //! Different graphics primitives available for drawing
@@ -39,12 +42,9 @@ typedef Enum<EDrawElementTypeValues> EDrawElementType;
 template <typename T>
 class CBufferObject;
 class CTexture;
-class IAttribute;
-class IUniform;
 class IScene;
 class CSceneObject;
 class CShaderContext;
-class IRenderPass;
 
 
 //! A CRenderable is a collection of buffer objects which can be drawn by a single OpenGL draw call.
@@ -77,8 +77,8 @@ public:
 
 	public:
 
-		std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IAttribute const> > LoadedAttributes;
-		std::map<std::pair<GLuint, std::string>, boost::shared_ptr<IUniform const> > LoadedUniforms;
+		std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
+		std::map<std::pair<GLuint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
 		bool Loaded;
 
 		SShaderSetup();
@@ -90,8 +90,8 @@ public:
 protected:
 
 	//! Local shader variables
-	std::map<std::string, boost::shared_ptr<IAttribute const> > Attributes;
-	std::map<std::string, boost::shared_ptr<IUniform const> > Uniforms;
+	std::map<std::string, smartPtr<IAttribute const> > Attributes;
+	std::map<std::string, smartPtr<IUniform const> > Uniforms;
 
 	//! Implicit shader variables
 	glm::mat4 ModelMatrix, NormalMatrix;
@@ -177,14 +177,14 @@ public:
 	// Shader Varaibles //
 	//////////////////////
 
-	virtual void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute);
-	virtual void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
+	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute);
+	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
 
 	virtual void removeAttribute(std::string const & label);
 	virtual void removeUniform(std::string const & label);
 
-	virtual boost::shared_ptr<IAttribute const> const getAttribute(std::string const & label);
-	virtual boost::shared_ptr<IUniform const> const getUniform(std::string const & label);
+	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label);
+	virtual smartPtr<IUniform const> const getUniform(std::string const & label);
 
 
 	////////////////

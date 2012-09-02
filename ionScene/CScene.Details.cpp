@@ -26,18 +26,17 @@ void CScene::setCullingEnabled(bool const culling)
 	UseCulling = culling;
 }
 
+bool const CScene::isDebugDataEnabled(EDebugData const type) const
+{
+	return RootObject.isDebugDataEnabled(type);
+}
+
 void CScene::enableDebugData(EDebugData::Domain const type)
 {
-	if (type == EDebugData::All)
-		DebugDataFlags = -1;
-	else
-		DebugDataFlags |= type;
+	RootObject.enableDebugData(type);
 }
 
 void CScene::disableDebugData(EDebugData::Domain const type)
 {
-	if (type == EDebugData::All)
-		DebugDataFlags = 0;
-	else
-		DebugDataFlags &= ~type;
+	RootObject.disableDebugData(type);
 }

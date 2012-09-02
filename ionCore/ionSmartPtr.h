@@ -32,6 +32,7 @@ public:
 	smartPtr<T> & operator = (smartPtr<T> const & other)
 	{
 		shared_ptr = other.shared_ptr;
+		return * this;
 	}
 	
 	template <typename U>
@@ -90,6 +91,11 @@ public:
 		return shared_ptr;
 	}
 
+	virtual bool const operator < (smartPtr<T> const & other) const
+	{
+		return shared_ptr < other.shared_ptr;
+	}
+
 };
 
 template <typename T>
@@ -123,6 +129,7 @@ public:
 	staticPtr & operator = (staticPtr const & other)
 	{
 		static_ptr = other.static_ptr;
+		return * this;
 	}
 
 	virtual T * const operator -> ()
@@ -163,6 +170,11 @@ public:
 	virtual void clear()
 	{
 		static_ptr = 0;
+	}
+
+	virtual bool const operator < (smartPtr<T> const & other) const
+	{
+		return static_ptr < * other;
 	}
 
 };

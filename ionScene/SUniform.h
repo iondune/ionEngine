@@ -141,19 +141,19 @@ public:
 };
 
 template <typename T>
-static boost::shared_ptr<IUniform const> BindUniformReference(T const & uniform)
+static smartPtr<IUniform const> BindUniformReference(T const & uniform)
 {
-	return boost::shared_ptr<IUniform const>(new SUniformReference<T>(uniform));
+	return smartPtr<IUniform const>(new SUniformReference<T>(uniform));
 }
 
 template <typename T>
-static boost::shared_ptr<IUniform const> BindUniformValue(T const & uniform)
+static smartPtr<IUniform const> BindUniformValue(T const & uniform)
 {
-	return boost::shared_ptr<IUniform const>(new SUniformValue<T>(uniform));
+	return smartPtr<IUniform const>(new SUniformValue<T>(uniform));
 }
 
 template <typename T>
-static boost::shared_ptr<IUniform const> BindUniform(T const & uniform)
+static smartPtr<IUniform const> BindUniform(T const & uniform)
 {
 	return BindUniformReference(uniform);
 }

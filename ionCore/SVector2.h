@@ -15,13 +15,13 @@ public:
 	SVector2()
 		: X(Values[0]), Y(Values[1])
 	{
-		set((T) 0);
+		SVectorSimple<T, Dimension>::set((T) 0);
 	}
 
 	SVector2(T const in)
 		: X(Values[0]), Y(Values[1])
 	{
-		set(in);
+		SVectorSimple<T, Dimension>::set(in);
 	}
 
 	SVector2(T const x, T const y)

@@ -95,9 +95,6 @@
     <ClInclude Include="CSceneEffectManager.h">
       <Filter>Scene Management\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderPass.h">
-      <Filter>Scene Management\Effects</Filter>
-    </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>Scene Management\Scene</Filter>
     </ClInclude>
@@ -106,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="IRenderTarget.h">
       <Filter>Graphics Layer\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderPass.h">
+      <Filter>Scene Management\Scene\RenderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="CDefaultColorRenderPass.h">
+      <Filter>Scene Management\Scene\RenderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="CMultiOutRenderPass.h">
+      <Filter>Scene Management\Scene\RenderPasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +284,9 @@
     </Filter>
     <Filter Include="External Utilities">
       <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Management\Scene\RenderPasses">
+      <UniqueIdentifier>{40e5200e-32f2-4270-86fa-8813df1c0f85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

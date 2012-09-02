@@ -33,7 +33,7 @@ CShaderContext::~CShaderContext()
 	for (std::vector<GLuint>::const_iterator it = EnabledVertexAttribArrays.begin(); it != EnabledVertexAttribArrays.end(); ++ it)
 		glDisableVertexAttribArray(* it);
 
-	for (int i = 0; i < Textures.size(); ++ i)
+	for (u32 i = 0; i < Textures.size(); ++ i)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		switch (Textures[i])

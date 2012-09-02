@@ -1,7 +1,7 @@
 #include "CScene.h"
 
 #include <sstream>
-
+#include "SAttribute.h"
 
 void CScene::addUniform(std::string const & label, smartPtr<IUniform const> const uniform)
 {

@@ -16,42 +16,33 @@ CDirectionalLightSceneObject::CDirectionalLightSceneObject(SVector3f const direc
 	setCullingEnabled(false);
 }
 
-bool CDirectionalLightSceneObject::draw(IScene const * const scene, ERenderPass const Pass, bool const CullingEnabled)
+bool CDirectionalLightSceneObject::draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled)
 {
 	if (! ISceneObject::draw(scene, Pass, CullingEnabled))
 		return false;
 
-	switch (Pass)
-	{
-	case ERenderPass::Default:
-	case ERenderPass::DeferredColors:
-	case ERenderPass::ModelSpaceNormals:
-		break;
+	//if (Pass != DeferredPass)
+	//	return true;
 
-	case ERenderPass::DeferredLights:
-		{
-			if (! Shader)
-				break;
+	if (! Shader)
+		return true;
 
-			CSceneEffectManager::SPostProcessPass Pass;
-			// TODO: find a way to manage this, perhaps by scene-managed uniforms?
-			//Pass.Textures["uNormal"] = ((CDeferredShadingManager *) ((CSceneManager *)scene)->getEffectManager())->DeferredNormalOutput;
-			Pass.SetTarget = false;
-			Pass.Shader = Shader;
+	CSceneEffectManager::SPostProcessPass DrawPass;
+	// TODO: find a way to manage this, perhaps by scene-managed uniforms?
+	//Pass.Textures["uNormal"] = ((CDeferredShadingManager *) ((CSceneManager *)scene)->getEffectManager())->DeferredNormalOutput;
+	DrawPass.SetTarget = false;
+	DrawPass.Shader = Shader;
 
-			Pass.begin();
-			Pass.Context->uniform("uColor", Color);
-			Pass.Context->uniform("uDirection", Direction);
+	DrawPass.begin();
+	DrawPass.Context->uniform("uColor", Color);
+	DrawPass.Context->uniform("uDirection", Direction);
 
-			Pass.end();
-			break;
-		}
-	}
+	DrawPass.end();
 
 	return true;
 }
 
-void CDirectionalLightSceneObject::load(IScene const * const Scene, ERenderPass const Pass)
+void CDirectionalLightSceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 {
 }
 

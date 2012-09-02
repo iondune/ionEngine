@@ -75,6 +75,7 @@
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CBufferObject.h" />
     <ClInclude Include="CCameraSceneObject.h" />
+    <ClInclude Include="CDefaultColorRenderPass.h" />
     <ClInclude Include="CDeferredShadingManager.h" />
     <ClInclude Include="CDirectionalLightSceneObject.h" />
     <ClInclude Include="CFrameBufferObject.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshLoader.h" />
     <ClInclude Include="CMeshSceneObject.h" />
+    <ClInclude Include="CMultiOutRenderPass.h" />
     <ClInclude Include="CPerspectiveCameraSceneObject.h" />
     <ClInclude Include="CPointLightSceneObject.h" />
     <ClInclude Include="CRenderable.h" />

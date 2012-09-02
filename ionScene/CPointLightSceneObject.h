@@ -21,9 +21,9 @@ public:
 
 	CPointLightSceneObject(float const radius = 3.f, SColorAf const & color = SColorAf(1.f));
 
-	virtual bool draw(IScene const * const scene, ERenderPass const Pass, bool const CullingEnabled);
+	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
 
-	virtual void load(IScene const * const Scene, ERenderPass const Pass);
+	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
 
 	virtual void setRadius(float const Radius);
 	virtual void setScale(SVector3f const & scale);

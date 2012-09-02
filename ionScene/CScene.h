@@ -59,10 +59,6 @@ protected:
 	//! Whether scene should use trivial-reject culling in hierarchy operations
 	bool UseCulling;
 
-	//! Bitfield of which different debug-purposed data should be shown
-	//! See EDebugDataValues
-	u32 DebugDataFlags;
-
 public:
 
 	CScene();

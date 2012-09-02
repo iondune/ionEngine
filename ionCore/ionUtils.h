@@ -1,6 +1,7 @@
 #ifndef _IONCORE_UTILS_H_INCLUDED_
 #define _IONCORE_UTILS_H_INCLUDED_
 
+#include "ionPrimitives.h"
 #include "ionMath.h"
 #include "ionComparison.h"
 

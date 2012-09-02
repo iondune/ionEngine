@@ -1,3 +1,5 @@
+#if 0
+
 #include "CDeferredShadingManager.h"
 
 #include "CSceneManager.h"
@@ -112,3 +114,5 @@ void CDeferredShadingManager::apply()
 	ActualFinalPass.doPass();
 
 }
+
+#endif

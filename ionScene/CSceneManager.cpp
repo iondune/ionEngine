@@ -122,6 +122,8 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 			}
 		}
 
+		DefaultColorRenderPass->setFrameBuffer(SceneFrameBuffer);
+
 		getQuadHandle();
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -148,6 +150,11 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 	}
 }
 
+smartPtr<CDefaultColorRenderPass> CSceneManager::getDefaultColorRenderPass()
+{
+	return DefaultColorRenderPass;
+}
+
 void CSceneManager::drawAll()
 {
 	ISceneObject::resetObjectCounts();
@@ -155,12 +162,12 @@ void CSceneManager::drawAll()
 
 	if (EffectManager && SceneFrameBuffer)
 	{
-		for (std::vector<CSceneEffectManager::SRenderPass>::iterator it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
+		for (auto it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
 		{
-			it->Pass->onPreDraw();
-			CurrentScene->load(it->Pass);
-			CurrentScene->draw(it->Pass);
-			it->Pass->onPostDraw();
+			(* it)->onPreDraw();
+			CurrentScene->load(* it);
+			CurrentScene->draw(* it);
+			(* it)->onPostDraw();
 		}
 
 		EffectManager->apply();
@@ -203,16 +210,6 @@ void CSceneManager::endDraw()
 	printOpenGLErrors("Scene Manager :: End Draw");
 }
 
-
-void CScene::enableDebugData(EDebugData::Domain const type)
-{
-	RootObject.enableDebugData(type);
-}
-
-void CScene::disableDebugData(EDebugData::Domain const type)
-{
-	RootObject.disableDebugData(type);
-}
 
 CFrameBufferObject * CSceneManager::getSceneFrameBuffer()
 {

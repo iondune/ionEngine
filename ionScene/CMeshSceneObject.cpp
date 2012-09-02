@@ -52,12 +52,12 @@ void CMeshSceneObject::setMesh(CMesh * mesh)
 			Child->removeUniform("uTexColor");
 
 			// Add mesh attributes
-			Child->addAttribute("aPosition", boost::shared_ptr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->PositionBuffer, 3)));
-			Child->addAttribute("aColor", boost::shared_ptr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->ColorBuffer, 3)));
-			Child->addAttribute("aNormal", boost::shared_ptr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
-			Child->addAttribute("aTexCoord", boost::shared_ptr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
+			Child->addAttribute("aPosition", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->PositionBuffer, 3)));
+			Child->addAttribute("aColor", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->ColorBuffer, 3)));
+			Child->addAttribute("aNormal", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
+			Child->addAttribute("aTexCoord", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
 			static int const TexLevel = 0;
-			Child->addUniform("uTexColor", boost::shared_ptr<IUniform const>(new SUniformReference<int>(TexLevel)));
+			Child->addUniform("uTexColor", smartPtr<IUniform const>(new SUniformReference<int>(TexLevel)));
 
 			Child->setMaterial(Mesh->MeshBuffers[i]->Material);
 

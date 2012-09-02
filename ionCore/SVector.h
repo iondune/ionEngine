@@ -5,7 +5,7 @@
 
 #include "ionUtils.h"
 
-template <typename T, int Dimension>
+template <typename T, u32 Size>
 class SVectorSimple
 {
 
@@ -20,6 +20,7 @@ protected:
 
 public:
 
+	static u32 const Dimension = Size;
 	T Values[Dimension];
 	mutable T OutOfBounds;
 

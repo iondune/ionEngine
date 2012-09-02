@@ -1,11 +1,6 @@
 #include "CScene.h"
 
 
-bool const CScene::isDebugDataEnabled(EDebugData const type) const
-{
-	return (type & DebugDataFlags) != 0;
-}
-
 void CScene::update()
 {
 	ActiveCamera->recalculateViewMatrix();

@@ -50,6 +50,7 @@ public:
 	CTexture * getSceneFrameTexture();
 	CTexture * getSceneDepthTexture();
 	CRenderBufferObject * getSceneDepthBuffer();
+	smartPtr<CDefaultColorRenderPass> getDefaultColorRenderPass();
 
 	CSceneEffectManager * getEffectManager();
 	void setEffectManager(CSceneEffectManager * effectManager);

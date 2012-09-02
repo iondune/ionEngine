@@ -25,19 +25,19 @@ bool CSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, 
 	{
 		// This message not needed, no defined shader means it should not draw, equivalent to {}
 		//std::cerr << "Failed to draw object " << this << ", shader not defined for current Pass." << std::endl;
-		return;
+		return true;
 	}
 
 	CShader * Shader = ShaderIterator->second;
 
 	if (! Shader)
-		return false;
+		return true;
 
 	CShaderContext ShaderContext(* Shader);
 
-	for (std::map<std::pair<GLint, std::string>, boost::shared_ptr<IAttribute const> >::iterator it = LoadedAttributes.begin(); it != LoadedAttributes.end(); ++ it)
+	for (std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> >::iterator it = LoadedAttributes.begin(); it != LoadedAttributes.end(); ++ it)
 		it->second->bind(it->first.first, ShaderContext);
-	for (std::map<std::pair<GLint, std::string>, boost::shared_ptr<IUniform const> >::iterator it = LoadedUniforms.begin(); it != LoadedUniforms.end(); ++ it)
+	for (std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> >::iterator it = LoadedUniforms.begin(); it != LoadedUniforms.end(); ++ it)
 		it->second->bind(it->first.first, ShaderContext);
 
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)

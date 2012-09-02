@@ -17,12 +17,12 @@ protected:
 	std::map<smartPtr<IRenderPass>, CShader *> Shaders;
 
 	//! Local shader variables
-	std::map<std::string, boost::shared_ptr<IAttribute const> > Attributes;
-	std::map<std::string, boost::shared_ptr<IUniform const> > Uniforms;
+	std::map<std::string, smartPtr<IAttribute const> > Attributes;
+	std::map<std::string, smartPtr<IUniform const> > Uniforms;
 
 	//! Loaded shader variables
-	std::map<std::pair<GLint, std::string>, boost::shared_ptr<IAttribute const> > LoadedAttributes;
-	std::map<std::pair<GLint, std::string>, boost::shared_ptr<IUniform const> > LoadedUniforms;
+	std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
+	std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
 
 public:
 
@@ -57,15 +57,15 @@ public:
 	virtual void setTexture(unsigned int const Layer, std::string const & Texture, unsigned int const Renderable);
 	virtual void setTexture(unsigned int const Layer, std::string const & Texture, CRenderable * const Renderable);
 
-	virtual void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute);
-	virtual void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute, unsigned int const Renderable);
-	virtual void addAttribute(std::string const & label, boost::shared_ptr<IAttribute const> const attribute, CRenderable * const Renderable);
-	virtual void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform);
-	virtual void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform, unsigned int const Renderable);
-	virtual void addUniform(std::string const & label, boost::shared_ptr<IUniform const> const uniform, CRenderable * const Renderable);
+	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute);
+	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, unsigned int const Renderable);
+	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, CRenderable * const Renderable);
+	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
+	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform, unsigned int const Renderable);
+	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform, CRenderable * const Renderable);
 	
-	virtual boost::shared_ptr<IAttribute const> getAttribute(std::string const & label);
-	virtual boost::shared_ptr<IUniform const> getUniform(std::string const & label);
+	virtual smartPtr<IAttribute const> getAttribute(std::string const & label);
+	virtual smartPtr<IUniform const> getUniform(std::string const & label);
 
 	virtual void removeAttribute(std::string const & label);
 	virtual void removeAttribute(std::string const & label, unsigned int const Renderable);

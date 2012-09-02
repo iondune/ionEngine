@@ -68,20 +68,6 @@ public:
 
 	CSceneEffectManager(CSceneManager * sceneManager);
 
-	class SRenderPass
-	{
-
-	public:
-
-		CFrameBufferObject * Target;
-		ERenderPass Pass;
-
-		SRenderPass();
-
-		bool const operator == (SRenderPass const & rhs);
-	
-	};
-
 	class SPostProcessPass
 	{
 
@@ -108,7 +94,7 @@ public:
 
 	};
 
-	std::vector<SRenderPass> RenderPasses;
+	std::vector<smartPtr<IRenderPass> > RenderPasses;
 
 	virtual void apply();
 

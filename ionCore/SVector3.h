@@ -17,13 +17,13 @@ public:
 	SVector3()
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
-		set((T) 0);
+		SVectorSimple<T, Dimension>::set((T) 0);
 	}
 
 	SVector3(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
-		set(in);
+		SVectorSimple<T, Dimension>::set(in);
 	}
 
 	SVector3(T const x, T const y, T const z)
