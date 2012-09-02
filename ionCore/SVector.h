@@ -101,6 +101,16 @@ protected:
 	{}
 
 public:
+	
+	void set(T in)
+	{
+		SVectorSimple<T, Dimension>::set(in);
+	}
+
+	void set(T in[])
+	{
+		SVectorSimple<T, Dimension>::set(in);
+	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
