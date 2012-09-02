@@ -4,13 +4,13 @@
 
 
 CScene::CScene()
-	: BindProjMatrix(ProjMatrix), BindViewMatrix(ViewMatrix), BindLightCount(LightCount), UseCulling(true)
+	: UseCulling(true)
 {
 	ActiveCamera = & DefaultCamera;
 
-	addUniform("uProjMatrix", staticPtr<IUniform const>(& BindProjMatrix));
-	addUniform("uViewMatrix", staticPtr<IUniform const>(& BindViewMatrix));
-	addUniform("uLightCount", staticPtr<IUniform const>(& BindLightCount));
+	addUniform("uProjMatrix", smartNew(new SUniformReference<glm::mat4>(ProjMatrix)));
+	addUniform("uViewMatrix", smartNew(new SUniformReference<glm::mat4>(ViewMatrix)));
+	addUniform("uLightCount", smartNew(new SUniformReference<s32>(LightCount)));
 
 	RootObject.setCullingEnabled(false);
 }

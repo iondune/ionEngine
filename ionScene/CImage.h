@@ -2,17 +2,9 @@
 #define _CABBAGE_SCENE_CIMAGE_H_INCLUDED_
 
 #include <string>
-
-#ifdef __unix__
-#include<GL/gl.h>
-#endif
-
-#ifdef _WIN32
-#include <GL\glew.h>
-#endif
-
 #include "SVector2.h"
 #include <SColor.h>
+
 
 class CImage
 {

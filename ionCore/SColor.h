@@ -63,7 +63,7 @@ public:
 	template <typename U, int otherDimension, typename otherImplementation>
 	SColor<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
-		set(v);
+		set(vec);
 
 		return * this;
 	}

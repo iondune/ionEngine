@@ -9,7 +9,8 @@
 
 
 bool printOpenGLErrors();
-bool printOpenGLErrors(char const * const Location);
+bool printOpenGLErrors(std::string const & Location);
+
 
 struct SShaderVariable
 {

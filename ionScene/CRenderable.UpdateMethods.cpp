@@ -36,8 +36,13 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	// Pass uniform and attribute variables to shader
 	for (std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
 		it->second->bind(it->first.first);
+
+	printOpenGLErrors("Renderable Attribute Bind");
+
 	for (std::map<std::pair<GLuint, std::string>, smartPtr<IUniform const> >::iterator it = ShaderSetup.LoadedUniforms.begin(); it != ShaderSetup.LoadedUniforms.end(); ++ it)
 		it->second->bind(it->first.first);
+
+	printOpenGLErrors("Renderable Uniform Bind");
 
 	// Set up texturing if textures are supplied by material
 	if (Material.Textures.size())
@@ -51,6 +56,8 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 				glBindTexture(GL_TEXTURE_2D, Material.Textures[i]->getTextureHandle());
 		}
 	}
+
+	printOpenGLErrors("Renderable Texture Bind");
 
 	// Determine primitive draw type
 	GLenum ElementType;
@@ -89,13 +96,17 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 		ShaderContext.bindIndexBufferObject(IndexBufferObject->getHandle());
 
 		// Draw call
+		printOpenGLErrors("Renderable Other Setup");
 		glDrawElements(ElementType, IndexBufferObject->getElements().size(), GL_UNSIGNED_SHORT, 0);
 	}
 	else
 	{
+		printOpenGLErrors("Renderable Other Setup");
 		// Draw call
 		glDrawArrays(ElementType, 0, ElementCount);
 	}
+
+	printOpenGLErrors("Renderable Draw Call");
 	
 	// Disable wireframe mode
 	if (ParentObject->isDebugDataEnabled(EDebugData::Wireframe))
@@ -125,6 +136,9 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 	}
+
+	
+	printOpenGLErrors("Renderable Cleanup");
 }
 
 void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)

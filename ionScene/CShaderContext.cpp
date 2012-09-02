@@ -106,54 +106,64 @@ void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
 // Uniforms //
 //////////////
 
-void CShaderContext::uniform(GLuint const uniformHandle, float const uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, f32 const uniform)
 {
 	glUniform1f(uniformHandle, uniform);
+	printOpenGLErrors("Shader Context >-< glUniform1f");
 }
 
-void CShaderContext::uniform(GLuint const uniformHandle, int const uniform)
+void CShaderContext::uniform(GLuint const uniformHandle, s32 const uniform)
 {
 	glUniform1i(uniformHandle, uniform);
+	printOpenGLErrors("Shader Context >-< glUniform1i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, glm::mat4 const & uniform)
 {
 	glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform));
+	printOpenGLErrors("Shader Context >-< glUniformMatrix4fv");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, STransformation3 const & uniform)
 {
 	glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform()));
+	printOpenGLErrors("Shader Context >-< glUniformMatrix4fv");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform)
 {
 	glUniform2f(uniformHandle, uniform[0], uniform[1]);
+	printOpenGLErrors("Shader Context >-< glUniform2f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform)
 {
 	glUniform3f(uniformHandle, uniform[0], uniform[1], uniform[2]);
+	printOpenGLErrors("Shader Context >-< glUniform3f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform)
 {
 	glUniform4f(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
+	printOpenGLErrors("Shader Context >-< glUniform4f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform)
 {
 	glUniform2i(uniformHandle, uniform[0], uniform[1]);
+	printOpenGLErrors("Shader Context >-< glUniform2i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform)
 {
 	glUniform3i(uniformHandle, uniform[0], uniform[1], uniform[2]);
+	printOpenGLErrors("Shader Context >-< glUniform3i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform)
 {
 	glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
+	printOpenGLErrors("Shader Context >-< glUniform4i");
 }
 
 

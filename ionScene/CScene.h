@@ -45,10 +45,6 @@ protected:
 
 	//! Light count bindings
 	s32 LightCount;
-	SUniformReference<s32> BindLightCount;
-
-	//! Bind camera matrices
-	SUniformReference<glm::mat4> BindViewMatrix, BindProjMatrix;
 
 	//! Uniform variable bindings
 	std::map<std::string, smartPtr<IUniform const> > Uniforms;

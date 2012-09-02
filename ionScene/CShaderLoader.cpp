@@ -8,7 +8,7 @@
 #include <cstdlib>
 
 
-bool printOpenGLErrors(char const * const Location)
+bool printOpenGLErrors(std::string const & Location)
 {
 	bool Succeeded = true;
 

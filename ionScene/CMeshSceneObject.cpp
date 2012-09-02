@@ -57,7 +57,7 @@ void CMeshSceneObject::setMesh(CMesh * mesh)
 			Child->addAttribute("aNormal", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
 			Child->addAttribute("aTexCoord", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
 			static int const TexLevel = 0;
-			Child->addUniform("uTexColor", smartPtr<IUniform const>(new SUniformReference<int>(TexLevel)));
+			Child->addUniform("uTexColor", smartPtr<IUniform const>(new SUniformReference<s32>(TexLevel)));
 
 			Child->setMaterial(Mesh->MeshBuffers[i]->Material);
 

@@ -17,54 +17,54 @@ class CShaderContext
 		ETT_3D
 	};
 
-    bool Valid;
-    CShader const * Shader;
+	bool Valid;
+	CShader const * Shader;
 	std::vector<ETextureType> Textures;
 	bool Texture2D;
 	bool Texture3D;
 
-    std::vector<GLuint> EnabledVertexAttribArrays;
+	std::vector<GLuint> EnabledVertexAttribArrays;
 
 public:
 
-    /*!
-     * Creates a shader context, used for drawing an object with the shader
-     */
-    CShaderContext(CShader const & shader);
-    CShaderContext(CShader const * shader);
+	/*!
+	 * Creates a shader context, used for drawing an object with the shader
+	*/
+	CShaderContext(CShader const & shader);
+	CShaderContext(CShader const * shader);
 
-    /*!
-     * Cleans up shader call... make sure that the CShaderContext leaves scope before another context is created!
-     */
-    ~CShaderContext();
+	/*!
+	 * Cleans up shader call... make sure that the CShaderContext leaves scope before another context is created!
+	*/
+	~CShaderContext();
 
-    /*!
-     * Binds a shader attribute variable to a VBO.
-     */
-    void bindBufferObject(std::string const & label, GLuint const bufferHandle, GLuint const elementSize);
-    void bindBufferObject(GLuint const attribHandle, GLuint const bufferHandle, GLuint const elementSize);
+	/*!
+	 * Binds a shader attribute variable to a VBO.
+	*/
+	void bindBufferObject(std::string const & label, GLuint const bufferHandle, GLuint const elementSize);
+	void bindBufferObject(GLuint const attribHandle, GLuint const bufferHandle, GLuint const elementSize);
 
-    /*!
-     * Binds an element array buffer
-     */
-    void bindIndexBufferObject(GLuint const BufferHandle);
+	/*!
+	 * Binds an element array buffer
+	*/
+	void bindIndexBufferObject(GLuint const BufferHandle);
 
-    /*!
-     * Send uniform variables to shader
-     */
-    void uniform(GLuint const uniformHandle, float const uniform);
-    void uniform(GLuint const uniformHandle, int const uniform);
-    void uniform(GLuint const uniformHandle, glm::mat4 const & uniform);
-    void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform);
-    void uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform);
+	/*!
+	 * Send uniform variables to shader
+	*/
+	static void uniform(GLuint const uniformHandle, f32 const uniform);
+	static void uniform(GLuint const uniformHandle, s32 const uniform);
+	static void uniform(GLuint const uniformHandle, glm::mat4 const & uniform);
+	static void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform);
 
 	template <typename T>
-    void uniform(std::string const & label, T const & uniformVar)
+	void uniform(std::string const & label, T const & uniformVar)
 	{
 		if (! Shader)
 			return;
@@ -80,7 +80,7 @@ public:
 
 		uniform(it->second.Handle, uniformVar);
 	}
-	
+
 	void bindTexture(GLuint const uniformHandle, GLuint const TextureHandle);
 	void bindTexture(GLuint const uniformHandle, CTexture const * const Texture);
 	void bindTexture(std::string const & Label, CTexture const * const Texture);

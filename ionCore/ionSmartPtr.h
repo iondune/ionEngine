@@ -104,7 +104,7 @@ static smartPtr<T> smartNew(T * t)
 	return smartPtr<T>(t);
 }
 
-template <typename T>
+/*template <typename T>
 class staticPtr : public smartPtr<T>
 {
 
@@ -177,6 +177,6 @@ public:
 		return static_ptr < * other;
 	}
 
-};
+};*/
 
 #endif
