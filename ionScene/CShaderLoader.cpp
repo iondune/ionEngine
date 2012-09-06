@@ -5,40 +5,91 @@
 #include <string>
 #include <fstream>
 #include <streambuf>
-#include <cstdlib>
+#include <sstream>
 
 
-bool printOpenGLErrors(std::string const & Location)
+std::string applySymbolTable(std::vector<std::pair<std::string, std::string> > const & SymbolTable, std::string const & str)
 {
-	bool Succeeded = true;
+	if (! SymbolTable.size())
+		return str;
 
-	GLenum glErr = glGetError();
-	while (glErr != GL_NO_ERROR)
+	std::string out;
+
+	for (size_t pos = 0; pos < str.size(); ++ pos)
 	{
-		std::cerr << "OpenGL Error at " << Location << ": " << gluErrorString(glErr) << std::endl;
-		Succeeded = false;
-		glErr = glGetError();
+		auto it = SymbolTable.begin();
+		for (; it != SymbolTable.end() && str.find(it->first, pos) != pos; ++ it);
+		if (it != SymbolTable.end())
+		{
+			out.append(it->second);
+			pos += it->first.length() - 1;
+			continue;
+		}
+		out.append(1, str[pos]);
 	}
-
-	return Succeeded;
+	return out;
 }
 
-bool printOpenGLErrors()
+std::string const CShaderLoader::parseShaderSource(std::string const & fileName, std::vector<std::pair<std::string, std::string> > SymbolTable)
 {
-	bool Succeeded = true;
+	// To Do : Prevent infinite recursion
 
-	GLenum glErr = glGetError();
-	while (glErr != GL_NO_ERROR)
+	std::ifstream File(fileName);
+	if (! File.is_open())
 	{
-		std::cerr << "OpenGL Error: " << gluErrorString(glErr) << std::endl;
-		Succeeded = false;
-		glErr = glGetError();
+		LogFile << "Could not open file of shader: " << fileName << std::endl;
+		return "";
 	}
 
-	return Succeeded;
+	size_t EndRelativePath;
+	std::string RelativePath = fileName.substr(0, ((EndRelativePath = fileName.find_last_of("\\/")) == std::string::npos ? 0 : EndRelativePath));
+
+	std::string FileSource;
+
+	File.seekg(0, std::ios::end);
+	FileSource.reserve((size_t) File.tellg());
+	File.seekg(0, std::ios::beg);
+
+	FileSource.assign((std::istreambuf_iterator<char>(File)), std::istreambuf_iterator<char>());
+
+	std::istringstream Stream(FileSource);
+	std::ostringstream Output;
+
+	while(Stream.good() && ! Stream.eof())
+	{
+		std::string Line;
+		std::getline(Stream, Line);
+
+		if (Line.substr(0, 10) == std::string("#include \""))
+		{
+			std::string IncludePath = Line.substr(10);
+			size_t EndPath = IncludePath.find_last_of('"');
+			IncludePath = IncludePath.substr(0, EndPath);
+			Output << parseShaderSource(RelativePath.append(IncludePath), SymbolTable) << std::endl;
+		}
+		else if (Line.substr(0, 8) == std::string("#define "))
+		{
+			std::string DefineLine = Line.substr(8);
+			size_t EndTokenName = DefineLine.find_first_of(" \t");
+			std::string TokenName = DefineLine.substr(0, EndTokenName);
+			std::string Token = DefineLine.substr(EndTokenName);
+			SymbolTable.push_back(std::pair<std::string, std::string>(TokenName, Token));
+		}
+		else
+		{
+			Output << applySymbolTable(SymbolTable, Line) << std::endl;
+		}
+	}
+
+	std::string IntermediateFileName = fileName;
+	IntermediateFileName.append(".intermediate");
+	std::ofstream IntermediateFile(IntermediateFileName);
+	IntermediateFile << Output.str();
+	IntermediateFile.close();
+	return Output.str();
 }
 
-static inline void printShaderInfoLog(GLuint shaderHandle)
+static void printShaderInfoLog(GLuint shaderHandle)
 {
 	printOpenGLErrors();
 
@@ -55,7 +106,7 @@ static inline void printShaderInfoLog(GLuint shaderHandle)
 	}
 }
 
-static inline void printProgramInfoLog(GLuint programHandle)
+static void printProgramInfoLog(GLuint programHandle)
 {
 	printOpenGLErrors();
 
@@ -112,44 +163,16 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 
 	// Read Vertex Shader file
 	{
-		std::ifstream vertFile(vertFileName.c_str());
-		if (! vertFile.is_open())
-		{
-			LogFile << "Could not open file of shader: " << vertFileName << std::endl;
-			glDeleteShader(VS);
-			glDeleteShader(FS);
-			return 0;
-		}
-		std::string vertFileSource;
-
-		vertFile.seekg(0, std::ios::end);
-		vertFileSource.reserve((size_t) vertFile.tellg());
-		vertFile.seekg(0, std::ios::beg);
-
-		vertFileSource.assign((std::istreambuf_iterator<char>(vertFile)), std::istreambuf_iterator<char>());
-		GLchar const * SourceString = vertFileSource.c_str();
+		std::string const Source = parseShaderSource(vertFileName.c_str()).c_str();
+		GLchar const * SourceString = Source.c_str();
 		glShaderSource(VS, 1, & SourceString, NULL);
 	}
 
 
 	// Read Fragment Shader file
 	{
-		std::ifstream fragFile(fragFileName.c_str());
-		if (! fragFile.is_open())
-		{
-			LogFile << "Could not open file of shader: " << fragFileName << std::endl;
-			glDeleteShader(VS);
-			glDeleteShader(FS);
-			return 0;
-		}
-		std::string fragFileSource;
-
-		fragFile.seekg(0, std::ios::end);   
-		fragFileSource.reserve((size_t) fragFile.tellg());
-		fragFile.seekg(0, std::ios::beg);
-
-		fragFileSource.assign((std::istreambuf_iterator<char>(fragFile)), std::istreambuf_iterator<char>());
-		GLchar const * SourceString = fragFileSource.c_str();
+		std::string const Source = parseShaderSource(fragFileName.c_str()).c_str();
+		GLchar const * SourceString = Source.c_str();
 		glShaderSource(FS, 1, & SourceString, NULL);
 	}
 
