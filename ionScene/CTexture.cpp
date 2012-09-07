@@ -163,3 +163,8 @@ bool const CTexture::isValid() const
 {
 	return TextureHandle != 0;
 }
+
+ERenderTargetType const CTexture::getRenderTargetType()
+{
+	return ERenderTargetType::Texture;
+}

@@ -23,17 +23,23 @@
 class CSceneManager : public CScene
 {
 
+	//! Current scene used for rendering
 	IScene * CurrentScene;
 
+	//! Default frame buffer used for drawing, allows post-processing passes to access scene texture without implementing a custom pass
 	CFrameBufferObject * SceneFrameBuffer;
+	//! Default frame and depth textures from render using defualt frame buffer
 	CTexture * SceneFrameTexture, * SceneDepthTexture;
-	CRenderBufferObject * SceneDepthBuffer;
+
+	//! Simple shader used to draw a texture to the screen
 	CShader * QuadCopy;
 
 	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
 
+	//! Current render context window size
 	SSize2 ScreenSize;
 
+	//! Built in default color rendering pass
 	smartPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
@@ -49,7 +55,6 @@ public:
 	CFrameBufferObject * getSceneFrameBuffer();
 	CTexture * getSceneFrameTexture();
 	CTexture * getSceneDepthTexture();
-	CRenderBufferObject * getSceneDepthBuffer();
 	smartPtr<CDefaultColorRenderPass> getDefaultColorRenderPass();
 
 	CSceneEffectManager * getEffectManager();

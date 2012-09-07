@@ -19,6 +19,8 @@ public:
 
 	GLuint const getHandle();
 
+	virtual ERenderTargetType const getRenderTargetType();
+
 };
 
 #endif

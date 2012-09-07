@@ -76,11 +76,11 @@ void CSceneEffectManager::OnWindowResized()
 
 	ScratchTarget1 = new CFrameBufferObject();
 	ScratchTexture1 = new CTexture(SceneManager->getScreenSize(), true, Flags);
-	ScratchTarget1->attach(ScratchTexture1, GL_COLOR_ATTACHMENT0);
+	ScratchTarget1->attachColorTexture(ScratchTexture1, 0);
 
 	BloomResultTarget = new CFrameBufferObject();
 	BloomResultTexture = new CTexture(SceneManager->getScreenSize(), true);
-	BloomResultTarget->attach(BloomResultTexture, GL_COLOR_ATTACHMENT0);
+	BloomResultTarget->attachColorTexture(BloomResultTexture, 0);
 
 	RenderPasses.clear();
 	RenderPasses.push_back(SceneManager->getDefaultColorRenderPass());
@@ -118,11 +118,11 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 
 	ScratchTarget1 = new CFrameBufferObject();
 	ScratchTexture1 = new CTexture(SceneManager->getScreenSize(), true, Flags);
-	ScratchTarget1->attach(ScratchTexture1, GL_COLOR_ATTACHMENT0);
+	ScratchTarget1->attachColorTexture(ScratchTexture1, 0);
 
 	BloomResultTarget = new CFrameBufferObject();
 	BloomResultTexture = new CTexture(SceneManager->getScreenSize(), true);
-	BloomResultTarget->attach(BloomResultTexture, GL_COLOR_ATTACHMENT0);
+	BloomResultTarget->attachColorTexture(BloomResultTexture, 0);
 	
 	RenderPasses.push_back(SceneManager->getDefaultColorRenderPass());
 

@@ -56,6 +56,8 @@ public:
 	void setImage(CImage * Image);
 	void setImage(void const * const Data, bool const hasAlpha);
 
+	virtual ERenderTargetType const getRenderTargetType();
+
 };
 
 #endif

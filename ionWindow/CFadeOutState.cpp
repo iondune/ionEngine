@@ -16,7 +16,7 @@ void CFadeOutState::begin()
 	STextureCreationFlags Flags;
 	Flags.MipMaps = false;
 	SourceFrameTexture = new CTexture(CApplication::get().getWindowSize(), true, Flags);
-	SourceFrameBuffer->attach(SourceFrameTexture, GL_COLOR_ATTACHMENT0);
+	SourceFrameBuffer->attachColorTexture(SourceFrameTexture, 0);
 
 	CSceneEffectManager::SPostProcessPass GetSceneBuffer;
 	GetSceneBuffer.Shader = CShaderLoader::loadShader("FBO/QuadCopy");

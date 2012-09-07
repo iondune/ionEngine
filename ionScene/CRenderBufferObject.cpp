@@ -17,3 +17,8 @@ GLuint const CRenderBufferObject::getHandle()
 {
 	return Handle;
 }
+
+ERenderTargetType const CRenderBufferObject::getRenderTargetType()
+{
+	return ERenderTargetType::RenderBuffer;
+}

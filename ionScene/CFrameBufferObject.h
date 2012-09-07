@@ -14,7 +14,7 @@ class CFrameBufferObject
 
 	GLuint Handle;
 
-	std::map<u32, IRenderTarget *> ColorAttachments;
+	std::map<u32, CTexture *> ColorAttachments;
 	IRenderTarget * DepthAttachment;
 
 public:
@@ -22,8 +22,9 @@ public:
 	CFrameBufferObject();
 	~CFrameBufferObject();
 
-	void attach(CRenderBufferObject * RenderBufferObject, GLenum const Attachment);
-	void attach(CTexture * Texture, GLenum const Attachment);
+	void attachColorTexture(CTexture * Texture, u32 const Attachment);
+	void attachDepthTexture(CTexture * Texture);
+	void attachDepthRenderBuffer(CRenderBufferObject * RenderBufferObject);
 
 	GLuint const getHandle();
 
@@ -32,11 +33,11 @@ public:
 
 	bool const isValid() const;
 
-	std::map<u32, IRenderTarget *> const & getColorAttachments();
+	std::map<u32, CTexture *> const & getColorAttachments();
 	IRenderTarget const * const getDepthAttachment();
+	
+	static void bindDeviceBackBuffer();
 
 };
-
-void bindDeviceBackBuffer();
 
 #endif

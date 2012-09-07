@@ -35,7 +35,7 @@ GLuint const CSceneManager::getQuadHandle()
 }
 
 CSceneManager::CSceneManager(SPosition2 const & screenSize)
-	: SceneFrameTexture(0), SceneDepthBuffer(0), SceneFrameBuffer(0),
+	: SceneFrameTexture(0), SceneDepthTexture(0), SceneFrameBuffer(0),
 	EffectManager(0), DefaultManager(0), 
 	ScreenSize(screenSize)
 {
@@ -50,11 +50,11 @@ void CSceneManager::OnWindowResized(SPosition2 const & screenSize)
 	{
 		delete SceneFrameBuffer;
 		delete SceneFrameTexture;
-		delete SceneDepthBuffer;
+		delete SceneDepthTexture;
 
 		SceneFrameBuffer = 0;
 		SceneFrameTexture = 0;
-		SceneDepthBuffer = 0;
+		SceneDepthTexture = 0;
 
 		init(false, true);
 	}
@@ -75,24 +75,26 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 			Flags.MipMaps = false;
 			Flags.Wrap = GL_CLAMP_TO_EDGE;
 			SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
-			Flags.PixelInternalFormat = GL_R32F;
+			printOpenGLErrors("SceneManager :: Create Frame Texture");
+			Flags.PixelFormat = GL_DEPTH_COMPONENT;
+			Flags.PixelInternalFormat = GL_DEPTH_COMPONENT;
 			SceneDepthTexture = new CTexture(ScreenSize, true, Flags);
+			printOpenGLErrors("SceneManager :: Create Depth Texture");
 		}
-		SceneDepthBuffer = new CRenderBufferObject(GL_DEPTH_COMPONENT24, ScreenSize);
 
 		SceneFrameBuffer = new CFrameBufferObject();
-		SceneFrameBuffer->attach(SceneDepthBuffer, GL_DEPTH_ATTACHMENT);
-		SceneFrameBuffer->attach(SceneFrameTexture, GL_COLOR_ATTACHMENT0);
-		SceneFrameBuffer->attach(SceneDepthTexture, GL_COLOR_ATTACHMENT1);
+		SceneFrameBuffer->attachColorTexture(SceneFrameTexture, 0);
+		SceneFrameBuffer->attachDepthTexture(SceneDepthTexture);
+		printOpenGLErrors("SceneManager :: Create Frame Buffer");
 
-		SceneFrameBuffer->bind();
+		/*SceneFrameBuffer->bind();
 		GLenum Buffers[] = 
 		{
 			GL_COLOR_ATTACHMENT0,
 			GL_COLOR_ATTACHMENT1
 		};
 
-		glDrawBuffers(sizeof(Buffers)/sizeof(GLenum), Buffers);
+		glDrawBuffers(sizeof(Buffers)/sizeof(GLenum), Buffers);*/
 
 		if (! SceneFrameBuffer->isValid())
 		{
@@ -102,8 +104,8 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 			SceneFrameBuffer = 0;
 			delete SceneFrameTexture;
 			SceneFrameTexture = 0;
-			delete SceneDepthBuffer;
-			SceneDepthBuffer = 0;
+			delete SceneDepthTexture;
+			SceneDepthTexture = 0;
 		}
 		else
 		{
@@ -117,8 +119,8 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 				SceneFrameBuffer = 0;
 				delete SceneFrameTexture;
 				SceneFrameTexture = 0;
-				delete SceneDepthBuffer;
-				SceneDepthBuffer = 0;
+				delete SceneDepthTexture;
+				SceneDepthTexture = 0;
 			}
 		}
 
@@ -224,11 +226,6 @@ CTexture * CSceneManager::getSceneFrameTexture()
 CTexture * CSceneManager::getSceneDepthTexture()
 {
 	return SceneDepthTexture;
-}
-
-CRenderBufferObject * CSceneManager::getSceneDepthBuffer()
-{
-	return SceneDepthBuffer;
 }
 
 CSceneEffectManager * CSceneManager::getEffectManager()
