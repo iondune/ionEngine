@@ -20,7 +20,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 	if (! ShaderSetup.Loaded)
 	{
 		// Unload any previous setup
-		ShaderSetup.unload();
+		unload(Pass);
 
 		// Get specified shader from parent object
 		CShader * Shader = ParentObject->getShader(Pass);
@@ -68,6 +68,12 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		// Setup is loaded
 		ShaderSetup.Loaded = true;
 	}
+}
+
+void CRenderable::unload()
+{
+	for (auto it = ShaderSetups.begin(); it != ShaderSetups.end(); ++ it)
+		unload(it->first);
 }
 
 void CRenderable::unload(smartPtr<IRenderPass> Pass)

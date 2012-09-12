@@ -91,6 +91,7 @@ public:
 	////////////////////
 	
 	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void unload();
 	virtual void unload(smartPtr<IRenderPass> Pass);
 	virtual bool draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
 

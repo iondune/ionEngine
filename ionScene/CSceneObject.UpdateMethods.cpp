@@ -12,6 +12,12 @@ void CSceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		(* it)->load(Scene, Pass);
 }
 
+void CSceneObject::unload()
+{
+	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
+		(* it)->unload();
+}
+
 void CSceneObject::unload(smartPtr<IRenderPass> Pass)
 {
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)

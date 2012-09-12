@@ -22,23 +22,13 @@ public:
 		smartPtr<IUniform const> & getUniform(u32 const Index);
 
 		STransformation3 Transformation;
-		bool TransformationUsed;
-		bool ModelMatrixBound;
-		bool NormalMatrixBound;
 
 	public:
 
-		CInstance(CInstanceSceneObject * parent)
-			: Parent(parent), TransformationUsed(false), ModelMatrixBound(false), NormalMatrixBound(false)
-		{}
+		CInstance(CInstanceSceneObject * parent);
 
 		void setUniformOverride(smartPtr<IRenderPass> RenderPass, std::string const & Label, smartPtr<IUniform const> Uniform);
-
-		void setPosition(vec3f const & Position)
-		{
-			Transformation.setTranslation(Position);
-			TransformationUsed = true;
-		}
+		void setPosition(vec3f const & Position);
 
 	};
 
@@ -48,7 +38,8 @@ public:
 		CInstanceSceneObject * InstanceParent;
 
 	public:
-
+		
+		virtual void unload(smartPtr<IRenderPass> Pass);
 		virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
 
 	};
@@ -75,13 +66,19 @@ protected:
 		std::map<std::string, SOverriddenUniformBind> Binds;
 		u32 InternalIndexCounter;
 
+		bool UseModelMatrix;
+		bool UseNormalMatrix;
+		u32 ModelMatrixHandle;
+		u32 NormalMatrixHandle;
+
 		SOverriddenUniforms()
-			: InternalIndexCounter(0)
+			: InternalIndexCounter(0), UseModelMatrix(false), UseNormalMatrix(false), ModelMatrixHandle(0), NormalMatrixHandle(0)
 		{}
 	};
 
 	std::map<smartPtr<IRenderPass>, SOverriddenUniforms> OverrideUniforms;
 	std::vector<CInstance *> Instances;
+	bool TransformationUsed;
 
 	u32 const enableUniformOverride(smartPtr<IRenderPass> Pass, std::string const & Label);
 

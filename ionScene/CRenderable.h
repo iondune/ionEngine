@@ -170,6 +170,7 @@ public:
 	////////////////////
 	
 	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void unload();
 	virtual void unload(smartPtr<IRenderPass> Pass);
 	virtual void draw(IScene const * const scene, smartPtr<IRenderPass> Pass, CShaderContext & Context);
 
