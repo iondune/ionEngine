@@ -21,8 +21,8 @@ protected:
 	std::map<std::string, smartPtr<IUniform const> > Uniforms;
 
 	//! Loaded shader variables
-	std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
-	std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
+	//std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
+	//std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
 
 public:
 
@@ -91,6 +91,7 @@ public:
 	////////////////////
 	
 	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void unload(smartPtr<IRenderPass> Pass);
 	virtual bool draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
 
 };

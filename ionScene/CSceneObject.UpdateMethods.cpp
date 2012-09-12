@@ -12,6 +12,12 @@ void CSceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		(* it)->load(Scene, Pass);
 }
 
+void CSceneObject::unload(smartPtr<IRenderPass> Pass)
+{
+	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
+		(* it)->unload(Pass);
+}
+
 bool CSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled)
 {
 	if (! ISceneObject::draw(Scene, Pass, CullingEnabled))
@@ -35,10 +41,11 @@ bool CSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, 
 
 	CShaderContext ShaderContext(* Shader);
 
-	for (std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> >::iterator it = LoadedAttributes.begin(); it != LoadedAttributes.end(); ++ it)
-		it->second->bind(it->first.first, ShaderContext);
-	for (std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> >::iterator it = LoadedUniforms.begin(); it != LoadedUniforms.end(); ++ it)
-		it->second->bind(it->first.first, ShaderContext);
+	// Not Used ?
+	//for (std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> >::iterator it = LoadedAttributes.begin(); it != LoadedAttributes.end(); ++ it)
+	//	it->second->bind(it->first.first, ShaderContext);
+	//for (std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> >::iterator it = LoadedUniforms.begin(); it != LoadedUniforms.end(); ++ it)
+	//	it->second->bind(it->first.first, ShaderContext);
 
 	for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
 		(* it)->draw(Scene, Pass, ShaderContext);

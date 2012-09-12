@@ -8,6 +8,75 @@
 #include "IRenderPass.h"
 
 
+void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
+{
+	// Sync index buffer data
+	if (IndexBufferObject && IndexBufferObject->isDirty())
+		IndexBufferObject->syncData();
+
+	SShaderSetup & ShaderSetup = ShaderSetups[Pass];
+
+	// Load shader setup if needed
+	if (! ShaderSetup.Loaded)
+	{
+		// Unload any previous setup
+		ShaderSetup.unload();
+
+		// Get specified shader from parent object
+		CShader * Shader = ParentObject->getShader(Pass);
+		if (! Shader)
+			return;
+
+		// Map attribute variables to shader handles
+		for (std::map<std::string, SShaderVariable>::const_iterator it = Shader->getAttributeHandles().begin(); it != Shader->getAttributeHandles().end(); ++ it)
+		{
+			std::string const & Label = it->first;
+
+			smartPtr<IAttribute const> Attribute = getAttribute(Label);
+
+			if (! Attribute)
+				Attribute = ParentObject->getAttribute(Label);
+
+			if (! Attribute)
+				Attribute = Scene->getAttribute(Label);
+
+			if (! Attribute)
+				std::cout << "Shader-required attribute '" << Label << "' was not provided for object " << this << "." << std::endl;
+			else
+				ShaderSetup.LoadedAttributes[std::pair<GLuint, std::string>(it->second.Handle, Label)] = Attribute;
+		}
+
+		// Map uniform variables to shader handles
+		for (std::map<std::string, SShaderVariable>::const_iterator it = Shader->getUniformHandles().begin(); it != Shader->getUniformHandles().end(); ++ it)
+		{
+			std::string const & Label = it->first;
+
+			smartPtr<IUniform const> Uniform = getUniform(Label);
+
+			if (! Uniform)
+				Uniform = ParentObject->getUniform(Label);
+
+			if (! Uniform)
+				Uniform = Scene->getUniform(Label);
+
+			if (! Uniform)
+				std::cout << "Shader-required uniform '" << Label << "' was not provided for object " << this << "." << std::endl;
+			else
+				ShaderSetup.LoadedUniforms[std::pair<GLuint, std::string>(it->second.Handle, Label)] = Uniform;
+		}
+
+		// Setup is loaded
+		ShaderSetup.Loaded = true;
+	}
+}
+
+void CRenderable::unload(smartPtr<IRenderPass> Pass)
+{
+	SShaderSetup & ShaderSetup = ShaderSetups[Pass];
+	ShaderSetup.Loaded = false;
+	ShaderSetup.unload();
+}
+
 void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, CShaderContext & ShaderContext)
 {	
 	// If the ibo loaded hasn't been synced as an index buffer object, we can't draw anything
@@ -139,66 +208,4 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 
 	
 	printOpenGLErrors("Renderable Cleanup");
-}
-
-void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
-{
-	// Sync index buffer data
-	if (IndexBufferObject && IndexBufferObject->isDirty())
-		IndexBufferObject->syncData();
-
-	SShaderSetup & ShaderSetup = ShaderSetups[Pass];
-
-	// Load shader setup if needed
-	if (! ShaderSetup.Loaded)
-	{
-		// Unload and previous setup
-		ShaderSetup.unload();
-
-		// Get specified shader from parent object
-		CShader * Shader = ParentObject->getShader(Pass);
-		if (! Shader)
-			return;
-
-		// Map attribute variables to shader handles
-		for (std::map<std::string, SShaderVariable>::const_iterator it = Shader->getAttributeHandles().begin(); it != Shader->getAttributeHandles().end(); ++ it)
-		{
-			std::string const & Label = it->first;
-
-			smartPtr<IAttribute const> Attribute = getAttribute(Label);
-
-			if (! Attribute)
-				Attribute = ParentObject->getAttribute(Label);
-
-			if (! Attribute)
-				Attribute = Scene->getAttribute(Label);
-
-			if (! Attribute)
-				std::cout << "Shader-required attribute '" << Label << "' was not provided for object " << this << "." << std::endl;
-			else
-				ShaderSetup.LoadedAttributes[std::pair<GLuint, std::string>(it->second.Handle, Label)] = Attribute;
-		}
-
-		// Map uniform variables to shader handles
-		for (std::map<std::string, SShaderVariable>::const_iterator it = Shader->getUniformHandles().begin(); it != Shader->getUniformHandles().end(); ++ it)
-		{
-			std::string const & Label = it->first;
-
-			smartPtr<IUniform const> Uniform = getUniform(Label);
-
-			if (! Uniform)
-				Uniform = ParentObject->getUniform(Label);
-
-			if (! Uniform)
-				Uniform = Scene->getUniform(Label);
-
-			if (! Uniform)
-				std::cout << "Shader-required uniform '" << Label << "' was not provided for object " << this << "." << std::endl;
-			else
-				ShaderSetup.LoadedUniforms[std::pair<GLuint, std::string>(it->second.Handle, Label)] = Uniform;
-		}
-
-		// Setup is loaded
-		ShaderSetup.Loaded = true;
-	}
 }

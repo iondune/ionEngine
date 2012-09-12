@@ -113,6 +113,9 @@
     <ClInclude Include="CMultiOutRenderPass.h">
       <Filter>Scene Management\Scene\RenderPasses</Filter>
     </ClInclude>
+    <ClInclude Include="CInstanceSceneObject.h">
+      <Filter>Scene Management\Objects\Standard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageLoaders\Texture.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="CScene.Details.cpp">
       <Filter>Scene Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CInstanceSceneObject.cpp">
+      <Filter>Scene Management\Objects\Standard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
