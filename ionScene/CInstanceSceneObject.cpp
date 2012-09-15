@@ -29,6 +29,27 @@ void CInstanceSceneObject::CInstance::setPosition(vec3f const & Position)
 	Parent->unload(); // Trigger reload
 }
 
+void CInstanceSceneObject::CInstance::setTranslation(vec3f const & Translation)
+{
+	Transformation.setTranslation(Translation);
+	Parent->TransformationUsed = true;
+	Parent->unload(); // Trigger reload
+}
+
+void CInstanceSceneObject::CInstance::setRotation(vec3f const & Rotation)
+{
+	Transformation.setRotation(Rotation);
+	Parent->TransformationUsed = true;
+	Parent->unload(); // Trigger reload
+}
+
+void CInstanceSceneObject::CInstance::setScale(vec3f const & Scale)
+{
+	Transformation.setScale(Scale);
+	Parent->TransformationUsed = true;
+	Parent->unload(); // Trigger reload
+}
+
 void CInstanceSceneObject::CInstanceRenderable::unload(smartPtr<IRenderPass> Pass)
 {
 	CRenderable::unload(Pass);
@@ -85,23 +106,19 @@ void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smart
 			{
 				if (Label == "uModelMatrix")
 				{
-					auto jt = InstanceParent->OverrideUniforms.find(Pass);
+					SOverriddenUniforms & jt = InstanceParent->OverrideUniforms[Pass];
 
-					if (jt != InstanceParent->OverrideUniforms.end())
-					{
-						jt->second.UseModelMatrix = true;
-						jt->second.ModelMatrixHandle = it->second.Handle;
-					}
+					jt.UseModelMatrix = true;
+					jt.ModelMatrixHandle = it->second.Handle;
+					continue;
 				}
 				else if (Label == "uNormalMatrix")
 				{
-					auto jt = InstanceParent->OverrideUniforms.find(Pass);
+					SOverriddenUniforms & jt = InstanceParent->OverrideUniforms[Pass];
 
-					if (jt != InstanceParent->OverrideUniforms.end())
-					{
-						jt->second.UseNormalMatrix = true;
-						jt->second.NormalMatrixHandle = it->second.Handle;
-					}
+					jt.UseNormalMatrix = true;
+					jt.NormalMatrixHandle = it->second.Handle;
+					continue;
 				}
 			}
 
@@ -126,9 +143,7 @@ void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smart
 
 u32 const CInstanceSceneObject::enableUniformOverride(smartPtr<IRenderPass> Pass, std::string const & Label)
 {
-	auto it = OverrideUniforms.find(Pass);
-
-	SOverriddenUniforms & OverriddenUniforms = (it == OverrideUniforms.end() ? OverrideUniforms[Pass] : it->second);
+	SOverriddenUniforms & OverriddenUniforms = OverrideUniforms[Pass];
 
 	auto jt = OverriddenUniforms.Binds.find(Label);
 
@@ -176,12 +191,19 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	{
 		for (auto jt = OverrideUniform->second.Binds.begin(); jt != OverrideUniform->second.Binds.end(); ++ jt)
 			(* it)->Uniforms[jt->second.InternalIndex]->bind(jt->second.UniformHandle);
-		if (OverrideUniform->second.UseModelMatrix)
-			CShaderContext::uniform(OverrideUniform->second.ModelMatrixHandle, (* it)->Transformation.get());
-		if (OverrideUniform->second.UseNormalMatrix)
-			CShaderContext::uniform(OverrideUniform->second.NormalMatrixHandle, glm::transpose(glm::inverse((* it)->Transformation.get())));
-		for (std::vector<CRenderable *>::iterator it = Renderables.begin(); it != Renderables.end(); ++ it)
-			(* it)->draw(Scene, Pass, ShaderContext);
+		
+
+		for (std::vector<CRenderable *>::iterator jt = Renderables.begin(); jt != Renderables.end(); ++ jt)
+		{
+			glm::mat4 ModelMatrix = (* it)->Transformation() * (* jt)->getTransformation()() * getAbsoluteTransformation();
+
+			if (OverrideUniform->second.UseModelMatrix)
+				CShaderContext::uniform(OverrideUniform->second.ModelMatrixHandle, ModelMatrix);
+			if (OverrideUniform->second.UseNormalMatrix)
+				CShaderContext::uniform(OverrideUniform->second.NormalMatrixHandle, glm::transpose(glm::inverse(ModelMatrix)));
+
+			(* jt)->draw(Scene, Pass, ShaderContext);
+		}
 	}
 
 	Pass->onPostDrawObject(this);
@@ -218,4 +240,11 @@ bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass,
 
 	jt->second.UniformHandle = UniformHandle;
 	return true;
+}
+
+CInstanceSceneObject::CInstance * const CInstanceSceneObject::addInstance()
+{
+	CInstance * Instance = new CInstance(this);
+	Instances.push_back(Instance);
+	return Instance;
 }

@@ -3,6 +3,9 @@
 
 #include "CSceneObject.h"
 
+// Ugh
+#pragma warning(disable : 4250)
+
 //! 
 class CInstanceSceneObject : public virtual CSceneObject
 {
@@ -21,14 +24,19 @@ public:
 
 		smartPtr<IUniform const> & getUniform(u32 const Index);
 
-		STransformation3 Transformation;
+		STransformation3 Transformation; // To Do : Add Transformable base object
+		// To Do : Material support
 
 	public:
 
 		CInstance(CInstanceSceneObject * parent);
 
 		void setUniformOverride(smartPtr<IRenderPass> RenderPass, std::string const & Label, smartPtr<IUniform const> Uniform);
+		
 		void setPosition(vec3f const & Position);
+		void setTranslation(vec3f const & Translation);
+		void setRotation(vec3f const & Rotation);
+		void setScale(vec3f const & Scale);
 
 	};
 
@@ -38,6 +46,10 @@ public:
 		CInstanceSceneObject * InstanceParent;
 
 	public:
+
+		CInstanceRenderable(CInstanceSceneObject * parent)
+			: InstanceParent(parent), CRenderable(parent)
+		{}
 		
 		virtual void unload(smartPtr<IRenderPass> Pass);
 		virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
@@ -92,11 +104,70 @@ public:
 	virtual bool const isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label);
 	virtual bool const isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle);
 
+	virtual CInstance * const addInstance();
+
 };
 
 #include "CMeshSceneObject.h"
 
 class CMeshInstanceSceneObject : public CInstanceSceneObject, public CMeshSceneObject
-{};
+{
+
+public:
+
+	void setMesh(CMesh * mesh)
+	{
+		CMesh * OldMesh = Mesh;
+		Mesh = mesh;
+
+		if (Mesh)
+		{
+			if (Mesh->isDirty())
+				Mesh->updateBuffers();
+
+			for (unsigned int i = 0; i < Mesh->MeshBuffers.size(); ++ i)
+			{
+				CRenderable * Child = 0;
+				if (Renderables.size() > i)
+					Child = Renderables[i];
+				else
+					Renderables.push_back(Child = new CInstanceRenderable(this));
+
+				// Remove any attributes which might have been set by a previous mesh
+				Child->removeAttribute("aPosition");
+				Child->removeAttribute("aColor");
+				Child->removeAttribute("aNormal");
+				Child->removeAttribute("aTexCoord");
+				Child->removeUniform("uTexColor");
+
+				// Add mesh attributes
+				Child->addAttribute("aPosition", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->PositionBuffer, 3)));
+				Child->addAttribute("aColor", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->ColorBuffer, 3)));
+				Child->addAttribute("aNormal", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
+				Child->addAttribute("aTexCoord", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
+				static int const TexLevel = 0;
+				Child->addUniform("uTexColor", smartPtr<IUniform const>(new SUniformReference<s32>(TexLevel)));
+
+				Child->setMaterial(Mesh->MeshBuffers[i]->Material);
+
+				// Add mesh index buffer
+				Child->setIndexBufferObject(& Mesh->MeshBuffers[i]->IndexBuffer);
+
+				// Set bounding box
+				BoundingBox.addInternalBox(Mesh->getBoundingBox());
+
+				// Remove any previous normal debugging object
+				if (Child->getDebuggingNormalObject())
+				{
+					delete Child->getDebuggingNormalObject();
+					Child->getDebuggingNormalObject() = 0;
+				}
+			}
+
+			LoadedRevision = Mesh->getRevision();
+		}
+	}
+
+};
 
 #endif

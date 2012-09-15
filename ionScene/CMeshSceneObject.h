@@ -12,20 +12,19 @@
 class CMeshSceneObject : public virtual CSceneObject
 {
 
-	unsigned int LoadedRevision;
-
 protected:
-
-    CMesh * Mesh;
+	
+	unsigned int LoadedRevision;
+	CMesh * Mesh;
 
 public:
 
-    CMeshSceneObject();
+	CMeshSceneObject();
 
 	virtual void update();
 
-    CMesh * getMesh();
-    void setMesh(CMesh * mesh);
+	CMesh * getMesh();
+	virtual void setMesh(CMesh * mesh);
 
 };
 
