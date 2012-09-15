@@ -6,7 +6,7 @@
 smartPtr<IUniform const> & CInstanceSceneObject::CInstance::getUniform(u32 const Index)
 {
 	if (Index >= Uniforms.size())
-		Uniforms.resize(Index, 0);
+		Uniforms.resize(Index + 1, 0);
 
 	return Uniforms[Index];
 }
@@ -195,7 +195,7 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 
 		for (std::vector<CRenderable *>::iterator jt = Renderables.begin(); jt != Renderables.end(); ++ jt)
 		{
-			glm::mat4 ModelMatrix = (* it)->Transformation() * (* jt)->getTransformation()() * getAbsoluteTransformation();
+			glm::mat4 ModelMatrix = (* jt)->getTransformation()() * (* it)->Transformation() * getAbsoluteTransformation();
 
 			if (OverrideUniform->second.UseModelMatrix)
 				CShaderContext::uniform(OverrideUniform->second.ModelMatrixHandle, ModelMatrix);
