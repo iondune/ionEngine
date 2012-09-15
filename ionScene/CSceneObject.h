@@ -5,7 +5,7 @@
 #include "CRenderable.h"
 
 //! Standard implementation of ISceneObject, renders a set of CRenderables
-class CSceneObject : public ISceneObject
+class CSceneObject : public virtual ISceneObject
 {
 
 protected:

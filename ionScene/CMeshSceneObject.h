@@ -9,7 +9,7 @@
 #include "CSceneObject.h"
 
 
-class CMeshSceneObject : public CSceneObject
+class CMeshSceneObject : public virtual CSceneObject
 {
 
 	unsigned int LoadedRevision;

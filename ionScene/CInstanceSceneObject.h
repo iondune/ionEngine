@@ -4,7 +4,7 @@
 #include "CSceneObject.h"
 
 //! 
-class CInstanceSceneObject : public CSceneObject
+class CInstanceSceneObject : public virtual CSceneObject
 {
 
 public:
@@ -93,5 +93,10 @@ public:
 	virtual bool const isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle);
 
 };
+
+#include "CMeshSceneObject.h"
+
+class CMeshInstanceSceneObject : public CInstanceSceneObject, public CMeshSceneObject
+{};
 
 #endif
