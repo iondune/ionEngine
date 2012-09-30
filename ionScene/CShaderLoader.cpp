@@ -164,6 +164,8 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	// Read Vertex Shader file
 	{
 		std::string const Source = parseShaderSource(vertFileName.c_str()).c_str();
+		if (Source == "")
+			return 0;
 		GLchar const * SourceString = Source.c_str();
 		glShaderSource(VS, 1, & SourceString, NULL);
 	}
@@ -172,6 +174,8 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	// Read Fragment Shader file
 	{
 		std::string const Source = parseShaderSource(fragFileName.c_str()).c_str();
+		if (Source == "")
+			return 0;
 		GLchar const * SourceString = Source.c_str();
 		glShaderSource(FS, 1, & SourceString, NULL);
 	}
