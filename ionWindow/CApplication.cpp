@@ -86,7 +86,7 @@ void CApplication::skipElapsedTime()
 void CApplication::updateTime()
 {
 	Time1 = ApplicationClock.GetElapsedTime();
-	ElapsedTime = (Time1 - Time0);
+	ElapsedTime = min(0.1f, (Time1 - Time0));
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
