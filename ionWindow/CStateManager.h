@@ -98,14 +98,14 @@ protected:
 	CSceneManager * SceneManager;
 
 	CApplicationContextObject()
-		: Application(0), SceneManager(0)
+		: Application(0), SceneManager(0), CContextObject<TContext>(DisableAutoContextLoad())
 	{
+		loadContext();
 	}
 
 	CApplicationContextObject(DisableAutoContextLoad)
 		: Application(0), SceneManager(0)
 	{
-		loadContext();
 	}
 
 public:
