@@ -58,8 +58,38 @@ public:
 
 };
 
-template <class TImplementation>
-class CState : public IState, public Singleton<TImplementation>
+template <class TContext>
+class CContextObject
+{
+
+protected:
+
+	struct DisableAutoContextLoad
+	{};
+
+	TContext * Context;
+
+	CContextObject()
+		: Context(0)
+	{
+		loadContext();
+	}
+
+	CContextObject(DisableAutoContextLoad)
+		: Context(0)
+	{}
+
+public:
+
+	virtual void loadContext()
+	{
+		Context = & TContext::get();
+	}
+
+};
+
+template <class TContext>
+class CApplicationContextObject : public CContextObject<TContext>
 {
 
 protected:
@@ -67,40 +97,57 @@ protected:
 	CApplication * Application;
 	CSceneManager * SceneManager;
 
-	CState()
+	CApplicationContextObject()
 		: Application(0), SceneManager(0)
-	{}
+	{
+	}
+
+	CApplicationContextObject(DisableAutoContextLoad)
+		: Application(0), SceneManager(0)
+	{
+		loadContext();
+	}
 
 public:
 
-	virtual void load()
+	virtual void loadContext()
 	{
-		loadEngineReferences();
-	}
-
-	virtual void loadEngineReferences()
-	{
+		CContextObject<TContext>::loadContext();
 		Application = & CApplication::get();
 		SceneManager = & Application->getSceneManager();
 	}
+
+};
+
+template <class TImplementation, class TContext>
+class CContextState : public IState, public Singleton<TImplementation>, public CApplicationContextObject<TContext>
+{
+
+protected:
+
+	CContextState()
+	{}
+
+	CContextState(DisableAutoContextLoad)
+		: CApplicationContextObject<TContext>(DisableAutoContextLoad)
+	{}
+
+public:
 
     virtual void begin()
     {}
     virtual void end()
     {}
 
-
     virtual void OnGameTickStart(float const Elapsed)
     {}
     virtual void OnGameTickEnd(float const Elapsed)
     {}
 
-
     virtual void OnRenderStart(float const Elapsed)
     {}
     virtual void OnRenderEnd(float const Elapsed)
     {}
-
 
     virtual void OnMouseEvent(SMouseEvent const & Event)
     {}
@@ -112,56 +159,17 @@ public:
 
 };
 
-template <class TContext>
-class CContextObject
+struct NullContext
+{};
+
+template <class TImplementation>
+class CState : public CContextState<TImplementation, NullContext>
 {
 
 protected:
 
-	TContext * Context;
-
-public:
-
-	CContextObject()
-		: Context(0)
+	CState()
 	{}
-
-	virtual void loadContext()
-	{
-		Context = & TContext::get();
-	}
-
-};
-
-template <class TContext>
-class CAutoContextObject : public CContextObject<TContext>
-{
-
-public:
-
-	CAutoContextObject()
-	{
-		loadContext();
-	}
-
-};
-
-template <class TImplementation, class TContext>
-class CContextState : public CState<TImplementation>, public CContextObject<TContext>
-{
-
-protected:
-
-	CContextState()
-	{}
-
-public:
-
-	virtual void load()
-	{
-		CState<TImplementation>::load();
-		loadContext();
-	}
 
 };
 
