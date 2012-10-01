@@ -146,7 +146,7 @@ public:
 
 	Implementation const getNormalized() const
 	{
-		Implementation ret;
+		Implementation ret = * this;
 		ret.normalize();
 		return ret;
 	}

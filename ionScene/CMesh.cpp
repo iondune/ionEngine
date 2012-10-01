@@ -201,7 +201,7 @@ void CMesh::calculateNormalsPerVertex(bool CombineNear, float const NearToleranc
 }
 
 
-void CMesh::calculateTextureCoordinates(SVector3f const uVec, SVector3f const vVec)
+void CMesh::calculateTextureCoordinates(vec3f const & uVec, vec3f const & vVec, vec2f const & Scale)
 {
 	SVector3f Min(std::numeric_limits<float>::max()), Max(-std::numeric_limits<float>::max());
     {
@@ -228,8 +228,8 @@ void CMesh::calculateTextureCoordinates(SVector3f const uVec, SVector3f const vV
     for (std::vector<SVertex>::iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it)
     {
 		SVector3f const RelativePosition = (it->Position - Min) / (Max - Min);
-		it->TextureCoordinates = SVector2f((RelativePosition * uVec.getNormalized()).length(),
-			(RelativePosition * vVec.getNormalized()).length());
+		it->TextureCoordinates = vec2f((RelativePosition * uVec.getNormalized()).length(),
+			(RelativePosition * vVec.getNormalized()).length()) * Scale;
 	}
 }
 
