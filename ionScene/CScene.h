@@ -43,9 +43,6 @@ protected:
 	//! Mutable to allow array expansion when accessing an out-of-bounds light binding
 	mutable std::vector<SLightBinding> LightBindings;
 
-	//! Light count bindings
-	s32 LightCount;
-
 	//! Uniform variable bindings
 	std::map<std::string, smartPtr<IUniform const> > Uniforms;
 

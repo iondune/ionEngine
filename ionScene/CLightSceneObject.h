@@ -11,10 +11,6 @@ class CLightSceneObject : public ISceneObject
 	color3f Color;
 	f32 Radius;
 
-	SUniformReference<color3f> ColorBind;
-	SUniformReference<vec3f> PositionBind; // To Do : This should be updated per-draw using the absolute transformation * origin
-	SUniformReference<f32> RadiusBind;
-
 public:
 
 	//! Constructor

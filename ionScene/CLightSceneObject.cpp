@@ -6,8 +6,7 @@
 /////////////////
 
 CLightSceneObject::CLightSceneObject(color3f const & color, f32 const radius)
-	: ColorBind(Color), PositionBind(Translation), RadiusBind(Radius), 
-	Radius(radius), Color(color)
+	: Radius(radius), Color(color)
 {}
 
 

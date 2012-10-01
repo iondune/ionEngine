@@ -30,12 +30,7 @@ smartPtr<IUniform const> const CScene::getUniform(std::string const & label) con
 		std::string remaining = ss.str();
 		remaining = remaining.substr(2 + digitCount(index));
 
-		if (index >= LightBindings.size())
-		{
-			LightBindings.resize(index + 1);
-		}
-
-		SLightBinding const & LightBinding = LightBindings[index];
+		SLightBinding const & LightBinding = getLightBinding(index);
 
 		if (remaining == "Color")
 		{
