@@ -61,7 +61,7 @@ public:
 
 		std::vector<CTexture *> Textures;
 
-		color3f AmbientColor, DiffuseColor;
+		color3f AmbientColor, DiffuseColor, SpecularColor;
 		f32 Shininess;
 
 		SMaterial();

@@ -11,6 +11,7 @@ void CRenderable::SMaterial::loadDefaults()
 	Shininess = 1000.0f;
 	AmbientColor = SColorf(0.15f, 0.15f, 0.15f);
 	DiffuseColor = SColorf(0.8f, 0.8f, 0.8f);
+	SpecularColor = SColorf(1.f, 1.f, 1.f);
 }
 
 void CRenderable::SMaterial::setTexture(unsigned int const Layer, CTexture * const Texture)

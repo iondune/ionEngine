@@ -50,6 +50,9 @@ smartPtr<IUniform const> const CRenderable::getUniform(std::string const & label
 	if (label == "uMaterial.DiffuseColor")
 		return BindUniform(Material.DiffuseColor);
 
+	if (label == "uMaterial.SpecularColor")
+		return BindUniform(Material.SpecularColor);
+
 	if (label == "uMaterial.Shininess")
 		return BindUniform(Material.Shininess);
 
