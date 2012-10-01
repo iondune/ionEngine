@@ -159,7 +159,7 @@ public:
 
 };
 
-struct NullContext
+struct NullContext : public Singleton<NullContext>
 {};
 
 template <class TImplementation>
