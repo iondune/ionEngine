@@ -75,12 +75,12 @@ void CRenderable::setTranslation(SVector3f const & translation)
 	Transformation.setTranslation(translation);
 }
 
-void CRenderable::setPosition(SVector3f const & translation)
+void CRenderable::setPosition(vec3f const & translation)
 {
 	setTranslation(translation);
 }
 
-void CRenderable::setRotation(SVector3f const & rotation)
+void CRenderable::setRotation(vec3f const & rotation)
 {
 	Transformation.setRotation(rotation);
 }

@@ -105,7 +105,7 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	SShaderSetup & ShaderSetup = ShaderMatch->second;
 
 	// Set up transform matrices
-	ModelMatrix = Transformation() * ParentObject->getAbsoluteTransformation();
+	ModelMatrix = ParentObject->getAbsoluteTransformation() * Transformation();
 	NormalMatrix = glm::transpose(glm::inverse(ModelMatrix));
 
 	// Pass uniform and attribute variables to shader
