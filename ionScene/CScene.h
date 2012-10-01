@@ -25,7 +25,7 @@ public:
 
 		smartPtr<SUniformReference<vec3f> > PositionBind;
 		smartPtr<SUniformReference<f32> > RadiusBind;
-		smartPtr<SUniformReference<color4f> > ColorBind;
+		smartPtr<SUniformReference<color3f> > ColorBind;
 	};
 
 protected:
@@ -103,6 +103,16 @@ public:
 	virtual bool const isDebugDataEnabled(EDebugData const type) const;
 	virtual void enableDebugData(EDebugData::Domain const type);
 	virtual void disableDebugData(EDebugData::Domain const type);
+
+
+	///////////////////
+	// Light Binding //
+	///////////////////
+
+	SLightBinding & getLightBinding(u32 const index);
+	SLightBinding const & getLightBinding(u32 const index) const;
+	u32 const getLightBindingCount() const;
+
 
 };
 

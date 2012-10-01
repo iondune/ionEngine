@@ -8,24 +8,24 @@
 class CLightSceneObject : public ISceneObject
 {
 
-	SColorAf Color;
+	color3f Color;
 	f32 Radius;
 
-	SUniformReference<SColorAf> ColorBind;
-	SUniformReference<SVector3f> PositionBind; // To Do : This should be updated per-draw using the absolute transformation * origin
+	SUniformReference<color3f> ColorBind;
+	SUniformReference<vec3f> PositionBind; // To Do : This should be updated per-draw using the absolute transformation * origin
 	SUniformReference<f32> RadiusBind;
 
 public:
 
 	//! Constructor
-	CLightSceneObject(color4f const & color = color4f(1.f), f32 const radius = 25.f);
+	CLightSceneObject(color3f const & color = color3f(1.f), f32 const radius = 25.f);
 	
 	// Attributes //
 
-	SColorAf const & getColor() const;
+	color3f const & getColor() const;
 	f32 const & getRadius() const;
 
-	void setColor(SColorAf const & color);
+	void setColor(color3f const & color);
 	void setRadius(f32 const radius);
 
 };

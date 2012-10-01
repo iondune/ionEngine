@@ -1,10 +1,11 @@
 #include "CLightSceneObject.h"
 
+
 /////////////////
 // Constructor //
 /////////////////
 
-CLightSceneObject::CLightSceneObject(color4f const & color, f32 const radius)
+CLightSceneObject::CLightSceneObject(color3f const & color, f32 const radius)
 	: ColorBind(Color), PositionBind(Translation), RadiusBind(Radius), 
 	Radius(radius), Color(color)
 {}
@@ -14,7 +15,7 @@ CLightSceneObject::CLightSceneObject(color4f const & color, f32 const radius)
 // Attributes //
 ////////////////
 	
-SColorAf const & CLightSceneObject::getColor() const
+color3f const & CLightSceneObject::getColor() const
 {
 	return Color;
 }
@@ -25,7 +26,7 @@ f32 const & CLightSceneObject::getRadius() const
 }
 
 
-void CLightSceneObject::setColor(SColorAf const & color)
+void CLightSceneObject::setColor(color3f const & color)
 {
 	Color = color;
 }
