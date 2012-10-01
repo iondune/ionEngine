@@ -81,11 +81,14 @@ std::string const CShaderLoader::parseShaderSource(std::string const & fileName,
 		}
 	}
 
-	std::string IntermediateFileName = fileName;
-	IntermediateFileName.append(".intermediate");
-	std::ofstream IntermediateFile(IntermediateFileName);
-	IntermediateFile << Output.str();
-	IntermediateFile.close();
+	if (WriteIntermediate)
+	{
+		std::string IntermediateFileName = fileName;
+		IntermediateFileName.append(".intermediate");
+		std::ofstream IntermediateFile(IntermediateFileName);
+		IntermediateFile << Output.str();
+		IntermediateFile.close();
+	}
 	return Output.str();
 }
 
@@ -127,6 +130,7 @@ std::map<std::pair<std::string, std::string>, CShader *> CShaderLoader::LoadedSh
 
 std::string CShaderLoader::ShaderDirectory = "../Media/Shaders/";
 bool CShaderLoader::LogOpened = false;
+bool CShaderLoader::WriteIntermediate = false;
 std::ofstream CShaderLoader::LogFile;
 
 

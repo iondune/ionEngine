@@ -7,6 +7,7 @@ class CShaderLoader
 {
 
 	static std::map<std::pair<std::string, std::string>, CShader *> LoadedShaders;
+	static bool LogOpened;
 
 public:
 
@@ -16,7 +17,7 @@ public:
 	static CShader * const loadShader(std::string const & vertName, std::string const & fragName);
 
 	static std::string ShaderDirectory;
-	static bool LogOpened;
+	static bool WriteIntermediate;
 	static std::ofstream LogFile;
 
 };
