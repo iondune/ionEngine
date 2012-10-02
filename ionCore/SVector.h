@@ -26,37 +26,37 @@ public:
 
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
+		return (i >= 0 && i < Dimension ? this->Values[i] : OutOfBounds = 0);
 	}
 
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
+		return (i >= 0 && i < Dimension ? this->Values[i] : OutOfBounds = 0);
 	}
 
 	void reset()
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] = 0;
+			this->Values[i] = 0;
 	}
 
 	void set(T in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] = in;
+			this->Values[i] = in;
 	}
 
 	void set(T in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] = in[i];
+			this->Values[i] = in[i];
 	}
 
 	T const length() const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += sq(Values[i]);
+			sum += sq(this->Values[i]);
 		return (T) sqrt(sum);
 	}
 	
@@ -70,17 +70,17 @@ public:
 		T const len = length();
 		
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] /= len;
+			this->Values[i] /= len;
 	}
 
 	T const * const getValuePointer() const
 	{
-		return Values;
+		return this->Values;
 	}
 
 	T * const getValuePointer()
 	{
-		return Values;
+		return this->Values;
 	}
 
 };
@@ -116,7 +116,7 @@ public:
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] = (T) other[i];
+			this->Values[i] = (T) other[i];
 	}
 
 	template <typename otherImplementation>
@@ -124,7 +124,7 @@ public:
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += Values[i] * other[i];
+			sum += this->Values[i] * other[i];
 		return sum;
 	}
 	
@@ -140,7 +140,7 @@ public:
 		T inv = (T) 1.0 - d;
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = (T) v[i] * inv + Values[i] * d;
+			ret[i] = (T) v[i] * inv + this->Values[i] * d;
 		return ret;
 	}
 
@@ -156,7 +156,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] + (T) v[i];
+			ret[i] = this->Values[i] + (T) v[i];
 		return ret;
 	}
 	
@@ -165,7 +165,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] - (T) v[i];
+			ret[i] = this->Values[i] - (T) v[i];
 		return ret;
 	}
 	
@@ -175,7 +175,7 @@ public:
 		
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] * (T) v[i];
+			ret[i] = this->Values[i] * (T) v[i];
 		return ret;
 	}
 	
@@ -185,7 +185,7 @@ public:
 		
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] / (T) v[i];
+			ret[i] = this->Values[i] / (T) v[i];
 		return ret;
 	}
 
@@ -193,7 +193,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] * s;
+			ret[i] = this->Values[i] * s;
 		return ret;
 	}
 
@@ -201,7 +201,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = Values[i] / s;
+			ret[i] = this->Values[i] / s;
 		return ret;
 	}
 
@@ -209,7 +209,7 @@ public:
 	Self & operator += (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] += v[i];
+			this->Values[i] += v[i];
 
 		return * this;
 	}
@@ -218,7 +218,7 @@ public:
 	Self & operator -= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] -= v[i];
+			this->Values[i] -= v[i];
 
 		return * this;
 	}
@@ -227,7 +227,7 @@ public:
 	Self & operator *= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] *= v[i];
+			this->Values[i] *= v[i];
 
 		return * this;
 	}
@@ -236,7 +236,7 @@ public:
 	Self & operator /= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] /= v[i];
+			this->Values[i] /= v[i];
 
 		return * this;
 	}
@@ -244,7 +244,7 @@ public:
 	Self & operator *= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] *= s;
+			this->Values[i] *= s;
 
 		return * this;
 	}
@@ -252,7 +252,7 @@ public:
 	Self & operator /= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			Values[i] /= s;
+			this->Values[i] /= s;
 
 		return * this;
 	}
@@ -262,7 +262,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (Values[i] <= v[i]);
+			result &&= (this->Values[i] <= v[i]);
 
 		return result;
 	}
@@ -272,7 +272,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (Values[i] < v[i]);
+			result &&= (this->Values[i] < v[i]);
 
 		return result;
 	}
@@ -282,7 +282,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (Values[i] >= v[i]);
+			result &&= (this->Values[i] >= v[i]);
 
 		return result;
 	}
@@ -292,7 +292,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (Values[i] > v[i]);
+			result &&= (this->Values[i] > v[i]);
 
 		return result;
 	}
@@ -314,7 +314,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &= ::equals(Values[i], v[i], Epsilon);
+			result &= ::equals(this->Values[i], v[i], Epsilon);
 
 		return result;
 	}
