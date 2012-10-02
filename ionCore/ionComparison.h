@@ -2,6 +2,7 @@
 #define _IONCORE_COMPARISON_H_INCLUDED_
 
 #include <cstdlib>
+#include <algorithm>
 
 
 ////////////////////

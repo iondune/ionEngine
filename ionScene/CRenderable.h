@@ -13,7 +13,7 @@
 #include <STransformation3.h>
 
 // OpenGL
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 // Scene
 #include "ISceneObject.Enumerations.h"

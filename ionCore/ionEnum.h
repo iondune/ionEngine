@@ -60,12 +60,12 @@ class Enum : public Domain, public EnumImplementation<Domain>
 
 public:
 
-	Enum(Element const value)
-		: EnumImplementation(value)
+	Enum(typename EnumImplementation<Domain>::Element const value)
+		: EnumImplementation<Domain>(value)
 	{}
 
 	Enum(int const value)
-		: EnumImplementation(value)
+		: EnumImplementation<Domain>(value)
 	{}
 
 };

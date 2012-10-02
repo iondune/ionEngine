@@ -145,7 +145,7 @@ u32 const CInstanceSceneObject::enableUniformOverride(smartPtr<IRenderPass> Pass
 {
 	SOverriddenUniforms & OverriddenUniforms = OverrideUniforms[Pass];
 
-	auto jt = OverriddenUniforms.Binds.find(Label);
+	std::map<std::string, SOverriddenUniformBind>::iterator jt = OverriddenUniforms.Binds.find(Label);
 
 	if (jt == OverriddenUniforms.Binds.end())
 	{
@@ -169,7 +169,7 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	// To Do : Perform this object in parent (CScene or ISceneObject) to reduce onus on user
 	Pass->onPreDrawObject(this);
 	
-	auto ShaderIterator = Shaders.find(Pass);
+	std::map<smartPtr<IRenderPass>, CShader *>::iterator ShaderIterator = Shaders.find(Pass);
 
 	if (ShaderIterator == Shaders.end())
 		return true;
@@ -182,14 +182,14 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	CShaderContext ShaderContext(* Shader);
 
 	// Prepare instance data
-	auto OverrideUniform = OverrideUniforms.find(Pass);
+	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator OverrideUniform = OverrideUniforms.find(Pass);
 
 	if (OverrideUniform == OverrideUniforms.end())
 		return true;
 
-	for (auto it = Instances.begin(); it != Instances.end(); ++ it)
+	for (std::vector<CInstance *>::iterator it = Instances.begin(); it != Instances.end(); ++ it)
 	{
-		for (auto jt = OverrideUniform->second.Binds.begin(); jt != OverrideUniform->second.Binds.end(); ++ jt)
+		for (std::map<std::string, SOverriddenUniformBind>::iterator jt = OverrideUniform->second.Binds.begin(); jt != OverrideUniform->second.Binds.end(); ++ jt)
 			(* it)->Uniforms[jt->second.InternalIndex]->bind(jt->second.UniformHandle);
 		
 
@@ -213,12 +213,12 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 
 bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label)
 {
-	auto it = OverrideUniforms.find(Pass);
+	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
 
 	if (it == OverrideUniforms.end())
 		return false;
 
-	auto jt = it->second.Binds.find(Label);
+	std::map<std::string, SOverriddenUniformBind>::iterator jt= it->second.Binds.find(Label);
 
 	if (jt == it->second.Binds.end())
 		return false;
@@ -228,12 +228,12 @@ bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass,
 
 bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle)
 {
-	auto it = OverrideUniforms.find(Pass);
+	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
 
 	if (it == OverrideUniforms.end())
 		return false;
 
-	auto jt = it->second.Binds.find(Label);
+	std::map<std::string, SOverriddenUniformBind>::iterator jt = it->second.Binds.find(Label);
 
 	if (jt == it->second.Binds.end())
 		return false;
