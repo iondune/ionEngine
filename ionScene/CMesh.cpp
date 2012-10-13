@@ -174,6 +174,19 @@ void CMesh::calculateNormalsPerFace()
       }
 }
 
+void CMesh::reverseFaces()
+{
+    for (std::vector<SMeshBuffer *>::iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
+	{
+		for (std::vector<STriangle>::iterator it = (* bit)->Triangles.begin(); it != (* bit)->Triangles.end(); ++ it)
+		{
+			u32 temp = it->Indices[1];
+			it->Indices[1] = it->Indices[2];
+			it->Indices[2] = temp;
+		}
+	}
+}
+
 void CMesh::calculateNormalsPerVertex(bool CombineNear, float const NearTolerance)
 {
     calculateNormalsPerFace();
