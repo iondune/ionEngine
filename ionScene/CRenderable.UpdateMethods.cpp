@@ -72,7 +72,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 
 void CRenderable::unload()
 {
-	for (auto it = ShaderSetups.begin(); it != ShaderSetups.end(); ++ it)
+	for (std::map<smartPtr<IRenderPass>, SShaderSetup>::iterator it = ShaderSetups.begin(); it != ShaderSetups.end(); ++ it)
 		unload(it->first);
 }
 

@@ -20,7 +20,7 @@ void CRenderable::SMaterial::setTexture(unsigned int const Layer, CTexture * con
 		Textures.resize(Layer + 1, 0);
 	Textures[Layer] = Texture;
 
-	auto it = Textures.end();
+	std::vector<CTexture *>::iterator it = Textures.end();
 
 	while (it != Textures.begin())
 	{
