@@ -214,8 +214,8 @@ void CSceneEffectManager::apply()
 		// Final Blend
 		SPostProcessPass BlendPass;
 		BlendPass.Textures["scene"] = SceneManager->getSceneFrameTexture();
-		BlendPass.Textures["ssao"] = isEffectEnabled(ESE_SSAO) ? SSAOResultTexture : White;
-		BlendPass.Textures["bloom"] =  isEffectEnabled(ESE_BLOOM) ? BloomResultTexture : Magenta;
+		//BlendPass.Textures["ssao"] = isEffectEnabled(ESE_SSAO) ? SSAOResultTexture : White;
+		BlendPass.Textures["bloom"] =  isEffectEnabled(ESE_BLOOM) ? BloomResultTexture : Black;
 		BlendPass.Target = ScratchTarget1;
 		BlendPass.Shader = BlendShader;
 
