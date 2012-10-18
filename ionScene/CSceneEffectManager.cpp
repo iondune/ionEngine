@@ -188,8 +188,25 @@ void CSceneEffectManager::apply()
 		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
-
+		
 		BloomBlurPass2.doPass();
+
+
+		// BLUR H
+		SPostProcessPass BloomBlurPass3;
+		BloomBlurPass3.Textures["uTexColor"] = BloomResultTexture;
+		BloomBlurPass3.Target = ScratchTarget1;
+		BloomBlurPass3.Shader = BlurHorizontal;
+
+		BloomBlurPass3.doPass();
+
+		// BLUR V
+		SPostProcessPass BloomBlurPass4;
+		BloomBlurPass4.Textures["uTexColor"] = ScratchTexture1;
+		BloomBlurPass4.Target = BloomResultTarget;
+		BloomBlurPass4.Shader = BlurVertical;
+
+		BloomBlurPass4.doPass();
 	}
 
 	if (EnabledEffects)
