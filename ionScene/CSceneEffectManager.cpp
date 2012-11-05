@@ -132,7 +132,7 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 		std::cerr << "Failed to load required shaders for effects manager - all effects disabled." << std::endl;
 }
 
-#include <CApplication.h>
+//#include <CApplication.h>
 
 
 bool const CSceneEffectManager::isLoaded() const
@@ -209,7 +209,7 @@ void CSceneEffectManager::apply()
 		FinalPass.Target = SceneManager->getSceneFrameBuffer();
 		if (isEffectEnabled(ESE_HEAT_WAVE) || isEffectEnabled(ESE_WATER_DISTORT))
 		{
-			Timer += CApplication::get().getElapsedTime();
+			Timer += 0.01f; // TO DO FIX //CApplication::get().getElapsedTime();
 
 			if (isEffectEnabled(ESE_HEAT_WAVE))
 				FinalPass.Textures["uHeatOffset"] = HeatOffsetTexture;
