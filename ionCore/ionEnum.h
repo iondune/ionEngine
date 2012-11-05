@@ -2,14 +2,14 @@
 #define _ION_ENUM_H_INCLUDED_
 
 
-template <typename Domain>
+template <typename TDomain>
 class EnumImplementation
 {
 
 protected:
 
-	typedef typename Domain::Domain Element;
-	typedef EnumImplementation<Domain> Other;
+	typedef typename TDomain::Domain Element;
+	typedef EnumImplementation<TDomain> Other;
 	Element Value;
 
 public:
@@ -54,18 +54,22 @@ public:
 
 };
 
-template <typename Domain>
-class Enum : public Domain, public EnumImplementation<Domain>
+template <typename TDomain>
+class Enum : public TDomain, public EnumImplementation<TDomain>
 {
+
+protected:
+
+	typedef typename EnumImplementation<TDomain>::Element Value;
 
 public:
 
-	Enum(typename EnumImplementation<Domain>::Element const value)
-		: EnumImplementation<Domain>(value)
+	Enum(Value const value)
+		: EnumImplementation<TDomain>(value)
 	{}
 
 	Enum(int const value)
-		: EnumImplementation<Domain>(value)
+		: EnumImplementation<TDomain>(value)
 	{}
 
 };
