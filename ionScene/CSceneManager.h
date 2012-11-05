@@ -13,8 +13,8 @@
 #include <SLine3.h>
 #include <SColor.h>
 #include <SPosition2.h>
-#include <SUniform.h>
-#include <SAttribute.h>
+#include "SUniform.h"
+#include "SAttribute.h"
 
 #include "CDefaultColorRenderPass.h"
 #include "CMultiOutRenderPass.h"

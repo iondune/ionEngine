@@ -262,7 +262,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (this->Values[i] <= v[i]);
+			result = result && (this->Values[i] <= v[i]);
 
 		return result;
 	}
@@ -272,7 +272,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (this->Values[i] < v[i]);
+			result = result && (this->Values[i] < v[i]);
 
 		return result;
 	}
@@ -282,7 +282,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (this->Values[i] >= v[i]);
+			result = result && (this->Values[i] >= v[i]);
 
 		return result;
 	}
@@ -292,7 +292,7 @@ public:
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &&= (this->Values[i] > v[i]);
+			result = result && (this->Values[i] > v[i]);
 
 		return result;
 	}

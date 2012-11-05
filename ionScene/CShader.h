@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 
 bool printOpenGLErrors();

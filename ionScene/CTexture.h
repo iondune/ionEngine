@@ -2,7 +2,7 @@
 #define _CABBAGE_SCENE_CTEXTURE_H_INCLUDED_
 
 #include <string>
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <SSize2.h>
 
 #include "CImage.h"

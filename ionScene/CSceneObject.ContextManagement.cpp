@@ -1,6 +1,6 @@
 #include "CSceneObject.h"
 
-#include <CImageLoader.h>
+#include "CImageLoader.h"
 
 
 void CSceneObject::setMaterial(CRenderable::SMaterial const & material)

@@ -13,22 +13,22 @@ public:
 	T & X, & Y;
 
 	SVector2()
-		: X(Values[0]), Y(Values[1])
+		: X(this->Values[0]), Y(this->Values[1])
 	{
-		SVectorSimple<T, Dimension>::set((T) 0);
+		SVectorSimple<T, 2>::set((T) 0);
 	}
 
 	SVector2(T const in)
-		: X(Values[0]), Y(Values[1])
+		: X(this->Values[0]), Y(this->Values[1])
 	{
-		SVectorSimple<T, Dimension>::set(in);
+		SVectorSimple<T, 2>::set(in);
 	}
 
 	SVector2(T const x, T const y)
-		: X(Values[0]), Y(Values[1])	
+		: X(this->Values[0]), Y(this->Values[1])	
 	{
-		Values[0] = x;
-		Values[1] = y;
+		this->Values[0] = x;
+		this->Values[1] = y;
 	}
 
 	SVector2(T const & x, T const & y, ForceReference)
@@ -36,14 +36,14 @@ public:
 	{}
 
 	SVector2(SVector2<T> const & vec)
-		: X(Values[0]), Y(Values[1])
+		: X(this->Values[0]), Y(this->Values[1])
 	{
 		set(vec);
 	}
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
-		: X(Values[0]), Y(Values[1])
+		: X(this->Values[0]), Y(this->Values[1])
 	{
 		set(vec);
 	}
@@ -58,7 +58,7 @@ public:
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
-		set(v);
+		set(vec);
 
 		return * this;
 	}

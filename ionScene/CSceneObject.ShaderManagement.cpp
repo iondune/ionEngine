@@ -1,6 +1,6 @@
 #include "CSceneObject.h"
 
-#include <CShaderLoader.h>
+#include "CShaderLoader.h"
 
 
 CShader const * const CSceneObject::getShader(smartPtr<IRenderPass> Pass) const

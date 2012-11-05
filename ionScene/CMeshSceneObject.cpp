@@ -5,8 +5,8 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 
-#include <SAttribute.h>
-#include <SUniform.h>
+#include "SAttribute.h"
+#include "SUniform.h"
 
 
 CMeshSceneObject::CMeshSceneObject()
