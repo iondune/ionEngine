@@ -275,3 +275,8 @@ void CApplication::close()
 {
 	Running = false;
 }
+
+void CApplication::swapBuffers()
+{
+	App->Display();
+}
