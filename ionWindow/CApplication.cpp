@@ -80,38 +80,38 @@ CSceneManager & CApplication::getSceneManager()
 
 void CApplication::skipElapsedTime()
 {
-	Time0 = ApplicationClock.GetElapsedTime();
+	Time0 = ApplicationClock.getElapsedTime().asSeconds();
 }
 
 void CApplication::updateTime()
 {
-	Time1 = ApplicationClock.GetElapsedTime();
+	Time1 = ApplicationClock.getElapsedTime().asSeconds();
 	ElapsedTime = min(0.1f, (Time1 - Time0));
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
 
-EKey const ConvertSFMLKeyCode(sf::Key::Code const Code)
+EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
 {
-	if (Code >= sf::Key::A && Code <= sf::Key::Z)
-		return EKey::a + (Code - sf::Key::A);
+	if (Code >= sf::Keyboard::A && Code <= sf::Keyboard::Z)
+		return EKey::a + (Code - sf::Keyboard::A);
 
-	if (Code >= sf::Key::Num0 && Code <= sf::Key::Num9)
-		return EKey::NUM_0 + (Code - sf::Key::Num0);
+	if (Code >= sf::Keyboard::Num0 && Code <= sf::Keyboard::Num9)
+		return EKey::NUM_0 + (Code - sf::Keyboard::Num0);
 
 	switch (Code)
 	{
 
-	case sf::Key::Escape:
+	case sf::Keyboard::Escape:
 		return EKey::ESCAPE;
 		
-	case sf::Key::Up:
+	case sf::Keyboard::Up:
 		return EKey::UP;
-	case sf::Key::Left:
+	case sf::Keyboard::Left:
 		return EKey::LEFT;
-	case sf::Key::Down:
+	case sf::Keyboard::Down:
 		return EKey::DOWN;
-	case sf::Key::Right:
+	case sf::Keyboard::Right:
 		return EKey::RIGHT;
 
 	default:
@@ -124,16 +124,16 @@ void CApplication::run()
 {
 	Running = true;
 
-	Time0 = ApplicationClock.GetElapsedTime();
+	Time0 = ApplicationClock.getElapsedTime().asSeconds();
 
 	RunTime = ElapsedTime = 0.f;
 
-	while (Running && App->IsOpened())
+	while (Running && App->isOpen())
 	{
 		sf::Event Event;
-		while (App->GetEvent(Event))
+		while (App->pollEvent(Event))
 		{
-			switch (Event.Type)
+			switch (Event.type)
 			{
 
 			case sf::Event::Closed:
@@ -149,9 +149,9 @@ void CApplication::run()
 					MouseEvent.Location = EventManager->MouseLocation;
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Pressed = Event.Type == sf::Event::MouseButtonPressed;
+					MouseEvent.Pressed = Event.type == sf::Event::MouseButtonPressed;
 
-					switch (Event.MouseButton.Button)
+					switch (Event.mouseButton.button)
 					{
 
 					case sf::Mouse::Left:
@@ -186,7 +186,7 @@ void CApplication::run()
 
 					SMouseEvent MouseEvent;
 					MouseEvent.Type = SMouseEvent::EType::Move;
-					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.MouseMove.X, Event.MouseMove.Y);
+					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.mouseMove.x, Event.mouseMove.y);
 					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
 						MouseEvent.Location.Y / (float) WindowSize.Y);
 					MouseEvent.Movement = MouseEvent.Location - LastMouse;
@@ -203,8 +203,8 @@ void CApplication::run()
 				{
 
 					SKeyboardEvent KeyEvent;
-					KeyEvent.Pressed = Event.Type == sf::Event::KeyPressed;
-					KeyEvent.Key = ConvertSFMLKeyCode(Event.Key.Code);
+					KeyEvent.Pressed = Event.type == sf::Event::KeyPressed;
+					KeyEvent.Key = ConvertSFMLKeyCode(Event.key.code);
 					EventManager->OnKeyboardEvent(KeyEvent);
 					EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
 
@@ -216,14 +216,14 @@ void CApplication::run()
 				{
 
 					SWindowResizedEvent WindowEvent;
-					WindowEvent.Size.X = Event.Size.Width;
-					WindowEvent.Size.Y = Event.Size.Height;
+					WindowEvent.Size.X = Event.size.width;
+					WindowEvent.Size.Y = Event.size.height;
 					WindowSize = WindowEvent.Size;
 					EventManager->OnWindowResized(WindowEvent);
 					SceneManager->OnWindowResized(WindowSize);
 					
 
-					App->SetView(sf::View(sf::FloatRect(0, 0, (float) Event.Size.Width, (float) Event.Size.Height)));
+					App->setView(sf::View(sf::FloatRect(0, 0, (float) Event.size.width, (float) Event.size.height)));
 
 					break;
 
@@ -278,5 +278,5 @@ void CApplication::close()
 
 void CApplication::swapBuffers()
 {
-	App->Display();
+	App->display();
 }
