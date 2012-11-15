@@ -87,6 +87,12 @@ public:
 		Dirty = true;
 	}
 
+	void resize(u32 const size)
+	{
+		Elements.resize(size);
+		Dirty = true;
+	}
+
     void setIsIndexBuffer(bool const isIndexBuffer)
     {
         IndexBuffer = isIndexBuffer;
