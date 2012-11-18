@@ -58,7 +58,8 @@
     typedef unsigned long long Uint64;
 	#define _ION_64BIT_INTEGERS_DEFINED
 #endif
-	
+
+// Bit-specified types
 typedef Int8   s8;
 typedef Uint8  u8;
 typedef char   c8;
@@ -71,5 +72,11 @@ typedef Uint32 u32;
 
 typedef float  f32;
 typedef double f64;
+
+
+// Standard types
+typedef unsigned short ushort;
+typedef unsigned int   uint;
+typedef unsigned long  ulong;
 
 #endif
