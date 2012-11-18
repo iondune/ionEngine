@@ -9,8 +9,8 @@
 // Rounding Error //
 ////////////////////
 
-const float RoundingError32 = 0.00001f;
-const double RoundingError64 = 0.00000001;
+f32 const RoundingError32 = 0.00001f;
+f64 const RoundingError64 = 0.00000001;
 
 template <typename T>
 struct RoundingError

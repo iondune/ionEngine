@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}</ProjectGuid>
-    <RootNamespace>ionCore</RootNamespace>
+    <ProjectGuid>{A24BACED-451D-4120-A386-136A963C3C72}</ProjectGuid>
+    <RootNamespace>ionMath</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
@@ -26,12 +26,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="ionCore.h" />
-    <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionRand.h" />
-    <ClInclude Include="ionSmartPtr.h" />
-    <ClInclude Include="ionTypes.h" />
-    <ClInclude Include="ionUtils.h" />
+    <ClInclude Include="SBoundingBox3.h" />
+    <ClInclude Include="SColor.h" />
+    <ClInclude Include="SLine3.h" />
+    <ClInclude Include="SRect2.h" />
+    <ClInclude Include="STransformation3.h" />
+    <ClInclude Include="SVector.h" />
+    <ClInclude Include="SVector2.h" />
+    <ClInclude Include="SVector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

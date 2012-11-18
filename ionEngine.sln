@@ -1,11 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionCore", "ionCore\ionCore.vcxproj", "{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionScene", "ionScene\ionScene.vcxproj", "{60FDFD9C-F812-4BDE-B62F-F7BC8F2C0792}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionWindow", "ionWindow\ionWindow.vcxproj", "{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionMath", "ionMath\ionMath.vcxproj", "{A24BACED-451D-4120-A386-136A963C3C72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,7 +27,10 @@ Global
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Debug|Win32.Build.0 = Debug|Win32
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|Win32.ActiveCfg = Release|Win32
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|Win32.Build.0 = Release|Win32
-		{27FCD6F1-2A50-4CF7-9534-2B910FE35665}.Release|Win32.Build.0 = Release|Win32
+		{A24BACED-451D-4120-A386-136A963C3C72}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A24BACED-451D-4120-A386-136A963C3C72}.Debug|Win32.Build.0 = Debug|Win32
+		{A24BACED-451D-4120-A386-136A963C3C72}.Release|Win32.ActiveCfg = Release|Win32
+		{A24BACED-451D-4120-A386-136A963C3C72}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

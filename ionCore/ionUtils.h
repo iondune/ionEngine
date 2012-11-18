@@ -1,8 +1,7 @@
 #ifndef _IONCORE_UTILS_H_INCLUDED_
 #define _IONCORE_UTILS_H_INCLUDED_
 
-#include "ionPrimitives.h"
-#include "ionMath.h"
+#include "ionTypes.h"
 #include "ionComparison.h"
 
 #include <iostream>
@@ -31,6 +30,18 @@ static u32 const digitCount(s32 n)
 	}
 
 	return count;
+}
+
+template <typename T>
+static T const clamp(T const v, T const min, T const max)
+{
+	return ((v > max) ? max : ((v < min) ? min : v));
+}
+
+template <typename T>
+static T const sq(T const a)
+{
+	return a * a;
 }
 
 #endif
