@@ -5,17 +5,18 @@
 
 #include "ionUtils.h"
 
+
 template <typename T, u32 Size>
-class SVectorSimple
+class SVectorBase
 {
 
 private:
 	
-	SVectorSimple & operator = (SVectorSimple const &);
+	SVectorBase & operator = (SVectorBase const &);
 
 protected:
 
-	SVectorSimple()
+	SVectorBase()
 	{}
 
 public:
@@ -59,8 +60,16 @@ public:
 			sum += sq(this->Values[i]);
 		return (T) sqrt(sum);
 	}
+
+	T const lengthSq() const
+	{
+		T sum = 0;
+		for (int i = 0; i < Dimension; ++ i)
+			sum += sq(this->Values[i]);
+		return sum;
+	}
 	
-	T const getDistanceFrom(SVectorSimple<T, Dimension> const & v) const
+	T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (v - * this).length();
 	}
@@ -86,7 +95,7 @@ public:
 };
 
 template <typename T, int Dimension, typename Implementation>
-class SVector : public SVectorSimple<T, Dimension>
+class SVector : public SVectorBase<T, Dimension>
 {
 
 private:
@@ -102,15 +111,7 @@ protected:
 
 public:
 	
-	void set(T in)
-	{
-		SVectorSimple<T, Dimension>::set(in);
-	}
-
-	void set(T in[])
-	{
-		SVectorSimple<T, Dimension>::set(in);
-	}
+	using SVectorBase<T, Dimension>::set;
 
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
@@ -202,6 +203,22 @@ public:
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
 			ret[i] = this->Values[i] / s;
+		return ret;
+	}
+
+	friend Implementation const operator * (T const lhs, Self const & rhs) const
+	{
+		Implementation ret;
+		for (int i = 0; i < Dimension; ++ i)
+			ret[i] = rhs.Values[i] * lhs;
+		return ret;
+	}
+
+	friend Implementation const operator / (T const lhs, Self const & rhs) const
+	{
+		Implementation ret;
+		for (int i = 0; i < Dimension; ++ i)
+			ret[i] = rhs.Values[i] / lhs;
 		return ret;
 	}
 
