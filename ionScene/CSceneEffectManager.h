@@ -7,6 +7,8 @@
 #include "CFrameBufferObject.h"
 #include "ISceneObject.h"
 
+#include "SUniform.h"
+
 enum ESceneEffect
 {
 	ESE_ALL = 0,
@@ -82,6 +84,7 @@ public:
 		std::map<std::string, int> Ints;
 		std::map<std::string, CTexture *> Textures;
 		std::map<std::string, SColorAf> Colors;
+		std::map<std::string, smartPtr<IUniform const>> Uniforms;
 
 		void doPass();
 

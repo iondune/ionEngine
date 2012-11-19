@@ -32,17 +32,25 @@ void CSceneEffectManager::SPostProcessPass::end()
 	if (! Context)
 		begin();
 
-	for (std::map<std::string, CTexture *>::iterator it = Textures.begin(); it != Textures.end(); ++ it)
+	for (auto it = Textures.begin(); it != Textures.end(); ++ it)
 		Context->bindTexture(it->first, it->second);
 
-	for (std::map<std::string, float>::iterator it = Floats.begin(); it != Floats.end(); ++ it)
+	for (auto it = Floats.begin(); it != Floats.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, int>::iterator it = Ints.begin(); it != Ints.end(); ++ it)
+	for (auto it = Ints.begin(); it != Ints.end(); ++ it)
+		Context->uniform(it->first, it->second);
+	
+	for (auto it = Colors.begin(); it != Colors.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, SColorAf>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
-		Context->uniform(it->first, it->second);
+	for (auto it = Uniforms.begin(); it != Uniforms.end(); ++ it)
+	{
+		auto jt = Shader->getUniformHandles().find(it->first);
+
+		if (jt != Shader->getUniformHandles().end())
+			it->second->bind(jt->second.Handle);
+	}
 
 	Context->bindBufferObject("aPosition", CSceneManager::getQuadHandle(), 2);
 
@@ -178,6 +186,7 @@ void CSceneEffectManager::apply()
 		// BLUR H
 		SPostProcessPass BloomBlurPass1;
 		BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
+		BloomBlurPass1.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass1.Target = ScratchTarget1;
 		BloomBlurPass1.Shader = BlurHorizontal;
 
@@ -186,6 +195,7 @@ void CSceneEffectManager::apply()
 		// BLUR V
 		SPostProcessPass BloomBlurPass2;
 		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
+		BloomBlurPass2.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
 		
@@ -195,6 +205,7 @@ void CSceneEffectManager::apply()
 		// BLUR H
 		SPostProcessPass BloomBlurPass3;
 		BloomBlurPass3.Textures["uTexColor"] = BloomResultTexture;
+		BloomBlurPass3.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass3.Target = ScratchTarget1;
 		BloomBlurPass3.Shader = BlurHorizontal;
 
@@ -203,6 +214,7 @@ void CSceneEffectManager::apply()
 		// BLUR V
 		SPostProcessPass BloomBlurPass4;
 		BloomBlurPass4.Textures["uTexColor"] = ScratchTexture1;
+		BloomBlurPass4.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass4.Target = BloomResultTarget;
 		BloomBlurPass4.Shader = BlurVertical;
 
