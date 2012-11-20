@@ -97,7 +97,7 @@ protected:
 	glm::mat4 ModelMatrix, NormalMatrix;
 
 	//! Index buffer for indexed drawing
-	CBufferObject<GLushort> * IndexBufferObject; // To Do : Appropriate type names for this! (or abstraction)
+	CBufferObject<uint> * IndexBufferObject; // To Do : Appropriate type names for this! (or abstraction)
 
 	//! Number of elements drawn when no IndexBufferObject specified
 	unsigned int ElementCount;
@@ -141,8 +141,8 @@ public:
 
 	// Index Buffer //
 
-	virtual CBufferObject<GLushort> * getIndexBufferObject();
-	virtual void setIndexBufferObject(CBufferObject<GLushort> * indexBufferObject);
+	virtual CBufferObject<uint> * getIndexBufferObject();
+	virtual void setIndexBufferObject(CBufferObject<uint> * indexBufferObject);
 
 	// Primitive Draw Type //
 
