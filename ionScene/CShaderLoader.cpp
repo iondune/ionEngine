@@ -35,14 +35,14 @@ std::string const CShaderLoader::parseShaderSource(std::string const & fileName,
 	// To Do : Prevent infinite recursion
 
 	std::ifstream File(fileName);
-	if (! File.is_open())
+	if (! File || ! File.is_open())
 	{
 		LogFile << "Could not open file of shader: " << fileName << std::endl;
 		return "";
 	}
 
 	size_t EndRelativePath;
-	std::string RelativePath = fileName.substr(0, ((EndRelativePath = fileName.find_last_of("\\/")) == std::string::npos ? 0 : EndRelativePath));
+	std::string RelativePath = fileName.substr(0, ((EndRelativePath = fileName.find_last_of("\\/")) == std::string::npos ? 0 : EndRelativePath+1));
 
 	std::string FileSource;
 
@@ -65,7 +65,10 @@ std::string const CShaderLoader::parseShaderSource(std::string const & fileName,
 			std::string IncludePath = Line.substr(10);
 			size_t EndPath = IncludePath.find_last_of('"');
 			IncludePath = IncludePath.substr(0, EndPath);
-			Output << parseShaderSource(RelativePath.append(IncludePath), SymbolTable) << std::endl;
+
+			std::string Path = RelativePath;
+
+			Output << parseShaderSource(Path.append(IncludePath), SymbolTable) << std::endl;
 		}
 		else if (Line.substr(0, 8) == std::string("#define "))
 		{
