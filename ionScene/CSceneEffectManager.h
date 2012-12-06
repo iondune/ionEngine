@@ -16,7 +16,8 @@ enum ESceneEffect
 	ESE_SSAO_BLUR = 2,
 	ESE_BLOOM = 4,
 	ESE_HEAT_WAVE = 8,
-	ESE_WATER_DISTORT = 16
+	ESE_WATER_DISTORT = 16,
+	ESE_DEPTH_OF_FIELD = 32
 };
 
 class CSceneManager;
@@ -52,6 +53,7 @@ protected:
 	// Blending
 	CShader * BlendShader;
 	CShader * QuadCopy;
+	CShader * DOFShader;
 	CTexture * Magenta, * White, * Black;
 
 	CFrameBufferObject * ScratchTarget1;
@@ -106,6 +108,7 @@ public:
 
 
 	virtual bool const isLoaded() const;
+	void postProcess();
 
 	virtual void OnWindowResized();
 
