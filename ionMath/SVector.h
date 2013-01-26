@@ -24,85 +24,96 @@ public:
 	static u32 const Dimension = Size;
 	T Values[Dimension];
 	mutable T OutOfBounds;
-
+	
+	//! Const member copy access
+	//! Note: Out-of-bounds access returns a dummy value
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < Dimension ? this->Values[i] : OutOfBounds = 0);
+		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
-
+	
+	//! Member reference access
+	//! Note: Out-of-bounds access returns a dummy value
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < Dimension ? this->Values[i] : OutOfBounds = 0);
+		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
+	//! Sets all dimension values to 0
 	void reset()
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] = 0;
+			Values[i] = 0;
 	}
 
+	//! Sets all dimension values to a single scalar
 	void set(T in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] = in;
+			Values[i] = in;
 	}
 
+	//! Sets all dimension values by an input C-style array
 	void set(T in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] = in[i];
+			Values[i] = in[i];
 	}
 
+	//! Length of vector
 	T const length() const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += sq(this->Values[i]);
+			sum += sq(Values[i]);
 		return (T) sqrt(sum);
 	}
 
+	//! Squared-length of vector (computationally fast)
 	T const lengthSq() const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += sq(this->Values[i]);
+			sum += sq(Values[i]);
 		return sum;
 	}
 	
+	//! Distance between vectors
 	T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (v - * this).length();
 	}
 
+	//! Normalize this vector
 	void normalize()
 	{
 		T const len = length();
 		
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] /= len;
+			Values[i] /= len;
 	}
 
+	//! Raw pointer access to vector values
 	T const * const getValuePointer() const
 	{
-		return this->Values;
+		return Values;
 	}
-
+	
+	//! Raw pointer access to vector values
 	T * const getValuePointer()
 	{
-		return this->Values;
+		return Values;
 	}
 
 };
 
-template <typename T, int Dimension, typename Implementation>
-class SVector : public SVectorBase<T, Dimension>
+template <typename T, int Size, typename Implementation>
+class SVector : public SVectorBase<T, Size>
 {
 
 private:
 	
 	SVector & operator = (SVector const &);
-
-	typedef SVector<T, Dimension, Implementation> Self;
 
 protected:
 
@@ -113,15 +124,14 @@ public:
 	
 	using SVectorBase<T, Dimension>::set;
 
-	template <typename U, int otherDimension, typename otherImplementation>
-	void set(SVector<U, otherDimension, otherImplementation> const & other)
+	template <typename U>
+	void set(IVectorBase<U> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = (T) other[i];
 	}
 
-	template <typename otherImplementation>
-	T const dotProduct(SVector<T, Dimension, otherImplementation> const & other) const
+	T const dotProduct(SVectorBase<T, Dimension> const & other) const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
@@ -129,14 +139,12 @@ public:
 		return sum;
 	}
 	
-	template <typename otherImplementation>
-	T const getDistanceFrom(SVector<T, Dimension, otherImplementation> const & v) const
+	T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (v - * this).length();
 	}
 	
-	template <typename otherImplementation>
-	Implementation const getInterpolated(SVector<T, Dimension, otherImplementation> const & v, T const d)
+	Implementation const getInterpolated(SVectorBase<T, Dimension> const & v, T const d)
 	{
 		T inv = (T) 1.0 - d;
 		Implementation ret;
