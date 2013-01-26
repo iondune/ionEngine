@@ -20,8 +20,8 @@ GLuint const CSceneManager::getQuadHandle()
 		GLfloat QuadVertices[] = 
 		{
 			-1.0, -1.0,
-			1.0, -1.0,
-			1.0,  1.0,
+			 1.0, -1.0,
+			 1.0,  1.0,
 			-1.0,  1.0
 		};
 
@@ -41,6 +41,8 @@ CSceneManager::CSceneManager(SPosition2 const & screenSize)
 {
 	CurrentScene = this;
 	DefaultColorRenderPass = new CDefaultColorRenderPass();
+
+	addUniform("uScreenSize", BindUniformReference(ScreenSize));
 }
 
 void CSceneManager::OnWindowResized(SPosition2 const & screenSize)

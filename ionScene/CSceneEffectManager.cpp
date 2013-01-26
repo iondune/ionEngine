@@ -32,17 +32,25 @@ void CSceneEffectManager::SPostProcessPass::end()
 	if (! Context)
 		begin();
 
-	for (std::map<std::string, CTexture *>::iterator it = Textures.begin(); it != Textures.end(); ++ it)
+	for (auto it = Textures.begin(); it != Textures.end(); ++ it)
 		Context->bindTexture(it->first, it->second);
 
-	for (std::map<std::string, float>::iterator it = Floats.begin(); it != Floats.end(); ++ it)
+	for (auto it = Floats.begin(); it != Floats.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, int>::iterator it = Ints.begin(); it != Ints.end(); ++ it)
+	for (auto it = Ints.begin(); it != Ints.end(); ++ it)
+		Context->uniform(it->first, it->second);
+	
+	for (auto it = Colors.begin(); it != Colors.end(); ++ it)
 		Context->uniform(it->first, it->second);
 
-	for (std::map<std::string, SColorAf>::iterator it = Colors.begin(); it != Colors.end(); ++ it)
-		Context->uniform(it->first, it->second);
+	for (auto it = Uniforms.begin(); it != Uniforms.end(); ++ it)
+	{
+		auto jt = Shader->getUniformHandles().find(it->first);
+
+		if (jt != Shader->getUniformHandles().end())
+			it->second->bind(jt->second.Handle);
+	}
 
 	Context->bindBufferObject("aPosition", CSceneManager::getQuadHandle(), 2);
 
@@ -97,6 +105,7 @@ CSceneEffectManager::CSceneEffectManager(CSceneManager * sceneManager)
 {
 	SSAOShader = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "SSAO.frag");
 	BlendShader = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "Blend.frag");
+	DOFShader = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "DOF.frag");
 	BlurVertical = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "BlurV.frag");
 	BlurHorizontal = CShaderLoader::loadShader("FBO/QuadCopyUV.glsl", "BlurH.frag");
 	QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
@@ -178,6 +187,7 @@ void CSceneEffectManager::apply()
 		// BLUR H
 		SPostProcessPass BloomBlurPass1;
 		BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
+		BloomBlurPass1.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass1.Target = ScratchTarget1;
 		BloomBlurPass1.Shader = BlurHorizontal;
 
@@ -186,6 +196,7 @@ void CSceneEffectManager::apply()
 		// BLUR V
 		SPostProcessPass BloomBlurPass2;
 		BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
+		BloomBlurPass2.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass2.Target = BloomResultTarget;
 		BloomBlurPass2.Shader = BlurVertical;
 		
@@ -195,6 +206,7 @@ void CSceneEffectManager::apply()
 		// BLUR H
 		SPostProcessPass BloomBlurPass3;
 		BloomBlurPass3.Textures["uTexColor"] = BloomResultTexture;
+		BloomBlurPass3.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass3.Target = ScratchTarget1;
 		BloomBlurPass3.Shader = BlurHorizontal;
 
@@ -203,6 +215,7 @@ void CSceneEffectManager::apply()
 		// BLUR V
 		SPostProcessPass BloomBlurPass4;
 		BloomBlurPass4.Textures["uTexColor"] = ScratchTexture1;
+		BloomBlurPass4.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
 		BloomBlurPass4.Target = BloomResultTarget;
 		BloomBlurPass4.Shader = BlurVertical;
 
@@ -242,6 +255,50 @@ void CSceneEffectManager::apply()
 		{
 			FinalPass.Shader = QuadCopy;
 		}
+
+		FinalPass.doPass();
+	}
+}
+
+void CSceneEffectManager::postProcess()
+{
+	if (isEffectEnabled(ESE_DEPTH_OF_FIELD))
+	{
+		for (int i = 0; i < 7; ++ i)
+		{
+			// BLUR H
+			SPostProcessPass BloomBlurPass1;
+			BloomBlurPass1.Textures["uTexColor"] = SceneManager->getSceneFrameTexture();
+			BloomBlurPass1.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
+			BloomBlurPass1.Target = ScratchTarget1;
+			BloomBlurPass1.Shader = BlurHorizontal;
+
+			BloomBlurPass1.doPass();
+
+			// BLUR V
+			SPostProcessPass BloomBlurPass2;
+			BloomBlurPass2.Textures["uTexColor"] = ScratchTexture1;
+			BloomBlurPass2.Uniforms["uScreenSize"] = SceneManager->getUniform("uScreenSize");
+			BloomBlurPass2.Target = BloomResultTarget;
+			BloomBlurPass2.Shader = BlurVertical;
+		
+			BloomBlurPass2.doPass();
+		}
+		
+		// Final Blend
+		SPostProcessPass BlendPass;
+		BlendPass.Textures["scene"] = SceneManager->getSceneFrameTexture();
+		BlendPass.Textures["blur"] = BloomResultTexture;
+		BlendPass.Textures["depth"] = SceneManager->getSceneDepthTexture();
+		BlendPass.Target = ScratchTarget1;
+		BlendPass.Shader = DOFShader;
+
+		BlendPass.doPass();
+
+		SPostProcessPass FinalPass;
+		FinalPass.Textures["uTexColor"] = ScratchTexture1;
+		FinalPass.Target = SceneManager->getSceneFrameBuffer();
+		FinalPass.Shader = QuadCopy;
 
 		FinalPass.doPass();
 	}

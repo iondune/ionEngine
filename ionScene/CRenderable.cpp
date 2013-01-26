@@ -29,12 +29,12 @@ void CRenderable::setTexture(unsigned int const Layer, CTexture * const Texture)
 
 // Index Buffer //
 
-CBufferObject<GLushort> * CRenderable::getIndexBufferObject()
+CBufferObject<uint> * CRenderable::getIndexBufferObject()
 {
 	return IndexBufferObject;
 }
 
-void CRenderable::setIndexBufferObject(CBufferObject<GLushort> * indexBufferObject)
+void CRenderable::setIndexBufferObject(CBufferObject<uint> * indexBufferObject)
 {
 	IndexBufferObject = indexBufferObject;
 }

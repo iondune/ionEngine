@@ -29,7 +29,7 @@ public:
         std::vector<STriangle> Triangles;
 
 		CBufferObject<float> PositionBuffer, ColorBuffer, NormalBuffer, TexCoordBuffer, NormalLineBuffer, NormalColorBuffer;
-		CBufferObject<unsigned short> IndexBuffer, NormalIndexBuffer;
+		CBufferObject<uint> IndexBuffer, NormalIndexBuffer;
 
 		void updateBuffers();
 
