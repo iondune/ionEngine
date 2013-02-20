@@ -40,13 +40,13 @@ public:
 			this->Values[i] = 0;
 	}
 
-	void set(T in)
+	void set(T const in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = in;
 	}
 
-	void set(T in[])
+	void set(T const in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = in[i];
