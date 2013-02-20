@@ -102,12 +102,12 @@ protected:
 
 public:
 	
-	void set(T in)
+	void set(T const in)
 	{
 		SVectorSimple<T, Dimension>::set(in);
 	}
 
-	void set(T in[])
+	void set(T const in[])
 	{
 		SVectorSimple<T, Dimension>::set(in);
 	}
