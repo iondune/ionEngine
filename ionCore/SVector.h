@@ -40,13 +40,13 @@ public:
 			this->Values[i] = 0;
 	}
 
-	void set(T in)
+	void set(T const in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = in;
 	}
 
-	void set(T in[])
+	void set(T const in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = in[i];
@@ -102,12 +102,12 @@ protected:
 
 public:
 	
-	void set(T in)
+	void set(T const in)
 	{
 		SVectorSimple<T, Dimension>::set(in);
 	}
 
-	void set(T in[])
+	void set(T const in[])
 	{
 		SVectorSimple<T, Dimension>::set(in);
 	}
