@@ -47,14 +47,14 @@ public:
 	}
 
 	//! Sets all dimension values to a single scalar
-	void set(T in)
+	void set(T const in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in;
 	}
 
 	//! Sets all dimension values by an input C-style array
-	void set(T in[])
+	void set(T const in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in[i];
