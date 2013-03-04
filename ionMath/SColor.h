@@ -17,19 +17,19 @@ public:
 	static T const Full;
 
 	SColor()
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		SVectorSimple<T, 3>::set((T) 0);
 	}
 
 	SColor(T const in)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		SVectorSimple<T, 3>::set(in);
 	}
 
 	SColor(T const r, T const g, T const b)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		this->Values[0] = r;
 		this->Values[1] = g;
@@ -41,14 +41,14 @@ public:
 	{}
 
 	SColor(SColor<T> const & vec)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set(vec);
 	}
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SColor(SVector<U, otherDimension, otherImplementation> const & vec)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set(vec);
 	}
@@ -157,19 +157,19 @@ public:
 	static T const Full;
 
 	SColorA()
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2]), Alpha(this->Values[3])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		SVectorSimple<T, 4>::set((T) 0);
 	}
 
 	SColorA(T const in)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2]), Alpha(this->Values[3])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		SVectorSimple<T, 4>::set(in);
 	}
 
 	SColorA(T const r, T const g, T const b, T const a = Full)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2]), Alpha(this->Values[3])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		this->Values[0] = r;
 		this->Values[1] = g;
@@ -182,14 +182,14 @@ public:
 	{}
 
 	SColorA(SColorA<T> const & vec)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2]), Alpha(this->Values[3])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(vec);
 	}
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SColorA(SVector<U, otherDimension, otherImplementation> const & vec)
-		: Red(this->Values[0]), Green(this->Values[1]), Blue(this->Values[2]), Alpha(this->Values[3])
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(vec);
 	}
