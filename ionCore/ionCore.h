@@ -8,4 +8,10 @@
 #include "ionRand.h"
 #include "ionSmartPtr.h"
 
+#include <vector>
+#include <set>
+#include <map>
+#include <list>
+#include <string>
+
 #endif

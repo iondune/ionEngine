@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionMath", "ionMath\ionMath.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilityCompileTest", "UtilityCompileTest\UtilityCompileTest.vcxproj", "{2D08659B-B706-4A3C-95C0-9294710DC5EE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGL", "ionGL\ionGL.vcxproj", "{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{2D08659B-B706-4A3C-95C0-9294710DC5EE}.Debug|Win32.Build.0 = Debug|Win32
 		{2D08659B-B706-4A3C-95C0-9294710DC5EE}.Release|Win32.ActiveCfg = Release|Win32
 		{2D08659B-B706-4A3C-95C0-9294710DC5EE}.Release|Win32.Build.0 = Release|Win32
+		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}.Debug|Win32.Build.0 = Debug|Win32
+		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}.Release|Win32.ActiveCfg = Release|Win32
+		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
