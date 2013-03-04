@@ -15,19 +15,19 @@ public:
 	T & X, & Y, & Z;
 
 	SVector3()
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorSimple<T, 3>::set((T) 0);
 	}
 
 	SVector3(T const in)
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorSimple<T, 3>::set(in);
 	}
 
 	SVector3(T const x, T const y, T const z)
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])	
+		: X(Values[0]), Y(Values[1]), Z(Values[2])	
 	{
 		this->Values[0] = x;
 		this->Values[1] = y;
@@ -39,14 +39,14 @@ public:
 	{}
 
 	SVector3(SVector3<T> const & vec)
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		set(vec);
 	}
 
 	template <typename U>
 	SVector3(glm::detail::tvec3<U> const & v)
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		this->Values[0] = (T) v.x;
 		this->Values[1] = (T) v.y;
@@ -55,7 +55,7 @@ public:
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
-		: X(this->Values[0]), Y(this->Values[1]), Z(this->Values[2])
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		set(vec);
 	}
