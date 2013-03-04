@@ -70,12 +70,12 @@ public:
 
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < 3 ? this->Values[i] : (i == 3 ? SVectorSimple<T, 3>::OutOfBounds = Full : SVectorSimple<T, 3>::OutOfBounds = 0));
+		return (i >= 0 && i < 3 ? this->Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
 	}
 
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < 3 ? this->Values[i] : (i == 3 ? SVectorSimple<T, 3>::OutOfBounds = Full : SVectorSimple<T, 3>::OutOfBounds = 0));
+		return (i >= 0 && i < 3 ? this->Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
@@ -148,7 +148,7 @@ void SColor<unsigned char>::set(SVector<double, otherDimension, otherImplementat
 
 
 template <typename T>
-class SColorA : public SVector<T, 4, SColor<T> >
+class SColorA : public SVector<T, 4, SColorA<T> >
 {
 
 public:
@@ -211,12 +211,12 @@ public:
 
 	virtual T const operator[] (int i) const
 	{
-		return (i >= 0 && i < 4 ? this->Values[i] : SVectorSimple<T, 4>::OutOfBounds = 0);
+		return (i >= 0 && i < 4 ? this->Values[i] : SVectorBase<T, 4>::OutOfBounds = 0);
 	}
 
 	virtual T & operator[] (int i)
 	{
-		return (i >= 0 && i < 4 ? this->Values[i] : SVectorSimple<T, 4>::OutOfBounds = 0);
+		return (i >= 0 && i < 4 ? this->Values[i] : SVectorBase<T, 4>::OutOfBounds = 0);
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>

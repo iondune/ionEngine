@@ -14,6 +14,7 @@ static void waitForUser()
 	std::cin.get();
 }
 
+//! Count the number of digits (included a - for negative numbers) in an integer
 static u32 const digitCount(s32 n)
 {
 	u32 count = 1;

@@ -39,5 +39,6 @@
     <ClInclude Include="STransformation3.h">
       <Filter>Vector\Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="ionMath.h" />
   </ItemGroup>
 </Project>

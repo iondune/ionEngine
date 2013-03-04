@@ -125,7 +125,7 @@ public:
 	using SVectorBase<T, Dimension>::set;
 
 	template <typename U>
-	void set(IVectorBase<U> const & other)
+	void set(SVectorBase<U, Dimension> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] = (T) other[i];
@@ -214,7 +214,7 @@ public:
 		return ret;
 	}
 
-	friend Implementation const operator * (T const lhs, Self const & rhs) const
+	friend Implementation const operator * (T const lhs, Implementation const & rhs)
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -222,7 +222,7 @@ public:
 		return ret;
 	}
 
-	friend Implementation const operator / (T const lhs, Self const & rhs) const
+	friend Implementation const operator / (T const lhs, Implementation const & rhs)
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -231,7 +231,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	Self & operator += (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator += (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] += v[i];
@@ -240,7 +240,7 @@ public:
 	}
 	
 	template <typename otherImplementation>
-	Self & operator -= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator -= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] -= v[i];
@@ -249,7 +249,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	Self & operator *= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator *= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] *= v[i];
@@ -258,7 +258,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	Self & operator /= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator /= (SVector<T, Dimension, otherImplementation> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] /= v[i];
@@ -266,7 +266,7 @@ public:
 		return * this;
 	}
 
-	Self & operator *= (T const s)
+	Implementation & operator *= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] *= s;
@@ -274,7 +274,7 @@ public:
 		return * this;
 	}
 
-	Self & operator /= (T const s)
+	Implementation & operator /= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			this->Values[i] /= s;

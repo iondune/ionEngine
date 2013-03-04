@@ -7,6 +7,15 @@
 #include <boost/scoped_array.hpp>
 
 
+#if 1
+
+#define smartPtr boost::shared_ptr
+#define smartArray boost::shared_array
+#define scopedPtr boost::scoped_ptr
+#define scopedArray boost::scoped_array
+
+#else
+
 template <typename T>
 using smartPtr = boost::shared_ptr<T>;
 template <typename T>
@@ -16,5 +25,7 @@ template <typename T>
 using scopedPtr = boost::scoped_ptr<T>;
 template <typename T>
 using scopedArray = boost::scoped_array<T>;
+
+#endif
 
 #endif
