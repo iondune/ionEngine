@@ -1,8 +1,8 @@
-#ifndef _CABBAGE_SCENE_CRENDERBUFFEROBJECT_H_INCLUDED_
-#define _CABBAGE_SCENE_CRENDERBUFFEROBJECT_H_INCLUDED_
+#ifndef _ION_SCENE_CRENDERBUFFEROBJECT_H_INCLUDED_
+#define _ION_SCENE_CRENDERBUFFEROBJECT_H_INCLUDED_
 
 #include <GL/glew.h>
-#include <SSize2.h>
+#include <ionMath.h>
 
 #include "IRenderTarget.h"
 
@@ -14,7 +14,7 @@ class CRenderBufferObject : public IRenderTarget
 
 public:
 
-	CRenderBufferObject(GLenum const Format, SSize2 const & Size);
+	CRenderBufferObject(GLenum const Format, vec2u const & Size);
 	~CRenderBufferObject();
 
 	GLuint const getHandle();

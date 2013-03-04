@@ -93,4 +93,9 @@ typedef SVector3<double> SVector3d;
 typedef SVector3<int> SVector3i;
 typedef SVector3<unsigned int> SVector3u;
 
+typedef SVector3f vec3f;
+typedef SVector3d vec3d;
+typedef SVector3i vec3i;
+typedef SVector3u vec3u;
+
 #endif
