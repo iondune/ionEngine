@@ -76,11 +76,24 @@ public:
 				Linear
 			};
 
+			enum class EWrapMode
+			{
+				Clamp,
+				Mirror,
+				Repeat
+			};
+
 			EFilter MinFilter;
 			EFilter MagFilter;
 			EMipMaps MipMapMode;
+			EWrapMode WrapMode;
 		};
+
+		Params const & GetParams();
+		void SetParams(Params const & params);
 	};
+
+	class 
 
 
 	/////////////////////
