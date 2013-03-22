@@ -103,6 +103,8 @@ void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bu
 void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferHandle);
+
+	printOpenGLErrors("bindIndexBufferObject");
 }
 
 
