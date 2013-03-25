@@ -29,6 +29,7 @@ CApplicationEventReceiver::CApplicationEventReceiver()
 	Application->getEventManager().OnRenderEnd.connect(this, & CApplicationEventReceiver::OnRenderEnd);
 	Application->getEventManager().OnKeyboardEvent.connect(this, & CApplicationEventReceiver::OnKeyboardEvent);
 	Application->getEventManager().OnMouseEvent.connect(this, & CApplicationEventReceiver::OnMouseEvent);
+	Application->getEventManager().OnSFMLEvent.connect(this, & CApplicationEventReceiver::OnSFMLEvent);
 	Application->getEventManager().OnWindowResized.connect(this, & CApplicationEventReceiver::OnWindowResized);
 	Application->getEventManager().OnApplicationExit.connect(this, & CApplicationEventReceiver::OnApplicationExit);
 }
@@ -37,6 +38,9 @@ void CApplicationEventReceiver::OnKeyboardEvent(SKeyboardEvent const & Event)
 {}
 
 void CApplicationEventReceiver::OnMouseEvent(SMouseEvent const & Event)
+{}
+
+void CApplicationEventReceiver::OnSFMLEvent(sf::Event const & Event)
 {}
 
 void CApplicationEventReceiver::OnGameTickStart(float const Elapsed)

@@ -259,6 +259,7 @@ public:
 
 	virtual void OnKeyboardEvent(SKeyboardEvent const & Event);
 	virtual void OnMouseEvent(SMouseEvent const & Event);
+	virtual void OnSFMLEvent(sf::Event const & Event);
 
 	virtual void OnGameTickStart(float const Elapsed);
 	virtual void OnGameTickEnd(float const Elapsed);
