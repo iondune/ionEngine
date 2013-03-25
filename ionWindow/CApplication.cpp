@@ -133,6 +133,7 @@ void CApplication::run()
 		sf::Event Event;
 		while (App->pollEvent(Event))
 		{
+			EventManager->OnSFMLEvent(Event);
 			switch (Event.type)
 			{
 

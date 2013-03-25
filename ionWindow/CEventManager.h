@@ -7,6 +7,7 @@
 #include "sigslot/sigslot.h"
 
 #include <ionEnum.h>
+#include <SFML/Window/Event.hpp>
 
 struct  EKeyValues
 {	
@@ -283,9 +284,11 @@ class CEventManager
     SPosition2 MousePositionState;
 
 public:	
-
+	
     sigslot::signal1<SKeyboardEvent const &> OnKeyboardEvent;
     sigslot::signal1<SMouseEvent const &> OnMouseEvent;
+
+    sigslot::signal1<sf::Event const &> OnSFMLEvent;
 
     sigslot::signal1<float const> OnGameTickStart;
     sigslot::signal1<float const> OnGameTickEnd;
