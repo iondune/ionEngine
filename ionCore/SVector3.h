@@ -86,6 +86,11 @@ public:
 		return glm::vec3(X, Y, Z);
 	}
 
+	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+	}
+
 };
 
 typedef SVector3<float> SVector3f;

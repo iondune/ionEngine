@@ -147,7 +147,8 @@ public:
      channel_mode_(bgr_mode)
    {
       create_bitmap();
-      std::copy(image.data_, image.data_ + image.length_, data_);
+#pragma warning(suppress: 4996)
+      //std::copy(image.data_, image.data_ + image.length_, data_);
    }
 
   ~bitmap_image()
@@ -166,7 +167,7 @@ public:
          row_increment_ = 0;
          channel_mode_ = image.channel_mode_;
          create_bitmap();
-         std::copy(image.data_, image.data_ + image.length_, data_);
+         //std::copy(image.data_, image.data_ + image.length_, data_);
       }
       return *this;
    }
@@ -238,7 +239,7 @@ public:
       {
          return false;
       }
-      std::copy(image.data_,image.data_ + image.length_,data_);
+      //std::copy(image.data_,image.data_ + image.length_,data_);
       return true;
    }
 
