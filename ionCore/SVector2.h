@@ -13,19 +13,19 @@ public:
 	T & X, & Y;
 
 	SVector2()
-		: X(this->Values[0]), Y(this->Values[1])
+		: X(Values[0]), Y(Values[1])
 	{
 		SVectorSimple<T, 2>::set((T) 0);
 	}
 
 	SVector2(T const in)
-		: X(this->Values[0]), Y(this->Values[1])
+		: X(Values[0]), Y(Values[1])
 	{
 		SVectorSimple<T, 2>::set(in);
 	}
 
 	SVector2(T const x, T const y)
-		: X(this->Values[0]), Y(this->Values[1])	
+		: X(Values[0]), Y(Values[1])	
 	{
 		this->Values[0] = x;
 		this->Values[1] = y;
@@ -36,14 +36,14 @@ public:
 	{}
 
 	SVector2(SVector2<T> const & vec)
-		: X(this->Values[0]), Y(this->Values[1])
+		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
 	}
 	
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
-		: X(this->Values[0]), Y(this->Values[1])
+		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
 	}
