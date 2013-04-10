@@ -73,12 +73,12 @@ public:
 			this->Values[i] /= len;
 	}
 
-	T const * const getValuePointer() const
+	T const * getValuePointer() const
 	{
 		return this->Values;
 	}
 
-	T * const getValuePointer()
+	T * getValuePointer()
 	{
 		return this->Values;
 	}
@@ -258,7 +258,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const operator <= (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator <= (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -268,7 +268,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const operator < (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator < (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -278,7 +278,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const operator >= (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator >= (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -288,7 +288,7 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const operator > (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator > (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -298,19 +298,19 @@ public:
 	}
 
 	template <typename otherImplementation>
-	bool const operator == (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator == (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		return equals(v);
 	}
 
 	template <typename otherImplementation>
-	bool const operator != (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator != (SVector<T, Dimension, otherImplementation> const & v) const
 	{
 		return ! equals(v);
 	}
 
 	template <typename otherImplementation>
-	bool const equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
