@@ -15,7 +15,7 @@ static void waitForUser()
 	std::cin.get();
 }
 
-static u32 const digitCount(s32 n)
+static u32 digitCount(s32 n)
 {
 	u32 count = 1;
 	if (n < 0)

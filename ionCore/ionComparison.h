@@ -24,7 +24,7 @@ struct RoundingError
 template <>
 struct RoundingError<float>
 {
-	static float const Value()
+	static float  Value()
 	{
 		return RoundingError32;
 	}
@@ -33,7 +33,7 @@ struct RoundingError<float>
 template <>
 struct RoundingError<double>
 {
-	static double const Value()
+	static double Value()
 	{
 		return RoundingError64;
 	}
@@ -45,7 +45,7 @@ struct RoundingError<double>
 //////////////
 
 template <typename T>
-static bool const equals(T const a, T const b, T const epsilon = RoundingError<T>::Value())
+static bool equals(T const a, T const b, T const epsilon = RoundingError<T>::Value())
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }
