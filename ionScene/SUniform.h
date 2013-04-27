@@ -2,6 +2,7 @@
 #define _CABBAGE_SCENE_SUNIFORM_H_INCLUDED_
 
 // Core
+#include <ionCore.h>
 #include <boost/shared_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 

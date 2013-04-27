@@ -1,6 +1,8 @@
 #ifndef _ION_ENUM_H_INCLUDED_
 #define _ION_ENUM_H_INCLUDED_
 
+#include "ionConfig.h"
+
 
 template <typename TDomain>
 class EnumImplementation

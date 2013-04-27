@@ -1,6 +1,8 @@
 #ifndef _IONPRIMITIVES_H_INCLUDED_
 #define _IONPRIMITIVES_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <climits>
 
 

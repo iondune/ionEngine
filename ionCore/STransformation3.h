@@ -1,6 +1,8 @@
 #ifndef _CABBAGE_CORE_STRANSFORMATION3_H_INCLUDED_
 #define _CABBAGE_CORE_STRANSFORMATION3_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>

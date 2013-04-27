@@ -1,6 +1,8 @@
 #ifndef _IONCORE_H_INCLUDED_
 #define _IONCORE_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "ionPrimitives.h"
 #include "ionUtils.h"
 #include "ionEnum.h"

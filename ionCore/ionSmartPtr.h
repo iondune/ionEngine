@@ -1,6 +1,8 @@
 #ifndef _IONSMARTPTR_H_INCLUDED_
 #define _IONSMARTPTR_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <boost/shared_ptr.hpp>
 
 template <typename T>

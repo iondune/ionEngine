@@ -1,6 +1,8 @@
 #ifndef _ION_CORE_H_INCLUDED_
 #define _ION_CORE_H_INCLUDED_
 
+#include "ionConfig.h"
+
 
 class IRandomGenerator
 {

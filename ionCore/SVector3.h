@@ -1,6 +1,8 @@
 #ifndef _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
 #define _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "SVector.h"
 
 #include <glm/glm.hpp>

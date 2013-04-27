@@ -1,6 +1,8 @@
 #ifndef _IONCORE_MATH_H_INCLUDED_
 #define _IONCORE_MATH_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <cstdlib>
 
 

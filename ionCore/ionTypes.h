@@ -1,6 +1,8 @@
 #ifndef _IONTYPES_H_INCLUDED_
 #define _IONTYPES_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "ionPrimitives.h"
 #include "ionSmartPtr.h"
 

@@ -3,8 +3,6 @@
   <ItemGroup>
     <ClInclude Include="ionEnum.h" />
     <ClInclude Include="STransformation3.h" />
-    <ClInclude Include=".\ionCore.h" />
-    <ClInclude Include=".\ionUtils.h" />
     <ClInclude Include="ionRand.h" />
     <ClInclude Include="SVector2.h">
       <Filter>Vector Classes</Filter>
@@ -38,6 +36,9 @@
     <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionMath.h" />
+    <ClInclude Include="ionCore.h" />
+    <ClInclude Include="ionUtils.h" />
+    <ClInclude Include="ionConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Vector Classes">

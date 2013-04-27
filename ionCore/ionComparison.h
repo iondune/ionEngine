@@ -1,6 +1,8 @@
 #ifndef _IONCORE_COMPARISON_H_INCLUDED_
 #define _IONCORE_COMPARISON_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <cstdlib>
 #include <algorithm>
 
