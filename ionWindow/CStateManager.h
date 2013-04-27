@@ -23,8 +23,6 @@ public:
 
     virtual void OnMouseEvent(SMouseEvent const & Event) =0;
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event) =0;
-
-    virtual void OnSFMLEvent(sf::Event const & Event) =0;
 	
 	virtual void OnWindowResized(SWindowResizedEvent const & Event) =0;
 
@@ -155,9 +153,6 @@ public:
     {}
     virtual void OnKeyboardEvent(SKeyboardEvent const & Event)
     {}
-	
-    virtual void OnSFMLEvent(sf::Event const & Event)
-    {}
 
     virtual void OnWindowResized(SWindowResizedEvent const & Event)
     {}
@@ -199,8 +194,6 @@ public:
 
     void OnMouseEvent(SMouseEvent const & Event);
     void OnKeyboardEvent(SKeyboardEvent const & Event);
-
-    void OnSFMLEvent(sf::Event const & Event);
 
 	void OnWindowResized(SWindowResizedEvent const & Event);
 
