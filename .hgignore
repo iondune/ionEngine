@@ -1,0 +1,14 @@
+syntax: glob
+*.log
+*.tlog
+*.obj
+*.lastbuildstate
+*.pdb
+*.ilk
+*.idb
+*.opensdf
+*.sdf
+*.v11.suo
+*.exe
+*.lib
+*.unsuccessfulbuild
