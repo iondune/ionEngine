@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_CIMAGE_H_INCLUDED_
-#define _CABBAGE_SCENE_CIMAGE_H_INCLUDED_
+#ifndef _ION_SCENE_CIMAGE_H_INCLUDED_
+#define _ION_SCENE_CIMAGE_H_INCLUDED_
 
 #include <string>
 #include "SVector2.h"

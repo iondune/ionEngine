@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_ISCENE_H_INCLUDED_
-#define _CABBAGE_SCENE_ISCENE_H_INCLUDED_
+#ifndef _ION_SCENE_ISCENE_H_INCLUDED_
+#define _ION_SCENE_ISCENE_H_INCLUDED_
 
 // Core
 #include <boost/shared_ptr.hpp>

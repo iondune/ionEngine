@@ -1,5 +1,7 @@
-#ifndef _ION_CORE_SVECTOR2_H_INCLUDED_
-#define _ION_CORE_SVECTOR2_H_INCLUDED_
+#ifndef _ION_CORE_SVECTOR4_H_INCLUDED_
+#define _ION_CORE_SVECTOR4_H_INCLUDED_
+
+#include <ionConfig.h>
 
 #include "SVector.h"
 

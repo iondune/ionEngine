@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_CTEXTURE_H_INCLUDED_
-#define _CABBAGE_SCENE_CTEXTURE_H_INCLUDED_
+#ifndef _ION_SCENE_CTEXTURE_H_INCLUDED_
+#define _ION_SCENE_CTEXTURE_H_INCLUDED_
 
 #include <string>
 #include <GL/glew.h>

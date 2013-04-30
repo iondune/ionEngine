@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_SATTRIBUTE_H_INCLUDED_
-#define _CABBAGE_SCENE_SATTRIBUTE_H_INCLUDED_
+#ifndef _ION_SCENE_SATTRIBUTE_H_INCLUDED_
+#define _ION_SCENE_SATTRIBUTE_H_INCLUDED_
 
 #include <boost/shared_ptr.hpp>
 #include "CShaderContext.h"

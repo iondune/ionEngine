@@ -1,7 +1,7 @@
-#ifndef _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
-#define _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
+#ifndef _ION_CORE_SVECTOR3_H_INCLUDED_
+#define _ION_CORE_SVECTOR3_H_INCLUDED_
 
-#include "ionConfig.h"
+#include <ionConfig.h>
 
 #include "SVector.h"
 
