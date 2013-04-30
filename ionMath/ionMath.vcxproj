@@ -30,6 +30,7 @@
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />
+    <ClInclude Include="SMatrix4.h" />
     <ClInclude Include="SRect2.h" />
     <ClInclude Include="STransformation3.h" />
     <ClInclude Include="SVector.h" />

@@ -8,6 +8,8 @@
 #include "SVector3.h"
 #include "SVector4.h"
 
+#include "SMatrix4.h"
+
 #include "SBoundingBox3.h"
 #include "SLine3.h"
 #include "STransformation3.h"
