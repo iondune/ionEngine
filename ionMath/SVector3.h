@@ -105,10 +105,10 @@ public:
 
 };
 
-typedef SVector3<float> SVector3f;
-typedef SVector3<double> SVector3d;
-typedef SVector3<int> SVector3i;
-typedef SVector3<unsigned int> SVector3u;
+typedef SVector3<f32> SVector3f;
+typedef SVector3<f64> SVector3d;
+typedef SVector3<s32> SVector3i;
+typedef SVector3<u32> SVector3u;
 
 typedef SVector3f vec3f;
 typedef SVector3d vec3d;

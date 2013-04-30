@@ -1,5 +1,5 @@
-#ifndef _IONCORE_IONSMARTPTR_H_INCLUDED_
-#define _IONCORE_IONSMARTPTR_H_INCLUDED_
+#ifndef _ION_CORE_IONSMARTPTR_H_INCLUDED_
+#define _ION_CORE_IONSMARTPTR_H_INCLUDED_
 
 #include "ionConfig.h"
 
@@ -9,14 +9,7 @@
 #include <boost/scoped_array.hpp>
 
 
-#if 1
-
-#define smartPtr boost::shared_ptr
-#define smartArray boost::shared_array
-#define scopedPtr boost::scoped_ptr
-#define scopedArray boost::scoped_array
-
-#else
+#ifdef _ION_CONFIG_C++11_SUPPORT_
 
 template <typename T>
 using smartPtr = boost::shared_ptr<T>;
@@ -27,6 +20,13 @@ template <typename T>
 using scopedPtr = boost::scoped_ptr<T>;
 template <typename T>
 using scopedArray = boost::scoped_array<T>;
+
+#else
+
+#define smartPtr boost::shared_ptr
+#define smartArray boost::shared_array
+#define scopedPtr boost::scoped_ptr
+#define scopedArray boost::scoped_array
 
 #endif
 

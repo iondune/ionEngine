@@ -1,9 +1,9 @@
-#ifndef _IONCORE_IONRAND_H_INCLUDED_
-#define _IONCORE_IONRAND_H_INCLUDED_
-
-#include "ionTypes.h"
+#ifndef _ION_CORE_IONRAND_H_INCLUDED_
+#define _ION_CORE_IONRAND_H_INCLUDED_
 
 #include "ionConfig.h"
+
+#include "ionTypes.h"
 
 
 static f32 frand()
@@ -60,7 +60,6 @@ public:
 	}
 
 };
-
 
 class CLinearCongruentialGenerator
 {

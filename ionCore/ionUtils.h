@@ -1,9 +1,9 @@
-#ifndef _IONCORE_UTILS_H_INCLUDED_
-#define _IONCORE_UTILS_H_INCLUDED_
+#ifndef _ION_CORE_UTILS_H_INCLUDED_
+#define _ION_CORE_UTILS_H_INCLUDED_
 
 #include "ionConfig.h"
-#include "ionTypes.h"
 
+#include "ionTypes.h"
 #include "ionComparison.h"
 
 #include <iostream>

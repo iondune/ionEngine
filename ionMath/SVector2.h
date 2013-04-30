@@ -65,10 +65,10 @@ public:
 
 };
 
-typedef SVector2<float> SVector2f;
-typedef SVector2<double> SVector2d;
-typedef SVector2<int> SVector2i;
-typedef SVector2<unsigned int> SVector2u;
+typedef SVector2<f32> SVector2f;
+typedef SVector2<f64> SVector2d;
+typedef SVector2<s32> SVector2i;
+typedef SVector2<u32> SVector2u;
 
 typedef SVector2f vec2f;
 typedef SVector2d vec2d;
