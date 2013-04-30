@@ -6,7 +6,7 @@
 smartPtr<IUniform const> & CInstanceSceneObject::CInstance::getUniform(u32 const Index)
 {
 	if (Index >= Uniforms.size())
-		Uniforms.resize(Index + 1, 0);
+		Uniforms.resize(Index + 1, smartPtr<const IUniform>());
 
 	return Uniforms[Index];
 }

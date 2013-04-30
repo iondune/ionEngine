@@ -107,7 +107,7 @@ CTexture::CTexture(int const width, int const height, bool const Alpha, STexture
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-CTexture::CTexture(SPosition2 const & size, bool const Alpha, STextureCreationFlags const flags)
+CTexture::CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const flags)
 	: TextureHandle(0), Size(size), Flags(flags)
 {
 	glGenTextures(1, & TextureHandle);
@@ -144,7 +144,7 @@ GLuint const CTexture::getTextureHandle() const
     return TextureHandle;
 }
 
-SSize2 const & CTexture::getSize() const
+vec2i const & CTexture::getSize() const
 {
 	return Size;
 }
