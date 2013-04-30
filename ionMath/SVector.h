@@ -1,9 +1,11 @@
-#ifndef _ION_CORE_SVECTOR_H_INCLUDED_
-#define _ION_CORE_SVECTOR_H_INCLUDED_
+#ifndef _ION_MATH_SVECTOR_H_INCLUDED_
+#define _ION_MATH_SVECTOR_H_INCLUDED_
 
-#include <cmath>
+#include "ionConfig.h"
 
 #include "ionUtils.h"
+
+#include <cmath>
 
 
 template <typename T, u32 Size>
@@ -128,14 +130,14 @@ public:
 	void set(SVectorBase<U, Dimension> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] = (T) other[i];
+			Values[i] = (T) other[i];
 	}
 
 	T const dotProduct(SVectorBase<T, Dimension> const & other) const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
-			sum += this->Values[i] * other[i];
+			sum += Values[i] * other[i];
 		return sum;
 	}
 	
@@ -149,7 +151,7 @@ public:
 		T inv = (T) 1.0 - d;
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = (T) v[i] * inv + this->Values[i] * d;
+			ret[i] = (T) v[i] * inv + Values[i] * d;
 		return ret;
 	}
 
@@ -160,41 +162,37 @@ public:
 		return ret;
 	}
 	
-	template <typename otherImplementation>
-	Implementation const operator + (SVector<T, Dimension, otherImplementation> const & v) const
+	Implementation const operator + (SVectorBase<T, Dimension> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] + (T) v[i];
+			ret[i] = Values[i] + (T) v[i];
 		return ret;
 	}
 	
-	template <typename otherImplementation>
-	Implementation const operator - (SVector<T, Dimension, otherImplementation> const & v) const
+	Implementation const operator - (SVectorBase<T, Dimension> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] - (T) v[i];
+			ret[i] = Values[i] - (T) v[i];
 		return ret;
 	}
 	
-	template <typename otherImplementation>
-	Implementation const operator * (SVector<T, Dimension, otherImplementation> const & v) const
+	Implementation const operator * (SVectorBase<T, Dimension> const & v) const
 	{
 		
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] * (T) v[i];
+			ret[i] = Values[i] * (T) v[i];
 		return ret;
 	}
 	
-	template <typename otherImplementation>
-	Implementation const operator / (SVector<T, Dimension, otherImplementation> const & v) const
+	Implementation const operator / (SVectorBase<T, Dimension> const & v) const
 	{
 		
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] / (T) v[i];
+			ret[i] = Values[i] / (T) v[i];
 		return ret;
 	}
 
@@ -202,7 +200,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] * s;
+			ret[i] = Values[i] * s;
 		return ret;
 	}
 
@@ -210,7 +208,7 @@ public:
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
-			ret[i] = this->Values[i] / s;
+			ret[i] = Values[i] / s;
 		return ret;
 	}
 
@@ -230,38 +228,42 @@ public:
 		return ret;
 	}
 
-	template <typename otherImplementation>
-	Implementation & operator += (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation const operator - ()
+	{
+		Implementation ret;
+		for (int i = 0; i < Dimension; ++ i)
+			ret[i] = -Values[i];
+		return ret;
+	}
+
+	Implementation & operator += (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] += v[i];
+			Values[i] += v[i];
 
 		return * this;
 	}
 	
-	template <typename otherImplementation>
-	Implementation & operator -= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator -= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] -= v[i];
+			Values[i] -= v[i];
 
 		return * this;
 	}
 
-	template <typename otherImplementation>
-	Implementation & operator *= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator *= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] *= v[i];
+			Values[i] *= v[i];
 
 		return * this;
 	}
 
-	template <typename otherImplementation>
-	Implementation & operator /= (SVector<T, Dimension, otherImplementation> const & v)
+	Implementation & operator /= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] /= v[i];
+			Values[i] /= v[i];
 
 		return * this;
 	}
@@ -269,7 +271,7 @@ public:
 	Implementation & operator *= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] *= s;
+			Values[i] *= s;
 
 		return * this;
 	}
@@ -277,69 +279,62 @@ public:
 	Implementation & operator /= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
-			this->Values[i] /= s;
+			Values[i] /= s;
 
 		return * this;
 	}
 
-	template <typename otherImplementation>
-	bool operator <= (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator <= (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result = result && (this->Values[i] <= v[i]);
+			result = result && (Values[i] <= v[i]);
 
 		return result;
 	}
 
-	template <typename otherImplementation>
-	bool operator < (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator < (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result = result && (this->Values[i] < v[i]);
+			result = result && (Values[i] < v[i]);
 
 		return result;
 	}
 
-	template <typename otherImplementation>
-	bool operator >= (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator >= (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result = result && (this->Values[i] >= v[i]);
+			result = result && (Values[i] >= v[i]);
 
 		return result;
 	}
 
-	template <typename otherImplementation>
-	bool operator > (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator > (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result = result && (this->Values[i] > v[i]);
+			result = result && (Values[i] > v[i]);
 
 		return result;
 	}
 
-	template <typename otherImplementation>
-	bool operator == (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator == (SVectorBase<T, Dimension> const & v) const
 	{
 		return equals(v);
 	}
 
-	template <typename otherImplementation>
-	bool operator != (SVector<T, Dimension, otherImplementation> const & v) const
+	bool operator != (SVectorBase<T, Dimension> const & v) const
 	{
 		return ! equals(v);
 	}
 
-	template <typename otherImplementation>
-	bool equals(SVector<T, Dimension, otherImplementation> const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool equals(SVectorBase<T, Dimension> const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
-			result &= ::equals(this->Values[i], v[i], Epsilon);
+			result &= ::equals(Values[i], v[i], Epsilon);
 
 		return result;
 	}

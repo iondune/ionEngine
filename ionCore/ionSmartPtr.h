@@ -9,7 +9,7 @@
 #include <boost/scoped_array.hpp>
 
 
-#ifdef _ION_CONFIG_C++11_SUPPORT_
+#ifdef _ION_CONFIG_CPP11_SUPPORT_
 
 template <typename T>
 using smartPtr = boost::shared_ptr<T>;

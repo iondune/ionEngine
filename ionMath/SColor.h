@@ -68,16 +68,6 @@ public:
 		return * this;
 	}
 
-	virtual T const operator[] (int i) const
-	{
-		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorSimple<T, 3>::OutOfBounds = Full : SVectorSimple<T, 3>::OutOfBounds = 0));
-	}
-
-	virtual T & operator[] (int i)
-	{
-		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorSimple<T, 3>::OutOfBounds = Full : SVectorSimple<T, 3>::OutOfBounds = 0));
-	}
-
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
@@ -86,21 +76,21 @@ public:
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+	void set(SVector<u8, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<float, otherDimension, otherImplementation> const & other)
+	void set(SVector<f32, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<double, otherDimension, otherImplementation> const & other)
+	void set(SVector<f64, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
@@ -112,38 +102,38 @@ template <typename T>
 T const SColor<T>::Full = 1;
 
 template <>
-unsigned char const SColor<unsigned char>::Full = 255;
+u8 const SColor<u8>::Full = 255;
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColor<float>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+void SColor<f32>::set(SVector<u8, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 3; ++ i)
-		Values[i] = (float) other[i] / 255.f;
+		Values[i] = (f32) other[i] / 255.f;
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColor<double>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+void SColor<f64>::set(SVector<u8, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 3; ++ i)
-		Values[i] = (double) other[i] / 255.0;
+		Values[i] = (f64) other[i] / 255.0;
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColor<unsigned char>::set(SVector<float, otherDimension, otherImplementation> const & other)
+void SColor<u8>::set(SVector<f32, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 3; ++ i)
-		Values[i] = (unsigned char) (other[i] * 255);
+		Values[i] = (u8) (other[i] * 255);
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColor<unsigned char>::set(SVector<double, otherDimension, otherImplementation> const & other)
+void SColor<u8>::set(SVector<f64, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 3; ++ i)
-		Values[i] = (unsigned char) (other[i] * 255);
+		Values[i] = (u8) (other[i] * 255);
 }
 
 
@@ -209,16 +199,6 @@ public:
 		return * this;
 	}
 
-	virtual T const operator[] (int i) const
-	{
-		return (i >= 0 && i < 4 ? Values[i] : SVectorSimple<T, 4>::OutOfBounds = 0);
-	}
-
-	virtual T & operator[] (int i)
-	{
-		return (i >= 0 && i < 4 ? Values[i] : SVectorSimple<T, 4>::OutOfBounds = 0);
-	}
-
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
@@ -227,21 +207,21 @@ public:
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+	void set(SVector<u8, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<float, otherDimension, otherImplementation> const & other)
+	void set(SVector<f32, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <int otherDimension, typename otherImplementation>
-	void set(SVector<double, otherDimension, otherImplementation> const & other)
+	void set(SVector<f64, otherDimension, otherImplementation> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
@@ -253,63 +233,70 @@ template <typename T>
 T const SColorA<T>::Full = 1;
 
 template <>
-unsigned char const SColorA<unsigned char>::Full = 255;
+u8 const SColorA<u8>::Full = 255;
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColorA<float>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+void SColorA<f32>::set(SVector<u8, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (float) other[i] / 255.f;
+		Values[i] = (f32) other[i] / 255.f;
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColorA<double>::set(SVector<unsigned char, otherDimension, otherImplementation> const & other)
+void SColorA<f64>::set(SVector<u8, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (double) other[i] / 255.0;
+		Values[i] = (f64) other[i] / 255.0;
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColorA<unsigned char>::set(SVector<float, otherDimension, otherImplementation> const & other)
+void SColorA<u8>::set(SVector<f32, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (unsigned char) (other[i] * 255);
+		Values[i] = (u8) (other[i] * 255);
 }
 
 template <>
 template <int otherDimension, typename otherImplementation>
-void SColorA<unsigned char>::set(SVector<double, otherDimension, otherImplementation> const & other)
+void SColorA<u8>::set(SVector<f64, otherDimension, otherImplementation> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (unsigned char) (other[i] * 255);
+		Values[i] = (u8) (other[i] * 255);
 }
 
 
-typedef SColor<unsigned char> SColori;
-typedef SColor<unsigned char> SColorc;
-typedef SColorA<unsigned char> SColorAi;
-typedef SColorA<unsigned char> SColorAc;
-typedef SColor<unsigned char> SColor24;
-typedef SColorA<unsigned char> SColor32;
+typedef SColor<u8> SColori;
+typedef SColor<u8> SColorc;
+typedef SColorA<u8> SColorAi;
+typedef SColorA<u8> SColorAc;
+typedef SColor<u8> SColor24;
+typedef SColorA<u8> SColor32;
 
-typedef SColor<float> SColorf;
-typedef SColorA<float> SColorAf;
-typedef SColor<float> SColor72;
-typedef SColorA<float> SColor96;
+typedef SColor<f32> SColorf;
+typedef SColorA<f32> SColorAf;
+typedef SColor<f32> SColor72;
+typedef SColorA<f32> SColor96;
 
-typedef SColor<double> SColord;
-typedef SColorA<double> SColorAd;
-typedef SColor<double> SColor192;
-typedef SColorA<double> SColor256;
+typedef SColor<f64> SColord;
+typedef SColorA<f64> SColorAd;
+typedef SColor<f64> SColor192;
+typedef SColorA<f64> SColor256;
+
+typedef SColori color3i;
+typedef SColorf color3f;
+typedef SColorAi color4i;
+typedef SColorAf color4f;
 
 
 namespace Colors
 {
-	static SColorAf const White = SColorAf(1.f, 1.f, 1.f, 1.f);
-	static SColorAf const Black = SColorAf(0.f, 0.f, 0.f, 1.f);
+	static color3f const White = color3f(1, 1, 1);
+	static color3f const Black = color3f(0, 0, 0);
+	static color3f const Red = color3f(1, 0, 0);
+	static color3f const Magenta = color3f(1, 0, 1);
 }
 
 #endif
