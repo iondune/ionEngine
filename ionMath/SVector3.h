@@ -18,21 +18,21 @@ public:
 	T & X, & Y, & Z;
 
 	//! Default constructor
-	SVector3()
+	ION_FUNC_DEF SVector3()
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorBase<T, 3>::set((T) 0);
 	}
 
 	//! Scalar constructor
-	SVector3(T const in)
+	ION_FUNC_DEF SVector3(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorBase<T, 3>::set(in);
 	}
 
 	//! Explicit constructor
-	SVector3(T const x, T const y, T const z)
+	ION_FUNC_DEF SVector3(T const x, T const y, T const z)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])	
 	{
 		this->Values[0] = x;
@@ -41,12 +41,12 @@ public:
 	}
 
 	//! Reference constructor
-	SVector3(T const & x, T const & y, T const & z, ForceReference)
+	ION_FUNC_DEF SVector3(T const & x, T const & y, T const & z, ForceReference)
 		: X(x), Y(y), Z(z)
 	{}
 
 	//! Copy constructor
-	SVector3(SVector3<T> const & vec)
+	ION_FUNC_DEF SVector3(SVector3<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		set(vec);
@@ -54,7 +54,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	SVector3(glm::detail::tvec3<U> const & v)
+	ION_FUNC_DEF SVector3(glm::detail::tvec3<U> const & v)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		Values[0] = (T) v.x;
@@ -64,14 +64,14 @@ public:
 	
 	//! Generic vector constructor
 	template <typename U, int otherDimension, typename otherImplementation>
-	SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
+	ION_FUNC_DEF SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		set(vec);
 	}
 
 	//! Assignment operator
-	SVector3<T> & operator = (SVector3<T> const & vec)
+	ION_FUNC_DEF SVector3<T> & operator = (SVector3<T> const & vec)
 	{
 		set(vec);
 
@@ -80,7 +80,7 @@ public:
 	
 	//! Generic vector assignment operator
 	template <typename U, int otherDimension, typename otherImplementation>
-	SVector3<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	ION_FUNC_DEF SVector3<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
 		set(vec);
 
@@ -89,22 +89,22 @@ public:
 	
 	//! Vector cross product
 	template <typename U, typename otherImplementation>
-	SVector3<T> crossProduct(SVector<U, 3, otherImplementation> const & v) const
+	ION_FUNC_DEF SVector3<T> crossProduct(SVector<U, 3, otherImplementation> const & v) const
 	{
 		return SVector3<T>(Y*v.Values[2] - v.Values[1]*Z, v.Values[0]*Z - X*v.Values[2], X*v.Values[1] - v.Values[0]*Y);
 	}
 
-	glm::vec3 const getGLMVector() const
+	ION_FUNC_DEF glm::vec3 const getGLMVector() const
 	{
 		return glm::vec3(X, Y, Z);
 	}
 
-	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	ION_FUNC_DEF friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
 	{
 		return stream << vec.X << " " << vec.Y << " " << vec.Z;
 	}
 
-	SVector3<T> rotateAround(SVector3<T> const & other, f32 const radians) const
+	ION_FUNC_DEF SVector3<T> rotateAround(SVector3<T> const & other, f32 const radians) const
 	{
 		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.getGLMVector());
 		glm::vec4 temp = glm::vec4(getGLMVector(), 1.f) * matrix;

@@ -16,7 +16,7 @@ public:
 	typedef SVector4<T> Column;
 	Column Columns[4];
 
-	SMatrix4()
+	ION_FUNC_DEF SMatrix4()
 	{
 		Columns[0] = Column(1, 0, 0, 0);
 		Columns[1] = Column(0, 1, 0, 0);
@@ -24,7 +24,7 @@ public:
 		Columns[3] = Column(0, 0, 0, 1);
 	}
 
-	SMatrix4(T const Scalar)
+	ION_FUNC_DEF SMatrix4(T const Scalar)
 	{
 		Columns[0] = Column(Scalar, 0, 0, 0);
 		Columns[1] = Column(0, Scalar, 0, 0);
@@ -32,7 +32,7 @@ public:
 		Columns[3] = Column(0, 0, 0, Scalar);
 	}
 
-	SMatrix4(
+	ION_FUNC_DEF SMatrix4(
 		T const x0, T const y0, T const z0, T const w0,
 		T const x1, T const y1, T const z1, T const w1,
 		T const x2, T const y2, T const z2, T const w2,
@@ -44,24 +44,24 @@ public:
 		Columns[3] = Column(x3, y3, z3, w3);
 	}
 	
-	Column const & operator[] (u32 const index) const
+	ION_FUNC_DEF Column const & operator[] (u32 const index) const
 	{
 		return Columns[index];
 	}
 
-	Column & operator[] (u32 const index)
+	ION_FUNC_DEF Column & operator[] (u32 const index)
 	{
 		return Columns[index];
 	}
 	
-	SMatrix4<T> translate(SVector3<T> const & v) const
+	ION_FUNC_DEF SMatrix4<T> translate(SVector3<T> const & v) const
 	{
 		SMatrix4<T> Result(*this);
 		Result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
 		return Result;
 	}
 
-	SMatrix4<T> rotate(T const & angle, SVector3<T> const & v) const
+	ION_FUNC_DEF SMatrix4<T> rotate(T const & angle, SVector3<T> const & v) const
 	{
 		SMatrix4 const & m = *this;
 
@@ -93,7 +93,7 @@ public:
 		return Result;
 	}
 
-	SMatrix4<T> scale(SVector3<T> const & v)
+	ION_FUNC_DEF SMatrix4<T> scale(SVector3<T> const & v)
 	{
 		SMatrix4 const & m = *this;
 
@@ -105,7 +105,7 @@ public:
 		return Result;
 	}
 
-	SVector4<T> operator* (SVector4<T> const & v) const
+	ION_FUNC_DEF SVector4<T> operator* (SVector4<T> const & v) const
 	{
 		return SVector4<T>(
 			Columns[0][0] * v.x + Columns[1][0] * v.y + Columns[2][0] * v.z + Columns[3][0] * v.w,

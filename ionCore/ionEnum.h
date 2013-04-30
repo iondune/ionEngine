@@ -16,40 +16,40 @@ protected:
 
 public:
 
-	EnumImplementation(Element const value)
+	ION_FUNC_DEF EnumImplementation(Element const value)
 		: Value(value)
 	{}
 
-	EnumImplementation(int const value)
+	ION_FUNC_DEF EnumImplementation(int const value)
 		: Value((Element) value)
 	{}
 
-	Element const getValue() const
+	ION_FUNC_DEF Element const getValue() const
 	{
 		return Value;
 	}
 
-	operator Element const() const
+	ION_FUNC_DEF operator Element const() const
 	{
 		return Value;
 	}
 
-	bool const operator == (Element const & v)
+	ION_FUNC_DEF bool const operator == (Element const & v)
 	{
 		return Value == v;
 	}
 
-	bool const operator == (Other const & v)
+	ION_FUNC_DEF bool const operator == (Other const & v)
 	{
 		return Value == v.Value;
 	}
 
-	bool const operator != (Element const & v)
+	ION_FUNC_DEF bool const operator != (Element const & v)
 	{
 		return Value != v;
 	}
 
-	bool const operator != (Other const & v)
+	ION_FUNC_DEF bool const operator != (Other const & v)
 	{
 		return Value != v.Value;
 	}
@@ -66,11 +66,11 @@ protected:
 
 public:
 
-	Enum(Value const value)
+	ION_FUNC_DEF Enum(Value const value)
 		: EnumImplementation<TDomain>(value)
 	{}
 
-	Enum(int const value)
+	ION_FUNC_DEF Enum(int const value)
 		: EnumImplementation<TDomain>(value)
 	{}
 

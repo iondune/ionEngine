@@ -18,7 +18,7 @@ private:
 
 protected:
 
-	SVectorBase()
+	ION_FUNC_DEF SVectorBase()
 	{}
 
 public:
@@ -29,41 +29,41 @@ public:
 	
 	//! Const member copy access
 	//! Note: Out-of-bounds access returns a dummy value
-	virtual T const operator[] (int i) const
+	ION_FUNC_DEF virtual T const operator[] (int i) const
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 	
 	//! Member reference access
 	//! Note: Out-of-bounds access returns a dummy value
-	virtual T & operator[] (int i)
+	ION_FUNC_DEF virtual T & operator[] (int i)
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
 	//! Sets all dimension values to 0
-	void reset()
+	ION_FUNC_DEF void reset()
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = 0;
 	}
 
 	//! Sets all dimension values to a single scalar
-	void set(T const in)
+	ION_FUNC_DEF void set(T const in)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in;
 	}
 
 	//! Sets all dimension values by an input C-style array
-	void set(T const in[])
+	ION_FUNC_DEF void set(T const in[])
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in[i];
 	}
 
 	//! Length of vector
-	T const length() const
+	ION_FUNC_DEF T const length() const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
@@ -72,7 +72,7 @@ public:
 	}
 
 	//! Squared-length of vector (computationally fast)
-	T const lengthSq() const
+	ION_FUNC_DEF T const lengthSq() const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
@@ -81,13 +81,13 @@ public:
 	}
 	
 	//! Distance between vectors
-	T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (v - * this).length();
 	}
 
 	//! Normalize this vector
-	void normalize()
+	ION_FUNC_DEF void normalize()
 	{
 		T const len = length();
 		
@@ -96,13 +96,13 @@ public:
 	}
 
 	//! Raw pointer access to vector values
-	T const * getValuePointer() const
+	ION_FUNC_DEF T const * getValuePointer() const
 	{
 		return Values;
 	}
 	
 	//! Raw pointer access to vector values
-	T * getValuePointer()
+	ION_FUNC_DEF T * getValuePointer()
 	{
 		return Values;
 	}
@@ -120,7 +120,7 @@ private:
 
 protected:
 
-	SVector()
+	ION_FUNC_DEF SVector()
 	{}
 
 public:
@@ -128,26 +128,34 @@ public:
 	using SVectorBase<T, Dimension>::set;
 
 	template <typename U>
-	void set(SVectorBase<U, Dimension> const & other)
+	ION_FUNC_DEF void set(SVectorBase<U, Dimension> const & other)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
 
-	T const dotProduct(SVectorBase<T, Dimension> const & other) const
+	ION_FUNC_DEF T const dotProduct(SVectorBase<T, Dimension> const & other) const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
 			sum += Values[i] * other[i];
 		return sum;
 	}
+
+	ION_FUNC_DEF friend T const dot(Implementation const & lhs, SVectorBase<T, Dimension> const & rhs)
+	{
+		T sum = 0;
+		for (int i = 0; i < Dimension; ++ i)
+			sum += lhs[i] * rhs[i];
+		return sum;
+	}
 	
-	T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (v - * this).length();
 	}
 	
-	Implementation const getInterpolated(SVectorBase<T, Dimension> const & v, T const d)
+	ION_FUNC_DEF Implementation const getInterpolated(SVectorBase<T, Dimension> const & v, T const d)
 	{
 		T inv = (T) 1.0 - d;
 		Implementation ret;
@@ -156,14 +164,21 @@ public:
 		return ret;
 	}
 
-	Implementation const getNormalized() const
+	ION_FUNC_DEF Implementation const getNormalized() const
 	{
 		Implementation ret = * this;
 		ret.normalize();
 		return ret;
 	}
+
+	friend ION_FUNC_DEF Implementation const normalize(Implementation const & v)
+	{
+		Implementation ret = v;
+		ret.normalize();
+		return ret;
+	}
 	
-	Implementation const operator + (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF Implementation const operator + (SVectorBase<T, Dimension> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -171,7 +186,7 @@ public:
 		return ret;
 	}
 	
-	Implementation const operator - (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF Implementation const operator - (SVectorBase<T, Dimension> const & v) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -179,7 +194,7 @@ public:
 		return ret;
 	}
 	
-	Implementation const operator * (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF Implementation const operator * (SVectorBase<T, Dimension> const & v) const
 	{
 		
 		Implementation ret;
@@ -188,7 +203,7 @@ public:
 		return ret;
 	}
 	
-	Implementation const operator / (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF Implementation const operator / (SVectorBase<T, Dimension> const & v) const
 	{
 		
 		Implementation ret;
@@ -197,7 +212,7 @@ public:
 		return ret;
 	}
 
-	Implementation const operator * (T const s) const
+	ION_FUNC_DEF Implementation const operator * (T const s) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -205,7 +220,7 @@ public:
 		return ret;
 	}
 
-	Implementation const operator / (T const s) const
+	ION_FUNC_DEF Implementation const operator / (T const s) const
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -213,7 +228,7 @@ public:
 		return ret;
 	}
 
-	friend Implementation const operator * (T const lhs, Implementation const & rhs)
+	ION_FUNC_DEF friend Implementation const operator * (T const lhs, Implementation const & rhs)
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -221,7 +236,7 @@ public:
 		return ret;
 	}
 
-	friend Implementation const operator / (T const lhs, Implementation const & rhs)
+	ION_FUNC_DEF friend Implementation const operator / (T const lhs, Implementation const & rhs)
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -229,7 +244,7 @@ public:
 		return ret;
 	}
 
-	Implementation const operator - ()
+	ION_FUNC_DEF Implementation const operator - ()
 	{
 		Implementation ret;
 		for (int i = 0; i < Dimension; ++ i)
@@ -237,7 +252,7 @@ public:
 		return ret;
 	}
 
-	Type & operator += (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator += (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] += v[i];
@@ -245,7 +260,7 @@ public:
 		return * this;
 	}
 	
-	Type & operator -= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator -= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] -= v[i];
@@ -253,7 +268,7 @@ public:
 		return * this;
 	}
 
-	Type & operator *= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator *= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] *= v[i];
@@ -261,7 +276,7 @@ public:
 		return * this;
 	}
 
-	Type & operator /= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator /= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] /= v[i];
@@ -269,7 +284,7 @@ public:
 		return * this;
 	}
 
-	Type & operator *= (T const s)
+	ION_FUNC_DEF Type & operator *= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] *= s;
@@ -277,7 +292,7 @@ public:
 		return * this;
 	}
 
-	Type & operator /= (T const s)
+	ION_FUNC_DEF Type & operator /= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] /= s;
@@ -285,7 +300,7 @@ public:
 		return * this;
 	}
 
-	bool operator <= (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator <= (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -294,7 +309,7 @@ public:
 		return result;
 	}
 
-	bool operator < (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator < (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -303,7 +318,7 @@ public:
 		return result;
 	}
 
-	bool operator >= (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator >= (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -312,7 +327,7 @@ public:
 		return result;
 	}
 
-	bool operator > (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator > (SVectorBase<T, Dimension> const & v) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)
@@ -321,17 +336,17 @@ public:
 		return result;
 	}
 
-	bool operator == (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator == (SVectorBase<T, Dimension> const & v) const
 	{
 		return equals(v);
 	}
 
-	bool operator != (SVectorBase<T, Dimension> const & v) const
+	ION_FUNC_DEF bool operator != (SVectorBase<T, Dimension> const & v) const
 	{
 		return ! equals(v);
 	}
 
-	bool equals(SVectorBase<T, Dimension> const & v, T const Epsilon = RoundingError<T>::Value()) const
+	ION_FUNC_DEF bool equals(SVectorBase<T, Dimension> const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (int i = 0; i < Dimension; ++ i)

@@ -10,14 +10,14 @@
 
 
 //! Portable version of system("PAUSE")
-static void waitForUser() 
+ION_FUNC_DEF static void waitForUser() 
 {
 	std::cout << "Press [Enter] to continue . . .";
 	std::cin.get();
 }
 
 //! Count the number of digits (included a - for negative numbers) in an integer
-static u32 digitCount(s32 n)
+ION_FUNC_DEF static u32 digitCount(s32 n)
 {
 	u32 count = 1;
 	if (n < 0)
@@ -36,13 +36,13 @@ static u32 digitCount(s32 n)
 }
 
 template <typename T>
-static T const clamp(T const v, T const min, T const max)
+ION_FUNC_DEF static T const clamp(T const v, T const min, T const max)
 {
 	return ((v > max) ? max : ((v < min) ? min : v));
 }
 
 template <typename T>
-static T const sq(T const a)
+ION_FUNC_DEF static T const sq(T const a)
 {
 	return a * a;
 }

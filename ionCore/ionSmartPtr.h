@@ -31,7 +31,7 @@ using scopedArray = boost::scoped_array<T>;
 #endif
 
 template <typename T>
-static smartPtr<T> smartNew(T * t)
+ION_FUNC_DEF static smartPtr<T> smartNew(T * t)
 {
 	return smartPtr<T>(t);
 }

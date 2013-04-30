@@ -15,21 +15,21 @@ public:
 	T & X, & Y;
 
 	//! Default constructor
-	SVector4()
+	ION_FUNC_DEF SVector4()
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		SVectorBase<T, 4>::set((T) 0);
 	}
 	
 	//! Scalar constructor
-	SVector4(T const in)
+	ION_FUNC_DEF SVector4(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		SVectorBase<T, 4>::set(in);
 	}
 
 	//! Explicit constructor
-	SVector4(T const x, T const y, T const z, T const w)
+	ION_FUNC_DEF SVector4(T const x, T const y, T const z, T const w)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		Values[0] = x;
@@ -39,12 +39,12 @@ public:
 	}
 
 	//! Reference constructor
-	SVector4(T const & x, T const & y, T const & z, T const & w, ForceReference)
+	ION_FUNC_DEF SVector4(T const & x, T const & y, T const & z, T const & w, ForceReference)
 		: X(x), Y(y), Z(z), W(w)
 	{}
 
 	//! Copy constructor
-	SVector4(SVector4<T> const & vec)
+	ION_FUNC_DEF SVector4(SVector4<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		set(vec);
@@ -52,14 +52,14 @@ public:
 	
 	//! Generic vector constructor
 	template <typename U, int otherDimension, typename otherImplementation>
-	SVector4(SVector<U, otherDimension, otherImplementation> const & vec)
+	ION_FUNC_DEF SVector4(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		set(vec);
 	}
 
 	//! Assignment operator
-	SVector4<T> & operator = (SVector4<T> const & vec)
+	ION_FUNC_DEF SVector4<T> & operator = (SVector4<T> const & vec)
 	{
 		set(vec);
 
@@ -68,7 +68,7 @@ public:
 	
 	//! Generic vector assignment operator
 	template <typename U, int otherDimension, typename otherImplementation>
-	SVector4<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	ION_FUNC_DEF SVector4<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
 		set(vec);
 
