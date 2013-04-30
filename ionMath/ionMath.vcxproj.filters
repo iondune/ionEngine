@@ -40,5 +40,8 @@
       <Filter>Vector\Extensions</Filter>
     </ClInclude>
     <ClInclude Include="ionMath.h" />
+    <ClInclude Include="SVector4.h">
+      <Filter>Vector\Implementations</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

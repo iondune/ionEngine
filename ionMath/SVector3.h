@@ -17,18 +17,21 @@ public:
 
 	T & X, & Y, & Z;
 
+	//! Default constructor
 	SVector3()
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorBase<T, 3>::set((T) 0);
 	}
 
+	//! Scalar constructor
 	SVector3(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		SVectorBase<T, 3>::set(in);
 	}
 
+	//! Explicit constructor
 	SVector3(T const x, T const y, T const z)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])	
 	{
@@ -37,25 +40,29 @@ public:
 		this->Values[2] = z;
 	}
 
+	//! Reference constructor
 	SVector3(T const & x, T const & y, T const & z, ForceReference)
 		: X(x), Y(y), Z(z)
 	{}
 
+	//! Copy constructor
 	SVector3(SVector3<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		set(vec);
 	}
 
+	//! GLM constructor
 	template <typename U>
 	SVector3(glm::detail::tvec3<U> const & v)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
-		this->Values[0] = (T) v.x;
-		this->Values[1] = (T) v.y;
-		this->Values[2] = (T) v.z;
+		Values[0] = (T) v.x;
+		Values[1] = (T) v.y;
+		Values[2] = (T) v.z;
 	}
 	
+	//! Generic vector constructor
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
@@ -63,6 +70,7 @@ public:
 		set(vec);
 	}
 
+	//! Assignment operator
 	SVector3<T> & operator = (SVector3<T> const & vec)
 	{
 		set(vec);
@@ -70,6 +78,7 @@ public:
 		return * this;
 	}
 	
+	//! Generic vector assignment operator
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector3<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
@@ -78,6 +87,7 @@ public:
 		return * this;
 	}
 	
+	//! Vector cross product
 	template <typename U, typename otherImplementation>
 	SVector3<T> crossProduct(SVector<U, 3, otherImplementation> const & v) const
 	{

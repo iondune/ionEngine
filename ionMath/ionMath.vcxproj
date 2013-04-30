@@ -35,6 +35,7 @@
     <ClInclude Include="SVector.h" />
     <ClInclude Include="SVector2.h" />
     <ClInclude Include="SVector3.h" />
+    <ClInclude Include="SVector4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

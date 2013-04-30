@@ -12,35 +12,41 @@ public:
 
 	T & X, & Y;
 
+	//! Default constructor
 	SVector2()
 		: X(Values[0]), Y(Values[1])
 	{
 		SVectorBase<T, 2>::set((T) 0);
 	}
-
+	
+	//! Scalar constructor
 	SVector2(T const in)
 		: X(Values[0]), Y(Values[1])
 	{
 		SVectorBase<T, 2>::set(in);
 	}
 
+	//! Explicit constructor
 	SVector2(T const x, T const y)
 		: X(Values[0]), Y(Values[1])	
 	{
-		this->Values[0] = x;
-		this->Values[1] = y;
+		Values[0] = x;
+		Values[1] = y;
 	}
 
+	//! Reference constructor
 	SVector2(T const & x, T const & y, ForceReference)
 		: X(x), Y(y)
 	{}
 
+	//! Copy constructor
 	SVector2(SVector2<T> const & vec)
 		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
 	}
 	
+	//! Generic vector constructor
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1])
@@ -48,6 +54,7 @@ public:
 		set(vec);
 	}
 
+	//! Assignment operator
 	SVector2<T> & operator = (SVector2<T> const & vec)
 	{
 		set(vec);
@@ -55,6 +62,7 @@ public:
 		return * this;
 	}
 	
+	//! Generic vector assignment operator
 	template <typename U, int otherDimension, typename otherImplementation>
 	SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
