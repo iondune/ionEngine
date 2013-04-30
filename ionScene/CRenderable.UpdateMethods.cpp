@@ -172,7 +172,7 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 
 		// Draw call
 		printOpenGLErrors("Renderable Other Setup");
-		glDrawElements(ElementType, IndexBufferObject->getElements().size(), GL_UNSIGNED_SHORT, 0);
+		glDrawElements(ElementType, IndexBufferObject->getElements().size(), GL_UNSIGNED_INT, 0);
 	}
 	else
 	{

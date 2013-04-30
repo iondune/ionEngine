@@ -7,6 +7,8 @@
 #include "CFrameBufferObject.h"
 #include "ISceneObject.h"
 
+#include "SUniform.h"
+
 enum ESceneEffect
 {
 	ESE_ALL = 0,
@@ -14,7 +16,8 @@ enum ESceneEffect
 	ESE_SSAO_BLUR = 2,
 	ESE_BLOOM = 4,
 	ESE_HEAT_WAVE = 8,
-	ESE_WATER_DISTORT = 16
+	ESE_WATER_DISTORT = 16,
+	ESE_DEPTH_OF_FIELD = 32
 };
 
 class CSceneManager;
@@ -50,6 +53,7 @@ protected:
 	// Blending
 	CShader * BlendShader;
 	CShader * QuadCopy;
+	CShader * DOFShader;
 	CTexture * Magenta, * White, * Black;
 
 	CFrameBufferObject * ScratchTarget1;
@@ -82,6 +86,7 @@ public:
 		std::map<std::string, int> Ints;
 		std::map<std::string, CTexture *> Textures;
 		std::map<std::string, SColorAf> Colors;
+		std::map<std::string, smartPtr<IUniform const>> Uniforms;
 
 		void doPass();
 
@@ -103,6 +108,7 @@ public:
 
 
 	virtual bool const isLoaded() const;
+	void postProcess();
 
 	virtual void OnWindowResized();
 
