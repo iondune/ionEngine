@@ -1,11 +1,8 @@
-#ifndef _CABBAGECOLLIDER_CAPPLICATION_H_INCLUDED_
-#define _CABBAGECOLLIDER_CAPPLICATION_H_INCLUDED_
+#ifndef _ION_CAPPLICATION_H_INCLUDED_
+#define _ION_CAPPLICATION_H_INCLUDED_
 
 #include <ionCore.h>
 #include <ionScene.h>
-
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 
 class CEventManager;
 class CStateManager;
@@ -28,24 +25,20 @@ class CApplication
     // Private ctor - singleton
     CApplication();
 
-    float ElapsedTime;
-	float RunTime;
+    f64 ElapsedTime;
+	f64 RunTime;
 
-    float Time0, Time1;
+    f64 Time0, Time1;
 
 	bool Running;
-
-	sf::Clock ApplicationClock;
 
 	SPosition2 LastMouse;
 
 public:
 
-	sf::RenderWindow * App;
-
     static CApplication & get();
 
-    void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / SFML / ionEngine - Application");
+    void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
 	void loadEngines();
 
     CEventManager & getEventManager();
@@ -55,8 +48,8 @@ public:
     void run();
 
 	void updateTime();
-    float const getElapsedTime() const;
-    float const getRunTime() const;
+    f64 getElapsedTime() const;
+    f64 getRunTime() const;
 
     SPosition2 const & getWindowSize() const;
     float const getAspectRatio();

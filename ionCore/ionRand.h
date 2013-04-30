@@ -3,6 +3,8 @@
 
 #include "ionTypes.h"
 
+#include "ionConfig.h"
+
 
 static f32 frand()
 {

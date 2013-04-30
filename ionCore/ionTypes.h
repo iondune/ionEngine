@@ -1,7 +1,9 @@
 #ifndef _IONCORE_IONTYPES_H_INCLUDED_
 #define _IONCORE_IONTYPES_H_INCLUDED_
 
+#include "ionConfig.h"
 #include <climits>
+
 
 
 // 8 bits integer types

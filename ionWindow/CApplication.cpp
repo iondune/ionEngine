@@ -1,14 +1,13 @@
 #include "CApplication.h"
 
 #include <GL/glew.h>
+#include <GL/glfw.h>
 
 #include <iostream>
 #include <iomanip>
 
 #include "CEventManager.h"
 #include "CStateManager.h"
-
-#include <SFML/Graphics.hpp>
 
 
 CApplication::CApplication()
@@ -19,7 +18,19 @@ CApplication::CApplication()
 
 void CApplication::setupRenderContext(std::string const & WindowTitle)
 {
-	App = new sf::RenderWindow(sf::VideoMode(WindowSize.X, WindowSize.Y, 32), WindowTitle);
+	if (!glfwInit())
+	{
+		std::cerr << "Error initializing glfw! " << std::endl;
+		waitForUser();
+		exit(3);
+	}
+
+	if (!glfwOpenWindow(WindowSize.X, WindowSize.Y, 8, 8, 8, 0, 24, 0, GLFW_WINDOW))
+	{
+		std::cerr << "Error opening glfw window! " << std::endl;
+		waitForUser();
+		exit(3);
+	}
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -80,18 +91,18 @@ CSceneManager & CApplication::getSceneManager()
 
 void CApplication::skipElapsedTime()
 {
-	Time0 = ApplicationClock.getElapsedTime().asSeconds();
+	Time0 = glfwGetTime();
 }
 
 void CApplication::updateTime()
 {
-	Time1 = ApplicationClock.getElapsedTime().asSeconds();
-	ElapsedTime = min(0.1f, (Time1 - Time0));
+	Time1 = glfwGetTime();
+	ElapsedTime = min(0.1, (Time1 - Time0));
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
 
-EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
+/*EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
 {
 	if (Code >= sf::Keyboard::A && Code <= sf::Keyboard::Z)
 		return EKey::a + (Code - sf::Keyboard::A);
@@ -118,21 +129,22 @@ EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
 		return EKey::Unknown;
 
 	};
-}
+}*/
 
 void CApplication::run()
 {
 	Running = true;
 
-	Time0 = ApplicationClock.getElapsedTime().asSeconds();
+	Time0 = glfwGetTime();
 
 	RunTime = ElapsedTime = 0.f;
 
-	while (Running && App->isOpen())
+	while (Running && glfwGetWindowParam(GLFW_OPENED))
 	{
-		sf::Event Event;
+		/*sf::Event Event;
 		while (App->pollEvent(Event))
 		{
+			EventManager->OnSFMLEvent(Event);
 			switch (Event.type)
 			{
 
@@ -233,11 +245,11 @@ void CApplication::run()
 
 		updateTime();
 
-		EventManager->OnGameTickStart(ElapsedTime);
-		EventManager->OnGameTickEnd(ElapsedTime);
+		EventManager->OnGameTickStart((f32) ElapsedTime);
+		EventManager->OnGameTickEnd((f32) ElapsedTime);
 
-		EventManager->OnRenderStart(ElapsedTime);
-		EventManager->OnRenderEnd(ElapsedTime);
+		EventManager->OnRenderStart((f32) ElapsedTime);
+		EventManager->OnRenderEnd((f32) ElapsedTime);
 
 		StateManager->doStateChange();
 
@@ -246,12 +258,12 @@ void CApplication::run()
 	StateManager->shutDown();
 }
 
-float const CApplication::getElapsedTime() const
+f64 CApplication::getElapsedTime() const
 {
 	return ElapsedTime;
 }
 
-float const CApplication::getRunTime() const
+f64 CApplication::getRunTime() const
 {
 	return RunTime;
 }
@@ -278,5 +290,5 @@ void CApplication::close()
 
 void CApplication::swapBuffers()
 {
-	App->display();
+	glfwSwapBuffers();
 }

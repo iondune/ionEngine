@@ -80,6 +80,8 @@ void CShaderContext::bindBufferObject(std::string const & label, GLuint const Bu
 	glBindBuffer(GL_ARRAY_BUFFER, BufferHandle);
 	glVertexAttribPointer(it->second.Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0);
 
+	printOpenGLErrors("bindBufferObject(label)");
+
 	EnabledVertexAttribArrays.push_back(it->second.Handle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -91,6 +93,8 @@ void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bu
 	glBindBuffer(GL_ARRAY_BUFFER, bufferHandle); // Bind Attribute Buffer
 	glVertexAttribPointer(attribHandle, elementSize, GL_FLOAT, GL_FALSE, 0, 0); // Sync Buffer Data
 
+	printOpenGLErrors("bindBufferObject(handle)");
+
 	EnabledVertexAttribArrays.push_back(attribHandle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -99,6 +103,8 @@ void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bu
 void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferHandle);
+
+	printOpenGLErrors("bindIndexBufferObject");
 }
 
 

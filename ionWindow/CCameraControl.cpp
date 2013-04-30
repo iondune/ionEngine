@@ -38,43 +38,28 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 
 void CCameraControl::update(float const TickTime)
 {
-	glm::vec4 getForward(UpVector.getGLMVector(), 1.0);
-	STransformation3 trans;
-	trans.setRotation(vec3(45));
-	glm::mat4 Rotation = trans.Rotation;
-	getForward = Rotation * getForward;
+	LookDirection = vec3f(cos(Theta)*cos(Phi), sin(Phi), sin(Theta)*cos(Phi));
+	
+	vec3f W = LookDirection*-1;
+	vec3f V = UpVector.crossProduct(LookDirection).getNormalized();
+	vec3f U = V.crossProduct(W).getNormalized()*-1;
 
-	glm::vec4 Up(UpVector.getGLMVector(), 1.0);
-
-	glm::vec4 Forward(glm::normalize(glm::cross(glm::vec3(Up), glm::vec3(getForward))), 1.0);
-	Rotation = glm::rotate(glm::mat4(1.f), Theta*180.f/3.14159f, glm::vec3(Up));
-	Forward = Rotation * Forward;
-
-	glm::vec4 Side(glm::normalize(glm::cross(glm::vec3(Up), glm::vec3(Forward))), 1.0);
-	Rotation = glm::rotate(glm::mat4(1.f), Phi*180.f/3.14159f, glm::vec3(Side));
-	Forward = Rotation * Forward;
-
-	vec3 SideVector(Side.x, Side.y, Side.z);
-
-
-	LookDirection = SVector3f(Forward.x, Forward.y, Forward.z);
-
-	if (EventManager.IsKeyDown[EKey::w] || EventManager.IsKeyDown[EKey::UP])
+	if (EventManager.IsKeyDown[EKey::W] || EventManager.IsKeyDown[EKey::Up])
 	{
 		Translation += LookDirection*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::a] || EventManager.IsKeyDown[EKey::LEFT])
+	if (EventManager.IsKeyDown[EKey::A] || EventManager.IsKeyDown[EKey::Left])
 	{
-		Translation += SideVector*MoveSpeed*TickTime;
+		Translation += V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::d] || EventManager.IsKeyDown[EKey::RIGHT])
+	if (EventManager.IsKeyDown[EKey::D] || EventManager.IsKeyDown[EKey::Right])
 	{
-		Translation -= SideVector*MoveSpeed*TickTime;
+		Translation -= V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::s] || EventManager.IsKeyDown[EKey::DOWN])
+	if (EventManager.IsKeyDown[EKey::S] || EventManager.IsKeyDown[EKey::Down])
 	{
 		Translation -= LookDirection*MoveSpeed*TickTime;
 	}

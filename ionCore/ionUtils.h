@@ -1,7 +1,9 @@
 #ifndef _IONCORE_UTILS_H_INCLUDED_
 #define _IONCORE_UTILS_H_INCLUDED_
 
+#include "ionConfig.h"
 #include "ionTypes.h"
+
 #include "ionComparison.h"
 
 #include <iostream>
@@ -15,7 +17,7 @@ static void waitForUser()
 }
 
 //! Count the number of digits (included a - for negative numbers) in an integer
-static u32 const digitCount(s32 n)
+static u32 digitCount(s32 n)
 {
 	u32 count = 1;
 	if (n < 0)

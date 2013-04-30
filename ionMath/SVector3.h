@@ -1,9 +1,12 @@
 #ifndef _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
 #define _CABBAGE_CORE_SVECTOR3_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "SVector.h"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 template <typename T>
@@ -84,6 +87,20 @@ public:
 	glm::vec3 const getGLMVector() const
 	{
 		return glm::vec3(X, Y, Z);
+	}
+
+	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+	}
+
+	SVector3<T> rotateAround(SVector3<T> const & other, f32 const radians) const
+	{
+		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.getGLMVector());
+		glm::vec4 temp = glm::vec4(getGLMVector(), 1.f) * matrix;
+		
+		SVector3<T> out(temp.x, temp.y, temp.z);
+		return out;
 	}
 
 };

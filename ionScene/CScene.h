@@ -1,6 +1,8 @@
 #ifndef _ION_SCENE_CSCENE_H_INCLUDED_
 #define _ION_SCENE_CSCENE_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "IScene.h"
 #include "ISceneObject.h"
 #include "CLightSceneObject.h"

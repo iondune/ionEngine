@@ -1,6 +1,8 @@
 #ifndef _IONCORE_IONSMARTPTR_H_INCLUDED_
 #define _IONCORE_IONSMARTPTR_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include <boost/shared_ptr.hpp>
 #include <boost/shared_array.hpp>
 #include <boost/scoped_ptr.hpp>

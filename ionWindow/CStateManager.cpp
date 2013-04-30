@@ -45,6 +45,7 @@ void CStateManager::OnKeyboardEvent(SKeyboardEvent const & Event)
 		CurrentState->OnKeyboardEvent(Event);
 }
 
+
 void CStateManager::OnWindowResized(SWindowResizedEvent const & Event)
 {
 	if (CurrentState)

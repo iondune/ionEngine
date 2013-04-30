@@ -1,6 +1,8 @@
 #ifndef _CABBAGE_SCENE_CCAMERASCENEOBJECT_H_INCLUDED_
 #define _CABBAGE_SCENE_CCAMERASCENEOBJECT_H_INCLUDED_
 
+#include "ionConfig.h"
+
 #include "ICameraSceneObject.h"
 
 
