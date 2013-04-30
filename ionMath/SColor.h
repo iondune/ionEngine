@@ -68,6 +68,16 @@ public:
 		return * this;
 	}
 
+	virtual T const operator[] (int i) const
+	{
+		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
+	}
+
+	virtual T & operator[] (int i)
+	{
+		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
+	}
+
 	template <typename U, int otherDimension, typename otherImplementation>
 	void set(SVector<U, otherDimension, otherImplementation> const & other)
 	{
