@@ -8,11 +8,8 @@
 
 // Core
 #include <boost/shared_ptr.hpp>
-#include <ionPrimitives.h>
-#include <ionSmartPtr.h>
-#include <ionEnum.h>
-#include <SVector3.h>
-#include <SBoundingBox3.h>
+#include <ionCore.h>
+#include <ionMath.h>
 
 // Scene
 #include "CBufferObject.h"

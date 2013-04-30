@@ -116,6 +116,7 @@ class SVector : public SVectorBase<T, Size>
 private:
 	
 	SVector & operator = (SVector const &);
+	typedef SVector<T, Size, Implementation> Type;
 
 protected:
 
@@ -236,7 +237,7 @@ public:
 		return ret;
 	}
 
-	Implementation & operator += (SVectorBase<T, Dimension> const & v)
+	Type & operator += (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] += v[i];
@@ -244,7 +245,7 @@ public:
 		return * this;
 	}
 	
-	Implementation & operator -= (SVectorBase<T, Dimension> const & v)
+	Type & operator -= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] -= v[i];
@@ -252,7 +253,7 @@ public:
 		return * this;
 	}
 
-	Implementation & operator *= (SVectorBase<T, Dimension> const & v)
+	Type & operator *= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] *= v[i];
@@ -260,7 +261,7 @@ public:
 		return * this;
 	}
 
-	Implementation & operator /= (SVectorBase<T, Dimension> const & v)
+	Type & operator /= (SVectorBase<T, Dimension> const & v)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] /= v[i];
@@ -268,7 +269,7 @@ public:
 		return * this;
 	}
 
-	Implementation & operator *= (T const s)
+	Type & operator *= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] *= s;
@@ -276,7 +277,7 @@ public:
 		return * this;
 	}
 
-	Implementation & operator /= (T const s)
+	Type & operator /= (T const s)
 	{
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] /= s;

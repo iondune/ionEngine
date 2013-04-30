@@ -230,8 +230,8 @@ struct SMouseEvent
 
     };
 
-    SPosition2 Location, Movement;
-	SVector2f RelativeLocation;
+    vec2i Location, Movement;
+	vec2f RelativeLocation;
     EButton Button;
     EType Type;
     bool Pressed;
@@ -280,7 +280,7 @@ class CEventManager
 
 	bool KeyStates[EKey::Count];
     bool MouseStates[SMouseEvent::EButton::Count];
-    SPosition2 MousePositionState;
+    vec2i MousePositionState;
 
 public:	
 	
@@ -300,7 +300,7 @@ public:
 	bool const (& IsKeyDown)[EKey::Count];
     bool const (& IsMouseDown)[SMouseEvent::EButton::Count];
 
-    SPosition2 const & MouseLocation;
+    vec2i const & MouseLocation;
 
 };
 

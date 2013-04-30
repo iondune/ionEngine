@@ -5,9 +5,9 @@
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionMath.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionUtils.h" />
     <ClInclude Include="ionConfig.h" />
+    <ClInclude Include="ionEnum.h" />
   </ItemGroup>
 </Project>

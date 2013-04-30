@@ -29,6 +29,7 @@
     <ClInclude Include="ionConfig.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
+    <ClInclude Include="ionEnum.h" />
     <ClInclude Include="ionRand.h" />
     <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionTypes.h" />

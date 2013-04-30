@@ -17,7 +17,7 @@ class CApplication
     CSceneManager * SceneManager;
 
     // Attributes
-    SPosition2 WindowSize;
+    vec2i WindowSize;
 
     // Helper functions
     void setupRenderContext(std::string const & WindowTitle);
@@ -32,13 +32,13 @@ class CApplication
 
 	bool Running;
 
-	SPosition2 LastMouse;
+	vec2i LastMouse;
 
 public:
 
     static CApplication & get();
 
-    void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
+    void init(vec2i const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
 	void loadEngines();
 
     CEventManager & getEventManager();
@@ -51,7 +51,7 @@ public:
     f64 getElapsedTime() const;
     f64 getRunTime() const;
 
-    SPosition2 const & getWindowSize() const;
+    vec2i const & getWindowSize() const;
     float const getAspectRatio();
 
     void skipElapsedTime();

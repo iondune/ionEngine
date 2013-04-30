@@ -53,7 +53,7 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 }
 
 
-void CApplication::init(SPosition2 const & windowSize, std::string const & WindowTitle)
+void CApplication::init(vec2i const & windowSize, std::string const & WindowTitle)
 {
 	WindowSize = windowSize;
 
@@ -273,7 +273,7 @@ float const CApplication::getAspectRatio()
 	return (float) WindowSize.X / (float) WindowSize.Y;
 }
 
-SPosition2 const & CApplication::getWindowSize() const
+vec2i const & CApplication::getWindowSize() const
 {
 	return WindowSize;
 }

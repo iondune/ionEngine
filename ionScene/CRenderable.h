@@ -9,7 +9,6 @@
 // Core
 #include <ionSmartPtr.h>
 #include <ionTypes.h>
-#include <ionEnum.h>
 #include <STransformation3.h>
 
 // OpenGL
