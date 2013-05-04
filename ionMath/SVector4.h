@@ -4,6 +4,7 @@
 #include <ionConfig.h>
 
 #include "SVector.h"
+#include "SVector3.h"
 
 
 template <typename T>
@@ -12,7 +13,7 @@ class SVector4 : public SVector<T, 4, SVector4<T> >
 
 public:
 
-	T & X, & Y;
+	T & X, & Y, & Z, & W;
 
 	//! Default constructor
 	ION_FUNC_DEF SVector4()
@@ -47,7 +48,7 @@ public:
 	ION_FUNC_DEF SVector4(SVector4<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		set(vec);
+		SVectorBase<T, 4>::set(vec);
 	}
 	
 	//! Generic vector constructor
@@ -55,7 +56,17 @@ public:
 	ION_FUNC_DEF SVector4(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		set(vec);
+		SVectorBase<T, 4>::set(vec);
+	}
+	
+	//! Generic vector constructor
+	ION_FUNC_DEF SVector4(SVectorBase<T, 3> const & vec, T const W = 1)
+		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
+	{
+		Values[0] = vec[0];
+		Values[1] = vec[1];
+		Values[2] = vec[2];
+		Values[3] = W;
 	}
 
 	//! Assignment operator
@@ -73,6 +84,11 @@ public:
 		set(vec);
 
 		return * this;
+	}
+
+	ION_FUNC_DEF SVector3<T> xyz() const
+	{
+		return SVector3<T>(Values[0], Values[1], Values[2]);
 	}
 
 };

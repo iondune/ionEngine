@@ -62,6 +62,13 @@ public:
 			Values[i] = in[i];
 	}
 
+	template <typename U, u32 otherDimension>
+	ION_FUNC_DEF void set(SVectorBase<U, otherDimension> const & other)
+	{
+		for (int i = 0; i < Dimension; ++ i)
+			Values[i] = (T) other[i];
+	}
+
 	//! Length of vector
 	ION_FUNC_DEF T const length() const
 	{
@@ -126,13 +133,6 @@ protected:
 public:
 	
 	using SVectorBase<T, Dimension>::set;
-
-	template <typename U>
-	ION_FUNC_DEF void set(SVectorBase<U, Dimension> const & other)
-	{
-		for (int i = 0; i < Dimension; ++ i)
-			Values[i] = (T) other[i];
-	}
 
 	ION_FUNC_DEF T const dotProduct(SVectorBase<T, Dimension> const & other) const
 	{

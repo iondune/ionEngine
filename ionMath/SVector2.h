@@ -73,6 +73,7 @@ public:
 
 };
 
+
 typedef SVector2<f32> SVector2f;
 typedef SVector2<f64> SVector2d;
 typedef SVector2<s32> SVector2i;

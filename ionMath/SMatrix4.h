@@ -33,6 +33,15 @@ public:
 	}
 
 	ION_FUNC_DEF SMatrix4(
+		Column v1, Column v2, Column v3, Column v4)
+	{
+		Columns[0] = v1;
+		Columns[1] = v2;
+		Columns[2] = v3;
+		Columns[3] = v4;
+	}
+
+	ION_FUNC_DEF SMatrix4(
 		T const x0, T const y0, T const z0, T const w0,
 		T const x1, T const y1, T const z1, T const w1,
 		T const x2, T const y2, T const z2, T const w2,
@@ -42,6 +51,24 @@ public:
 		Columns[1] = Column(x1, y1, z1, w1);
 		Columns[2] = Column(x2, y2, z2, w2);
 		Columns[3] = Column(x3, y3, z3, w3);
+	}
+
+	ION_FUNC_DEF SMatrix4<T>(SMatrix4<T> const & other)
+	{
+		Columns[0] = other.Columns[0];
+		Columns[1] = other.Columns[1];
+		Columns[2] = other.Columns[2];
+		Columns[3] = other.Columns[3];
+	}
+
+	ION_FUNC_DEF SMatrix4<T> & operator =(SMatrix4<T> const & other)
+	{
+		Columns[0] = other.Columns[0];
+		Columns[1] = other.Columns[1];
+		Columns[2] = other.Columns[2];
+		Columns[3] = other.Columns[3];
+
+		return *this;
 	}
 	
 	ION_FUNC_DEF Column const & operator[] (u32 const index) const
@@ -57,7 +84,9 @@ public:
 	ION_FUNC_DEF SMatrix4<T> translate(SVector3<T> const & v) const
 	{
 		SMatrix4<T> Result(*this);
-		Result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
+		Result[3] = Columns[0] * v[0] + Columns[1] * v[1] + Columns[2] * v[2] + Columns[3];
+		printf("Position %f %f %f TM %f %f %f %f\n", v[0], v[1], v[2],
+			Result[3][0], Result[3][1], Result[3][2], Result[3][3]);
 		return Result;
 	}
 
@@ -97,7 +126,7 @@ public:
 	{
 		SMatrix4 const & m = *this;
 
-		SMatrix4<T> Result(SMatrix4<T>::null);
+		SMatrix4<T> Result(0.f);
 		Result[0] = m[0] * v[0];
 		Result[1] = m[1] * v[1];
 		Result[2] = m[2] * v[2];
@@ -105,15 +134,131 @@ public:
 		return Result;
 	}
 
-	ION_FUNC_DEF SVector4<T> operator* (SVector4<T> const & v) const
+	ION_FUNC_DEF SMatrix4<T> & operator /=(SMatrix4<T> const & m)
+	{
+		return (*this = *this / m);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> operator /(SMatrix4<T> const & m)
+	{
+		return SMatrix4(
+			Columns[0] / m[0],
+			Columns[1] / m[1],
+			Columns[2] / m[2],
+			Columns[3] / m[3]);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> & operator /=(SVector4<T> const & m)
+	{
+		return (*this = *this / m);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> operator /(SVector4<T> const & v)
+	{
+		return SMatrix4(
+			Columns[0] / v,
+			Columns[1] / v,
+			Columns[2] / v,
+			Columns[3] / v);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> & operator *=(SMatrix4<T> const & m)
+	{
+		return (*this = *this * m);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> operator *(SMatrix4<T> const & m2)
+	{
+		SMatrix4 const & m1 = *this;
+
+		Column const SrcA0 = m1[0];
+		Column const SrcA1 = m1[1];
+		Column const SrcA2 = m1[2];
+		Column const SrcA3 = m1[3];
+
+		Column const SrcB0 = m2[0];
+		Column const SrcB1 = m2[1];
+		Column const SrcB2 = m2[2];
+		Column const SrcB3 = m2[3];
+
+		SMatrix4<T> Result(0);
+		Result[0] = SrcA0 * SrcB0[0] + SrcA1 * SrcB0[1] + SrcA2 * SrcB0[2] + SrcA3 * SrcB0[3];
+		Result[1] = SrcA0 * SrcB1[0] + SrcA1 * SrcB1[1] + SrcA2 * SrcB1[2] + SrcA3 * SrcB1[3];
+		Result[2] = SrcA0 * SrcB2[0] + SrcA1 * SrcB2[1] + SrcA2 * SrcB2[2] + SrcA3 * SrcB2[3];
+		Result[3] = SrcA0 * SrcB3[0] + SrcA1 * SrcB3[1] + SrcA2 * SrcB3[2] + SrcA3 * SrcB3[3];
+		return Result;
+	}
+
+	ION_FUNC_DEF SVector4<T> operator *(SVector4<T> const & v) const
 	{
 		return SVector4<T>(
-			Columns[0][0] * v.x + Columns[1][0] * v.y + Columns[2][0] * v.z + Columns[3][0] * v.w,
-			Columns[0][1] * v.x + Columns[1][1] * v.y + Columns[2][1] * v.z + Columns[3][1] * v.w,
-			Columns[0][2] * v.x + Columns[1][2] * v.y + Columns[2][2] * v.z + Columns[3][2] * v.w,
-			Columns[0][3] * v.x + Columns[1][3] * v.y + Columns[2][3] * v.z + Columns[3][3] * v.w);
+			Columns[0][0] * v.X + Columns[1][0] * v.Y + Columns[2][0] * v.Z + Columns[3][0] * v.W,
+			Columns[0][1] * v.X + Columns[1][1] * v.Y + Columns[2][1] * v.Z + Columns[3][1] * v.W,
+			Columns[0][2] * v.X + Columns[1][2] * v.Y + Columns[2][2] * v.Z + Columns[3][2] * v.W,
+			Columns[0][3] * v.X + Columns[1][3] * v.Y + Columns[2][3] * v.Z + Columns[3][3] * v.W);
+	}
+
+	ION_FUNC_DEF SMatrix4<T> inverse() const
+	{
+		// Calculate all mat2 determinants
+		T SubFactor00 = Columns[2][2] * Columns[3][3] - Columns[3][2] * Columns[2][3];
+		T SubFactor01 = Columns[2][1] * Columns[3][3] - Columns[3][1] * Columns[2][3];
+		T SubFactor02 = Columns[2][1] * Columns[3][2] - Columns[3][1] * Columns[2][2];
+		T SubFactor03 = Columns[2][0] * Columns[3][3] - Columns[3][0] * Columns[2][3];
+		T SubFactor04 = Columns[2][0] * Columns[3][2] - Columns[3][0] * Columns[2][2];
+		T SubFactor05 = Columns[2][0] * Columns[3][1] - Columns[3][0] * Columns[2][1];
+		T SubFactor06 = Columns[1][2] * Columns[3][3] - Columns[3][2] * Columns[1][3];
+		T SubFactor07 = Columns[1][1] * Columns[3][3] - Columns[3][1] * Columns[1][3];
+		T SubFactor08 = Columns[1][1] * Columns[3][2] - Columns[3][1] * Columns[1][2];
+		T SubFactor09 = Columns[1][0] * Columns[3][3] - Columns[3][0] * Columns[1][3];
+		T SubFactor10 = Columns[1][0] * Columns[3][2] - Columns[3][0] * Columns[1][2];
+		T SubFactor11 = Columns[1][1] * Columns[3][3] - Columns[3][1] * Columns[1][3];
+		T SubFactor12 = Columns[1][0] * Columns[3][1] - Columns[3][0] * Columns[1][1];
+		T SubFactor13 = Columns[1][2] * Columns[2][3] - Columns[2][2] * Columns[1][3];
+		T SubFactor14 = Columns[1][1] * Columns[2][3] - Columns[2][1] * Columns[1][3];
+		T SubFactor15 = Columns[1][1] * Columns[2][2] - Columns[2][1] * Columns[1][2];
+		T SubFactor16 = Columns[1][0] * Columns[2][3] - Columns[2][0] * Columns[1][3];
+		T SubFactor17 = Columns[1][0] * Columns[2][2] - Columns[2][0] * Columns[1][2];
+		T SubFactor18 = Columns[1][0] * Columns[2][1] - Columns[2][0] * Columns[1][1];
+
+		SMatrix4<T> Inverse(
+			+ Columns[1][1] * SubFactor00 - Columns[1][2] * SubFactor01 + Columns[1][3] * SubFactor02,
+			- Columns[1][0] * SubFactor00 + Columns[1][2] * SubFactor03 - Columns[1][3] * SubFactor04,
+			+ Columns[1][0] * SubFactor01 - Columns[1][1] * SubFactor03 + Columns[1][3] * SubFactor05,
+			- Columns[1][0] * SubFactor02 + Columns[1][1] * SubFactor04 - Columns[1][2] * SubFactor05,
+
+			- Columns[0][1] * SubFactor00 + Columns[0][2] * SubFactor01 - Columns[0][3] * SubFactor02,
+			+ Columns[0][0] * SubFactor00 - Columns[0][2] * SubFactor03 + Columns[0][3] * SubFactor04,
+			- Columns[0][0] * SubFactor01 + Columns[0][1] * SubFactor03 - Columns[0][3] * SubFactor05,
+			+ Columns[0][0] * SubFactor02 - Columns[0][1] * SubFactor04 + Columns[0][2] * SubFactor05,
+
+			+ Columns[0][1] * SubFactor06 - Columns[0][2] * SubFactor07 + Columns[0][3] * SubFactor08,
+			- Columns[0][0] * SubFactor06 + Columns[0][2] * SubFactor09 - Columns[0][3] * SubFactor10,
+			+ Columns[0][0] * SubFactor11 - Columns[0][1] * SubFactor09 + Columns[0][3] * SubFactor12,
+			- Columns[0][0] * SubFactor08 + Columns[0][1] * SubFactor10 - Columns[0][2] * SubFactor12,
+
+			- Columns[0][1] * SubFactor13 + Columns[0][2] * SubFactor14 - Columns[0][3] * SubFactor15,
+			+ Columns[0][0] * SubFactor13 - Columns[0][2] * SubFactor16 + Columns[0][3] * SubFactor17,
+			- Columns[0][0] * SubFactor14 + Columns[0][1] * SubFactor16 - Columns[0][3] * SubFactor18,
+			+ Columns[0][0] * SubFactor15 - Columns[0][1] * SubFactor17 + Columns[0][2] * SubFactor18);
+
+		Column Determinant =
+			+ Columns[0][0] * Inverse[0][0]
+			+ Columns[0][1] * Inverse[1][0]
+			+ Columns[0][2] * Inverse[2][0]
+			+ Columns[0][3] * Inverse[3][0];
+
+		Inverse /= Determinant;
+		return Inverse;
 	}
 
 };
+
+
+typedef SMatrix4<f32> SMatrix4f;
+typedef SMatrix4<f64> SMatrix4d;
+
+typedef SMatrix4f mat4f;
+typedef SMatrix4d mat4d;
 
 #endif

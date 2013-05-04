@@ -67,7 +67,7 @@ public:
 	ION_FUNC_DEF SVector3(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
-		set(vec);
+		SVectorBase<T, 3>::set(vec);
 	}
 
 	//! Assignment operator
