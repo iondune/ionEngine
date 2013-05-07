@@ -56,8 +56,8 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 
 EKey const ConvertGLFWKeyCode(int const Code)
 {
-	if (Code >= 'a' && Code <= 'z')
-		return EKey::A + (Code - 'a');
+	if (Code >= 'A' && Code <= 'Z')
+		return EKey::A + (Code - 'A');
 
 	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
 		return EKey::Num0 + (Code - GLFW_KEY_KP_0);
