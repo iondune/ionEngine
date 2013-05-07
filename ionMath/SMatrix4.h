@@ -85,8 +85,8 @@ public:
 	{
 		SMatrix4<T> Result(*this);
 		Result[3] = Columns[0] * v[0] + Columns[1] * v[1] + Columns[2] * v[2] + Columns[3];
-		printf("Position %f %f %f TM %f %f %f %f\n", v[0], v[1], v[2],
-			Result[3][0], Result[3][1], Result[3][2], Result[3][3]);
+		//printf("Position %f %f %f TM %f %f %f %f\n", v[0], v[1], v[2],
+		//	Result[3][0], Result[3][1], Result[3][2], Result[3][3]);
 		return Result;
 	}
 
@@ -148,18 +148,18 @@ public:
 			Columns[3] / m[3]);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> & operator /=(SVector4<T> const & m)
+	ION_FUNC_DEF SMatrix4<T> & operator /=(f32 const & s)
 	{
-		return (*this = *this / m);
+		return (*this = *this / s);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> operator /(SVector4<T> const & v)
+	ION_FUNC_DEF SMatrix4<T> operator /(f32 const & s)
 	{
 		return SMatrix4(
-			Columns[0] / v,
-			Columns[1] / v,
-			Columns[2] / v,
-			Columns[3] / v);
+			Columns[0] / s,
+			Columns[1] / s,
+			Columns[2] / s,
+			Columns[3] / s);
 	}
 
 	ION_FUNC_DEF SMatrix4<T> & operator *=(SMatrix4<T> const & m)
@@ -196,59 +196,67 @@ public:
 			Columns[0][1] * v.X + Columns[1][1] * v.Y + Columns[2][1] * v.Z + Columns[3][1] * v.W,
 			Columns[0][2] * v.X + Columns[1][2] * v.Y + Columns[2][2] * v.Z + Columns[3][2] * v.W,
 			Columns[0][3] * v.X + Columns[1][3] * v.Y + Columns[2][3] * v.Z + Columns[3][3] * v.W);
+			
+			/*Columns[0][0] * v.X + Columns[0][1] * v.Y + Columns[0][2] * v.Z + Columns[0][3] * v.W,
+			Columns[1][0] * v.X + Columns[1][1] * v.Y + Columns[1][2] * v.Z + Columns[1][3] * v.W,
+			Columns[2][0] * v.X + Columns[2][1] * v.Y + Columns[2][2] * v.Z + Columns[2][3] * v.W,
+			Columns[3][0] * v.X + Columns[3][1] * v.Y + Columns[3][2] * v.Z + Columns[3][3] * v.W);*/
 	}
 
 	ION_FUNC_DEF SMatrix4<T> inverse() const
 	{
-		// Calculate all mat2 determinants
-		T SubFactor00 = Columns[2][2] * Columns[3][3] - Columns[3][2] * Columns[2][3];
-		T SubFactor01 = Columns[2][1] * Columns[3][3] - Columns[3][1] * Columns[2][3];
-		T SubFactor02 = Columns[2][1] * Columns[3][2] - Columns[3][1] * Columns[2][2];
-		T SubFactor03 = Columns[2][0] * Columns[3][3] - Columns[3][0] * Columns[2][3];
-		T SubFactor04 = Columns[2][0] * Columns[3][2] - Columns[3][0] * Columns[2][2];
-		T SubFactor05 = Columns[2][0] * Columns[3][1] - Columns[3][0] * Columns[2][1];
-		T SubFactor06 = Columns[1][2] * Columns[3][3] - Columns[3][2] * Columns[1][3];
-		T SubFactor07 = Columns[1][1] * Columns[3][3] - Columns[3][1] * Columns[1][3];
-		T SubFactor08 = Columns[1][1] * Columns[3][2] - Columns[3][1] * Columns[1][2];
-		T SubFactor09 = Columns[1][0] * Columns[3][3] - Columns[3][0] * Columns[1][3];
-		T SubFactor10 = Columns[1][0] * Columns[3][2] - Columns[3][0] * Columns[1][2];
-		T SubFactor11 = Columns[1][1] * Columns[3][3] - Columns[3][1] * Columns[1][3];
-		T SubFactor12 = Columns[1][0] * Columns[3][1] - Columns[3][0] * Columns[1][1];
-		T SubFactor13 = Columns[1][2] * Columns[2][3] - Columns[2][2] * Columns[1][3];
-		T SubFactor14 = Columns[1][1] * Columns[2][3] - Columns[2][1] * Columns[1][3];
-		T SubFactor15 = Columns[1][1] * Columns[2][2] - Columns[2][1] * Columns[1][2];
-		T SubFactor16 = Columns[1][0] * Columns[2][3] - Columns[2][0] * Columns[1][3];
-		T SubFactor17 = Columns[1][0] * Columns[2][2] - Columns[2][0] * Columns[1][2];
-		T SubFactor18 = Columns[1][0] * Columns[2][1] - Columns[2][0] * Columns[1][1];
+		T Coef00 = Columns[2][2] * Columns[3][3] - Columns[3][2] * Columns[2][3];
+		T Coef02 = Columns[1][2] * Columns[3][3] - Columns[3][2] * Columns[1][3];
+		T Coef03 = Columns[1][2] * Columns[2][3] - Columns[2][2] * Columns[1][3];
 
-		SMatrix4<T> Inverse(
-			+ Columns[1][1] * SubFactor00 - Columns[1][2] * SubFactor01 + Columns[1][3] * SubFactor02,
-			- Columns[1][0] * SubFactor00 + Columns[1][2] * SubFactor03 - Columns[1][3] * SubFactor04,
-			+ Columns[1][0] * SubFactor01 - Columns[1][1] * SubFactor03 + Columns[1][3] * SubFactor05,
-			- Columns[1][0] * SubFactor02 + Columns[1][1] * SubFactor04 - Columns[1][2] * SubFactor05,
+		T Coef04 = Columns[2][1] * Columns[3][3] - Columns[3][1] * Columns[2][3];
+		T Coef06 = Columns[1][1] * Columns[3][3] - Columns[3][1] * Columns[1][3];
+		T Coef07 = Columns[1][1] * Columns[2][3] - Columns[2][1] * Columns[1][3];
 
-			- Columns[0][1] * SubFactor00 + Columns[0][2] * SubFactor01 - Columns[0][3] * SubFactor02,
-			+ Columns[0][0] * SubFactor00 - Columns[0][2] * SubFactor03 + Columns[0][3] * SubFactor04,
-			- Columns[0][0] * SubFactor01 + Columns[0][1] * SubFactor03 - Columns[0][3] * SubFactor05,
-			+ Columns[0][0] * SubFactor02 - Columns[0][1] * SubFactor04 + Columns[0][2] * SubFactor05,
+		T Coef08 = Columns[2][1] * Columns[3][2] - Columns[3][1] * Columns[2][2];
+		T Coef10 = Columns[1][1] * Columns[3][2] - Columns[3][1] * Columns[1][2];
+		T Coef11 = Columns[1][1] * Columns[2][2] - Columns[2][1] * Columns[1][2];
 
-			+ Columns[0][1] * SubFactor06 - Columns[0][2] * SubFactor07 + Columns[0][3] * SubFactor08,
-			- Columns[0][0] * SubFactor06 + Columns[0][2] * SubFactor09 - Columns[0][3] * SubFactor10,
-			+ Columns[0][0] * SubFactor11 - Columns[0][1] * SubFactor09 + Columns[0][3] * SubFactor12,
-			- Columns[0][0] * SubFactor08 + Columns[0][1] * SubFactor10 - Columns[0][2] * SubFactor12,
+		T Coef12 = Columns[2][0] * Columns[3][3] - Columns[3][0] * Columns[2][3];
+		T Coef14 = Columns[1][0] * Columns[3][3] - Columns[3][0] * Columns[1][3];
+		T Coef15 = Columns[1][0] * Columns[2][3] - Columns[2][0] * Columns[1][3];
 
-			- Columns[0][1] * SubFactor13 + Columns[0][2] * SubFactor14 - Columns[0][3] * SubFactor15,
-			+ Columns[0][0] * SubFactor13 - Columns[0][2] * SubFactor16 + Columns[0][3] * SubFactor17,
-			- Columns[0][0] * SubFactor14 + Columns[0][1] * SubFactor16 - Columns[0][3] * SubFactor18,
-			+ Columns[0][0] * SubFactor15 - Columns[0][1] * SubFactor17 + Columns[0][2] * SubFactor18);
+		T Coef16 = Columns[2][0] * Columns[3][2] - Columns[3][0] * Columns[2][2];
+		T Coef18 = Columns[1][0] * Columns[3][2] - Columns[3][0] * Columns[1][2];
+		T Coef19 = Columns[1][0] * Columns[2][2] - Columns[2][0] * Columns[1][2];
 
-		Column Determinant =
-			+ Columns[0][0] * Inverse[0][0]
-			+ Columns[0][1] * Inverse[1][0]
-			+ Columns[0][2] * Inverse[2][0]
-			+ Columns[0][3] * Inverse[3][0];
+		T Coef20 = Columns[2][0] * Columns[3][1] - Columns[3][0] * Columns[2][1];
+		T Coef22 = Columns[1][0] * Columns[3][1] - Columns[3][0] * Columns[1][1];
+		T Coef23 = Columns[1][0] * Columns[2][1] - Columns[2][0] * Columns[1][1];
+
+		SVector4<T> const SignA(+1, -1, +1, -1);
+		SVector4<T> const SignB(-1, +1, -1, +1);
+
+		SVector4<T> Fac0(Coef00, Coef00, Coef02, Coef03);
+		SVector4<T> Fac1(Coef04, Coef04, Coef06, Coef07);
+		SVector4<T> Fac2(Coef08, Coef08, Coef10, Coef11);
+		SVector4<T> Fac3(Coef12, Coef12, Coef14, Coef15);
+		SVector4<T> Fac4(Coef16, Coef16, Coef18, Coef19);
+		SVector4<T> Fac5(Coef20, Coef20, Coef22, Coef23);
+
+		SVector4<T> Vec0(Columns[1][0], Columns[0][0], Columns[0][0], Columns[0][0]);
+		SVector4<T> Vec1(Columns[1][1], Columns[0][1], Columns[0][1], Columns[0][1]);
+		SVector4<T> Vec2(Columns[1][2], Columns[0][2], Columns[0][2], Columns[0][2]);
+		SVector4<T> Vec3(Columns[1][3], Columns[0][3], Columns[0][3], Columns[0][3]);
+
+		SVector4<T> Inv0 = SignA * (Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
+		SVector4<T> Inv1 = SignB * (Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
+		SVector4<T> Inv2 = SignA * (Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
+		SVector4<T> Inv3 = SignB * (Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
+
+		SMatrix4<T> Inverse(Inv0, Inv1, Inv2, Inv3);
+
+		SVector4<T> Row0(Inverse[0][0], Inverse[1][0], Inverse[2][0], Inverse[3][0]);
+
+		T Determinant = Columns[0].dotProduct(Row0);
 
 		Inverse /= Determinant;
+
 		return Inverse;
 	}
 
