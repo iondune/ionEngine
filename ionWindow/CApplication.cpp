@@ -53,11 +53,54 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 }
 
 
+
+EKey const ConvertGLFWKeyCode(int const Code)
+{
+	if (Code >= 'a' && Code <= 'z')
+		return EKey::A + (Code - 'a');
+
+	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
+		return EKey::Num0 + (Code - GLFW_KEY_KP_0);
+
+	switch (Code)
+	{
+
+	case GLFW_KEY_ESC:
+		return EKey::Escape;
+		
+	case GLFW_KEY_UP:
+		return EKey::Up;
+	case GLFW_KEY_LEFT:
+		return EKey::Left;
+	case GLFW_KEY_DOWN:
+		return EKey::Down;
+	case GLFW_KEY_RIGHT:
+		return EKey::Right;
+
+	default:
+		return EKey::Unknown;
+
+	};
+}
+
+void CApplication::KeyCallback(int key, int action)
+{
+	CApplication & Application = CApplication::get();
+
+	SKeyboardEvent KeyEvent;
+	KeyEvent.Pressed = action == GLFW_PRESS;
+	KeyEvent.Key = ConvertGLFWKeyCode(key);
+	Application.EventManager->OnKeyboardEvent(KeyEvent);
+	Application.EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
+}
+
 void CApplication::init(vec2i const & windowSize, std::string const & WindowTitle)
 {
 	WindowSize = windowSize;
 
 	setupRenderContext(WindowTitle);
+
+	glfwSetKeyCallback(CApplication::KeyCallback);
 }
 
 void CApplication::loadEngines()
@@ -102,35 +145,6 @@ void CApplication::updateTime()
 	Time0 = Time1;
 }
 
-/*EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
-{
-	if (Code >= sf::Keyboard::A && Code <= sf::Keyboard::Z)
-		return EKey::a + (Code - sf::Keyboard::A);
-
-	if (Code >= sf::Keyboard::Num0 && Code <= sf::Keyboard::Num9)
-		return EKey::NUM_0 + (Code - sf::Keyboard::Num0);
-
-	switch (Code)
-	{
-
-	case sf::Keyboard::Escape:
-		return EKey::ESCAPE;
-		
-	case sf::Keyboard::Up:
-		return EKey::UP;
-	case sf::Keyboard::Left:
-		return EKey::LEFT;
-	case sf::Keyboard::Down:
-		return EKey::DOWN;
-	case sf::Keyboard::Right:
-		return EKey::RIGHT;
-
-	default:
-		return EKey::Unknown;
-
-	};
-}*/
-
 void CApplication::run()
 {
 	Running = true;
@@ -141,6 +155,7 @@ void CApplication::run()
 
 	while (Running && glfwGetWindowParam(GLFW_OPENED))
 	{
+		glfwPollEvents();
 		/*sf::Event Event;
 		while (App->pollEvent(Event))
 		{

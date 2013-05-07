@@ -34,6 +34,8 @@ class CApplication
 
 	vec2i LastMouse;
 
+	static void KeyCallback(int key, int action);
+
 public:
 
     static CApplication & get();
