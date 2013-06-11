@@ -6,7 +6,7 @@
 ////////////////////
 
 //#define _ION_CONFIG_C++11_SUPPORT_
-#define _ION_CONFIG_CUDA_SUPPORT_
+//#define _ION_CONFIG_CUDA_SUPPORT_
 
 ////////////////////////
 // End Config Options //
