@@ -9,6 +9,9 @@ void CScene::update()
 
 	RootObject.updateAbsoluteTransformation();
 	RootObject.update();
+
+	LightCount = getLightBindingCount();
+	CameraPosition = getActiveCamera()->getPosition();
 }
 
 void CScene::load(smartPtr<IRenderPass> const Pass)
