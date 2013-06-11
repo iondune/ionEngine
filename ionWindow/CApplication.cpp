@@ -24,7 +24,8 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 		waitForUser();
 		exit(3);
 	}
-
+	
+	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
 	if (!glfwOpenWindow(WindowSize.X, WindowSize.Y, 8, 8, 8, 0, 24, 0, GLFW_WINDOW))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
