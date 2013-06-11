@@ -35,6 +35,9 @@ class CApplication
 	vec2i LastMouse;
 
 	static void KeyCallback(int key, int action);
+	static void MouseButtonCallback(int button, int action);
+	static void MouseScrollCallback(int delta);
+	static void MouseCursorCallback(int x, int y);
 
 public:
 

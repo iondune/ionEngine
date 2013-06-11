@@ -219,7 +219,8 @@ struct SMouseEvent
         enum Domain
         {
             Move,
-            Click
+            Click,
+			Scroll
         };
 
         Domain Value;
