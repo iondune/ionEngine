@@ -210,7 +210,7 @@ void CApplication::skipElapsedTime()
 void CApplication::updateTime()
 {
 	Time1 = glfwGetTime();
-	ElapsedTime = min(0.1, (Time1 - Time0));
+	ElapsedTime = /*min(0.1, */(Time1 - Time0);//);
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
