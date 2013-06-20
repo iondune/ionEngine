@@ -1,5 +1,5 @@
-#ifndef _GRAPHICSLAYERAPI_H_INCLUDED_
-#define _GRAPHICSLAYERAPI_H_INCLUDED_
+#ifndef _IONGL_H_INCLUDED_
+#define _IONGL_H_INCLUDED_
 
 #include <ionCore.h>
 
@@ -19,28 +19,53 @@ public:
 
 		enum class EAccessFrequency
 		{
-			Stream,
-			Static,
-			Dynamic
+			Stream = 0,
+			Static = 1,
+			Dynamic = 2
 		};
 
 		enum class EAccessNature
 		{
-			Draw,
-			Read,
-			Copy
+			Draw = 0,
+			Read = 1,
+			Copy = 2
 		};
 
 		void Data(u32 const size, void const * const data,
 			EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 			EAccessNature const accessNature = EAccessNature::Draw);
 
+		void SubData(u32 const size, u32 const offset, void const * const data);
+
 		void Delete();
 		~Buffer();
+
+	protected:
+		
+		Buffer(u32 const handle);
+
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual u32 GetTarget() = 0;
+
+		u32 const Handle;
+
+	private:
+
+		Buffer(Buffer const &);
 	};
 
 	class AttributeBuffer : public Buffer
 	{
+	protected:
+		
+		AttributeBuffer(u32 const handle);
+
+		void Bind();
+		void Unbind();
+		u32 GetTarget();
+
+		friend class GL;
 	};
 
 	static AttributeBuffer * CreateAttributeBuffer();
@@ -48,6 +73,15 @@ public:
 
 	class IndexBuffer : Buffer
 	{
+	protected:
+		
+		IndexBuffer(u32 const handle);
+
+		void Bind();
+		void Unbind();
+		u32 GetTarget();
+
+		friend class GL;
 	};
 	
 	static IndexBuffer * CreateIndexBuffer();
@@ -92,8 +126,6 @@ public:
 		Params const & GetParams();
 		void SetParams(Params const & params);
 	};
-
-	class 
 
 
 	/////////////////////
