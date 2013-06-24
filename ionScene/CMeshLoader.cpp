@@ -482,13 +482,7 @@ CMesh * const CMeshLoader::loadObjMesh(std::string const & fileName)
         {
             int Vertex1, Vertex2, Vertex3;
             Stream >> Vertex1;
-            Stream >> Vertex1;
-            Stream >> Vertex1;
             Stream >> Vertex2;
-            Stream >> Vertex2;
-            Stream >> Vertex2;
-            Stream >> Vertex3;
-            Stream >> Vertex3;
             Stream >> Vertex3;
 
             CMesh::STriangle Triangle;

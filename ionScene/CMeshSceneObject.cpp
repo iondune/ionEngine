@@ -28,7 +28,9 @@ CMesh * CMeshSceneObject::getMesh()
 
 void CMeshSceneObject::setMesh(CMesh * mesh)
 {
-	CMesh * OldMesh = Mesh;
+	if (Mesh)
+		delete Mesh;
+
 	Mesh = mesh;
 
 	if (Mesh)

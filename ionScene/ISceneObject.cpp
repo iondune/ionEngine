@@ -3,7 +3,7 @@
 
 ISceneObject::ISceneObject()
 	: DebugDataFlags(0), Visible(true), Parent(0), UseCulling(true), TransformationDirty(false),
-	RenderCategory(ERenderCategory::Default)
+	RenderCategory(ERenderCategory::Default), Scale(1.f)
 {}
 
 

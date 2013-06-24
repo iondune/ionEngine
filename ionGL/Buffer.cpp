@@ -48,7 +48,7 @@ void GL::AttributeBuffer::Unbind()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-u32 GL::IndexBuffer::GetTarget()
+u32 GL::AttributeBuffer::GetTarget()
 {
 	return GL_ARRAY_BUFFER;
 }
