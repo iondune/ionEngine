@@ -13,6 +13,12 @@ CMeshSceneObject::CMeshSceneObject()
 	: LoadedRevision(-1), Mesh(0)
 {}
 
+CMeshSceneObject::~CMeshSceneObject()
+{
+	if (Mesh)
+		delete Mesh;
+}
+
 void CMeshSceneObject::update()
 {
 	ISceneObject::update();

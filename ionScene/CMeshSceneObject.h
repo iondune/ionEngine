@@ -18,8 +18,9 @@ protected:
 	CMesh * Mesh;
 
 public:
-
+	
 	CMeshSceneObject();
+	~CMeshSceneObject();
 
 	virtual void update();
 
