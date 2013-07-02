@@ -86,12 +86,6 @@ public:
 			sum += sq(Values[i]);
 		return sum;
 	}
-	
-	//! Distance between vectors
-	ION_FUNC_DEF T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
-	{
-		return (v - * this).length();
-	}
 
 	//! Normalize this vector
 	ION_FUNC_DEF void normalize()
@@ -152,7 +146,12 @@ public:
 	
 	ION_FUNC_DEF T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
-		return (v - * this).length();
+		return (* this - v).length();
+	}
+	
+	ION_FUNC_DEF T const getDistanceSqFrom(SVectorBase<T, Dimension> const & v) const
+	{
+		return (* this - v).lengthSq();
 	}
 	
 	ION_FUNC_DEF Implementation const getInterpolated(SVectorBase<T, Dimension> const & v, T const d)
