@@ -32,6 +32,7 @@ public:
 		CBufferObject<uint> IndexBuffer, NormalIndexBuffer;
 
 		void updateBuffers();
+		void writeObjMesh(std::string const & fileName);
 
 		CRenderable::SMaterial Material;
     };
