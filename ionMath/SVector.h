@@ -68,7 +68,7 @@ public:
 		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
-
+	
 	//! Length of vector
 	ION_FUNC_DEF T const length() const
 	{
@@ -76,6 +76,12 @@ public:
 		for (int i = 0; i < Dimension; ++ i)
 			sum += sq(Values[i]);
 		return (T) sqrt(sum);
+	}
+
+	//! Length of vector
+	ION_FUNC_DEF friend T const Length(SVectorBase<T, Dimension> const & vec)
+	{
+		return vec.length();
 	}
 
 	//! Squared-length of vector (computationally fast)
@@ -127,8 +133,8 @@ protected:
 public:
 	
 	using SVectorBase<T, Dimension>::set;
-
-	ION_FUNC_DEF T const dotProduct(SVectorBase<T, Dimension> const & other) const
+	
+	ION_FUNC_DEF T const DotProduct(SVectorBase<T, Dimension> const & other) const
 	{
 		T sum = 0;
 		for (int i = 0; i < Dimension; ++ i)
@@ -136,17 +142,24 @@ public:
 		return sum;
 	}
 
-	ION_FUNC_DEF friend T const dot(Implementation const & lhs, SVectorBase<T, Dimension> const & rhs)
+	ION_FUNC_DEF T const Dot(SVectorBase<T, Dimension> const & other) const
 	{
-		T sum = 0;
-		for (int i = 0; i < Dimension; ++ i)
-			sum += lhs[i] * rhs[i];
-		return sum;
+		return DotProduct(other);
+	}
+
+	ION_FUNC_DEF friend T const Dot(Type const & lhs, SVectorBase<T, Dimension> const & rhs)
+	{
+		return lhs.Dot(rhs);
 	}
 	
 	ION_FUNC_DEF T const getDistanceFrom(SVectorBase<T, Dimension> const & v) const
 	{
 		return (* this - v).length();
+	}
+	
+	ION_FUNC_DEF friend T const Distance(Type const & lhs, SVectorBase<T, Dimension> const & rhs)
+	{
+		return (lhs - rhs).length();
 	}
 	
 	ION_FUNC_DEF T const getDistanceSqFrom(SVectorBase<T, Dimension> const & v) const
@@ -163,6 +176,14 @@ public:
 		return ret;
 	}
 
+	ION_FUNC_DEF Implementation const GetSq() const
+	{
+		Implementation ret = * this;
+		for (int i = 0; i < Dimension; ++ i)
+			ret[i] = ret[i] * ret[i] * (f32) Sign(ret[i]);
+		return ret;
+	}
+
 	ION_FUNC_DEF Implementation const getNormalized() const
 	{
 		Implementation ret = * this;
@@ -170,7 +191,7 @@ public:
 		return ret;
 	}
 
-	friend ION_FUNC_DEF Implementation const normalize(Implementation const & v)
+	friend ION_FUNC_DEF Implementation const Normalize(Implementation const & v)
 	{
 		Implementation ret = v;
 		ret.normalize();
@@ -352,6 +373,24 @@ public:
 			result &= ::equals(Values[i], v[i], Epsilon);
 
 		return result;
+	}
+
+	ION_FUNC_DEF friend Implementation const Min(Type const & lhs, SVectorBase<T, Dimension> const & rhs)
+	{
+		Implementation ret;
+		for (u32 i = 0; i < Dimension; ++ i)
+			ret[i] = min(lhs[i], rhs[i]);
+
+		return ret;
+	}
+
+	ION_FUNC_DEF friend Implementation const Max(Type const & lhs, SVectorBase<T, Dimension> const & rhs)
+	{
+		Implementation ret;
+		for (u32 i = 0; i < Dimension; ++ i)
+			ret[i] = max(lhs[i], rhs[i]);
+
+		return ret;
 	}
 
 };

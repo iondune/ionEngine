@@ -79,8 +79,8 @@ public:
 	}
 	
 	//! Generic vector assignment operator
-	template <typename U, int otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SVector3<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	template <typename U, int otherDimension>
+	ION_FUNC_DEF SVector3<T> & operator = (SVectorBase<U, otherDimension> const & vec)
 	{
 		set(vec);
 

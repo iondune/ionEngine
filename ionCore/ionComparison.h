@@ -60,13 +60,13 @@ ION_FUNC_DEF static bool equals(T const a, T const b, T const epsilon = Rounding
 template <typename T>
 ION_FUNC_DEF static T const min(T const a, T const b)
 {
-	return std::min(a, b);
+	return a < b ? a : b;
 }
 
 template <typename T>
 ION_FUNC_DEF static T const max(T const a, T const b)
 {
-	return std::max(a, b);
+	return b < a ? a : b;
 }
 
 template <typename T>

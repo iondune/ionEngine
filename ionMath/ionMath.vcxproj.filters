@@ -49,5 +49,6 @@
     <ClInclude Include="SMatrix4.h">
       <Filter>Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="ionConstants.h" />
   </ItemGroup>
 </Project>

@@ -47,4 +47,9 @@ ION_FUNC_DEF static T const sq(T const a)
 	return a * a;
 }
 
+template <typename T> s32 Sign(T val)
+{
+	return (T(0) < val) - (val < T(0));
+}
+
 #endif
