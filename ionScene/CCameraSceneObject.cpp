@@ -11,8 +11,7 @@ CCameraSceneObject::CCameraSceneObject()
 
 void CCameraSceneObject::recalculateViewMatrix()
 {
-    //printf("Camera position: <%0.2f, %0.2f, %0.2f>; Camera lookat: <%0.2f, %0.2f, %0.2f>\n", Position.X, Position.Y, Position.Z, LookDirection.X, LookDirection.Y, LookDirection.Z);
-	ViewMatrix = glm::lookAt(getPosition().getGLMVector(), (getPosition() + LookDirection).getGLMVector(), UpVector.getGLMVector());
+	ViewMatrix = glm::lookAt(getPosition().GetGLMVector(), (getPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
 }
 
 SVector3f const & CCameraSceneObject::getLookDirecton() const

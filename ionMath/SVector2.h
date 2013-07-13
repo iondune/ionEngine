@@ -1,5 +1,4 @@
-#ifndef _ION_CORE_SVECTOR2_H_INCLUDED_
-#define _ION_CORE_SVECTOR2_H_INCLUDED_
+#pragma once
 
 #include "SVector.h"
 
@@ -16,14 +15,14 @@ public:
 	ION_FUNC_DEF SVector2()
 		: X(Values[0]), Y(Values[1])
 	{
-		SVectorBase<T, 2>::set((T) 0);
+		reset();
 	}
 	
 	//! Scalar constructor
 	ION_FUNC_DEF SVector2(T const in)
 		: X(Values[0]), Y(Values[1])
 	{
-		SVectorBase<T, 2>::set(in);
+		set(in);
 	}
 
 	//! Explicit constructor
@@ -34,11 +33,6 @@ public:
 		Values[1] = y;
 	}
 
-	//! Reference constructor
-	ION_FUNC_DEF SVector2(T const & x, T const & y, ForceReference)
-		: X(x), Y(y)
-	{}
-
 	//! Copy constructor
 	ION_FUNC_DEF SVector2(SVector2<T> const & vec)
 		: X(Values[0]), Y(Values[1])
@@ -47,7 +41,7 @@ public:
 	}
 	
 	//! Generic vector constructor
-	template <typename U, int otherDimension, typename otherImplementation>
+	template <typename U, u32 otherDimension, typename otherImplementation>
 	ION_FUNC_DEF SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
 		: X(Values[0]), Y(Values[1])
 	{
@@ -63,7 +57,7 @@ public:
 	}
 	
 	//! Generic vector assignment operator
-	template <typename U, int otherDimension, typename otherImplementation>
+	template <typename U, u32 otherDimension, typename otherImplementation>
 	ION_FUNC_DEF SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
 		set(vec);
@@ -83,5 +77,3 @@ typedef SVector2f vec2f;
 typedef SVector2d vec2d;
 typedef SVector2i vec2i;
 typedef SVector2u vec2u;
-
-#endif

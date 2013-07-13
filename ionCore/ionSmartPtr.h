@@ -1,5 +1,4 @@
-#ifndef _ION_CORE_IONSMARTPTR_H_INCLUDED_
-#define _ION_CORE_IONSMARTPTR_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
 
@@ -35,5 +34,3 @@ ION_FUNC_DEF static smartPtr<T> smartNew(T * t)
 {
 	return smartPtr<T>(t);
 }
-
-#endif

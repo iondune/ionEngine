@@ -186,14 +186,14 @@ void CMesh::calculateNormalsPerFace()
 		for (std::vector<STriangle>::iterator it = (* bit)->Triangles.begin(); it != (* bit)->Triangles.end(); ++ it)
 		{
 			it->Normal = ((* bit)->Vertices[it->Indices[1]].Position - (* bit)->Vertices[it->Indices[0]].Position).
-				crossProduct((* bit)->Vertices[it->Indices[2]].Position - (* bit)->Vertices[it->Indices[0]].Position);
+				CrossProduct((* bit)->Vertices[it->Indices[2]].Position - (* bit)->Vertices[it->Indices[0]].Position);
 			(* bit)->Vertices[it->Indices[0]].Normal = (* bit)->Vertices[it->Indices[1]].Normal = (* bit)->Vertices[it->Indices[2]].Normal = it->Normal;
 		}
 	}
 
 	for (std::vector<SMeshBuffer *>::iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
 		for (std::vector<SVertex>::iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it) {
-			it->Normal.normalize();
+			it->Normal.Normalize();
 		}
 }
 
@@ -227,13 +227,13 @@ void CMesh::calculateNormalsPerVertex(bool CombineNear, float const NearToleranc
 		for (std::vector<SMeshBuffer *>::iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
 			for (unsigned int i = 0; i < (* bit)->Vertices.size(); ++ i)
 				for (unsigned int j = i + 1; j < (* bit)->Vertices.size(); ++ j)
-					if ((* bit)->Vertices[i].Position.equals((* bit)->Vertices[j].Position, NearTolerance))
+					if ((* bit)->Vertices[i].Position.Equals((* bit)->Vertices[j].Position, NearTolerance))
 						(* bit)->Vertices[i].Normal = (* bit)->Vertices[j].Normal = (* bit)->Vertices[i].Normal + (* bit)->Vertices[j].Normal;
 
 
 	for (std::vector<SMeshBuffer *>::iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
 		for (std::vector<SVertex>::iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it)
-			it->Normal.normalize();
+			it->Normal.Normalize();
 }
 
 
@@ -264,8 +264,8 @@ void CMesh::calculateTextureCoordinates(vec3f const & uVec, vec3f const & vVec, 
 		for (std::vector<SVertex>::iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it)
 		{
 			SVector3f const RelativePosition = (it->Position - Min) / (Max - Min);
-			it->TextureCoordinates = vec2f((RelativePosition * uVec.getNormalized()).length(),
-				(RelativePosition * vVec.getNormalized()).length()) * Scale;
+			it->TextureCoordinates = vec2f((RelativePosition * uVec.GetNormalized()).Length(),
+				(RelativePosition * vVec.GetNormalized()).Length()) * Scale;
 		}
 }
 

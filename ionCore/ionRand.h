@@ -1,8 +1,6 @@
-#ifndef _ION_CORE_IONRAND_H_INCLUDED_
-#define _ION_CORE_IONRAND_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
-
 #include "ionTypes.h"
 
 
@@ -16,47 +14,47 @@ class IRandomGenerator
 
 public:
 
-	virtual u32 const generate() = 0;
-	virtual void seed(u32 const seed) = 0;
+	virtual u32 const Generate() = 0;
+	virtual void Seed(u32 const seed) = 0;
 
-	ION_FUNC_DEF u32 const generate(u32 const max)
+	ION_FUNC_DEF u32 const Generate(u32 const max)
 	{
-		return generate() % max;
+		return Generate() % max;
 	}
 
-	ION_FUNC_DEF u32 const generate(u32 const min, u32 const max)
+	ION_FUNC_DEF u32 const Generate(u32 const min, u32 const max)
 	{
-		return generate() % (max - min) + min;
+		return Generate() % (max - min) + min;
 	}
 
-	ION_FUNC_DEF f32 const generatef32(u32 const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(u32 const modulus = 100000)
 	{
-		return (generate() % modulus) / (f32) modulus;
+		return (Generate() % modulus) / (f32) modulus;
 	}
 
-	ION_FUNC_DEF f32 const generatef32(f32 const max, u32 const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(f32 const max, u32 const modulus = 100000)
 	{
-		return generatef32(modulus) * max;
+		return Generatef32(modulus) * max;
 	}
 
-	ION_FUNC_DEF f32 const generatef32(f32 const min, f32 const max, u32 const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(f32 const min, f32 const max, u32 const modulus = 100000)
 	{
-		return generatef32(modulus) * (max - min) + min;
+		return Generatef32(modulus) * (max - min) + min;
 	}
 
-	ION_FUNC_DEF f64 const generatef64(u32 const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(u32 const modulus = 100000)
 	{
-		return (generate() % modulus) / (f64) modulus;
+		return (Generate() % modulus) / (f64) modulus;
 	}
 
-	ION_FUNC_DEF f64 const generatef64(f64 const max, u32 const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(f64 const max, u32 const modulus = 100000)
 	{
-		return generatef64(modulus) * max;
+		return Generatef64(modulus) * max;
 	}
 
-	ION_FUNC_DEF f64 const generatef64(f64 const min, f64 const max, u32 const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(f64 const min, f64 const max, u32 const modulus = 100000)
 	{
-		return generatef64(modulus) * (max - min) + min;
+		return Generatef64(modulus) * (max - min) + min;
 	}
 
 };
@@ -64,25 +62,23 @@ public:
 class CLinearCongruentialGenerator
 {
 
-	u32 Seed;
+	u32 Value;
 
 public:
 
-	ION_FUNC_DEF CLinearCongruentialGenerator()
+	ION_FUNC_DEF CLinearCongruentialGenerator(u32 const seed = 0)
 	{
-		seed(0);
+		Seed(seed);
 	}
 
-	ION_FUNC_DEF u32 const generate()
+	ION_FUNC_DEF u32 const Generate()
 	{
-		return (Seed = (Seed * 214013 + 2531011) & ((1U << 31) - 1));
+		return (Value = (Value * 214013 + 2531011) & ((1U << 31) - 1));
 	}
 
-	ION_FUNC_DEF void seed(u32 const seed)
+	ION_FUNC_DEF void Seed(u32 const seed)
 	{
-		Seed = seed;
+		Value = seed;
 	}
 
 };
-
-#endif

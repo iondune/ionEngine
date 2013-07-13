@@ -1,5 +1,4 @@
-#ifndef _ION_CORE_SVECTOR4_H_INCLUDED_
-#define _ION_CORE_SVECTOR4_H_INCLUDED_
+#pragma once
 
 #include <ionConfig.h>
 
@@ -19,14 +18,14 @@ public:
 	ION_FUNC_DEF SVector4()
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		SVectorBase<T, 4>::set((T) 0);
+		set((T) 0);
 	}
 	
 	//! Scalar constructor
 	ION_FUNC_DEF SVector4(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		SVectorBase<T, 4>::set(in);
+		set(in);
 	}
 
 	//! Explicit constructor
@@ -39,24 +38,19 @@ public:
 		Values[3] = w;
 	}
 
-	//! Reference constructor
-	ION_FUNC_DEF SVector4(T const & x, T const & y, T const & z, T const & w, ForceReference)
-		: X(x), Y(y), Z(z), W(w)
-	{}
-
 	//! Copy constructor
 	ION_FUNC_DEF SVector4(SVector4<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		SVectorBase<T, 4>::set(vec);
+		set(vec);
 	}
 	
 	//! Generic vector constructor
-	template <typename U, int otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SVector4(SVector<U, otherDimension, otherImplementation> const & vec)
+	template <typename U, u32 OtherDimension>
+	ION_FUNC_DEF SVector4(SVectorBase<U, OtherDimension> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
-		SVectorBase<T, 4>::set(vec);
+		set(vec);
 	}
 	
 	//! Generic vector constructor
@@ -78,8 +72,8 @@ public:
 	}
 	
 	//! Generic vector assignment operator
-	template <typename U, int otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SVector4<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	template <typename U, u32 OtherDimension>
+	ION_FUNC_DEF SVector4<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
 		set(vec);
 
@@ -93,6 +87,7 @@ public:
 
 };
 
+
 typedef SVector4<f32> SVector4f;
 typedef SVector4<f64> SVector4d;
 typedef SVector4<s32> SVector4i;
@@ -103,4 +98,3 @@ typedef SVector4d vec4d;
 typedef SVector4i vec4i;
 typedef SVector4u vec4u;
 
-#endif

@@ -27,12 +27,12 @@ public:
 			for (auto it = FrameBuffer->getColorAttachments().begin(); it != FrameBuffer->getColorAttachments().end(); ++ it)
 			{
 				color4f const Color = Colors::White;
-				glClearBufferfv(GL_COLOR, it->first, Color.getValuePointer());
+				glClearBufferfv(GL_COLOR, it->first, Color.GetValuePointer());
 			}
 
 			if (FrameBuffer->getDepthAttachment())
 			{
-				glClearBufferfv(GL_DEPTH, 0, Colors::White.getValuePointer());
+				glClearBufferfv(GL_DEPTH, 0, Colors::White.GetValuePointer());
 			}
 		}
 		else

@@ -62,7 +62,7 @@ public:
 
 	void setScale(SVector3f const & scale)
 	{
-		Scale = glm::scale(glm::mat4(1.f), scale.getGLMVector());
+		Scale = glm::scale(glm::mat4(1.f), scale.GetGLMVector());
 	}
 
 	void setTranslation(glm::vec3 const & translation)
@@ -72,7 +72,7 @@ public:
 
 	void setTranslation(SVector3f const & translation)
 	{
-		Translation = glm::translate(glm::mat4(1.f), translation.getGLMVector());
+		Translation = glm::translate(glm::mat4(1.f), translation.GetGLMVector());
 	}
 
 };

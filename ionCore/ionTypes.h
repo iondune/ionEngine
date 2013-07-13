@@ -1,5 +1,4 @@
-#ifndef _ION_CORE_IONTYPES_H_INCLUDED_
-#define _ION_CORE_IONTYPES_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
 
@@ -79,5 +78,3 @@ typedef double f64;
 typedef unsigned short ushort;
 typedef unsigned int   uint;
 typedef unsigned long  ulong;
-
-#endif

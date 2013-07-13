@@ -77,7 +77,7 @@ public:
 	// These intersect methods direct copies from irrlicht engine
 	bool intersectsWithLine(SLine3<T> const & line) const
 	{
-		return intersectsWithLine(line.getMiddle(), line.getVector().getNormalized(), line.length() * 0.5f);
+		return intersectsWithLine(line.getMiddle(), line.getVector().GetNormalized(), line.length() * 0.5f);
 	}
 
 	// These intersect methods direct copies from irrlicht engine

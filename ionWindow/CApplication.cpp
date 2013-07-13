@@ -21,24 +21,24 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 	if (!glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
 	
 	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
 	if (!glfwOpenWindow(WindowSize.X, WindowSize.Y, 8, 8, 8, 0, 24, 0, GLFW_WINDOW))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
 		std::cerr << "Error initializing glew! " << glewGetErrorString(err) << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
 
 	double const VersionNumber = std::atof((char const *)glGetString(GL_VERSION));

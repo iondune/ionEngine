@@ -1,10 +1,6 @@
-#ifndef _ION_CORE_COMPARISON_H_INCLUDED_
-#define _ION_CORE_COMPARISON_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
-
-#include <cstdlib>
-#include <algorithm>
 
 
 ////////////////////
@@ -24,18 +20,18 @@ struct RoundingError
 };
 
 template <>
-struct RoundingError<float>
+struct RoundingError<f32>
 {
-	ION_FUNC_DEF static float  Value()
+	ION_FUNC_DEF static f32 Value()
 	{
 		return RoundingError32;
 	}
 };
 
 template <>
-struct RoundingError<double>
+struct RoundingError<f64>
 {
-	ION_FUNC_DEF static double Value()
+	ION_FUNC_DEF static f64 Value()
 	{
 		return RoundingError64;
 	}
@@ -47,7 +43,7 @@ struct RoundingError<double>
 //////////////
 
 template <typename T>
-ION_FUNC_DEF static bool equals(T const a, T const b, T const epsilon = RoundingError<T>::Value())
+ION_FUNC_DEF static bool Equals(T const a, T const b, T const epsilon = RoundingError<T>::Value())
 {
 	return (a + epsilon >= b) && (a - epsilon <= b);
 }
@@ -58,39 +54,37 @@ ION_FUNC_DEF static bool equals(T const a, T const b, T const epsilon = Rounding
 ////////////////
 
 template <typename T>
-ION_FUNC_DEF static T const min(T const a, T const b)
+ION_FUNC_DEF static T const Minimum(T const a, T const b)
 {
 	return a < b ? a : b;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const max(T const a, T const b)
+ION_FUNC_DEF static T const Maximum(T const a, T const b)
 {
 	return b < a ? a : b;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const min(T const a, T const b, T const c)
+ION_FUNC_DEF static T const Minumum(T const a, T const b, T const c)
 {
 	return min(a, min(b, c));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const max(T const a, T const b, T const c)
+ION_FUNC_DEF static T const Maximum(T const a, T const b, T const c)
 {
 	return max(a, max(b, c));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const min(T const a, T const b, T const c, T const d)
+ION_FUNC_DEF static T const Minumum(T const a, T const b, T const c, T const d)
 {
 	return min(a, min(b, c, d));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const max(T const a, T const b, T const c, T const d)
+ION_FUNC_DEF static T const Maximum(T const a, T const b, T const c, T const d)
 {
 	return max(a, max(b, c, d));
 }
-
-#endif

@@ -30,7 +30,7 @@ public:
 
     T const length() const
     {
-        return getVector().length();
+        return getVector().Length();
     }
 
 };

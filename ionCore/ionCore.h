@@ -1,5 +1,4 @@
-#ifndef _ION_CORE_H_INCLUDED_
-#define _ION_CORE_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
 
@@ -14,5 +13,3 @@
 #include <map>
 #include <list>
 #include <string>
-
-#endif

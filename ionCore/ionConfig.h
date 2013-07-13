@@ -1,11 +1,10 @@
-#ifndef _ION_CORE_CONFIG_H_INCLUDED_
-#define _ION_CORE_CONFIG_H_INCLUDED_
+#pragma once
 
 ////////////////////
 // Config Options //
 ////////////////////
 
-//#define _ION_CONFIG_C++11_SUPPORT_
+//#define _ION_CONFIG_CPP11_SUPPORT_
 //#define _ION_CONFIG_CUDA_SUPPORT_
 
 ////////////////////////
@@ -24,7 +23,5 @@
 #else
 
 	#define ION_FUNC_DEF
-
-#endif
 
 #endif

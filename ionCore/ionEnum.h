@@ -1,5 +1,4 @@
-#ifndef _ION_ENUM_H_INCLUDED_
-#define _ION_ENUM_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
 
@@ -75,5 +74,3 @@ public:
 	{}
 
 };
-
-#endif

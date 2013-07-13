@@ -4,6 +4,6 @@
 int main()
 {
 	printf("All tests passed.\n");
-	waitForUser();
+	WaitForUser();
 	return 0;
 }
