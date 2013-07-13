@@ -111,8 +111,8 @@ public:
 
 	ION_FUNC_DEF SVector3<T> RotateAround(SVector3<T> const & other, f32 const radians) const
 	{
-		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.getGLMVector());
-		glm::vec4 temp = glm::vec4(getGLMVector(), 1.f) * matrix;
+		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.GetGLMVector());
+		glm::vec4 temp = glm::vec4(GetGLMVector(), 1.f) * matrix;
 
 		SVector3<T> out(temp.x, temp.y, temp.z);
 		return out;

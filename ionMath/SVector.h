@@ -166,22 +166,22 @@ public:
 
 	ION_FUNC_DEF T const GetDistanceFrom(Other const & v) const
 	{
-		return (* this - v).length();
+		return (* this - v).Length();
 	}
 	
 	ION_FUNC_DEF friend T const Distance(Type const & lhs, Other const & rhs)
 	{
-		return (lhs - rhs).length();
+		return (lhs - rhs).Length();
 	}
 	
 	ION_FUNC_DEF T const GetDistanceSqFrom(Other const & v) const
 	{
-		return (* this - v).lengthSq();
+		return (* this - v).LengthSq();
 	}
 	
 	ION_FUNC_DEF friend T const DistanceSq(Type const & lhs, Other const & rhs)
 	{
-		return (lhs - rhs).lengthSq();
+		return (lhs - rhs).LengthSq();
 	}
 	
 	///////////////////
@@ -218,7 +218,7 @@ public:
 	friend ION_FUNC_DEF Implementation const Normalize(Implementation const & v)
 	{
 		Implementation ret = v;
-		ret.normalize();
+		ret.Normalize();
 		return ret;
 	}
 
@@ -466,8 +466,7 @@ public:
 		return ! Equals(v);
 	}
 
-	template <typename Real>
-	ION_FUNC_DEF bool Equals(Other const & v, Real const Epsilon = RoundingError<Real>::Value()) const
+	ION_FUNC_DEF bool Equals(Other const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)
