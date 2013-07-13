@@ -332,7 +332,7 @@ public:
 	// Basic Arithmetic Assignment //
 	/////////////////////////////////
 
-	ION_FUNC_DEF Type & operator += (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator += (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] += v[i];
@@ -340,7 +340,7 @@ public:
 		return * this;
 	}
 	
-	ION_FUNC_DEF Type & operator -= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator -= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] -= v[i];
@@ -348,7 +348,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator *= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator *= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] *= v[i];
@@ -356,7 +356,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator /= (SVectorBase<T, Dimension> const & v)
+	ION_FUNC_DEF Type & operator /= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] /= v[i];
@@ -479,7 +479,7 @@ public:
 	// Extrema //
 	/////////////
 
-	ION_FUNC_DEF friend Implementation const Minimum(Type const & lhs, Other const & rhs)
+	ION_FUNC_DEF friend Implementation const ComponentMinimum(Type const & lhs, Other const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -488,7 +488,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const Maximum(Type const & lhs, Other const & rhs)
+	ION_FUNC_DEF friend Implementation const ComponentMaximum(Type const & lhs, Other const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)

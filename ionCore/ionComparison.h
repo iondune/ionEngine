@@ -54,37 +54,37 @@ ION_FUNC_DEF static bool Equals(T const a, T const b, T const epsilon = Rounding
 ////////////////
 
 template <typename T>
-ION_FUNC_DEF static T const Minimum(T const a, T const b)
+ION_FUNC_DEF static T const Minimum(T const & a, T const & b)
 {
 	return a < b ? a : b;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Maximum(T const a, T const b)
+ION_FUNC_DEF static T const Maximum(T const & a, T const & b)
 {
 	return b < a ? a : b;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Minumum(T const a, T const b, T const c)
+ION_FUNC_DEF static T const Minumum(T const & a, T const & b, T const & c)
 {
 	return min(a, min(b, c));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Maximum(T const a, T const b, T const c)
+ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c)
 {
 	return max(a, max(b, c));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Minumum(T const a, T const b, T const c, T const d)
+ION_FUNC_DEF static T const Minumum(T const & a, T const & b, T const & c, T const & d)
 {
 	return min(a, min(b, c, d));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Maximum(T const a, T const b, T const c, T const d)
+ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c, T const & d)
 {
 	return max(a, max(b, c, d));
 }
