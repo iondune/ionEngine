@@ -1,7 +1,7 @@
 #include "CScene.h"
 
 
-CLightSceneObject const CScene::SLightBinding::NullLight = CLightSceneObject(color4f(0.f), 0.f);
+CLightSceneObject const CScene::SLightBinding::NullLight = CLightSceneObject(color3f(0.f), 0.f);
 
 CScene::SLightBinding::SLightBinding()
 {

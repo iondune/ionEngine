@@ -1,5 +1,4 @@
-#ifndef _IONGL_H_INCLUDED_
-#define _IONGL_H_INCLUDED_
+#pragma once
 
 #include <ionCore.h>
 
@@ -183,5 +182,3 @@ public:
 	static Program * CreateProgram();
 
 };
-
-#endif

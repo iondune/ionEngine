@@ -1,39 +1,40 @@
-#ifndef _ION_CORE_SBOUNDINGBOX2_H_INCLUDED_
-#define _ION_CORE_SBOUNDINGBOX2_H_INCLUDED_
+#pragma once
 
 #include "SVector3.h"
 #include "SLine3.h"
 
-template <typename T>
+template <typename T, typename Vector = SVector3<T> >
 class SBoundingBox3
 {
 
+	typedef SBoundingBox3<T, Vector> Type;
+
 public:
 
-	SVector3<T> MinCorner, MaxCorner;
+	Vector MinCorner, MaxCorner;
 
 	SBoundingBox3()
 	{}
 
-	SBoundingBox3(SVector3<T> const & min, SVector3<T> const & max)
+	SBoundingBox3(Vector const & min, Vector const & max)
 		: MinCorner(min), MaxCorner(max)
 	{}
 
-	SBoundingBox3(SVector3<T> const & v)
+	explicit SBoundingBox3(Vector const & v)
 		: MinCorner(v), MaxCorner(v)
 	{}
 
-	SVector3<T> const getExtent() const
+	Vector const GetExtent() const
 	{
 		return MaxCorner - MinCorner;
 	}
 
-	SVector3<T> const getCenter() const
+	Vector const GetCenter() const
 	{
 		return (MaxCorner + MinCorner) / 2;
 	}
 
-	bool isPointInside(SVector3<T> const & p) const
+	bool IsPointInside(Vector const & p) const
 	{
 		return 
 			p.X >= MinCorner.X && p.X <= MaxCorner.X &&
@@ -41,7 +42,7 @@ public:
 			p.Z >= MinCorner.Z && p.Z <= MaxCorner.Z;
 	}
 
-	bool const intersects(SBoundingBox3<T> const & r) const
+	bool const Intersects(Type const & r) const
 	{
 		return (MaxCorner.Y > r.MinCorner.Y &&
 			MinCorner.Y < r.MaxCorner.Y &&
@@ -51,7 +52,7 @@ public:
 			MinCorner.Z < r.MaxCorner.Z);
 	}
 
-	void addInternalPoint(SVector3<T> const & v)
+	void AddInternalPoint(Vector const & v)
 	{
 		if (v.X > MaxCorner.X)
 			MaxCorner.X = v.X;
@@ -68,23 +69,23 @@ public:
 			MinCorner.Z = v.Z;
 	}
 
-	void addInternalBox(SBoundingBox3<T> const & bb)
+	void AddInternalBox(Type const & bb)
 	{
-		addInternalPoint(bb.MaxCorner);
-		addInternalPoint(bb.MinCorner);
+		AddInternalPoint(bb.MaxCorner);
+		AddInternalPoint(bb.MinCorner);
 	}
 
 	// These intersect methods direct copies from irrlicht engine
-	bool intersectsWithLine(SLine3<T> const & line) const
+	bool IntersectsWithLine(SLine3<T, Vector> const & line) const
 	{
-		return intersectsWithLine(line.getMiddle(), line.getVector().GetNormalized(), line.length() * 0.5f);
+		return IntersectsWithLine(line.GetMiddle(), line.GetVector().GetNormalized(), line.Length() * 0.5f);
 	}
 
 	// These intersect methods direct copies from irrlicht engine
-	bool intersectsWithLine(SVector3<T> const & linemiddle, SVector3<T> const & linevect, T halflength) const
+	bool IntersectsWithLine(Vector const & linemiddle, Vector const & linevect, T halflength) const
 	{
-		const SVector3<T> e = getExtent() * (T) 0.5;
-		const SVector3<T> t = getCenter() - linemiddle;
+		const Vector e = GetExtent() * (T) 0.5;
+		const Vector t = GetCenter() - linemiddle;
 
 		if ((fabs(t.X) > e.X + halflength * fabs(linevect.X)) ||
 			(fabs(t.Y) > e.Y + halflength * fabs(linevect.Y)) ||
@@ -106,35 +107,33 @@ public:
 		return true;
 	}
 
-	T const getMaximumRadius(SVector3<T> const Scale) const
+	T const GetMaximumRadius(Vector const Scale) const
 	{
-		SVector3<T> const Extents = getExtent() / 2;
+		Vector const Extents = getExtent() / 2;
 		return max((Extents*Scale).xy().length(), (Extents*Scale).xz().length(), (Extents*Scale).yz().length());
 	}
 
-	SVector3<T> const getCorner(int const i) const
+	Vector const GetCorner(int const i) const
 	{
-		SVector3<T> const Center = getCenter();
-		SVector3<T> const Extent = getExtent() / 2;
+		Vector const Center = GetCenter();
+		Vector const Extent = GetExtent() / 2;
 
 		switch (i)
 		{
 		default: 
-		case 0: return SVector3f(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
-		case 1: return SVector3f(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
-		case 2: return SVector3f(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
-		case 3: return SVector3f(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
-		case 4: return SVector3f(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
-		case 5: return SVector3f(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
-		case 6: return SVector3f(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
-		case 7: return SVector3f(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
+		case 0: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
+		case 1: return Vector(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
+		case 2: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
+		case 3: return Vector(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
+		case 4: return Vector(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
+		case 5: return Vector(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
+		case 6: return Vector(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
+		case 7: return Vector(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
 		};
 	}
 
 };
 
-typedef SBoundingBox3<float> SBoundingBox3f;
-typedef SBoundingBox3<double> SBoundingBox3d;
-typedef SBoundingBox3<int> SBoundingBox3i;
-
-#endif
+typedef SBoundingBox3<f32> SBoundingBox3f;
+typedef SBoundingBox3<f64> SBoundingBox3d;
+typedef SBoundingBox3<s32> SBoundingBox3i;

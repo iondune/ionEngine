@@ -154,7 +154,7 @@ public:
 				Child->setIndexBufferObject(& Mesh->MeshBuffers[i]->IndexBuffer);
 
 				// Set bounding box
-				BoundingBox.addInternalBox(Mesh->getBoundingBox());
+				BoundingBox.AddInternalBox(Mesh->getBoundingBox());
 
 				// Remove any previous normal debugging object
 				if (Child->getDebuggingNormalObject())

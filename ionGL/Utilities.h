@@ -1,5 +1,4 @@
-#ifndef _UTILITIES_H_INCLUDED_
-#define _UTILITIES_H_INCLUDED_
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -23,6 +22,4 @@ bool PrintOpenGLErrors(c8 const * const File, s32 const Line)
 	return Succeeded;
 }
 
-#define CheckedGLCall(x)   (x); PrintOpenGLErrors(__FILE__, __LINE__);
-
-#endif
+#define CheckedGLCall(x) (x); PrintOpenGLErrors(__FILE__, __LINE__);

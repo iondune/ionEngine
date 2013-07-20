@@ -24,7 +24,7 @@ bool const ISceneObject::isCulled(ICameraSceneObject const * const Camera, bool 
 
 	for (int i = 0; i < 8; ++ i) 
 	{
-		SVector3f const Center = getBoundingBox().getCorner(i);
+		SVector3f const Center = getBoundingBox().GetCorner(i);
 		glm::vec4 Center4(Center.X, Center.Y, Center.Z, 1.f);
 
 		glm::mat4 PVM = (Camera->getProjectionMatrix()*Camera->getViewMatrix()*Transformation());
@@ -85,5 +85,5 @@ void ISceneObject::setCullingEnabled(bool const culling)
 
 bool const ISceneObject::intersectsWithLine(SLine3f const & line) const
 {
-	return BoundingBox.intersectsWithLine(line);
+	return BoundingBox.IntersectsWithLine(line);
 }

@@ -129,6 +129,16 @@ private:
 	typedef SVector<T, Size, Implementation> Type;
 	typedef SVectorBase<T, Size> Other;
 
+	Implementation & Clone()
+	{
+		return * static_cast<Implementation *>(this);
+	}
+
+	Implementation const & Clone() const
+	{
+		return * static_cast<Implementation const *>(this);
+	}
+
 protected:
 
 	ION_FUNC_DEF SVector()
@@ -210,7 +220,7 @@ public:
 
 	ION_FUNC_DEF Implementation const GetNormalized() const
 	{
-		Implementation ret = * this;
+		Implementation ret = Clone();
 		ret.Normalize();
 		return ret;
 	}

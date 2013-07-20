@@ -1,5 +1,4 @@
-#ifndef _IONMATH_H_INCLUDED_
-#define _IONMATH_H_INCLUDED_
+#pragma once
 
 #include "SVector.h"
 #include "SColor.h"
@@ -14,5 +13,3 @@
 #include "STransformation3.h"
 
 #include "ionConstants.h"
-
-#endif

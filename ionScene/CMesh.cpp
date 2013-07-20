@@ -284,7 +284,7 @@ SBoundingBox3f const CMesh::getBoundingBox() const
 
 	for (std::vector<SMeshBuffer *>::const_iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
 		for (std::vector<SVertex>::const_iterator it = (* bit)->Vertices.begin(); it != (* bit)->Vertices.end(); ++ it)
-			Box.addInternalPoint(it->Position);
+			Box.AddInternalPoint(it->Position);
 
 	return Box;
 }

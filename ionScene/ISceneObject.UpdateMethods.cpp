@@ -47,7 +47,7 @@ void ISceneObject::updateAbsoluteBoundingBox()
 	AbsoluteBoundingBox = BoundingBox;
 
 	for (std::list<ISceneObject *>::iterator it = Children.begin(); it != Children.end(); ++ it)
-		AbsoluteBoundingBox.addInternalBox((* it)->getAbsoluteBoundingBox());
+		AbsoluteBoundingBox.AddInternalBox((* it)->getAbsoluteBoundingBox());
 }
 
 void ISceneObject::update()

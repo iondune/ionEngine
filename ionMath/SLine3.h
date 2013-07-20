@@ -1,42 +1,43 @@
-#ifndef _ION_CORE_SLINE3_H_INCLUDED_
-#define _ION_CORE_SLINE3_H_INCLUDED_
+#pragma once
 
 #include "SVector3.h"
 
-template <typename T>
+template <typename T, typename Vector = SVector3<T> >
 class SLine3
 {
 
+	typedef SLine3<T, Vector> Type;
+
 public:
 
-    SVector3<T> Start, End;
+	Vector Start, End;
 
-    SLine3()
-    {}
+	SLine3(Vector const & start, Vector const & end)
+		: Start(start), End(end)
+	{}
 
-    SLine3(SVector3<T> const & start, SVector3<T> const & end)
-        : Start(start), End(end)
-    {}
+	Vector const GetMiddle() const
+	{
+		return (Start + End) / 2;
+	}
 
-    SVector3<T> const getMiddle() const
-    {
-        return (Start + End) / 2;
-    }
+	Vector const GetVector() const
+	{
+		return Start - End;
+	}
 
-    SVector3<T> const getVector() const
-    {
-        return Start - End;
-    }
+	T const Length() const
+	{
+		return GetVector().Length();
+	}
 
-    T const length() const
-    {
-        return getVector().Length();
-    }
+	friend T const Length(Type const & Line)
+	{
+		return Line.GetVector().Length();
+	}
 
 };
 
-typedef SLine3<float> SLine3f;
-typedef SLine3<double> SLine3d;
-typedef SLine3<int> SLine3i;
-
-#endif
+typedef SLine3<f32> SLine3f;
+typedef SLine3<f64> SLine3d;
+typedef SLine3<s32> SLine3i;

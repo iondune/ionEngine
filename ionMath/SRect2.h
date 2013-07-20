@@ -1,8 +1,6 @@
-#ifndef _ION_CORE_SRECT2_H_INCLUDED_
-#define _ION_CORE_SRECT2_H_INCLUDED_
+#pragma once
 
 #include "SVector2.h"
-#include "SPosition2.h"
 #include "ionUtils.h"
 
 template <typename T>
@@ -86,7 +84,7 @@ public:
 			Size.Y *= -1;
 		}
 	}
-	
+
 	void clipTo(SRect2 const & r)
 	{
 		SVector2<T> UpperLeftCorner = Position;
@@ -98,12 +96,12 @@ public:
 			LowerRightCorner.X = otherLowerRightCorner.X - 1;
 		if (otherLowerRightCorner.Y <= LowerRightCorner.Y)
 			LowerRightCorner.Y = otherLowerRightCorner.Y - 1;
- 
+
 		if (otherUpperLeftCorner.X > UpperLeftCorner.X)
 			UpperLeftCorner.X = otherUpperLeftCorner.X;
 		if (otherUpperLeftCorner.Y > UpperLeftCorner.Y)
 			UpperLeftCorner.Y = otherUpperLeftCorner.Y;
- 
+
 		// correct possible invalid rect resulting from clipping
 		if (UpperLeftCorner.Y > LowerRightCorner.Y)
 			UpperLeftCorner.Y = LowerRightCorner.Y;
@@ -116,8 +114,6 @@ public:
 
 };
 
-typedef SRect2<double> SRect2d;
-typedef SRect2<float> SRect2f;
-typedef SRect2<int> SRect2i;
-
-#endif
+typedef SRect2<f32> SRect2f;
+typedef SRect2<f64> SRect2d;
+typedef SRect2<s32> SRect2i;
