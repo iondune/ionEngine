@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
-#define _CABBAGE_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
+#ifndef _ION_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
+#define _ION_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
 
 #include "SVector3.h"
 #include "CShader.h"
@@ -18,8 +18,9 @@ protected:
 	CMesh * Mesh;
 
 public:
-
+	
 	CMeshSceneObject();
+	~CMeshSceneObject();
 
 	virtual void update();
 

@@ -21,23 +21,24 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 	if (!glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
-
+	
+	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
 	if (!glfwOpenWindow(WindowSize.X, WindowSize.Y, 8, 8, 8, 0, 24, 0, GLFW_WINDOW))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
 		std::cerr << "Error initializing glew! " << glewGetErrorString(err) << std::endl;
-		waitForUser();
-		exit(3);
+		WaitForUser();
+		exit(33);
 	}
 
 	double const VersionNumber = std::atof((char const *)glGetString(GL_VERSION));
@@ -53,11 +54,123 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 }
 
 
-void CApplication::init(SPosition2 const & windowSize, std::string const & WindowTitle)
+
+EKey const ConvertGLFWKeyCode(int const Code)
+{
+	if (Code >= 'A' && Code <= 'Z')
+		return EKey::A + (Code - 'A');
+
+	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
+		return EKey::Num0 + (Code - GLFW_KEY_KP_0);
+
+	switch (Code)
+	{
+
+	case GLFW_KEY_ESC:
+		return EKey::Escape;
+		
+	case GLFW_KEY_UP:
+		return EKey::Up;
+	case GLFW_KEY_LEFT:
+		return EKey::Left;
+	case GLFW_KEY_DOWN:
+		return EKey::Down;
+	case GLFW_KEY_RIGHT:
+		return EKey::Right;
+
+	case GLFW_KEY_SPACE:
+		return EKey::Space;
+
+	default:
+		return EKey::Unknown;
+
+	};
+}
+
+void CApplication::KeyCallback(int key, int action)
+{
+	CApplication & Application = CApplication::get();
+
+	SKeyboardEvent KeyEvent;
+	KeyEvent.Pressed = action == GLFW_PRESS;
+	KeyEvent.Key = ConvertGLFWKeyCode(key);
+	Application.EventManager->OnKeyboardEvent(KeyEvent);
+	Application.EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
+}
+
+void CApplication::MouseButtonCallback(int button, int action)
+{
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Click;
+	MouseEvent.Location = CApplication::get().EventManager->MouseLocation;
+	MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) CApplication::get().WindowSize.X,
+		MouseEvent.Location.Y / (float) CApplication::get().WindowSize.Y);
+	MouseEvent.Pressed = action == GLFW_PRESS;
+
+	switch (button)
+	{
+
+	case GLFW_MOUSE_BUTTON_LEFT:
+		MouseEvent.Button = SMouseEvent::EButton::Left;
+		CApplication::get().EventManager->MouseStates[SMouseEvent::EButton::Left] = MouseEvent.Pressed;
+		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
+		break;
+
+	case GLFW_MOUSE_BUTTON_RIGHT:
+		MouseEvent.Button = SMouseEvent::EButton::Right;
+		CApplication::get().EventManager->MouseStates[SMouseEvent::EButton::Right] = MouseEvent.Pressed;
+		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
+		break;
+
+	case GLFW_MOUSE_BUTTON_MIDDLE:
+		MouseEvent.Button = SMouseEvent::EButton::Middle;
+		CApplication::get().EventManager->MouseStates[SMouseEvent::EButton::Middle] = MouseEvent.Pressed;
+		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
+		break;
+
+	default:
+		break;
+
+	}
+}
+
+void CApplication::MouseScrollCallback(int delta)
+{
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Scroll;
+	MouseEvent.Movement.Y = delta;
+	if (CApplication::get().EventManager)
+		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
+}
+
+void CApplication::MouseCursorCallback(int x, int y)
+{	
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Move;
+	MouseEvent.Location = CApplication::get().LastMouse + vec2i(x, y);
+	if (CApplication::get().EventManager)
+		CApplication::get().EventManager->MousePositionState = MouseEvent.Location;
+	MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) CApplication::get().WindowSize.X,
+		MouseEvent.Location.Y / (float) CApplication::get().WindowSize.Y);
+	MouseEvent.Movement = MouseEvent.Location - CApplication::get().LastMouse;
+	if (CApplication::get().EventManager)
+		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
+
+	CApplication::get().LastMouse = MouseEvent.Location;
+}
+
+void CApplication::init(vec2i const & windowSize, std::string const & WindowTitle)
 {
 	WindowSize = windowSize;
 
 	setupRenderContext(WindowTitle);
+
+	// TO DO : Engines need to be initialized at this point so that callbacks that access the eventmananger don't fail.
+
+	glfwSetKeyCallback(CApplication::KeyCallback);
+	glfwSetMouseButtonCallback(CApplication::MouseButtonCallback);
+	glfwSetMousePosCallback(CApplication::MouseCursorCallback);
+	glfwSetMouseWheelCallback(CApplication::MouseScrollCallback);
 }
 
 void CApplication::loadEngines()
@@ -97,39 +210,10 @@ void CApplication::skipElapsedTime()
 void CApplication::updateTime()
 {
 	Time1 = glfwGetTime();
-	ElapsedTime = min(0.1, (Time1 - Time0));
+	ElapsedTime = /*min(0.1, */(Time1 - Time0);//);
 	RunTime += ElapsedTime;
 	Time0 = Time1;
 }
-
-/*EKey const ConvertSFMLKeyCode(sf::Keyboard::Key const Code)
-{
-	if (Code >= sf::Keyboard::A && Code <= sf::Keyboard::Z)
-		return EKey::a + (Code - sf::Keyboard::A);
-
-	if (Code >= sf::Keyboard::Num0 && Code <= sf::Keyboard::Num9)
-		return EKey::NUM_0 + (Code - sf::Keyboard::Num0);
-
-	switch (Code)
-	{
-
-	case sf::Keyboard::Escape:
-		return EKey::ESCAPE;
-		
-	case sf::Keyboard::Up:
-		return EKey::UP;
-	case sf::Keyboard::Left:
-		return EKey::LEFT;
-	case sf::Keyboard::Down:
-		return EKey::DOWN;
-	case sf::Keyboard::Right:
-		return EKey::RIGHT;
-
-	default:
-		return EKey::Unknown;
-
-	};
-}*/
 
 void CApplication::run()
 {
@@ -141,6 +225,7 @@ void CApplication::run()
 
 	while (Running && glfwGetWindowParam(GLFW_OPENED))
 	{
+		glfwPollEvents();
 		/*sf::Event Event;
 		while (App->pollEvent(Event))
 		{
@@ -151,78 +236,6 @@ void CApplication::run()
 			case sf::Event::Closed:
 				Running = false;
 				break;
-
-			case sf::Event::MouseButtonPressed:
-			case sf::Event::MouseButtonReleased:
-				{
-
-					SMouseEvent MouseEvent;
-					MouseEvent.Type = SMouseEvent::EType::Click;
-					MouseEvent.Location = EventManager->MouseLocation;
-					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
-						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Pressed = Event.type == sf::Event::MouseButtonPressed;
-
-					switch (Event.mouseButton.button)
-					{
-
-					case sf::Mouse::Left:
-						MouseEvent.Button = SMouseEvent::EButton::Left;
-						EventManager->MouseStates[SMouseEvent::EButton::Left] = MouseEvent.Pressed;
-						EventManager->OnMouseEvent(MouseEvent);
-						break;
-
-					case sf::Mouse::Right:
-						MouseEvent.Button = SMouseEvent::EButton::Right;
-						EventManager->MouseStates[SMouseEvent::EButton::Right] = MouseEvent.Pressed;
-						EventManager->OnMouseEvent(MouseEvent);
-						break;
-
-					case sf::Mouse::Middle:
-						MouseEvent.Button = SMouseEvent::EButton::Middle;
-						EventManager->MouseStates[SMouseEvent::EButton::Middle] = MouseEvent.Pressed;
-						EventManager->OnMouseEvent(MouseEvent);
-						break;
-
-					default:
-						break;
-
-					}
-
-					break;
-
-				}
-
-			case sf::Event::MouseMoved:
-				{
-
-					SMouseEvent MouseEvent;
-					MouseEvent.Type = SMouseEvent::EType::Move;
-					MouseEvent.Location = EventManager->MousePositionState = SPosition2(Event.mouseMove.x, Event.mouseMove.y);
-					MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) WindowSize.X,
-						MouseEvent.Location.Y / (float) WindowSize.Y);
-					MouseEvent.Movement = MouseEvent.Location - LastMouse;
-					EventManager->OnMouseEvent(MouseEvent);
-
-					LastMouse = MouseEvent.Location;
-
-					break;
-
-				}
-
-			case sf::Event::KeyPressed:
-			case sf::Event::KeyReleased:
-				{
-
-					SKeyboardEvent KeyEvent;
-					KeyEvent.Pressed = Event.type == sf::Event::KeyPressed;
-					KeyEvent.Key = ConvertSFMLKeyCode(Event.key.code);
-					EventManager->OnKeyboardEvent(KeyEvent);
-					EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
-
-					break;
-
-				}
 
 			case sf::Event::Resized:
 				{
@@ -273,7 +286,7 @@ float const CApplication::getAspectRatio()
 	return (float) WindowSize.X / (float) WindowSize.Y;
 }
 
-SPosition2 const & CApplication::getWindowSize() const
+vec2i const & CApplication::getWindowSize() const
 {
 	return WindowSize;
 }

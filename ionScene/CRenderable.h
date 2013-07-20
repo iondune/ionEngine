@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_CRENDERABLE_H_INCLUDED_
-#define _CABBAGE_SCENE_CRENDERABLE_H_INCLUDED_
+#ifndef _ION_SCENE_CRENDERABLE_H_INCLUDED_
+#define _ION_SCENE_CRENDERABLE_H_INCLUDED_
 
 // STL
 #include <map>
@@ -9,7 +9,6 @@
 // Core
 #include <ionSmartPtr.h>
 #include <ionTypes.h>
-#include <ionEnum.h>
 #include <STransformation3.h>
 
 // OpenGL

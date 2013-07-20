@@ -28,7 +28,7 @@ smartPtr<IUniform const> const CScene::getUniform(std::string const & label) con
 		unsigned int index;
 		ss >> index;
 		std::string remaining = ss.str();
-		remaining = remaining.substr(2 + digitCount(index));
+		remaining = remaining.substr(2 + DigitCount(index));
 
 		SLightBinding const & LightBinding = getLightBinding(index);
 

@@ -1,82 +1,84 @@
-#ifndef _ION_CORE_H_INCLUDED_
-#define _ION_CORE_H_INCLUDED_
+#pragma once
 
 #include "ionConfig.h"
+#include "ionTypes.h"
 
+
+ION_FUNC_DEF static f32 frand()
+{
+	return std::rand() / (f32) RAND_MAX;
+}
 
 class IRandomGenerator
 {
 
 public:
 
-	virtual unsigned int const generate() = 0;
-	virtual void seed(unsigned int const seed) = 0;
+	virtual u32 const Generate() = 0;
+	virtual void Seed(u32 const seed) = 0;
 
-	unsigned int const generate(unsigned int const max)
+	ION_FUNC_DEF u32 const Generate(u32 const max)
 	{
-		return generate() % max;
+		return Generate() % max;
 	}
 
-	unsigned int const generate(unsigned int const min, unsigned int const max)
+	ION_FUNC_DEF u32 const Generate(u32 const min, u32 const max)
 	{
-		return generate() % (max - min) + min;
+		return Generate() % (max - min) + min;
 	}
 
-	float const generateFloat(unsigned int const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(u32 const modulus = 100000)
 	{
-		return (generate() % modulus) / (float) modulus;
+		return (Generate() % modulus) / (f32) modulus;
 	}
 
-	float const generateFloat(float const max, unsigned int const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(f32 const max, u32 const modulus = 100000)
 	{
-		return generateFloat(modulus) * max;
+		return Generatef32(modulus) * max;
 	}
 
-	float const generateFloat(float const min, float const max, unsigned int const modulus = 100000)
+	ION_FUNC_DEF f32 const Generatef32(f32 const min, f32 const max, u32 const modulus = 100000)
 	{
-		return generateFloat(modulus) * (max - min) + min;
+		return Generatef32(modulus) * (max - min) + min;
 	}
 
-	double const generateDouble(unsigned int const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(u32 const modulus = 100000)
 	{
-		return (generate() % modulus) / (double) modulus;
+		return (Generate() % modulus) / (f64) modulus;
 	}
 
-	double const generateDouble(double const max, unsigned int const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(f64 const max, u32 const modulus = 100000)
 	{
-		return generateDouble(modulus) * max;
+		return Generatef64(modulus) * max;
 	}
 
-	double const generateDouble(double const min, double const max, unsigned int const modulus = 100000)
+	ION_FUNC_DEF f64 const Generatef64(f64 const min, f64 const max, u32 const modulus = 100000)
 	{
-		return generateDouble(modulus) * (max - min) + min;
+		return Generatef64(modulus) * (max - min) + min;
 	}
 
 };
-
 
 class CLinearCongruentialGenerator
 {
 
-	unsigned int Seed;
+	u32 Value;
 
 public:
 
-	CLinearCongruentialGenerator()
+	ION_FUNC_DEF CLinearCongruentialGenerator(u32 const seed = 0)
 	{
-		seed(0);
+		Seed(seed);
 	}
 
-	unsigned int const generate()
+	ION_FUNC_DEF u32 const Generate()
 	{
-		return (Seed = (Seed * 214013 + 2531011) & ((1U << 31) - 1));
+		return (Value = (Value * 214013 + 2531011) & ((1U << 31) - 1));
 	}
 
-	void seed(unsigned int const seed)
+	ION_FUNC_DEF void Seed(u32 const seed)
 	{
-		Seed = seed;
+		Value = seed;
 	}
 
 };
-
-#endif

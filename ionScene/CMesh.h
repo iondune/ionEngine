@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_CMESH_H_INCLUDED_
-#define _CABBAGE_SCENE_CMESH_H_INCLUDED_
+#ifndef _ION_SCENE_CMESH_H_INCLUDED_
+#define _ION_SCENE_CMESH_H_INCLUDED_
 
 #include "SBoundingBox3.h"
 
@@ -32,6 +32,7 @@ public:
 		CBufferObject<uint> IndexBuffer, NormalIndexBuffer;
 
 		void updateBuffers();
+		void writeObjMesh(std::string const & fileName);
 
 		CRenderable::SMaterial Material;
     };

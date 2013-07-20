@@ -10,7 +10,8 @@ CScene::CScene()
 
 	addUniform("uProjMatrix", smartNew(new SUniformReference<glm::mat4>(ProjMatrix)));
 	addUniform("uViewMatrix", smartNew(new SUniformReference<glm::mat4>(ViewMatrix)));
-	//addUniform("uLightCount", smartNew(new SUniformReference<s32>(LightCount)));
+	addUniform("uLightCount", smartNew(new SUniformReference<s32>(LightCount)));
+	addUniform("uCameraPosition", smartNew(new SUniformReference<vec3f>(CameraPosition)));
 
 	RootObject.setCullingEnabled(false);
 }

@@ -1,5 +1,5 @@
-#ifndef _CABBAGECOLLIDER_CEVENTMANAGER_H_INCLUDED_
-#define _CABBAGECOLLIDER_CEVENTMANAGER_H_INCLUDED_
+#ifndef _IONCOLLIDER_CEVENTMANAGER_H_INCLUDED_
+#define _IONCOLLIDER_CEVENTMANAGER_H_INCLUDED_
 
 #include <ionTypes.h>
 #include <SVector2.h>
@@ -219,7 +219,8 @@ struct SMouseEvent
         enum Domain
         {
             Move,
-            Click
+            Click,
+			Scroll
         };
 
         Domain Value;
@@ -230,8 +231,8 @@ struct SMouseEvent
 
     };
 
-    SPosition2 Location, Movement;
-	SVector2f RelativeLocation;
+    vec2i Location, Movement;
+	vec2f RelativeLocation;
     EButton Button;
     EType Type;
     bool Pressed;
@@ -280,7 +281,7 @@ class CEventManager
 
 	bool KeyStates[EKey::Count];
     bool MouseStates[SMouseEvent::EButton::Count];
-    SPosition2 MousePositionState;
+    vec2i MousePositionState;
 
 public:	
 	
@@ -300,7 +301,7 @@ public:
 	bool const (& IsKeyDown)[EKey::Count];
     bool const (& IsMouseDown)[SMouseEvent::EButton::Count];
 
-    SPosition2 const & MouseLocation;
+    vec2i const & MouseLocation;
 
 };
 

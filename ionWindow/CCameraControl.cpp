@@ -41,8 +41,8 @@ void CCameraControl::update(float const TickTime)
 	LookDirection = vec3f(cos(Theta)*cos(Phi), sin(Phi), sin(Theta)*cos(Phi));
 	
 	vec3f W = LookDirection*-1;
-	vec3f V = UpVector.crossProduct(LookDirection).getNormalized();
-	vec3f U = V.crossProduct(W).getNormalized()*-1;
+	vec3f V = UpVector.CrossProduct(LookDirection).GetNormalized();
+	vec3f U = V.CrossProduct(W).GetNormalized()*-1;
 
 	if (EventManager.IsKeyDown[EKey::W] || EventManager.IsKeyDown[EKey::Up])
 	{

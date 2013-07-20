@@ -54,6 +54,9 @@ protected:
 	//! Whether scene should use trivial-reject culling in hierarchy operations
 	bool UseCulling;
 
+	s32 LightCount;
+	vec3f CameraPosition;
+
 public:
 
 	CScene();

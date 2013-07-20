@@ -1,54 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ionEnum.h" />
-    <ClInclude Include="STransformation3.h" />
     <ClInclude Include="ionRand.h" />
-    <ClInclude Include="SVector2.h">
-      <Filter>Vector Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="SVector3.h">
-      <Filter>Vector Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="SVector.h">
-      <Filter>Vector Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="SPosition2.h">
-      <Filter>Vector Classes\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="SSize2.h">
-      <Filter>Vector Classes\Deprecated</Filter>
-    </ClInclude>
-    <ClInclude Include="SRect2.h">
-      <Filter>Vector Classes\Extensions</Filter>
-    </ClInclude>
-    <ClInclude Include="SLine3.h">
-      <Filter>Vector Classes\Extensions</Filter>
-    </ClInclude>
-    <ClInclude Include="SColor.h">
-      <Filter>Vector Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="SBoundingBox3.h">
-      <Filter>Vector Classes\Extensions</Filter>
-    </ClInclude>
-    <ClInclude Include="ionPrimitives.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionMath.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionUtils.h" />
     <ClInclude Include="ionConfig.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Vector Classes">
-      <UniqueIdentifier>{bc32e6ca-0e59-402e-a4be-0e712273ecc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vector Classes\Deprecated">
-      <UniqueIdentifier>{0e21b785-cb97-42ab-bb31-e76841b3cb36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vector Classes\Extensions">
-      <UniqueIdentifier>{018614b1-b183-40bd-b8ce-f60ddc78ef9f}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="ionEnum.h" />
   </ItemGroup>
 </Project>

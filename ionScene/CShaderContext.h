@@ -1,7 +1,8 @@
-#ifndef _CABBAGE_SCENE_CSHADERCONTEXT_H_INCLUDED_
-#define _CABBAGE_SCENE_CSHADERCONTEXT_H_INCLUDED_
+#ifndef _ION_SCENE_CSHADERCONTEXT_H_INCLUDED_
+#define _ION_SCENE_CSHADERCONTEXT_H_INCLUDED_
 
 #include <ionCore.h>
+#include <ionMath.h>
 #include <glm/glm.hpp>
 
 #include "CShader.h"
@@ -56,12 +57,12 @@ public:
 	static void uniform(GLuint const uniformHandle, s32 const uniform);
 	static void uniform(GLuint const uniformHandle, glm::mat4 const & uniform);
 	static void uniform(GLuint const uniformHandle, STransformation3 const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 2> const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 3> const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<f32, 4> const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 2> const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 3> const & uniform);
-	static void uniform(GLuint const uniformHandle, SVectorSimple<s32, 4> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<f32, 2> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<f32, 3> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<f32, 4> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 2> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 3> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 4> const & uniform);
 
 	template <typename T>
 	void uniform(std::string const & label, T const & uniformVar)

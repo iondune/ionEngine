@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_CORE_SLINE3_H_INCLUDED_
-#define _CABBAGE_CORE_SLINE3_H_INCLUDED_
+#ifndef _ION_CORE_SLINE3_H_INCLUDED_
+#define _ION_CORE_SLINE3_H_INCLUDED_
 
 #include "SVector3.h"
 
@@ -30,7 +30,7 @@ public:
 
     T const length() const
     {
-        return getVector().length();
+        return getVector().Length();
     }
 
 };

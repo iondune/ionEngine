@@ -34,18 +34,18 @@ GLuint const CSceneManager::getQuadHandle()
 	return QuadHandle;
 }
 
-CSceneManager::CSceneManager(SPosition2 const & screenSize)
+CSceneManager::CSceneManager(vec2i const & screenSize)
 	: SceneFrameTexture(0), SceneDepthTexture(0), SceneFrameBuffer(0),
 	EffectManager(0), DefaultManager(0), 
 	ScreenSize(screenSize)
 {
 	CurrentScene = this;
-	DefaultColorRenderPass = new CDefaultColorRenderPass();
+	DefaultColorRenderPass = smartNew(new CDefaultColorRenderPass());
 
 	addUniform("uScreenSize", BindUniformReference(ScreenSize));
 }
 
-void CSceneManager::OnWindowResized(SPosition2 const & screenSize)
+void CSceneManager::OnWindowResized(vec2i const & screenSize)
 {
 	ScreenSize = screenSize;
 	if (SceneFrameBuffer)
@@ -240,7 +240,7 @@ void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
 	EffectManager = effectManager;
 }
 
-SSize2 const & CSceneManager::getScreenSize() const
+vec2i const & CSceneManager::getScreenSize() const
 {
 	return ScreenSize;
 }

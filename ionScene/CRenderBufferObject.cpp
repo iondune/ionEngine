@@ -1,6 +1,6 @@
 #include "CRenderBufferObject.h"
 
-CRenderBufferObject::CRenderBufferObject(GLenum const Format, SSize2 const & Size)
+CRenderBufferObject::CRenderBufferObject(GLenum const Format, vec2u const & Size)
 {
 	glGenRenderbuffers(1, & Handle);
 	glBindRenderbuffer(GL_RENDERBUFFER, Handle);

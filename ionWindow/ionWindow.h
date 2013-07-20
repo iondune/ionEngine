@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_FRAMEWORK_H_INCLUDED_
-#define _CABBAGE_FRAMEWORK_H_INCLUDED_
+#ifndef _ION_FRAMEWORK_H_INCLUDED_
+#define _ION_FRAMEWORK_H_INCLUDED_
 
 #include "CApplication.h"
 #include "CEventManager.h"

@@ -12,7 +12,7 @@
 
 #include <SLine3.h>
 #include <SColor.h>
-#include <SPosition2.h>
+#include <SVector2.h>
 #include "SUniform.h"
 #include "SAttribute.h"
 
@@ -37,17 +37,17 @@ class CSceneManager : public CScene
 	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
 
 	//! Current render context window size
-	SSize2 ScreenSize;
+	vec2i ScreenSize;
 
 	//! Built in default color rendering pass
 	smartPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
 
-	CSceneManager(SPosition2 const & screenSize);
+	CSceneManager(vec2i const & screenSize);
 	void init(bool const EffectsManager = true, bool const FrameBuffer = true);
 
-	void OnWindowResized(SPosition2 const & screenSize);
+	void OnWindowResized(vec2i const & screenSize);
 
 	void drawAll();
 	void endDraw();
@@ -60,7 +60,7 @@ public:
 	CSceneEffectManager * getEffectManager();
 	void setEffectManager(CSceneEffectManager * effectManager);
 
-	SSize2 const & getScreenSize() const;	
+	vec2i const & getScreenSize() const;	
 	static GLuint const getQuadHandle();
 
 };

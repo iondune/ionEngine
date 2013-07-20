@@ -11,50 +11,55 @@ class CStateManager;
 class CApplication
 {
 
-    // Managers
-    CEventManager * EventManager;
-    CStateManager * StateManager;
-    CSceneManager * SceneManager;
+	// Managers
+	CEventManager * EventManager;
+	CStateManager * StateManager;
+	CSceneManager * SceneManager;
 
-    // Attributes
-    SPosition2 WindowSize;
+	// Attributes
+	vec2i WindowSize;
 
-    // Helper functions
-    void setupRenderContext(std::string const & WindowTitle);
+	// Helper functions
+	void setupRenderContext(std::string const & WindowTitle);
 
-    // Private ctor - singleton
-    CApplication();
+	// Private ctor - singleton
+	CApplication();
 
-    f64 ElapsedTime;
+	f64 ElapsedTime;
 	f64 RunTime;
 
-    f64 Time0, Time1;
+	f64 Time0, Time1;
 
 	bool Running;
 
-	SPosition2 LastMouse;
+	vec2i LastMouse;
+
+	static void KeyCallback(int key, int action);
+	static void MouseButtonCallback(int button, int action);
+	static void MouseScrollCallback(int delta);
+	static void MouseCursorCallback(int x, int y);
 
 public:
 
-    static CApplication & get();
+	static CApplication & get();
 
-    void init(SPosition2 const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
+	void init(vec2i const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
 	void loadEngines();
 
-    CEventManager & getEventManager();
-    CStateManager & getStateManager();
-    CSceneManager & getSceneManager();
+	CEventManager & getEventManager();
+	CStateManager & getStateManager();
+	CSceneManager & getSceneManager();
 
-    void run();
+	void run();
 
 	void updateTime();
-    f64 getElapsedTime() const;
-    f64 getRunTime() const;
+	f64 getElapsedTime() const;
+	f64 getRunTime() const;
 
-    SPosition2 const & getWindowSize() const;
-    float const getAspectRatio();
+	vec2i const & getWindowSize() const;
+	float const getAspectRatio();
 
-    void skipElapsedTime();
+	void skipElapsedTime();
 
 	bool isShuttingDown() const;
 	void close();

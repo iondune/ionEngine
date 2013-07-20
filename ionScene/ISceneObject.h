@@ -1,5 +1,5 @@
-#ifndef _CABBAGE_SCENE_ISCENEOBJECT_H_INCLUDED_
-#define _CABBAGE_SCENE_ISCENEOBJECT_H_INCLUDED_
+#ifndef _ION_SCENE_ISCENEOBJECT_H_INCLUDED_
+#define _ION_SCENE_ISCENEOBJECT_H_INCLUDED_
 
 // STL
 #include <map>
@@ -8,11 +8,8 @@
 
 // Core
 #include <boost/shared_ptr.hpp>
-#include <ionPrimitives.h>
-#include <ionSmartPtr.h>
-#include <ionEnum.h>
-#include <SVector3.h>
-#include <SBoundingBox3.h>
+#include <ionCore.h>
+#include <ionMath.h>
 
 // Scene
 #include "CBufferObject.h"
