@@ -50,5 +50,8 @@
       <Filter>Matrix</Filter>
     </ClInclude>
     <ClInclude Include="ionConstants.h" />
+    <ClInclude Include="SPlane3.h">
+      <Filter>Vector\Extensions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
