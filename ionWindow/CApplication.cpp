@@ -147,12 +147,15 @@ void CApplication::MouseCursorCallback(int x, int y)
 {	
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Move;
-	MouseEvent.Location = CApplication::get().LastMouse + vec2i(x, y);
+	MouseEvent.Location = vec2i(x, y);
+
 	if (CApplication::get().EventManager)
 		CApplication::get().EventManager->MousePositionState = MouseEvent.Location;
+
 	MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) CApplication::get().WindowSize.X,
 		MouseEvent.Location.Y / (float) CApplication::get().WindowSize.Y);
 	MouseEvent.Movement = MouseEvent.Location - CApplication::get().LastMouse;
+
 	if (CApplication::get().EventManager)
 		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
 
