@@ -38,6 +38,17 @@ public:
 		Values[3] = w;
 	}
 
+	//! GLM constructor
+	template <typename U>
+	ION_FUNC_DEF SVector4(glm::detail::tvec4<U> const & v)
+		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
+	{
+		Values[0] = (T) v.x;
+		Values[1] = (T) v.y;
+		Values[2] = (T) v.z;
+		Values[3] = (T) v.w;
+	}
+
 	//! Copy constructor
 	ION_FUNC_DEF SVector4(SVector4<T> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
@@ -83,6 +94,13 @@ public:
 	ION_FUNC_DEF SVector3<T> xyz() const
 	{
 		return SVector3<T>(Values[0], Values[1], Values[2]);
+	}
+
+	//! GLM constructor
+	template <typename U>
+	ION_FUNC_DEF operator glm::detail::tvec4<U> ()
+	{
+		return glm::detail::tvec4<U>(X, Y, Z, W);
 	}
 
 };
