@@ -59,12 +59,23 @@ EKey const ConvertGLFWKeyCode(int const Code)
 {
 	if (Code >= 'A' && Code <= 'Z')
 		return EKey::A + (Code - 'A');
-
+	
 	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
-		return EKey::Num0 + (Code - GLFW_KEY_KP_0);
-
+		return EKey::KeyPad0 + (Code - GLFW_KEY_KP_0);
+	if (Code >= '0' && Code <= '9')
+		return EKey::Num0 + (Code - '0');
+	
 	switch (Code)
 	{
+
+	case '[':
+		return EKey::LeftBracket;
+	case ']':
+		return EKey::RightBracket;
+	case ',':
+		return EKey::Comma;
+	case '.':
+		return EKey::Period;
 
 	case GLFW_KEY_ESC:
 		return EKey::Escape;
@@ -77,9 +88,22 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::Down;
 	case GLFW_KEY_RIGHT:
 		return EKey::Right;
-
+		
 	case GLFW_KEY_SPACE:
 		return EKey::Space;
+		
+	case GLFW_KEY_LSHIFT:
+		return EKey::LeftShift;
+	case GLFW_KEY_RSHIFT:
+		return EKey::RightShift;
+	case GLFW_KEY_LCTRL:
+		return EKey::LeftControl;
+	case GLFW_KEY_RCTRL:
+		return EKey::RightControl;
+	case GLFW_KEY_LALT:
+		return EKey::LeftAlt;
+	case GLFW_KEY_RALT:
+		return EKey::RightAlt;
 
 	default:
 		return EKey::Unknown;

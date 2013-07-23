@@ -54,9 +54,9 @@ struct EKeyValues
 		Question		= 63,
 		At				= 64,
 
-		Leftbracket		= 91,
+		LeftBracket		= 91,
 		Backslash		= 92,
-		Rightbracket	= 93,
+		RightBracket	= 93,
 		Caret			= 94,
 		Underscore		= 95,
 		Backquote		= 96,
