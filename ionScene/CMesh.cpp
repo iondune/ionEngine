@@ -71,11 +71,20 @@ void CMesh::SMeshBuffer::writeObjMesh(std::string const & fileName)
 	{
 		File << "v " << it->Position.X << " " << it->Position.Y << " " << it->Position.Z << std::endl;
 	}
+
+	File << "#normals" << std::endl;
+	for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
+	{
+		File << "vn " << it->Normal.X << " " << it->Normal.Y << " " << it->Normal.Z << std::endl;
+	}
 	
 	File << std::endl << "#faces" << std::endl;
 	for (std::vector<STriangle>::iterator it = Triangles.begin(); it != Triangles.end(); ++ it)
 	{
-		File << "f " << it->Indices[0] + 1 << " "  << it->Indices[1] + 1 << " "  << it->Indices[2] + 1 << std::endl;
+		File << "f " << 
+			it->Indices[0] + 1 << "// " << it->Indices[0] + 1 << " " << 
+			it->Indices[1] + 1 << "// " << it->Indices[1] + 1 << " " << 
+			it->Indices[2] + 1 << "// " << it->Indices[2] + 1 << std::endl;
 	}
 
 	File.close();
