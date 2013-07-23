@@ -304,6 +304,7 @@ namespace Colors
 	static color3f const Orange = color3f(1, 0.5f, 0);
 	static color3f const Yellow = color3f(1, 1, 0);
 	static color3f const Green = color3f(0, 1, 0);
+	static color3f const Cyan = color3f(0, 1, 1);
 	static color3f const Blue = color3f(0, 0, 1);
 	static color3f const Magenta = color3f(1, 0, 1);
 }
