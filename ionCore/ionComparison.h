@@ -66,9 +66,9 @@ ION_FUNC_DEF static T const Maximum(T const & a, T const & b)
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Minumum(T const & a, T const & b, T const & c)
+ION_FUNC_DEF static T const Minimum(T const & a, T const & b, T const & c)
 {
-	return Minumum(a, Minumum(b, c));
+	return Minimum(a, Minimum(b, c));
 }
 
 template <typename T>
@@ -78,9 +78,9 @@ ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c)
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Minumum(T const & a, T const & b, T const & c, T const & d)
+ION_FUNC_DEF static T const Minimum(T const & a, T const & b, T const & c, T const & d)
 {
-	return Minumum(a, Minumum(b, c, d));
+	return Minimum(a, Minimum(b, c, d));
 }
 
 template <typename T>
