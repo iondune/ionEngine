@@ -8,17 +8,17 @@
       ;$(VisualStudioDir)\Projects\ionEngine\ionMath;
       ;$(VisualStudioDir)\Projects\ionEngine\ionScene;
       ;$(VisualStudioDir)\Projects\ionEngine\ionWindow;
+      ;$(VisualStudioDir)\SDKs\freetype-2.4.3\include\;
       ;$(VisualStudioDir)\SDKs\GLEW\include;
       ;$(VisualStudioDir)\SDKs\GLFW\include;
       ;$(VisualStudioDir)\SDKs\GLM\include;
       ;$(VisualStudioDir)\SDKs\sigslot;
-      ;$(VisualStudioDir)\SDKs\freetype-2.4.3\include\;
       ;$(IncludePath);
     </IncludePath>
 
     <LibraryPath>
-      ;$(VisualStudioDir)\SDKs\GLEW\lib;
       ;$(VisualStudioDir)\SDKs\freetype-2.4.3\objs\win32\vc2008;
+      ;$(VisualStudioDir)\SDKs\GLEW\lib;
       ;$(LibraryPath);
     </LibraryPath>
 
