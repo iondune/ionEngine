@@ -3,7 +3,7 @@
 #include "CShaderLoader.h"
 
 
-CShader const * const CSceneObject::getShader(smartPtr<IRenderPass> Pass) const
+CShader const * const CSceneObject::getShader(sharedPtr<IRenderPass> Pass) const
 {
 	auto it = Shaders.find(Pass);
 	if (it == Shaders.end())
@@ -11,7 +11,7 @@ CShader const * const CSceneObject::getShader(smartPtr<IRenderPass> Pass) const
 	return it->second;
 }
 
-CShader * CSceneObject::getShader(smartPtr<IRenderPass> Pass)
+CShader * CSceneObject::getShader(sharedPtr<IRenderPass> Pass)
 {
 	auto it = Shaders.find(Pass);
 	if (it == Shaders.end())
@@ -19,12 +19,12 @@ CShader * CSceneObject::getShader(smartPtr<IRenderPass> Pass)
 	return it->second;
 }
 
-void CSceneObject::setShader(smartPtr<IRenderPass> Pass, CShader * shader)
+void CSceneObject::setShader(sharedPtr<IRenderPass> Pass, CShader * shader)
 {
 	Shaders[Pass] = shader;
 }
 
-void CSceneObject::setShader(smartPtr<IRenderPass> Pass, std::string const & shader)
+void CSceneObject::setShader(sharedPtr<IRenderPass> Pass, std::string const & shader)
 {
 	Shaders[Pass] = CShaderLoader::loadShader(shader);
 }

@@ -1,7 +1,6 @@
 #ifndef _ION_SCENE_SATTRIBUTE_H_INCLUDED_
 #define _ION_SCENE_SATTRIBUTE_H_INCLUDED_
 
-#include <boost/shared_ptr.hpp>
 #include "CShaderContext.h"
 #include "CBufferObject.h"
 
@@ -68,9 +67,9 @@ public:
 };
 
 template <typename T>
-static smartPtr<IAttribute const> BindAttribute(CBufferObject<T> & Attribute, int const ElementSize = 4)
+static sharedPtr<IAttribute const> BindAttribute(CBufferObject<T> & Attribute, int const ElementSize = 4)
 {
-	return smartPtr<IAttribute const>(new SAttribute<T>(& Attribute, ElementSize));
+	return sharedPtr<IAttribute const>(new SAttribute<T>(& Attribute, ElementSize));
 }
 
 #endif

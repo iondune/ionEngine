@@ -25,9 +25,9 @@ public:
 		void bind(CLightSceneObject const * const LightObject);
 		void unbind();
 
-		smartPtr<SUniformReference<vec3f> > PositionBind;
-		smartPtr<SUniformReference<f32> > RadiusBind;
-		smartPtr<SUniformReference<color3f> > ColorBind;
+		sharedPtr<SUniformReference<vec3f> > PositionBind;
+		sharedPtr<SUniformReference<f32> > RadiusBind;
+		sharedPtr<SUniformReference<color3f> > ColorBind;
 	};
 
 protected:
@@ -46,7 +46,7 @@ protected:
 	mutable std::vector<SLightBinding> LightBindings;
 
 	//! Uniform variable bindings
-	std::map<std::string, smartPtr<IUniform const> > Uniforms;
+	std::map<std::string, sharedPtr<IUniform const> > Uniforms;
 
 	//! Root of object tree
 	ISceneObject RootObject;
@@ -75,11 +75,11 @@ public:
 	// Shader Variables //
 	//////////////////////
 
-	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
+	virtual void addUniform(std::string const & label, sharedPtr<IUniform const> const uniform);
 	virtual void removeUniform(std::string const & label);
 	
-	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label) const;
-	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const;
+	virtual sharedPtr<IAttribute const> const getAttribute(std::string const & label) const;
+	virtual sharedPtr<IUniform const> const getUniform(std::string const & label) const;
 
 
 	////////////
@@ -87,8 +87,8 @@ public:
 	////////////
 
 	virtual void update();
-	virtual void load(smartPtr<IRenderPass> const Pass);
-	virtual void draw(smartPtr<IRenderPass> const Pass);
+	virtual void load(sharedPtr<IRenderPass> const Pass);
+	virtual void draw(sharedPtr<IRenderPass> const Pass);
 
 
 	/////////////

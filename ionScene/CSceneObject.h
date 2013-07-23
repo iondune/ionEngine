@@ -14,15 +14,15 @@ protected:
 	std::vector<CRenderable *> Renderables;
 
 	//! Shader for each render pass
-	std::map<smartPtr<IRenderPass>, CShader *> Shaders;
+	std::map<sharedPtr<IRenderPass>, CShader *> Shaders;
 
 	//! Local shader variables
-	std::map<std::string, smartPtr<IAttribute const> > Attributes;
-	std::map<std::string, smartPtr<IUniform const> > Uniforms;
+	std::map<std::string, sharedPtr<IAttribute const> > Attributes;
+	std::map<std::string, sharedPtr<IUniform const> > Uniforms;
 
 	//! Loaded shader variables
-	//std::map<std::pair<GLint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
-	//std::map<std::pair<GLint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
+	//std::map<std::pair<GLint, std::string>, sharedPtr<IAttribute const> > LoadedAttributes;
+	//std::map<std::pair<GLint, std::string>, sharedPtr<IUniform const> > LoadedUniforms;
 
 public:
 
@@ -57,15 +57,15 @@ public:
 	virtual void setTexture(unsigned int const Layer, std::string const & Texture, unsigned int const Renderable);
 	virtual void setTexture(unsigned int const Layer, std::string const & Texture, CRenderable * const Renderable);
 
-	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute);
-	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, unsigned int const Renderable);
-	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute, CRenderable * const Renderable);
-	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
-	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform, unsigned int const Renderable);
-	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform, CRenderable * const Renderable);
+	virtual void addAttribute(std::string const & label, sharedPtr<IAttribute const> const attribute);
+	virtual void addAttribute(std::string const & label, sharedPtr<IAttribute const> const attribute, unsigned int const Renderable);
+	virtual void addAttribute(std::string const & label, sharedPtr<IAttribute const> const attribute, CRenderable * const Renderable);
+	virtual void addUniform(std::string const & label, sharedPtr<IUniform const> const uniform);
+	virtual void addUniform(std::string const & label, sharedPtr<IUniform const> const uniform, unsigned int const Renderable);
+	virtual void addUniform(std::string const & label, sharedPtr<IUniform const> const uniform, CRenderable * const Renderable);
 	
-	virtual smartPtr<IAttribute const> getAttribute(std::string const & label);
-	virtual smartPtr<IUniform const> getUniform(std::string const & label);
+	virtual sharedPtr<IAttribute const> getAttribute(std::string const & label);
+	virtual sharedPtr<IUniform const> getUniform(std::string const & label);
 
 	virtual void removeAttribute(std::string const & label);
 	virtual void removeAttribute(std::string const & label, unsigned int const Renderable);
@@ -79,21 +79,21 @@ public:
 	// Shader Management //
 	///////////////////////
 	
-	virtual CShader const * const getShader(smartPtr<IRenderPass> Pass) const;
-	virtual CShader * getShader(smartPtr<IRenderPass> Pass);
+	virtual CShader const * const getShader(sharedPtr<IRenderPass> Pass) const;
+	virtual CShader * getShader(sharedPtr<IRenderPass> Pass);
 
-	virtual void setShader(smartPtr<IRenderPass> Pass, CShader * Shader);
-	virtual void setShader(smartPtr<IRenderPass> Pass, std::string const & Shader);
+	virtual void setShader(sharedPtr<IRenderPass> Pass, CShader * Shader);
+	virtual void setShader(sharedPtr<IRenderPass> Pass, std::string const & Shader);
 
 
 	////////////////////
 	// Update Methods //
 	////////////////////
 	
-	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void load(IScene const * const Scene, sharedPtr<IRenderPass> Pass);
 	virtual void unload();
-	virtual void unload(smartPtr<IRenderPass> Pass);
-	virtual bool draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
+	virtual void unload(sharedPtr<IRenderPass> Pass);
+	virtual bool draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled);
 
 };
 

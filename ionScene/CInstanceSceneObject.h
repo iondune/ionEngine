@@ -20,9 +20,9 @@ public:
 		friend class CInstanceSceneObject;
 
 		CInstanceSceneObject * Parent;
-		std::vector<smartPtr<IUniform const> > Uniforms;
+		std::vector<sharedPtr<IUniform const> > Uniforms;
 
-		smartPtr<IUniform const> & getUniform(u32 const Index);
+		sharedPtr<IUniform const> & getUniform(u32 const Index);
 
 		STransformation3 Transformation; // To Do : Add Transformable base object
 		// To Do : Material support
@@ -31,7 +31,7 @@ public:
 
 		CInstance(CInstanceSceneObject * parent);
 
-		void setUniformOverride(smartPtr<IRenderPass> RenderPass, std::string const & Label, smartPtr<IUniform const> Uniform);
+		void setUniformOverride(sharedPtr<IRenderPass> RenderPass, std::string const & Label, sharedPtr<IUniform const> Uniform);
 		
 		void setPosition(vec3f const & Position);
 		void setTranslation(vec3f const & Translation);
@@ -51,8 +51,8 @@ public:
 			: InstanceParent(parent), CRenderable(parent)
 		{}
 		
-		virtual void unload(smartPtr<IRenderPass> Pass);
-		virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+		virtual void unload(sharedPtr<IRenderPass> Pass);
+		virtual void load(IScene const * const Scene, sharedPtr<IRenderPass> Pass);
 
 	};
 
@@ -88,21 +88,21 @@ protected:
 		{}
 	};
 
-	std::map<smartPtr<IRenderPass>, SOverriddenUniforms> OverrideUniforms;
+	std::map<sharedPtr<IRenderPass>, SOverriddenUniforms> OverrideUniforms;
 	std::vector<CInstance *> Instances;
 	bool TransformationUsed;
 
-	u32 const enableUniformOverride(smartPtr<IRenderPass> Pass, std::string const & Label);
+	u32 const enableUniformOverride(sharedPtr<IRenderPass> Pass, std::string const & Label);
 
 public:
 
 	//! Constructor
 	CInstanceSceneObject();
 
-	virtual bool draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
+	virtual bool draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled);
 
-	virtual bool const isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label);
-	virtual bool const isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle);
+	virtual bool const isUniformOverridden(sharedPtr<IRenderPass> Pass, std::string const & Label);
+	virtual bool const isUniformOverridden(sharedPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle);
 
 	virtual CInstance * const addInstance();
 
@@ -141,12 +141,12 @@ public:
 				Child->removeUniform("uTexColor");
 
 				// Add mesh attributes
-				Child->addAttribute("aPosition", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->PositionBuffer, 3)));
-				Child->addAttribute("aColor", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->ColorBuffer, 3)));
-				Child->addAttribute("aNormal", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
-				Child->addAttribute("aTexCoord", smartPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
+				Child->addAttribute("aPosition", sharedPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->PositionBuffer, 3)));
+				Child->addAttribute("aColor", sharedPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->ColorBuffer, 3)));
+				Child->addAttribute("aNormal", sharedPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->NormalBuffer, 3)));
+				Child->addAttribute("aTexCoord", sharedPtr<IAttribute>(new SAttribute<float>(& Mesh->MeshBuffers[i]->TexCoordBuffer, 2)));
 				static int const TexLevel = 0;
-				Child->addUniform("uTexColor", smartPtr<IUniform const>(new SUniformReference<s32>(TexLevel)));
+				Child->addUniform("uTexColor", sharedPtr<IUniform const>(new SUniformReference<s32>(TexLevel)));
 
 				Child->setMaterial(Mesh->MeshBuffers[i]->Material);
 

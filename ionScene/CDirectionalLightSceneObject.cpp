@@ -16,7 +16,7 @@ CDirectionalLightSceneObject::CDirectionalLightSceneObject(SVector3f const direc
 	setCullingEnabled(false);
 }
 
-bool CDirectionalLightSceneObject::draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled)
+bool CDirectionalLightSceneObject::draw(IScene const * const scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled)
 {
 	if (! ISceneObject::draw(scene, Pass, CullingEnabled))
 		return false;
@@ -42,7 +42,7 @@ bool CDirectionalLightSceneObject::draw(IScene const * const scene, smartPtr<IRe
 	return true;
 }
 
-void CDirectionalLightSceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
+void CDirectionalLightSceneObject::load(IScene const * const Scene, sharedPtr<IRenderPass> Pass)
 {
 }
 

@@ -56,13 +56,13 @@ void ISceneObject::update()
 		(* it)->update();
 }
 
-void ISceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> const Pass)
+void ISceneObject::load(IScene const * const Scene, sharedPtr<IRenderPass> const Pass)
 {
 	for (std::list<ISceneObject *>::iterator it = Children.begin(); it != Children.end(); ++ it)
 		(* it)->load(Scene, Pass);
 }
 
-bool ISceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> const Pass, bool const CullingEnabled)
+bool ISceneObject::draw(IScene const * const Scene, sharedPtr<IRenderPass> const Pass, bool const CullingEnabled)
 {
 	// Non-visible objects and all children are culled
 	if (! Visible)

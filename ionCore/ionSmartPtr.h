@@ -2,35 +2,28 @@
 
 #include "ionConfig.h"
 
-#include <boost/shared_ptr.hpp>
-#include <boost/shared_array.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/scoped_array.hpp>
+#include <memory>
 
 
 #ifdef _ION_CONFIG_CPP11_SUPPORT_
 
 template <typename T>
-using smartPtr = boost::shared_ptr<T>;
+using uniquePtr = std::unique_ptr<T>;
 template <typename T>
-using smartArray = boost::shared_array<T>;
-
+using sharedPtr = std::shared_ptr<T>;
 template <typename T>
-using scopedPtr = boost::scoped_ptr<T>;
-template <typename T>
-using scopedArray = boost::scoped_array<T>;
+using weakPtr = std::weak_ptr<T>;
 
 #else
 
-#define smartPtr boost::shared_ptr
-#define smartArray boost::shared_array
-#define scopedPtr boost::scoped_ptr
-#define scopedArray boost::scoped_array
+#define uniquePtr std::unique_ptr
+#define sharedPtr std::shared_ptr
+#define weakPtr std::weak_ptr
 
 #endif
 
 template <typename T>
-ION_FUNC_DEF static smartPtr<T> smartNew(T * t)
+ION_FUNC_DEF static sharedPtr<T> sharedNew(T * t)
 {
-	return smartPtr<T>(t);
+	return sharedPtr<T>(t);
 }

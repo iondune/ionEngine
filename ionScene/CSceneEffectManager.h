@@ -86,7 +86,7 @@ public:
 		std::map<std::string, int> Ints;
 		std::map<std::string, CTexture *> Textures;
 		std::map<std::string, SColorAf> Colors;
-		std::map<std::string, smartPtr<IUniform const>> Uniforms;
+		std::map<std::string, sharedPtr<IUniform const>> Uniforms;
 
 		void doPass();
 
@@ -99,7 +99,7 @@ public:
 
 	};
 
-	std::vector<smartPtr<IRenderPass> > RenderPasses;
+	std::vector<sharedPtr<IRenderPass> > RenderPasses;
 
 	virtual void apply();
 

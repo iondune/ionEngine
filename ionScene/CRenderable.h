@@ -76,8 +76,8 @@ public:
 
 	public:
 
-		std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> > LoadedAttributes;
-		std::map<std::pair<GLuint, std::string>, smartPtr<IUniform const> > LoadedUniforms;
+		std::map<std::pair<GLuint, std::string>, sharedPtr<IAttribute const> > LoadedAttributes;
+		std::map<std::pair<GLuint, std::string>, sharedPtr<IUniform const> > LoadedUniforms;
 		bool Loaded;
 
 		SShaderSetup();
@@ -89,8 +89,8 @@ public:
 protected:
 
 	//! Local shader variables
-	std::map<std::string, smartPtr<IAttribute const> > Attributes;
-	std::map<std::string, smartPtr<IUniform const> > Uniforms;
+	std::map<std::string, sharedPtr<IAttribute const> > Attributes;
+	std::map<std::string, sharedPtr<IUniform const> > Uniforms;
 
 	//! Implicit shader variables
 	glm::mat4 ModelMatrix, NormalMatrix;
@@ -117,7 +117,7 @@ protected:
 	EDrawElementType DrawElementType;
 
 	//! Shader Contexts for each applicable render pass
-	std::map<smartPtr<IRenderPass>, SShaderSetup> ShaderSetups;
+	std::map<sharedPtr<IRenderPass>, SShaderSetup> ShaderSetups;
 
 public:
 
@@ -168,24 +168,24 @@ public:
 	// Update Methods //
 	////////////////////
 	
-	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void load(IScene const * const Scene, sharedPtr<IRenderPass> Pass);
 	virtual void unload();
-	virtual void unload(smartPtr<IRenderPass> Pass);
-	virtual void draw(IScene const * const scene, smartPtr<IRenderPass> Pass, CShaderContext & Context);
+	virtual void unload(sharedPtr<IRenderPass> Pass);
+	virtual void draw(IScene const * const scene, sharedPtr<IRenderPass> Pass, CShaderContext & Context);
 
 
 	//////////////////////
 	// Shader Varaibles //
 	//////////////////////
 
-	virtual void addAttribute(std::string const & label, smartPtr<IAttribute const> const attribute);
-	virtual void addUniform(std::string const & label, smartPtr<IUniform const> const uniform);
+	virtual void addAttribute(std::string const & label, sharedPtr<IAttribute const> const attribute);
+	virtual void addUniform(std::string const & label, sharedPtr<IUniform const> const uniform);
 
 	virtual void removeAttribute(std::string const & label);
 	virtual void removeUniform(std::string const & label);
 
-	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label);
-	virtual smartPtr<IUniform const> const getUniform(std::string const & label);
+	virtual sharedPtr<IAttribute const> const getAttribute(std::string const & label);
+	virtual sharedPtr<IUniform const> const getUniform(std::string const & label);
 
 
 	////////////////

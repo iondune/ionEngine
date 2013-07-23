@@ -3,7 +3,6 @@
 
 // Core
 #include <ionCore.h>
-#include <boost/shared_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 // Scene
@@ -87,19 +86,19 @@ public:
 };
 
 template <typename T>
-static smartPtr<IUniform const> BindUniformReference(T const & uniform)
+static sharedPtr<IUniform const> BindUniformReference(T const & uniform)
 {
-	return smartPtr<IUniform const>(new SUniformReference<T>(uniform));
+	return sharedPtr<IUniform const>(new SUniformReference<T>(uniform));
 }
 
 template <typename T>
-static smartPtr<IUniform const> BindUniformValue(T const & uniform)
+static sharedPtr<IUniform const> BindUniformValue(T const & uniform)
 {
-	return smartPtr<IUniform const>(new SUniformValue<T>(uniform));
+	return sharedPtr<IUniform const>(new SUniformValue<T>(uniform));
 }
 
 template <typename T>
-static smartPtr<IUniform const> BindUniform(T const & uniform)
+static sharedPtr<IUniform const> BindUniform(T const & uniform)
 {
 	return BindUniformReference(uniform);
 }

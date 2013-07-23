@@ -40,7 +40,7 @@ class CSceneManager : public CScene
 	vec2i ScreenSize;
 
 	//! Built in default color rendering pass
-	smartPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
+	sharedPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
 
@@ -55,7 +55,7 @@ public:
 	CFrameBufferObject * getSceneFrameBuffer();
 	CTexture * getSceneFrameTexture();
 	CTexture * getSceneDepthTexture();
-	smartPtr<CDefaultColorRenderPass> getDefaultColorRenderPass();
+	sharedPtr<CDefaultColorRenderPass> getDefaultColorRenderPass();
 
 	CSceneEffectManager * getEffectManager();
 	void setEffectManager(CSceneEffectManager * effectManager);

@@ -3,7 +3,7 @@
 #include <sstream>
 #include "SAttribute.h"
 
-void CScene::addUniform(std::string const & label, smartPtr<IUniform const> const uniform)
+void CScene::addUniform(std::string const & label, sharedPtr<IUniform const> const uniform)
 {
 	Uniforms[label] = uniform;
 }
@@ -15,12 +15,12 @@ void CScene::removeUniform(std::string const & label)
 	if (it != Uniforms.end())
 		Uniforms.erase(it);
 }
-smartPtr<IAttribute const> const CScene::getAttribute(std::string const & label) const
+sharedPtr<IAttribute const> const CScene::getAttribute(std::string const & label) const
 {
-	return smartPtr<IAttribute const>();
+	return sharedPtr<IAttribute const>();
 }
 
-smartPtr<IUniform const> const CScene::getUniform(std::string const & label) const
+sharedPtr<IUniform const> const CScene::getUniform(std::string const & label) const
 {
 	if (label.substr(0, 8) == "uLights[")
 	{
@@ -51,5 +51,5 @@ smartPtr<IUniform const> const CScene::getUniform(std::string const & label) con
 	if (it != Uniforms.end())
 		return it->second;
 
-	return smartPtr<IUniform const>();
+	return sharedPtr<IUniform const>();
 }

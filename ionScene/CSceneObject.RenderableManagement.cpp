@@ -1,5 +1,7 @@
 #include "CSceneObject.h"
 
+#include <algorithm>
+
 
 void CSceneObject::addRenderable(CRenderable * Renderable)
 {

@@ -40,7 +40,7 @@ CSceneManager::CSceneManager(vec2i const & screenSize)
 	ScreenSize(screenSize)
 {
 	CurrentScene = this;
-	DefaultColorRenderPass = smartNew(new CDefaultColorRenderPass());
+	DefaultColorRenderPass = sharedNew(new CDefaultColorRenderPass());
 
 	addUniform("uScreenSize", BindUniformReference(ScreenSize));
 }
@@ -154,7 +154,7 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 	}
 }
 
-smartPtr<CDefaultColorRenderPass> CSceneManager::getDefaultColorRenderPass()
+sharedPtr<CDefaultColorRenderPass> CSceneManager::getDefaultColorRenderPass()
 {
 	return DefaultColorRenderPass;
 }

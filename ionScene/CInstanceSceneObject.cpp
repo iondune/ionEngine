@@ -3,10 +3,10 @@
 #include "IScene.h"
 
 
-smartPtr<IUniform const> & CInstanceSceneObject::CInstance::getUniform(u32 const Index)
+sharedPtr<IUniform const> & CInstanceSceneObject::CInstance::getUniform(u32 const Index)
 {
 	if (Index >= Uniforms.size())
-		Uniforms.resize(Index + 1, smartPtr<const IUniform>());
+		Uniforms.resize(Index + 1, sharedPtr<const IUniform>());
 
 	return Uniforms[Index];
 }
@@ -15,7 +15,7 @@ CInstanceSceneObject::CInstance::CInstance(CInstanceSceneObject * parent)
 	: Parent(parent)
 {}
 
-void CInstanceSceneObject::CInstance::setUniformOverride(smartPtr<IRenderPass> RenderPass, std::string const & Label, smartPtr<IUniform const> Uniform)
+void CInstanceSceneObject::CInstance::setUniformOverride(sharedPtr<IRenderPass> RenderPass, std::string const & Label, sharedPtr<IUniform const> Uniform)
 {
 	u32 const Index = Parent->enableUniformOverride(RenderPass, Label);
 	getUniform(Index) = Uniform;
@@ -50,13 +50,13 @@ void CInstanceSceneObject::CInstance::setScale(vec3f const & Scale)
 	Parent->unload(); // Trigger reload
 }
 
-void CInstanceSceneObject::CInstanceRenderable::unload(smartPtr<IRenderPass> Pass)
+void CInstanceSceneObject::CInstanceRenderable::unload(sharedPtr<IRenderPass> Pass)
 {
 	CRenderable::unload(Pass);
 	InstanceParent->OverrideUniforms[Pass].UseModelMatrix = InstanceParent->OverrideUniforms[Pass].UseNormalMatrix = false;
 }
 
-void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smartPtr<IRenderPass> Pass)
+void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, sharedPtr<IRenderPass> Pass)
 {
 	// Sync index buffer data
 	if (IndexBufferObject && IndexBufferObject->isDirty())
@@ -80,7 +80,7 @@ void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smart
 		{
 			std::string const & Label = it->first;
 
-			smartPtr<IAttribute const> Attribute = getAttribute(Label);
+			sharedPtr<IAttribute const> Attribute = getAttribute(Label);
 
 			if (! Attribute)
 				Attribute = ParentObject->getAttribute(Label);
@@ -122,7 +122,7 @@ void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smart
 				}
 			}
 
-			smartPtr<IUniform const> Uniform = getUniform(Label);
+			sharedPtr<IUniform const> Uniform = getUniform(Label);
 
 			if (! Uniform)
 				Uniform = ParentObject->getUniform(Label);
@@ -141,7 +141,7 @@ void CInstanceSceneObject::CInstanceRenderable::load(IScene const * Scene, smart
 	}
 }
 
-u32 const CInstanceSceneObject::enableUniformOverride(smartPtr<IRenderPass> Pass, std::string const & Label)
+u32 const CInstanceSceneObject::enableUniformOverride(sharedPtr<IRenderPass> Pass, std::string const & Label)
 {
 	SOverriddenUniforms & OverriddenUniforms = OverrideUniforms[Pass];
 
@@ -161,7 +161,7 @@ CInstanceSceneObject::CInstanceSceneObject()
 {
 }
 
-bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled)
+bool CInstanceSceneObject::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled)
 {
 	if (! ISceneObject::draw(Scene, Pass, CullingEnabled))
 		return false;
@@ -169,7 +169,7 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	// To Do : Perform this object in parent (CScene or ISceneObject) to reduce onus on user
 	Pass->onPreDrawObject(this);
 	
-	std::map<smartPtr<IRenderPass>, CShader *>::iterator ShaderIterator = Shaders.find(Pass);
+	std::map<sharedPtr<IRenderPass>, CShader *>::iterator ShaderIterator = Shaders.find(Pass);
 
 	if (ShaderIterator == Shaders.end())
 		return true;
@@ -182,7 +182,7 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	CShaderContext ShaderContext(* Shader);
 
 	// Prepare instance data
-	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator OverrideUniform = OverrideUniforms.find(Pass);
+	std::map<sharedPtr<IRenderPass>, SOverriddenUniforms>::iterator OverrideUniform = OverrideUniforms.find(Pass);
 
 	if (OverrideUniform == OverrideUniforms.end())
 		return true;
@@ -211,9 +211,9 @@ bool CInstanceSceneObject::draw(IScene const * const Scene, smartPtr<IRenderPass
 	return true;
 }
 
-bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label)
+bool const CInstanceSceneObject::isUniformOverridden(sharedPtr<IRenderPass> Pass, std::string const & Label)
 {
-	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
+	std::map<sharedPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
 
 	if (it == OverrideUniforms.end())
 		return false;
@@ -226,9 +226,9 @@ bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass,
 	return true;
 }
 
-bool const CInstanceSceneObject::isUniformOverridden(smartPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle)
+bool const CInstanceSceneObject::isUniformOverridden(sharedPtr<IRenderPass> Pass, std::string const & Label, u32 const UniformHandle)
 {
-	std::map<smartPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
+	std::map<sharedPtr<IRenderPass>, SOverriddenUniforms>::iterator it = OverrideUniforms.find(Pass);
 
 	if (it == OverrideUniforms.end())
 		return false;

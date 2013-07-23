@@ -14,12 +14,12 @@ void CScene::update()
 	CameraPosition = getActiveCamera()->getPosition();
 }
 
-void CScene::load(smartPtr<IRenderPass> const Pass)
+void CScene::load(sharedPtr<IRenderPass> const Pass)
 {
 	RootObject.load(this, Pass);
 }
 
-void CScene::draw(smartPtr<IRenderPass> const Pass)
+void CScene::draw(sharedPtr<IRenderPass> const Pass)
 {
 	RootObject.draw(this, Pass, UseCulling);
 }

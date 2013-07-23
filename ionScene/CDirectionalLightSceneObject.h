@@ -19,9 +19,9 @@ public:
 
 	CDirectionalLightSceneObject(SVector3f const direction, SColorAf const & color = SColorAf(1.f));
 
-	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
+	virtual bool draw(IScene const * const scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled);
 
-	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
+	virtual void load(IScene const * const Scene, sharedPtr<IRenderPass> Pass);
 
 	virtual void setDirection(SVector3f const & direction);
 	virtual void setColor(SVector3f const & color);

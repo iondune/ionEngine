@@ -7,7 +7,6 @@
 #include <list>
 
 // Core
-#include <boost/shared_ptr.hpp>
 #include <ionCore.h>
 #include <ionMath.h>
 
@@ -161,8 +160,8 @@ public:
 	virtual void updateAbsoluteBoundingBox();
 
 	virtual void update();
-	virtual void load(IScene const * const Scene, smartPtr<IRenderPass> Pass);
-	virtual bool draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled);
+	virtual void load(IScene const * const Scene, sharedPtr<IRenderPass> Pass);
+	virtual bool draw(IScene const * const scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled);
 
 
 	///////////////////////

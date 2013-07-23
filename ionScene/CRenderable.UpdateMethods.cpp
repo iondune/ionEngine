@@ -8,7 +8,7 @@
 #include "IRenderPass.h"
 
 
-void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
+void CRenderable::load(IScene const * const Scene, sharedPtr<IRenderPass> Pass)
 {
 	// Sync index buffer data
 	if (IndexBufferObject && IndexBufferObject->isDirty())
@@ -32,7 +32,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		{
 			std::string const & Label = it->first;
 
-			smartPtr<IAttribute const> Attribute = getAttribute(Label);
+			sharedPtr<IAttribute const> Attribute = getAttribute(Label);
 
 			if (! Attribute)
 				Attribute = ParentObject->getAttribute(Label);
@@ -51,7 +51,7 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 		{
 			std::string const & Label = it->first;
 
-			smartPtr<IUniform const> Uniform = getUniform(Label);
+			sharedPtr<IUniform const> Uniform = getUniform(Label);
 
 			if (! Uniform)
 				Uniform = ParentObject->getUniform(Label);
@@ -72,18 +72,18 @@ void CRenderable::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
 
 void CRenderable::unload()
 {
-	for (std::map<smartPtr<IRenderPass>, SShaderSetup>::iterator it = ShaderSetups.begin(); it != ShaderSetups.end(); ++ it)
+	for (std::map<sharedPtr<IRenderPass>, SShaderSetup>::iterator it = ShaderSetups.begin(); it != ShaderSetups.end(); ++ it)
 		unload(it->first);
 }
 
-void CRenderable::unload(smartPtr<IRenderPass> Pass)
+void CRenderable::unload(sharedPtr<IRenderPass> Pass)
 {
 	SShaderSetup & ShaderSetup = ShaderSetups[Pass];
 	ShaderSetup.Loaded = false;
 	ShaderSetup.unload();
 }
 
-void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, CShaderContext & ShaderContext)
+void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, CShaderContext & ShaderContext)
 {	
 	// If the ibo loaded hasn't been synced as an index buffer object, we can't draw anything
 	if (IndexBufferObject && ! IndexBufferObject->isIndexBuffer())
@@ -109,12 +109,12 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	NormalMatrix = glm::transpose(glm::inverse(ModelMatrix));
 
 	// Pass uniform and attribute variables to shader
-	for (std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, sharedPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
 		it->second->bind(it->first.first);
 
 	printOpenGLErrors("Renderable Attribute Bind");
 
-	for (std::map<std::pair<GLuint, std::string>, smartPtr<IUniform const> >::iterator it = ShaderSetup.LoadedUniforms.begin(); it != ShaderSetup.LoadedUniforms.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, sharedPtr<IUniform const> >::iterator it = ShaderSetup.LoadedUniforms.begin(); it != ShaderSetup.LoadedUniforms.end(); ++ it)
 		it->second->bind(it->first.first);
 
 	printOpenGLErrors("Renderable Uniform Bind");
@@ -197,7 +197,7 @@ void CRenderable::draw(IScene const * const Scene, smartPtr<IRenderPass> Pass, C
 	}
 
 	// Cleanup shader variables
-	for (std::map<std::pair<GLuint, std::string>, smartPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
+	for (std::map<std::pair<GLuint, std::string>, sharedPtr<IAttribute const> >::iterator it = ShaderSetup.LoadedAttributes.begin(); it != ShaderSetup.LoadedAttributes.end(); ++ it)
 		it->second->unbind(it->first.first);
 
 	// Cleanup textures if used

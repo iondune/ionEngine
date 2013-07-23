@@ -29,7 +29,7 @@ CPointLightSceneObject::CPointLightSceneObject(float const radius, SColorAf cons
 	setBoundingBox(SphereMesh->getBoundingBox());
 }
 
-bool CPointLightSceneObject::draw(IScene const * const scene, smartPtr<IRenderPass> Pass, bool const CullingEnabled)
+bool CPointLightSceneObject::draw(IScene const * const scene, sharedPtr<IRenderPass> Pass, bool const CullingEnabled)
 {
 	if (! ISceneObject::draw(scene, Pass, CullingEnabled))
 		return false;
@@ -64,7 +64,7 @@ bool CPointLightSceneObject::draw(IScene const * const scene, smartPtr<IRenderPa
 	return true;
 }
 
-void CPointLightSceneObject::load(IScene const * const Scene, smartPtr<IRenderPass> Pass)
+void CPointLightSceneObject::load(IScene const * const Scene, sharedPtr<IRenderPass> Pass)
 {
 }
 

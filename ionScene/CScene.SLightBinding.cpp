@@ -19,11 +19,11 @@ void CScene::SLightBinding::bind(CLightSceneObject const * const LightObject)
 		return unbind();
 	
 	if (! ColorBind)
-		ColorBind = smartNew(new SUniformReference<color3f>());
+		ColorBind = sharedNew(new SUniformReference<color3f>());
 	if (! RadiusBind)
-		RadiusBind = smartNew(new SUniformReference<f32>());
+		RadiusBind = sharedNew(new SUniformReference<f32>());
 	if (! PositionBind)
-		PositionBind = smartNew(new SUniformReference<vec3f>());
+		PositionBind = sharedNew(new SUniformReference<vec3f>());
 
 	ColorBind->Value = & LightObject->getColor();
 	RadiusBind->Value = & LightObject->getRadius();

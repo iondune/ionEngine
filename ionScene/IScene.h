@@ -2,7 +2,7 @@
 #define _ION_SCENE_ISCENE_H_INCLUDED_
 
 // Core
-#include <boost/shared_ptr.hpp>
+#include <ionSmartPtr.h>
 
 // Scene
 #include "ICameraSceneObject.h"
@@ -20,12 +20,12 @@ public:
 	virtual ICameraSceneObject const * const getActiveCamera() const = 0;
 	virtual void setActiveCamera(ICameraSceneObject * const activeCamera) = 0;
 	
-	virtual smartPtr<IAttribute const> const getAttribute(std::string const & label) const = 0;
-	virtual smartPtr<IUniform const> const getUniform(std::string const & label) const = 0;
+	virtual sharedPtr<IAttribute const> const getAttribute(std::string const & label) const = 0;
+	virtual sharedPtr<IUniform const> const getUniform(std::string const & label) const = 0;
 
 	virtual void update() = 0;
-	virtual void load(smartPtr<IRenderPass> const Pass) = 0;
-	virtual void draw(smartPtr<IRenderPass> const Pass) = 0;
+	virtual void load(sharedPtr<IRenderPass> const Pass) = 0;
+	virtual void draw(sharedPtr<IRenderPass> const Pass) = 0;
 
 };
 
