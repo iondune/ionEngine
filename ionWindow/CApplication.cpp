@@ -76,6 +76,10 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::Comma;
 	case '.':
 		return EKey::Period;
+	case ';':
+		return EKey::Semicolon;
+	case '\'':
+		return EKey::Quote;
 
 	case GLFW_KEY_ESC:
 		return EKey::Escape;
