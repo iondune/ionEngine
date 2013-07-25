@@ -82,9 +82,9 @@ void CMesh::SMeshBuffer::writeObjMesh(std::string const & fileName)
 	for (std::vector<STriangle>::iterator it = Triangles.begin(); it != Triangles.end(); ++ it)
 	{
 		File << "f " << 
-			it->Indices[0] + 1 << "// " << it->Indices[0] + 1 << " " << 
-			it->Indices[1] + 1 << "// " << it->Indices[1] + 1 << " " << 
-			it->Indices[2] + 1 << "// " << it->Indices[2] + 1 << std::endl;
+			it->Indices[0] + 1 << "//" << it->Indices[0] + 1 << " " << 
+			it->Indices[1] + 1 << "//" << it->Indices[1] + 1 << " " << 
+			it->Indices[2] + 1 << "//" << it->Indices[2] + 1 << std::endl;
 	}
 
 	File.close();
