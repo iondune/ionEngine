@@ -43,8 +43,8 @@ public:
 		
 		Buffer();
 
-		virtual void Bind() = 0;
-		virtual void Unbind() = 0;
+		void Bind();
+		void Unbind();
 		virtual u32 GetTarget() = 0;
 
 		u32 Handle;
@@ -54,18 +54,13 @@ public:
 	{
 	protected:
 
-		void Bind();
-		void Unbind();
 		u32 GetTarget();
 	};
-
 
 	class IndexBuffer : Buffer
 	{
 	protected:
 
-		void Bind();
-		void Unbind();
 		u32 GetTarget();
 	};
 
@@ -82,32 +77,72 @@ public:
 		{
 			enum class EFilter
 			{
-				Nearest,
-				Linear
+				Nearest = 0,
+				Linear = 1
 			};
 
 			enum class EMipMaps
 			{
-				Disabled,
-				Nearest,
-				Linear
+				Disabled = 0,
+				Nearest = 1,
+				Linear = 2
 			};
 
 			enum class EWrapMode
 			{
-				Clamp,
-				Mirror,
-				Repeat
+				Clamp = 0,
+				Mirror = 1,
+				Repeat = 2
 			};
 
 			EFilter MinFilter;
 			EFilter MagFilter;
 			EMipMaps MipMapMode;
 			EWrapMode WrapMode;
+
+			Params();
 		};
 
 		Params const & GetParams() const;
 		void SetParams(Params const & params);
+
+		void Delete();
+		~Texture();
+
+	protected:
+		
+		Texture();
+
+		void Bind();
+		void Unbind();
+		virtual u32 GetTarget() = 0;
+
+		u32 Handle;
+
+	private:
+
+		Params Parameters;
+	};
+
+	class Texture1D : Texture
+	{
+	protected:
+
+		u32 GetTarget();
+	};
+
+	class Texture2D : Texture
+	{
+	protected:
+
+		u32 GetTarget();
+	};
+
+	class Texture3D : Texture
+	{
+	protected:
+
+		u32 GetTarget();
 	};
 
 

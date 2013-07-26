@@ -2,9 +2,9 @@
 #include "Utilities.h"
 
 
-////////////
-// Buffer //
-////////////
+//////////
+// Data //
+//////////
 
 void GL::Buffer::Data(u32 const size, void const * const data,
 	EAccessFrequency const accessFrequency,
@@ -29,6 +29,11 @@ void GL::Buffer::SubData(u32 const size, u32 const offset, void const * const da
 	Unbind();
 }
 
+
+////////////
+// Buffer //
+////////////
+
 void GL::Buffer::Delete()
 {
 	delete this;
@@ -44,39 +49,24 @@ GL::Buffer::Buffer()
 	glGenBuffers(1, & Handle);
 }
 
-
-//////////////////////
-// Attribute Buffer //
-//////////////////////
-
-void GL::AttributeBuffer::Bind()
+void GL::Buffer::Bind()
 {
-	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, Handle));
+	CheckedGLCall(glBindBuffer(GetTarget(), Handle));
 }
 
-void GL::AttributeBuffer::Unbind()
+void GL::Buffer::Unbind()
 {
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CheckedGLCall(glBindBuffer(GetTarget(), 0));
 }
+
+
+//////////////
+// Variants //
+//////////////
 
 u32 GL::AttributeBuffer::GetTarget()
 {
 	return GL_ARRAY_BUFFER;
-}
-
-
-//////////////////
-// Index Buffer //
-//////////////////
-
-void GL::IndexBuffer::Bind()
-{
-	CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Handle));
-}
-
-void GL::IndexBuffer::Unbind()
-{
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 u32 GL::IndexBuffer::GetTarget()
