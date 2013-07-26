@@ -41,49 +41,33 @@ public:
 
 	protected:
 		
-		Buffer(u32 const handle);
+		Buffer();
 
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		virtual u32 GetTarget() = 0;
 
-		u32 const Handle;
-
-	private:
-
-		Buffer(Buffer const &);
+		u32 Handle;
 	};
 
 	class AttributeBuffer : public Buffer
 	{
 	protected:
-		
-		AttributeBuffer(u32 const handle);
 
 		void Bind();
 		void Unbind();
 		u32 GetTarget();
-
-		friend class GL;
 	};
-
-	static AttributeBuffer * CreateAttributeBuffer();
 
 
 	class IndexBuffer : Buffer
 	{
 	protected:
-		
-		IndexBuffer(u32 const handle);
 
 		void Bind();
 		void Unbind();
 		u32 GetTarget();
-
-		friend class GL;
 	};
-	
-	static IndexBuffer * CreateIndexBuffer();
 
 
 	//////////////
@@ -122,7 +106,7 @@ public:
 			EWrapMode WrapMode;
 		};
 
-		Params const & GetParams();
+		Params const & GetParams() const;
 		void SetParams(Params const & params);
 	};
 

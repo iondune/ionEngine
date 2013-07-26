@@ -2,6 +2,10 @@
 #include "Utilities.h"
 
 
+////////////
+// Buffer //
+////////////
+
 void GL::Buffer::Data(u32 const size, void const * const data,
 	EAccessFrequency const accessFrequency,
 	EAccessNature const accessNature)
@@ -27,16 +31,23 @@ void GL::Buffer::SubData(u32 const size, u32 const offset, void const * const da
 
 void GL::Buffer::Delete()
 {
+	delete this;
 }
 
 GL::Buffer::~Buffer()
 {
+	glDeleteBuffers(1, & Handle);
+}
+
+GL::Buffer::Buffer()
+{
+	glGenBuffers(1, & Handle);
 }
 
 
-GL::AttributeBuffer::AttributeBuffer(u32 const handle)
-	: Buffer(handle)
-{}
+//////////////////////
+// Attribute Buffer //
+//////////////////////
 
 void GL::AttributeBuffer::Bind()
 {
@@ -53,17 +64,10 @@ u32 GL::AttributeBuffer::GetTarget()
 	return GL_ARRAY_BUFFER;
 }
 
-GL::AttributeBuffer * GL::CreateAttributeBuffer()
-{
-	u32 Handle;
-	glGenBuffers(1, & Handle);
-	return new AttributeBuffer(Handle);
-}
 
-
-GL::IndexBuffer::IndexBuffer(u32 const handle)
-	: Buffer(handle)
-{}
+//////////////////
+// Index Buffer //
+//////////////////
 
 void GL::IndexBuffer::Bind()
 {
@@ -78,11 +82,4 @@ void GL::IndexBuffer::Unbind()
 u32 GL::IndexBuffer::GetTarget()
 {
 	return GL_ELEMENT_ARRAY_BUFFER;
-}
-
-GL::IndexBuffer * GL::CreateIndexBuffer()
-{
-	u32 Handle;
-	glGenBuffers(1, & Handle);
-	return new IndexBuffer(Handle);
 }
