@@ -88,3 +88,40 @@ ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c, T con
 {
 	return Maximum(a, Maximum(b, c, d));
 }
+
+
+template <typename T>
+ION_FUNC_DEF static T const Min(T const & a, T const & b)
+{
+	return a < b ? a : b;
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Max(T const & a, T const & b)
+{
+	return b < a ? a : b;
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Min(T const & a, T const & b, T const & c)
+{
+	return Min(a, Min(b, c));
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c)
+{
+	return Max(a, Max(b, c));
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Min(T const & a, T const & b, T const & c, T const & d)
+{
+	return Min(a, Min(b, c, d));
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c, T const & d)
+{
+	return Max(a, Max(b, c, d));
+}
