@@ -7,7 +7,7 @@
 #include <ionTypes.h>
 
 
-bool PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line)
+static inline bool PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line)
 {
 	bool Succeeded = true;
 

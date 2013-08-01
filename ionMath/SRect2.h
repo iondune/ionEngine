@@ -56,7 +56,7 @@ public:
 			Position.X < v.X);
 	}
 
-	bool const isPointInsideOrOn(SPosition2 const & v) const
+	bool const isPointInsideOrOn(SVector2<T> const & v) const
 	{
 		return (otherCorner().Y >= v.Y && 
 			Position.Y <= v.Y && 
@@ -117,3 +117,9 @@ public:
 typedef SRect2<f32> SRect2f;
 typedef SRect2<f64> SRect2d;
 typedef SRect2<s32> SRect2i;
+typedef SRect2<u32> SRect2u;
+
+typedef SRect2f rect2f;
+typedef SRect2d rect2d;
+typedef SRect2i rect2i;
+typedef SRect2u rect2u;

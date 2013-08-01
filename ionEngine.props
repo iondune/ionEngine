@@ -12,6 +12,7 @@
       ;$(VisualStudioDir)\SDKs\GLEW\include;
       ;$(VisualStudioDir)\SDKs\GLFW\include;
       ;$(VisualStudioDir)\SDKs\GLM\include;
+      ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\sigslot;
       ;$(IncludePath);
     </IncludePath>
@@ -19,6 +20,7 @@
     <LibraryPath>
       ;$(VisualStudioDir)\SDKs\freetype-2.4.3\objs\win32\vc2008;
       ;$(VisualStudioDir)\SDKs\GLEW\lib;
+      ;$(VisualStudioDir)\SDKs\GWEN\gwen\lib\windows\vs2010;
       ;$(LibraryPath);
     </LibraryPath>
 
