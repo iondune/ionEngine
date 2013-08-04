@@ -42,7 +42,7 @@ namespace freetype
 		void clean();
 	};
 
-	void measure(font_data const & ft_font, char const * str);
+	void measure(font_data const & ft_font, int * width, int * height, char const * fmt, ...);
 
 	/// The flagship function of the library - this thing will print
 	/// out text at window coordinates x,y, using the font ft_font.

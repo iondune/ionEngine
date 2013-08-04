@@ -19,7 +19,7 @@ namespace freetype
 		return rval;
 	}
 
-	void get_glyph_size(FT_Face face, char ch, int * width, int * height)
+	void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height)
 	{
 		// The first thing we do is get FreeType to render our character
 		// into a bitmap.  This actually requires a couple of FreeType commands:
@@ -40,8 +40,14 @@ namespace freetype
 		// This reference will make accessing the bitmap easier
 		FT_Bitmap & bitmap = bitmap_glyph->bitmap;
 
-		*width = bitmap.width;
+		*width = //bitmap.width;
+		//*width += bitmap_glyph->left;
+		/*width +=*/ face->glyph->advance.x >> 6;
 		*height = bitmap.rows;
+		*height += font_height - bitmap_glyph->top;
+		//*height = face.h/.63f;
+
+		FT_Done_Glyph(glyph);
 	}
 
 	/// Create a display list coresponding to the give character.
@@ -208,6 +214,9 @@ namespace freetype
 		glDeleteLists(list_base, 128);
 		glDeleteTextures(128, textures);
 		delete [] textures;
+
+		FT_Done_Face(face);
+		FT_Done_FreeType(library);
 	}
 
 	/// A fairly straight forward function that pushes
@@ -235,18 +244,59 @@ namespace freetype
 		glPopAttrib();
 	}
 
-	void measure(font_data const & ft_font, char const * str)
+	void measure(font_data const & ft_font, int * width, int * height, char const * fmt, ...)
 	{
-		int x, y;
-		int width = 0;
-		int height = 0;
-		for (unsigned char i = 0; i < 128; ++ i)
+		float h = ft_font.h / 0.63f; //We make the height about 1.5* that of
+
+		char text[16386]; // Holds Our String
+		va_list ap; // Pointer To List Of Arguments
+
+		if (fmt == NULL) // If There's No Text
+			* text=0; // Do Nothing
+		else
 		{
-			get_glyph_size(ft_font.face, i, &x, &y);
-			if (y > height)
-				height = y;
-			width += x;
+			va_start(ap, fmt); // Parses The String For Variables
+			vsprintf(text, fmt, ap); // And Converts Symbols To Actual Numbers
+			va_end(ap); // Results Are Stored In Text
 		}
+
+		const char * start_line = text;
+		vector<string> lines;
+		const char * c = text;
+		for (; * c; ++ c)
+		{
+			if (* c == '\n')
+			{
+				string line;
+				for (char const * n = start_line; n < c; ++ n)
+					line.append(1, * n);
+				lines.push_back(line);
+				start_line = c + 1;
+			}
+		}
+		if (start_line)
+		{
+			string line;
+			for (char const * n = start_line; n < c; ++ n)
+				line.append(1,* n);
+			lines.push_back(line);
+		}
+
+		*width = 0;
+		*height = 0;
+		
+		int x, y;
+		for (unsigned int i = 0; i < lines.size(); ++ i)
+		{
+			for (unsigned int t = 0; t < lines[i].size(); ++ t)
+			{
+				get_glyph_size(ft_font.face, lines[i][t], (int) ft_font.h, & x, & y);
+				if (y > * height)
+					* height = y;
+				* width += x;
+			}
+		}
+		*height += (int) ((lines.size() - 1) * ft_font.h);
 	}
 
 	/// Much like Nehe's glPrint function, but modified to work
