@@ -5,6 +5,7 @@
 
     <IncludePath>
       ;$(VisualStudioDir)\Projects\ionEngine\ionCore;
+      ;$(VisualStudioDir)\Projects\ionEngine\ionGUI;
       ;$(VisualStudioDir)\Projects\ionEngine\ionMath;
       ;$(VisualStudioDir)\Projects\ionEngine\ionScene;
       ;$(VisualStudioDir)\Projects\ionEngine\ionWindow;
