@@ -6,6 +6,7 @@
 
 class CEventManager;
 class CStateManager;
+struct GLFWwindow;
 
 
 class CApplication
@@ -32,12 +33,12 @@ class CApplication
 
 	bool Running;
 
-	vec2i LastMouse;
+	vec2f LastMouse;
 
-	static void KeyCallback(int key, int action);
-	static void MouseButtonCallback(int button, int action);
-	static void MouseScrollCallback(int delta);
-	static void MouseCursorCallback(int x, int y);
+	static void KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
+	static void MouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
+	static void MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset);
+	static void MouseCursorCallback(GLFWwindow * window, double xpos, double ypos);
 
 public:
 

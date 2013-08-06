@@ -1,7 +1,7 @@
 #include "CApplication.h"
 
 #include <GL/glew.h>
-#include <GL/glfw.h>
+#include <GLFW/glfw3.h>
 
 #include <iostream>
 #include <iomanip>
@@ -9,6 +9,8 @@
 #include "CEventManager.h"
 #include "CStateManager.h"
 
+
+static GLFWwindow * window;
 
 CApplication::CApplication()
 	: StateManager(0),
@@ -18,20 +20,21 @@ CApplication::CApplication()
 
 void CApplication::setupRenderContext(std::string const & WindowTitle)
 {
-	if (!glfwInit())
+	if (! glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
 		WaitForUser();
 		exit(33);
 	}
 	
-	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
-	if (!glfwOpenWindow(WindowSize.X, WindowSize.Y, 8, 8, 8, 0, 24, 0, GLFW_WINDOW))
+	glfwWindowHint(GLFW_RESIZABLE, false);
+	if (! (window = glfwCreateWindow(WindowSize.X, WindowSize.Y, WindowTitle.c_str(), 0, 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
 		exit(33);
 	}
+	glfwMakeContextCurrent(window);
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -81,7 +84,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 	case '\'':
 		return EKey::Quote;
 
-	case GLFW_KEY_ESC:
+	case GLFW_KEY_ESCAPE:
 		return EKey::Escape;
 		
 	case GLFW_KEY_UP:
@@ -96,17 +99,17 @@ EKey const ConvertGLFWKeyCode(int const Code)
 	case GLFW_KEY_SPACE:
 		return EKey::Space;
 		
-	case GLFW_KEY_LSHIFT:
+	case GLFW_KEY_LEFT_SHIFT:
 		return EKey::LeftShift;
-	case GLFW_KEY_RSHIFT:
+	case GLFW_KEY_RIGHT_SHIFT:
 		return EKey::RightShift;
-	case GLFW_KEY_LCTRL:
+	case GLFW_KEY_LEFT_CONTROL:
 		return EKey::LeftControl;
-	case GLFW_KEY_RCTRL:
+	case GLFW_KEY_RIGHT_CONTROL:
 		return EKey::RightControl;
-	case GLFW_KEY_LALT:
+	case GLFW_KEY_LEFT_ALT:
 		return EKey::LeftAlt;
-	case GLFW_KEY_RALT:
+	case GLFW_KEY_RIGHT_ALT:
 		return EKey::RightAlt;
 
 	default:
@@ -115,7 +118,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 	};
 }
 
-void CApplication::KeyCallback(int key, int action)
+void CApplication::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	CApplication & Application = CApplication::get();
 
@@ -126,13 +129,11 @@ void CApplication::KeyCallback(int key, int action)
 	Application.EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
 }
 
-void CApplication::MouseButtonCallback(int button, int action)
+void CApplication::MouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
 {
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Click;
 	MouseEvent.Location = CApplication::get().EventManager->MouseLocation;
-	MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) CApplication::get().WindowSize.X,
-		MouseEvent.Location.Y / (float) CApplication::get().WindowSize.Y);
 	MouseEvent.Pressed = action == GLFW_PRESS;
 
 	switch (button)
@@ -162,26 +163,24 @@ void CApplication::MouseButtonCallback(int button, int action)
 	}
 }
 
-void CApplication::MouseScrollCallback(int delta)
+void CApplication::MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset)
 {
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Scroll;
-	MouseEvent.Movement.Y = delta;
+	MouseEvent.Movement = vec2d(xoffset, yoffset);
 	if (CApplication::get().EventManager)
 		CApplication::get().EventManager->OnMouseEvent(MouseEvent);
 }
 
-void CApplication::MouseCursorCallback(int x, int y)
+void CApplication::MouseCursorCallback(GLFWwindow * window, double xpos, double ypos)
 {	
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Move;
-	MouseEvent.Location = vec2i(x, y);
+	MouseEvent.Location = vec2d(xpos, ypos);
 
 	if (CApplication::get().EventManager)
 		CApplication::get().EventManager->MousePositionState = MouseEvent.Location;
 
-	MouseEvent.RelativeLocation = SVector2f(MouseEvent.Location.X / (float) CApplication::get().WindowSize.X,
-		MouseEvent.Location.Y / (float) CApplication::get().WindowSize.Y);
 	MouseEvent.Movement = MouseEvent.Location - CApplication::get().LastMouse;
 
 	if (CApplication::get().EventManager)
@@ -198,10 +197,10 @@ void CApplication::init(vec2i const & windowSize, std::string const & WindowTitl
 
 	// TO DO : Engines need to be initialized at this point so that callbacks that access the eventmananger don't fail.
 
-	glfwSetKeyCallback(CApplication::KeyCallback);
-	glfwSetMouseButtonCallback(CApplication::MouseButtonCallback);
-	glfwSetMousePosCallback(CApplication::MouseCursorCallback);
-	glfwSetMouseWheelCallback(CApplication::MouseScrollCallback);
+	glfwSetKeyCallback(window, CApplication::KeyCallback);
+	glfwSetMouseButtonCallback(window, CApplication::MouseButtonCallback);
+	glfwSetCursorPosCallback(window, CApplication::MouseCursorCallback);
+	glfwSetScrollCallback(window, CApplication::MouseScrollCallback);
 }
 
 void CApplication::loadEngines()
@@ -254,7 +253,9 @@ void CApplication::run()
 
 	RunTime = ElapsedTime = 0.f;
 
-	while (Running && glfwGetWindowParam(GLFW_OPENED))
+	glfwMakeContextCurrent(window);
+
+	while (Running && ! glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 		/*sf::Event Event;
@@ -300,6 +301,7 @@ void CApplication::run()
 	} // while (Running)
 
 	StateManager->shutDown();
+	glfwTerminate();
 }
 
 f64 CApplication::getElapsedTime() const
@@ -334,5 +336,5 @@ void CApplication::close()
 
 void CApplication::swapBuffers()
 {
-	glfwSwapBuffers();
+	glfwSwapBuffers(window);
 }

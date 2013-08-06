@@ -231,8 +231,7 @@ struct SMouseEvent
 
     };
 
-    vec2i Location, Movement;
-	vec2f RelativeLocation;
+    vec2f Location, Movement;
     EButton Button;
     EType Type;
     bool Pressed;

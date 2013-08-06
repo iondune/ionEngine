@@ -16,7 +16,7 @@ class CCameraControl : public CPerspectiveCameraSceneObject, public sigslot::has
     
     float MoveSpeed;
 
-    int MouseLastX, MouseLastY;
+    float MouseLastX, MouseLastY;
 
     bool Tracking;
 
