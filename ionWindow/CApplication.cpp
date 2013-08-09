@@ -44,7 +44,7 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 		exit(33);
 	}
 
-	double const VersionNumber = std::atof((char const *)glGetString(GL_VERSION));
+	double const VersionNumber = std::atof((char const *) glGetString(GL_VERSION));
 	if (VersionNumber < 2.0)
 	{
 		std::cerr << "Your OpenGL Version Number (" << std::setprecision(2) << VersionNumber << 
@@ -123,7 +123,7 @@ void CApplication::KeyCallback(GLFWwindow * window, int key, int scancode, int a
 	CApplication & Application = CApplication::get();
 
 	SKeyboardEvent KeyEvent;
-	KeyEvent.Pressed = action == GLFW_PRESS;
+	KeyEvent.Pressed = action != GLFW_RELEASE;
 	KeyEvent.Key = ConvertGLFWKeyCode(key);
 	Application.EventManager->OnKeyboardEvent(KeyEvent);
 	Application.EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
