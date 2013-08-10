@@ -22,8 +22,8 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 	{
 		if (Tracking)
 		{
-			Theta -= (Event.Movement.X)*0.005f;
-			Phi += (Event.Movement.Y)*0.005f;
+			Theta += (Event.Movement.X)*0.005f;
+			Phi -= (Event.Movement.Y)*0.005f;
 
 			if (Phi > 3.1415f/2.02f)
 				Phi = 3.1415f/2.02f;
