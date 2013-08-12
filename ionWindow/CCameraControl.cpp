@@ -22,8 +22,8 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 	{
 		if (Tracking)
 		{
-			Theta += (Event.Movement.X)*0.005f;
-			Phi -= (Event.Movement.Y)*0.005f;
+			Theta += (Event.Movement.X) * 0.005f;
+			Phi -= (Event.Movement.Y) * 0.005f;
 
 			if (Phi > 3.1415f/2.02f)
 				Phi = 3.1415f/2.02f;
@@ -33,6 +33,23 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 
 		MouseLastX = Event.Location.X;
 		MouseLastY = Event.Location.Y;
+	}
+	
+	if (Event.Type.Value == SMouseEvent::EType::Scroll)
+	{
+		static f32 const FocalLengthDelta = 1.1f;
+		static s32 Last = 0;
+
+		s32 ticks = (s32) Event.Movement.Y - Last;
+		Last = (s32) Event.Movement.Y;
+		if (ticks > 0)
+			while (ticks-- > 0)
+				FieldOfView *= FocalLengthDelta;
+		else if (ticks < 0)
+			while (ticks++ < 0)
+				FieldOfView /= FocalLengthDelta;
+
+		UpdateProjection();
 	}
 }
 
