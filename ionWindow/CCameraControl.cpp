@@ -37,17 +37,15 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 	
 	if (Event.Type.Value == SMouseEvent::EType::Scroll)
 	{
-		static f32 const FocalLengthDelta = 1.1f;
-		static s32 Last = 0;
+		static f32 const FocalLengthDelta = 1.02f;
 
-		s32 ticks = (s32) Event.Movement.Y - Last;
-		Last = (s32) Event.Movement.Y;
+		s32 ticks = (s32) Event.Movement.Y;
 		if (ticks > 0)
 			while (ticks-- > 0)
-				FieldOfView *= FocalLengthDelta;
+				FieldOfView /= FocalLengthDelta;
 		else if (ticks < 0)
 			while (ticks++ < 0)
-				FieldOfView /= FocalLengthDelta;
+				FieldOfView *= FocalLengthDelta;
 
 		UpdateProjection();
 	}
