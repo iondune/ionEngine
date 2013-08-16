@@ -1,11 +1,7 @@
-/*
-	A quick and simple opengl font library that uses GNU freetype2, written
-	and distributed as part of a tutorial for nehe.gamedev.net.
-	Sven Olsen, 2003
-*/
 
 #include <CApplication.h>
 #include "freetype.h"
+
 
 namespace freetype
 {

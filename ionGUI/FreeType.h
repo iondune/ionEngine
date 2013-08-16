@@ -1,5 +1,5 @@
-#ifndef FREE_NEHE_H
-#define FREE_NEHE_H
+
+#pragma once
 
 // FreeType Headers
 #include <ft2build.h>
@@ -18,6 +18,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+
 
 namespace freetype
 {
@@ -50,5 +51,3 @@ namespace freetype
 	void print(const font_data &ft_font, float x, float y, const char *fmt, ...) ;
 
 }
-
-#endif

@@ -14,6 +14,12 @@ glDeleteShader
 glGetShaderInfoLog
 glGetShaderiv
 glShaderSource
+glUseProgram
+glLinkProgram
+
+glGetActiveAttrib
+glGetActiveUniform
+glGetAttribLocation
 
 glUniform1f
 glUniform1i
@@ -56,20 +62,15 @@ glEnableVertexAttribArray
 glewGetErrorString
 glewInit
 glGenerateMipmap
-glGetActiveAttrib
-glGetActiveUniform
-glGetAttribLocation
 glGetError
 glGetProgramInfoLog
 glGetProgramiv
 glGetString
 glGetTexLevelParameteriv
 glGetUniformLocation
-glLinkProgram
 glPolygonMode
 glTexImage2D
 glTexParameteri
 gluErrorString
-glUseProgram
 glVertexAttribPointer
 
