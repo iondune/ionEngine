@@ -7,5 +7,6 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
 </Project>

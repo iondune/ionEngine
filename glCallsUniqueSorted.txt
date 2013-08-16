@@ -6,9 +6,6 @@ glFramebufferTexture2D
 glGenTextures
 
 
-
-
-
 // Shaders
 glAttachShader
 glCompileShader
@@ -28,7 +25,6 @@ glUniform4f
 glUniform4i
 
 
-
 // Buffer
 glBindBuffer
 glBindFramebuffer
@@ -46,10 +42,6 @@ glGenBuffers
 glGenFramebuffers
 glGenRenderbuffers
 glRenderbufferStorage
-
-
-
-
 
 
 // Unsorted
@@ -80,6 +72,4 @@ glTexParameteri
 gluErrorString
 glUseProgram
 glVertexAttribPointer
-
-
 
