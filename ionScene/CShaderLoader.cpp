@@ -8,29 +8,7 @@
 #include <sstream>
 
 
-std::string applySymbolTable(std::vector<std::pair<std::string, std::string> > const & SymbolTable, std::string const & str)
-{
-	if (! SymbolTable.size())
-		return str;
-
-	std::string out;
-
-	for (size_t pos = 0; pos < str.size(); ++ pos)
-	{
-		auto it = SymbolTable.begin();
-		for (; it != SymbolTable.end() && str.find(it->first, pos) != pos; ++ it);
-		if (it != SymbolTable.end())
-		{
-			out.append(it->second);
-			pos += it->first.length() - 1;
-			continue;
-		}
-		out.append(1, str[pos]);
-	}
-	return out;
-}
-
-std::string const CShaderLoader::parseShaderSource(std::string const & fileName, std::vector<std::pair<std::string, std::string> > SymbolTable)
+std::string const CShaderLoader::parseShaderSource(std::string const & fileName)
 {
 	// To Do : Prevent infinite recursion
 
@@ -68,19 +46,11 @@ std::string const CShaderLoader::parseShaderSource(std::string const & fileName,
 
 			std::string Path = RelativePath;
 
-			Output << parseShaderSource(Path.append(IncludePath), SymbolTable) << std::endl;
-		}
-		else if (Line.substr(0, 8) == std::string("#define "))
-		{
-			std::string DefineLine = Line.substr(8);
-			size_t EndTokenName = DefineLine.find_first_of(" \t");
-			std::string TokenName = DefineLine.substr(0, EndTokenName);
-			std::string Token = DefineLine.substr(EndTokenName);
-			SymbolTable.push_back(std::pair<std::string, std::string>(TokenName, Token));
+			Output << parseShaderSource(Path.append(IncludePath)) << std::endl;
 		}
 		else
 		{
-			Output << applySymbolTable(SymbolTable, Line) << std::endl;
+			Output << Line << std::endl;
 		}
 	}
 
@@ -92,6 +62,7 @@ std::string const CShaderLoader::parseShaderSource(std::string const & fileName,
 		IntermediateFile << Output.str();
 		IntermediateFile.close();
 	}
+
 	return Output.str();
 }
 

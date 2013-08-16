@@ -146,9 +146,9 @@ public:
 	};
 
 
-	/////////////////////
-	// Shader Programs //
-	/////////////////////
+	////////////
+	// Shader //
+	////////////
 
 	class Shader
 	{
@@ -161,10 +161,60 @@ public:
 
 		void Delete();
 		~Shader();
+
+	protected:
+
+		Shader(u32 const handle);
+
+		u32 const Handle;
 	};
 
-	static Shader * CreateShader();
+	class ComputeShader : public Shader
+	{
+	public:
 
+		ComputeShader();
+	};
+
+	class VertexShader : public Shader
+	{
+	public:
+
+		VertexShader();
+	};
+
+	class TesselationControlShader : public Shader
+	{
+	public:
+
+		TesselationControlShader();
+	};
+
+	class TesselationEvaluationShader : public Shader
+	{
+	public:
+
+		TesselationEvaluationShader();
+	};
+
+	class GeometryShader : public Shader
+	{
+	public:
+
+		GeometryShader();
+	};
+
+	class FragmentShader : public Shader
+	{
+	public:
+
+		FragmentShader();
+	};
+
+
+	/////////////
+	// Program //
+	/////////////
 
 	class Program
 	{
