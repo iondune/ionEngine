@@ -8,5 +8,6 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
 </Project>
