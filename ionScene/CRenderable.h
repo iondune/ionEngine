@@ -1,5 +1,5 @@
-#ifndef _ION_SCENE_CRENDERABLE_H_INCLUDED_
-#define _ION_SCENE_CRENDERABLE_H_INCLUDED_
+
+#pragma once
 
 // STL
 #include <map>
@@ -22,19 +22,13 @@
 
 
 //! Different graphics primitives available for drawing
-struct EDrawElementTypeValues
+enum class EDrawElementType
 {
-	enum Domain
-	{
-		Points,
-		Lines,
-		Triangles,
-		Quads
-	};
+	Points,
+	Lines,
+	Triangles,
+	Quads
 };
-
-//! See EDrawElementTypeValues
-typedef Enum<EDrawElementTypeValues> EDrawElementType;
 
 
 // Forward Declarations
@@ -195,5 +189,3 @@ public:
 	virtual CRenderable * & getDebuggingNormalObject();
 
 };
-
-#endif

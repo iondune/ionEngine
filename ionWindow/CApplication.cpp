@@ -61,12 +61,12 @@ void CApplication::setupRenderContext(std::string const & WindowTitle)
 EKey const ConvertGLFWKeyCode(int const Code)
 {
 	if (Code >= 'A' && Code <= 'Z')
-		return EKey::A + (Code - 'A');
+		return (EKey) ((int) EKey::A + (Code - 'A'));
 	
 	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
-		return EKey::KeyPad0 + (Code - GLFW_KEY_KP_0);
+		return (EKey) ((int) EKey::KeyPad0 + (Code - GLFW_KEY_KP_0));
 	if (Code >= '0' && Code <= '9')
-		return EKey::Num0 + (Code - '0');
+		return (EKey) ((int) EKey::Num0 + (Code - '0'));
 	
 	switch (Code)
 	{
@@ -126,7 +126,7 @@ void CApplication::KeyCallback(GLFWwindow * window, int key, int scancode, int a
 	KeyEvent.Pressed = action != GLFW_RELEASE;
 	KeyEvent.Key = ConvertGLFWKeyCode(key);
 	Application.EventManager->OnKeyboardEvent(KeyEvent);
-	Application.EventManager->KeyStates[KeyEvent.Key] = KeyEvent.Pressed;
+	Application.EventManager->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
 }
 
 void CApplication::MouseButtonCallback(GLFWwindow * window, int button, int action, int mods)

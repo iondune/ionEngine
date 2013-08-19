@@ -1,19 +1,12 @@
-#ifndef _ION_SCENE_IRENDERTARGET_H_INCLUDED_
-#define _ION_SCENE_IRENDERTARGET_H_INCLUDED_
+
+#pragma once
 
 
-#include <ionEnum.h>
-
-struct ERenderTargetTypeValues
+enum class ERenderTargetType
 {
-	enum Domain
-	{
-		Texture,
-		RenderBuffer
-	};
+	Texture,
+	RenderBuffer
 };
-
-typedef Enum<ERenderTargetTypeValues> ERenderTargetType;
 
 class IRenderTarget
 {
@@ -26,5 +19,3 @@ public:
 	virtual ERenderTargetType const getRenderTargetType() = 0;
 
 };
-
-#endif

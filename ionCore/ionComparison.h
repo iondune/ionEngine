@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ionConfig.h"
+#include "ionTypes.h"
 
 
 ////////////////////

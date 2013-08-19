@@ -1,37 +1,20 @@
-#ifndef _ION_SCENE_ISCENEOBJECT_ENUMERATIONS_H_INCLUDED_
-#define _ION_SCENE_ISCENEOBJECT_ENUMERATIONS_H_INCLUDED_
 
-// Core
-#include <ionEnum.h>
+#pragma once
 
 
-struct EDebugDataValues
+enum class EDebugData
 {
-	enum Domain
-	{
-		All = 0,
-		Normals = 1,
-		NormalColors = 2,
-		Wireframe = 4
-	};
+	All = 0,
+	Normals = 1,
+	NormalColors = 2,
+	Wireframe = 4
 };
 
-typedef Enum<EDebugDataValues> EDebugData;
-
-
-
-struct ERenderCategoryValues
+enum class ERenderCategory
 {
-	enum Domain
-	{
-		PreProcess,
-		Default,
-		Transparent,
-		PostProcess,
-		Count
-	};
+	PreProcess,
+	Default,
+	Transparent,
+	PostProcess,
+	Count
 };
-
-typedef Enum<ERenderCategoryValues> ERenderCategory;
-
-#endif

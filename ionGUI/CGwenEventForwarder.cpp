@@ -11,9 +11,9 @@ void CGwenEventForwarder::OnKeyboardEvent(SKeyboardEvent const & Event)
 
 	if (Event.Key >= EKey::A && Event.Key <= EKey::Z)
 	{
-		char key = 'a' + (Event.Key - EKey::A);
-		if (Application->getEventManager().IsKeyDown[EKey::LeftShift] || 
-			Application->getEventManager().IsKeyDown[EKey::RightShift])
+		char key = 'a' + ((int) Event.Key - (int) EKey::A);
+		if (Application->getEventManager().IsKeyDown[(int) EKey::LeftShift] || 
+			Application->getEventManager().IsKeyDown[(int) EKey::RightShift])
 			key += 'A' - 'a';
 		Canvas->InputCharacter(key);
 	}

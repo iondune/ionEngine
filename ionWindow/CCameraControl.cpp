@@ -59,22 +59,22 @@ void CCameraControl::update(float const TickTime)
 	vec3f V = UpVector.CrossProduct(LookDirection).GetNormalized();
 	vec3f U = V.CrossProduct(W).GetNormalized()*-1;
 
-	if (EventManager.IsKeyDown[EKey::W] || EventManager.IsKeyDown[EKey::Up])
+	if (EventManager.IsKeyDown[(int) EKey::W] || EventManager.IsKeyDown[(int) EKey::Up])
 	{
 		Translation += LookDirection*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::A] || EventManager.IsKeyDown[EKey::Left])
+	if (EventManager.IsKeyDown[(int) EKey::A] || EventManager.IsKeyDown[(int) EKey::Left])
 	{
 		Translation += V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::D] || EventManager.IsKeyDown[EKey::Right])
+	if (EventManager.IsKeyDown[(int) EKey::D] || EventManager.IsKeyDown[(int) EKey::Right])
 	{
 		Translation -= V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[EKey::S] || EventManager.IsKeyDown[EKey::Down])
+	if (EventManager.IsKeyDown[(int) EKey::S] || EventManager.IsKeyDown[(int) EKey::Down])
 	{
 		Translation -= LookDirection*MoveSpeed*TickTime;
 	}

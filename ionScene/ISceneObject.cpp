@@ -35,7 +35,7 @@ void ISceneObject::setBoundingBox(SBoundingBox3f const & boundingBox)
 
 bool const ISceneObject::isDebugDataEnabled(EDebugData const type) const
 {
-	return (type & DebugDataFlags) != 0;
+	return ((int) type & DebugDataFlags) != 0;
 }
 
 void ISceneObject::enableDebugData(EDebugData const type)
@@ -46,7 +46,7 @@ void ISceneObject::enableDebugData(EDebugData const type)
 	if (type == EDebugData::All)
 		DebugDataFlags = -1;
 	else
-		DebugDataFlags |= type;
+		DebugDataFlags |= (int) type;
 }
 
 void ISceneObject::disableDebugData(EDebugData const type)
@@ -57,7 +57,7 @@ void ISceneObject::disableDebugData(EDebugData const type)
 	if (type == EDebugData::All)
 		DebugDataFlags = 0;
 	else
-		DebugDataFlags &= ~type;
+		DebugDataFlags &= ~ (int) type;
 }
 
 

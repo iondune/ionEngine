@@ -5,10 +5,19 @@
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionUtils.h" />
-    <ClInclude Include="ionConfig.h" />
-    <ClInclude Include="ionEnum.h" />
     <ClInclude Include="ionThread.h" />
+    <ClInclude Include="ionTreeNode.h" />
+    <ClInclude Include="ionCore.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="ionConfig.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{278703a6-a871-4f36-9809-64b69ce4e61e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

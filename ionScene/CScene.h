@@ -103,8 +103,8 @@ public:
 	virtual void setCullingEnabled(bool const culling);
 	
 	virtual bool const isDebugDataEnabled(EDebugData const type) const;
-	virtual void enableDebugData(EDebugData::Domain const type);
-	virtual void disableDebugData(EDebugData::Domain const type);
+	virtual void enableDebugData(EDebugData const type);
+	virtual void disableDebugData(EDebugData const type);
 
 
 	///////////////////

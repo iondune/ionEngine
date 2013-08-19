@@ -29,10 +29,10 @@
     <ClInclude Include="ionConfig.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionEnum.h" />
     <ClInclude Include="ionThread.h" />
     <ClInclude Include="ionRand.h" />
     <ClInclude Include="ionSmartPtr.h" />
+    <ClInclude Include="ionTreeNode.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionUtils.h" />
   </ItemGroup>

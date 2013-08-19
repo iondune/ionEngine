@@ -31,12 +31,12 @@ bool const CScene::isDebugDataEnabled(EDebugData const type) const
 	return RootObject.isDebugDataEnabled(type);
 }
 
-void CScene::enableDebugData(EDebugData::Domain const type)
+void CScene::enableDebugData(EDebugData const type)
 {
 	RootObject.enableDebugData(type);
 }
 
-void CScene::disableDebugData(EDebugData::Domain const type)
+void CScene::disableDebugData(EDebugData const type)
 {
 	RootObject.disableDebugData(type);
 }
