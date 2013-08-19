@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ionCore.h>
+#include <ionMath.h>
 
 
 namespace ion
@@ -194,8 +195,9 @@ namespace ion
 
 		class Texture1D : public ImageTexture
 		{
-			void Storage(u32 const width, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Storage(u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+			void SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
 			Texture1D();
 
@@ -203,36 +205,33 @@ namespace ion
 
 			u32 GetTarget();
 
-			u32 Width;
+			u32 Size;
 		};
 
 		class Texture2D : public ImageTexture
 		{
-			void Storage(u32 const width, u32 const height, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Storage(vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-
-			Texture2D();
+			void SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
 		protected:
 
 			u32 GetTarget();
 
-			u32 Width, Height;
+			vec2u Size;
 		};
 
 		class Texture3D : public ImageTexture
 		{
-			void Storage(u32 const width, u32 const height, u32 const depth, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Storage(vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-			void SubImage(void * const data, u32 const x, u32 const y, u32 const z, u32 const width, u32 const height, u32 const depth, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-
-			Texture3D();
+			void SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
 		protected:
 
 			u32 GetTarget();
 
-			u32 Width, Height, Depth;
+			vec3u Size;
 		};
 
 

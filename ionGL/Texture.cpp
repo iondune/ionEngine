@@ -16,7 +16,7 @@ namespace ion
 			MipMapLevels(8)
 		{}
 		
-		ImageTexture::Params const & Texture::GetParams() const
+		ImageTexture::Params const & ImageTexture::GetParams() const
 		{
 			return Parameters;
 		}
@@ -127,24 +127,33 @@ namespace ion
 		// Variants //
 		//////////////
 		
-		void Texture1D::Storage(u32 const width, EFormatComponents const components, EInternalFormatType const type)
+		void Texture1D::Storage(u32 const size, EFormatComponents const components, EInternalFormatType const type)
 		{
+			Size = size;
 			Bind();
-			glTexStorage1D(GL_TEXTURE_1D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Width = width);
+			glTexStorage1D(GL_TEXTURE_1D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size);
 			Unbind();
 		}
 
 		void Texture1D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Width, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Size, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			ImageLoaded = true;
+			ApplyParams();
+			Unbind();
+		}
+
+		void Texture1D::SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components, EFormatType const type)
+		{
+			Bind();
+			glTexSubImage1D(GL_TEXTURE_1D, 0, offset, size, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
 		}
 
 		Texture1D::Texture1D()
-			: Width()
 		{}
 
 		u32 Texture1D::GetTarget()
@@ -152,50 +161,62 @@ namespace ion
 			return GL_TEXTURE_1D;
 		}
 		
-		void Texture2D::Storage(u32 const width, u32 const height, EFormatComponents const components, EInternalFormatType const type)
+		void Texture2D::Storage(vec2u const & size, EFormatComponents const components, EInternalFormatType const type)
 		{
+			Size = size;
 			Bind();
-			glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Width = width, Height = height);
+			glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y);
 			Unbind();
 		}
 
 		void Texture2D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Width, Height, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
 		}
 
-		Texture2D::Texture2D()
-			: Width(), Height()
-		{}
+		void Texture2D::SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components, EFormatType const type)
+		{
+			Bind();
+			glTexSubImage2D(GL_TEXTURE_2D, 0, offset.X, offset.Y, size.X, size.Y, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			ImageLoaded = true;
+			ApplyParams();
+			Unbind();
+		}
 
 		u32 Texture2D::GetTarget()
 		{
 			return GL_TEXTURE_2D;
 		}
 		
-		void Texture3D::Storage(u32 const width, u32 const height, u32 const depth, EFormatComponents const components, EInternalFormatType const type)
+		void Texture3D::Storage(vec3u const & size, EFormatComponents const components, EInternalFormatType const type)
 		{
+			Size = size;
 			Bind();
-			glTexStorage3D(GL_TEXTURE_3D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Width = width, Height = height, Depth = depth);
+			glTexStorage3D(GL_TEXTURE_3D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y, Size.Z);
 			Unbind();
 		}
 
 		void Texture3D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Width, Height, Depth, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Size.X, Size.Y, Size.Z, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
 		}
 
-		Texture3D::Texture3D()
-			: Width(), Height()
-		{}
+		void Texture3D::SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components, EFormatType const type)
+		{
+			Bind();
+			glTexSubImage3D(GL_TEXTURE_3D, 0, offset.X, offset.Y, offset.Z, size.X, size.Y, size.Z, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			ImageLoaded = true;
+			ApplyParams();
+			Unbind();
+		}
 
 		u32 Texture3D::GetTarget()
 		{
