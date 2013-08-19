@@ -90,77 +90,149 @@ namespace ion
 		class Texture
 		{
 		public:
-
-			struct Params
-			{
-				enum class EFilter
-				{
-					Nearest = 0,
-					Linear = 1
-				};
-
-				enum class EMipMaps
-				{
-					Disabled = 0,
-					Nearest = 1,
-					Linear = 2
-				};
-
-				enum class EWrapMode
-				{
-					Clamp = 0,
-					Mirror = 1,
-					Repeat = 2
-				};
-
-				EFilter MinFilter;
-				EFilter MagFilter;
-				EMipMaps MipMapMode;
-				EWrapMode WrapMode;
-
-				Params();
-			};
-
-			Params const & GetParams() const;
-			void SetParams(Params const & params);
-
+			
 			void Delete();
 			~Texture();
 
 		protected:
 
 			Texture();
+			
+			u32 Handle;
+		};
+
+		class ImageTexture : public Texture
+		{
+		public:
+
+			enum class EFilter
+			{
+				Nearest = 0,
+				Linear = 1
+			};
+
+			enum class EMipMaps
+			{
+				Disabled = 0,
+				Nearest = 1,
+				Linear = 2
+			};
+
+			enum class EWrapMode
+			{
+				Clamp = 0,
+				Mirror = 1,
+				Repeat = 2
+			};
+
+			enum class EFormatComponents
+			{
+				R = 0,
+				RG = 1,
+				RGB = 2,
+				RGBA = 3
+			};
+
+			enum class EInternalFormatType
+			{
+				Fix8 = 0,
+				Fix16 = 1,
+				U8 = 2,
+				U16 = 3,
+				U32 = 4,
+				S8 = 5,
+				S16 = 6,
+				S32 = 7,
+				F16 = 8,
+				F32 = 9
+			};
+
+			enum class EFormatType
+			{
+				U8 = 0,
+				U16 = 1,
+				U32 = 2,
+				S8 = 3,
+				S16 = 4,
+				S32 = 5,
+				F32 = 6
+			};
+			
+			static u32 const InternalFormatMatrix[4][10];
+			static u32 const FormatMatrix[4];
+			static u32 const TypeMatrix[7];
+
+			struct Params
+			{
+
+				EFilter MinFilter;
+				EFilter MagFilter;
+				EMipMaps MipMapMode;
+				EWrapMode WrapMode;
+				u32 MipMapLevels;
+
+				Params();
+			};
+			
+			Params const & GetParams() const;
+			void SetParams(Params const & params);
+
+		protected:
+
+			ImageTexture();
+			
+			void ApplyParams();
 
 			void Bind();
 			void Unbind();
 			virtual u32 GetTarget() = 0;
 
 			u32 Handle;
-
-		private:
-
 			Params Parameters;
+			bool ImageLoaded;
 		};
 
-		class Texture1D : Texture
+		class Texture1D : public ImageTexture
 		{
+			void Storage(u32 const width, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+
+			Texture1D();
+
 		protected:
 
 			u32 GetTarget();
+
+			u32 Width;
 		};
 
-		class Texture2D : Texture
+		class Texture2D : public ImageTexture
 		{
+			void Storage(u32 const width, u32 const height, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+
+			Texture2D();
+
 		protected:
 
 			u32 GetTarget();
+
+			u32 Width, Height;
 		};
 
-		class Texture3D : Texture
+		class Texture3D : public ImageTexture
 		{
+			void Storage(u32 const width, u32 const height, u32 const depth, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
+			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+			void SubImage(void * const data, u32 const x, u32 const y, u32 const z, u32 const width, u32 const height, u32 const depth, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+
+			Texture3D();
+
 		protected:
 
 			u32 GetTarget();
+
+			u32 Width, Height, Depth;
 		};
 
 
