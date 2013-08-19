@@ -41,20 +41,6 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include=".\ionWindow.h" />
-    <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CCameraControl.h" />
-    <ClInclude Include="CEventManager.h" />
-    <ClInclude Include="CFadeOutState.h" />
-    <ClInclude Include="COrthoCamera.h" />
-    <ClInclude Include="CStateManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CCameraControl.cpp" />
-    <ClCompile Include="CEventManager.cpp" />
-    <ClCompile Include="CFadeOutState.cpp" />
-    <ClCompile Include="COrthoCamera.cpp" />
-    <ClCompile Include="CStateManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

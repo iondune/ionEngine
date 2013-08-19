@@ -10,6 +10,23 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="CCameraControl.cpp" />
+    <ClCompile Include="CEventManager.cpp" />
+    <ClCompile Include="CFadeOutState.cpp" />
+    <ClCompile Include="COrthoCamera.cpp" />
+    <ClCompile Include="CStateManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CCameraControl.h" />
+    <ClInclude Include="CEventManager.h" />
+    <ClInclude Include="CFadeOutState.h" />
+    <ClInclude Include="COrthoCamera.h" />
+    <ClInclude Include="CStateManager.h" />
+    <ClInclude Include="ionFramework.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B8548F57-DF33-4215-AE44-83CF8BCF18C1}</ProjectGuid>
     <RootNamespace>ionFramework</RootNamespace>
