@@ -13,6 +13,6 @@ public:
 
 	void Init();
 
-	CWindow * CreateWindow(vec2i const & Size);
+	CWindow * CreateWindow(vec2i const & Size, std::string const & Title);
 
 };

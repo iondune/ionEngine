@@ -11,5 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CWindowManager.cpp" />
+    <ClCompile Include="CWindow.cpp" />
   </ItemGroup>
 </Project>

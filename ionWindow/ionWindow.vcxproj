@@ -49,6 +49,7 @@
     <ClInclude Include="SWindowResizedEvent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
