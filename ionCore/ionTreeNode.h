@@ -4,32 +4,35 @@
 #include <set>
 
 
+template <typename Implementation>
 class ITreeNode
 {
 
+	static_assert(std::is_base_of<ITreeNode<Implementation>, Implementation>, "ITreeNode<Implementation> must be a base of implementation type.");
+
 public:
 
-	ITreeNode const * const GetParent() const
+	Implementation const * const GetParent() const
 	{
 		return Parent;
 	}
 
-	std::set<ITreeNode *> const & GetChildren() const
+	std::set<Implementation *> const & GetChildren() const
 	{
 		return Children;
 	}
 
-	void AddChild(ITreeNode * child)
+	void AddChild(Implementation * child)
 	{
 		child->SetParent(this);
 	}
 
-	void RemoveChild(ITreeNode * child)
+	void RemoveChild(Implementation * child)
 	{
 		child->SetParent(0);
 	}
 
-	void SetParent(ITreeNode * parent)
+	void SetParent(Implementation * parent)
 	{
 		if (Parent)
 			Parent->Children.erase(this);
@@ -49,7 +52,7 @@ public:
 
 protected:
 
-	ITreeNode * Parent;
-	std::set<ITreeNode *> Children;
+	Implementation * Parent;
+	std::set<Implementation *> Children;
 
 };
