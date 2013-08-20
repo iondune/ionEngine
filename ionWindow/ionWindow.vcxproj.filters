@@ -2,5 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionWindow.h" />
+    <ClInclude Include="EKey.h" />
+    <ClInclude Include="SKeyboardEvent.h" />
+    <ClInclude Include="SMouseEvent.h" />
+    <ClInclude Include="SWindowResizedEvent.h" />
+    <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="CWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
 </Project>

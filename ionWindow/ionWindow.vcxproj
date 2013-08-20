@@ -41,6 +41,15 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include=".\ionWindow.h" />
+    <ClInclude Include="CWindow.h" />
+    <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="EKey.h" />
+    <ClInclude Include="SKeyboardEvent.h" />
+    <ClInclude Include="SMouseEvent.h" />
+    <ClInclude Include="SWindowResizedEvent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

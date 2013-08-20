@@ -19,6 +19,8 @@
     <ClCompile Include="CStateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SEvent.h" />
+    <ClInclude Include="ICallable.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CCameraControl.h" />
     <ClInclude Include="CEventManager.h" />
