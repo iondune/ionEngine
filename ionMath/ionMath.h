@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ionCore.h>
+
 #include "SVector.h"
 #include "SColor.h"
 #include "SVector2.h"
