@@ -6,15 +6,17 @@
 
 class CWindow;
 
-class CStateManager : public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public IEventListener<SWindowResizedEvent>
+class CStateManager : public Singleton<CStateManager>, IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public IEventListener<SWindowResizedEvent>
 {
 
-    friend class CApplication;
+    friend class Singleton<CStateManager>;
 
 public:
 
     void SetState(IState * State);
     void DoStateChange();
+
+	void Update(f32 const ElapsedTime);
 
 	void Connect(CWindow * Window);
 	void ShutDown();
