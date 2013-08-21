@@ -4,6 +4,8 @@
 #include "CApplication.h"
 #include "CSceneManager.h"
 
+#include "CContextObject.h"
+
 
 template <class TContext>
 class CApplicationContextObject : public CContextObject<TContext>

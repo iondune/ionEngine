@@ -80,7 +80,7 @@ void CApplication::Run()
 
 		UpdateTime();
 
-		StateManager->Update(ElapsedTime);
+		StateManager->Update((f32) ElapsedTime);
 		StateManager->DoStateChange();
 
 	}
