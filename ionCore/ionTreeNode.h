@@ -9,7 +9,7 @@ template <typename Implementation>
 class ITreeNode
 {
 
-	static_assert(std::is_base_of<ITreeNode<Implementation>, Implementation>::value, "ITreeNode<Implementation> must be a base of implementation type.");
+	//static_assert(std::is_base_of<ITreeNode<Implementation>, Implementation>::value, "ITreeNode<Implementation> must be a base of implementation type.");
 
 public:
 
