@@ -10,23 +10,24 @@ void CWindow::MakeContextCurrent()
 	glfwMakeContextCurrent(WindowHandle);
 }
 
-CWindow::CWindow(GLFWwindow * windowHandle)
-	: WindowHandle(windowHandle)
+bool CWindow::ShouldClose() const
 {
-	for (unsigned int i = 0; i < (int) EKey::Count; ++ i)
-        KeyStates[i] = false;
-
-    for (unsigned int i = 0; i < (int) SMouseEvent::EButton::Count; ++ i)
-        MouseStates[i] = false;
-	
-	KeyboardEvent.AddTrigger(SEvent<SKeyboardEvent>::ITrigger::shared_from_this());
-	MouseEvent.AddTrigger(SEvent<SMouseEvent>::ITrigger::shared_from_this());
-	WindowResizedEvent.AddTrigger(SEvent<SWindowResizedEvent>::ITrigger::shared_from_this());
+	return glfwWindowShouldClose(WindowHandle);
 }
 
-vec2i const & CWindow::GetSize()
+vec2i const & CWindow::GetSize() const
 {
 	return Size;
+}
+
+f32 CWindow::GetAspectRatio() const
+{
+	return (f32) Size.X / (f32) Size.Y;
+}
+
+void CWindow::SwapBuffers()
+{
+	glfwSwapBuffers(WindowHandle);
 }
 
 bool CWindow::IsKeyDown(EKey const Key)
@@ -42,4 +43,18 @@ bool CWindow::IsMouseDown(SMouseEvent::EButton const Button)
 vec2f const & CWindow::GetCursorLocation()
 {
 	return CursorLocation;
+}
+
+CWindow::CWindow(GLFWwindow * windowHandle)
+	: WindowHandle(windowHandle)
+{
+	for (unsigned int i = 0; i < (int) EKey::Count; ++ i)
+        KeyStates[i] = false;
+
+    for (unsigned int i = 0; i < (int) SMouseEvent::EButton::Count; ++ i)
+        MouseStates[i] = false;
+	
+	KeyboardEvent.AddTrigger(SEvent<SKeyboardEvent>::ITrigger::shared_from_this());
+	MouseEvent.AddTrigger(SEvent<SMouseEvent>::ITrigger::shared_from_this());
+	WindowResizedEvent.AddTrigger(SEvent<SWindowResizedEvent>::ITrigger::shared_from_this());
 }

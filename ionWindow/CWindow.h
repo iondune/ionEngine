@@ -17,7 +17,10 @@ class CWindow : public SEvent<SKeyboardEvent>::ITrigger, public SEvent<SMouseEve
 public:
 
 	void MakeContextCurrent();
-	vec2i const & GetSize();
+	bool ShouldClose() const;
+	vec2i const & GetSize() const;
+	f32 GetAspectRatio() const;
+	void SwapBuffers();
 
 	bool IsKeyDown(EKey const Key);
     bool IsMouseDown(SMouseEvent::EButton const Button);
