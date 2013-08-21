@@ -42,9 +42,7 @@ class CEventManager
 
     CEventManager();
 
-	bool KeyStates[EKey::Count];
-    bool MouseStates[SMouseEvent::EButton::Count];
-    vec2i MousePositionState;
+	
 
 public:	
 	
@@ -61,9 +59,6 @@ public:
 
     sigslot::signal0<> OnApplicationExit;
 
-	bool const (& IsKeyDown)[EKey::Count];
-    bool const (& IsMouseDown)[SMouseEvent::EButton::Count];
-
-    vec2i const & MouseLocation;
+	
 
 };

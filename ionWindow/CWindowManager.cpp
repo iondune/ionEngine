@@ -34,6 +34,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	}
 	
 	CWindow * Window = new CWindow(glfwWindow);
+	Windows[glfwWindow] = Window;
 	Window->MakeContextCurrent();
 
 	static bool Initialized = false;
@@ -60,4 +61,138 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 
 		Initialized = true;
 	}
+}
+
+EKey const ConvertGLFWKeyCode(int const Code)
+{
+	if (Code >= 'A' && Code <= 'Z')
+		return (EKey) ((int) EKey::A + (Code - 'A'));
+	
+	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
+		return (EKey) ((int) EKey::KeyPad0 + (Code - GLFW_KEY_KP_0));
+	if (Code >= '0' && Code <= '9')
+		return (EKey) ((int) EKey::Num0 + (Code - '0'));
+	
+	switch (Code)
+	{
+
+	case '[':
+		return EKey::LeftBracket;
+	case ']':
+		return EKey::RightBracket;
+	case ',':
+		return EKey::Comma;
+	case '.':
+		return EKey::Period;
+	case ';':
+		return EKey::Semicolon;
+	case '\'':
+		return EKey::Quote;
+
+	case GLFW_KEY_ESCAPE:
+		return EKey::Escape;
+		
+	case GLFW_KEY_UP:
+		return EKey::Up;
+	case GLFW_KEY_LEFT:
+		return EKey::Left;
+	case GLFW_KEY_DOWN:
+		return EKey::Down;
+	case GLFW_KEY_RIGHT:
+		return EKey::Right;
+		
+	case GLFW_KEY_SPACE:
+		return EKey::Space;
+		
+	case GLFW_KEY_LEFT_SHIFT:
+		return EKey::LeftShift;
+	case GLFW_KEY_RIGHT_SHIFT:
+		return EKey::RightShift;
+	case GLFW_KEY_LEFT_CONTROL:
+		return EKey::LeftControl;
+	case GLFW_KEY_RIGHT_CONTROL:
+		return EKey::RightControl;
+	case GLFW_KEY_LEFT_ALT:
+		return EKey::LeftAlt;
+	case GLFW_KEY_RIGHT_ALT:
+		return EKey::RightAlt;
+
+	default:
+		return EKey::Unknown;
+
+	};
+}
+
+void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
+{
+	CWindowManager & WindowManager = Get();
+	CWindow * Window = WindowManager.Windows[window];
+
+	SKeyboardEvent KeyEvent;
+	KeyEvent.Pressed = action != GLFW_RELEASE;
+	KeyEvent.Key = ConvertGLFWKeyCode(key);
+	
+	Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
+	Window->SEvent<SKeyboardEvent>::ITrigger::Trigger(KeyEvent);
+}
+
+void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
+{
+	CWindowManager & WindowManager = Get();
+	CWindow * Window = WindowManager.Windows[window];
+
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Click;
+	MouseEvent.Location = Window->MouseLocation;
+	MouseEvent.Pressed = action == GLFW_PRESS;
+
+	switch (button)
+	{
+	case GLFW_MOUSE_BUTTON_LEFT:
+		MouseEvent.Button = SMouseEvent::EButton::Left;
+		break;
+
+	case GLFW_MOUSE_BUTTON_RIGHT:
+		MouseEvent.Button = SMouseEvent::EButton::Right;
+		break;
+
+	case GLFW_MOUSE_BUTTON_MIDDLE:
+		MouseEvent.Button = SMouseEvent::EButton::Middle;
+		break;
+
+	default:
+		break;
+	}
+
+	Window->MouseStates[(int) MouseEvent.Button] = MouseEvent.Pressed;
+	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
+}
+
+void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset)
+{
+	CWindowManager & WindowManager = Get();
+	CWindow * Window = WindowManager.Windows[window];
+
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Scroll;
+	MouseEvent.Movement = vec2d(xoffset, yoffset);
+
+	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
+}
+
+void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, double ypos)
+{	
+	CWindowManager & WindowManager = Get();
+	CWindow * Window = WindowManager.Windows[window];
+
+	SMouseEvent MouseEvent;
+	MouseEvent.Type = SMouseEvent::EType::Move;
+	MouseEvent.Location = vec2d(xpos, ypos);
+
+	Window->MousePositionState = MouseEvent.Location;
+	MouseEvent.Movement = MouseEvent.Location - Window->LastMousePosition;
+	
+	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
+
+	Window->LastMousePosition = MouseEvent.Location;
 }

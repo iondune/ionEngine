@@ -58,12 +58,3 @@ void CApplicationEventReceiver::OnApplicationExit()
 {}
 
 
-CEventManager::CEventManager()
-    : IsKeyDown(KeyStates), MouseLocation(MousePositionState), IsMouseDown(MouseStates)
-{
-	for (unsigned int i = 0; i < (int) EKey::Count; ++ i)
-        KeyStates[i] = false;
-
-    for (unsigned int i = 0; i < (int) SMouseEvent::EButton::Count; ++ i)
-        MouseStates[i] = false;
-}
