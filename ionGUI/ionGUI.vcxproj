@@ -42,13 +42,13 @@
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="CGwenEventForwarder.cpp" />
+    <ClCompile Include="CGUIEventManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CGwenEventForwarder.h" />
+    <ClInclude Include="CGUIEventManager.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="OpenGL3Font.h" />

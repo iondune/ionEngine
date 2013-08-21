@@ -1,19 +1,22 @@
 
-#include "CGwenEventForwarder.h"
+#include "CGUIEventManager.h"
+
+#include <CApplication.h>
 
 
-CGwenEventForwarder::CGwenEventForwarder(Gwen::Controls::Canvas * pCanvas, std::function<void (SMouseEvent const &)> onUncaughtMouseEvent)
-	: Canvas(pCanvas), OnUncaughtMouseEvent(onUncaughtMouseEvent)
-{}
-
-void CGwenEventForwarder::OnKeyboardEvent(SKeyboardEvent const & Event)
+CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas)
+	: Canvas(pCanvas)
 {
+	UncaughtMouseEvent.AddTrigger(shared_from_this());
+}
 
+void CGUIEventManager::OnEvent(SKeyboardEvent & Event)
+{
 	if (Event.Key >= EKey::A && Event.Key <= EKey::Z)
 	{
 		char key = 'a' + ((int) Event.Key - (int) EKey::A);
-		if (Application->getEventManager().IsKeyDown[(int) EKey::LeftShift] || 
-			Application->getEventManager().IsKeyDown[(int) EKey::RightShift])
+		if (CApplication::Get().GetWindow().IsKeyDown(EKey::LeftShift) || 
+			CApplication::Get().GetWindow().IsKeyDown(EKey::RightShift))
 			key += 'A' - 'a';
 		Canvas->InputCharacter(key);
 	}
@@ -45,20 +48,23 @@ void CGwenEventForwarder::OnKeyboardEvent(SKeyboardEvent const & Event)
 	}
 }
 
-void CGwenEventForwarder::OnMouseEvent(SMouseEvent const & Event)
+void CGUIEventManager::OnEvent(SMouseEvent & Event)
 {
-	switch (Event.Type.Value)
+	switch (Event.Type)
 	{
 	case SMouseEvent::EType::Move:
 
 		if (! Canvas->InputMouseMoved(Event.Location.X, Event.Location.Y, Event.Movement.X, Event.Movement.Y))
-			OnUncaughtMouseEvent(Event);
+		{
+			SUncaughtMouseEvent NewEvent = Event;
+			Trigger(NewEvent);
+		}
 		break;
 			
 	case SMouseEvent::EType::Click:
 		{
 			int Button = -1;
-			switch (Event.Button.Value)
+			switch (Event.Button)
 			{
 			case SMouseEvent::EButton::Left:
 				Button = 0;
@@ -73,7 +79,10 @@ void CGwenEventForwarder::OnMouseEvent(SMouseEvent const & Event)
 			}
 
 			if (! Canvas->InputMouseButton(Button, Event.Pressed))
-				OnUncaughtMouseEvent(Event);
+			{
+				SUncaughtMouseEvent NewEvent = Event;
+				Trigger(NewEvent);
+			}
 		}
 		break;
 
@@ -83,18 +92,3 @@ void CGwenEventForwarder::OnMouseEvent(SMouseEvent const & Event)
 		break;
 	}
 }
-
-void CGwenEventForwarder::OnGameTickStart(float const Elapsed)
-{}
-
-void CGwenEventForwarder::OnGameTickEnd(float const Elapsed)
-{}
-
-void CGwenEventForwarder::OnRenderStart(float const Elapsed)
-{}
-
-void CGwenEventForwarder::OnRenderEnd(float const Elapsed)
-{}
-
-void CGwenEventForwarder::OnApplicationExit()
-{}

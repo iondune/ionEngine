@@ -2,14 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="FreeType.cpp" />
-    <ClCompile Include="CGwenEventForwarder.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
+    <ClCompile Include="CGUIEventManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeType.h" />
-    <ClInclude Include="CGwenEventForwarder.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="OpenGL3Font.h" />
+    <ClInclude Include="CGUIEventManager.h" />
   </ItemGroup>
 </Project>
