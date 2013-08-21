@@ -33,10 +33,14 @@ private:
 };
 
 template <typename EventType>
-class IEventListener : public ITreeNode<IEventListener>
+class IEventListener : public ITreeNode<IEventListener<EventType>>
 {
 
 public:
+
+	virtual void OnEvent(EventType & Event) = 0;
+
+protected:
 
 	void OnTriggered(EventType & Event)
 	{
@@ -47,17 +51,15 @@ public:
 		Event.Unblock();
 	}
 
-	virtual void OnEvent(EventType & Event) = 0;
-
 };
 
 template <typename EventType>
-struct SEvent : public IEventListener
+struct SEvent : public IEventListener<EventType>, public std::enable_shared_from_this<SEvent<EventType>>
 {
 
-	static_assert(std::is_base_of<SEventData, EventType>, "SEventData must be a base of event type.");
+	static_assert(std::is_base_of<SEventData, EventType>::value, "SEventData must be a base of event type.");
 
-	class ITrigger
+	class ITrigger : public std::enable_shared_from_this<ITrigger>
 	{
 
 	public:
@@ -66,22 +68,23 @@ struct SEvent : public IEventListener
 		{
 			for (auto it = Events.begin(); it != Events.end();)
 			{
-				SEvent * Event = * it;
+				sharedPtr<SEvent> Event = * it;
 				it = Events.erase(it);
-				Event->RemoveTrigger(this);
+				Event->RemoveTrigger(shared_from_this());
 			}
 		}
 
-		void Trigger(EventType & Event)
+		void Trigger(EventType & EventData)
 		{
 			for (auto Event : Events)
 			{
-				Event.OnTriggered(Event);
+				Event->OnTriggered(EventData);
 			}
 		}
 
 	protected:
 
+		friend struct SEvent<EventType>;
 		std::set<sharedPtr<SEvent<EventType>>> Events;
 
 	};
@@ -91,20 +94,20 @@ struct SEvent : public IEventListener
 
 public:
 
-	void RemoveTrigger(ITrigger<EventType> * Trigger)
+	void RemoveTrigger(sharedPtr<ITrigger> const Trigger)
 	{
 		Triggers.erase(Trigger);
-		Trigger->Events.erase(this);
+		Trigger->Events.erase(shared_from_this());
 	}
 
 	void RemoveAllTriggers()
 	{
 		for (auto Trigger : Triggers)
-			Trigger->Events.erase(this);
+			Trigger->Events.erase(shared_from_this());
 		Triggers.clear();
 	}
 
-	void AddTrigger(sharedPtr<ITrigger<EventType>> Trigger)
+	void AddTrigger(sharedPtr<ITrigger> Trigger)
 	{
 		Triggers.insert(Trigger);
 		Trigger->Events.insert(this);
@@ -112,6 +115,6 @@ public:
 
 protected:
 	
-	std::set<sharedPtr<ITrigger<EventType>>> Triggers;
+	std::set<sharedPtr<ITrigger>> Triggers;
 
 };
