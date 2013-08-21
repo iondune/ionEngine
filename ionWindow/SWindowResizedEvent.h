@@ -4,8 +4,10 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
+#include <SEvent.h>
 
-struct SWindowResizedEvent
+
+struct SWindowResizedEvent : public SEventData
 {
 	vec2i Size;
 };

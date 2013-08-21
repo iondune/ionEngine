@@ -4,8 +4,10 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
+#include <SEvent.h>
 
-struct SMouseEvent
+
+struct SMouseEvent : public SEventData
 {
     enum class EButton
     {

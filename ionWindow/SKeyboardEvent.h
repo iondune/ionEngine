@@ -1,10 +1,12 @@
 
 #pragma once
 
+#include <SEvent.h>
+
 #include "EKey.h"
 
 
-struct SKeyboardEvent
+struct SKeyboardEvent : public SEventData
 {
     bool Pressed;
     EKey Key;
