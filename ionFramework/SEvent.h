@@ -65,7 +65,7 @@ public:
 	void AddTrigger(sharedPtr<ITrigger> Trigger)
 	{
 		Triggers.insert(Trigger);
-		Trigger->Events.insert(this);
+		Trigger->Events.insert(shared_from_this());
 	}
 
 protected:
