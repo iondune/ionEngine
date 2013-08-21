@@ -1,8 +1,11 @@
 
 #pragma once
 
-#include "CApplication.h"
-#include "CEventManager.h"
+#include "SEvent.h"
+
+#include "CApplicationContextObject.h"
 #include "CStateManager.h"
-#include "CFadeOutState.h"
+
+#include "CApplication.h"
 #include "CCameraControl.h"
+#include "CFadeOutState.h"
