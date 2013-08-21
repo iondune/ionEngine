@@ -12,7 +12,7 @@ void CWindow::MakeContextCurrent()
 
 bool CWindow::ShouldClose() const
 {
-	return glfwWindowShouldClose(WindowHandle);
+	return glfwWindowShouldClose(WindowHandle) != 0;
 }
 
 vec2i const & CWindow::GetSize() const

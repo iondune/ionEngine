@@ -149,7 +149,7 @@ void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int ac
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Click;
-	MouseEvent.Location = Window->MouseLocation;
+	MouseEvent.Location = Window->CursorLocation;
 	MouseEvent.Pressed = action == GLFW_PRESS;
 
 	switch (button)
