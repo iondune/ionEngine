@@ -1,82 +1,43 @@
 #include "CStateManager.h"
 
 #include "CApplication.h"
+#include "CWindow.h"
 
 
 CStateManager::CStateManager()
 	: CurrentState(0)
 {}
 
-void CStateManager::OnGameTickStart(float const Elapsed)
-{
-	if (CurrentState)
-		CurrentState->OnGameTickStart(Elapsed);
-}
-
-void CStateManager::OnGameTickEnd(float const Elapsed)
-{
-	if (CurrentState)
-		CurrentState->OnGameTickEnd(Elapsed);
-}
-
-
-void CStateManager::OnRenderStart(float const Elapsed)
-{
-	if (CurrentState)
-		CurrentState->OnRenderStart(Elapsed);
-}
-
-void CStateManager::OnRenderEnd(float const Elapsed)
-{
-	if (CurrentState)
-		CurrentState->OnRenderEnd(Elapsed);
-}
-
-
-void CStateManager::OnMouseEvent(SMouseEvent const & Event)
-{
-	if (CurrentState)
-		CurrentState->OnMouseEvent(Event);
-}
-
-void CStateManager::OnKeyboardEvent(SKeyboardEvent const & Event)
-{
-	if (CurrentState)
-		CurrentState->OnKeyboardEvent(Event);
-}
-
-
-void CStateManager::OnWindowResized(SWindowResizedEvent const & Event)
-{
-	if (CurrentState)
-		CurrentState->OnWindowResized(Event);
-}
-
-void CStateManager::setState(IState * State)
+void CStateManager::SetState(IState * State)
 {
 	NextState = State;
 }
 
-void CStateManager::doStateChange()
+void CStateManager::DoStateChange()
 {
 	if (! NextState)
 		return;
 
 	if (CurrentState)
-	{
-		CurrentState->end();
-	}
+		CurrentState->End();
 
 	CurrentState = NextState;
-	NextState = NULL;
+	NextState = 0;
 
-	CurrentState->begin();
+	CurrentState->Begin();
 }
 
-void CStateManager::shutDown()
+void CStateManager::Connect(CWindow * Window)
+{
+	Window->MouseEvent.AddChild(this);
+	Window->KeyboardEvent.AddChild(this);
+	Window->WindowResizedEvent.AddChild(this);
+}
+
+void CStateManager::ShutDown()
 {
 	if (CurrentState)
-		CurrentState->end();
+		CurrentState->End();
 
 	CurrentState = 0;
 }

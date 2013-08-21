@@ -1,208 +1,31 @@
-#ifndef _ION_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
-#define _ION_FRAMEKWORK_CSTATEMANAGER_H_INCLUDED_
 
-#include <sigslot/sigslot.h>
+#pragma once
 
-#include "CEventManager.h"
-#include "CApplication.h"
+#include "IState.h"
 
 
-class IState : public sigslot::has_slots<>
-{
+class CWindow;
 
-public:
-
-    virtual void begin() =0;
-    virtual void end() =0;
-
-    virtual void OnGameTickStart(float const Elapsed) =0;
-    virtual void OnGameTickEnd(float const Elapsed) =0;
-
-    virtual void OnRenderStart(float const Elapsed) =0;
-    virtual void OnRenderEnd(float const Elapsed) =0;
-
-    virtual void OnMouseEvent(SMouseEvent const & Event) =0;
-    virtual void OnKeyboardEvent(SKeyboardEvent const & Event) =0;
-	
-	virtual void OnWindowResized(SWindowResizedEvent const & Event) =0;
-
-};
-
-class CSceneManager;
-
-template <class TImplementation>
-class Singleton
-{
-
-private:
-	
-	Singleton & operator = (Singleton const &);
-	Singleton(Singleton const &);
-
-protected:
-
-	Singleton()
-	{}
-
-public:
-
-    static TImplementation & get()
-    {
-        static TImplementation * Instance = 0;
-
-		if (! Instance)
-			Instance = new TImplementation();
-
-        return * Instance;
-    }
-
-};
-
-template <class TContext>
-class CContextObject
-{
-
-protected:
-
-	struct DisableAutoContextLoad
-	{};
-
-	TContext * Context;
-
-	CContextObject()
-		: Context(0)
-	{
-		loadContext();
-	}
-
-	CContextObject(DisableAutoContextLoad)
-		: Context(0)
-	{}
-
-public:
-
-	virtual void loadContext()
-	{
-		Context = & TContext::get();
-	}
-
-};
-
-template <class TContext>
-class CApplicationContextObject : public CContextObject<TContext>
-{
-
-protected:
-
-	CApplication * Application;
-	CSceneManager * SceneManager;
-
-	CApplicationContextObject()
-		: Application(0), SceneManager(0), CContextObject<TContext>(DisableAutoContextLoad())
-	{
-		loadContext();
-	}
-
-	CApplicationContextObject(DisableAutoContextLoad)
-		: Application(0), SceneManager(0)
-	{
-	}
-
-public:
-
-	virtual void loadContext()
-	{
-		CContextObject<TContext>::loadContext();
-		Application = & CApplication::get();
-		SceneManager = & Application->getSceneManager();
-	}
-
-};
-
-template <class TImplementation, class TContext>
-class CContextState : public IState, public Singleton<TImplementation>, public CApplicationContextObject<TContext>
-{
-
-protected:
-
-	CContextState()
-	{}
-
-	CContextState(DisableAutoContextLoad)
-		: CApplicationContextObject<TContext>(DisableAutoContextLoad)
-	{}
-
-public:
-
-    virtual void begin()
-    {}
-    virtual void end()
-    {}
-
-    virtual void OnGameTickStart(float const Elapsed)
-    {}
-    virtual void OnGameTickEnd(float const Elapsed)
-    {}
-
-    virtual void OnRenderStart(float const Elapsed)
-    {}
-    virtual void OnRenderEnd(float const Elapsed)
-    {}
-
-    virtual void OnMouseEvent(SMouseEvent const & Event)
-    {}
-    virtual void OnKeyboardEvent(SKeyboardEvent const & Event)
-    {}
-
-    virtual void OnWindowResized(SWindowResizedEvent const & Event)
-    {}
-
-};
-
-struct NullContext : public Singleton<NullContext>
-{};
-
-template <class TImplementation>
-class CState : public CContextState<TImplementation, NullContext>
-{
-
-protected:
-
-	CState()
-	{}
-
-};
-
-class CApplication;
-
-class CStateManager : public CApplicationEventReceiver
+class CStateManager : public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public IEventListener<SWindowResizedEvent>
 {
 
     friend class CApplication;
 
-    CStateManager();
-
-    IState * CurrentState;
-
 public:
 
-    void OnGameTickStart(float const Elapsed);
-    void OnGameTickEnd(float const Elapsed);
+    void SetState(IState * State);
+    void DoStateChange();
 
-    void OnRenderStart(float const Elapsed);
-    void OnRenderEnd(float const Elapsed);
+	void Connect(CWindow * Window);
+	void ShutDown();
 
-    void OnMouseEvent(SMouseEvent const & Event);
-    void OnKeyboardEvent(SKeyboardEvent const & Event);
+private:
 
-	void OnWindowResized(SWindowResizedEvent const & Event);
+    CStateManager();
 
-    void setState(IState * State);
+protected:
+
+    IState * CurrentState;
     IState * NextState;
-    void doStateChange();
-
-	void shutDown();
 
 };
-
-#endif

@@ -1,0 +1,34 @@
+
+#pragma once
+
+#include "CApplication.h"
+#include "CSceneManager.h"
+
+
+template <class TContext>
+class CApplicationContextObject : public CContextObject<TContext>
+{
+
+protected:
+
+	CApplication * Application;
+	CSceneManager * SceneManager;
+
+	CApplicationContextObject()
+		: Application(), SceneManager()
+	{}
+
+	CApplicationContextObject(DisableAutoContextLoad)
+		: Application(), SceneManager(), CContextObject<TContext>(DisableAutoContextLoad())
+	{}
+
+public:
+
+	void LoadContext()
+	{
+		CContextObject<TContext>::LoadContext();
+		Application = & CApplication::Get();
+		SceneManager = & Application->GetSceneManager();
+	}
+
+};

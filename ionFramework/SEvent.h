@@ -4,54 +4,9 @@
 #include <ionCore.h>
 
 #include "ICallable.h"
+#include "SEventData.h"
+#include "IEventListener.h"
 
-
-struct SEventData
-{
-
-public:
-
-	void Block()
-	{
-		Blocked = true;
-	}
-
-	void Unblock()
-	{
-		Blocked = false;
-	}
-
-	bool IsBlocked() const
-	{
-		return Blocked;
-	}
-
-private:
-
-	bool Blocked;
-
-};
-
-template <typename EventType>
-class IEventListener : public ITreeNode<IEventListener<EventType>>
-{
-
-public:
-
-	virtual void OnEvent(EventType & Event) = 0;
-
-protected:
-
-	void OnTriggered(EventType & Event)
-	{
-		OnEvent(Event);
-		if (! Event.IsBlocked())
-			for (auto Child : Children)
-				Child->OnTriggered(Event);
-		Event.Unblock();
-	}
-
-};
 
 template <typename EventType>
 struct SEvent : public IEventListener<EventType>, public std::enable_shared_from_this<SEvent<EventType>>
