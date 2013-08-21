@@ -9,6 +9,7 @@ template <typename Implementation>
 class ITreeNode
 {
 
+	// To Do : Why doesn't this work?
 	//static_assert(std::is_base_of<ITreeNode<Implementation>, Implementation>::value, "ITreeNode<Implementation> must be a base of implementation type.");
 
 public:
@@ -25,7 +26,7 @@ public:
 
 	void AddChild(Implementation * child)
 	{
-		child->SetParent(this);
+		child->SetParent(static_cast<Implementation *>(this));
 	}
 
 	void RemoveChild(Implementation * child)
@@ -36,12 +37,12 @@ public:
 	void SetParent(Implementation * parent)
 	{
 		if (Parent)
-			Parent->Children.erase(this);
+			Parent->Children.erase(static_cast<Implementation *>(this));
 		
 		Parent = parent;
 
 		if (Parent)
-			Parent->Children.insert(this);
+			Parent->Children.insert(static_cast<Implementation *>(this));
 	}
 
 	void RemoveAllChildren()
