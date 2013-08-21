@@ -4,10 +4,6 @@
 #include "CWindow.h"
 
 
-CStateManager::CStateManager()
-	: CurrentState(0)
-{}
-
 void CStateManager::SetState(IState * State)
 {
 	NextState = State;
@@ -55,3 +51,19 @@ void CStateManager::ShutDown()
 
 	CurrentState = 0;
 }
+
+void CStateManager::OnEvent(SMouseEvent & Event)
+{
+}
+
+void CStateManager::OnEvent(SKeyboardEvent & Event)
+{
+}
+
+void CStateManager::OnEvent(SWindowResizedEvent & Event)
+{
+}
+
+CStateManager::CStateManager()
+	: CurrentState(0)
+{}
