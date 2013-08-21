@@ -5,7 +5,7 @@
 
 COrthoCamera::COrthoCamera(float const Near, float const Far)
 {
-	vec2i ScreenSize = CApplication::get().getWindowSize();
+	vec2i ScreenSize = CApplication::Get().GetWindow().GetSize();
     setProjection(-ScreenSize.X / 2.f, ScreenSize.X / 2.f, -ScreenSize.Y / 2.f, ScreenSize.Y / 2.f, Near, Far);
 }
 

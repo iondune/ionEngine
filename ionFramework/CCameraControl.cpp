@@ -4,21 +4,20 @@
 
 
 CCameraControl::CCameraControl(SVector3f const position)
-	: Application(CApplication::get()), EventManager(CApplication::get().getEventManager()), Phi(0), Theta(-1.5708f), Tracking(false), MoveSpeed(20.5f)
+	: Application(CApplication::Get()), Phi(0), Theta(-1.5708f), Tracking(false), MoveSpeed(20.5f)
 {
-	Application.getEventManager().OnMouseEvent.connect(this, & CCameraControl::OnMouseEvent);
 	setPosition(position);
 }
 
-void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
+void CCameraControl::OnEvent(SMouseEvent & Event)
 {
-	if ((Event.Pressed) && Event.Button.Value == Event.Button.Right)
+	if ((Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
 		Tracking = true;
 
-	if ((! Event.Pressed) && Event.Button.Value == Event.Button.Right)
+	if ((! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
 		Tracking = false;
 
-	if ((Event.Type.Value == Event.Type.Move))
+	if ((Event.Type == SMouseEvent::EType::Move))
 	{
 		if (Tracking)
 		{
@@ -35,7 +34,7 @@ void CCameraControl::OnMouseEvent(SMouseEvent const & Event)
 		MouseLastY = Event.Location.Y;
 	}
 	
-	if (Event.Type.Value == SMouseEvent::EType::Scroll)
+	if (Event.Type == SMouseEvent::EType::Scroll)
 	{
 		static f32 const FocalLengthDelta = 1.02f;
 
@@ -59,22 +58,22 @@ void CCameraControl::update(float const TickTime)
 	vec3f V = UpVector.CrossProduct(LookDirection).GetNormalized();
 	vec3f U = V.CrossProduct(W).GetNormalized()*-1;
 
-	if (EventManager.IsKeyDown[(int) EKey::W] || EventManager.IsKeyDown[(int) EKey::Up])
+	if (Application.GetWindow().IsKeyDown(EKey::W) || Application.GetWindow().IsKeyDown(EKey::Up))
 	{
 		Translation += LookDirection*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[(int) EKey::A] || EventManager.IsKeyDown[(int) EKey::Left])
+	if (Application.GetWindow().IsKeyDown(EKey::A) || Application.GetWindow().IsKeyDown(EKey::Left))
 	{
 		Translation += V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[(int) EKey::D] || EventManager.IsKeyDown[(int) EKey::Right])
+	if (Application.GetWindow().IsKeyDown(EKey::D) || Application.GetWindow().IsKeyDown(EKey::Right))
 	{
 		Translation -= V*MoveSpeed*TickTime;
 	}
 
-	if (EventManager.IsKeyDown[(int) EKey::S] || EventManager.IsKeyDown[(int) EKey::Down])
+	if (Application.GetWindow().IsKeyDown(EKey::S) || Application.GetWindow().IsKeyDown(EKey::Down))
 	{
 		Translation -= LookDirection*MoveSpeed*TickTime;
 	}

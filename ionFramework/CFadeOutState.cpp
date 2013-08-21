@@ -15,12 +15,12 @@ void CFadeOutState::begin()
 	SourceFrameBuffer = new CFrameBufferObject();
 	STextureCreationFlags Flags;
 	Flags.MipMaps = false;
-	SourceFrameTexture = new CTexture(CApplication::get().getWindowSize(), true, Flags);
+	SourceFrameTexture = new CTexture(CApplication::Get().GetWindow().GetSize(), true, Flags);
 	SourceFrameBuffer->attachColorTexture(SourceFrameTexture, 0);
 
 	CSceneEffectManager::SPostProcessPass GetSceneBuffer;
 	GetSceneBuffer.Shader = CShaderLoader::loadShader("FBO/QuadCopy");
-	GetSceneBuffer.Textures["uTexColor"] = CApplication::get().getSceneManager().getSceneFrameTexture();
+	GetSceneBuffer.Textures["uTexColor"] = CApplication::Get().GetSceneManager().getSceneFrameTexture();
 	GetSceneBuffer.Target = SourceFrameBuffer;
 
 	GetSceneBuffer.doPass();
@@ -36,13 +36,11 @@ void CFadeOutState::end()
 	delete this;
 }
 
-
 void CFadeOutState::OnGameTickStart(float const Elapsed)
 {}
 
 void CFadeOutState::OnGameTickEnd(float const Elapsed)
 {}
-
 
 void CFadeOutState::OnRenderStart(float const Elapsed)
 {
@@ -51,7 +49,7 @@ void CFadeOutState::OnRenderStart(float const Elapsed)
 	if (TotalRunTime > FadeTime)
 	{
 		TotalRunTime = FadeTime;
-		CApplication::get().getStateManager().setState(NextState);
+		CApplication::Get().GetStateManager().SetState(NextState);
 	}
 	
 	CSceneEffectManager::SPostProcessPass DrawFrame;
@@ -66,12 +64,11 @@ void CFadeOutState::OnRenderStart(float const Elapsed)
 
 	DrawFrame.doPass();
 
-	CApplication::get().swapBuffers();
+	CApplication::Get().GetWindow().SwapBuffers();
 }
 
 void CFadeOutState::OnRenderEnd(float const Elapsed)
 {}
-
 
 void CFadeOutState::OnMouseEvent(SMouseEvent const & Event)
 {}

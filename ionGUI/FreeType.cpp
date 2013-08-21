@@ -369,7 +369,7 @@ namespace freetype
 		{
 			glPushMatrix();
 			glLoadIdentity();
-			glTranslatef(x, CApplication::get().getWindowSize().Y - y - h*i - ft_font.h, 0);
+			glTranslatef(x, CApplication::Get().GetWindow().GetSize().Y - y - h*i - ft_font.h, 0);
 			glMultMatrixf(modelview_matrix);
 
 			// The commented out raster position stuff can be useful if you need to

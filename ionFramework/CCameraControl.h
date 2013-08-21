@@ -4,22 +4,18 @@
 #include "SVector2.h"
 
 #include "ionScene.h"
-#include "CEventManager.h"
 #include "CApplication.h"
 
-class CCameraControl : public CPerspectiveCameraSceneObject, public sigslot::has_slots<>
+
+class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListener<SMouseEvent>
 {
 
     CApplication & Application;
-    CEventManager & EventManager;
-
     
     float MoveSpeed;
-
     float MouseLastX, MouseLastY;
 
     bool Tracking;
-
 
 public:
 
@@ -27,7 +23,7 @@ public:
 
 	CCameraControl(SVector3f const position = SVector3f(0, 3, 2));
 
-	void OnMouseEvent(SMouseEvent const & Event);
+	void OnEvent(SMouseEvent & Event);
 
 	void update(float const TickTime);
 
