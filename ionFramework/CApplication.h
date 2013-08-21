@@ -1,67 +1,53 @@
-#ifndef _ION_CAPPLICATION_H_INCLUDED_
-#define _ION_CAPPLICATION_H_INCLUDED_
+
+#pragma once
 
 #include <ionCore.h>
 #include <ionScene.h>
+#include <ionWindow.h>
 
-class CEventManager;
-class CStateManager;
-struct GLFWwindow;
+#include "CStateManager.h"
 
 
-class CApplication
+class CApplication : public Singleton<CApplication>
 {
 
-	// Managers
-	CEventManager * EventManager;
-	CStateManager * StateManager;
-	CSceneManager * SceneManager;
+	friend class Singleton<CApplication>;
 
-	// Attributes
-	vec2i WindowSize;
+private:
 
-	// Helper functions
-	void setupRenderContext(std::string const & WindowTitle);
-
-	// Private ctor - singleton
 	CApplication();
-
-	f64 ElapsedTime;
-	f64 RunTime;
-
-	f64 Time0, Time1;
-
-	bool Running;
-
-	vec2f LastMouse;
 
 public:
 
-	static CApplication & get();
+	void Init(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
 
-	void init(vec2i const & windowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
-	void loadEngines();
+	CStateManager & GetStateManager();
+	CSceneManager & GetSceneManager();
+	CWindowManager & GetWindowManager();
+	CWindow & GetWindow();
 
-	CEventManager & getEventManager();
-	CStateManager & getStateManager();
-	CSceneManager & getSceneManager();
+	void Run();
 
-	void run();
+	void UpdateTime();
+	void SkipElapsedTime();
+	f64 GetElapsedTime() const;
+	f64 GetRunTime() const;
 
-	void updateTime();
-	f64 getElapsedTime() const;
-	f64 getRunTime() const;
+	bool IsShuttingDown() const;
+	void Close();
 
-	vec2i const & getWindowSize() const;
-	float const getAspectRatio();
+protected:
 
-	void skipElapsedTime();
+	CStateManager * StateManager;
+	CSceneManager * SceneManager;
+	CWindowManager * WindowManager;
 
-	bool isShuttingDown() const;
-	void close();
+	CWindow * Window;
 
-	void swapBuffers();
+	f64 ElapsedTime;
+	f64 RunTime;
+	f64 LastTime;
+
+	bool Running;
 
 };
-
-#endif

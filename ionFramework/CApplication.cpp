@@ -1,168 +1,100 @@
+
 #include "CApplication.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
-#include <iomanip>
-
-#include "CEventManager.h"
-#include "CStateManager.h"
-
-
-static GLFWwindow * window;
 
 CApplication::CApplication()
-	: StateManager(0),
-	SceneManager(0),
-	EventManager(0)
+	: StateManager(), SceneManager(), WindowManager(), Window()
 {}
 
-void CApplication::setupRenderContext(std::string const & WindowTitle)
+void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitle)
 {
+	WindowManager = & CWindowManager::Get();
+	WindowManager->Init();
 
-}
+	Window = WindowManager->CreateWindow(WindowSize, WindowTitle);
 
+	StateManager = & CStateManager::Get();
+	StateManager->Connect(Window);
 
-void CApplication::init(vec2i const & windowSize, std::string const & WindowTitle)
-{
-	WindowSize = windowSize;
-
-	setupRenderContext(WindowTitle);	
-}
-
-void CApplication::loadEngines()
-{
-	EventManager = new CEventManager();
-	StateManager = new CStateManager();
 	SceneManager = new CSceneManager(WindowSize);
 }
 
-CApplication & CApplication::get()
-{
-	static CApplication SingletonInstance;
-
-	return SingletonInstance;
-}
-
-CEventManager & CApplication::getEventManager()
-{
-	return * EventManager;
-}
-
-CStateManager & CApplication::getStateManager()
+CStateManager & CApplication::GetStateManager()
 {
 	return * StateManager;
 }
 
-CSceneManager & CApplication::getSceneManager()
+CSceneManager & CApplication::GetSceneManager()
 {
 	return * SceneManager;
 }
 
-void CApplication::skipElapsedTime()
+CWindowManager & CApplication::GetWindowManager()
 {
-	Time0 = glfwGetTime();
+	return * WindowManager;
 }
 
-void CApplication::updateTime()
+CWindow & CApplication::GetWindow()
 {
-	Time1 = glfwGetTime();
-	ElapsedTime = /*min(0.1, */(Time1 - Time0);//);
+	return * Window;
+}
+
+void CApplication::UpdateTime()
+{
+	f64 NewTime = glfwGetTime();
+	ElapsedTime = NewTime - LastTime;
 	RunTime += ElapsedTime;
-	Time0 = Time1;
+	LastTime = NewTime;
 }
 
-void CApplication::run()
+void CApplication::SkipElapsedTime()
 {
-	Running = true;
-
-	Time0 = glfwGetTime();
-
-	RunTime = ElapsedTime = 0.f;
-
-	glfwMakeContextCurrent(window);
-
-	while (Running && ! glfwWindowShouldClose(window))
-	{
-		glfwPollEvents();
-		/*sf::Event Event;
-		while (App->pollEvent(Event))
-		{
-			EventManager->OnSFMLEvent(Event);
-			switch (Event.type)
-			{
-
-			case sf::Event::Closed:
-				Running = false;
-				break;
-
-			case sf::Event::Resized:
-				{
-
-					SWindowResizedEvent WindowEvent;
-					WindowEvent.Size.X = Event.size.width;
-					WindowEvent.Size.Y = Event.size.height;
-					WindowSize = WindowEvent.Size;
-					EventManager->OnWindowResized(WindowEvent);
-					SceneManager->OnWindowResized(WindowSize);
-					
-
-					App->setView(sf::View(sf::FloatRect(0, 0, (float) Event.size.width, (float) Event.size.height)));
-
-					break;
-
-				}
-			} // switch (Event.type)
-		} // while (SDL_PollEvent(& Event))*/
-
-		updateTime();
-
-		EventManager->OnGameTickStart((f32) ElapsedTime);
-		EventManager->OnGameTickEnd((f32) ElapsedTime);
-
-		EventManager->OnRenderStart((f32) ElapsedTime);
-		EventManager->OnRenderEnd((f32) ElapsedTime);
-
-		StateManager->doStateChange();
-
-	} // while (Running)
-
-	StateManager->shutDown();
-	glfwTerminate();
+	LastTime = glfwGetTime();
 }
 
-f64 CApplication::getElapsedTime() const
+f64 CApplication::GetElapsedTime() const
 {
 	return ElapsedTime;
 }
 
-f64 CApplication::getRunTime() const
+f64 CApplication::GetRunTime() const
 {
 	return RunTime;
 }
 
-float const CApplication::getAspectRatio()
+void CApplication::Run()
 {
-	return (float) WindowSize.X / (float) WindowSize.Y;
+	Running = true;
+
+	LastTime = glfwGetTime();
+	RunTime = ElapsedTime = 0.f;
+
+	Window->MakeContextCurrent();
+
+	while (Running && ! Window->ShouldClose())
+	{
+		glfwPollEvents();
+
+		UpdateTime();
+
+		StateManager->Update(ElapsedTime);
+		StateManager->DoStateChange();
+
+	}
+
+	StateManager->ShutDown();
+	glfwTerminate();
 }
 
-vec2i const & CApplication::getWindowSize() const
-{
-	return WindowSize;
-}
-
-bool CApplication::isShuttingDown() const
+bool CApplication::IsShuttingDown() const
 {
 	return ! Running;
 }
 
-void CApplication::close()
+void CApplication::Close()
 {
 	Running = false;
-}
-
-void CApplication::swapBuffers()
-{
-	glfwSwapBuffers(window);
 }
