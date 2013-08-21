@@ -35,6 +35,12 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	
 	CWindow * Window = new CWindow(glfwWindow);
 	Windows[glfwWindow] = Window;
+	
+	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
+	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
+	glfwSetCursorPosCallback(glfwWindow, CWindowManager::MouseCursorCallback);
+	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
+
 	Window->MakeContextCurrent();
 
 	static bool Initialized = false;
@@ -189,10 +195,8 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 	MouseEvent.Type = SMouseEvent::EType::Move;
 	MouseEvent.Location = vec2d(xpos, ypos);
 
-	Window->MousePositionState = MouseEvent.Location;
-	MouseEvent.Movement = MouseEvent.Location - Window->LastMousePosition;
+	MouseEvent.Movement = MouseEvent.Location - Window->CursorLocation;
+	Window->CursorLocation = MouseEvent.Location;
 	
 	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
-
-	Window->LastMousePosition = MouseEvent.Location;
 }

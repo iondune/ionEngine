@@ -28,14 +28,7 @@ void CApplication::init(vec2i const & windowSize, std::string const & WindowTitl
 {
 	WindowSize = windowSize;
 
-	setupRenderContext(WindowTitle);
-
-	// TO DO : Engines need to be initialized at this point so that callbacks that access the eventmananger don't fail.
-
-	glfwSetKeyCallback(window, CApplication::KeyCallback);
-	glfwSetMouseButtonCallback(window, CApplication::MouseButtonCallback);
-	glfwSetCursorPosCallback(window, CApplication::MouseCursorCallback);
-	glfwSetScrollCallback(window, CApplication::MouseScrollCallback);
+	setupRenderContext(WindowTitle);	
 }
 
 void CApplication::loadEngines()

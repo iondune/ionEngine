@@ -17,15 +17,15 @@ class CWindow : public SEvent<SKeyboardEvent>::ITrigger, public SEvent<SMouseEve
 public:
 
 	void MakeContextCurrent();
+	vec2i const & GetSize();
+
+	bool IsKeyDown(EKey const Key);
+    bool IsMouseDown(SMouseEvent::EButton const Button);
+    vec2f const & GetCursorLocation();
 	
 	SEvent<SKeyboardEvent> KeyboardEvent;
 	SEvent<SMouseEvent> MouseEvent;
 	SEvent<SWindowResizedEvent> WindowResizedEvent;
-
-	bool const (& IsKeyDown)[EKey::Count];
-    bool const (& IsMouseDown)[SMouseEvent::EButton::Count];
-
-    vec2f const & MouseLocation;
 
 protected:
 
@@ -33,8 +33,9 @@ protected:
 	
 	bool KeyStates[EKey::Count];
     bool MouseStates[SMouseEvent::EButton::Count];
-    vec2f MousePositionState;
-	vec2f LastMousePosition;
+    vec2f CursorLocation;
+
+	vec2i Size;
 
 private:
 
