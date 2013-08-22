@@ -54,6 +54,10 @@ public:
 
 protected:
 
+	ITreeNode()
+		: Parent()
+	{}
+
 	Implementation * Parent;
 	std::set<Implementation *> Children;
 
