@@ -15,9 +15,6 @@
     <ClInclude Include="CFadeOutState.h" />
     <ClInclude Include="COrthoCamera.h" />
     <ClInclude Include="ionFramework.h" />
-    <ClInclude Include="ICallable.h">
-      <Filter>Event Management</Filter>
-    </ClInclude>
     <ClInclude Include="SEvent.h">
       <Filter>Event Management</Filter>
     </ClInclude>
