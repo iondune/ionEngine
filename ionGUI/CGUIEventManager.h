@@ -13,7 +13,7 @@ class CGUIEventManager : public IEventListener<SKeyboardEvent>, public IEventLis
 
 public:
 
-	CGUIEventManager(Gwen::Controls::Canvas * pCanvas);
+	CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window);
 	
 	void OnEvent(SMouseEvent & Event);
 	void OnEvent(SKeyboardEvent & Event);

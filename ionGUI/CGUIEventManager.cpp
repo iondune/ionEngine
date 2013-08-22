@@ -4,9 +4,12 @@
 #include <CApplication.h>
 
 
-CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas)
+CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window)
 	: Canvas(pCanvas)
-{}
+{
+	Window->MouseEvent.AddChild(this);
+	Window->KeyboardEvent.AddChild(this);
+}
 
 void CGUIEventManager::OnEvent(SKeyboardEvent & Event)
 {
