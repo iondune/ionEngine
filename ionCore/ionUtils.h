@@ -53,7 +53,7 @@ template <typename T> s32 Sign(T val)
 template <class Implementation>
 class Singleton
 {
-	
+
 	Singleton(Singleton const &);
 	Singleton & operator = (Singleton const &);
 
@@ -64,14 +64,19 @@ protected:
 
 public:
 
-    static Implementation & Get()
-    {
-        static Implementation * Instance = 0;
+	static Implementation & Get()
+	{
+		static Implementation * Instance = 0;
 
 		if (! Instance)
 			Instance = new Implementation();
 
-        return * Instance;
-    }
+		return * Instance;
+	}
+
+	static Implementation * GetPtr()
+	{
+		return & Get();
+	}
 
 };
