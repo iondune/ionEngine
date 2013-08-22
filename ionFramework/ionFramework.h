@@ -4,6 +4,7 @@
 #include "SEvent.h"
 
 #include "CApplicationContextObject.h"
+#include "CContextState.h"
 #include "CStateManager.h"
 
 #include "CApplication.h"

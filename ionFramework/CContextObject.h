@@ -27,7 +27,7 @@ public:
 
 	virtual void LoadContext()
 	{
-		Context = & TContext::get();
+		Context = TContext::GetPtr();
 	}
 
 };

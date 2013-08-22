@@ -11,7 +11,7 @@ template <class TImplementation, class TContext = NullContext>
 class CContextState : public IState, public Singleton<TImplementation>, public CApplicationContextObject<TContext>
 {
 
-private:
+protected:
 
 	CContextState()
 	{}
