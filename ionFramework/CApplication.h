@@ -42,7 +42,7 @@ protected:
 	CSceneManager * SceneManager;
 	CWindowManager * WindowManager;
 
-	CWindow * Window;
+	sharedPtr<CWindow> Window;
 
 	f64 ElapsedTime;
 	f64 RunTime;

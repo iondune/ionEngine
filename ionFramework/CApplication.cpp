@@ -17,7 +17,7 @@ void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitl
 	Window = WindowManager->CreateWindow(WindowSize, WindowTitle);
 
 	StateManager = & CStateManager::Get();
-	StateManager->Connect(Window);
+	StateManager->Connect(Window.get());
 
 	SceneManager = new CSceneManager(WindowSize);
 }

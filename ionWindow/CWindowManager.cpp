@@ -22,7 +22,7 @@ void CWindowManager::Init()
 	Initialized = true;
 }
 
-CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title)
+sharedPtr<CWindow> CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title)
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
@@ -33,7 +33,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 		exit(34);
 	}
 	
-	CWindow * Window = new CWindow(glfwWindow);
+	sharedPtr<CWindow> Window = sharedNew(new CWindow(glfwWindow));
 	Windows[glfwWindow] = Window;
 	
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
@@ -67,6 +67,8 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 
 		Initialized = true;
 	}
+
+	return Window;
 }
 
 EKey const ConvertGLFWKeyCode(int const Code)
@@ -132,7 +134,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	CWindowManager & WindowManager = Get();
-	CWindow * Window = WindowManager.Windows[window];
+	sharedPtr<CWindow> Window = WindowManager.Windows[window];
 
 	SKeyboardEvent KeyEvent;
 	KeyEvent.Pressed = action != GLFW_RELEASE;
@@ -145,7 +147,7 @@ void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int
 void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
 {
 	CWindowManager & WindowManager = Get();
-	CWindow * Window = WindowManager.Windows[window];
+	sharedPtr<CWindow> Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Click;
@@ -177,7 +179,7 @@ void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int ac
 void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset)
 {
 	CWindowManager & WindowManager = Get();
-	CWindow * Window = WindowManager.Windows[window];
+	sharedPtr<CWindow> Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Scroll;
@@ -189,7 +191,7 @@ void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, do
 void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, double ypos)
 {	
 	CWindowManager & WindowManager = Get();
-	CWindow * Window = WindowManager.Windows[window];
+	sharedPtr<CWindow> Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Move;
@@ -200,3 +202,6 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 	
 	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
 }
+
+CWindowManager::CWindowManager()
+{}

@@ -4,6 +4,7 @@
 #include <ionMath.h>
 
 #include "CWindow.h"
+#undef CreateWindow
 
 
 class CWindowManager : public Singleton<CWindowManager>
@@ -13,11 +14,11 @@ public:
 
 	void Init();
 
-	CWindow * CreateWindow(vec2i const & Size, std::string const & Title);
+	sharedPtr<CWindow> CreateWindow(vec2i const & Size, std::string const & Title);
 
 protected:
 
-	std::map<GLFWwindow *, CWindow *> Windows;
+	std::map<GLFWwindow *, sharedPtr<CWindow>> Windows;
 
 	static void KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
 	static void MouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
