@@ -22,7 +22,7 @@ void CWindowManager::Init()
 	Initialized = true;
 }
 
-sharedPtr<CWindow> CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title)
+CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title)
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
@@ -33,7 +33,7 @@ sharedPtr<CWindow> CWindowManager::CreateWindow(vec2i const & Size, std::string 
 		exit(34);
 	}
 	
-	sharedPtr<CWindow> Window = sharedNew(new CWindow(glfwWindow));
+	CWindow * Window = new CWindow(glfwWindow);
 	Windows[glfwWindow] = Window;
 	
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
@@ -134,7 +134,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	CWindowManager & WindowManager = Get();
-	sharedPtr<CWindow> Window = WindowManager.Windows[window];
+	CWindow * Window = WindowManager.Windows[window];
 
 	SKeyboardEvent KeyEvent;
 	KeyEvent.Pressed = action != GLFW_RELEASE;
@@ -147,7 +147,7 @@ void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int
 void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
 {
 	CWindowManager & WindowManager = Get();
-	sharedPtr<CWindow> Window = WindowManager.Windows[window];
+	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Click;
@@ -179,7 +179,7 @@ void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int ac
 void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset)
 {
 	CWindowManager & WindowManager = Get();
-	sharedPtr<CWindow> Window = WindowManager.Windows[window];
+	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Scroll;
@@ -191,7 +191,7 @@ void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, do
 void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, double ypos)
 {	
 	CWindowManager & WindowManager = Get();
-	sharedPtr<CWindow> Window = WindowManager.Windows[window];
+	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
 	MouseEvent.Type = SMouseEvent::EType::Move;

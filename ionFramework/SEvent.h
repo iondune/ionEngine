@@ -9,12 +9,12 @@
 
 
 template <typename EventType>
-struct SEvent : public IEventListener<EventType>, public std::enable_shared_from_this<SEvent<EventType>>
+struct SEvent : public IEventListener<EventType>
 {
 
 	static_assert(std::is_base_of<SEventData, EventType>::value, "SEventData must be a base of event type.");
 
-	class ITrigger : public std::enable_shared_from_this<ITrigger>
+	class ITrigger
 	{
 
 	public:
@@ -23,9 +23,9 @@ struct SEvent : public IEventListener<EventType>, public std::enable_shared_from
 		{
 			for (auto it = Events.begin(); it != Events.end();)
 			{
-				sharedPtr<SEvent> Event = * it;
+				SEvent * Event = * it;
 				it = Events.erase(it);
-				Event->RemoveTrigger(shared_from_this());
+				Event->RemoveTrigger(this);
 			}
 		}
 
@@ -40,7 +40,7 @@ struct SEvent : public IEventListener<EventType>, public std::enable_shared_from
 	protected:
 
 		friend struct SEvent<EventType>;
-		std::set<sharedPtr<SEvent<EventType>>> Events;
+		std::set<SEvent<EventType> *> Events;
 
 	};
 
@@ -49,27 +49,27 @@ struct SEvent : public IEventListener<EventType>, public std::enable_shared_from
 
 public:
 
-	void RemoveTrigger(sharedPtr<ITrigger> const Trigger)
+	void RemoveTrigger(ITrigger * Trigger)
 	{
 		Triggers.erase(Trigger);
-		Trigger->Events.erase(shared_from_this());
+		Trigger->Events.erase(this);
 	}
 
 	void RemoveAllTriggers()
 	{
 		for (auto Trigger : Triggers)
-			Trigger->Events.erase(shared_from_this());
+			Trigger->Events.erase(this);
 		Triggers.clear();
 	}
 
-	void AddTrigger(sharedPtr<ITrigger> Trigger)
+	void AddTrigger(ITrigger * Trigger)
 	{
 		Triggers.insert(Trigger);
-		Trigger->Events.insert(shared_from_this());
+		Trigger->Events.insert(this);
 	}
 
 protected:
 	
-	std::set<sharedPtr<ITrigger>> Triggers;
+	std::set<ITrigger *> Triggers;
 
 };

@@ -14,11 +14,11 @@ public:
 
 	void Init();
 
-	sharedPtr<CWindow> CreateWindow(vec2i const & Size, std::string const & Title);
+	CWindow * CreateWindow(vec2i const & Size, std::string const & Title);
 
 protected:
 
-	std::map<GLFWwindow *, sharedPtr<CWindow>> Windows;
+	std::map<GLFWwindow *, CWindow *> Windows;
 
 	static void KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
 	static void MouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
