@@ -22,6 +22,12 @@ public:
 		return Blocked;
 	}
 
+protected:
+
+	SEventData()
+		: Blocked(false)
+	{}
+
 private:
 
 	bool Blocked;
