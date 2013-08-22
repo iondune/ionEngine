@@ -12,8 +12,22 @@ class IState : public IEventListener<SKeyboardEvent>, public IEventListener<SMou
 
 public:
 
-    virtual void Begin() = 0;
-    virtual void End() = 0;
-    virtual void Update(f32 const Elapsed) = 0;
+	virtual void Begin()
+	{}
+
+	virtual void End()
+	{}
+
+	virtual void Update(f32 const ElapsedTime)
+	{}
+
+	virtual void OnEvent(SKeyboardEvent & Event)
+	{}
+
+	virtual void OnEvent(SMouseEvent & Event)
+	{}
+
+	virtual void OnEvent(SWindowResizedEvent & Event)
+	{}
 
 };
