@@ -23,4 +23,14 @@ protected:
 		Event.Unblock();
 	}
 
+	void AddSubListener(IEventListener<EventType> * Listener)
+	{
+		AddChild(Listener);
+	}
+
+	void RemoveSubListener(IEventListener<EventType> * Listener)
+	{
+		RemoveChild(Listener);
+	}
+
 };
