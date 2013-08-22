@@ -6,15 +6,7 @@
 #include <Gwen/Controls.h>
 
 
-struct SUncaughtMouseEvent : public SMouseEvent
-{
-	SUncaughtMouseEvent(SMouseEvent const & Event)
-	{
-		SMouseEvent::operator =(Event);
-	}
-};
-
-class CGUIEventManager : public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public SEvent<SUncaughtMouseEvent>::ITrigger
+class CGUIEventManager : public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>
 {
 
 	Gwen::Controls::Canvas * Canvas;
@@ -25,7 +17,5 @@ public:
 	
 	void OnEvent(SMouseEvent & Event);
 	void OnEvent(SKeyboardEvent & Event);
-
-	SEvent<SUncaughtMouseEvent> UncaughtMouseEvent;
 
 };

@@ -6,9 +6,7 @@
 
 CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas)
 	: Canvas(pCanvas)
-{
-	UncaughtMouseEvent.AddTrigger(shared_from_this());
-}
+{}
 
 void CGUIEventManager::OnEvent(SKeyboardEvent & Event)
 {
@@ -54,11 +52,8 @@ void CGUIEventManager::OnEvent(SMouseEvent & Event)
 	{
 	case SMouseEvent::EType::Move:
 
-		if (! Canvas->InputMouseMoved(Event.Location.X, Event.Location.Y, Event.Movement.X, Event.Movement.Y))
-		{
-			SUncaughtMouseEvent NewEvent = Event;
-			Trigger(NewEvent);
-		}
+		if (Canvas->InputMouseMoved(Event.Location.X, Event.Location.Y, Event.Movement.X, Event.Movement.Y))
+			Event.Block();
 		break;
 			
 	case SMouseEvent::EType::Click:
@@ -78,11 +73,8 @@ void CGUIEventManager::OnEvent(SMouseEvent & Event)
 				break;
 			}
 
-			if (! Canvas->InputMouseButton(Button, Event.Pressed))
-			{
-				SUncaughtMouseEvent NewEvent = Event;
-				Trigger(NewEvent);
-			}
+			if (Canvas->InputMouseButton(Button, Event.Pressed))
+				Event.Block();
 		}
 		break;
 
