@@ -34,6 +34,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	}
 	
 	CWindow * Window = new CWindow(glfwWindow);
+	Window->Size = Size;
 	Windows[glfwWindow] = Window;
 	
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
