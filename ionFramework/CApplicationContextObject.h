@@ -17,8 +17,10 @@ protected:
 	CSceneManager * SceneManager;
 
 	CApplicationContextObject()
-		: Application(), SceneManager()
-	{}
+		: Application(), SceneManager(), CContextObject<TContext>(DisableAutoContextLoad())
+	{
+		LoadContext();
+	}
 
 	CApplicationContextObject(DisableAutoContextLoad)
 		: Application(), SceneManager(), CContextObject<TContext>(DisableAutoContextLoad())
