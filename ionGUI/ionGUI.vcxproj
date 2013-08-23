@@ -43,12 +43,16 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="CGUIEventManager.cpp" />
+    <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="CGUIWidget.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGUIEventManager.h" />
+    <ClInclude Include="CGUIManager.h" />
+    <ClInclude Include="CGUIWidget.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="OpenGL3Font.h" />
