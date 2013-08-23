@@ -27,7 +27,7 @@ bool const ISceneObject::isCulled(ICameraSceneObject const * const Camera, bool 
 		SVector3f const Center = getBoundingBox().GetCorner(i);
 		glm::vec4 Center4(Center.X, Center.Y, Center.Z, 1.f);
 
-		glm::mat4 PVM = (Camera->getProjectionMatrix()*Camera->getViewMatrix()*Transformation());
+		glm::mat4 PVM = (Camera->GetProjectionMatrix()*Camera->GetViewMatrix()*Transformation());
 		glm::vec4 prime = PVM * Center4;
 
 		float length = glm::length(glm::vec3(prime.x, prime.y, prime.z));

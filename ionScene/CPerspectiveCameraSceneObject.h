@@ -1,19 +1,11 @@
-#ifndef _ION_SCENE_CPERSPECTIVECAMERASCENEOBJECT_H_INCLUDED_
-#define _ION_SCENE_CPERSPECTIVECAMERASCENEOBJECT_H_INCLUDED_
+
+#pragma once
 
 #include "CCameraSceneObject.h"
 
 
 class CPerspectiveCameraSceneObject : public CCameraSceneObject
 {
-
-protected:
-
-	f32 FieldOfView;
-	f32 AspectRatio;
-	f32 NearPlane, FarPlane;
-
-	void UpdateProjection();
 
 public:
 
@@ -31,6 +23,12 @@ public:
 	void SetNearPlane(f32 const nearPlane);
 	void SetFarPlane(f32 const farPlane);
 
-};
+protected:
 
-#endif
+	f32 FieldOfView;
+	f32 AspectRatio;
+	f32 NearPlane, FarPlane;
+
+	void UpdateProjection();
+
+};

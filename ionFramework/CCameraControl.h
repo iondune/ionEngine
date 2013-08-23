@@ -13,8 +13,6 @@ class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListen
     CApplication & Application;
     
     float MoveSpeed;
-    float MouseLastX, MouseLastY;
-
     bool Tracking;
 
 public:

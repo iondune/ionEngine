@@ -50,8 +50,8 @@ bool CPointLightSceneObject::draw(IScene const * const scene, sharedPtr<IRenderP
 	Context.bindIndexBufferObject(MeshBuffer->IndexBuffer.getHandle());
 	Context.bindBufferObject("aPosition", MeshBuffer->PositionBuffer.getHandle(), 3);
 	Context.uniform("uModelMatrix", AbsoluteTransformation);
-	Context.uniform("uViewMatrix", scene->getActiveCamera()->getViewMatrix());
-	Context.uniform("uProjMatrix", scene->getActiveCamera()->getProjectionMatrix());
+	Context.uniform("uViewMatrix", scene->getActiveCamera()->GetViewMatrix());
+	Context.uniform("uProjMatrix", scene->getActiveCamera()->GetProjectionMatrix());
 	Context.uniform("uColor", Color);
 	Context.uniform("uRadius", Scale.X);
 

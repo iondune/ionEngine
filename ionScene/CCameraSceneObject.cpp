@@ -6,50 +6,50 @@
 CCameraSceneObject::CCameraSceneObject()
     : LookDirection(0, 0, 1), UpVector(0, 1, 0)
 {
-    recalculateViewMatrix();
+    RecalculateViewMatrix();
 }
 
-void CCameraSceneObject::recalculateViewMatrix()
+void CCameraSceneObject::RecalculateViewMatrix()
 {
 	ViewMatrix = glm::lookAt(getPosition().GetGLMVector(), (getPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
 }
 
-SVector3f const & CCameraSceneObject::getLookDirecton() const
+SVector3f const & CCameraSceneObject::GetLookDirecton() const
 {
     return LookDirection;
 }
 
-SVector3f const CCameraSceneObject::getLookAtTarget() const
+SVector3f const CCameraSceneObject::GetLookAtTarget() const
 {
 	return getPosition() + LookDirection;
 }
 
-SVector3f const CCameraSceneObject::getUpVector() const
+SVector3f const CCameraSceneObject::GetUpVector() const
 {
 	return UpVector;
 }
 
-void CCameraSceneObject::setLookDirection(SVector3f const & lookDirection)
+void CCameraSceneObject::SetLookDirection(SVector3f const & lookDirection)
 {
     LookDirection = lookDirection;
 }
 
-void CCameraSceneObject::setLookAtTarget(SVector3f const & lookAtTarget)
+void CCameraSceneObject::SetLookAtTarget(SVector3f const & lookAtTarget)
 {
-	setLookDirection(lookAtTarget - getPosition());
+	SetLookDirection(lookAtTarget - getPosition());
 }
 
-void CCameraSceneObject::setUpVector(SVector3f const & upVector)
+void CCameraSceneObject::SetUpVector(SVector3f const & upVector)
 {
 	UpVector = upVector;
 }
 
-glm::mat4 const & CCameraSceneObject::getViewMatrix() const
+glm::mat4 const & CCameraSceneObject::GetViewMatrix() const
 {
     return ViewMatrix;
 }
 
-glm::mat4 const & CCameraSceneObject::getProjectionMatrix() const
+glm::mat4 const & CCameraSceneObject::GetProjectionMatrix() const
 {
     return ProjectionMatrix;
 }

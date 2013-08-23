@@ -3,9 +3,9 @@
 
 void CScene::update()
 {
-	ActiveCamera->recalculateViewMatrix();
-	ViewMatrix = ActiveCamera->getViewMatrix();
-	ProjMatrix = ActiveCamera->getProjectionMatrix();
+	ActiveCamera->RecalculateViewMatrix();
+	ViewMatrix = ActiveCamera->GetViewMatrix();
+	ProjMatrix = ActiveCamera->GetProjectionMatrix();
 
 	RootObject.updateAbsoluteTransformation();
 	RootObject.update();

@@ -1,5 +1,5 @@
-#ifndef _ION_SCENE_CCAMERASCENEOBJECT_H_INCLUDED_
-#define _ION_SCENE_CCAMERASCENEOBJECT_H_INCLUDED_
+
+#pragma once
 
 #include "ionConfig.h"
 
@@ -9,6 +9,23 @@
 class CCameraSceneObject : public ICameraSceneObject
 {
 
+public:
+
+	CCameraSceneObject();
+
+	virtual void RecalculateViewMatrix();
+
+	virtual SVector3f const & GetLookDirecton() const;
+	virtual SVector3f const GetLookAtTarget() const;
+	virtual SVector3f const GetUpVector() const;
+
+	virtual void SetLookDirection(SVector3f const & lookDirection);
+	virtual void SetLookAtTarget(SVector3f const & lookAtTarget);
+	virtual void SetUpVector(SVector3f const & UpVector);
+
+	virtual glm::mat4 const & GetViewMatrix() const;
+	virtual glm::mat4 const & GetProjectionMatrix() const;
+
 protected:
 
 	SVector3f LookDirection;
@@ -17,23 +34,4 @@ protected:
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
 
-public:
-
-	CCameraSceneObject();
-
-	virtual void recalculateViewMatrix();
-
-	virtual SVector3f const & getLookDirecton() const;
-	virtual SVector3f const getLookAtTarget() const;
-	virtual SVector3f const getUpVector() const;
-
-	virtual void setLookDirection(SVector3f const & lookDirection);
-	virtual void setLookAtTarget(SVector3f const & lookAtTarget);
-	virtual void setUpVector(SVector3f const & UpVector);
-
-	virtual glm::mat4 const & getViewMatrix() const;
-	virtual glm::mat4 const & getProjectionMatrix() const;
-
 };
-
-#endif

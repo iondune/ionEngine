@@ -29,9 +29,6 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 			if (Phi < -3.1415f/2.02f)
 				Phi = -3.1415f/2.02f;
 		}
-
-		MouseLastX = Event.Location.X;
-		MouseLastY = Event.Location.Y;
 	}
 	
 	if (Event.Type == SMouseEvent::EType::Scroll)
@@ -59,24 +56,16 @@ void CCameraControl::update(float const TickTime)
 	vec3f U = V.CrossProduct(W).GetNormalized()*-1;
 
 	if (Application.GetWindow().IsKeyDown(EKey::W) || Application.GetWindow().IsKeyDown(EKey::Up))
-	{
 		Translation += LookDirection*MoveSpeed*TickTime;
-	}
 
 	if (Application.GetWindow().IsKeyDown(EKey::A) || Application.GetWindow().IsKeyDown(EKey::Left))
-	{
 		Translation += V*MoveSpeed*TickTime;
-	}
 
 	if (Application.GetWindow().IsKeyDown(EKey::D) || Application.GetWindow().IsKeyDown(EKey::Right))
-	{
 		Translation -= V*MoveSpeed*TickTime;
-	}
 
 	if (Application.GetWindow().IsKeyDown(EKey::S) || Application.GetWindow().IsKeyDown(EKey::Down))
-	{
 		Translation -= LookDirection*MoveSpeed*TickTime;
-	}
 }
 
 SVector3f const & CCameraControl::getPosition()
