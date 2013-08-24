@@ -11,16 +11,23 @@ CCameraControl::CCameraControl(SVector3f const position)
 
 void CCameraControl::OnEvent(SMouseEvent & Event)
 {
-	if ((Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
+	if (Event.Type == SMouseEvent::EType::Click && (Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
+	{
+		printf("Start tracking!\n");
 		Tracking = true;
+	}
 
-	if ((! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
+	if (Event.Type == SMouseEvent::EType::Click && (! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
+	{
+		printf("End tracking!\n");
 		Tracking = false;
+	}
 
 	if ((Event.Type == SMouseEvent::EType::Move))
 	{
 		if (Tracking)
 		{
+			printf("Moving and tracking!\n");
 			Theta += (Event.Movement.X) * 0.005f;
 			Phi -= (Event.Movement.Y) * 0.005f;
 
