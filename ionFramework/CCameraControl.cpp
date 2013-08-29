@@ -12,22 +12,15 @@ CCameraControl::CCameraControl(SVector3f const position)
 void CCameraControl::OnEvent(SMouseEvent & Event)
 {
 	if (Event.Type == SMouseEvent::EType::Click && (Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
-	{
-		printf("Start tracking!\n");
 		Tracking = true;
-	}
 
 	if (Event.Type == SMouseEvent::EType::Click && (! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
-	{
-		printf("End tracking!\n");
 		Tracking = false;
-	}
 
 	if ((Event.Type == SMouseEvent::EType::Move))
 	{
 		if (Tracking)
 		{
-			printf("Moving and tracking!\n");
 			Theta += (Event.Movement.X) * 0.005f;
 			Phi -= (Event.Movement.Y) * 0.005f;
 
@@ -54,7 +47,7 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 	}
 }
 
-void CCameraControl::update(float const TickTime)
+void CCameraControl::Update(float const TickTime)
 {
 	LookDirection = vec3f(cos(Theta)*cos(Phi), sin(Phi), sin(Theta)*cos(Phi));
 	
@@ -75,7 +68,12 @@ void CCameraControl::update(float const TickTime)
 		Translation -= LookDirection*MoveSpeed*TickTime;
 }
 
-SVector3f const & CCameraControl::getPosition()
+SVector3f const & CCameraControl::GetPosition()
 {
 	return Translation;
+}
+
+void CCameraControl::SetVelocity(float const velocity)
+{
+	MoveSpeed = velocity;
 }
