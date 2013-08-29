@@ -111,17 +111,6 @@ namespace ion
 			GL_RGBA
 		};
 
-		u32 const ImageTexture::TypeMatrix[7] = 
-		{
-			GL_UNSIGNED_BYTE,
-			GL_UNSIGNED_SHORT,
-			GL_UNSIGNED_INT,
-			GL_BYTE,
-			GL_SHORT,
-			GL_INT,
-			GL_FLOAT
-		};
-
 
 		//////////////
 		// Variants //
@@ -138,7 +127,7 @@ namespace ion
 		void Texture1D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Size, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -147,7 +136,7 @@ namespace ion
 		void Texture1D::SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage1D(GL_TEXTURE_1D, 0, offset, size, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage1D(GL_TEXTURE_1D, 0, offset, size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -172,7 +161,7 @@ namespace ion
 		void Texture2D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -181,7 +170,7 @@ namespace ion
 		void Texture2D::SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, offset.X, offset.Y, size.X, size.Y, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, offset.X, offset.Y, size.X, size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -203,7 +192,7 @@ namespace ion
 		void Texture3D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Size.X, Size.Y, Size.Z, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Size.X, Size.Y, Size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -212,7 +201,7 @@ namespace ion
 		void Texture3D::SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage3D(GL_TEXTURE_3D, 0, offset.X, offset.Y, offset.Z, size.X, size.Y, size.Z, FormatMatrix[(int) components], TypeMatrix[(int) type], data);
+			glTexSubImage3D(GL_TEXTURE_3D, 0, offset.X, offset.Y, offset.Z, size.X, size.Y, size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
