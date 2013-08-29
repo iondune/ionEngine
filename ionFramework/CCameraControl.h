@@ -10,26 +10,20 @@
 class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListener<SMouseEvent>
 {
 
-    CApplication & Application;
-    
-    float MoveSpeed;
-    bool Tracking;
+	CApplication & Application;
+
+	float MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
+	bool Tracking;
+	float Phi, Theta;
 
 public:
-
-    float Phi, Theta;
 
 	CCameraControl(SVector3f const position = SVector3f(0, 3, 2));
 
 	void OnEvent(SMouseEvent & Event);
+	void Update(float const TickTime);
 
-	void update(float const TickTime);
-
-	SVector3f const & getPosition();
-
-	void setVelocity(float const velocity)
-	{
-		MoveSpeed = velocity;
-	}
+	SVector3f const & GetPosition();
+	void SetVelocity(float const velocity);
 
 };
