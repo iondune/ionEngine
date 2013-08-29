@@ -4,7 +4,7 @@
 
 
 CCameraControl::CCameraControl(SVector3f const position)
-	: Application(CApplication::Get()), Phi(0), Theta(-1.5708f), Tracking(false), MoveSpeed(20.5f)
+	: Application(CApplication::Get()), Phi(0), Theta(-1.5708f), Tracking(false), MoveSpeed(20.5f), LookSpeed(0.005f), FocalLengthDelta(1.1f), MaxAngleEpsilon(0.01f)
 {
 	setPosition(position);
 }
@@ -21,27 +21,25 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 	{
 		if (Tracking)
 		{
-			Theta += (Event.Movement.X) * 0.005f;
-			Phi -= (Event.Movement.Y) * 0.005f;
+			Theta += (Event.Movement.X) * LookSpeed;
+			Phi -= (Event.Movement.Y) * LookSpeed;
 
-			if (Phi > 3.1415f/2.02f)
-				Phi = 3.1415f/2.02f;
-			if (Phi < -3.1415f/2.02f)
-				Phi = -3.1415f/2.02f;
+			if (Phi > Constants32::Pi/2 - MaxAngleEpsilon)
+				Phi = Constants32::Pi/2 - MaxAngleEpsilon;
+			if (Phi < -Constants32::Pi/2 + MaxAngleEpsilon)
+				Phi = -Constants32::Pi/2 + MaxAngleEpsilon;
 		}
 	}
-	
+
 	if (Event.Type == SMouseEvent::EType::Scroll)
 	{
-		static f32 const FocalLengthDelta = 1.02f;
-
 		s32 ticks = (s32) Event.Movement.Y;
 		if (ticks > 0)
 			while (ticks-- > 0)
-				FieldOfView /= FocalLengthDelta;
+				FocalLength *= FocalLengthDelta;
 		else if (ticks < 0)
 			while (ticks++ < 0)
-				FieldOfView *= FocalLengthDelta;
+				FocalLength /= FocalLengthDelta;
 
 		UpdateProjection();
 	}
@@ -50,7 +48,7 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 void CCameraControl::Update(float const TickTime)
 {
 	LookDirection = vec3f(cos(Theta)*cos(Phi), sin(Phi), sin(Theta)*cos(Phi));
-	
+
 	vec3f W = LookDirection*-1;
 	vec3f V = UpVector.CrossProduct(LookDirection).GetNormalized();
 	vec3f U = V.CrossProduct(W).GetNormalized()*-1;

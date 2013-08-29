@@ -10,11 +10,11 @@
 class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListener<SMouseEvent>
 {
 
-    CApplication & Application;
-    
-    float MoveSpeed;
-    bool Tracking;
-    float Phi, Theta;
+	CApplication & Application;
+
+	float MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
+	bool Tracking;
+	float Phi, Theta;
 
 public:
 
