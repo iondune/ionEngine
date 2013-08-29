@@ -14,6 +14,8 @@ namespace ion
 
 		class Buffer
 		{
+			friend class VertexArray;
+
 		public:
 
 			enum class EAccessFrequency
@@ -69,11 +71,34 @@ namespace ion
 		// Vertex Arrays //
 		///////////////////
 
+		enum class EFormatType
+		{
+			U8 = 0,
+			U16 = 1,
+			U32 = 2,
+			S8 = 3,
+			S16 = 4,
+			S32 = 5,
+			F32 = 6
+		};
+
+		class Util
+		{
+		public:
+
+			static u32 const TypeMatrix[7];
+		};
+
 		class VertexArray
 		{
 		public:
 
 			VertexArray();
+
+			void AttributePointer(VertexBuffer * Buffer, u32 const index, u32 const size, EFormatType const type, u32 const stride = 0, void * offset = 0);
+
+			void EnableAttribute(u32 const index);
+			void DisableAttribute(u32 const index);
 			
 			void Delete();
 			~VertexArray();
@@ -147,21 +172,9 @@ namespace ion
 				F16 = 8,
 				F32 = 9
 			};
-
-			enum class EFormatType
-			{
-				U8 = 0,
-				U16 = 1,
-				U32 = 2,
-				S8 = 3,
-				S16 = 4,
-				S32 = 5,
-				F32 = 6
-			};
 			
 			static u32 const InternalFormatMatrix[4][10];
 			static u32 const FormatMatrix[4];
-			static u32 const TypeMatrix[7];
 
 			struct Params
 			{
