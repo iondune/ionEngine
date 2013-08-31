@@ -22,7 +22,7 @@ CGUIManager::CGUIManager()
 	: Application(CApplication::Get())
 {}
 
-void CGUIManager::init()
+void CGUIManager::Init()
 {
 	Gwen::Renderer::Base * pRenderer = new Gwen::Renderer::OpenGL3Font(CApplication::Get().GetWindow().GetSize());
 
@@ -38,7 +38,7 @@ void CGUIManager::init()
 	Canvas->SetSize(CApplication::Get().GetWindow().GetSize().X, CApplication::Get().GetWindow().GetSize().Y);
 }
 
-void CGUIManager::draw(f32 const Elapsed, bool const ClearAll)
+void CGUIManager::Draw(f32 const Elapsed, bool const ClearAll)
 {
 	for (auto it = Widgets.begin(); it != Widgets.end(); ++ it)
 		(* it)->update(Elapsed);
@@ -51,32 +51,32 @@ void CGUIManager::draw(f32 const Elapsed, bool const ClearAll)
 	Canvas->RenderCanvas();
 }
 
-Gwen::Controls::Canvas * CGUIManager::getCanvas()
+Gwen::Controls::Canvas * CGUIManager::GetCanvas()
 {
 	return Canvas;
 }
 	
-Gwen::Font * CGUIManager::getLargeFont()
+Gwen::Font * CGUIManager::GetLargeFont()
 {
 	return LargeFont;
 }
 
-Gwen::Font * CGUIManager::getMediumFont()
+Gwen::Font * CGUIManager::GetMediumFont()
 {
 	return MediumFont;
 }
 
-Gwen::Font * CGUIManager::getRegularFont()
+Gwen::Font * CGUIManager::GetRegularFont()
 {
 	return RegularFont;
 }
 
-void CGUIManager::addWidget(CGUIWidget * Widget)
+void CGUIManager::AddWidget(CGUIWidget * Widget)
 {
 	Widgets.push_back(Widget);
 }
 
-void CGUIManager::removeWidget(CGUIWidget * Widget)
+void CGUIManager::RemoveWidget(CGUIWidget * Widget)
 {
 	for (auto it = Widgets.begin(); it != Widgets.end(); ++ it)
 		delete (* it);
@@ -84,7 +84,7 @@ void CGUIManager::removeWidget(CGUIWidget * Widget)
 	Widgets.erase(std::remove(Widgets.begin(), Widgets.end(), Widget), Widgets.end());
 }
 
-void CGUIManager::removeAllWidgets()
+void CGUIManager::RemoveAllWidgets()
 {
 	Widgets.clear();
 }

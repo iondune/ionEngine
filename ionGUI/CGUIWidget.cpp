@@ -8,6 +8,5 @@ CGUIWidget::CGUIWidget(CGUIManager * Manager)
 CGUIWidget::~CGUIWidget()
 {}
 
-void CGUIWidget::update(float const Elapsed)
-{
-}
+void CGUIWidget::Update(float const Elapsed)
+{}
