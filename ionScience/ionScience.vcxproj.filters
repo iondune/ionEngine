@@ -4,5 +4,13 @@
     <ClInclude Include="ionScience.h" />
     <ClInclude Include="SVolume.h" />
     <ClInclude Include="Interpolation.h" />
+    <ClInclude Include="MarchingCubes.h" />
+    <ClInclude Include="CColorTable.h" />
+    <ClInclude Include="DefaultColorTable.h" />
+    <ClInclude Include="MarchingCubesLookupTables.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MarchingCubes.cpp" />
+    <ClCompile Include="CColorTable.cpp" />
   </ItemGroup>
 </Project>
