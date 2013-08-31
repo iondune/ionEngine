@@ -21,6 +21,6 @@ public:
 	CGUIWidget(CGUIManager * Manager);
 	virtual ~CGUIWidget();
 
-	virtual void update(f32 const Elapsed);
+	virtual void Update(f32 const Elapsed);
 
 };
