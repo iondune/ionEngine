@@ -44,12 +44,14 @@
     <ClInclude Include="DefaultColorTable.h" />
     <ClInclude Include="Interpolation.h" />
     <ClInclude Include="ionScience.h" />
+    <ClInclude Include="KDTree.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesLookupTables.h" />
     <ClInclude Include="SVolume.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp" />
+    <ClCompile Include="KDTree.cpp" />
     <ClCompile Include="MarchingCubes.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
