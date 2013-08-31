@@ -41,7 +41,7 @@ void CGUIManager::Init()
 void CGUIManager::Draw(f32 const Elapsed, bool const ClearAll)
 {
 	for (auto it = Widgets.begin(); it != Widgets.end(); ++ it)
-		(* it)->update(Elapsed);
+		(* it)->Update(Elapsed);
 
 	if (ClearAll)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
