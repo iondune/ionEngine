@@ -26,6 +26,9 @@ public:
 	virtual glm::mat4 const & GetViewMatrix() const;
 	virtual glm::mat4 const & GetProjectionMatrix() const;
 
+	virtual void SetViewMatrix(glm::mat4 const & viewMatrix);
+	virtual void SetProjectionMatrix(glm::mat4 const & projectionMatrix);
+
 protected:
 
 	SVector3f LookDirection;

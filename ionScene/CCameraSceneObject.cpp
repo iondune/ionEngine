@@ -53,3 +53,13 @@ glm::mat4 const & CCameraSceneObject::GetProjectionMatrix() const
 {
     return ProjectionMatrix;
 }
+
+void CCameraSceneObject::SetViewMatrix(glm::mat4 const & viewMatrix)
+{
+	ViewMatrix = viewMatrix;
+}
+
+void CCameraSceneObject::SetProjectionMatrix(glm::mat4 const & projectionMatrix)
+{
+	ProjectionMatrix = projectionMatrix;
+}
