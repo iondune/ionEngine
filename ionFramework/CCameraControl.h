@@ -12,9 +12,9 @@ class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListen
 
 	CApplication & Application;
 
-	float MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
+	f32 MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
 	bool Tracking;
-	float Phi, Theta;
+	f32 Phi, Theta;
 
 public:
 
@@ -25,5 +25,11 @@ public:
 
 	SVector3f const & GetPosition();
 	void SetVelocity(float const velocity);
+
+	f32 const GetPhi();
+	void SetPhi(f32 const phi);
+
+	f32 const GetTheta();
+	void SetTheta(f32 const theta);
 
 };

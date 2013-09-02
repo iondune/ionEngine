@@ -75,3 +75,23 @@ void CCameraControl::SetVelocity(float const velocity)
 {
 	MoveSpeed = velocity;
 }
+
+f32 const CCameraControl::GetPhi()
+{
+	return Phi;
+}
+
+void CCameraControl::SetPhi(f32 const phi)
+{
+	Phi = phi;
+}
+
+f32 const CCameraControl::GetTheta()
+{
+	return Theta;
+}
+
+void CCameraControl::SetTheta(f32 const theta)
+{
+	Theta = theta;
+}

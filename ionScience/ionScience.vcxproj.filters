@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="ionScience.h" />
+    <ClInclude Include="Interpolation.h" />
+    <ClInclude Include="CColorTable.h">
+      <Filter>Coloring</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultColorTable.h">
+      <Filter>Coloring</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCubes.h">
+      <Filter>Marching Cubes</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCubesLookupTables.h">
+      <Filter>Marching Cubes</Filter>
+    </ClInclude>
+    <ClInclude Include="KDTree.h">
+      <Filter>Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="SVolume.h">
+      <Filter>Data Structures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CColorTable.cpp">
+      <Filter>Coloring</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingCubes.cpp">
+      <Filter>Marching Cubes</Filter>
+    </ClCompile>
+    <ClCompile Include="KDTree.cpp">
+      <Filter>Data Structures</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Coloring">
+      <UniqueIdentifier>{d1d9ce53-fb9f-472b-99d3-09527d2c34a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Marching Cubes">
+      <UniqueIdentifier>{484f85e2-9c88-40f1-a9a0-e5cee6490d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures">
+      <UniqueIdentifier>{9b961004-bed7-4384-8215-000aa593ecf5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
