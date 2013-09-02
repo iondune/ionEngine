@@ -1,5 +1,5 @@
-#ifndef _ION_SCENE_H_INCLUDED_
-#define _ION_SCENE_H_INCLUDED_
+
+#pragma once
 
 #include "CMesh.h"
 #include "CMeshLoader.h"
@@ -25,5 +25,3 @@
 #include "CDirectionalLightSceneObject.h"
 
 #include "CPerspectiveCameraSceneObject.h"
-
-#endif

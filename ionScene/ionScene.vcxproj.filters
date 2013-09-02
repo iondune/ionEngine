@@ -1,13 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ImageLoaders\Texture.h">
-      <Filter>External Utilities</Filter>
-    </ClInclude>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="ImageLoaders\BitmapWriter.hpp">
-      <Filter>External Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="CImageLoader.h">
       <Filter>Graphics Layer\Texture</Filter>
     </ClInclude>
@@ -116,11 +110,11 @@
     <ClInclude Include="CInstanceSceneObject.h">
       <Filter>Scene Management\Objects\Standard</Filter>
     </ClInclude>
+    <ClInclude Include="BitmapWriter.h">
+      <Filter>Graphics Layer\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImageLoaders\Texture.cpp">
-      <Filter>External Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="CImage.cpp">
       <Filter>Graphics Layer\Texture</Filter>
     </ClCompile>
@@ -287,9 +281,6 @@
     </Filter>
     <Filter Include="Scene Management\Objects\Standard">
       <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="External Utilities">
-      <UniqueIdentifier>{88e259c4-d17b-4e02-b845-d1524bbf486c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene Management\Scene\RenderPasses">
       <UniqueIdentifier>{40e5200e-32f2-4270-86fa-8813df1c0f85}</UniqueIdentifier>

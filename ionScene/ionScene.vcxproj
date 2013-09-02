@@ -41,6 +41,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
+    <ClInclude Include="BitmapWriter.h" />
     <ClInclude Include="CBufferObject.h" />
     <ClInclude Include="CCameraSceneObject.h" />
     <ClInclude Include="CDefaultColorRenderPass.h" />
@@ -69,8 +70,6 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureLoader.h" />
     <ClInclude Include="ICameraSceneObject.h" />
-    <ClInclude Include="ImageLoaders\BitmapWriter.hpp" />
-    <ClInclude Include="ImageLoaders\Texture.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IRenderTarget.h" />
     <ClInclude Include="IScene.h" />
@@ -117,7 +116,6 @@
     <ClCompile Include="CShaderContext.cpp" />
     <ClCompile Include="CShaderLoader.cpp" />
     <ClCompile Include="CTexture.cpp" />
-    <ClCompile Include="ImageLoaders\Texture.cpp" />
     <ClCompile Include="ISceneObject.cpp" />
     <ClCompile Include="ISceneObject.CullingMethods.cpp" />
     <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />

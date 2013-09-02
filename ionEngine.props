@@ -16,7 +16,7 @@
       ;$(VisualStudioDir)\SDKs\glfw\include;
       ;$(VisualStudioDir)\SDKs\glm-0.9.4.4\;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
-      ;$(VisualStudioDir)\SDKs\sigslot;
+      ;$(VisualStudioDir)\SDKs\stb_image;
       ;$(IncludePath);
     </IncludePath>
 
