@@ -1,6 +1,21 @@
-#define _SCL_SECURE_NO_WARNINGS
-
 #include "CImage.h"
+
+#include <stb_image.c>
+
+
+CImage * CImage::Load(std::string const & FileName)
+{
+	int x, y, n;
+	u8 * data = stbi_load(FileName.c_str(), & x, & y, & n, 0);
+
+	if (! data)
+		return 0;
+
+	CImage * Image = new CImage(data, x, y);
+	Image->FlipY();
+
+	return Image;
+}
 
 CImage::CImage(u8 * const imageData, u32 const width, u32 const height, bool const alpha)
     : ImageData(imageData), Size(width, height), Alpha(alpha)
@@ -35,6 +50,17 @@ u32 CImage::GetHeight() const
 vec2u CImage::GetSize() const
 {
 	return Size;
+}
+
+color4i CImage::GetPixel(u32 const x, u32 const y) const
+{
+	u32 Stride = Alpha ? 4 : 3;
+
+	return color4i(
+		ImageData[x * Stride + y * Size.X * Stride + 0],
+		ImageData[x * Stride + y * Size.X * Stride + 1],
+		ImageData[x * Stride + y * Size.X * Stride + 2],
+		ImageData[x * Stride + y * Size.X * Stride + 3]);
 }
 
 u8 const * const CImage::GetImageData() const

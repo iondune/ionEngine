@@ -2,17 +2,16 @@
 
 #include <cstdio>
 #include <iostream>
-#include <stb_image.c>
 
 
 std::map<std::string, CImage *> CImageLoader::LoadedImages;
 std::string CImageLoader::TextureDirectory = "../Media/Textures/";
 
-CTexture * const CImageLoader::LoadTexture(std::string const & fileName, STextureCreationFlags Flags, bool const useCache)
+CTexture * const CImageLoader::LoadTexture(std::string const & FileName, STextureCreationFlags Flags, bool const useCache)
 {
 	if (useCache)
 	{
-		std::map<std::string, CImage *>::iterator it = LoadedImages.find(fileName);
+		std::map<std::string, CImage *>::iterator it = LoadedImages.find(FileName);
 
 		if (it != LoadedImages.end())
 		{
@@ -20,20 +19,16 @@ CTexture * const CImageLoader::LoadTexture(std::string const & fileName, STextur
 		}
 	}
 
-	int x, y, n;
-	u8 * data = stbi_load((TextureDirectory + fileName).c_str(), & x, & y, & n, 0);
+	CImage * Image = CImage::Load(TextureDirectory + FileName);
 
-	if (! data)
+	if (! Image)
 	{
-		std::cerr << "Failed to load image with file name '" << fileName << "', aborting creation of texture." << std::endl;
+		std::cerr << "Failed to load image with file name '" << FileName << "', aborting creation of texture." << std::endl;
 		return 0;
 	}
 
-	CImage * Image = new CImage(data, x, y);
-	Image->FlipY();
-
 	if (useCache)
-		LoadedImages[fileName] = Image;
+		LoadedImages[FileName] = Image;
 
 	return new CTexture(Image, Flags);
 }

@@ -16,8 +16,9 @@ class CImage
 
 	bool Alpha;
 
-
 public:
+
+	static CImage * Load(std::string const & FileName);
 
 	CImage(u8 * const imageData, u32 const width, u32 const height, bool const alpha = false);
 	CImage(color4f const & Color, bool const Alpha = false);
@@ -26,6 +27,8 @@ public:
 	u32 GetWidth() const;
 	u32 GetHeight() const;
 	vec2u GetSize() const;
+
+	color4i GetPixel(u32 const x, u32 const y) const;
 
 	u8 const * const GetImageData() const;
 	u8 * GetImageData();

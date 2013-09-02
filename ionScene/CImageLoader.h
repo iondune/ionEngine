@@ -15,7 +15,7 @@ class CImageLoader
 
 public:
 
-	static CTexture * const LoadTexture(std::string const & fileName, STextureCreationFlags Flags = STextureCreationFlags(), bool const useCache = true);
+	static CTexture * const LoadTexture(std::string const & FileName, STextureCreationFlags Flags = STextureCreationFlags(), bool const useCache = true);
 
 	static std::string TextureDirectory;
 
