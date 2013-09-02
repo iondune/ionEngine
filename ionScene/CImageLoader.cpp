@@ -21,18 +21,18 @@ CTexture * const CImageLoader::LoadTexture(std::string const & fileName, STextur
 	}
 
 	int x, y, n;
-	u8 * data = stbi_load(fileName.c_str(), &x, &y, &n, 0);
+	u8 * data = stbi_load((TextureDirectory + fileName).c_str(), &x, &y, &n, 0);
+
+	if (! data)
+	{
+		std::cerr << "Failed to load image with file name '" << fileName << "', aborting creation of texture." << std::endl;
+		return 0;
+	}
 
     CImage * Image = new CImage(data, x, y);
 
 	if (useCache)
 		LoadedImages[fileName] = Image;
-
-	if (! Image)
-	{
-		std::cerr << "Failed to load image with file name '" << fileName << "', aborting creation of texture." << std::endl;
-		return 0;
-	}
 
     return new CTexture(Image, Flags);
 }
