@@ -63,6 +63,14 @@ color4i CImage::GetPixel(u32 const x, u32 const y) const
 		ImageData[x * Stride + y * Size.X * Stride + 3]);
 }
 
+void CImage::SetPixel(u32 const x, u32 const y, color4i const color)
+{
+	u32 Stride = Alpha ? 4 : 3;
+
+	for (u32 i = 0; i < Stride; ++ i)
+		ImageData[x * Stride + y * Size.X * Stride + i] = color[i];
+}
+
 u8 const * const CImage::GetImageData() const
 {
     return ImageData;

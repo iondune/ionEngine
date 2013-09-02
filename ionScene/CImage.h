@@ -27,8 +27,9 @@ public:
 	u32 GetWidth() const;
 	u32 GetHeight() const;
 	vec2u GetSize() const;
-
+	
 	color4i GetPixel(u32 const x, u32 const y) const;
+	void SetPixel(u32 const x, u32 const y, color4i const color);
 
 	u8 const * const GetImageData() const;
 	u8 * GetImageData();
