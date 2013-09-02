@@ -21,7 +21,7 @@ CTexture * const CImageLoader::LoadTexture(std::string const & fileName, STextur
 	}
 
 	int x, y, n;
-	u8 * data = stbi_load((TextureDirectory + fileName).c_str(), &x, &y, &n, 0);
+	u8 * data = stbi_load((TextureDirectory + fileName).c_str(), & x, & y, & n, 0);
 
 	if (! data)
 	{
@@ -29,10 +29,11 @@ CTexture * const CImageLoader::LoadTexture(std::string const & fileName, STextur
 		return 0;
 	}
 
-    CImage * Image = new CImage(data, x, y);
+	CImage * Image = new CImage(data, x, y);
+	Image->FlipY();
 
 	if (useCache)
 		LoadedImages[fileName] = Image;
 
-    return new CTexture(Image, Flags);
+	return new CTexture(Image, Flags);
 }

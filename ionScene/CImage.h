@@ -33,5 +33,6 @@ public:
 	bool const HasAlpha() const;
 
 	void Write(std::string const & fileName);
+	void FlipY();
 
 };

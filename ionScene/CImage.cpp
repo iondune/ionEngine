@@ -56,7 +56,7 @@ bool const CImage::HasAlpha() const
 
 void CImage::Write(std::string const & fileName)
 {
-	int Stride = Alpha ? 4 : 3;
+	u32 Stride = Alpha ? 4 : 3;
 	bitmap_image image(Size.X, Size.Y);
 
 	for (u32 x = 0; x < Size.X; ++x)
@@ -71,4 +71,18 @@ void CImage::Write(std::string const & fileName)
 	}
 
     image.save_image(fileName.c_str());
+}
+
+void CImage::FlipY()
+{
+	u32 Stride = Alpha ? 4 : 3;
+
+	for (u32 x = 0; x < Size.X; ++ x)
+	{
+		for (u32 y = 0; y < Size.Y / 2; ++ y)
+		{
+			for (u32 j = 0; j < Stride; ++ j)
+				std::swap(ImageData[x * Stride + y * Size.X * Stride + j], ImageData[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
+		}
+	}
 }
