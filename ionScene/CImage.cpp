@@ -9,7 +9,10 @@ CImage * CImage::Load(std::string const & FileName)
 	u8 * data = stbi_load(FileName.c_str(), & x, & y, & n, 0);
 
 	if (! data)
+	{
+		std::cerr << "Failed to load image from file '" << FileName << "', reason: " << stbi_failure_reason() << std::endl;
 		return 0;
+	}
 
 	CImage * Image = new CImage(data, x, y);
 	Image->FlipY();
