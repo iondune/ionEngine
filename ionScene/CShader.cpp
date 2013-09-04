@@ -1,5 +1,7 @@
 #include "CShader.h"
 
+#include <ionCore.h>
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -15,7 +17,8 @@ bool printOpenGLErrors(std::string const & Location)
 	GLenum glErr = glGetError();
 	while (glErr != GL_NO_ERROR)
 	{
-		std::cerr << "OpenGL Error at " << Location << ": " << gluErrorString(glErr) << std::endl;
+		c8 const * const ErrorString = (c8 const * const) gluErrorString(glErr);
+		std::cerr << "OpenGL Error at " << Location << ": " << (ErrorString ? ErrorString : "Error Code is not valid") << std::endl;
 		Succeeded = false;
 		glErr = glGetError();
 	}

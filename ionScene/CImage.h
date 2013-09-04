@@ -1,5 +1,5 @@
-#ifndef _ION_SCENE_CIMAGE_H_INCLUDED_
-#define _ION_SCENE_CIMAGE_H_INCLUDED_
+
+#pragma once
 
 #include <string>
 #include "SVector2.h"
@@ -12,26 +12,31 @@ class CImage
 	friend class CImageLoader;
 
 	unsigned char * ImageData;
-	int Width;
-	int Height;
+	vec2u Size;
 
 	bool Alpha;
 
-
 public:
 
-	CImage(unsigned char * imageData, int width, int height, bool const alpha = false);
-	CImage(SColorAf const & Color, bool const Alpha = false);
+	static CImage * Load(std::string const & FileName);
+
+	CImage(u8 * const imageData, u32 const width, u32 const height, bool const alpha = false);
+	CImage(color4f const & Color, bool const Alpha = false);
 	~CImage();
 
-	int const getWidth() const;
-	int const getHeight() const;
-	unsigned char const * const getImageData() const;
-	unsigned char * getImageData();
-	bool const hasAlpha() const;
+	u32 GetWidth() const;
+	u32 GetHeight() const;
+	vec2u GetSize() const;
+	
+	color4i GetPixel(u32 const x, u32 const y) const;
+	void SetPixel(u32 const x, u32 const y, color4i const color);
 
-	void write(std::string const & fileName);
+	u8 const * const GetImageData() const;
+	u8 * GetImageData();
+
+	bool const HasAlpha() const;
+
+	void Write(std::string const & fileName);
+	void FlipY();
 
 };
-
-#endif

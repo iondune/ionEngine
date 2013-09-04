@@ -2,7 +2,7 @@
 #pragma once
 
 #include <CMesh.h>
-#include "../SVolume.h"
+#include "SVolume.h"
 
 
 struct SMarchingCubesPoint

@@ -34,3 +34,9 @@ T TricubicInterpolate(T p[4][4][4], float x, float y, float z)
 	arr[3] = BicubicInterpolate(p[3], y, z);
 	return CubicInterpolate(arr, x);
 }
+
+template <typename T>
+T Gaussian(T x, T sigma)
+{
+	return pow(Constants32::e, - Sq(x) / (2 * Sq(sigma))) / sqrt(2 * Constants32::Pi * Sq(sigma));
+}

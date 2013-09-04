@@ -9,6 +9,7 @@
       ;$(VisualStudioDir)\Projects\ionEngine\ionGUI;
       ;$(VisualStudioDir)\Projects\ionEngine\ionMath;
       ;$(VisualStudioDir)\Projects\ionEngine\ionScene;
+      ;$(VisualStudioDir)\Projects\ionEngine\ionScience;
       ;$(VisualStudioDir)\Projects\ionEngine\ionWindow;
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.0.1\include\;
@@ -16,7 +17,7 @@
       ;$(VisualStudioDir)\SDKs\glfw\include;
       ;$(VisualStudioDir)\SDKs\glm-0.9.4.4\;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
-      ;$(VisualStudioDir)\SDKs\sigslot;
+      ;$(VisualStudioDir)\SDKs\stb_image;
       ;$(IncludePath);
     </IncludePath>
 

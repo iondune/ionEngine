@@ -38,16 +38,16 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 {
 	if (Image)
 	{
-		Size.X = Image->getWidth();
-		Size.Y = Image->getHeight();
+		Size.X = Image->GetWidth();
+		Size.Y = Image->GetHeight();
 
 		glGenTextures(1, & TextureHandle);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 
 		Flags.apply();
 
-		glTexImage2D(GL_TEXTURE_2D, 0, Image->hasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-			Image->hasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->getImageData());
+		glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+			Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
 		if (Flags.MipMaps && glGenerateMipmap)
 			glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -62,16 +62,15 @@ CTexture::CTexture(SColorAf const & Color, STextureCreationFlags const Flags)
 {
 	CImage * Image = new CImage(Color, false);
 
-	Size.X = Image->getWidth();
-	Size.Y = Image->getHeight();
+	Size = Image->GetSize();
 
 	glGenTextures(1, & TextureHandle);
 	glBindTexture(GL_TEXTURE_2D, TextureHandle);
 
 	Flags.apply();
 
-	glTexImage2D(GL_TEXTURE_2D, 0, Image->hasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-		Image->hasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->getImageData());
+	glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -84,12 +83,12 @@ void CTexture::setImage(void const * const Data, bool const hasAlpha)
 }
 void CTexture::setImage(CImage * Image)
 {
-	if (Size.X != Image->getWidth() || Size.Y != Image->getHeight())
+	if (Size.X != Image->GetWidth() || Size.Y != Image->GetHeight())
 		return;
 
 	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-	glTexImage2D(GL_TEXTURE_2D, 0, Image->hasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-		Image->hasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->getImageData());
+	glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

@@ -20,4 +20,7 @@ public:
 	virtual glm::mat4 const & GetViewMatrix() const =0;
 	virtual glm::mat4 const & GetProjectionMatrix() const =0;
 
+	virtual void SetViewMatrix(glm::mat4 const & viewMatrix) =0;
+	virtual void SetProjectionMatrix(glm::mat4 const & projectionMatrix) =0;
+
 };
