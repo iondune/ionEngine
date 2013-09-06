@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <ionTypes.h>
-#include <ionWindow.h>
+#include <ionCore/ionTypes.h>
+#include <ionWindow/ionWindow.h>
 #include <ionFramework.h>
 
 #include <Gwen/Controls.h>

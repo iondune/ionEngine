@@ -30,7 +30,7 @@ void CSceneObject::setTexture(unsigned int const Layer, CTexture * Texture)
 
 void CSceneObject::setTexture(unsigned int const Layer, std::string const & texture)
 {
-	setTexture(Layer, CImageLoader::loadTexture(texture));
+	setTexture(Layer, CImageLoader::LoadTexture(texture));
 }
 
 void CSceneObject::setTexture(unsigned int const Layer, CTexture * Texture, unsigned int const renderable)
@@ -41,7 +41,7 @@ void CSceneObject::setTexture(unsigned int const Layer, CTexture * Texture, unsi
 
 void CSceneObject::setTexture(unsigned int const Layer, std::string const & texture, unsigned int const renderable)
 {
-	setTexture(Layer, CImageLoader::loadTexture(texture), renderable);
+	setTexture(Layer, CImageLoader::LoadTexture(texture), renderable);
 }
 
 void CSceneObject::setTexture(unsigned int const Layer, CTexture * Texture, CRenderable * const Renderable)
@@ -51,7 +51,7 @@ void CSceneObject::setTexture(unsigned int const Layer, CTexture * Texture, CRen
 
 void CSceneObject::setTexture(unsigned int const Layer, std::string const & texture, CRenderable * const Renderable)
 {
-	setTexture(Layer, CImageLoader::loadTexture(texture), Renderable);
+	setTexture(Layer, CImageLoader::LoadTexture(texture), Renderable);
 }
 
 void CSceneObject::addAttribute(std::string const & label, sharedPtr<IAttribute const> const attribute)

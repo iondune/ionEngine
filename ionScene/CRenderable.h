@@ -7,9 +7,9 @@
 #include <vector>
 
 // Core
-#include <ionSmartPtr.h>
-#include <ionTypes.h>
-#include <STransformation3.h>
+#include <ionCore/ionSmartPtr.h>
+#include <ionCore/ionTypes.h>
+#include <ionMath/STransformation3.h>
 
 // OpenGL
 #include <GL/glew.h>

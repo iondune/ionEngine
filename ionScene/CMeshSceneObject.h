@@ -1,7 +1,7 @@
-#ifndef _ION_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
-#define _ION_SCENE_CMESHSCENEOBJECT_H_INCLUDED_
 
-#include "SVector3.h"
+#pragma once
+
+#include <ionMath/SVector3.h>
 #include "CShader.h"
 #include "CMesh.h"
 #include "CTexture.h"
@@ -28,5 +28,3 @@ public:
 	virtual void setMesh(CMesh * mesh);
 
 };
-
-#endif

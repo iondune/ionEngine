@@ -4,7 +4,7 @@
 #include <string>
 #include <GL/glew.h>
 
-#include <ionTypes.h>
+#include <ionCore/ionTypes.h>
 
 
 static inline bool PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line)

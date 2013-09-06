@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ionTypes.h>
+#include <ionCore/ionTypes.h>
 
 
 u32 const EdgeTable[256] =

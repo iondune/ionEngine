@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <CMesh.h>
-#include "../SVolume.h"
+#include <ionScene/CMesh.h>
+#include "SVolume.h"
 
 
 struct SMarchingCubesPoint
