@@ -1,7 +1,6 @@
 #pragma once
 
-#include "ionConfig.h"
-#include "ionUtils.h"
+#include <ionCore.h>
 
 
 template <typename T, u32 Size>

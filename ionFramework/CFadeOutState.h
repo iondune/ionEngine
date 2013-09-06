@@ -2,8 +2,8 @@
 #define _ION_FRAMEKWORK_CFADEOUTSTATE_H_INCLUDED_
 
 #include "CStateManager.h"
-#include <CFrameBufferObject.h>
-#include <CTexture.h>
+#include <ionScene/CFrameBufferObject.h>
+#include <ionScene/CTexture.h>
 
 class CFadeOutState : public IState
 {

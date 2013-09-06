@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <OpenGL3.h>
+#include "OpenGL3.h"
 
 
 namespace Gwen

@@ -1,9 +1,8 @@
-#ifndef _ION_SCENE_CTEXTURE_H_INCLUDED_
-#define _ION_SCENE_CTEXTURE_H_INCLUDED_
 
-#include <string>
-#include <GL/glew.h>
-#include <SVector2.h>
+#pragma once
+
+#include <ionCore.h>
+#include <ionMath.h>
 
 #include "CImage.h"
 #include "IRenderTarget.h"
@@ -17,11 +16,11 @@ public:
 	STextureCreationFlags();
 
 	bool MipMaps;
-	GLenum Wrap;
-	GLenum Filter;
-	GLenum PixelInternalFormat;
-	GLenum PixelFormat;
-	GLenum PixelType;
+	u32 Wrap;
+	u32 Filter;
+	u32 PixelInternalFormat;
+	u32 PixelFormat;
+	u32 PixelType;
 
 	void apply() const;
 
@@ -30,22 +29,17 @@ public:
 class CTexture : public IRenderTarget
 {
 
-    GLuint TextureHandle;
-	vec2i Size;
-
-	STextureCreationFlags Flags;
-
 public:
 
     CTexture(CImage * Image, STextureCreationFlags const Flags = STextureCreationFlags());
     CTexture(SColorAf const & Color, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(int const Width, int const Height, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
-	CTexture(GLuint const textureHandle);
+	CTexture(u32 const textureHandle);
 
 	~CTexture();
 
-    GLuint const getTextureHandle() const;
+    u32 const getTextureHandle() const;
 
 	vec2i const & getSize() const;
     int const getWidth() const;
@@ -58,6 +52,11 @@ public:
 
 	virtual ERenderTargetType const getRenderTargetType();
 
-};
+protected:
 
-#endif
+    u32 TextureHandle;
+	vec2i Size;
+
+	STextureCreationFlags Flags;
+
+};

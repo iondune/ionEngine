@@ -1,9 +1,9 @@
-#ifndef _ION_SCENE_CFRAMEBUFFEROBJECT_H_INCLUDED_
-#define _ION_SCENE_CFRAMEBUFFEROBJECT_H_INCLUDED_
+
+#pragma once
 
 #include <GL/glew.h>
 #include <map>
-#include <ionTypes.h>
+#include <ionCore/ionTypes.h>
 
 #include "CRenderBufferObject.h"
 #include "CTexture.h"
@@ -39,5 +39,3 @@ public:
 	static void bindDeviceBackBuffer();
 
 };
-
-#endif

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionTypes.h>
+#include <ionCore/ionTypes.h>
 #include <ionWindow.h>
 
 #include <Gwen/Controls.h>
@@ -21,6 +21,6 @@ public:
 	CGUIWidget(CGUIManager * Manager);
 	virtual ~CGUIWidget();
 
-	virtual void update(f32 const Elapsed);
+	virtual void Update(f32 const Elapsed);
 
 };

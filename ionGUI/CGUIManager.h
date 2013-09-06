@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <ionTypes.h>
-#include <ionWindow.h>
+#include <ionCore/ionTypes.h>
+#include <ionWindow/ionWindow.h>
 #include <ionFramework.h>
 
 #include <Gwen/Controls.h>
@@ -31,17 +31,17 @@ public:
 
 	CGUIManager();
 
-	void init();
-	void draw(f32 const Elapsed, bool ClearAll = false);
+	void Init();
+	void Draw(f32 const Elapsed, bool ClearAll = false);
 
-	Gwen::Controls::Canvas * getCanvas();
+	Gwen::Controls::Canvas * GetCanvas();
 	
-	Gwen::Font * getLargeFont();
-	Gwen::Font * getMediumFont();
-	Gwen::Font * getRegularFont();
+	Gwen::Font * GetLargeFont();
+	Gwen::Font * GetMediumFont();
+	Gwen::Font * GetRegularFont();
 	
-	void addWidget(CGUIWidget * Widget);
-	void removeWidget(CGUIWidget * Widget);
-	void removeAllWidgets();
+	void AddWidget(CGUIWidget * Widget);
+	void RemoveWidget(CGUIWidget * Widget);
+	void RemoveAllWidgets();
 
 };

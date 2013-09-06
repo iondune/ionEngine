@@ -1,7 +1,7 @@
 
 #include "CGUIEventManager.h"
 
-#include <CApplication.h>
+#include <ionFramework/CApplication.h>
 
 
 CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window)
