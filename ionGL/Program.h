@@ -16,32 +16,16 @@ namespace ion
 		{
 		public:
 
-			class Attribute
-			{
-			public:
-
-				//! Attribute is automatically enabled by any operation
-				void Enable();
-
-				void BindBuffer(VertexBuffer * buffer, u32 const elementSize);
-			};
-
-			class Uniform
-			{
-			public:
-
-			};
-
 			void AttachShader(Shader * shader);
 			bool Link();
 
-			std::vector<Attribute> const & GetActiveAttributes();
-			std::vector<Uniform> const & GetActiveUniforms();
+			std::map<std::string, u32> const & GetActiveAttributes();
+			std::map<std::string, u32> const & GetActiveUniforms();
 
 		private:
 
-			std::vector<Attribute> Attributes;
-			std::vector<Uniform> Uniforms;
+			std::map<std::string, u32> Attributes;
+			std::map<std::string, u32> Uniforms;
 		};
 	}
 }
