@@ -4,6 +4,8 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
+#include "Utilities.h"
+
 
 namespace ion
 {

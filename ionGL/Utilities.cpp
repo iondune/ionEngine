@@ -14,7 +14,7 @@ namespace ion
 			GLenum Error = glGetError();
 			while (Error != GL_NO_ERROR)
 			{
-				u8 const * ErrorString = gluErrorString(Error);
+				c8 const * ErrorString = (c8 const *) gluErrorString(Error);
 				std::cerr << "OpenGL Error in " << File << " at line " << Line << " calling function " << Function << ": " << (ErrorString ? ErrorString : "") << std::endl;
 			}
 		}

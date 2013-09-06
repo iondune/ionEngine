@@ -7,18 +7,6 @@ namespace ion
 {
 	namespace GL
 	{
-
-		u32 const Util::TypeMatrix[7] = 
-		{
-			GL_UNSIGNED_BYTE,
-			GL_UNSIGNED_SHORT,
-			GL_UNSIGNED_INT,
-			GL_BYTE,
-			GL_SHORT,
-			GL_INT,
-			GL_FLOAT
-		};
-
 		VertexArray::VertexArray()
 		{
 			glGenVertexArrays(1, & Handle);
