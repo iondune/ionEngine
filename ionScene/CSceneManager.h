@@ -10,9 +10,10 @@
 #include "CPerspectiveCameraSceneObject.h"
 #include "CScene.h"
 
-#include <SLine3.h>
-#include <SColor.h>
-#include <SVector2.h>
+#include <ionMath/SLine3.h>
+#include <ionMath/SColor.h>
+#include <ionMath/SVector2.h>
+
 #include "SUniform.h"
 #include "SAttribute.h"
 

@@ -1,13 +1,12 @@
-#ifndef _ION_SCENE_CMESH_H_INCLUDED_
-#define _ION_SCENE_CMESH_H_INCLUDED_
 
-#include "SBoundingBox3.h"
+#pragma once
+
+#include <ionMath/SBoundingBox3.h>
 
 #include "SVertex.h"
 #include "CBufferObject.h"
 #include "CRenderable.h"
 
-#include <vector>
 
 class CMesh
 {
@@ -68,5 +67,3 @@ public:
 	unsigned int const getRevision() const;
 
 };
-
-#endif

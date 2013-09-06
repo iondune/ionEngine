@@ -19,6 +19,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionFramework", "ionFramewor
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionScience", "ionScience\ionScience.vcxproj", "{A629442A-C32C-4949-AA1D-E2118521DBAD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A69E0D16-25DF-4226-878D-91224A10551C}"
+	ProjectSection(SolutionItems) = preProject
+		ionConfig.h = ionConfig.h
+		ionCore.h = ionCore.h
+		ionFramework.h = ionFramework.h
+		ionGL.h = ionGL.h
+		ionGUI.h = ionGUI.h
+		ionMath.h = ionMath.h
+		ionScene.h = ionScene.h
+		ionScience.h = ionScience.h
+		ionWindow.h = ionWindow.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

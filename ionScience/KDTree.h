@@ -1,9 +1,6 @@
 #pragma once
 
-#include <ionTypes.h>
 #include <ionMath.h>
-
-#include <vector>
 
 
 struct KDTreeNeighborSet

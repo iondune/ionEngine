@@ -1,9 +1,7 @@
-#ifndef _ION_SCENE_SVERTEX_H_INCLUDED_
-#define _ION_SCENE_SVERTEX_H_INCLUDED_
+#pragma once
 
-#include "SVector3.h"
-#include "SVector2.h"
-#include "SColor.h"
+#include <ionMath.h>
+
 
 class SVertex
 {
@@ -17,5 +15,3 @@ public:
 	SColorAf Color;
 
 };
-
-#endif

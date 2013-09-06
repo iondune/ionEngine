@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SVector3.h"
-#include "SVector2.h"
+#include <ionMath/SVector3.h>
+#include <ionMath/SVector2.h>
 
 #include "ionScene.h"
 #include "CApplication.h"
