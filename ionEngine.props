@@ -4,13 +4,7 @@
   <PropertyGroup>
 
     <IncludePath>
-      ;$(VisualStudioDir)\Projects\ionEngine\ionCore;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionFramework;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionGUI;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionMath;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionScene;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionScience;
-      ;$(VisualStudioDir)\Projects\ionEngine\ionWindow;
+      ;$(VisualStudioDir)\Projects\ionEngine\;
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.0.1\include\;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\include;

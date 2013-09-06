@@ -1,10 +1,7 @@
 #include "CTexture.h"
 
-#ifdef __unix__
-#include <GL/glu.h>
-#endif
+#include <GL/glew.h>
 
-#include <iostream>
 
 STextureCreationFlags::STextureCreationFlags()
 {

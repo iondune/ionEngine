@@ -40,29 +40,24 @@ f32 CPerspectiveCameraSceneObject::GetFarPlane() const
 void CPerspectiveCameraSceneObject::SetFocalLength(f32 const focalLength)
 {
 	FocalLength = focalLength;
-	UpdateProjection();
 }
 
 void CPerspectiveCameraSceneObject::SetFieldOfView(f32 const fieldOfView)
 {
 	FocalLength = 0.5f / tan(fieldOfView * Constants32::Pi / 360.f);
-	UpdateProjection();
 }
 
 void CPerspectiveCameraSceneObject::SetAspectRatio(f32 const aspectRatio)
 {
 	AspectRatio = aspectRatio;
-	UpdateProjection();
 }
 
 void CPerspectiveCameraSceneObject::SetNearPlane(f32 const nearPlane)
 {
 	NearPlane = nearPlane;
-	UpdateProjection();
 }
 
 void CPerspectiveCameraSceneObject::SetFarPlane(f32 const farPlane)
 {
 	FarPlane = farPlane;
-	UpdateProjection();
 }

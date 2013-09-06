@@ -54,6 +54,7 @@
     <ClInclude Include="CGUIManager.h" />
     <ClInclude Include="CGUIWidget.h" />
     <ClInclude Include="FreeType.h" />
+    <ClInclude Include="ionGUI.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="OpenGL3Font.h" />
   </ItemGroup>

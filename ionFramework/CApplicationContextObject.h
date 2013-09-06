@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CApplication.h"
-#include "CSceneManager.h"
+#include <ionScene/CSceneManager.h>
 
 #include "CContextObject.h"
 

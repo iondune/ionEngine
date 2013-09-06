@@ -1,8 +1,8 @@
-#ifndef _ION_SCENE_ISCENE_H_INCLUDED_
-#define _ION_SCENE_ISCENE_H_INCLUDED_
+
+#pragma once
 
 // Core
-#include <ionSmartPtr.h>
+#include <ionCore/ionSmartPtr.h>
 
 // Scene
 #include "ICameraSceneObject.h"
@@ -28,5 +28,3 @@ public:
 	virtual void draw(sharedPtr<IRenderPass> const Pass) = 0;
 
 };
-
-#endif

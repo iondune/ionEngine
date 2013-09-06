@@ -2,8 +2,8 @@
 #pragma once
 
 #include <string>
-#include "SVector2.h"
-#include <SColor.h>
+#include <ionMath/SVector2.h>
+#include <ionMath/SColor.h>
 
 
 class CImage
