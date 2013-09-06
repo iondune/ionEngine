@@ -23,12 +23,12 @@ public:
 	void SetNearPlane(f32 const nearPlane);
 	void SetFarPlane(f32 const farPlane);
 
+	void UpdateProjection();
+
 protected:
 
 	f32 FocalLength;
 	f32 AspectRatio;
 	f32 NearPlane, FarPlane;
-
-	void UpdateProjection();
 
 };
