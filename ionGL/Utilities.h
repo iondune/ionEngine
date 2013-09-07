@@ -1,25 +1,32 @@
+
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <GL/glew.h>
-
-#include <ionCore/ionTypes.h>
+#include <ionCore.h>
 
 
-static inline bool PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line)
+namespace ion
 {
-	bool Succeeded = true;
-
-	GLenum Error = glGetError();
-	while (Error != GL_NO_ERROR)
+	namespace GL
 	{
-		std::cerr << "OpenGL Error in " << File << " at line " << Line << " calling function " << Function << ": " << gluErrorString(Error) << std::endl;
-		Succeeded = false;
-		Error = glGetError();
+		void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
+		#define CheckedGLCall(x) (x); PrintOpenGLErrors(#x, __FILE__, __LINE__);
+
+		enum class EFormatType
+		{
+			U8 = 0,
+			U16 = 1,
+			U32 = 2,
+			S8 = 3,
+			S16 = 4,
+			S32 = 5,
+			F32 = 6
+		};
+
+		class Util
+		{
+		public:
+
+			static u32 const TypeMatrix[7];
+		};
 	}
-
-	return Succeeded;
 }
-
-#define CheckedGLCall(x) (x); PrintOpenGLErrors(#x, __FILE__, __LINE__);
