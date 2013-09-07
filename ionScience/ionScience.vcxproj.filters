@@ -15,10 +15,10 @@
     <ClInclude Include="MarchingCubesLookupTables.h">
       <Filter>Marching Cubes</Filter>
     </ClInclude>
-    <ClInclude Include="KDTree.h">
+    <ClInclude Include="SVolume.h">
       <Filter>Data Structures</Filter>
     </ClInclude>
-    <ClInclude Include="SVolume.h">
+    <ClInclude Include="CKDTree.h">
       <Filter>Data Structures</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClCompile Include="MarchingCubes.cpp">
       <Filter>Marching Cubes</Filter>
     </ClCompile>
-    <ClCompile Include="KDTree.cpp">
+    <ClCompile Include="CKDTree.cpp">
       <Filter>Data Structures</Filter>
     </ClCompile>
   </ItemGroup>
