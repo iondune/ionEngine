@@ -47,7 +47,7 @@ enum class EKey
 	At,
 
 	LeftBracket,
-	Backslash,
+	BackSlash,
 	RightBracket,
 	Caret,
 	Underscore,
