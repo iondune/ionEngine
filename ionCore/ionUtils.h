@@ -34,18 +34,37 @@ ION_FUNC_DEF static u32 DigitCount(s32 n)
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Clamp(T const v, T const min, T const max)
+ION_FUNC_DEF static T const Clamp(T const & v, T const & min, T const & max)
 {
 	return ((v > max) ? max : ((v < min) ? min : v));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Sq(T const a)
+ION_FUNC_DEF static T const Sq(T const & a)
 {
 	return a * a;
 }
 
-template <typename T> s32 Sign(T val)
+template <typename T>
+ION_FUNC_DEF static T const Average(T const & a, T const & b)
+{
+	return (a + b) / 2;
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Average(T const & a, T const & b, T const & c)
+{
+	return (a + b + c) / 3;
+}
+
+template <typename T>
+ION_FUNC_DEF static T const Average(T const & a, T const & b, T const & c, T const & d)
+{
+	return (a + b + c + d) / 4;
+}
+
+template <typename T>
+s32 Sign(T const & val)
 {
 	return (T(0) < val) - (val < T(0));
 }
