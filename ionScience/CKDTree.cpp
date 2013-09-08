@@ -1,18 +1,18 @@
-#include "KDTree.h"
+#include "CKDTree.h"
 
 #include <functional>
 #include <algorithm>
 
 
-///////////////////////
-// KDTreeNeighborSet //
-///////////////////////
+////////////////////////
+// CKDTreeNeighborSet //
+////////////////////////
 
-KDTreeNeighborSet::KDTreeNeighborSet(u32 const k, vec3f const & goal)
+CKDTreeNeighborSet::CKDTreeNeighborSet(u32 const k, vec3f const & goal)
 	: K(k), Goal(goal)
 {}
 
-void KDTreeNeighborSet::ConsiderPoint(vec3f const & Point)
+void CKDTreeNeighborSet::ConsiderPoint(vec3f const & Point)
 {
 	if (! Filled())
 	{
@@ -37,22 +37,22 @@ void KDTreeNeighborSet::ConsiderPoint(vec3f const & Point)
 	}
 }
 
-f32 KDTreeNeighborSet::GetWorstDistance() const
+f32 CKDTreeNeighborSet::GetWorstDistance() const
 {
 	return Set.back().second;
 }
 
-bool KDTreeNeighborSet::Filled() const
+bool CKDTreeNeighborSet::Filled() const
 {
 	return Set.size() == K;
 }
 
 
-////////////////
-// KDTreeNode //
-////////////////
+/////////////////
+// SKDTreeNode //
+/////////////////
 
-void KDTreeNode::Split(vec3f * Elements, u32 const Count, s32 const Axis)
+void CKDTreeNode::Split(vec3f * Elements, u32 const Count, s32 const Axis)
 {
 	static std::function<bool(vec3f, vec3f)> Comparators[] =
 	{
@@ -78,16 +78,16 @@ void KDTreeNode::Split(vec3f * Elements, u32 const Count, s32 const Axis)
 	{
 		u32 const Split = Count / 2;
 		
-		LeftSide = new KDTreeNode;
+		LeftSide = new CKDTreeNode;
 		LeftSide->Split(Elements, Split, (SplitAxis + 1) % 3);
-		RightSide = new KDTreeNode;
+		RightSide = new CKDTreeNode;
 		RightSide->Split(Elements + Split + 1, Count - Split - 1, (SplitAxis + 1) % 3);
 
 		Position = Elements[Split]; 
 	}
 	else if (Count == 2)
 	{
-		LeftSide = new KDTreeNode;
+		LeftSide = new CKDTreeNode;
 		LeftSide->Split(Elements, 1, (SplitAxis + 1) % 3);
 
 		Position = Elements[1];
@@ -102,7 +102,7 @@ void KDTreeNode::Split(vec3f * Elements, u32 const Count, s32 const Axis)
 	}
 }
 
-vec3f KDTreeNode::NearestNeighbor(vec3f const & Point) const
+vec3f CKDTreeNode::NearestNeighbor(vec3f const & Point) const
 {
 	if (! LeftSide && ! RightSide)
 		return Position;
@@ -122,7 +122,7 @@ vec3f KDTreeNode::NearestNeighbor(vec3f const & Point) const
 	return CurrentBest;
 }
 
-void KDTreeNode::NearestKNeighbors(KDTreeNeighborSet & Set) const
+void CKDTreeNode::NearestKNeighbors(CKDTreeNeighborSet & Set) const
 {
 	Set.ConsiderPoint(Position);
 
@@ -139,20 +139,20 @@ void KDTreeNode::NearestKNeighbors(KDTreeNeighborSet & Set) const
 // KDTree //
 ////////////
 
-vec3f KDTree::NearestNeighbor(vec3f const & Point) const
+vec3f CKDTree::NearestNeighbor(vec3f const & Point) const
 {
 	return Root->NearestNeighbor(Point);
 }
 
-KDTreeNeighborSet KDTree::NearestKNeighbors(vec3f const & Point, u32 const K) const
+CKDTreeNeighborSet CKDTree::NearestKNeighbors(vec3f const & Point, u32 const K) const
 {
-	KDTreeNeighborSet Set(K, Point);
+	CKDTreeNeighborSet Set(K, Point);
 	Root->NearestKNeighbors(Set);
 	return Set;
 }
 
-void KDTree::Build(vec3f * Elements, u32 const Count)
+void CKDTree::Build(vec3f * Elements, u32 const Count)
 {
-	Root = new KDTreeNode;
+	Root = new CKDTreeNode;
 	Root->Split(Elements, Count, 0);
 }

@@ -24,7 +24,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="ionConstants.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
@@ -37,6 +37,7 @@
     <ClInclude Include="SVector2.h" />
     <ClInclude Include="SVector3.h" />
     <ClInclude Include="SVector4.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

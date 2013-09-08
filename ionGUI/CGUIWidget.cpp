@@ -3,7 +3,9 @@
 
 CGUIWidget::CGUIWidget(CGUIManager * Manager)
 	: GUIManager(Manager)
-{}
+{
+	GUIManager->AddWidget(this);
+}
 
 CGUIWidget::~CGUIWidget()
 {}

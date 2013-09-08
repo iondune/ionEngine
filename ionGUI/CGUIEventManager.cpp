@@ -26,24 +26,24 @@ void CGUIEventManager::OnEvent(SKeyboardEvent & Event)
 		int gwenkey = 0;
 		switch (Event.Key)
 		{
-		case EKey::Return: gwenkey = Gwen::Key::Return; break;
-		case EKey::Backspace: gwenkey = Gwen::Key::Backspace; break;
-		case EKey::Delete: gwenkey = Gwen::Key::Delete; break;
-		case EKey::Up: gwenkey = Gwen::Key::Up; break;
-		case EKey::Down: gwenkey = Gwen::Key::Down; break;
-		case EKey::Left: gwenkey = Gwen::Key::Left; break;
-		case EKey::Right: gwenkey = Gwen::Key::Right; break;
-		case EKey::LeftShift: gwenkey = Gwen::Key::Shift; break;
-		case EKey::RightShift: gwenkey = Gwen::Key::Shift; break;
-		case EKey::Tab: gwenkey = Gwen::Key::Tab; break;
-		case EKey::Space: gwenkey = Gwen::Key::Space; break;
-		case EKey::Home: gwenkey = Gwen::Key::Home; break;
-		case EKey::End: gwenkey = Gwen::Key::End; break;
-		case EKey::LeftControl: gwenkey = Gwen::Key::Control; break;
-		case EKey::RightControl: gwenkey = Gwen::Key::Control; break;
-		case EKey::Escape: gwenkey = Gwen::Key::Escape; break;
-		case EKey::LeftAlt: gwenkey = Gwen::Key::Alt; break;
-		case EKey::RightAlt: gwenkey = Gwen::Key::Alt; break;
+		case EKey::Return:			gwenkey = Gwen::Key::Return;	break;
+		case EKey::Backspace:		gwenkey = Gwen::Key::Backspace;	break;
+		case EKey::Delete:			gwenkey = Gwen::Key::Delete;	break;
+		case EKey::Up:				gwenkey = Gwen::Key::Up;		break;
+		case EKey::Down:			gwenkey = Gwen::Key::Down;		break;
+		case EKey::Left:			gwenkey = Gwen::Key::Left;		break;
+		case EKey::Right:			gwenkey = Gwen::Key::Right;		break;
+		case EKey::LeftShift:		gwenkey = Gwen::Key::Shift;		break;
+		case EKey::RightShift:		gwenkey = Gwen::Key::Shift;		break;
+		case EKey::Tab:				gwenkey = Gwen::Key::Tab;		break;
+		case EKey::Space:			gwenkey = Gwen::Key::Space;		break;
+		case EKey::Home:			gwenkey = Gwen::Key::Home;		break;
+		case EKey::End:				gwenkey = Gwen::Key::End;		break;
+		case EKey::LeftControl:		gwenkey = Gwen::Key::Control;	break;
+		case EKey::RightControl:	gwenkey = Gwen::Key::Control;	break;
+		case EKey::Escape:			gwenkey = Gwen::Key::Escape;	break;
+		case EKey::LeftAlt:			gwenkey = Gwen::Key::Alt;		break;
+		case EKey::RightAlt:		gwenkey = Gwen::Key::Alt;		break;
 		}
 		Canvas->InputKey(gwenkey, Event.Pressed);
 	}
