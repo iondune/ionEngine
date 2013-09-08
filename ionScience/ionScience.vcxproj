@@ -41,10 +41,12 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="CColorTable.h" />
+    <ClInclude Include="CPrintProgressBar.h" />
     <ClInclude Include="DefaultColorTable.h" />
     <ClInclude Include="Interpolation.h" />
     <ClInclude Include="ionScience.h" />
     <ClInclude Include="CKDTree.h" />
+    <ClInclude Include="IProgressBar.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesLookupTables.h" />
     <ClInclude Include="SLongitudeLatitude.h" />
@@ -53,6 +55,7 @@
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp" />
     <ClCompile Include="CKDTree.cpp" />
+    <ClCompile Include="IProgressBar.cpp" />
     <ClCompile Include="MarchingCubes.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
