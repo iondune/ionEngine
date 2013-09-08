@@ -1,5 +1,11 @@
-#include "ionCore.h"
-#include "ionMath.h"
+#include <ionCore.h>
+#include <ionFramework.h>
+#include <ionGL.h>
+#include <ionGUI.h>
+#include <ionMath.h>
+#include <ionScene.h>
+#include <ionScience.h>
+#include <ionWindow.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
