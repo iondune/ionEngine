@@ -32,9 +32,9 @@ T Cos(T const & value)
 }
 
 template <typename T>
-T ATan2(T const & value)
+T ArcTan(T const & x, T const & y)
 {
-	return atan2(value);
+	return atan2(x, y);
 }
 
 
@@ -48,23 +48,23 @@ T Sqrt(T const & value)
 template <typename T>
 T DegToRad(T const & degrees)
 {
-	return degrees * Constants<T>::Pi / 180;
+	return degrees * Constants<T>::Pi() / 180;
 }
 
 template <typename T>
 T DegreesToRadians(T const & degrees)
 {
-	return degrees * Constants<T>::Pi / 180;
+	return degrees * Constants<T>::Pi() / 180;
 }
 
 template <typename T>
 T RadToDeg(T const & radians)
 {
-	return radians * 180 / Constants<T>::Pi;
+	return radians * 180 / Constants<T>::Pi();
 }
 
 template <typename T>
 T RadiansToDegrees(T const & radians)
 {
-	return radians * 180 / Constants<T>::Pi;
+	return radians * 180 / Constants<T>::Pi();
 }

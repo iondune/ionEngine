@@ -27,7 +27,7 @@ public:
 
 	//! Explicit constructor
 	ION_FUNC_DEF SVector2(T const x, T const y)
-		: X(Values[0]), Y(Values[1])	
+		: X(Values[0]), Y(Values[1])
 	{
 		Values[0] = x;
 		Values[1] = y;
