@@ -47,6 +47,7 @@
     <ClInclude Include="CKDTree.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesLookupTables.h" />
+    <ClInclude Include="SLongitudeLatitude.h" />
     <ClInclude Include="SVolume.h" />
   </ItemGroup>
   <ItemGroup>

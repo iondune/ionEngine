@@ -21,6 +21,7 @@
     <ClInclude Include="CKDTree.h">
       <Filter>Data Structures</Filter>
     </ClInclude>
+    <ClInclude Include="SLongitudeLatitude.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp">
