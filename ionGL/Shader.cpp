@@ -1,5 +1,6 @@
-#include "ionGL.h"
-#include "Utilities.h"
+
+#include "Shader.h"
+#include <GL/glew.h>
 
 
 namespace ion

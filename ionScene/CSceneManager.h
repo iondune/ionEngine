@@ -1,5 +1,5 @@
-#ifndef _ION_SCENE_CSCENEMANAGER_H_INCLUDED_
-#define _ION_SCENE_CSCENEMANAGER_H_INCLUDED_
+
+#pragma once
 
 #include <list>
 
@@ -65,5 +65,3 @@ public:
 	static GLuint const getQuadHandle();
 
 };
-
-#endif
