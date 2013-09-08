@@ -34,11 +34,14 @@ public:
 	CTask * NewTask(f32 const value);
 
 protected:
+
+	IProgressBar();
 	
 	virtual void Start() = 0;
 	virtual void Render() = 0;
 	virtual void Finish() = 0;
 
 	f32 Progress;
+	bool Started;
 
 };

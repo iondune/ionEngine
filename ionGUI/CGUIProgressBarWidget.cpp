@@ -4,7 +4,7 @@
 
 
 CGUIProgressBarWidget::CGUIProgressBarWidget(CGUIManager * Manager, std::string const & label)
-	: CGUIWidget(Manager), Label(label)
+	: CGUIWidget(Manager), Label(label), ProgressBar() 
 {}
 
 void CGUIProgressBarWidget::Start()
