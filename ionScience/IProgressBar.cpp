@@ -7,7 +7,7 @@ void IProgressBar::CTask::Update(f32 const progress)
 	if (Progress < progress)
 	{
 		Progress = progress;
-		ProgressBar->Update(Start + Value * Progress);
+		ProgressBar->SetProgress(Start + Value * Progress);
 	}
 }
 
@@ -15,14 +15,14 @@ IProgressBar::CTask::CTask(f32 const value, f32 const start)
 	: Value(value), Start(start), Progress()
 {}
 
-void IProgressBar::Begin()
+void IProgressBar::BeginProgress()
 {
 	Progress = 0;
 	Start();
 	Render();
 }
 
-void IProgressBar::Update(f32 const progress)
+void IProgressBar::SetProgress(f32 const progress)
 {
 	if (Progress < progress)
 	{
@@ -31,7 +31,7 @@ void IProgressBar::Update(f32 const progress)
 	}
 }
 
-void IProgressBar::End()
+void IProgressBar::EndProgress()
 {
 	Progress = 1;
 	Render();

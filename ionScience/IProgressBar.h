@@ -27,9 +27,9 @@ public:
 
 	};
 
-	void Begin();
-	void Update(f32 const progress);
-	void End();
+	void BeginProgress();
+	void SetProgress(f32 const progress);
+	void EndProgress();
 
 	CTask * NewTask(f32 const value);
 
