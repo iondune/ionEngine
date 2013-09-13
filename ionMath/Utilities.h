@@ -32,6 +32,18 @@ T Cos(T const & value)
 }
 
 template <typename T>
+T Tan(T const & value)
+{
+	return tan(value);
+}
+
+template <typename T>
+T ArcTan(T const & value)
+{
+	return atan(value);
+}
+
+template <typename T>
 T ArcTan(T const & x, T const & y)
 {
 	return atan2(x, y);
@@ -67,4 +79,11 @@ template <typename T>
 T RadiansToDegrees(T const & radians)
 {
 	return radians * 180 / Constants<T>::Pi();
+}
+
+
+template <typename T>
+bool IsNaN(T const & value)
+{
+	return value != value;
 }
