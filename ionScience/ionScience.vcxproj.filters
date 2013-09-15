@@ -43,6 +43,9 @@
     <ClInclude Include="IDatabase.h">
       <Filter>Data</Filter>
     </ClInclude>
+    <ClInclude Include="SVolumeDatabase.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp">
