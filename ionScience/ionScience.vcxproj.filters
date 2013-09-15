@@ -28,6 +28,21 @@
     <ClInclude Include="CPrintProgressBar.h">
       <Filter>Progress</Filter>
     </ClInclude>
+    <ClInclude Include="IColorMapper.h">
+      <Filter>Coloring</Filter>
+    </ClInclude>
+    <ClInclude Include="IDataRecord.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="STable.h">
+      <Filter>Data\STable</Filter>
+    </ClInclude>
+    <ClInclude Include="SRange.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="IDatabase.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp">
@@ -42,6 +57,15 @@
     <ClCompile Include="IProgressBar.cpp">
       <Filter>Progress</Filter>
     </ClCompile>
+    <ClCompile Include="STable.cpp">
+      <Filter>Data\STable</Filter>
+    </ClCompile>
+    <ClCompile Include="STable.FieldIterator.cpp">
+      <Filter>Data\STable</Filter>
+    </ClCompile>
+    <ClCompile Include="STable.Row.cpp">
+      <Filter>Data\STable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Coloring">
@@ -55,6 +79,12 @@
     </Filter>
     <Filter Include="Progress">
       <UniqueIdentifier>{80bb6b08-0f97-462e-831f-72777c53efef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{fb71679c-7229-4aa4-9869-6beac7cca096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\STable">
+      <UniqueIdentifier>{f5a3db2f-0bf6-41ba-89b1-39321fad4605}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
