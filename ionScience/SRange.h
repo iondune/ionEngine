@@ -20,6 +20,21 @@ struct SRange
 		return Minimum > Maximum;
 	}
 
+	bool IsSingular() const
+	{
+		return Equals(Minimum, Maximum);
+	}
+
+	T Normalize(T const value) const
+	{
+		return (value - Minimum) / (Maximum - Minimum);
+	}
+
+	T Size() const
+	{
+		return Maximum - Minimum;
+	}
+
 	SRange()
 	{
 		* this = Empty;
