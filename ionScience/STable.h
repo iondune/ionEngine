@@ -24,8 +24,6 @@ public:
 		f64 GetField(std::string const & Field) const;
 		f64 & GetField(std::string const & Field);
 
-		vec3d GetPosition() const;
-
 		SRow operator = (SRow const & Other);
 
 	protected:
@@ -68,8 +66,6 @@ public:
 
 	};
 
-	vec3d const GetDataScale();
-
 	std::vector<SRow> const & GetValues() const;
 	std::vector<SRow> const & GetRows() const;
 
@@ -87,18 +83,6 @@ public:
 	void Clear();
 	void WriteToFile(std::ofstream & File);
 	void ReadFromFile(std::ifstream & File);
-
-	struct STraits
-	{
-		std::string PositionXField, PositionYField, PositionZField;
-		bool InvertY;
-
-		STraits()
-			: PositionXField("x"), PositionYField("y"), PositionZField("z"), InvertY(true)
-		{}
-	};
-
-	STraits Traits;
 
 protected:
 

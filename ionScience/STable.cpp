@@ -1,17 +1,6 @@
 #include "STable.h"
 
 
-vec3d const STable::GetDataScale()
-{
-	SRange<f64> xRange = GetFieldRange(Traits.PositionXField),
-		yRange = GetFieldRange(Traits.PositionYField),
-		zRange = GetFieldRange(Traits.PositionZField);
-
-	return vec3d(xRange.Maximum - xRange.Minimum,
-		yRange.Maximum - yRange.Minimum,
-		zRange.Maximum - zRange.Minimum);
-}
-
 std::vector<STable::SRow> const & STable::GetValues() const
 {
 	return Rows;
@@ -128,12 +117,7 @@ void STable::WriteToFile(std::ofstream & File)
 	File.write((char *) & Dims, sizeof(u32));
 
 	for (auto it = Rows.begin(); it != Rows.end(); ++ it)
-	{
-		File.write((char *) & it->GetPosition().X, sizeof(f64));
-		File.write((char *) & it->GetPosition().Y, sizeof(f64));
-		File.write((char *) & it->GetPosition().Z, sizeof(f64));
 		File.write((char *) & it->Index, sizeof(u32));
-	}
 }
 
 void STable::ReadFromFile(std::ifstream & File)
@@ -173,13 +157,8 @@ void STable::ReadFromFile(std::ifstream & File)
 	for (u32 i = 0; i < ValueCount; ++ i)
 	{
 		s32 InternalIndex;
-		double X, Y, Z;
-
-		// Need to read these for backwards compatibility
-		File.read((char *) & X, sizeof(f64));
-		File.read((char *) & Y, sizeof(f64));
-		File.read((char *) & Z, sizeof(f64));
 		File.read((char *) & InternalIndex, sizeof(s32));
+		assert(InternalIndex == Rows.size());
 	
 		Rows.push_back(SRow(* this, Rows.size()));
 

@@ -114,12 +114,12 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 	}
 
 	std::vector<std::string> Fields;
-	std::vector<SVolumeDataRecord> Records;
+	std::vector<SVolumeDataRecord<T>> Records;
 
 };
 
 template <typename T>
-T SVolumeDataRecord::GetField(std::string const & Field) const
+T SVolumeDataRecord<T>::GetField(std::string const & Field) const
 {
 	if (! Database.HasField(Field))
 		return 0;
@@ -133,7 +133,7 @@ T SVolumeDataRecord::GetField(std::string const & Field) const
 }
 
 template <typename T>
-T & SVolumeDataRecord::GetField(std::string const & Field)
+T & SVolumeDataRecord<T>::GetField(std::string const & Field)
 {
 	Database.AddField(Field);
 
