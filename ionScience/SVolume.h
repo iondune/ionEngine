@@ -17,9 +17,20 @@ struct SVolume
 		Allocate();
 	}
 
+	SVolume(T const & init, vec3i const & dimensions = vec3i())
+		: Dimensions(dimensions), Values()
+	{
+		Allocate(init);
+	}
+
 	void Allocate()
 	{
 		Values.resize(Dimensions.X * Dimensions.Y * Dimensions.Z);
+	}
+
+	void Allocate(T const & value)
+	{
+		Values.resize(Dimensions.X * Dimensions.Y * Dimensions.Z, value);
 	}
 
 	bool const InBounds(vec3i const Index) const

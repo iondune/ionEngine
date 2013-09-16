@@ -22,7 +22,7 @@ protected:
 
 	void Render()
 	{
-		int IntegerProgress = 100 * Progress;
+		s32 IntegerProgress = (s32) (100 * Progress);
 		printf("\r");
 		printf("%3d%% :[", IntegerProgress);
 		int i = 0;
