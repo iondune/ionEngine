@@ -5,6 +5,8 @@
 
 
 std::map<std::string, CImage *> CImageLoader::LoadedImages;
+std::map<std::string, CTexture *> CImageLoader::LoadedTextures;
+std::map<std::string, CImage *> CImageLoader::ColorTable;
 std::string CImageLoader::ImageDirectory = "../Media/Textures/";
 
 CImage * CImageLoader::LoadImage(std::string const & Name)
