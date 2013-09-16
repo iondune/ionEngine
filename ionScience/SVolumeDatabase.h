@@ -113,6 +113,77 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 		glBindTexture(GL_TEXTURE_3D, 0);
 	}
 
+	void WriteToFile(std::ofstream & File)
+	{
+		// Write Dimensions
+		File.write((char *) & Dimensions.X, sizeof(u32));
+		File.write((char *) & Dimensions.Y, sizeof(u32));
+		File.write((char *) & Dimensions.Z, sizeof(u32));
+		
+		// Write Fields
+		u32 const FieldCount = Fields.size();
+		File.write((char *) & FieldCount, sizeof(u32));
+		for (auto Field : Fields)
+		{
+			u32 const Length = Field.size();
+			File.write((char *) & Length, sizeof(u32));
+			File.write(Field.c_str(), Size);
+		}
+	
+		// Write Records
+		u32 const RecordCount = Records.size();
+		File.write((char *) & RecordCount, sizeof(u32));
+
+		for (auto Record : Records)
+			File.write((char *) & Record.Values.begin(), sizeof(T) * Fields);
+	}
+
+	void ReadFromFile(std::ifstream & File)
+	{
+		Records.clear();
+		Fields.clear();
+		
+		// Read Dimensions
+		File.read((char *) & Dimensions.X, sizeof(u32));
+		File.read((char *) & Dimensions.Y, sizeof(u32));
+		File.read((char *) & Dimensions.Z, sizeof(u32));
+
+		// Read Fields
+		u32 FieldCount;
+		File.read((char *) & FieldCount, sizeof(u32));
+
+		for (u32 i = 0; i < FieldCount; ++ i)
+		{
+			u32 Length;
+			File.read((char *) & Length, sizeof(u32));
+
+			char * Buffer = new char[Length + 1];
+			File.read(Buffer, Length);
+			Buffer[Length] = '\0';
+
+			Fields.push_back(Buffer);
+			delete [] Buffer;
+		}
+	
+		// Read Records
+		u32 RecordCount;
+		File.read((char *) & RecordCount, sizeof(u32));
+		Records.reserve(RecordCount);
+
+		for (u32 i = 0; i < RecordCount; ++ i)
+		{
+			SVolumeDataRecord Record;
+			for (u32 t = 0; t < FieldCount; ++ t)
+			{
+				T Value;
+				File.read((char *) & Value, sizeof(T));
+				Record.Values.push_back(Value);
+			}
+	
+			Records.push_back(Record);
+		}
+	}
+
 	std::vector<std::string> Fields;
 	std::vector<SVolumeDataRecord<T>> Records;
 
