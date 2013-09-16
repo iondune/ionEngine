@@ -5,7 +5,7 @@
 
 
 std::map<std::string, CImage *> CImageLoader::LoadedImages;
-std::map<std::string, CTexture *> CImageLoader::LoadedTextures;
+std::map<CImage *, CTexture *> CImageLoader::LoadedTextures;
 std::map<std::string, CImage *> CImageLoader::ColorTable;
 std::string CImageLoader::ImageDirectory = "../Media/Textures/";
 
@@ -35,19 +35,23 @@ CImage * CImageLoader::LoadImage(std::string const & Name)
 
 CTexture * CImageLoader::LoadTexture(std::string const & Name, STextureCreationFlags Flags)
 {
-	auto it = LoadedTextures.find(Name);
-	if (it != LoadedTextures.end())
-		return it->second;
+	return LoadTexture(LoadImage(Name));
+}
 
-	CImage * Image = LoadImage(Name);
+CTexture * CImageLoader::LoadTexture(CImage * Image, STextureCreationFlags Flags)
+{
 	if (! Image)
 	{
 		std::cerr << "Aborting creation of texture." << std::endl;
 		return 0;
 	}
 
+	auto it = LoadedTextures.find(Image);
+	if (it != LoadedTextures.end())
+		return it->second;
+
 	CTexture * Texture = new CTexture(Image, Flags);
-	LoadedTextures[Name] = Texture;
+	LoadedTextures[Image] = Texture;
 	return Texture;
 }
 
