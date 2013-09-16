@@ -5,30 +5,71 @@
 
 
 std::map<std::string, CImage *> CImageLoader::LoadedImages;
-std::string CImageLoader::TextureDirectory = "../Media/Textures/";
+std::string CImageLoader::ImageDirectory = "../Media/Textures/";
 
-CTexture * const CImageLoader::LoadTexture(std::string const & FileName, STextureCreationFlags Flags, bool const useCache)
+CImage * CImageLoader::LoadImage(std::string const & Name)
 {
-	if (useCache)
-	{
-		std::map<std::string, CImage *>::iterator it = LoadedImages.find(FileName);
+	if (ColorTable.empty())
+		LoadColorTable();
+	
+	auto it = ColorTable.find(Name);
+	if (it != ColorTable.end())
+		return it->second;
 
-		if (it != LoadedImages.end())
-		{
-			return new CTexture(it->second, Flags);
-		}
-	}
+	it = LoadedImages.find(Name);
+	if (it != LoadedImages.end())
+		return it->second;
 
-	CImage * Image = CImage::Load(TextureDirectory + FileName);
-
+	CImage * Image = CImage::Load(ImageDirectory + Name);
 	if (! Image)
 	{
-		std::cerr << "Failed to load image with file name '" << FileName << "', aborting creation of texture." << std::endl;
+		std::cerr << "Failed to load image with name '" << Name << "'" << std::endl;
 		return 0;
 	}
 
-	if (useCache)
-		LoadedImages[FileName] = Image;
+	LoadedImages[Name] = Image;
+	return Image;
+}
 
-	return new CTexture(Image, Flags);
+CTexture * CImageLoader::LoadTexture(std::string const & Name, STextureCreationFlags Flags)
+{
+	auto it = LoadedTextures.find(Name);
+	if (it != LoadedTextures.end())
+		return it->second;
+
+	CImage * Image = LoadImage(Name);
+	if (! Image)
+	{
+		std::cerr << "Aborting creation of texture." << std::endl;
+		return 0;
+	}
+
+	CTexture * Texture = new CTexture(Image, Flags);
+	LoadedTextures[Name] = Texture;
+	return Texture;
+}
+
+void CImageLoader::LoadColorTable()
+{
+	ColorTable.clear();
+	
+	ColorTable["Black"] = new CImage(Colors::Black);
+	ColorTable["Red"] = new CImage(Colors::Red);
+	ColorTable["Green"] = new CImage(Colors::Green);
+	ColorTable["Blue"] = new CImage(Colors::Blue);
+	ColorTable["Yellow"] = new CImage(Colors::Yellow);
+	ColorTable["Orange"] = new CImage(Colors::Orange);
+	ColorTable["Magenta"] = new CImage(Colors::Magenta);
+	ColorTable["Cyan"] = new CImage(Colors::Cyan);
+	ColorTable["White"] = new CImage(Colors::White);
+
+	ColorTable["Grey1"] = new CImage(color3f(0.1f));
+	ColorTable["Grey2"] = new CImage(color3f(0.2f));
+	ColorTable["Grey3"] = new CImage(color3f(0.3f));
+	ColorTable["Grey4"] = new CImage(color3f(0.4f));
+	ColorTable["Grey5"] = new CImage(color3f(0.5f));
+	ColorTable["Grey6"] = new CImage(color3f(0.6f));
+	ColorTable["Grey7"] = new CImage(color3f(0.7f));
+	ColorTable["Grey8"] = new CImage(color3f(0.8f));
+	ColorTable["Grey9"] = new CImage(color3f(0.9f));
 }

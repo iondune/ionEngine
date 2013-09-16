@@ -5,7 +5,7 @@
 
 #include "CShaderLoader.h"
 #include "CMeshLoader.h"
-#include "CTextureLoader.h"
+#include "CImageLoader.h"
 
 #include "CDeferredShadingManager.h"
 

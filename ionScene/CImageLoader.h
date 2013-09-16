@@ -11,12 +11,18 @@
 class CImageLoader
 {
 
-    static std::map<std::string, CImage *> LoadedImages;
-
 public:
+	
+	static CImage * LoadImage(std::string const & Name);
+	static CTexture * LoadTexture(std::string const & Name, STextureCreationFlags Flags = STextureCreationFlags());
+	static void LoadColorTable();
 
-	static CTexture * const LoadTexture(std::string const & FileName, STextureCreationFlags Flags = STextureCreationFlags(), bool const useCache = true);
+	static std::string ImageDirectory;
 
-	static std::string TextureDirectory;
+private:
+	
+    static std::map<std::string, CImage *> LoadedImages;
+    static std::map<std::string, CTexture *> LoadedTextures;
+	static std::map<std::string, CImage *> ColorTable;
 
 };

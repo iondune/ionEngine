@@ -8,9 +8,6 @@
     <ClInclude Include="CImage.h">
       <Filter>Graphics Layer\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="CTextureLoader.h">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="CTexture.h">
       <Filter>Graphics Layer\Texture</Filter>
     </ClInclude>

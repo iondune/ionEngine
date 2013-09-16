@@ -68,7 +68,6 @@
     <ClInclude Include="CShaderContext.h" />
     <ClInclude Include="CShaderLoader.h" />
     <ClInclude Include="CTexture.h" />
-    <ClInclude Include="CTextureLoader.h" />
     <ClInclude Include="ICameraSceneObject.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IRenderTarget.h" />

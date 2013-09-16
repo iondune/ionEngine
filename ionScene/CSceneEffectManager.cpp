@@ -1,7 +1,7 @@
 #include "CSceneEffectManager.h"
 
 #include "CSceneManager.h"
-#include "CTextureLoader.h"
+#include "CImageLoader.h"
 #include "CShaderLoader.h"
 
 #include <algorithm>
