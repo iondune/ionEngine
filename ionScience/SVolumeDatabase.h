@@ -198,9 +198,7 @@ T SVolumeDataRecord<T>::GetField(std::string const & Field) const
 	auto it = std::find(Database.Fields.begin(), Database.Fields.end(), Field);
 	assert(it != Database.Fields.end());
 
-	u32 const Index = std::distance(Database.Fields.begin(), it);
-
-	return Values[Index];
+	return Values[std::distance(Database.Fields.begin(), it)];
 }
 
 template <typename T>
@@ -211,7 +209,5 @@ T & SVolumeDataRecord<T>::GetField(std::string const & Field)
 	auto it = std::find(Database.Fields.begin(), Database.Fields.end(), Field);
 	assert(it != Database.Fields.end());
 
-	u32 const Index = std::distance(Database.Fields.begin(), it);
-
-	return Values[Index];
+	return Values[std::distance(Database.Fields.begin(), it)];
 }
