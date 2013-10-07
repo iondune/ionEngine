@@ -38,6 +38,7 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="..\ionEngine.props" />
     <Import Project="..\ionDefaultBuild.props" />
+    <Import Project="..\ionDefaultTarget.props" />
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="Build.cpp" />

@@ -13,19 +13,6 @@
 #include <iomanip>
 
 
-// OpenGL Libraries
-#pragma comment(lib, "OpenGL32.lib")
-#pragma comment(lib, "glu32.lib")
-#pragma comment(lib, "glfw3.lib")
-
-// GLEW Libraries
-#ifdef _DEBUG
-#pragma comment(lib, "glew32sd.lib")
-#else
-#pragma comment(lib, "glew32s.lib")
-#endif
-
-
 int main()
 {
 	if (! glfwInit())
