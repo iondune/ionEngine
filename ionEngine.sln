@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		ionConfig.h = ionConfig.h
 		ionCore.h = ionCore.h
+		ionEngine.h = ionEngine.h
 		ionFramework.h = ionFramework.h
 		ionGL.h = ionGL.h
 		ionGUI.h = ionGUI.h
