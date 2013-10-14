@@ -21,6 +21,8 @@ public:
 
     static CMesh * const createCubeMesh();
 
+    static CMesh * const createPlaneMesh();
+
     static CMesh * const createDiscMesh(unsigned int const Triangles = 40);
 	
     static std::string MeshDirectory;

@@ -572,6 +572,36 @@ CMesh * const CMeshLoader::createCubeMesh()
     return MeshWrapper;
 }
 
+CMesh * const CMeshLoader::createPlaneMesh()
+{
+    CMesh * MeshWrapper = new CMesh();
+    CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
+
+    Mesh->Vertices.resize(4);
+    Mesh->Vertices[0].Position = SVector3f(-0.5, 0, -0.5);
+    Mesh->Vertices[1].Position = SVector3f(-0.5, 0,  0.5);
+    Mesh->Vertices[2].Position = SVector3f( 0.5, 0,  0.5);
+    Mesh->Vertices[3].Position = SVector3f( 0.5, 0, -0.5);
+
+    Mesh->Vertices[0].TextureCoordinates = SVector2f(0, 1);
+    Mesh->Vertices[1].TextureCoordinates = SVector2f(0, 0);
+    Mesh->Vertices[2].TextureCoordinates = SVector2f(1, 0);
+    Mesh->Vertices[3].TextureCoordinates = SVector2f(1, 1);
+	
+    Mesh->Triangles.resize(2);
+    Mesh->Triangles[0].Indices[0] = 0;
+    Mesh->Triangles[0].Indices[1] = 1;
+    Mesh->Triangles[0].Indices[2] = 2;
+
+    Mesh->Triangles[1].Indices[0] = 0;
+    Mesh->Triangles[1].Indices[1] = 2;
+    Mesh->Triangles[1].Indices[2] = 3;
+
+    MeshWrapper->MeshBuffers.push_back(Mesh);
+    MeshWrapper->calculateNormalsPerFace();
+    return MeshWrapper;
+}
+
 CMesh * const CMeshLoader::createDiscMesh(unsigned int const Triangles)
 {
     CMesh * MeshWrapper = new CMesh();
