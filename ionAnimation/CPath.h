@@ -64,7 +64,7 @@ s32 const CPath<TPathNode>::sanitizeIndex(s32 Index) const
 	}
 	else
 	{
-		Index = clamp<s32>(Index, 0, Nodes.size() - 1);
+		Index = Clamp<s32>(Index, 0, Nodes.size() - 1);
 	}
 
 	return Index;
