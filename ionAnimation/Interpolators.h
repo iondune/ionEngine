@@ -94,7 +94,7 @@ T const CHermiteInterpolator<T>::interpolate(IPath<T> const & Path, s32 const In
 	T const y3 = Path.getNode(Index + 2);
 
 	f32 const mu = Mu;
-	f32 const mu2 = sq(mu);
+	f32 const mu2 = Sq(mu);
 	f32 const mu3 = mu2 * mu;
 
 	T m0 = (y1-y0)*(1+Bias)*(1-Tension)/2;
