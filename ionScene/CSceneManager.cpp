@@ -168,10 +168,13 @@ void CSceneManager::drawAll()
 	{
 		for (auto it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
 		{
-			(* it)->onPreDraw();
-			CurrentScene->load(* it);
-			CurrentScene->draw(* it);
-			(* it)->onPostDraw();
+			if ((* it)->isEnabled())
+			{
+				(* it)->onPreDraw();
+				CurrentScene->load(* it);
+				CurrentScene->draw(* it);
+				(* it)->onPostDraw();
+			}
 		}
 
 		EffectManager->apply();

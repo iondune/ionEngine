@@ -21,6 +21,11 @@ public:
 	virtual void onPostDrawObject(ISceneObject * Object)
 	{}
 
+	virtual bool isEnabled()
+	{
+		return true;
+	}
+
 };
 
 #endif
