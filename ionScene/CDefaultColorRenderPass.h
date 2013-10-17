@@ -11,6 +11,7 @@ class CDefaultColorRenderPass : public IRenderPass
 protected:
 
 	CFrameBufferObject * FrameBuffer;
+	bool Enabled;
 
 public:
 
@@ -55,6 +56,16 @@ public:
 	void setFrameBuffer(CFrameBufferObject * frameBuffer)
 	{
 		FrameBuffer = frameBuffer;
+	}
+
+	bool isEnabled()
+	{
+		return Enabled;
+	}
+
+	void setEnabled(bool const enabled)
+	{
+		Enabled = enabled;
 	}
 
 };
