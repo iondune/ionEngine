@@ -129,6 +129,31 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::LeftAlt;
 	case GLFW_KEY_RIGHT_ALT:
 		return EKey::RightAlt;
+		
+	case GLFW_KEY_F1:
+		return EKey::F1;
+	case GLFW_KEY_F2:
+		return EKey::F2;
+	case GLFW_KEY_F3:
+		return EKey::F3;
+	case GLFW_KEY_F4:
+		return EKey::F4;
+	case GLFW_KEY_F5:
+		return EKey::F5;
+	case GLFW_KEY_F6:
+		return EKey::F6;
+	case GLFW_KEY_F7:
+		return EKey::F7;
+	case GLFW_KEY_F8:
+		return EKey::F8;
+	case GLFW_KEY_F9:
+		return EKey::F9;
+	case GLFW_KEY_F10:
+		return EKey::F10;
+	case GLFW_KEY_F11:
+		return EKey::F11;
+	case GLFW_KEY_F12:
+		return EKey::F12;
 
 	default:
 		return EKey::Unknown;
