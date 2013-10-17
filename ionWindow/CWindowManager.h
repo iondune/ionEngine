@@ -14,7 +14,7 @@ public:
 
 	void Init();
 
-	CWindow * CreateWindow(vec2i const & Size, std::string const & Title);
+	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen);
 
 protected:
 

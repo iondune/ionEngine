@@ -19,7 +19,7 @@ private:
 
 public:
 
-	void Init(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
+	void Init(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application", bool const FullScreen = false);
 
 	CStateManager & GetStateManager();
 	CSceneManager & GetSceneManager();

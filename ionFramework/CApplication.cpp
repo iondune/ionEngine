@@ -9,12 +9,12 @@ CApplication::CApplication()
 	: StateManager(), SceneManager(), WindowManager(), Window()
 {}
 
-void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitle)
+void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitle, bool const FullScreen)
 {
 	WindowManager = & CWindowManager::Get();
 	WindowManager->Init();
 
-	Window = WindowManager->CreateWindow(WindowSize, WindowTitle);
+	Window = WindowManager->CreateWindow(WindowSize, WindowTitle, FullScreen);
 
 	StateManager = & CStateManager::Get();
 	StateManager->Connect(Window);
