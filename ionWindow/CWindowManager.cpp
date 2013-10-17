@@ -26,7 +26,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), 0, 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), glfwGetPrimaryMonitor(), 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
