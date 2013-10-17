@@ -5,6 +5,7 @@
 #include "CMeshLoader.h"
 #include "CRenderable.h"
 #include "CMeshSceneObject.h"
+#include "CInstanceSceneObject.h"
 #include "CShader.h"
 #include "CShaderLoader.h"
 #include "CShaderContext.h"
