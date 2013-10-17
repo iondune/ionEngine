@@ -179,6 +179,14 @@ void CSceneManager::drawAll()
 
 		EffectManager->apply();
 
+		for (auto it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
+		{
+			if ((* it)->isEnabled())
+			{
+				(* it)->onPostEffects();
+			}
+		}
+
 		SceneFrameBuffer->bind();
 	}
 	else

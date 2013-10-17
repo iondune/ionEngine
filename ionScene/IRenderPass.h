@@ -15,6 +15,9 @@ public:
 	virtual void onPostDraw()
 	{}
 
+	virtual void onPostEffects()
+	{}
+
 	virtual void onPreDrawObject(ISceneObject * Object)
 	{}
 
