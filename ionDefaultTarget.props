@@ -9,13 +9,13 @@
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>GWEND-Renderer-OpenGLd.lib;gwen_staticd.lib;glew32sd.lib;freetype250_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libovrd.lib;winmm.lib;GWEND-Renderer-OpenGLd.lib;gwen_staticd.lib;glew32sd.lib;freetype250_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>GWEN-Renderer-OpenGL.lib;gwen_static.lib;freetype250.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libovr.lib;winmm.lib;GWEN-Renderer-OpenGL.lib;gwen_static.lib;freetype250.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
