@@ -14,6 +14,19 @@ int main()
 		exit(33);
 	}
 
+	int Count;
+	GLFWmonitor ** Monitors = glfwGetMonitors(& Count);
+
+	std::cout << "Monitors: " << std::endl;
+	for (int i = 0; i < Count; ++ i)
+	{
+		int X, Y;
+		glfwGetMonitorPhysicalSize(Monitors[i], & X, & Y);
+		std::cout << "   [" << i << "] " << glfwGetMonitorName(Monitors[i]) << " " 
+			<< X << " x " << Y 
+			<< std::endl;
+	}
+
 	GLFWwindow * window = 0;
 	glfwWindowHint(GLFW_VISIBLE, false);
 	if (! (window = glfwCreateWindow(640, 480, "Utility Compile Test", 0, 0)))
