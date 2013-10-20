@@ -11,10 +11,10 @@
 #include <ionMath.h>
 
 // Scene
-#include "CBufferObject.h"
-#include "CShader.h"
-#include "CTexture.h"
-#include "CShaderContext.h"
+#include <ionGraphics/CBufferObject.h>
+#include <ionGraphics/CShader.h>
+#include <ionGraphics/CTexture.h>
+#include <ionGraphics/CShaderContext.h>
 #include "IRenderPass.h"
 
 #include "ISceneObject.Enumerations.h"

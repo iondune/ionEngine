@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CImage.h"
-#include "CTexture.h"
+#include <ionGraphics/CTexture.h>
 
 #include <string.h>
 #include <string>

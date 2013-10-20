@@ -3,11 +3,11 @@
 #include <algorithm>
 #include <sstream>
 
-#include "CShaderLoader.h"
-#include "CMeshLoader.h"
-#include "CImageLoader.h"
+#include <ionGraphics/CShaderLoader.h>
+#include <ionAsset/CMeshLoader.h>
+#include <ionAsset/CImageLoader.h>
 
-#include "CDeferredShadingManager.h"
+#include <ionGraphics/CDeferredShadingManager.h>
 
 
 GLuint const CSceneManager::getQuadHandle()

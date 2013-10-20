@@ -4,10 +4,10 @@
 #include <vector>
 #include <map>
 
-#include "CFrameBufferObject.h"
+#include <ionGraphics/CFrameBufferObject.h>
 #include "ISceneObject.h"
 
-#include "SUniform.h"
+#include <ionGraphics/SUniform.h>
 
 enum ESceneEffect
 {

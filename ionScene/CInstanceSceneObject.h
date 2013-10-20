@@ -1,7 +1,7 @@
 #ifndef _ION_SCENE_CINSTANCESCENEOBJECT_H_INCLUDED_
 #define _ION_SCENE_CINSTANCESCENEOBJECT_H_INCLUDED_
 
-#include "CSceneObject.h"
+#include <ionGraphics/CSceneObject.h>
 
 // Ugh
 #pragma warning(disable : 4250)

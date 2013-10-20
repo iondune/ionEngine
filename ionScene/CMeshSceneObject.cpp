@@ -1,12 +1,12 @@
 #include "CMeshSceneObject.h"
 
-#include "CShaderContext.h"
-#include "CShaderLoader.h"
+#include <ionGraphics/CShaderContext.h>
+#include <ionGraphics/CShaderLoader.h>
 
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "SAttribute.h"
-#include "SUniform.h"
+#include <ionGraphics/SAttribute.h>
+#include <ionGraphics/SUniform.h>
 
 
 CMeshSceneObject::CMeshSceneObject()

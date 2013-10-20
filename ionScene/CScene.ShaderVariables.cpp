@@ -1,7 +1,7 @@
 #include "CScene.h"
 
 #include <sstream>
-#include "SAttribute.h"
+#include <ionGraphics/SAttribute.h>
 
 void CScene::addUniform(std::string const & label, sharedPtr<IUniform const> const uniform)
 {

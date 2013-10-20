@@ -2,7 +2,7 @@
 #define _ION_SCENE_CLIGHTSCENEOBJECT_H_INCLUDED_
 
 #include "ISceneObject.h"
-#include "SUniform.h"
+#include <ionGraphics/SUniform.h>
 
 
 class CLightSceneObject : public ISceneObject

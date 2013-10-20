@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="BitmapWriter.h" />
+    <ClInclude Include="CImage.h" />
+    <ClInclude Include="CImageLoader.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CMeshLoader.h" />
+    <ClInclude Include="ionAsset.h" />
+    <ClInclude Include="SVertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="CImageLoader.cpp" />
+    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMeshLoader.cpp" />
+  </ItemGroup>
+</Project>

@@ -3,9 +3,9 @@
 
 #include <list>
 
-#include "CSceneObject.h"
+#include <ionGraphics/CSceneObject.h>
 #include "CMeshSceneObject.h"
-#include "CFrameBufferObject.h"
+#include <ionGraphics/CFrameBufferObject.h>
 #include "CSceneEffectManager.h"
 #include "CPerspectiveCameraSceneObject.h"
 #include "CScene.h"
@@ -14,8 +14,8 @@
 #include <ionMath/SColor.h>
 #include <ionMath/SVector2.h>
 
-#include "SUniform.h"
-#include "SAttribute.h"
+#include <ionGraphics/SUniform.h>
+#include <ionGraphics/SAttribute.h>
 
 #include "CDefaultColorRenderPass.h"
 #include "CMultiOutRenderPass.h"

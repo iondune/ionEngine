@@ -2,48 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CImageLoader.h">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="CImage.h">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="CTexture.h">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="SAttribute.h">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="SUniform.h">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderLoader.h">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="CShader.h">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderContext.h">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="CRenderBufferObject.h">
-      <Filter>Graphics Layer\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CFrameBufferObject.h">
-      <Filter>Graphics Layer\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CBufferObject.h">
-      <Filter>Graphics Layer\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CMesh.h">
-      <Filter>Scene Management\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshLoader.h">
-      <Filter>Scene Management\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="SVertex.h">
-      <Filter>Scene Management\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="ICameraSceneObject.h">
       <Filter>Scene Management\Camera</Filter>
     </ClInclude>
@@ -52,9 +10,6 @@
     </ClInclude>
     <ClInclude Include="CPerspectiveCameraSceneObject.h">
       <Filter>Scene Management\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CDeferredShadingManager.h">
-      <Filter>Scene Management\Effects\Deferred</Filter>
     </ClInclude>
     <ClInclude Include="CDirectionalLightSceneObject.h">
       <Filter>Scene Management\Effects\Deferred</Filter>
@@ -74,13 +29,7 @@
     <ClInclude Include="ISceneObject.h">
       <Filter>Scene Management\Objects\Base</Filter>
     </ClInclude>
-    <ClInclude Include="CRenderable.h">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClInclude>
     <ClInclude Include="CMeshSceneObject.h">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneObject.h">
       <Filter>Scene Management\Objects\Standard</Filter>
     </ClInclude>
     <ClInclude Include="CSceneEffectManager.h">
@@ -91,9 +40,6 @@
     </ClInclude>
     <ClInclude Include="CLightSceneObject.h">
       <Filter>Scene Management\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderTarget.h">
-      <Filter>Graphics Layer\Objects</Filter>
     </ClInclude>
     <ClInclude Include="IRenderPass.h">
       <Filter>Scene Management\Scene\RenderPasses</Filter>
@@ -107,49 +53,13 @@
     <ClInclude Include="CInstanceSceneObject.h">
       <Filter>Scene Management\Objects\Standard</Filter>
     </ClInclude>
-    <ClInclude Include="BitmapWriter.h">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CImage.cpp">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CImageLoader.cpp">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CTexture.cpp">
-      <Filter>Graphics Layer\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CShader.cpp">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderContext.cpp">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderLoader.cpp">
-      <Filter>Graphics Layer\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="CFrameBufferObject.cpp">
-      <Filter>Graphics Layer\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderBufferObject.cpp">
-      <Filter>Graphics Layer\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="CMesh.cpp">
-      <Filter>Scene Management\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshLoader.cpp">
-      <Filter>Scene Management\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="CCameraSceneObject.cpp">
       <Filter>Scene Management\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CPerspectiveCameraSceneObject.cpp">
       <Filter>Scene Management\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CDeferredShadingManager.cpp">
-      <Filter>Scene Management\Effects\Deferred</Filter>
     </ClCompile>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
       <Filter>Scene Management\Effects\Deferred</Filter>
@@ -172,27 +82,6 @@
     <ClCompile Include="CMeshSceneObject.cpp">
       <Filter>Scene Management\Objects\Standard</Filter>
     </ClCompile>
-    <ClCompile Include="CRenderable.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderable.UpdateMethods.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneObject.ContextManagement.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneObject.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneObject.RenderableManagement.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneObject.ShaderManagement.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneObject.UpdateMethods.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneEffectManager.cpp">
       <Filter>Scene Management\Effects</Filter>
     </ClCompile>
@@ -204,15 +93,6 @@
     </ClCompile>
     <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
       <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderable.SShaderSetup.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderable.SMaterial.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderable.ShaderVariables.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
     </ClCompile>
     <ClCompile Include="CLightSceneObject.cpp">
       <Filter>Scene Management\Scene</Filter>
@@ -240,23 +120,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Graphics Layer">
-      <UniqueIdentifier>{fa1dab22-2009-4699-acf8-d809e167920c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics Layer\Texture">
-      <UniqueIdentifier>{e2ef4e39-eee1-402f-9e1c-abd25206af12}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene Management">
       <UniqueIdentifier>{423acf27-3230-43a1-b9d8-7abb2087818d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics Layer\Shader">
-      <UniqueIdentifier>{40b51a16-8588-4d67-b144-e422fe5dbe45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics Layer\Objects">
-      <UniqueIdentifier>{bda278b6-198e-4f4f-a494-c80575474e83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene Management\Mesh">
-      <UniqueIdentifier>{9eb993d3-609b-4de7-8fb5-ce80311578c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene Management\Camera">
       <UniqueIdentifier>{7546853c-8ec4-4e30-b82a-8c1efd18ebac}</UniqueIdentifier>

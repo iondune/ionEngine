@@ -2,7 +2,7 @@
 #define _ION_SCENE_CPOINTLIGHTSCENEOBJECT_H_INCLUDED_
 
 #include "ISceneObject.h"
-#include "CMeshLoader.h"
+#include <ionAsset/CMeshLoader.h>
 
 /*!
  */

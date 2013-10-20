@@ -1,8 +1,8 @@
 #include "CSceneEffectManager.h"
 
 #include "CSceneManager.h"
-#include "CImageLoader.h"
-#include "CShaderLoader.h"
+#include <ionAsset/CImageLoader.h>
+#include <ionGraphics/CShaderLoader.h>
 
 #include <algorithm>
 

@@ -2,7 +2,7 @@
 #define _ION_SCENE_CDEFAULTCOLORRENDERPASS_H_INCLUDED_
 
 #include "IRenderPass.h"
-#include "CFrameBufferObject.h"
+#include <ionGraphics/CFrameBufferObject.h>
 
 
 class CDefaultColorRenderPass : public IRenderPass

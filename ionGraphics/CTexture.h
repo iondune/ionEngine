@@ -4,7 +4,7 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
-#include "CImage.h"
+#include <ionAsset/CImage.h>
 #include "IRenderTarget.h"
 
 

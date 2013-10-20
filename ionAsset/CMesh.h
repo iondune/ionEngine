@@ -2,10 +2,10 @@
 #pragma once
 
 #include <ionMath/SBoundingBox3.h>
+#include <ionGraphics/CBufferObject.h>
+#include <ionGraphics/CRenderable.h>
 
 #include "SVertex.h"
-#include "CBufferObject.h"
-#include "CRenderable.h"
 
 
 class CMesh

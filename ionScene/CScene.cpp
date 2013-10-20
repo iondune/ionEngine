@@ -1,6 +1,6 @@
 #include "CScene.h"
 
-#include "SAttribute.h"
+#include <ionGraphics/SAttribute.h>
 
 
 CScene::CScene()

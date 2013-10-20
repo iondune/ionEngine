@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{60FDFD9C-F812-4BDE-B62F-F7BC8F2C0792}</ProjectGuid>
-    <RootNamespace>ionScene</RootNamespace>
+    <ProjectGuid>{1FDC44C8-0538-4FDD-8F94-531DFC28D166}</ProjectGuid>
+    <RootNamespace>ionAsset</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,47 +40,21 @@
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CCameraSceneObject.h" />
-    <ClInclude Include="CDefaultColorRenderPass.h" />
-    <ClInclude Include="CDirectionalLightSceneObject.h" />
-    <ClInclude Include="CInstanceSceneObject.h" />
-    <ClInclude Include="CLightSceneObject.h" />
-    <ClInclude Include="CMeshSceneObject.h" />
-    <ClInclude Include="CMultiOutRenderPass.h" />
-    <ClInclude Include="CPerspectiveCameraSceneObject.h" />
-    <ClInclude Include="CPointLightSceneObject.h" />
-    <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneEffectManager.h" />
-    <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="ICameraSceneObject.h" />
-    <ClInclude Include="IRenderPass.h" />
-    <ClInclude Include="IScene.h" />
-    <ClInclude Include="ISceneObject.Enumerations.h" />
-    <ClInclude Include="ISceneObject.h" />
+    <ClInclude Include="BitmapWriter.h" />
+    <ClInclude Include="CImage.h" />
+    <ClInclude Include="CImageLoader.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CMeshLoader.h" />
+    <ClInclude Include="ionAsset.h" />
+    <ClInclude Include="SVertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneObject.cpp" />
-    <ClCompile Include="CDirectionalLightSceneObject.cpp" />
-    <ClCompile Include="CInstanceSceneObject.cpp" />
-    <ClCompile Include="CLightSceneObject.cpp" />
-    <ClCompile Include="CMeshSceneObject.cpp" />
-    <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
-    <ClCompile Include="CPointLightSceneObject.cpp" />
-    <ClCompile Include="CScene.Camera.cpp" />
-    <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CScene.Details.cpp" />
-    <ClCompile Include="CScene.ShaderVariables.cpp" />
-    <ClCompile Include="CScene.SLightBinding.cpp" />
-    <ClCompile Include="CScene.Update.cpp" />
-    <ClCompile Include="CSceneEffectManager.cpp" />
-    <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="ISceneObject.cpp" />
-    <ClCompile Include="ISceneObject.CullingMethods.cpp" />
-    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />
-    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp" />
-    <ClCompile Include="ISceneObject.StatisticMethods.cpp" />
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="CImageLoader.cpp" />
+    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMeshLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
 </Project>

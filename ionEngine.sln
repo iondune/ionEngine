@@ -32,11 +32,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A69E0D16-25DF-4226-878D-91224A10551C}"
 	ProjectSection(SolutionItems) = preProject
 		ionAnimation.h = ionAnimation.h
+		ionAsset.h = ionAsset.h
 		ionConfig.h = ionConfig.h
 		ionCore.h = ionCore.h
 		ionEngine.h = ionEngine.h
 		ionFramework.h = ionFramework.h
 		ionGL.h = ionGL.h
+		ionGraphics.h = ionGraphics.h
 		ionGUI.h = ionGUI.h
 		ionMath.h = ionMath.h
 		ionScene.h = ionScene.h
@@ -45,6 +47,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionAnimation", "ionAnimation\ionAnimation.vcxproj", "{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionAsset", "ionAsset\ionAsset.vcxproj", "{1FDC44C8-0538-4FDD-8F94-531DFC28D166}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGraphics", "ionGraphics\ionGraphics.vcxproj", "{463C7B23-416C-4F21-B643-10A82D600C8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +98,14 @@ Global
 		{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}.Debug|Win32.Build.0 = Debug|Win32
 		{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}.Release|Win32.ActiveCfg = Release|Win32
 		{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}.Release|Win32.Build.0 = Release|Win32
+		{1FDC44C8-0538-4FDD-8F94-531DFC28D166}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1FDC44C8-0538-4FDD-8F94-531DFC28D166}.Debug|Win32.Build.0 = Debug|Win32
+		{1FDC44C8-0538-4FDD-8F94-531DFC28D166}.Release|Win32.ActiveCfg = Release|Win32
+		{1FDC44C8-0538-4FDD-8F94-531DFC28D166}.Release|Win32.Build.0 = Release|Win32
+		{463C7B23-416C-4F21-B643-10A82D600C8C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{463C7B23-416C-4F21-B643-10A82D600C8C}.Debug|Win32.Build.0 = Debug|Win32
+		{463C7B23-416C-4F21-B643-10A82D600C8C}.Release|Win32.ActiveCfg = Release|Win32
+		{463C7B23-416C-4F21-B643-10A82D600C8C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

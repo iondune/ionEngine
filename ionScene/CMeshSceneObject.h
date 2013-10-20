@@ -2,11 +2,11 @@
 #pragma once
 
 #include <ionMath/SVector3.h>
-#include "CShader.h"
-#include "CMesh.h"
-#include "CTexture.h"
+#include <ionGraphics/CShader.h>
+#include <ionAsset/CMesh.h>
+#include <ionGraphics/CTexture.h>
 
-#include "CSceneObject.h"
+#include <ionGraphics/CSceneObject.h>
 
 
 class CMeshSceneObject : public virtual CSceneObject

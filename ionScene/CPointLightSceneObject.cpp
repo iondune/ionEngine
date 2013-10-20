@@ -1,7 +1,7 @@
 #include "CPointLightSceneObject.h"
 
-#include "CShaderLoader.h"
-#include "CShaderContext.h"
+#include <ionGraphics/CShaderLoader.h>
+#include <ionGraphics/CShaderContext.h>
 
 //#include "CSceneEffectManager.h"
 //#include "CSceneManager.h"

@@ -16,6 +16,8 @@
 
 #include <iostream>
 
+#include <ionGraphics/CShaderLoader.h>
+
 
 namespace Gwen
 {

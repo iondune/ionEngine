@@ -15,8 +15,8 @@
 #include <GL/glew.h>
 
 // Scene
-#include "ISceneObject.Enumerations.h"
-#include "IRenderPass.h"
+#include <ionScene/ISceneObject.Enumerations.h>
+#include <ionScene/IRenderPass.h>
 #include "SUniform.h"
 #include "SAttribute.h"
 

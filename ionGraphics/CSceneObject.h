@@ -1,7 +1,7 @@
 #ifndef _ION_SCENE_CSCENEOBJECT_H_INCLUDED_
 #define _ION_SCENE_CSCENEOBJECT_H_INCLUDED_
 
-#include "ISceneObject.h"
+#include <ionScene/ISceneObject.h>
 #include "CRenderable.h"
 
 //! Standard implementation of ISceneObject, renders a set of CRenderables

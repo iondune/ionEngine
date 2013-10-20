@@ -1,7 +1,8 @@
 #include "CFadeOutState.h"
 
 #include <ionScene/CSceneManager.h>
-#include <ionScene/CImageLoader.h>
+#include <ionAsset/CImageLoader.h>
+#include <ionGraphics/CShaderLoader.h>
 
 #include "CApplication.h"
 

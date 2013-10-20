@@ -4,8 +4,8 @@
 #include "SUniform.h"
 #include "SAttribute.h"
 #include "CShaderContext.h"
-#include "IScene.h"
-#include "IRenderPass.h"
+#include <ionScene/IScene.h>
+#include <ionScene/IRenderPass.h>
 
 
 void CRenderable::load(IScene const * const Scene, sharedPtr<IRenderPass> Pass)

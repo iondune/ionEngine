@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{60FDFD9C-F812-4BDE-B62F-F7BC8F2C0792}</ProjectGuid>
-    <RootNamespace>ionScene</RootNamespace>
+    <ProjectGuid>{463C7B23-416C-4F21-B643-10A82D600C8C}</ProjectGuid>
+    <RootNamespace>ionGraphics</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,47 +40,39 @@
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CCameraSceneObject.h" />
-    <ClInclude Include="CDefaultColorRenderPass.h" />
-    <ClInclude Include="CDirectionalLightSceneObject.h" />
-    <ClInclude Include="CInstanceSceneObject.h" />
-    <ClInclude Include="CLightSceneObject.h" />
-    <ClInclude Include="CMeshSceneObject.h" />
-    <ClInclude Include="CMultiOutRenderPass.h" />
-    <ClInclude Include="CPerspectiveCameraSceneObject.h" />
-    <ClInclude Include="CPointLightSceneObject.h" />
-    <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneEffectManager.h" />
-    <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="ICameraSceneObject.h" />
-    <ClInclude Include="IRenderPass.h" />
-    <ClInclude Include="IScene.h" />
-    <ClInclude Include="ISceneObject.Enumerations.h" />
-    <ClInclude Include="ISceneObject.h" />
+    <ClInclude Include="CBufferObject.h" />
+    <ClInclude Include="CDeferredShadingManager.h" />
+    <ClInclude Include="CFrameBufferObject.h" />
+    <ClInclude Include="CRenderable.h" />
+    <ClInclude Include="CRenderBufferObject.h" />
+    <ClInclude Include="CSceneObject.h" />
+    <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShaderContext.h" />
+    <ClInclude Include="CShaderLoader.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="ionGraphics.h" />
+    <ClInclude Include="IRenderTarget.h" />
+    <ClInclude Include="SAttribute.h" />
+    <ClInclude Include="SUniform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneObject.cpp" />
-    <ClCompile Include="CDirectionalLightSceneObject.cpp" />
-    <ClCompile Include="CInstanceSceneObject.cpp" />
-    <ClCompile Include="CLightSceneObject.cpp" />
-    <ClCompile Include="CMeshSceneObject.cpp" />
-    <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
-    <ClCompile Include="CPointLightSceneObject.cpp" />
-    <ClCompile Include="CScene.Camera.cpp" />
-    <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CScene.Details.cpp" />
-    <ClCompile Include="CScene.ShaderVariables.cpp" />
-    <ClCompile Include="CScene.SLightBinding.cpp" />
-    <ClCompile Include="CScene.Update.cpp" />
-    <ClCompile Include="CSceneEffectManager.cpp" />
-    <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="ISceneObject.cpp" />
-    <ClCompile Include="ISceneObject.CullingMethods.cpp" />
-    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />
-    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp" />
-    <ClCompile Include="ISceneObject.StatisticMethods.cpp" />
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="CDeferredShadingManager.cpp" />
+    <ClCompile Include="CFrameBufferObject.cpp" />
+    <ClCompile Include="CRenderable.cpp" />
+    <ClCompile Include="CRenderable.ShaderVariables.cpp" />
+    <ClCompile Include="CRenderable.SMaterial.cpp" />
+    <ClCompile Include="CRenderable.SShaderSetup.cpp" />
+    <ClCompile Include="CRenderable.UpdateMethods.cpp" />
+    <ClCompile Include="CRenderBufferObject.cpp" />
+    <ClCompile Include="CSceneObject.ContextManagement.cpp" />
+    <ClCompile Include="CSceneObject.cpp" />
+    <ClCompile Include="CSceneObject.RenderableManagement.cpp" />
+    <ClCompile Include="CSceneObject.ShaderManagement.cpp" />
+    <ClCompile Include="CSceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShaderContext.cpp" />
+    <ClCompile Include="CShaderLoader.cpp" />
+    <ClCompile Include="CTexture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
