@@ -13,6 +13,7 @@
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\stb_image;
       ;$(VisualStudioDir)\SDKs\OculusSDK\LibOVR\Include;
+      ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-sdk\include;
       ;$(IncludePath);
     </IncludePath>
 
@@ -28,6 +29,8 @@
       ;$(VisualStudioDir)\Projects\ionEngine\Debug;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\lib\Debug\Win32;
       ;$(VisualStudioDir)\SDKs\glfw\build\src\Debug;
+      ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-sdk\build\code\Debug;
+      ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-sdk\build\contrib\zlib\Debug;
       ;$(LibraryPath);
     </LibraryPath>
 
@@ -35,6 +38,8 @@
       ;$(VisualStudioDir)\Projects\ionEngine\Release;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\lib\Release\Win32;
       ;$(VisualStudioDir)\SDKs\glfw\build\src\Release;
+      ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-sdk\build\code\Release;
+      ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-sdk\build\contrib\zlib\Release;
       ;$(LibraryPath);
     </LibraryPath>
 
