@@ -70,20 +70,20 @@ void CGamePad::UpdateState()
 		RightStick.X = GamepadStick(XInputState.Gamepad.sThumbRX);
 		RightStick.Y = GamepadStick(XInputState.Gamepad.sThumbRY);
 		
-		ButtonPressed[(int) EGamePadButton::A] = XInputState.Gamepad.wButtons & VK_PAD_A;
-		ButtonPressed[(int) EGamePadButton::B] = XInputState.Gamepad.wButtons & VK_PAD_B;
-		ButtonPressed[(int) EGamePadButton::X] = XInputState.Gamepad.wButtons & VK_PAD_X;
-		ButtonPressed[(int) EGamePadButton::Y] = XInputState.Gamepad.wButtons & VK_PAD_Y;
-		ButtonPressed[(int) EGamePadButton::LeftShoulder] = XInputState.Gamepad.wButtons & VK_PAD_RSHOULDER;
-		ButtonPressed[(int) EGamePadButton::RightShoulder] = XInputState.Gamepad.wButtons & VK_PAD_LSHOULDER;
-		ButtonPressed[(int) EGamePadButton::DPadUp] = XInputState.Gamepad.wButtons & VK_PAD_DPAD_UP;
-		ButtonPressed[(int) EGamePadButton::DPadDown] = XInputState.Gamepad.wButtons & VK_PAD_DPAD_DOWN;
-		ButtonPressed[(int) EGamePadButton::DPadLeft] = XInputState.Gamepad.wButtons & VK_PAD_DPAD_LEFT;
-		ButtonPressed[(int) EGamePadButton::DPadRight] = XInputState.Gamepad.wButtons & VK_PAD_DPAD_RIGHT;
-		ButtonPressed[(int) EGamePadButton::Start] = XInputState.Gamepad.wButtons & VK_PAD_START;
-		ButtonPressed[(int) EGamePadButton::Back] = XInputState.Gamepad.wButtons & VK_PAD_BACK;
-		ButtonPressed[(int) EGamePadButton::LeftThumb] = XInputState.Gamepad.wButtons & VK_PAD_LTHUMB_PRESS;
-		ButtonPressed[(int) EGamePadButton::RightThumb] = XInputState.Gamepad.wButtons & VK_PAD_RTHUMB_PRESS;
+		ButtonPressed[(int) EGamePadButton::A] = (XInputState.Gamepad.wButtons & VK_PAD_A) != 0;
+		ButtonPressed[(int) EGamePadButton::B] = (XInputState.Gamepad.wButtons & VK_PAD_B) != 0;
+		ButtonPressed[(int) EGamePadButton::X] = (XInputState.Gamepad.wButtons & VK_PAD_X) != 0;
+		ButtonPressed[(int) EGamePadButton::Y] = (XInputState.Gamepad.wButtons & VK_PAD_Y) != 0;
+		ButtonPressed[(int) EGamePadButton::LeftShoulder] = (XInputState.Gamepad.wButtons & VK_PAD_RSHOULDER) != 0;
+		ButtonPressed[(int) EGamePadButton::RightShoulder] = (XInputState.Gamepad.wButtons & VK_PAD_LSHOULDER) != 0;
+		ButtonPressed[(int) EGamePadButton::DPadUp] = (XInputState.Gamepad.wButtons & VK_PAD_DPAD_UP) != 0;
+		ButtonPressed[(int) EGamePadButton::DPadDown] = (XInputState.Gamepad.wButtons & VK_PAD_DPAD_DOWN) != 0;
+		ButtonPressed[(int) EGamePadButton::DPadLeft] = (XInputState.Gamepad.wButtons & VK_PAD_DPAD_LEFT) != 0;
+		ButtonPressed[(int) EGamePadButton::DPadRight] = (XInputState.Gamepad.wButtons & VK_PAD_DPAD_RIGHT) != 0;
+		ButtonPressed[(int) EGamePadButton::Start] = (XInputState.Gamepad.wButtons & VK_PAD_START) != 0;
+		ButtonPressed[(int) EGamePadButton::Back] = (XInputState.Gamepad.wButtons & VK_PAD_BACK) != 0;
+		ButtonPressed[(int) EGamePadButton::LeftThumb] = (XInputState.Gamepad.wButtons & VK_PAD_LTHUMB_PRESS) != 0;
+		ButtonPressed[(int) EGamePadButton::RightThumb] = (XInputState.Gamepad.wButtons & VK_PAD_RTHUMB_PRESS) != 0;
 	}
 }
 
