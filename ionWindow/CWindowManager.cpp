@@ -235,3 +235,10 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 
 CWindowManager::CWindowManager()
 {}
+
+void CWindowManager::PollEvents()
+{
+	glfwPollEvents();
+
+	GamePad.UpdateState();
+}
