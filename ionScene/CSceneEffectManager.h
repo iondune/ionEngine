@@ -52,7 +52,6 @@ protected:
 
 	// Blending
 	CShader * BlendShader;
-	CShader * QuadCopy;
 	CShader * DOFShader;
 	CTexture * Magenta, * White, * Black;
 
@@ -111,6 +110,11 @@ public:
 	void postProcess();
 
 	virtual void OnWindowResized();
+
+	
+	CShader * QuadCopy;
+	CTexture * GetScratchTexture1();
+	CFrameBufferObject * GetScratchTarget1();
 
 };
 

@@ -368,3 +368,13 @@ bool const CSceneEffectManager::isEffectEnabled(ESceneEffect const Effect)
 {
 	return (EnabledEffects & Effect) != 0;
 }
+
+CFrameBufferObject * CSceneEffectManager::GetScratchTarget1()
+{
+	return ScratchTarget1;
+}
+
+CTexture * CSceneEffectManager::GetScratchTexture1()
+{
+	return ScratchTexture1;
+}

@@ -12,6 +12,7 @@
       ;$(VisualStudioDir)\SDKs\glm-0.9.4.4\;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\stb_image;
+      ;$(VisualStudioDir)\SDKs\OculusSDK\LibOVR\Include;
       ;$(IncludePath);
     </IncludePath>
 
@@ -19,6 +20,7 @@
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.0.1\objs\win32\vc2010;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\lib\windows\vs2010;
+      ;$(VisualStudioDir)\SDKs\OculusSDK\LibOVR\Lib\Win32;
       ;$(LibraryPath);
     </LibraryPath>
 

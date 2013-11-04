@@ -95,6 +95,11 @@ public:
 		create_bitmap();
 	}
 
+	~bitmap_image()
+	{
+		delete [] data_;
+	}
+
 	inline void set_pixel(const unsigned int x, const unsigned int y,
 		const unsigned char red,
 		const unsigned char green,

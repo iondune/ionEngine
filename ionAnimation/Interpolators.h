@@ -48,7 +48,7 @@ T const CCatmullRomInterpolator<T>::interpolate(IPath<T> const & Path, s32 const
 	T const P3 = Path.getNode(Index + 2);
 
 	float const t = Mu;
-	float const t2 = sq(t);
+	float const t2 = Sq(t);
 	float const t3 = t2*t;
 
 	return ((P1 * 2.0) + (P0*-1.0 + P2) * t + (P0*2.0 - P1*5.0 + P2*4.0 - P3) * t2 + (P0*-1.0 + P1*3.0 - P2*3.0 + P3) * t3) * 0.5;

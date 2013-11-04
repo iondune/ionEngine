@@ -15,11 +15,19 @@ public:
 	virtual void onPostDraw()
 	{}
 
+	virtual void onPostEffects()
+	{}
+
 	virtual void onPreDrawObject(ISceneObject * Object)
 	{}
 
 	virtual void onPostDrawObject(ISceneObject * Object)
 	{}
+
+	virtual bool isEnabled()
+	{
+		return true;
+	}
 
 };
 
