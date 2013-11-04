@@ -76,7 +76,7 @@ void CApplication::Run()
 
 	while (Running && ! Window->ShouldClose())
 	{
-		glfwPollEvents();
+		WindowManager->PollEvents();
 
 		UpdateTime();
 

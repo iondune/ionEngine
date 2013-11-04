@@ -54,5 +54,8 @@
     </ClInclude>
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="STriangle3.h">
+      <Filter>Vector\Extensions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

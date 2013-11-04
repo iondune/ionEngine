@@ -8,9 +8,12 @@
     <ClInclude Include="SWindowResizedEvent.h" />
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="CWindow.h" />
+    <ClInclude Include="CGamePad.h" />
+    <ClInclude Include="EGamePadButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CWindowManager.cpp" />
     <ClCompile Include="CWindow.cpp" />
+    <ClCompile Include="CGamePad.cpp" />
   </ItemGroup>
 </Project>

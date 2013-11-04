@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "SVector2.h"
