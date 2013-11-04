@@ -14,6 +14,7 @@
 #include "SPlane3.h"
 #include "SLine3.h"
 #include "SRect2.h"
+#include "STriangle3.h"
 #include "STransformation3.h"
 
 #include "Constants.h"
