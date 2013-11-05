@@ -5,8 +5,6 @@
 #include <ionWindow/ionWindow.h>
 #include <ionFramework.h>
 
-#include <Gwen/Controls.h>
-
 #include "CGUIWidget.h"
 
 

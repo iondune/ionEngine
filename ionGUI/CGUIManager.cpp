@@ -1,9 +1,5 @@
 #include "CGUIManager.h"
 
-#include <Gwen/Renderers/OpenGL.h>
-#include <Gwen/Skins/TexturedBase.h>
-#include <Gwen/Skins/Simple.h>
-#include <Gwen/Controls.h>
 
 #include "OpenGL3Font.h"
 

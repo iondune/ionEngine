@@ -1,9 +1,7 @@
 
 #include "OpenGL3Font.h"
 
-#include "Gwen/Utility.h"
-#include "Gwen/Font.h"
-#include "Gwen/Texture.h"
+#include "Gwen.h"
 
 #include <math.h>
 #include "GL/glew.h"

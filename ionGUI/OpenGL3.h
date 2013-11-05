@@ -3,8 +3,7 @@
 
 #include <GL/glew.h>
 
-#include "Gwen/Gwen.h"
-#include "Gwen/BaseRender.h"
+#include "Gwen.h"
 
 #include <ionCore.h>
 #include <ionMath.h>

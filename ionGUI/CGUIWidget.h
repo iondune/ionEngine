@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <ionCore/ionTypes.h>
+#include <ionCore.h>
 #include <ionWindow.h>
 
-#include <Gwen/Controls.h>
+#include "Gwen.h"
 
 
 class CGUIManager;
