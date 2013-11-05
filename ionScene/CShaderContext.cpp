@@ -118,6 +118,12 @@ void CShaderContext::uniform(GLuint const uniformHandle, f32 const uniform)
 	printOpenGLErrors("Shader Context :: glUniform1f");
 }
 
+void CShaderContext::uniform(GLuint const uniformHandle, f64 const uniform)
+{
+	glUniform1d(uniformHandle, uniform);
+	printOpenGLErrors("Shader Context :: glUniform1f");
+}
+
 void CShaderContext::uniform(GLuint const uniformHandle, s32 const uniform)
 {
 	glUniform1i(uniformHandle, uniform);
