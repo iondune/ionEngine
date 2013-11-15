@@ -101,6 +101,8 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::Slash;
 	case '\\':
 		return EKey::BackSlash;
+	case '`':
+		return EKey::Grave;
 
 	case GLFW_KEY_ESCAPE:
 		return EKey::Escape;
