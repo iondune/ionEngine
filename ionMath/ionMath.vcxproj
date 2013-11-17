@@ -33,6 +33,7 @@
     <ClInclude Include="SPlane3.h" />
     <ClInclude Include="SRect2.h" />
     <ClInclude Include="STransformation3.h" />
+    <ClInclude Include="STriangle2.h" />
     <ClInclude Include="STriangle3.h" />
     <ClInclude Include="SVector.h" />
     <ClInclude Include="SVector2.h" />

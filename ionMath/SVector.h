@@ -95,15 +95,6 @@ public:
 		return vec.LengthSq();
 	}
 
-	//! Normalize this vector
-	ION_FUNC_DEF void Normalize()
-	{
-		T const len = Length();
-		
-		for (u32 i = 0; i < Dimension; ++ i)
-			Values[i] /= len;
-	}
-
 	//! Raw pointer access to vector values
 	ION_FUNC_DEF T const * GetValuePointer() const
 	{
@@ -222,6 +213,17 @@ public:
 		Implementation ret = Clone();
 		ret.Normalize();
 		return ret;
+	}
+
+	//! Normalize this vector
+	ION_FUNC_DEF Type & Normalize()
+	{
+		T const len = Length();
+		
+		for (u32 i = 0; i < Dimension; ++ i)
+			Values[i] /= len;
+
+		return * this;
 	}
 
 	friend ION_FUNC_DEF Implementation const Normalize(Implementation const & v)

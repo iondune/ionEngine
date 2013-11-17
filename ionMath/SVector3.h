@@ -3,6 +3,7 @@
 #include <ionConfig.h>
 
 #include "SVector.h"
+#include "SVector2.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -116,6 +117,21 @@ public:
 
 		SVector3<T> out(temp.x, temp.y, temp.z);
 		return out;
+	}
+
+	ION_FUNC_DEF SVector2<T> XY() const
+	{
+		return SVector2<T>(X, Y);
+	}
+
+	ION_FUNC_DEF SVector2<T> YZ() const
+	{
+		return SVector2<T>(Y, Z);
+	}
+
+	ION_FUNC_DEF SVector2<T> XZ() const
+	{
+		return SVector2<T>(X, Z);
 	}
 
 };
