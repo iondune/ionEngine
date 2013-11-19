@@ -39,7 +39,7 @@ public:
 	IInterpolator<TPathNode> * setDefaultInterpolator(IInterpolator<TPathNode> * defaultInterpolator);
 	IInterpolator<TPathNode> const * getDefaultInterpolator() const;
 	
-	TPathNode const getNode(s32 const Index) const;
+	TPathNode const & getNode(s32 const Index) const;
 	TPathNode const getNodeInterpolated(f32 const Mu, IInterpolator<TPathNode> * Interpolator = 0) const;
 
 	f32 const buildDistanceTable(f32 const Increment = 0.1f, IInterpolator<TPathNode> * Interpolator = 0);
@@ -128,7 +128,7 @@ IInterpolator<TPathNode> const * CPath<TPathNode>::getDefaultInterpolator() cons
 }
 
 template <typename TPathNode>
-TPathNode const CPath<TPathNode>::getNode(s32 const Index) const
+TPathNode const & CPath<TPathNode>::getNode(s32 const Index) const
 {
 	return Nodes[sanitizeIndex(Index)];
 }

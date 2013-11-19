@@ -28,7 +28,7 @@ public:
 	virtual IInterpolator<TPathNode> * setDefaultInterpolator(IInterpolator<TPathNode> * defaultInterpolator) = 0;
 	virtual IInterpolator<TPathNode> const * getDefaultInterpolator() const = 0;
 	
-	virtual TPathNode const getNode(s32 const Index) const = 0;
+	virtual TPathNode const & getNode(s32 const Index) const = 0;
 	virtual TPathNode const getNodeInterpolated(f32 const Mu, IInterpolator<TPathNode> * Interpolator = 0) const = 0;
 
 	virtual f32 const buildDistanceTable(f32 const Increment = 0.1f, IInterpolator<TPathNode> * Interpolator = 0) = 0;
