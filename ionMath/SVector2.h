@@ -65,6 +65,16 @@ public:
 		return * this;
 	}
 
+	ION_FUNC_DEF SVector2<T> Rotate(T const radians) const
+	{
+		SVector2<T> Ret;
+		T C = Cos(radians);
+		T S = Sin(radians);
+		Ret.X = X * C - Y * S;
+		Ret.Y = X * S + Y * C;
+		return Ret;
+	}
+
 };
 
 
