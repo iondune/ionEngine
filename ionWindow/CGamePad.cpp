@@ -88,10 +88,14 @@ void CGamePad::UpdateState()
 }
 
 CGamePad::CGamePad()
+	: LeftTrigger(0), RightTrigger(0)
 {
 	if (! hXInputModule)
 		hXInputModule = ::LoadLibraryA("Xinput9_1_0.dll");
 
 	if (! pXInputGetState && hXInputModule)
 		pXInputGetState = (PFn_XInputGetState) ::GetProcAddress(hXInputModule, "XInputGetState");
+	
+	for (int i = 0; i < (int) EGamePadButton::Count; ++ i)
+		ButtonPressed[i] = false;
 }
