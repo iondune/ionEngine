@@ -29,6 +29,8 @@ public:
 	SEvent<SKeyboardEvent> KeyboardEvent;
 	SEvent<SMouseEvent> MouseEvent;
 	SEvent<SWindowResizedEvent> WindowResizedEvent;
+	
+	GLFWwindow * const GetHandle();
 
 protected:
 

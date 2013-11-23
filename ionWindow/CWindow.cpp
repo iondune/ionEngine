@@ -58,3 +58,8 @@ CWindow::CWindow(GLFWwindow * windowHandle)
 	MouseEvent.AddTrigger(this);
 	WindowResizedEvent.AddTrigger(this);
 }
+
+GLFWwindow * const CWindow::GetHandle()
+{
+	return WindowHandle;
+}

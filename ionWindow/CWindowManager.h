@@ -22,7 +22,8 @@ public:
 	CGamePad GamePad;
 
 protected:
-
+	
+	CWindow * PrimaryWindow;
 	std::map<GLFWwindow *, CWindow *> Windows;
 
 	static void KeyCallback(GLFWwindow * window, int key, int scancode, int action, int mods);

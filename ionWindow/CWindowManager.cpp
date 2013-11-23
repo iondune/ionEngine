@@ -26,7 +26,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), FullScreen ? glfwGetPrimaryMonitor() : 0, 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), FullScreen ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
@@ -36,6 +36,9 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	CWindow * Window = new CWindow(glfwWindow);
 	Window->Size = Size;
 	Windows[glfwWindow] = Window;
+
+	if (! PrimaryWindow)
+		PrimaryWindow = Window;
 	
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
@@ -240,6 +243,7 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 }
 
 CWindowManager::CWindowManager()
+	: PrimaryWindow()
 {}
 
 void CWindowManager::PollEvents()
@@ -254,7 +258,10 @@ bool CWindowManager::ShouldClose() const
 	{
 		Window.second->MakeContextCurrent();
 		if (Window.second->ShouldClose())
+		{
 			return true;
+		}
 	}
+	PrimaryWindow->MakeContextCurrent();
 	return false;
 }
