@@ -6,12 +6,15 @@
 #include "EKey.h"
 
 
+class CWindow;
+
 struct SKeyboardEvent : public SEventData
 {
     bool Pressed;
     EKey Key;
+	CWindow * Window;
 
 	SKeyboardEvent()
-		: Key(EKey::Unknown)
+		: Key(EKey::Unknown), Window()
 	{}
 };

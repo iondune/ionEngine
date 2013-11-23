@@ -169,6 +169,7 @@ void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int
 	CWindow * Window = WindowManager.Windows[window];
 
 	SKeyboardEvent KeyEvent;
+	KeyEvent.Window = Window;
 	KeyEvent.Pressed = action != GLFW_RELEASE;
 	KeyEvent.Key = ConvertGLFWKeyCode(key);
 	
@@ -182,6 +183,7 @@ void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int ac
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Click;
 	MouseEvent.Location = Window->CursorLocation;
 	MouseEvent.Pressed = action == GLFW_PRESS;
@@ -214,6 +216,7 @@ void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, do
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Scroll;
 	MouseEvent.Movement = vec2d(xoffset, yoffset);
 
@@ -226,6 +229,7 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Move;
 	MouseEvent.Location = vec2d(xpos, ypos);
 
@@ -241,6 +245,16 @@ CWindowManager::CWindowManager()
 void CWindowManager::PollEvents()
 {
 	glfwPollEvents();
-
 	GamePad.UpdateState();
+}
+
+bool CWindowManager::ShouldClose() const
+{
+	for (auto Window : Windows)
+	{
+		Window.second->MakeContextCurrent();
+		if (Window.second->ShouldClose())
+			return true;
+	}
+	return false;
 }

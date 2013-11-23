@@ -48,10 +48,10 @@ vec2f const & CWindow::GetCursorLocation()
 CWindow::CWindow(GLFWwindow * windowHandle)
 	: WindowHandle(windowHandle)
 {
-	for (unsigned int i = 0; i < (int) EKey::Count; ++ i)
+	for (uint i = 0; i < (uint) EKey::Count; ++ i)
         KeyStates[i] = false;
 
-    for (unsigned int i = 0; i < (int) SMouseEvent::EButton::Count; ++ i)
+    for (uint i = 0; i < (uint) SMouseEvent::EButton::Count; ++ i)
         MouseStates[i] = false;
 
 	KeyboardEvent.AddTrigger(this);

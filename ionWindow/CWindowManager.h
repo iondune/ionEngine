@@ -15,6 +15,7 @@ public:
 
 	void Init();
 	void PollEvents();
+	bool ShouldClose() const;
 
 	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen);
 

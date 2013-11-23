@@ -6,19 +6,17 @@
 
 
 CApplication::CApplication()
-	: StateManager(), SceneManager(), WindowManager(), Window()
+	: StateManager(), SceneManager(), WindowManager()
 {}
 
 void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitle, bool const FullScreen)
 {
 	WindowManager = & CWindowManager::Get();
-	WindowManager->Init();
-
-	Window = WindowManager->CreateWindow(WindowSize, WindowTitle, FullScreen);
-
 	StateManager = & CStateManager::Get();
-	StateManager->Connect(Window);
 
+	WindowManager->Init();
+	AddWindow(WindowSize, WindowTitle);
+	
 	SceneManager = new CSceneManager(WindowSize);
 }
 
@@ -37,9 +35,15 @@ CWindowManager & CApplication::GetWindowManager()
 	return * WindowManager;
 }
 
-CWindow & CApplication::GetWindow()
+CWindow & CApplication::GetWindow(uint const Index)
 {
-	return * Window;
+	return * Windows[Index];
+}
+
+void CApplication::AddWindow(vec2i const & WindowSize, std::string const & WindowTitle)
+{
+	Windows.push_back(WindowManager->CreateWindow(WindowSize, WindowTitle, false));
+	StateManager->Connect(Windows.back());
 }
 
 void CApplication::UpdateTime()
@@ -72,9 +76,7 @@ void CApplication::Run()
 	LastTime = glfwGetTime();
 	RunTime = ElapsedTime = 0.f;
 
-	Window->MakeContextCurrent();
-
-	while (Running && ! Window->ShouldClose())
+	while (Running && ! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
@@ -82,7 +84,6 @@ void CApplication::Run()
 
 		StateManager->Update((f32) ElapsedTime);
 		StateManager->DoStateChange();
-
 	}
 
 	StateManager->ShutDown();
