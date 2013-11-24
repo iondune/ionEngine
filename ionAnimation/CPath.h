@@ -46,6 +46,7 @@ public:
 
 	f32 const getMuFromArcLengthDistance(f32 const Distance, IInterpolator<TPathNode> * Interpolator = 0);
 	TPathNode const getNodeArcLengthParametized(f32 const Distance, IInterpolator<TPathNode> * Interpolator = 0);
+	int getNodeFromArcLengthParametized(f32 const Distance);
 
 };
 
@@ -219,4 +220,12 @@ TPathNode const CPath<TPathNode>::getNodeArcLengthParametized(f32 const Distance
 	s32 const Index = sanitizeIndex(getIndexFromMu(Mu));
 
 	return Interpolator->interpolate(* this, Index, fmodf(Mu, 1.f));
+}
+
+template <typename TPathNode>
+int CPath<TPathNode>::getNodeFromArcLengthParametized(f32 const Distance)
+{
+	f32 const Mu = getMuFromArcLengthDistance(Distance);
+	s32 const Index = sanitizeIndex(getIndexFromMu(Mu));
+	return Index;
 }
