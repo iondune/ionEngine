@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionMath.h>
+#include <ionCore.h>
 
 #include <cmath>
 
@@ -44,9 +44,9 @@ T ArcTan(T const & value)
 }
 
 template <typename T>
-T ArcTan(T const & x, T const & y)
+T ArcTan(T const & y, T const & x)
 {
-	return atan2(x, y);
+	return atan2(y, x);
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SVector.h"
+#include "Utilities.h"
 
 
 template <typename T>
@@ -73,6 +74,11 @@ public:
 		Ret.X = X * C - Y * S;
 		Ret.Y = X * S + Y * C;
 		return Ret;
+	}
+
+	T GetAngle() const
+	{
+		return ArcTan(Y, X);
 	}
 
 };
