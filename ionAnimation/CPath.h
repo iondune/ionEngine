@@ -39,13 +39,14 @@ public:
 	IInterpolator<TPathNode> * setDefaultInterpolator(IInterpolator<TPathNode> * defaultInterpolator);
 	IInterpolator<TPathNode> const * getDefaultInterpolator() const;
 	
-	TPathNode const getNode(s32 const Index) const;
+	TPathNode const & getNode(s32 const Index) const;
 	TPathNode const getNodeInterpolated(f32 const Mu, IInterpolator<TPathNode> * Interpolator = 0) const;
 
 	f32 const buildDistanceTable(f32 const Increment = 0.1f, IInterpolator<TPathNode> * Interpolator = 0);
 
 	f32 const getMuFromArcLengthDistance(f32 const Distance, IInterpolator<TPathNode> * Interpolator = 0);
 	TPathNode const getNodeArcLengthParametized(f32 const Distance, IInterpolator<TPathNode> * Interpolator = 0);
+	int getNodeFromArcLengthParametized(f32 const Distance);
 
 };
 
@@ -128,7 +129,7 @@ IInterpolator<TPathNode> const * CPath<TPathNode>::getDefaultInterpolator() cons
 }
 
 template <typename TPathNode>
-TPathNode const CPath<TPathNode>::getNode(s32 const Index) const
+TPathNode const & CPath<TPathNode>::getNode(s32 const Index) const
 {
 	return Nodes[sanitizeIndex(Index)];
 }
@@ -219,4 +220,12 @@ TPathNode const CPath<TPathNode>::getNodeArcLengthParametized(f32 const Distance
 	s32 const Index = sanitizeIndex(getIndexFromMu(Mu));
 
 	return Interpolator->interpolate(* this, Index, fmodf(Mu, 1.f));
+}
+
+template <typename TPathNode>
+int CPath<TPathNode>::getNodeFromArcLengthParametized(f32 const Distance)
+{
+	f32 const Mu = getMuFromArcLengthDistance(Distance);
+	s32 const Index = sanitizeIndex(getIndexFromMu(Mu));
+	return Index;
 }

@@ -126,3 +126,9 @@ ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c, T const &
 {
 	return Max(a, Max(b, c, d));
 }
+
+template <typename T>
+ION_FUNC_DEF static T const MaxAbs(T const & a, T const & b)
+{
+	return Abs(b) < Abs(a) ? a : b;
+}

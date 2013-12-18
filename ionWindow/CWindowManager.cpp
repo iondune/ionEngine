@@ -26,7 +26,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), FullScreen ? glfwGetPrimaryMonitor() : 0, 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), FullScreen ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
@@ -36,6 +36,9 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	CWindow * Window = new CWindow(glfwWindow);
 	Window->Size = Size;
 	Windows[glfwWindow] = Window;
+
+	if (! PrimaryWindow)
+		PrimaryWindow = Window;
 	
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
@@ -101,6 +104,8 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::Slash;
 	case '\\':
 		return EKey::BackSlash;
+	case '`':
+		return EKey::Grave;
 
 	case GLFW_KEY_ESCAPE:
 		return EKey::Escape;
@@ -167,6 +172,7 @@ void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int
 	CWindow * Window = WindowManager.Windows[window];
 
 	SKeyboardEvent KeyEvent;
+	KeyEvent.Window = Window;
 	KeyEvent.Pressed = action != GLFW_RELEASE;
 	KeyEvent.Key = ConvertGLFWKeyCode(key);
 	
@@ -180,6 +186,7 @@ void CWindowManager::MouseButtonCallback(GLFWwindow * window, int button, int ac
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Click;
 	MouseEvent.Location = Window->CursorLocation;
 	MouseEvent.Pressed = action == GLFW_PRESS;
@@ -212,6 +219,7 @@ void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, do
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Scroll;
 	MouseEvent.Movement = vec2d(xoffset, yoffset);
 
@@ -224,6 +232,7 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 	CWindow * Window = WindowManager.Windows[window];
 
 	SMouseEvent MouseEvent;
+	MouseEvent.Window = Window;
 	MouseEvent.Type = SMouseEvent::EType::Move;
 	MouseEvent.Location = vec2d(xpos, ypos);
 
@@ -234,11 +243,25 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 }
 
 CWindowManager::CWindowManager()
+	: PrimaryWindow()
 {}
 
 void CWindowManager::PollEvents()
 {
 	glfwPollEvents();
-
 	GamePad.UpdateState();
+}
+
+bool CWindowManager::ShouldClose() const
+{
+	for (auto Window : Windows)
+	{
+		Window.second->MakeContextCurrent();
+		if (Window.second->ShouldClose())
+		{
+			return true;
+		}
+	}
+	PrimaryWindow->MakeContextCurrent();
+	return false;
 }

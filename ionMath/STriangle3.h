@@ -22,38 +22,8 @@ public:
 		Vertices[2] = v3;
 	}
 
-	STriangle3(T const x, T const y, T const w, T const h)
-		: Position(x, y), Size(w, h)
-	{}
-
 	bool intersect(SVector3<T> const & p, SVector3<T> const & d)
 	{
-		//glm::mat3 B(
-		//	(Vertices[0] - P0).GetGLMVector(),
-		//	(Vertices[0] - Vertices[2]).GetGLMVector(), 
-		//	(D).GetGLMVector());
-		//glm::mat3 G(
-		//	(Vertices[0] - Vertices[1]).GetGLMVector(),
-		//	(Vertices[0] - P0).GetGLMVector(), 
-		//	(D).GetGLMVector());
-		//glm::mat3 A(
-		//	(Vertices[0] - Vertices[1]).GetGLMVector(),
-		//	(Vertices[0] - Vertices[2]).GetGLMVector(), 
-		//	(D).GetGLMVector());
-		//
-		//f32 const beta = glm::determinant(B) / glm::determinant(A);
-		//f32 const gamma = glm::determinant(G) / glm::determinant(A);
-		//f32 const alpha = 1 - beta - gamma;
-
-		//f32 const t = (Vertices[0].X + beta * (Vertices[1].X - Vertices[0].X) + gamma * (Vertices[2].X - Vertices[0].X) - P0.X) / D.X;
-
-		//if (t >= 0 && 0 < beta && beta < 1 && 0 < gamma && gamma < 1 && 0 < alpha && alpha < 1)
-		//	//HitInformation->T = t;
-		//	//HitInformation->Point = P0 + d*HitInformation->T;
-		//	//HitInformation->Normal = Normal.transform(glm::transpose(InverseTransform), 0.f);
-		//	return true;
-
-		//return false;
 		SVector3<T> v0, v1, v2;
 		v0 = Vertices[0];
 		v1 = Vertices[1];

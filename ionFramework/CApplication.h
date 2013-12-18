@@ -24,7 +24,9 @@ public:
 	CStateManager & GetStateManager();
 	CSceneManager & GetSceneManager();
 	CWindowManager & GetWindowManager();
-	CWindow & GetWindow();
+	CWindow & GetWindow(uint const Index = 0);
+
+	void AddWindow(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
 
 	void Run();
 
@@ -42,7 +44,7 @@ protected:
 	CSceneManager * SceneManager;
 	CWindowManager * WindowManager;
 
-	CWindow * Window;
+	std::vector<CWindow *> Windows;
 
 	f64 ElapsedTime;
 	f64 RunTime;

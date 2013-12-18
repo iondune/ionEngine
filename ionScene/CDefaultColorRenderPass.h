@@ -16,11 +16,11 @@ protected:
 public:
 
 	CDefaultColorRenderPass()
-		: FrameBuffer(0)
+		: FrameBuffer(0), Enabled(true)
 	{}
 
 	CDefaultColorRenderPass(CFrameBufferObject * frameBuffer)
-		: FrameBuffer(frameBuffer)
+		: FrameBuffer(frameBuffer), Enabled(true)
 	{}
 
 	virtual void onPreDraw()

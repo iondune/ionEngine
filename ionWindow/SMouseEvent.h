@@ -7,6 +7,8 @@
 #include <ionFramework/SEvent.h>
 
 
+class CWindow;
+
 struct SMouseEvent : public SEventData
 {
     enum class EButton
@@ -28,4 +30,9 @@ struct SMouseEvent : public SEventData
     EButton Button;
     EType Type;
     bool Pressed;
+	CWindow * Window;
+
+	SMouseEvent()
+		: Window()
+	{}
 };

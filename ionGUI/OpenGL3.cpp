@@ -1,12 +1,6 @@
 
 #include "OpenGL3.h"
 
-#include "Gwen/Utility.h"
-#include "Gwen/Font.h"
-#include "Gwen/Texture.h"
-#include "Gwen/WindowProvider.h"
-#include "Gwen/Gwen.h"
-
 #include <math.h>
 
 #include <FreeImage.h>

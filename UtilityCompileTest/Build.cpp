@@ -5,8 +5,17 @@
 #include <GLFW/glfw3.h>
 
 
+void ErrorCallback(int ErrorCode, char const * Description)
+{
+	std::cerr << "GLFW Error!" << std::endl;
+	std::cerr << "Error code: " << ErrorCode << std::endl;
+	std::cerr << "Error description: " << Description << std::endl;
+}
+
 int main()
 {
+	glfwSetErrorCallback(ErrorCallback);
+
 	if (! glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
@@ -17,7 +26,7 @@ int main()
 	int Count;
 	GLFWmonitor ** Monitors = glfwGetMonitors(& Count);
 
-	std::cout << "Monitors: " << std::endl;
+	std::cout << "Monitors (" << Count << "): " << std::endl;
 	for (int i = 0; i < Count; ++ i)
 	{
 		int X, Y;
@@ -32,8 +41,14 @@ int main()
 	if (! (window = glfwCreateWindow(640, 480, "Utility Compile Test", 0, 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
-		WaitForUser();
-		exit(33);
+		std::cerr << "Attempting full screen" << std::endl;
+		
+		if (! (window = glfwCreateWindow(640, 480, "Utility Compile Test", glfwGetPrimaryMonitor(), 0)))
+		{
+			std::cerr << "Error opening fullscreen glfw window! " << std::endl;
+			WaitForUser();
+			exit(34);
+		}
 	}
 	glfwMakeContextCurrent(window);
 
@@ -42,10 +57,10 @@ int main()
 	{
 		std::cerr << "Error initializing glew! " << glewGetErrorString(err) << std::endl;
 		WaitForUser();
-		exit(33);
+		exit(35);
 	}
 	
-	std::cerr << "Version: " << glGetString(GL_VERSION) << std::endl;
+	std::cerr << std::endl << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	std::cerr << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl << std::endl;
 	std::cerr << "Vender: " << glGetString(GL_VENDOR) << std::endl;
 	std::cerr << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;

@@ -2,8 +2,7 @@
 #pragma once
 
 #include <ionWindow.h>
-#include <Gwen/Events.h>
-#include <Gwen/Controls.h>
+#include "Gwen.h"
 
 
 class CGUIEventManager : public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>
@@ -14,7 +13,7 @@ class CGUIEventManager : public IEventListener<SKeyboardEvent>, public IEventLis
 public:
 
 	CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window);
-	
+
 	void OnEvent(SMouseEvent & Event);
 	void OnEvent(SKeyboardEvent & Event);
 

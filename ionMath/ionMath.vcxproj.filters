@@ -57,5 +57,8 @@
     <ClInclude Include="STriangle3.h">
       <Filter>Vector\Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="STriangle2.h">
+      <Filter>Vector\Extensions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
