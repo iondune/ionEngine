@@ -46,6 +46,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
 
 	Window->MakeContextCurrent();
+	glfwSwapInterval(0);
 
 	static bool Initialized = false;
 
