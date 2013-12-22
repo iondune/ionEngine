@@ -2,19 +2,34 @@
 #pragma once
 
 template <typename T>
-T LinearInterpolate(T y1, T y2, float x)
+T LinearInterpolate(T y1, T y2, T x)
 {
 	return y1*(1 - x) + y2*x;
 }
 
 template <typename T>
-T CubicInterpolate(T p[4], float x)
+T LinearInterpolate(T p[2], T x)
+{
+	return p[0]*(1 - x) + p[1]*x;
+}
+
+template <typename T>
+T BilinearInterpolate(T p[2][2], T x, T y)
+{
+	T arr[2];
+	arr[0] = LinearInterpolate(p[0], y);
+	arr[1] = LinearInterpolate(p[1], y);
+	return LinearInterpolate(arr, x);
+}
+
+template <typename T>
+T CubicInterpolate(T p[4], T x)
 {
 	return p[1] + (T) 0.5 * x*(p[2] - p[0] + x*(2*p[0] - 5*p[1] + 4*p[2] - p[3] + x*(3*(p[1] - p[2]) + p[3] - p[0])));
 }
 
 template <typename T>
-T BicubicInterpolate(T p[4][4], float x, float y)
+T BicubicInterpolate(T p[4][4], T x, T y)
 {
 	T arr[4];
 	arr[0] = CubicInterpolate(p[0], y);
@@ -25,7 +40,7 @@ T BicubicInterpolate(T p[4][4], float x, float y)
 }
 
 template <typename T>
-T TricubicInterpolate(T p[4][4][4], float x, float y, float z)
+T TricubicInterpolate(T p[4][4][4], T x, T y, T z)
 {
 	T arr[4];
 	arr[0] = BicubicInterpolate(p[0], y, z);
