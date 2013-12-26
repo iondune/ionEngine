@@ -143,6 +143,13 @@ public:
 		MaxCorner += Offset;
 	}
 
+	void Resize(Vector const & Size)
+	{
+		Vector const Center = GetCenter();
+		MinCorner = Center - Size / 2;
+		MaxCorner = Center + Size / 2;
+	}
+
 };
 
 typedef SBoundingBox3<f32> SBoundingBox3f;
