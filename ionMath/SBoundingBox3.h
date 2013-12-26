@@ -1,7 +1,9 @@
+
 #pragma once
 
 #include "SVector3.h"
 #include "SLine3.h"
+
 
 template <typename T, typename Vector = SVector3<T> >
 class SBoundingBox3
