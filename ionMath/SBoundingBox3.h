@@ -132,6 +132,17 @@ public:
 		};
 	}
 
+	void MoveTo(Vector const & Center)
+	{
+		Move(Center - GetCenter());
+	}
+
+	void Move(Vector const & Offset)
+	{
+		MinCorner += Offset;
+		MaxCorner += Offset;
+	}
+
 };
 
 typedef SBoundingBox3<f32> SBoundingBox3f;
