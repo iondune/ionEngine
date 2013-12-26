@@ -415,7 +415,7 @@ public:
 	// Negation //
 	//////////////
 
-	ION_FUNC_DEF Implementation const operator - ()
+	ION_FUNC_DEF Implementation const operator - () const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
