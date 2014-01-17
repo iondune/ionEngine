@@ -7,6 +7,7 @@
 
 #include "SVector3.h"
 
+
 class STransformation3
 {
 

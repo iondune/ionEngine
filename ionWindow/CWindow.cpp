@@ -40,9 +40,26 @@ bool CWindow::IsMouseDown(SMouseEvent::EButton const Button)
 	return MouseStates[(int) Button];
 }
 
-vec2f const & CWindow::GetCursorLocation()
+vec2f const & CWindow::GetCursorLocation() const
 {
 	return CursorLocation;
+}
+
+void CWindow::SetCursorLocation(vec2f const & position)
+{
+	CursorLocation = vec2f(position.X, position.Y);
+	glfwSetCursorPos(WindowHandle, CursorLocation.X, CursorLocation.Y);
+}
+
+vec2f CWindow::GetRelativeCursorLocation() const
+{
+	return CursorLocation / vec2f(Size);
+}
+
+void CWindow::SetRelativeCursorLocation(vec2f const & position)
+{
+	CursorLocation = vec2f(position.X * Size.X, position.Y * Size.Y);
+	glfwSetCursorPos(WindowHandle, CursorLocation.X, CursorLocation.Y);
 }
 
 CWindow::CWindow(GLFWwindow * windowHandle)

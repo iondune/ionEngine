@@ -24,7 +24,10 @@ public:
 
 	bool IsKeyDown(EKey const Key);
     bool IsMouseDown(SMouseEvent::EButton const Button);
-    vec2f const & GetCursorLocation();
+    vec2f const & GetCursorLocation() const;
+	void SetCursorLocation(vec2f const & position);
+    vec2f GetRelativeCursorLocation() const;
+	void SetRelativeCursorLocation(vec2f const & position);
 	
 	SEvent<SKeyboardEvent> KeyboardEvent;
 	SEvent<SMouseEvent> MouseEvent;

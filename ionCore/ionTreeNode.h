@@ -31,7 +31,8 @@ public:
 
 	void RemoveChild(Implementation * child)
 	{
-		child->SetParent(0);
+		if (child->Parent == this)
+			child->SetParent(0);
 	}
 
 	void SetParent(Implementation * parent)

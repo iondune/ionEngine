@@ -1,7 +1,9 @@
+
 #pragma once
 
 #include "SVector3.h"
 #include "SLine3.h"
+
 
 template <typename T, typename Vector = SVector3<T> >
 class SBoundingBox3
@@ -130,6 +132,24 @@ public:
 		case 6: return Vector(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
 		case 7: return Vector(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
 		};
+	}
+
+	void MoveTo(Vector const & Center)
+	{
+		Move(Center - GetCenter());
+	}
+
+	void Move(Vector const & Offset)
+	{
+		MinCorner += Offset;
+		MaxCorner += Offset;
+	}
+
+	void Resize(Vector const & Size)
+	{
+		Vector const Center = GetCenter();
+		MinCorner = Center - Size / 2;
+		MaxCorner = Center + Size / 2;
 	}
 
 };

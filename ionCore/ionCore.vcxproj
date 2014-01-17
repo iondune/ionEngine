@@ -23,6 +23,9 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\ionEngine.props" />
+  </ImportGroup>
   <ItemGroup>
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
