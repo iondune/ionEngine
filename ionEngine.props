@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
@@ -6,7 +6,7 @@
     <IncludePath>
       ;$(VisualStudioDir)\Projects\ionEngine\;
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
-      ;$(VisualStudioDir)\SDKs\freetype-2.5.0.1\include\;
+      ;$(VisualStudioDir)\SDKs\freetype-2.5.2\include\;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\include;
       ;$(VisualStudioDir)\SDKs\glfw\include;
       ;$(VisualStudioDir)\SDKs\glm-0.9.4.4\;
@@ -18,7 +18,7 @@
 
     <LibraryPath>
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
-      ;$(VisualStudioDir)\SDKs\freetype-2.5.0.1\objs\win32\vc2010;
+      ;$(VisualStudioDir)\SDKs\freetype-2.5.2\objs\win32\vc2010;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\lib\windows\vs2010;
       ;$(VisualStudioDir)\SDKs\OculusSDK\LibOVR\Lib\Win32;
       ;$(LibraryPath);
