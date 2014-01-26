@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <ItemDefinitionGroup>
@@ -9,13 +9,13 @@
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>libovrd.lib;winmm.lib;GWEND-Renderer-OpenGLd.lib;gwen_staticd.lib;glew32sd.lib;freetype250_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libovrd.lib;winmm.lib;GWEND-Renderer-OpenGLd.lib;gwen_staticd.lib;glew32sd.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>libovr.lib;winmm.lib;GWEN-Renderer-OpenGL.lib;gwen_static.lib;freetype250.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libovr.lib;winmm.lib;GWEN-Renderer-OpenGL.lib;gwen_static.lib;freetype252.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
