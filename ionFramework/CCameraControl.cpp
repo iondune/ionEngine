@@ -11,7 +11,7 @@ CCameraControl::CCameraControl(SVector3f const position)
 
 void CCameraControl::OnEvent(SMouseEvent & Event)
 {
-	if (Event.Type == SMouseEvent::EType::Click && (Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
+	if (Event.Type == SMouseEvent::EType::Click && (Event.Pressed) && Event.Button == SMouseEvent::EButton::Right && Application.GetSceneManager().getActiveCamera() == this)
 		Tracking = true;
 
 	if (Event.Type == SMouseEvent::EType::Click && (! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
@@ -19,7 +19,7 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 
 	if ((Event.Type == SMouseEvent::EType::Move))
 	{
-		if (Tracking)
+		if (Tracking && Application.GetSceneManager().getActiveCamera() == this)
 		{
 			Theta += (Event.Movement.X) * LookSpeed;
 			Phi -= (Event.Movement.Y) * LookSpeed;
@@ -31,7 +31,7 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 		}
 	}
 
-	if (Event.Type == SMouseEvent::EType::Scroll)
+	if (Event.Type == SMouseEvent::EType::Scroll && Application.GetSceneManager().getActiveCamera() == this)
 	{
 		s32 ticks = (s32) Event.Movement.Y;
 		if (ticks > 0)
@@ -47,6 +47,9 @@ void CCameraControl::OnEvent(SMouseEvent & Event)
 
 void CCameraControl::Update(float const TickTime)
 {
+	if (Application.GetSceneManager().getActiveCamera() != this)
+		return;
+
 	LookDirection = vec3f(cos(Theta)*cos(Phi), sin(Phi), sin(Theta)*cos(Phi));
 
 	vec3f W = LookDirection*-1;
