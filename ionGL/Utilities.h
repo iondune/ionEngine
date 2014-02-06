@@ -9,7 +9,7 @@ namespace ion
 	namespace GL
 	{
 		void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
-		#define CheckedGLCall(x) (x); PrintOpenGLErrors(#x, __FILE__, __LINE__);
+		#define CheckedGLCall(x) (x); ion::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__);
 
 		enum class EFormatType
 		{
