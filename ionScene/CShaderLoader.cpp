@@ -7,6 +7,8 @@
 #include <streambuf>
 #include <sstream>
 
+#include <ionGL.h>
+
 
 std::string const CShaderLoader::parseShaderSource(std::string const & fileName)
 {
@@ -71,13 +73,13 @@ static void printShaderInfoLog(GLuint shaderHandle)
 	printOpenGLErrors();
 
 	GLint infoLogLength = 0;
-	glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, & infoLogLength);
+	CheckedGLCall(glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, & infoLogLength));
 
 	if (infoLogLength > 0)
 	{
 		GLchar * infoLog = new GLchar[infoLogLength];
 		GLint charsWritten = 0;
-		glGetShaderInfoLog(shaderHandle, infoLogLength, & charsWritten, infoLog);
+		CheckedGLCall(glGetShaderInfoLog(shaderHandle, infoLogLength, & charsWritten, infoLog));
 		CShaderLoader::LogFile << "Shader Info Log:" << std::endl << infoLog << std::endl;
 		delete infoLog;
 	}
@@ -88,13 +90,13 @@ static void printProgramInfoLog(GLuint programHandle)
 	printOpenGLErrors();
 
 	GLint infoLogLength = 0;
-	glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, & infoLogLength);
+	CheckedGLCall(glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, & infoLogLength));
 
 	if (infoLogLength > 0)
 	{
 		GLchar * infoLog = new GLchar[infoLogLength];
 		GLint charsWritten = 0;
-		glGetProgramInfoLog(programHandle, infoLogLength, & charsWritten, infoLog);
+		CheckedGLCall(glGetProgramInfoLog(programHandle, infoLogLength, & charsWritten, infoLog));
 		CShaderLoader::LogFile << "Program Info Log:" << std::endl << infoLog << std::endl;
 		delete infoLog;
 	}
@@ -136,8 +138,8 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	}
 
 	// Create OpenGL Shader objects
-	GLuint VS = glCreateShader(GL_VERTEX_SHADER);
-	GLuint FS = glCreateShader(GL_FRAGMENT_SHADER);
+	GLuint VS = CheckedGLCall(glCreateShader(GL_VERTEX_SHADER));
+	GLuint FS = CheckedGLCall(glCreateShader(GL_FRAGMENT_SHADER));
 
 	// Read Vertex Shader file
 	{
@@ -145,7 +147,7 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 		if (Source == "")
 			return 0;
 		GLchar const * SourceString = Source.c_str();
-		glShaderSource(VS, 1, & SourceString, NULL);
+		CheckedGLCall(glShaderSource(VS, 1, & SourceString, NULL));
 	}
 
 
@@ -155,7 +157,7 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 		if (Source == "")
 			return 0;
 		GLchar const * SourceString = Source.c_str();
-		glShaderSource(FS, 1, & SourceString, NULL);
+		CheckedGLCall(glShaderSource(FS, 1, & SourceString, NULL));
 	}
 
 
@@ -163,15 +165,15 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	LogFile << "--- Compiling Shader -----------------------------------------------------------" << std::endl;
 	LogFile << vertFileName << " | " << fragFileName << std::endl;
 	{
-		glCompileShader(VS);
+		CheckedGLCall(glCompileShader(VS));
 		GLint vCompiled;
-		glGetShaderiv(VS, GL_COMPILE_STATUS, & vCompiled);
+		CheckedGLCall(glGetShaderiv(VS, GL_COMPILE_STATUS, & vCompiled));
 		printShaderInfoLog(VS);
 		if (! vCompiled)
 		{
 			LogFile << "Error compiling shader: " << vertFileName << std::endl;
-			glDeleteShader(VS);
-			glDeleteShader(FS);
+			CheckedGLCall(glDeleteShader(VS));
+			CheckedGLCall(glDeleteShader(FS));
 
 			LogFile << "--------------------------------------------------------------------------------" << std::endl << std::endl;
 			return 0;
@@ -179,15 +181,15 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	}
 
 	{
-		glCompileShader(FS);
+		CheckedGLCall(glCompileShader(FS));
 		GLint fCompiled;
-		glGetShaderiv(FS, GL_COMPILE_STATUS, & fCompiled);
+		CheckedGLCall(glGetShaderiv(FS, GL_COMPILE_STATUS, & fCompiled));
 		printShaderInfoLog(FS);
 		if (! fCompiled)
 		{
 			LogFile << "Error compiling shader: " << fragFileName << std::endl;
-			glDeleteShader(VS);
-			glDeleteShader(FS);
+			CheckedGLCall(glDeleteShader(VS));
+			CheckedGLCall(glDeleteShader(FS));
 			LogFile << "--------------------------------------------------------------------------------" << std::endl << std::endl;
 			return 0;
 		}
@@ -196,15 +198,15 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	CShader * Shader = new CShader();
 
 	// Create Shader program
-	Shader->Handle = glCreateProgram();
-	glAttachShader(Shader->Handle, VS);
-	glAttachShader(Shader->Handle, FS);
+	Shader->Handle = CheckedGLCall(glCreateProgram());
+	CheckedGLCall(glAttachShader(Shader->Handle, VS));
+	CheckedGLCall(glAttachShader(Shader->Handle, FS));
 
 	// Link program
 	{
 		GLint linked;
-		glLinkProgram(Shader->Handle);
-		glGetProgramiv(Shader->Handle, GL_LINK_STATUS, & linked);
+		CheckedGLCall(glLinkProgram(Shader->Handle));
+		CheckedGLCall(glGetProgramiv(Shader->Handle, GL_LINK_STATUS, & linked));
 		printProgramInfoLog(Shader->Handle);
 	}
 
@@ -214,16 +216,16 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	// Load all attributes and save handles
 	GLint total = 0;
 	GLint longestName = 0;
-	glGetProgramiv(Shader->Handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, & longestName);
-	glGetProgramiv(Shader->Handle, GL_ACTIVE_ATTRIBUTES, & total);
+	CheckedGLCall(glGetProgramiv(Shader->Handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, & longestName));
+	CheckedGLCall(glGetProgramiv(Shader->Handle, GL_ACTIVE_ATTRIBUTES, & total));
 	for (GLint i = 0; i < total; ++ i)
 	{
 		GLsizei nameLenth = -1, variableSize = -1;
 		GLenum dataType = GL_ZERO;
 		char * nameBuffer = new char[longestName + 1];
-		glGetActiveAttrib(Shader->Handle, i, longestName, & nameLenth, & variableSize, & dataType, nameBuffer);
+		CheckedGLCall(glGetActiveAttrib(Shader->Handle, i, longestName, & nameLenth, & variableSize, & dataType, nameBuffer));
 		nameBuffer[nameLenth] = 0;
-		GLuint variableLocation = glGetAttribLocation(Shader->Handle, nameBuffer);
+		GLuint variableLocation = CheckedGLCall(glGetAttribLocation(Shader->Handle, nameBuffer));
 		Shader->AttributeHandles[nameBuffer] = SShaderVariable(variableLocation, dataType);
 		delete nameBuffer;
 	}
@@ -231,16 +233,16 @@ CShader * const CShaderLoader::loadShader(std::string const & vertName, std::str
 	// Load all uniforms and save handles
 	total = 0;
 	longestName = 0;
-	glGetProgramiv(Shader->Handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, & longestName);
-	glGetProgramiv(Shader->Handle, GL_ACTIVE_UNIFORMS, & total);
+	CheckedGLCall(glGetProgramiv(Shader->Handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, & longestName));
+	CheckedGLCall(glGetProgramiv(Shader->Handle, GL_ACTIVE_UNIFORMS, & total));
 	for (GLint i = 0; i < total; ++ i)
 	{
 		GLsizei nameLenth = -1, variableSize = -1;
 		GLenum dataType = GL_ZERO;
 		char * nameBuffer = new char[longestName + 1];
-		glGetActiveUniform(Shader->Handle, i, longestName, & nameLenth, & variableSize, & dataType, nameBuffer);
+		CheckedGLCall(glGetActiveUniform(Shader->Handle, i, longestName, & nameLenth, & variableSize, & dataType, nameBuffer));
 		nameBuffer[nameLenth] = 0;
-		GLuint variableLocation = glGetUniformLocation(Shader->Handle, nameBuffer);
+		GLuint variableLocation = CheckedGLCall(glGetUniformLocation(Shader->Handle, nameBuffer));
 		Shader->UniformHandles[nameBuffer] = SShaderVariable(variableLocation, dataType);
 		delete nameBuffer;
 	}

@@ -1,3 +1,4 @@
+
 #include "CShaderContext.h"
 
 #include <iostream>
@@ -8,6 +9,7 @@
 #include <cstdlib>
 
 #include "glm/gtc/type_ptr.hpp"
+#include <ionGL.h>
 
 
 /////////////////////
@@ -18,43 +20,43 @@ CShaderContext::CShaderContext(CShader const & shader)
 	: Shader(& shader), Valid(true)
 {
 	if (Shader)
-		glUseProgram(Shader->Handle);
+		CheckedGLCall(glUseProgram(Shader->Handle));
 }
 
 CShaderContext::CShaderContext(CShader const * shader)
 	: Shader(shader), Valid(true)
 {
 	if (Shader)
-		glUseProgram(Shader->Handle);
+		CheckedGLCall(glUseProgram(Shader->Handle));
 }
 
 CShaderContext::~CShaderContext()
 {
 	for (std::vector<GLuint>::const_iterator it = EnabledVertexAttribArrays.begin(); it != EnabledVertexAttribArrays.end(); ++ it)
-		glDisableVertexAttribArray(* it);
+		CheckedGLCall(glDisableVertexAttribArray(* it));
 
 	for (u32 i = 0; i < Textures.size(); ++ i)
 	{
-		glActiveTexture(GL_TEXTURE0 + i);
+		CheckedGLCall(glActiveTexture(GL_TEXTURE0 + i));
 		switch (Textures[i])
 		{
 		default:
 		case ETT_2D:
-			glBindTexture(GL_TEXTURE_2D, 0);
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			break;
 		case ETT_3D:
-			glBindTexture(GL_TEXTURE_3D, 0);
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 			break;
 		}
 	}
 	
 	if (Texture2D)
-		glDisable(GL_TEXTURE_2D);
+		CheckedGLCall(glDisable(GL_TEXTURE_2D));
 	if (Texture3D)
-		glDisable(GL_TEXTURE_3D);
+		CheckedGLCall(glDisable(GL_TEXTURE_3D));
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glUseProgram(0);
+	CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	CheckedGLCall(glUseProgram(0));
 }
 
 
@@ -76,33 +78,33 @@ void CShaderContext::bindBufferObject(std::string const & label, GLuint const Bu
 		return;
 	}
 
-	glEnableVertexAttribArray(it->second.Handle);
-	glBindBuffer(GL_ARRAY_BUFFER, BufferHandle);
-	glVertexAttribPointer(it->second.Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0);
+	CheckedGLCall(glEnableVertexAttribArray(it->second.Handle));
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, BufferHandle));
+	CheckedGLCall(glVertexAttribPointer(it->second.Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0));
 
 	printOpenGLErrors("bindBufferObject(label)");
 
 	EnabledVertexAttribArrays.push_back(it->second.Handle);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 
 void CShaderContext::bindBufferObject(GLuint const attribHandle, GLuint const bufferHandle, GLuint const elementSize)
 {
-	glEnableVertexAttribArray(attribHandle); // Select Shader Attribute
-	glBindBuffer(GL_ARRAY_BUFFER, bufferHandle); // Bind Attribute Buffer
-	glVertexAttribPointer(attribHandle, elementSize, GL_FLOAT, GL_FALSE, 0, 0); // Sync Buffer Data
+	CheckedGLCall(glEnableVertexAttribArray(attribHandle)); // Select Shader Attribute
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, bufferHandle)); // Bind Attribute Buffer
+	CheckedGLCall(glVertexAttribPointer(attribHandle, elementSize, GL_FLOAT, GL_FALSE, 0, 0)); // Sync Buffer Data
 
 	printOpenGLErrors("bindBufferObject(handle)");
 
 	EnabledVertexAttribArrays.push_back(attribHandle);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 
 void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferHandle);
+	CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BufferHandle));
 
 	printOpenGLErrors("bindIndexBufferObject");
 }
@@ -114,67 +116,67 @@ void CShaderContext::bindIndexBufferObject(GLuint const BufferHandle)
 
 void CShaderContext::uniform(GLuint const uniformHandle, f32 const uniform)
 {
-	glUniform1f(uniformHandle, uniform);
+	CheckedGLCall(glUniform1f(uniformHandle, uniform));
 	printOpenGLErrors("Shader Context :: glUniform1f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, f64 const uniform)
 {
-	glUniform1d(uniformHandle, uniform);
+	CheckedGLCall(glUniform1d(uniformHandle, uniform));
 	printOpenGLErrors("Shader Context :: glUniform1f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, s32 const uniform)
 {
-	glUniform1i(uniformHandle, uniform);
+	CheckedGLCall(glUniform1i(uniformHandle, uniform));
 	printOpenGLErrors("Shader Context :: glUniform1i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, glm::mat4 const & uniform)
 {
-	glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform));
+	CheckedGLCall(glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform)));
 	printOpenGLErrors("Shader Context :: glUniformMatrix4fv");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, STransformation3 const & uniform)
 {
-	glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform()));
+	CheckedGLCall(glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(uniform())));
 	printOpenGLErrors("Shader Context :: glUniformMatrix4fv");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<f32, 2> const & uniform)
 {
-	glUniform2f(uniformHandle, uniform[0], uniform[1]);
+	CheckedGLCall(glUniform2f(uniformHandle, uniform[0], uniform[1]));
 	printOpenGLErrors("Shader Context :: glUniform2f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<f32, 3> const & uniform)
 {
-	glUniform3f(uniformHandle, uniform[0], uniform[1], uniform[2]);
+	CheckedGLCall(glUniform3f(uniformHandle, uniform[0], uniform[1], uniform[2]));
 	printOpenGLErrors("Shader Context :: glUniform3f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<f32, 4> const & uniform)
 {
-	glUniform4f(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
+	CheckedGLCall(glUniform4f(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]));
 	printOpenGLErrors("Shader Context :: glUniform4f");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 2> const & uniform)
 {
-	glUniform2i(uniformHandle, uniform[0], uniform[1]);
+	CheckedGLCall(glUniform2i(uniformHandle, uniform[0], uniform[1]));
 	printOpenGLErrors("Shader Context :: glUniform2i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 3> const & uniform)
 {
-	glUniform3i(uniformHandle, uniform[0], uniform[1], uniform[2]);
+	CheckedGLCall(glUniform3i(uniformHandle, uniform[0], uniform[1], uniform[2]));
 	printOpenGLErrors("Shader Context :: glUniform3i");
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 4> const & uniform)
 {
-	glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]);
+	CheckedGLCall(glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]));
 	printOpenGLErrors("Shader Context :: glUniform4i");
 }
 
@@ -239,9 +241,9 @@ void CShaderContext::bindTexture2D(GLuint const uniformHandle, GLuint const Text
 		Texture2D = true;
 	}
 
-	glActiveTexture(GL_TEXTURE0 + Textures.size()); // Select Active Texture Slot
-	glBindTexture(GL_TEXTURE_2D, TextureHandle); // Bind Texture Handle
-	glUniform1i(uniformHandle, Textures.size()); // Bind Sampler for Texture Uniform
+	CheckedGLCall(glActiveTexture(GL_TEXTURE0 + Textures.size())); // Select Active Texture Slot
+	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, TextureHandle)); // Bind Texture Handle
+	CheckedGLCall(glUniform1i(uniformHandle, Textures.size())); // Bind Sampler for Texture Uniform
 	Textures.push_back(ETT_2D);
 }
 
@@ -267,12 +269,12 @@ void CShaderContext::bindTexture3D(GLuint const uniformHandle, GLuint const Text
 {
 	if (! Texture3D)
 	{
-		glEnable(GL_TEXTURE_3D);
+		CheckedGLCall(glEnable(GL_TEXTURE_3D));
 		Texture3D = true;
 	}
 
-	glActiveTexture(GL_TEXTURE0 + Textures.size()); // Select Active Texture Slot
-	glBindTexture(GL_TEXTURE_3D, TextureHandle); // Bind Texture Handle
-	glUniform1i(uniformHandle, Textures.size()); // Bind Sampler for Texture Uniform
+	CheckedGLCall(glActiveTexture(GL_TEXTURE0 + Textures.size())); // Select Active Texture Slot
+	CheckedGLCall(glBindTexture(GL_TEXTURE_3D, TextureHandle)); // Bind Texture Handle
+	CheckedGLCall(glUniform1i(uniformHandle, Textures.size())); // Bind Sampler for Texture Uniform
 	Textures.push_back(ETT_3D);
 }

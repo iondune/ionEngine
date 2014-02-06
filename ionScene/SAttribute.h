@@ -46,9 +46,9 @@ public:
 
 		if (Buffer)
 		{
-			glEnableVertexAttribArray(Handle);
-			glBindBuffer(GL_ARRAY_BUFFER, Buffer->getHandle());
-			glVertexAttribPointer(Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0);
+			CheckedGLCall(glEnableVertexAttribArray(Handle));
+			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, Buffer->getHandle()));
+			CheckedGLCall(glVertexAttribPointer(Handle, ElementSize, GL_FLOAT, GL_FALSE, 0, 0));
 		}
 	}
 
@@ -61,7 +61,7 @@ public:
 
 	void unbind(GLuint const handle) const
 	{
-        glDisableVertexAttribArray(handle);
+        CheckedGLCall(glDisableVertexAttribArray(handle));
 	}
 
 };

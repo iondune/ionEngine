@@ -8,6 +8,7 @@
 #include "CImageLoader.h"
 
 #include "CDeferredShadingManager.h"
+#include <ionGL.h>
 
 
 GLuint const CSceneManager::getQuadHandle()
@@ -25,10 +26,10 @@ GLuint const CSceneManager::getQuadHandle()
 			-1.0,  1.0
 		};
 
-		glGenBuffers(1, & QuadHandle);
-		glBindBuffer(GL_ARRAY_BUFFER, QuadHandle);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		CheckedGLCall(glGenBuffers(1, & QuadHandle));
+		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, QuadHandle));
+		CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW));
+		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
 
 	return QuadHandle;
@@ -129,7 +130,7 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 		DefaultColorRenderPass->setFrameBuffer(SceneFrameBuffer);
 
 		getQuadHandle();
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	}
 
 
@@ -208,18 +209,18 @@ void CSceneManager::endDraw()
 	if (SceneFrameBuffer)
 	{
 		// Draw to screen
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-		glDisable(GL_DEPTH_TEST);
+		CheckedGLCall(glDisable(GL_DEPTH_TEST));
 		{
 			CShaderContext Context(* QuadCopy);
 			Context.bindTexture("uTexColor", SceneFrameTexture);
 			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
 
-			glDrawArrays(GL_QUADS, 0, 4);
+			CheckedGLCall(glDrawArrays(GL_QUADS, 0, 4));
 		}
-		glEnable(GL_DEPTH_TEST);
+		CheckedGLCall(glEnable(GL_DEPTH_TEST));
 	}
 
 	printOpenGLErrors("Scene Manager :: End Draw");

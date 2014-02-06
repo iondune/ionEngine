@@ -1,16 +1,19 @@
+
 #include "CRenderBufferObject.h"
+#include <ionGL.h>
+
 
 CRenderBufferObject::CRenderBufferObject(GLenum const Format, vec2u const & Size)
 {
-	glGenRenderbuffers(1, & Handle);
-	glBindRenderbuffer(GL_RENDERBUFFER, Handle);
-	glRenderbufferStorage(GL_RENDERBUFFER, Format, Size.X, Size.Y);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	CheckedGLCall(glGenRenderbuffers(1, & Handle));
+	CheckedGLCall(glBindRenderbuffer(GL_RENDERBUFFER, Handle));
+	CheckedGLCall(glRenderbufferStorage(GL_RENDERBUFFER, Format, Size.X, Size.Y));
+	CheckedGLCall(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 }
 
 CRenderBufferObject::~CRenderBufferObject()
 {
-	glDeleteRenderbuffers(1, & Handle);
+	CheckedGLCall(glDeleteRenderbuffers(1, & Handle));
 }
 
 GLuint const CRenderBufferObject::getHandle()
