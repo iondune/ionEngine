@@ -16,6 +16,8 @@ class SVector3 : public SVector<T, 3, SVector3<T> >
 
 public:
 
+	using SVectorBase<T, 3>::Values;
+
 	T & X, & Y, & Z;
 
 	//! Default constructor
@@ -34,7 +36,7 @@ public:
 
 	//! Explicit constructor
 	ION_FUNC_DEF SVector3(T const x, T const y, T const z)
-		: X(Values[0]), Y(Values[1]), Z(Values[2])	
+		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		Values[0] = x;
 		Values[1] = y;

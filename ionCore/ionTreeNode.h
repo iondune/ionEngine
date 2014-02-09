@@ -39,7 +39,7 @@ public:
 	{
 		if (Parent)
 			Parent->Children.erase(static_cast<Implementation *>(this));
-		
+
 		Parent = parent;
 
 		if (Parent)
@@ -48,8 +48,8 @@ public:
 
 	void RemoveAllChildren()
 	{
-		for (auto Child : Children)
-			Child->Parent = 0;
+		for (auto it = Children.begin(); it != Children.end(); ++ it)
+			(*it)->Parent = 0;
 		Children.clear();
 	}
 

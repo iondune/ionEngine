@@ -14,6 +14,7 @@ class SColor : public SVector<T, 3, SColor<T> >
 public:
 
 	using SVectorBase<T, 3>::set;
+	using SVectorBase<T, 3>::Values;
 
 	T & Red, & Green, & Blue;
 	static T const Full;
@@ -43,7 +44,7 @@ public:
 	{
 		set(vec);
 	}
-	
+
 	template <typename U, u32 OtherDimension>
 	ION_FUNC_DEF SColor(SVectorBase<U, OtherDimension> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
@@ -57,7 +58,7 @@ public:
 
 		return * this;
 	}
-	
+
 	template <typename U, u32 OtherDimension>
 	ION_FUNC_DEF SColor<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
@@ -152,6 +153,7 @@ class SColorA : public SVector<T, 4, SColorA<T> >
 public:
 
 	using SVectorBase<T, 4>::set;
+	using SVectorBase<T, 4>::Values;
 
 	T & Red, & Green, & Blue, & Alpha;
 	static T const Full;
@@ -182,7 +184,7 @@ public:
 	{
 		set(vec);
 	}
-	
+
 	template <typename U, int otherDimension, typename otherImplementation>
 	ION_FUNC_DEF SColorA(SVector<U, otherDimension, otherImplementation> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
@@ -196,7 +198,7 @@ public:
 
 		return * this;
 	}
-	
+
 	template <typename U, u32 OtherDimension>
 	ION_FUNC_DEF SColorA<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{

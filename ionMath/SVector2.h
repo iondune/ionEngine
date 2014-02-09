@@ -11,6 +11,9 @@ class SVector2 : public SVector<T, 2, SVector2<T> >
 
 public:
 
+	using SVectorBase<T, 2>::Values;
+	using SVectorBase<T, 2>::reset;
+
 	T & X, & Y;
 
 	//! Default constructor
@@ -19,7 +22,7 @@ public:
 	{
 		reset();
 	}
-	
+
 	//! Scalar constructor
 	ION_FUNC_DEF SVector2(T const in)
 		: X(Values[0]), Y(Values[1])
@@ -41,7 +44,7 @@ public:
 	{
 		set(vec);
 	}
-	
+
 	//! Generic vector constructor
 	template <typename U, u32 otherDimension, typename otherImplementation>
 	ION_FUNC_DEF SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
@@ -57,7 +60,7 @@ public:
 
 		return * this;
 	}
-	
+
 	//! Generic vector assignment operator
 	template <typename U, u32 otherDimension, typename otherImplementation>
 	ION_FUNC_DEF SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)

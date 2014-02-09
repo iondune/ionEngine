@@ -125,10 +125,10 @@ public:
 	{
 		const T d = Normal.DotProduct(point) + D;
 
-		if (d < -RoundingError<T>)
+		if (d < -RoundingError<T>::Value())
 			return EIntersectionRelation::Back;
 
-		if (d > RoundingError<T>)
+		if (d > RoundingError<T>::Value())
 			return EIntersectionRelation::Front;
 
 		return EIntersectionRelation::Plannar;
@@ -151,7 +151,7 @@ public:
 	bool ExistsIntersection(const SPlane3<T>& other) const
 	{
 		Vector cross = other.Normal.CrossProduct(Normal);
-		return cross.getLength() > core::ROUNDING_ERROR_f32;
+		return cross.getLength() > RoundingError<T>::Value();
 	}
 
 	//! Intersects this plane with another.
@@ -168,7 +168,7 @@ public:
 		const T fn11 = other.Normal.getLength();
 		const f64 det = fn00*fn11 - fn01*fn01;
 
-		if (fabs(det) < ROUNDING_ERROR_f64 )
+		if (fabs(det) < RoundingError<T>::Value())
 			return false;
 
 		const f64 invdet = 1.0 / det;
@@ -203,7 +203,7 @@ public:
 	bool IsFrontFacing(const Vector& lookDirection) const
 	{
 		const f32 d = Normal.DotProduct(lookDirection);
-		return F32_LOWER_EQUAL_0 ( d );
+		return d <= 0 || Equals((T) 0, d);
 	}
 
 	//! Get the distance to a point.
