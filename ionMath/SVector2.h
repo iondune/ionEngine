@@ -46,8 +46,8 @@ public:
 	}
 
 	//! Generic vector constructor
-	template <typename U, u32 otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SVector2(SVector<U, otherDimension, otherImplementation> const & vec)
+	template <typename U>
+	ION_FUNC_DEF SVector2(SVectorBase<U, 2> const & vec)
 		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);

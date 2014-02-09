@@ -23,7 +23,9 @@ struct SEvent : public IEventListener<EventType>
 			for (auto it = Events.begin(); it != Events.end();)
 			{
 				SEvent * Event = * it;
-				it = Events.erase(it);
+				// C++ 98 Fix
+				auto old = it ++;
+				Events.erase(old);
 				Event->RemoveTrigger(this);
 			}
 		}

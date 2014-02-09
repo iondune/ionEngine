@@ -6,6 +6,7 @@ CPPFLAGS= -g -std=gnu++0x \
 	-I ~/484/libs/glm/include \
 	-I ~/484/libs/glew/include \
 	-I ~/484/libs/glfw/include \
+	-I ~/484/libs/stb_image/include \
 	-I ~/484/libs/freetype/include/freetype
 
 SRCS=$(shell find . -name "*.cpp")
