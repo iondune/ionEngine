@@ -38,17 +38,17 @@ class CSceneManager : public CScene
 	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
 
 	//! Current render context window size
-	vec2i ScreenSize;
+	vec2u ScreenSize;
 
 	//! Built in default color rendering pass
 	sharedPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
 
-	CSceneManager(vec2i const & screenSize);
+	CSceneManager(vec2u const & screenSize);
 	void init(bool const EffectsManager = true, bool const FrameBuffer = true);
 
-	void OnWindowResized(vec2i const & screenSize);
+	void OnWindowResized(vec2u const & screenSize);
 
 	void drawAll();
 	void endDraw();
@@ -61,7 +61,7 @@ public:
 	CSceneEffectManager * getEffectManager();
 	void setEffectManager(CSceneEffectManager * effectManager);
 
-	vec2i const & getScreenSize() const;	
+	vec2u const & getScreenSize() const;
 	static GLuint const getQuadHandle();
 
 };

@@ -64,6 +64,9 @@ public:
 	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 2> const & uniform);
 	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 3> const & uniform);
 	static void uniform(GLuint const uniformHandle, SVectorBase<s32, 4> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<u32, 2> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<u32, 3> const & uniform);
+	static void uniform(GLuint const uniformHandle, SVectorBase<u32, 4> const & uniform);
 
 	template <typename T>
 	void uniform(std::string const & label, T const & uniformVar)

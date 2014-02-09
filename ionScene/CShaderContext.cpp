@@ -49,7 +49,7 @@ CShaderContext::~CShaderContext()
 			break;
 		}
 	}
-	
+
 	if (Texture2D)
 		CheckedGLCall(glDisable(GL_TEXTURE_2D));
 	if (Texture3D)
@@ -175,6 +175,24 @@ void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 3> con
 }
 
 void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 4> const & uniform)
+{
+	CheckedGLCall(glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]));
+	printOpenGLErrors("Shader Context :: glUniform4i");
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<u32, 2> const & uniform)
+{
+	CheckedGLCall(glUniform2i(uniformHandle, uniform[0], uniform[1]));
+	printOpenGLErrors("Shader Context :: glUniform2i");
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<u32, 3> const & uniform)
+{
+	CheckedGLCall(glUniform3i(uniformHandle, uniform[0], uniform[1], uniform[2]));
+	printOpenGLErrors("Shader Context :: glUniform3i");
+}
+
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<u32, 4> const & uniform)
 {
 	CheckedGLCall(glUniform4i(uniformHandle, uniform[0], uniform[1], uniform[2], uniform[3]));
 	printOpenGLErrors("Shader Context :: glUniform4i");

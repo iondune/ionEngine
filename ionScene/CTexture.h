@@ -31,19 +31,19 @@ class CTexture : public IRenderTarget
 
 public:
 
-    CTexture(CImage * Image, STextureCreationFlags const Flags = STextureCreationFlags());
-    CTexture(SColorAf const & Color, STextureCreationFlags const Flags = STextureCreationFlags());
+	CTexture(CImage * Image, STextureCreationFlags const Flags = STextureCreationFlags());
+	CTexture(SColorAf const & Color, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(int const Width, int const Height, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
-	CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
+	CTexture(vec2u const & size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
 	CTexture(u32 const textureHandle);
 
 	~CTexture();
 
-    u32 const getTextureHandle() const;
+	u32 const getTextureHandle() const;
 
-	vec2i const & getSize() const;
-    int const getWidth() const;
-    int const getHeight() const;
+	vec2u const & getSize() const;
+	int const getWidth() const;
+	int const getHeight() const;
 
 	bool const isValid() const;
 
@@ -54,8 +54,8 @@ public:
 
 protected:
 
-    u32 TextureHandle;
-	vec2i Size;
+	u32 TextureHandle;
+	vec2u Size;
 
 	STextureCreationFlags Flags;
 

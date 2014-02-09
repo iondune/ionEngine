@@ -14,11 +14,11 @@
 GLuint const CSceneManager::getQuadHandle()
 {
 	static GLuint QuadHandle = 0;
-	
+
 	// Create a simple quad VBO to use for draw operations!
 	if (! QuadHandle)
 	{
-		GLfloat QuadVertices[] = 
+		GLfloat QuadVertices[] =
 		{
 			-1.0, -1.0,
 			 1.0, -1.0,
@@ -35,9 +35,9 @@ GLuint const CSceneManager::getQuadHandle()
 	return QuadHandle;
 }
 
-CSceneManager::CSceneManager(vec2i const & screenSize)
+CSceneManager::CSceneManager(vec2u const & screenSize)
 	: SceneFrameTexture(0), SceneDepthTexture(0), SceneFrameBuffer(0),
-	EffectManager(0), DefaultManager(0), 
+	EffectManager(0), DefaultManager(0),
 	ScreenSize(screenSize)
 {
 	CurrentScene = this;
@@ -46,7 +46,7 @@ CSceneManager::CSceneManager(vec2i const & screenSize)
 	addUniform("uScreenSize", BindUniformReference(ScreenSize));
 }
 
-void CSceneManager::OnWindowResized(vec2i const & screenSize)
+void CSceneManager::OnWindowResized(vec2u const & screenSize)
 {
 	ScreenSize = screenSize;
 	if (SceneFrameBuffer)
@@ -91,7 +91,7 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 		printOpenGLErrors("SceneManager :: Create Frame Buffer");
 
 		/*SceneFrameBuffer->bind();
-		GLenum Buffers[] = 
+		GLenum Buffers[] =
 		{
 			GL_COLOR_ATTACHMENT0,
 			GL_COLOR_ATTACHMENT1
@@ -200,7 +200,7 @@ void CSceneManager::drawAll()
 		if (SceneFrameBuffer)
 			SceneFrameBuffer->bind();
 	}
-	
+
 	printOpenGLErrors("Scene Manager :: Draw All");
 }
 
@@ -252,7 +252,7 @@ void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
 	EffectManager = effectManager;
 }
 
-vec2i const & CSceneManager::getScreenSize() const
+vec2u const & CSceneManager::getScreenSize() const
 {
 	return ScreenSize;
 }

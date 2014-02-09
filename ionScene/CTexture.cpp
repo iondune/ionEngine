@@ -19,7 +19,7 @@ void STextureCreationFlags::apply() const
 	CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, Wrap));
 	if (MipMaps)
 	{
-		CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, 
+		CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 			Filter == GL_LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR_MIPMAP_NEAREST));
 		CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE));
 	}
@@ -27,7 +27,7 @@ void STextureCreationFlags::apply() const
 	{
 		CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter));
 	}
-	
+
 	CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Filter));
 }
 
@@ -44,7 +44,7 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 
 		Flags.apply();
 
-		CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+		CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0,
 			Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData()));
 		if (Flags.MipMaps && glGenerateMipmap)
 			CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D));
@@ -67,7 +67,7 @@ CTexture::CTexture(SColorAf const & Color, STextureCreationFlags const Flags)
 
 	Flags.apply();
 
-	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0,
 		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData()));
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }
@@ -75,7 +75,7 @@ CTexture::CTexture(SColorAf const & Color, STextureCreationFlags const Flags)
 void CTexture::setImage(void const * const Data, bool const hasAlpha)
 {
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, TextureHandle));
-	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat, Size.X, Size.Y, 0, 
+	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat, Size.X, Size.Y, 0,
 		Flags.PixelFormat, Flags.PixelType, Data));
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }
@@ -85,7 +85,7 @@ void CTexture::setImage(CImage * Image)
 		return;
 
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, TextureHandle));
-	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
+	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0,
 		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData()));
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }
@@ -97,14 +97,14 @@ CTexture::CTexture(int const width, int const height, bool const Alpha, STexture
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, TextureHandle));
 
 	Flags.apply();
-	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat ? Flags.PixelInternalFormat : (Alpha ? GL_RGBA : GL_RGB), 
-		Size.X, Size.Y, 0, 
+	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat ? Flags.PixelInternalFormat : (Alpha ? GL_RGBA : GL_RGB),
+		Size.X, Size.Y, 0,
 		Flags.PixelFormat ? Flags.PixelFormat : (Alpha ? GL_RGBA : GL_RGB), Flags.PixelType, 0));
 
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }
 
-CTexture::CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const flags)
+CTexture::CTexture(vec2u const & size, bool const Alpha, STextureCreationFlags const flags)
 	: TextureHandle(0), Size(size), Flags(flags)
 {
 	CheckedGLCall(glGenTextures(1, & TextureHandle));
@@ -112,9 +112,9 @@ CTexture::CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags c
 
 	Flags.apply();
 	CheckedGLCall(glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat ? Flags.PixelInternalFormat : (Alpha ? GL_RGBA : GL_RGB),
-		Size.X, Size.Y, 0, 
+		Size.X, Size.Y, 0,
 		Flags.PixelFormat ? Flags.PixelFormat : (Alpha ? GL_RGBA : GL_RGB), Flags.PixelType, 0));
-	
+
 	CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }
 
@@ -138,22 +138,22 @@ CTexture::~CTexture()
 
 GLuint const CTexture::getTextureHandle() const
 {
-    return TextureHandle;
+	return TextureHandle;
 }
 
-vec2i const & CTexture::getSize() const
+vec2u const & CTexture::getSize() const
 {
 	return Size;
 }
 
 int const CTexture::getWidth() const
 {
-    return Size.X;
+	return Size.X;
 }
 
 int const CTexture::getHeight() const
 {
-    return Size.Y;
+	return Size.Y;
 }
 
 bool const CTexture::isValid() const
