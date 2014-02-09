@@ -1,4 +1,6 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "OpenGL3.h"
 
 #include <math.h>
@@ -188,7 +190,7 @@ namespace Gwen
 			glBindVertexArray(m_vao);
 
 			size_t buffer_offset = 0;
-			
+
 			CShaderContext Context(Shader);
 			GLint pos_attrib = Shader->getAttributeHandles().find("position")->second.Handle;
 			glEnableVertexAttribArray(pos_attrib);
@@ -456,3 +458,5 @@ namespace Gwen
 
 	}
 }
+
+#endif

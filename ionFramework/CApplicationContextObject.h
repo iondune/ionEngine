@@ -22,7 +22,7 @@ protected:
 		LoadContext();
 	}
 
-	CApplicationContextObject(DisableAutoContextLoad)
+	CApplicationContextObject(DisableAutoContextLoad )
 		: Application(), SceneManager(), CContextObject<TContext>(DisableAutoContextLoad())
 	{}
 

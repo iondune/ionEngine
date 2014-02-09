@@ -2,14 +2,14 @@
 #pragma once
 
 
+struct DisableAutoContextLoad
+{};
+
 template <class TContext>
 class CContextObject
 {
 
 protected:
-
-	struct DisableAutoContextLoad
-	{};
 
 	TContext * Context;
 

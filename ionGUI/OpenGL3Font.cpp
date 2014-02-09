@@ -1,4 +1,6 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "OpenGL3Font.h"
 
 #include "Gwen.h"
@@ -49,3 +51,5 @@ namespace Gwen
 		}
 	}
 }
+
+#endif

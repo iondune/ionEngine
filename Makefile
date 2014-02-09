@@ -4,7 +4,9 @@ CPPFLAGS= -g -std=gnu++0x \
 	-I ~/484/ionEngine/ionCore \
 	-I ~/484/ionEngine/ionMath \
 	-I ~/484/libs/glm/include \
-	-I ~/484/libs/glew/include
+	-I ~/484/libs/glew/include \
+	-I ~/484/libs/glfw/include \
+	-I ~/484/libs/freetype/include/freetype
 
 SRCS=$(shell find . -name "*.cpp")
 OBJS=$(subst .cpp,.o,$(SRCS))

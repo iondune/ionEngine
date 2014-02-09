@@ -16,8 +16,8 @@ protected:
 	CContextState()
 	{}
 
-	CContextState(DisableAutoContextLoad)
-		: CApplicationContextObject<TContext>(DisableAutoContextLoad)
+	CContextState(DisableAutoContextLoad disable)
+		: CApplicationContextObject<TContext>(DisableAutoContextLoad())
 	{}
 
 };
