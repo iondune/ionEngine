@@ -15,10 +15,13 @@ LDFLAGS=-lGL -lGLU -lXrandr \
 SRCS=$(shell find . -name "*.cpp")
 OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: UCT
+all: UCT ionEngine.a
 
 UCT: $(OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
+
+ionEngine.a: $(filter-out UtilityCompileTest/Main.o,$(OBJS))
+	ar rc $@ $^
 
 clean:
 	rm -f $(OBJS)

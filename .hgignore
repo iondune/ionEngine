@@ -13,3 +13,4 @@ syntax: glob
 *.lib
 *.unsuccessfulbuild
 *.o
+*.a
