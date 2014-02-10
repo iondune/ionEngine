@@ -24,7 +24,7 @@ ionEngine.a: $(filter-out UtilityCompileTest/Main.o,$(OBJS))
 	ar rc $@ $^
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) ionEngine.a
 
 remake: clean all
 
@@ -43,20 +43,7 @@ depend:
 ./ionGL/VertexArray.o: ./ionGL/Buffer.h
 ./ionGL/Shader.o: ./ionGL/Shader.h
 ./ionGL/Program.o: ./ionGL/Program.h ./ionGL/Buffer.h ./ionGL/Shader.h
-./ionGUI/CGUIEventManager.o: ./ionGUI/CGUIEventManager.h ./ionGUI/Gwen.h
-./ionGUI/OpenGL3.o: ./ionGUI/OpenGL3.h ./ionGUI/Gwen.h
-./ionGUI/CGUIManager.o: ./ionGUI/CGUIManager.h ./ionGUI/CGUIWidget.h
-./ionGUI/CGUIManager.o: ./ionGUI/Gwen.h ./ionGUI/OpenGL3Font.h
-./ionGUI/CGUIManager.o: ./ionGUI/OpenGL3.h
-./ionGUI/CGUIWidget.o: ./ionGUI/CGUIManager.h ./ionGUI/CGUIWidget.h
-./ionGUI/CGUIWidget.o: ./ionGUI/Gwen.h
-./ionGUI/OpenGL3Font.o: ./ionGUI/OpenGL3Font.h ./ionGUI/OpenGL3.h
-./ionGUI/OpenGL3Font.o: ./ionGUI/Gwen.h ./ionGUI/FreeType.h
-./ionGUI/CGUIConsoleWidget.o: ./ionGUI/CGUIConsoleWidget.h ./ionGUI/Gwen.h
-./ionGUI/CGUIConsoleWidget.o: ./ionGUI/CGUIWidget.h ./ionGUI/CGUIManager.h
-./ionGUI/CGUIProgressBarWidget.o: ./ionGUI/CGUIProgressBarWidget.h
-./ionGUI/CGUIProgressBarWidget.o: ./ionGUI/Gwen.h ./ionGUI/CGUIWidget.h
-./ionGUI/CGUIProgressBarWidget.o: ./ionGUI/CGUIManager.h
+./ionGUI/FreeType.o: ./ionGUI/FreeType.h
 ./ionScene/CImageLoader.o: ./ionScene/CImageLoader.h ./ionScene/CImage.h
 ./ionScene/CImageLoader.o: ./ionScene/CTexture.h ./ionScene/IRenderTarget.h
 ./ionScene/CCameraSceneObject.o: ./ionScene/CCameraSceneObject.h ionConfig.h
@@ -529,7 +516,6 @@ depend:
 ./ionScience/STable.FieldIterator.o: ./ionScience/SRange.h
 ./ionScience/STable.FieldIterator.o: ./ionScience/IDataRecord.h
 ./ionScience/STable.FieldIterator.o: ./ionScience/IDatabase.h
-./ionScience/CKDTree.o: ./ionScience/CKDTree.h
 ./ionFramework/CCameraControl.o: ./ionFramework/CCameraControl.h ionScene.h
 ./ionFramework/CCameraControl.o: ionScene/ionScene.h ./ionScene/CMesh.h
 ./ionFramework/CCameraControl.o: ./ionScene/SVertex.h
@@ -714,3 +700,4 @@ depend:
 ./ionFramework/CFadeOutState.o: ./ionScene/CDeferredShadingManager.h
 ./ionFramework/CFadeOutState.o: ./ionScene/CPointLightSceneObject.h
 ./ionFramework/CFadeOutState.o: ./ionScene/CDirectionalLightSceneObject.h
+./ionMath/SColor.o: ./ionMath/SColor.h ./ionMath/SVector.h
