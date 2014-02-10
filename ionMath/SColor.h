@@ -111,9 +111,6 @@ template <typename T>
 T const SColor<T>::Full = 1;
 
 template <>
-u8 const SColor<u8>::Full = 255;
-
-template <>
 template <u32 OtherDimension>
 ION_FUNC_DEF void SColor<f32>::set(SVectorBase<u8, OtherDimension> const & other)
 {
@@ -239,9 +236,6 @@ public:
 
 template <typename T>
 T const SColorA<T>::Full = 1;
-
-template <>
-u8 const SColorA<u8>::Full = 255;
 
 template <>
 template <u32 OtherDimension>

@@ -3,19 +3,27 @@ CPPFLAGS= -g -std=gnu++0x \
 	-I ~/484/ionEngine \
 	-I ~/484/ionEngine/ionCore \
 	-I ~/484/ionEngine/ionMath \
-	-I ~/484/libs/glm/include \
-	-I ~/484/libs/glew/include \
-	-I ~/484/libs/glfw/include \
-	-I ~/484/libs/stb_image/include \
-	-I ~/484/libs/freetype/include/freetype
+	-I ~/484/deps/glm/include \
+	-I ~/484/deps/glew/include \
+	-I ~/484/deps/glfw/include \
+	-I ~/484/deps/stb_image/include \
+	-I ~/484/deps/freetype/include/freetype
+LDFLAGS=-lGL -lGLU -lXrandr \
+	-L ~/484/deps/lib \
+	-lfreetype -lGLEW -lglfw3
 
 SRCS=$(shell find . -name "*.cpp")
 OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: ionEngine
+all: UCT
 
-ionEngine: $(OBJS)
-	$(CXX) -o $@ $^
+UCT: $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+clean:
+	rm -f $(OBJS)
+
+remake: clean all
 
 depend:
 	@echo Regenerating local dependencies.
