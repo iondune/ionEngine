@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 
+
 class CMeshLoader
 {
 
@@ -13,11 +14,7 @@ class CMeshLoader
 
 public:
 
-    static CMesh * const load3dsMesh(std::string const & fileName, bool const useCache = true);
-
-    static CMesh * const loadAsciiMesh(std::string const & fileName);
-
-    static CMesh * const loadObjMesh(std::string const & fileName);
+    static CMesh * const loadMesh(std::string const & fileName);
 
     static CMesh * const createCubeMesh();
 
