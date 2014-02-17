@@ -51,6 +51,7 @@
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CImageLoader.cpp" />
     <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMesh.Load.cpp" />
     <ClCompile Include="CMeshLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

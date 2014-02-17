@@ -13,5 +13,6 @@
     <ClCompile Include="CImageLoader.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshLoader.cpp" />
+    <ClCompile Include="CMesh.Load.cpp" />
   </ItemGroup>
 </Project>

@@ -41,7 +41,9 @@ public:
     CMesh();
     ~CMesh();
 
-    unsigned int const getVertexCount() const;
+	static CMesh * Load(std::string const & FileName);
+
+    uint const getVertexCount() const;
 
     void centerMeshByAverage(vec3f const & CenterLocation);
     void centerMeshByExtents(vec3f const & CenterLocation);

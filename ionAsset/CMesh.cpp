@@ -1,9 +1,6 @@
 
 #include "CMesh.h"
 
-#include <limits>
-#include <fstream>
-
 
 void CMesh::SMeshBuffer::updateBuffers()
 {
