@@ -3,7 +3,7 @@
 
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionGL.lib;ionWindow.lib;ionFramework.lib;ionScene.lib;ionScience.lib;ionGUI.lib;FreeImage.lib;OpenGL32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ionAsset.lib;ionGraphics.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;ionScene.lib;ionScience.lib;ionGUI.lib;FreeImage.lib;OpenGL32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
