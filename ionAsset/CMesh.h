@@ -12,14 +12,14 @@ class CMesh
 {
 
 	bool Dirty;
-	unsigned int Revision;
+	uint Revision;
 
 public:
 
     struct STriangle
     {
-        unsigned int Indices[3];
-        SVector3f Normal;
+        uint Indices[3];
+        vec3f Normal;
     };
 
     struct SMeshBuffer
@@ -43,12 +43,12 @@ public:
 
     unsigned int const getVertexCount() const;
 
-    void centerMeshByAverage(SVector3f const & CenterLocation);
-    void centerMeshByExtents(SVector3f const & CenterLocation);
+    void centerMeshByAverage(vec3f const & CenterLocation);
+    void centerMeshByExtents(vec3f const & CenterLocation);
 
-    void resizeMesh(SVector3f const & Scale);
+    void resizeMesh(vec3f const & Scale);
 
-    SVector3f const getExtent() const;
+    vec3f const getExtent() const;
 
 	void reverseFaces();
     void calculateNormalsPerFace();

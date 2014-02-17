@@ -1,7 +1,5 @@
-#include "CImageLoader.h"
 
-#include <cstdio>
-#include <iostream>
+#include "CImageLoader.h"
 
 
 std::map<std::string, CImage *> CImageLoader::LoadedImages;

@@ -14,7 +14,7 @@
 CPointLightSceneObject::CPointLightSceneObject(float const radius, SColorAf const & color)
 	: Color(color)
 {
-	SphereMesh = CMeshLoader::loadMesh("Sphere.3ds");
+	SphereMesh = CMeshLoader::LoadMesh("Sphere.3ds");
 
 	if (SphereMesh)
 	{

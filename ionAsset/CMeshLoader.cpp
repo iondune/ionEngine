@@ -1,25 +1,12 @@
+
 #include "CMeshLoader.h"
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
-#include <cstdio>
-#include <sys/stat.h>
 
-#include <limits>
-
-//#pragma warning(disable: 4996)
-
-std::map<std::string, CMesh *> CMeshLoader::LoadedMeshes;
 std::string CMeshLoader::MeshDirectory = "../Media/Models/";
-
-#include <assimp/Importer.hpp>  // C++ importer interface
-#include <assimp/scene.h>       // Output data structure
-#include <assimp/postprocess.h> // Post processing flags
-
-
 
 CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::mat4 Transformation)
 {
@@ -71,7 +58,7 @@ CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::
 	return Result;
 }
 
-CMesh * const CMeshLoader::loadMesh(std::string const & FileName)
+CMesh * const CMeshLoader::LoadMesh(std::string const & FileName)
 {
 	Assimp::Importer Importer;
 
@@ -93,7 +80,7 @@ CMesh * const CMeshLoader::loadMesh(std::string const & FileName)
 	return Result;
 }
 
-CMesh * const CMeshLoader::createCubeMesh()
+CMesh * const CMeshLoader::CreateCubeMesh()
 {
 	Assimp::Importer importer;
     CMesh * MeshWrapper = new CMesh();
@@ -153,7 +140,7 @@ CMesh * const CMeshLoader::createCubeMesh()
     return MeshWrapper;
 }
 
-CMesh * const CMeshLoader::createPlaneMesh()
+CMesh * const CMeshLoader::CreatePlaneMesh()
 {
     CMesh * MeshWrapper = new CMesh();
     CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
@@ -183,7 +170,7 @@ CMesh * const CMeshLoader::createPlaneMesh()
     return MeshWrapper;
 }
 
-CMesh * const CMeshLoader::createDiscMesh(unsigned int const Triangles)
+CMesh * const CMeshLoader::CreateDiscMesh(unsigned int const Triangles)
 {
     CMesh * MeshWrapper = new CMesh();
     CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();

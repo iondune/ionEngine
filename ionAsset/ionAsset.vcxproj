@@ -40,7 +40,6 @@
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="BitmapWriter.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CImageLoader.h" />
     <ClInclude Include="CMesh.h" />

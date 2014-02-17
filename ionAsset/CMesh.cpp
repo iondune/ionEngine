@@ -1,7 +1,9 @@
+
 #include "CMesh.h"
 
 #include <limits>
 #include <fstream>
+
 
 void CMesh::SMeshBuffer::updateBuffers()
 {
@@ -102,7 +104,7 @@ unsigned int const CMesh::getVertexCount() const
 	return Count;
 }
 
-void CMesh::centerMeshByAverage(SVector3f const & CenterLocation)
+void CMesh::centerMeshByAverage(vec3f const & CenterLocation)
 {
 	SVector3f VertexSum;
 	for (std::vector<SMeshBuffer *>::const_iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
@@ -116,7 +118,7 @@ void CMesh::centerMeshByAverage(SVector3f const & CenterLocation)
 			it->Position += VertexOffset;
 }
 
-void CMesh::centerMeshByExtents(SVector3f const & CenterLocation)
+void CMesh::centerMeshByExtents(vec3f const & CenterLocation)
 {
 	SVector3f Min(std::numeric_limits<float>::max()), Max(-std::numeric_limits<float>::max());
 	{
@@ -147,7 +149,7 @@ void CMesh::centerMeshByExtents(SVector3f const & CenterLocation)
 			it->Position += VertexOffset;
 }
 
-void CMesh::resizeMesh(SVector3f const & Scale)
+void CMesh::resizeMesh(vec3f const & Scale)
 {
 	SVector3f Extent = getExtent();
 	SVector3f Resize = Scale / std::max(Extent.X, std::max(Extent.Y, Extent.Z));

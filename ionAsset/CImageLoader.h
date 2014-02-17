@@ -1,11 +1,8 @@
+
 #pragma once
 
 #include "CImage.h"
 #include <ionGraphics/CTexture.h>
-
-#include <string.h>
-#include <string>
-#include <map>
 
 
 class CImageLoader
