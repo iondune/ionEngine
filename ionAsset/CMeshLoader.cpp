@@ -76,10 +76,10 @@ CMesh * const CMeshLoader::loadMesh(std::string const & FileName)
 	Assimp::Importer Importer;
 
 	aiScene const * const Scene = Importer.ReadFile(MeshDirectory + FileName,
-		//aiProcess_CalcTangentSpace |
+		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices
-		//aiProcess_SortByPType
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType
 	);
 
 	if (! Scene)
