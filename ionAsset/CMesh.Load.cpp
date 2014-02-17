@@ -47,6 +47,15 @@ CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::
 			Buffer->Triangles.push_back(Triangle);
 		}
 
+		aiMaterial * Material = Scene->mMaterials[Mesh->mMaterialIndex];
+		aiColor4D Color;
+		Material->Get(AI_MATKEY_COLOR_DIFFUSE, Color);
+		Buffer->Material.DiffuseColor = color4f(Color.r, Color.g, Color.b, Color.a);
+		Material->Get(AI_MATKEY_COLOR_AMBIENT, Color);
+		Buffer->Material.AmbientColor = color4f(Color.r, Color.g, Color.b, Color.a);
+		Material->Get(AI_MATKEY_COLOR_SPECULAR, Color);
+		Buffer->Material.SpecularColor = color4f(Color.r, Color.g, Color.b, Color.a);
+
 		Result->MeshBuffers.push_back(Buffer);
 	}
 
