@@ -1,4 +1,6 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "CGUIEventManager.h"
 
 #include <ionFramework/CApplication.h>
@@ -16,7 +18,7 @@ void CGUIEventManager::OnEvent(SKeyboardEvent & Event)
 	if (Event.Key >= EKey::A && Event.Key <= EKey::Z)
 	{
 		char key = 'a' + ((int) Event.Key - (int) EKey::A);
-		if (CApplication::Get().GetWindow().IsKeyDown(EKey::LeftShift) || 
+		if (CApplication::Get().GetWindow().IsKeyDown(EKey::LeftShift) ||
 			CApplication::Get().GetWindow().IsKeyDown(EKey::RightShift))
 			key += 'A' - 'a';
 		Canvas->InputCharacter(key);
@@ -58,7 +60,7 @@ void CGUIEventManager::OnEvent(SMouseEvent & Event)
 		if (Canvas->InputMouseMoved(Event.Location.X, Event.Location.Y, Event.Movement.X, Event.Movement.Y))
 			Event.Block();
 		break;
-			
+
 	case SMouseEvent::EType::Click:
 		{
 			int Button = -1;
@@ -67,7 +69,7 @@ void CGUIEventManager::OnEvent(SMouseEvent & Event)
 			case SMouseEvent::EButton::Left:
 				Button = 0;
 				break;
-				
+
 			case SMouseEvent::EButton::Right:
 				Button = 1;
 				break;
@@ -87,3 +89,5 @@ void CGUIEventManager::OnEvent(SMouseEvent & Event)
 		break;
 	}
 }
+
+#endif

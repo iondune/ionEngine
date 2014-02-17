@@ -7,6 +7,8 @@
 
 //#define _ION_CONFIG_CPP11_SUPPORT_
 //#define _ION_CONFIG_CUDA_SUPPORT_
+//#define _ION_CONFIG_USE_GWEN
+//#define _ION_CONFIG_WINDOWS_GAMEPAD
 
 ////////////////////////
 // End Config Options //

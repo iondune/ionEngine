@@ -14,12 +14,14 @@ public:
 
 protected:
 
+	using ITreeNode<IEventListener<EventType>>::Children;
+
 	void OnTriggered(EventType & Event)
 	{
 		OnEvent(Event);
 		if (! Event.IsBlocked())
-			for (auto Child : Children)
-				Child->OnTriggered(Event);
+			for (auto it = Children.begin(); it != Children.end(); ++ it)
+				(* it)->OnTriggered(Event);
 		Event.Unblock();
 	}
 

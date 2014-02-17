@@ -9,7 +9,7 @@ class SVectorBase
 {
 
 private:
-	
+
 	SVectorBase & operator = (SVectorBase const &);
 
 protected:
@@ -22,14 +22,14 @@ public:
 	static u32 const Dimension = Size;
 	T Values[Dimension];
 	mutable T OutOfBounds;
-	
+
 	//! Const member copy access
 	//! Note: Out-of-bounds access returns a dummy value without error
 	ION_FUNC_DEF virtual T const operator[] (int i) const
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
-	
+
 	//! Member reference access
 	//! Note: Out-of-bounds access returns a dummy value without error
 	ION_FUNC_DEF virtual T & operator[] (int i)
@@ -57,7 +57,7 @@ public:
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = in[i];
 	}
-	
+
 	//! Sets all values by an input vector
 	template <typename U, u32 otherDimension>
 	ION_FUNC_DEF void set(SVectorBase<U, otherDimension> const & other)
@@ -65,7 +65,7 @@ public:
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
-	
+
 	//! Length of vector
 	ION_FUNC_DEF T const Length() const
 	{
@@ -101,7 +101,7 @@ public:
 	{
 		return Values;
 	}
-	
+
 	//! Raw pointer access to vector values
 	ION_FUNC_DEF T * GetValuePointer()
 	{
@@ -115,7 +115,7 @@ class SVector : public SVectorBase<T, Size>
 {
 
 private:
-	
+
 	SVector & operator = (SVector const &);
 	typedef SVector<T, Size, Implementation> Type;
 	typedef SVectorBase<T, Size> Other;
@@ -136,13 +136,16 @@ protected:
 	{}
 
 public:
-	
+
+	using SVectorBase<T, Size>::Dimension;
+	using SVectorBase<T, Dimension>::Values;
 	using SVectorBase<T, Dimension>::set;
+	using SVectorBase<T, Dimension>::Length;
 
 	/////////////////
 	// Dot Product //
 	/////////////////
-	
+
 	ION_FUNC_DEF T const DotProduct(Other const & other) const
 	{
 		T sum = 0;
@@ -169,26 +172,26 @@ public:
 	{
 		return (* this - v).Length();
 	}
-	
+
 	ION_FUNC_DEF friend T const Distance(Type const & lhs, Other const & rhs)
 	{
 		return (lhs - rhs).Length();
 	}
-	
+
 	ION_FUNC_DEF T const GetDistanceSqFrom(Other const & v) const
 	{
 		return (* this - v).LengthSq();
 	}
-	
+
 	ION_FUNC_DEF friend T const DistanceSq(Type const & lhs, Other const & rhs)
 	{
 		return (lhs - rhs).LengthSq();
 	}
-	
+
 	///////////////////
 	// Interpolation //
 	///////////////////
-	
+
 	template <typename Real>
 	ION_FUNC_DEF Implementation const GetInterpolated(Other const & v, Real const d)
 	{
@@ -198,7 +201,7 @@ public:
 			ret[i] = (T) ((Real) v[i] * inv + (Real) Values[i] * d);
 		return ret;
 	}
-	
+
 	template <typename Real>
 	ION_FUNC_DEF friend Implementation const Interpolate(Type const & lhs, Other const & rhs, Real const d)
 	{
@@ -220,7 +223,7 @@ public:
 	ION_FUNC_DEF Type & Normalize()
 	{
 		T const len = Length();
-		
+
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] /= len;
 
@@ -237,7 +240,7 @@ public:
 	//////////////////////
 	// Basic Arithmetic //
 	//////////////////////
-	
+
 	ION_FUNC_DEF Implementation const operator + (Other const & v) const
 	{
 		Implementation ret;
@@ -245,7 +248,7 @@ public:
 			ret[i] = Values[i] + v[i];
 		return ret;
 	}
-	
+
 	ION_FUNC_DEF Implementation const operator - (Other const & v) const
 	{
 		Implementation ret;
@@ -253,19 +256,19 @@ public:
 			ret[i] = Values[i] - v[i];
 		return ret;
 	}
-	
+
 	ION_FUNC_DEF Implementation const operator * (Other const & v) const
 	{
-		
+
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
 			ret[i] = Values[i] * v[i];
 		return ret;
 	}
-	
+
 	ION_FUNC_DEF Implementation const operator / (Other const & v) const
 	{
-		
+
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
 			ret[i] = Values[i] / v[i];
@@ -275,7 +278,7 @@ public:
 	///////////////////////
 	// Scalar Arithmetic //
 	///////////////////////
-	
+
 	ION_FUNC_DEF Implementation const operator + (T const s) const
 	{
 		Implementation ret;
@@ -283,7 +286,7 @@ public:
 			ret[i] = Values[i] + s;
 		return ret;
 	}
-	
+
 	ION_FUNC_DEF Implementation const operator - (T const s) const
 	{
 		Implementation ret;
@@ -351,7 +354,7 @@ public:
 
 		return * this;
 	}
-	
+
 	ION_FUNC_DEF Type & operator -= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -423,7 +426,7 @@ public:
 			ret[i] = - Values[i];
 		return ret;
 	}
-	
+
 	//////////////////////////
 	// Comparison operators //
 	//////////////////////////

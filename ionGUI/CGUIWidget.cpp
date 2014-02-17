@@ -1,4 +1,6 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "CGUIManager.h"
 
 
@@ -13,3 +15,5 @@ CGUIWidget::~CGUIWidget()
 
 void CGUIWidget::Update(float const Elapsed)
 {}
+
+#endif

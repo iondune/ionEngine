@@ -45,44 +45,45 @@ CMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 		if ((Volume.Get(x+1, y+1, z+1).Value < 0)) Lookup |=   2;
 		if ((Volume.Get(x,   y+1, z+1).Value < 0)) Lookup |=   1;
 
-		auto Interpolate = [&](s32 const v1x, s32 const v1y, s32 const v1z, s32 const v2x, s32 const v2y, s32 const v2z) -> SVertex
-		{
-			static CColorTable ColorTable;
+		// Fix - needs gcc 4.4.7 support
+		// auto Interpolate = [&](s32 const v1x, s32 const v1y, s32 const v1z, s32 const v2x, s32 const v2y, s32 const v2z) -> SVertex
+		// {
+		// 	static CColorTable ColorTable;
 
-			SVertex v;
-			f32 const d1 = Volume.Get(v1x, v1y, v1z).Value;
-			f32 const d2 = Volume.Get(v2x, v2y, v2z).Value;
-			f32 ratio = d1 / (d2 - d1);
-			if (ratio < 0.f)
-				ratio += 1.f;
+		// 	SVertex v;
+		// 	f32 const d1 = Volume.Get(v1x, v1y, v1z).Value;
+		// 	f32 const d2 = Volume.Get(v2x, v2y, v2z).Value;
+		// 	f32 ratio = d1 / (d2 - d1);
+		// 	if (ratio < 0.f)
+		// 		ratio += 1.f;
 
-			v.Position = 
-				vec3f(vec3i(v1x, v1y, v1z)) * (ratio) + 
-				vec3f(vec3i(v2x, v2y, v2z)) * (1.f - ratio);
-			v.Color = ColorTable.Get(
-				Volume.Get(v1x, v1y, v1z).Color * (ratio) + 
-				Volume.Get(v2x, v2y, v2z).Color * (1.f - ratio));
-			v.Normal = 
-				Normalize(Volume.Get(v1x, v1y, v1z).Gradient) * (ratio) + 
-				Normalize(Volume.Get(v2x, v2y, v2z).Gradient) * (1.f - ratio);
+		// 	v.Position =
+		// 		vec3f(vec3i(v1x, v1y, v1z)) * (ratio) +
+		// 		vec3f(vec3i(v2x, v2y, v2z)) * (1.f - ratio);
+		// 	v.Color = ColorTable.Get(
+		// 		Volume.Get(v1x, v1y, v1z).Color * (ratio) +
+		// 		Volume.Get(v2x, v2y, v2z).Color * (1.f - ratio));
+		// 	v.Normal =
+		// 		Normalize(Volume.Get(v1x, v1y, v1z).Gradient) * (ratio) +
+		// 		Normalize(Volume.Get(v2x, v2y, v2z).Gradient) * (1.f - ratio);
 
-			return v;
-		};
+		// 	return v;
+		// };
 
 		if ((Lookup != 0) && (Lookup != 255))
 		{
-			if (EdgeTable[Lookup] & 1)    Vertices[0]  = Interpolate(x,   y+1, z+1, x+1, y+1, z+1);
-			if (EdgeTable[Lookup] & 2)    Vertices[1]  = Interpolate(x+1, y+1, z+1, x+1, y+1, z);
-			if (EdgeTable[Lookup] & 4)    Vertices[2]  = Interpolate(x+1, y+1, z,   x,   y+1, z);
-			if (EdgeTable[Lookup] & 8)    Vertices[3]  = Interpolate(x,   y+1, z,   x,   y+1, z+1);
-			if (EdgeTable[Lookup] & 16)   Vertices[4]  = Interpolate(x,   y,   z+1, x+1, y,   z+1);
-			if (EdgeTable[Lookup] & 32)   Vertices[5]  = Interpolate(x+1, y,   z+1, x+1, y,   z);
-			if (EdgeTable[Lookup] & 64)   Vertices[6]  = Interpolate(x+1, y,   z,   x,   y,   z);
-			if (EdgeTable[Lookup] & 128)  Vertices[7]  = Interpolate(x,   y,   z,   x,   y,   z+1);
-			if (EdgeTable[Lookup] & 256)  Vertices[8]  = Interpolate(x,   y+1, z+1, x,   y,   z+1);
-			if (EdgeTable[Lookup] & 512)  Vertices[9]  = Interpolate(x+1, y+1, z+1, x+1, y,   z+1);
-			if (EdgeTable[Lookup] & 1024) Vertices[10] = Interpolate(x+1, y+1, z,   x+1, y,   z);
-			if (EdgeTable[Lookup] & 2048) Vertices[11] = Interpolate(x,   y+1, z,   x,   y,   z);
+			// if (EdgeTable[Lookup] & 1)    Vertices[0]  = Interpolate(x,   y+1, z+1, x+1, y+1, z+1);
+			// if (EdgeTable[Lookup] & 2)    Vertices[1]  = Interpolate(x+1, y+1, z+1, x+1, y+1, z);
+			// if (EdgeTable[Lookup] & 4)    Vertices[2]  = Interpolate(x+1, y+1, z,   x,   y+1, z);
+			// if (EdgeTable[Lookup] & 8)    Vertices[3]  = Interpolate(x,   y+1, z,   x,   y+1, z+1);
+			// if (EdgeTable[Lookup] & 16)   Vertices[4]  = Interpolate(x,   y,   z+1, x+1, y,   z+1);
+			// if (EdgeTable[Lookup] & 32)   Vertices[5]  = Interpolate(x+1, y,   z+1, x+1, y,   z);
+			// if (EdgeTable[Lookup] & 64)   Vertices[6]  = Interpolate(x+1, y,   z,   x,   y,   z);
+			// if (EdgeTable[Lookup] & 128)  Vertices[7]  = Interpolate(x,   y,   z,   x,   y,   z+1);
+			// if (EdgeTable[Lookup] & 256)  Vertices[8]  = Interpolate(x,   y+1, z+1, x,   y,   z+1);
+			// if (EdgeTable[Lookup] & 512)  Vertices[9]  = Interpolate(x+1, y+1, z+1, x+1, y,   z+1);
+			// if (EdgeTable[Lookup] & 1024) Vertices[10] = Interpolate(x+1, y+1, z,   x+1, y,   z);
+			// if (EdgeTable[Lookup] & 2048) Vertices[11] = Interpolate(x,   y+1, z,   x,   y,   z);
 
 			for (u32 i = 0; TriTable[Lookup][i] != -1; i += 3)
 			{

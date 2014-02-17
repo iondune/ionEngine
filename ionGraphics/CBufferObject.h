@@ -1,9 +1,10 @@
+
 #ifndef _ION_SCENE_CBUFFEROBJECT_H_INCLUDED_
 #define _ION_SCENE_CBUFFEROBJECT_H_INCLUDED_
 
 #include <vector>
-
 #include <GL/glew.h>
+#include <ionGL.h>
 
 
 template <typename T>
@@ -20,15 +21,15 @@ class CBufferObject
 
 	void reallocate(unsigned int const size, void * data)
 	{
-		glDeleteBuffers(1, & Handle);
+		CheckedGLCall(glDeleteBuffers(1, & Handle));
 		allocate(size, data);
 	}
 
 	void allocate(unsigned int const size, void * data = 0)
 	{
-		glGenBuffers(1, & Handle);
-		glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, Handle);
-		glBufferData(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, size * sizeof(T), data, Usage);
+		CheckedGLCall(glGenBuffers(1, & Handle));
+		CheckedGLCall(glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, Handle));
+		CheckedGLCall(glBufferData(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, size * sizeof(T), data, Usage));
 		AllocatedSize = size;
 	}
 
@@ -44,7 +45,7 @@ public:
 	~CBufferObject()
 	{
 		if (Handle && glDeleteBuffers)
-			glDeleteBuffers(1, & Handle);
+			CheckedGLCall(glDeleteBuffers(1, & Handle));
 	}
 
 	std::vector<T> const & getElements() const
@@ -127,9 +128,9 @@ public:
 		{
 			if (Elements.size() <= AllocatedSize)
 			{
-				glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, Handle);
-				glBufferSubData(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, 0, Elements.size() * sizeof(T), & Elements[0]);
-				glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, 0);
+				CheckedGLCall(glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, Handle));
+				CheckedGLCall(glBufferSubData(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, 0, Elements.size() * sizeof(T), & Elements[0]));
+				CheckedGLCall(glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, 0));
 			}
 			else
 			{

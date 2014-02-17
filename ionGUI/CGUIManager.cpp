@@ -1,6 +1,7 @@
+
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "CGUIManager.h"
-
-
 #include "OpenGL3Font.h"
 
 
@@ -51,7 +52,7 @@ Gwen::Controls::Canvas * CGUIManager::GetCanvas()
 {
 	return Canvas;
 }
-	
+
 Gwen::Font * CGUIManager::GetLargeFont()
 {
 	return LargeFont;
@@ -84,3 +85,5 @@ void CGUIManager::RemoveAllWidgets()
 {
 	Widgets.clear();
 }
+
+#endif

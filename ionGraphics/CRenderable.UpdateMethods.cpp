@@ -122,13 +122,13 @@ void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, 
 	// Set up texturing if textures are supplied by material
 	if (Material.Textures.size())
 	{
-		glEnable(GL_TEXTURE_2D);
+		CheckedGLCall(glEnable(GL_TEXTURE_2D));
 
 		for (u32 i = 0; i < Material.Textures.size(); ++ i)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
+			CheckedGLCall(glActiveTexture(GL_TEXTURE0 + i));
 			if (Material.Textures[i])
-				glBindTexture(GL_TEXTURE_2D, Material.Textures[i]->getTextureHandle());
+				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Material.Textures[i]->getTextureHandle()));
 		}
 	}
 
@@ -158,7 +158,7 @@ void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, 
 
 	// Enable wireframe mode
 	if (ParentObject->isDebugDataEnabled(EDebugData::Wireframe))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
 
 	// Perform draw - using index buffer if supplied, ElementCount otherwise
 	if (IndexBufferObject)
@@ -172,13 +172,13 @@ void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, 
 
 		// Draw call
 		printOpenGLErrors("Renderable Other Setup");
-		glDrawElements(ElementType, IndexBufferObject->getElements().size(), GL_UNSIGNED_INT, 0);
+		CheckedGLCall(glDrawElements(ElementType, IndexBufferObject->getElements().size(), GL_UNSIGNED_INT, 0));
 	}
 	else
 	{
 		printOpenGLErrors("Renderable Other Setup");
 		// Draw call
-		glDrawArrays(ElementType, 0, ElementCount);
+		CheckedGLCall(glDrawArrays(ElementType, 0, ElementCount));
 	}
 
 	printOpenGLErrors("Renderable Draw Call");
@@ -186,7 +186,7 @@ void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, 
 	// Disable wireframe mode
 	if (ParentObject->isDebugDataEnabled(EDebugData::Wireframe))
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
 	}
 
 	// Draw the normal object if it is enabled
@@ -203,12 +203,12 @@ void CRenderable::draw(IScene const * const Scene, sharedPtr<IRenderPass> Pass, 
 	// Cleanup textures if used
 	if (Material.Textures.size())
 	{
-		glDisable(GL_TEXTURE_2D);
+		CheckedGLCall(glDisable(GL_TEXTURE_2D));
 
 		for (u32 i = 0; i < Material.Textures.size(); ++ i)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, 0);
+			CheckedGLCall(glActiveTexture(GL_TEXTURE0 + i));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 		}
 	}
 

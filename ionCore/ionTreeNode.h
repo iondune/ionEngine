@@ -5,6 +5,14 @@
 #include <type_traits>
 
 
+/*!
+	Abstract Node in a generic tree structure.
+
+	Note that a static_cast to TreeNode<Implementation> is sometimes needed
+	for compilation in VS2012 where Implementation has 'uses' for Children
+	or Parent since these fields will then have protected access in the 
+	subclass.
+*/
 template <typename Implementation>
 class ITreeNode
 {
@@ -38,18 +46,18 @@ public:
 	void SetParent(Implementation * parent)
 	{
 		if (Parent)
-			Parent->Children.erase(static_cast<Implementation *>(this));
-		
+			static_cast<ITreeNode<Implementation> *>(parent)->Children.erase(static_cast<Implementation *>(this));
+
 		Parent = parent;
 
 		if (Parent)
-			Parent->Children.insert(static_cast<Implementation *>(this));
+			static_cast<ITreeNode<Implementation> *>(parent)->Children.insert(static_cast<Implementation *>(this));
 	}
 
 	void RemoveAllChildren()
 	{
-		for (auto Child : Children)
-			Child->Parent = 0;
+		for (auto it = Children.begin(); it != Children.end(); ++ it)
+			(*it)->Parent = 0;
 		Children.clear();
 	}
 

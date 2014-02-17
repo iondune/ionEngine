@@ -1,3 +1,6 @@
+
+#if 0
+
 #pragma once
 
 #include <ionMath.h>
@@ -52,3 +55,5 @@ public:
 	CKDTreeNode * Root;
 
 };
+
+#endif

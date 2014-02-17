@@ -3,7 +3,7 @@
 
 void CPerspectiveCameraSceneObject::UpdateProjection()
 {
-	ProjectionMatrix = glm::perspective(atan(0.5f / FocalLength) * 360.f / Constants32::Pi, AspectRatio, NearPlane, FarPlane);
+	ProjectionMatrix = glm::perspective<f32>(atan(0.5f / FocalLength) * 360.f / Constants32::Pi, AspectRatio, NearPlane, FarPlane);
 }
 
 CPerspectiveCameraSceneObject::CPerspectiveCameraSceneObject(float const aspectRatio, float const nearPlane, float const farPlane, float const focalLength)

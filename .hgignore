@@ -12,3 +12,5 @@ syntax: glob
 *.exe
 *.lib
 *.unsuccessfulbuild
+*.o
+*.a

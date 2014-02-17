@@ -8,16 +8,17 @@
 #include <ionAsset/CImageLoader.h>
 
 #include <ionGraphics/CDeferredShadingManager.h>
+#include <ionGL.h>
 
 
 GLuint const CSceneManager::getQuadHandle()
 {
 	static GLuint QuadHandle = 0;
-	
+
 	// Create a simple quad VBO to use for draw operations!
 	if (! QuadHandle)
 	{
-		GLfloat QuadVertices[] = 
+		GLfloat QuadVertices[] =
 		{
 			-1.0, -1.0,
 			 1.0, -1.0,
@@ -25,18 +26,18 @@ GLuint const CSceneManager::getQuadHandle()
 			-1.0,  1.0
 		};
 
-		glGenBuffers(1, & QuadHandle);
-		glBindBuffer(GL_ARRAY_BUFFER, QuadHandle);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		CheckedGLCall(glGenBuffers(1, & QuadHandle));
+		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, QuadHandle));
+		CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW));
+		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
 
 	return QuadHandle;
 }
 
-CSceneManager::CSceneManager(vec2i const & screenSize)
+CSceneManager::CSceneManager(vec2u const & screenSize)
 	: SceneFrameTexture(0), SceneDepthTexture(0), SceneFrameBuffer(0),
-	EffectManager(0), DefaultManager(0), 
+	EffectManager(0), DefaultManager(0),
 	ScreenSize(screenSize)
 {
 	CurrentScene = this;
@@ -45,7 +46,7 @@ CSceneManager::CSceneManager(vec2i const & screenSize)
 	addUniform("uScreenSize", BindUniformReference(ScreenSize));
 }
 
-void CSceneManager::OnWindowResized(vec2i const & screenSize)
+void CSceneManager::OnWindowResized(vec2u const & screenSize)
 {
 	ScreenSize = screenSize;
 	if (SceneFrameBuffer)
@@ -90,7 +91,7 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 		printOpenGLErrors("SceneManager :: Create Frame Buffer");
 
 		/*SceneFrameBuffer->bind();
-		GLenum Buffers[] = 
+		GLenum Buffers[] =
 		{
 			GL_COLOR_ATTACHMENT0,
 			GL_COLOR_ATTACHMENT1
@@ -129,7 +130,7 @@ void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
 		DefaultColorRenderPass->setFrameBuffer(SceneFrameBuffer);
 
 		getQuadHandle();
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	}
 
 
@@ -199,7 +200,7 @@ void CSceneManager::drawAll()
 		if (SceneFrameBuffer)
 			SceneFrameBuffer->bind();
 	}
-	
+
 	printOpenGLErrors("Scene Manager :: Draw All");
 }
 
@@ -208,18 +209,18 @@ void CSceneManager::endDraw()
 	if (SceneFrameBuffer)
 	{
 		// Draw to screen
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-		glDisable(GL_DEPTH_TEST);
+		CheckedGLCall(glDisable(GL_DEPTH_TEST));
 		{
 			CShaderContext Context(* QuadCopy);
 			Context.bindTexture("uTexColor", SceneFrameTexture);
 			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
 
-			glDrawArrays(GL_QUADS, 0, 4);
+			CheckedGLCall(glDrawArrays(GL_QUADS, 0, 4));
 		}
-		glEnable(GL_DEPTH_TEST);
+		CheckedGLCall(glEnable(GL_DEPTH_TEST));
 	}
 
 	printOpenGLErrors("Scene Manager :: End Draw");
@@ -251,7 +252,7 @@ void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
 	EffectManager = effectManager;
 }
 
-vec2i const & CSceneManager::getScreenSize() const
+vec2u const & CSceneManager::getScreenSize() const
 {
 	return ScreenSize;
 }

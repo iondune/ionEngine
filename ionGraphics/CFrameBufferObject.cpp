@@ -1,13 +1,16 @@
+
 #include "CFrameBufferObject.h"
+#include <ionGL.h>
+
 
 CFrameBufferObject::CFrameBufferObject()
 {
-	glGenFramebuffers(1, & Handle);
+	CheckedGLCall(glGenFramebuffers(1, & Handle));
 }
 
 CFrameBufferObject::~CFrameBufferObject()
 {
-	glDeleteFramebuffers(1, & Handle);
+	CheckedGLCall(glDeleteFramebuffers(1, & Handle));
 }
 
 void CFrameBufferObject::attachColorTexture(CTexture * Texture, u32 const Attachment)
@@ -15,7 +18,7 @@ void CFrameBufferObject::attachColorTexture(CTexture * Texture, u32 const Attach
 	ColorAttachments[Attachment] = Texture;
 
 	bind();
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + Attachment, GL_TEXTURE_2D, Texture->getTextureHandle(), 0);
+	CheckedGLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + Attachment, GL_TEXTURE_2D, Texture->getTextureHandle(), 0));
 	unbind();
 }
 
@@ -24,7 +27,7 @@ void CFrameBufferObject::attachDepthTexture(CTexture * Texture)
 	DepthAttachment = Texture;
 
 	bind();
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, Texture->getTextureHandle(), 0);
+	CheckedGLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, Texture->getTextureHandle(), 0));
 	unbind();
 }
 
@@ -33,7 +36,7 @@ void CFrameBufferObject::attachDepthRenderBuffer(CRenderBufferObject * RenderBuf
 	DepthAttachment = RenderBufferObject;
 
 	bind();
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, RenderBufferObject->getHandle());
+	CheckedGLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, RenderBufferObject->getHandle()));
 	unbind();
 }
 
@@ -44,19 +47,19 @@ GLuint const CFrameBufferObject::getHandle()
 
 void CFrameBufferObject::bind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, Handle);
+	CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
 }
 
 void CFrameBufferObject::unbind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
 bool const CFrameBufferObject::isValid() const
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, Handle);
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
+	GLenum status = CheckedGLCall(glCheckFramebufferStatus(GL_FRAMEBUFFER));
+	CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	return status == GL_FRAMEBUFFER_COMPLETE;
 }
 
@@ -72,5 +75,5 @@ IRenderTarget const * const CFrameBufferObject::getDepthAttachment()
 
 void CFrameBufferObject::bindDeviceBackBuffer()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }

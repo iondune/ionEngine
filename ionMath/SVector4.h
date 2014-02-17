@@ -13,6 +13,8 @@ class SVector4 : public SVector<T, 4, SVector4<T> >
 
 public:
 
+	using SVectorBase<T, 4>::Values;
+
 	T & X, & Y, & Z, & W;
 
 	//! Default constructor
@@ -21,7 +23,7 @@ public:
 	{
 		set((T) 0);
 	}
-	
+
 	//! Scalar constructor
 	ION_FUNC_DEF SVector4(T const in)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
@@ -56,7 +58,7 @@ public:
 	{
 		set(vec);
 	}
-	
+
 	//! Generic vector constructor
 	template <typename U, u32 OtherDimension>
 	ION_FUNC_DEF SVector4(SVectorBase<U, OtherDimension> const & vec)
@@ -64,7 +66,7 @@ public:
 	{
 		set(vec);
 	}
-	
+
 	//! Generic vector constructor
 	ION_FUNC_DEF SVector4(SVectorBase<T, 3> const & vec, T const W = 1)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
@@ -82,7 +84,7 @@ public:
 
 		return * this;
 	}
-	
+
 	//! Generic vector assignment operator
 	template <typename U, u32 OtherDimension>
 	ION_FUNC_DEF SVector4<T> & operator = (SVectorBase<U, OtherDimension> const & vec)

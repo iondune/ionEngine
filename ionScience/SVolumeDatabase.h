@@ -14,7 +14,7 @@ struct SVolumeDatabase;
 template <typename T>
 struct SVolumeDataRecord : public IDataRecord<T>
 {
-	
+
 	SVolumeDataRecord(SVolumeDatabase<T> & database);
 	SVolumeDataRecord<T> & operator = (SVolumeDataRecord<T> const & other);
 
@@ -30,19 +30,24 @@ template <typename T>
 struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T>>
 {
 
+	using SVolume<SVolumeDataRecord<T>>::Values;
+	using SVolume<SVolumeDataRecord<T>>::Dimensions;
+	using SVolume<SVolumeDataRecord<T>>::Get;
+	using SVolume<SVolumeDataRecord<T>>::Size;
+
 	SVolumeDatabase()
 		: SVolume<SVolumeDataRecord<T>>(SVolumeDataRecord<T>(* this))
 	{}
-	
+
 	void AddField(std::string const & Field)
 	{
 		if (HasField(Field))
 			return;
 
 		Fields.push_back(Field);
-		
-		for (auto Record : Values)
-			Record.Values.resize(Fields.size());
+
+		for (auto it = Values.begin(); it != Values.end(); ++ it)
+			it->Values.resize(Fields.size());
 	}
 
 	bool HasField(std::string const & Field)
@@ -56,9 +61,9 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 		// Calculate mean
 		T Mean = 0;
 		u32 Count = Values.size();
-		for (auto Record : Values)
+		for (auto it = Values.begin(); it != Values.end(); ++ it)
 		{
-			T const v = Record.GetField(Field);
+			T const v = it->GetField(Field);
 			if (! acceptedValues.Contains(v) || v != v)
 				Count --;
 			else
@@ -68,9 +73,9 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 
 		// Calculate standard absolute value deviation
 		T StdDeviation = 0;
-		for (auto Record : Values)
+		for (auto it = Values.begin(); it != Values.end(); ++ it)
 		{
-			double const v = Record.GetField(Field);
+			double const v = it->GetField(Field);
 			if (acceptedValues.Contains(v) && v == v)
 				StdDeviation += abs(v - Mean);
 		}
@@ -78,9 +83,9 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 
 		// Find min/max
 		T Min = std::numeric_limits<T>::max(), Max = -std::numeric_limits<T>::max();
-		for (auto Record : Values)
+		for (auto it = Values.begin(); it != Values.end(); ++ it)
 		{
-			T const v = Record.GetField(Field);
+			T const v = it->GetField(Field);
 			if (v < Mean + OutlierCutoff * StdDeviation && v > Mean - OutlierCutoff * StdDeviation)
 			{
 				if (v > Max)
@@ -98,7 +103,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 		ColorMapper->PreProcessValues(* this);
 
 		u8 * const VolumeData = new u8[Dimensions.X * Dimensions.Y * Dimensions.Z];
-	
+
 		for (s32 k = 0; k < Dimensions.Z; ++ k)
 		for (s32 j = 0; j < Dimensions.Y; ++ j)
 		for (s32 i = 0; i < Dimensions.X; ++ i)
@@ -126,30 +131,30 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 		File.write((char *) & Dimensions.X, sizeof(u32));
 		File.write((char *) & Dimensions.Y, sizeof(u32));
 		File.write((char *) & Dimensions.Z, sizeof(u32));
-		
+
 		// Write Fields
 		u32 const FieldCount = Fields.size();
 		File.write((char *) & FieldCount, sizeof(u32));
-		for (auto Field : Fields)
+		for (auto it = Fields.begin(); it != Fields.end(); ++ it)
 		{
-			u32 const Length = Field.size();
+			u32 const Length = it->size();
 			File.write((char *) & Length, sizeof(u32));
-			File.write(Field.c_str(), Size);
+			File.write(it->c_str(), Size);
 		}
-	
+
 		// Write Records
 		u32 const RecordCount = Values.size();
 		File.write((char *) & RecordCount, sizeof(u32));
 
-		for (auto Record : Values)
-			File.write((char *) & Record.Values.begin(), sizeof(T) * Fields);
+		for (auto it = Values.begin(); it != Values.end(); ++ it)
+			File.write((char *) & it->Values.begin(), sizeof(T));
 	}
 
 	void ReadFromFile(std::ifstream & File)
 	{
 		Values.clear();
 		Fields.clear();
-		
+
 		// Read Dimensions
 		File.read((char *) & Dimensions.X, sizeof(u32));
 		File.read((char *) & Dimensions.Y, sizeof(u32));
@@ -171,7 +176,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 			Fields.push_back(Buffer);
 			delete [] Buffer;
 		}
-	
+
 		// Read Records
 		u32 RecordCount;
 		File.read((char *) & RecordCount, sizeof(u32));
@@ -186,7 +191,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 				File.read((char *) & Value, sizeof(T));
 				Record.Values.push_back(Value);
 			}
-	
+
 			Values.push_back(Record);
 		}
 	}

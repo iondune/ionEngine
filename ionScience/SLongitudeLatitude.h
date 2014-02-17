@@ -14,6 +14,9 @@ template <typename T>
 struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 {
 
+	using SVectorBase<T, 2>::Values;
+	using SVectorBase<T, 2>::reset;
+
 	T & Longitude;
 	T & Latitude;
 
@@ -23,7 +26,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	{
 		reset();
 	}
-	
+
 	//! Scalar constructor
 	ION_FUNC_DEF SLongitudeLatitude(T const in)
 		: Longitude(Values[0]), Latitude(Values[1])
@@ -66,7 +69,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		ECompassDirection Direction;
 
 		sscanf(String.c_str(), "%lf %c %lf %c %lf %c %c", & Deg, & Dummy, & Min, & Dummy, & Sec, & Dummy, & Dir);
-	
+
 		switch (tolower(Dir))
 		{
 		default:
@@ -84,7 +87,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			break;
 		}
 
-		return LongLatDecimalDegrees(Deg, Min, Sec, Direction);
+		return DMStoDecimal(Deg, Min, Sec, Direction); // Where/What is this?
 	}
 
 	ION_FUNC_DEF vec2f Vector() const
@@ -96,7 +99,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	{
 
 	public:
-		
+
 		ION_FUNC_DEF virtual T DistanceBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
 		ION_FUNC_DEF virtual SVector2<T> OffsetBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
 
@@ -119,7 +122,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			T EarthRadius = (T) 6378.137;
 			T DeltaLat = DegreesToRadians(Right.Latitude - Left.Latitude);
 			T DeltaLong = DegreesToRadians(Right.Longitude - Left.Longitude);
-			T A = 
+			T A =
 				Sin(DeltaLat / 2) * Sin(DeltaLat / 2) +
 				Cos(DegreesToRadians(Left.Latitude)) * Cos(DegreesToRadians(Right.Latitude)) * Sin(DeltaLong / 2) * Sin(DeltaLong / 2);
 			T C = 2 * ArcTan(Sqrt(A), Sqrt(1 - A));
@@ -203,7 +206,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			T cosSqAlpha, sinSigma, cos2SigmaM, cosSigma, sigma;
 			do {
 				T sinLambda = Sin(lambda), cosLambda = Cos(lambda);
-				sinSigma = Sqrt((cosU2*sinLambda) * (cosU2*sinLambda) + 
+				sinSigma = Sqrt((cosU2*sinLambda) * (cosU2*sinLambda) +
 					(cosU1*sinU2-sinU1*cosU2*cosLambda) * (cosU1*sinU2-sinU1*cosU2*cosLambda));
 				if (sinSigma==0)
 					return 0; // co-incident points
@@ -238,9 +241,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		ION_FUNC_DEF CVincentyProjection()
 		{}
 
-		ION_FUNC_DEF CVincentyProjection(EOffsetMode const offsetMode)
-			: CHaversineProjection(OffsetMode)
-		{}
+		// Doesn't compile on g++ 4.4.7 for some reason
+		// ION_FUNC_DEF CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
+		// 	: CHaversineProjection(OffsetMode)
+		// {}
 
 	};
 
@@ -254,10 +258,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
 			SVector2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
-			
+
 			SVector2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
 			SVector2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
-			
+
 			LeftProjected *= UnitLength;
 			RightProjected *= UnitLength;
 
@@ -269,10 +273,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
 			SVector2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
-			
+
 			SVector2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
 			SVector2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
-			
+
 			LeftProjected *= UnitLength;
 			RightProjected *= UnitLength;
 

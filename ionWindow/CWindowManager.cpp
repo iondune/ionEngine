@@ -32,14 +32,14 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 		WaitForUser();
 		exit(34);
 	}
-	
+
 	CWindow * Window = new CWindow(glfwWindow);
 	Window->Size = Size;
 	Windows[glfwWindow] = Window;
 
 	if (! PrimaryWindow)
 		PrimaryWindow = Window;
-	
+
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
 	glfwSetCursorPosCallback(glfwWindow, CWindowManager::MouseCursorCallback);
@@ -62,9 +62,9 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 		double const VersionNumber = std::atof((char const *) glGetString(GL_VERSION));
 		if (VersionNumber < 2.0)
 		{
-			std::cerr << "Your OpenGL Version Number (" << std::setprecision(2) << VersionNumber << 
+			std::cerr << "Your OpenGL Version Number (" << std::setprecision(2) << VersionNumber <<
 				") is not high enough for shaders. Please download and install the latest drivers"
-				"for your graphics hardware." << 
+				"for your graphics hardware." <<
 				std::endl << std::endl;
 		}
 
@@ -80,12 +80,12 @@ EKey const ConvertGLFWKeyCode(int const Code)
 {
 	if (Code >= 'A' && Code <= 'Z')
 		return (EKey) ((int) EKey::A + (Code - 'A'));
-	
+
 	if (Code >= GLFW_KEY_KP_0 && Code <= GLFW_KEY_KP_9)
 		return (EKey) ((int) EKey::KeyPad0 + (Code - GLFW_KEY_KP_0));
 	if (Code >= '0' && Code <= '9')
 		return (EKey) ((int) EKey::Num0 + (Code - '0'));
-	
+
 	switch (Code)
 	{
 
@@ -110,7 +110,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 
 	case GLFW_KEY_ESCAPE:
 		return EKey::Escape;
-		
+
 	case GLFW_KEY_UP:
 		return EKey::Up;
 	case GLFW_KEY_LEFT:
@@ -119,10 +119,10 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::Down;
 	case GLFW_KEY_RIGHT:
 		return EKey::Right;
-		
+
 	case GLFW_KEY_SPACE:
 		return EKey::Space;
-		
+
 	case GLFW_KEY_LEFT_SHIFT:
 		return EKey::LeftShift;
 	case GLFW_KEY_RIGHT_SHIFT:
@@ -135,7 +135,7 @@ EKey const ConvertGLFWKeyCode(int const Code)
 		return EKey::LeftAlt;
 	case GLFW_KEY_RIGHT_ALT:
 		return EKey::RightAlt;
-		
+
 	case GLFW_KEY_F1:
 		return EKey::F1;
 	case GLFW_KEY_F2:
@@ -176,7 +176,7 @@ void CWindowManager::KeyCallback(GLFWwindow * window, int key, int scancode, int
 	KeyEvent.Window = Window;
 	KeyEvent.Pressed = action != GLFW_RELEASE;
 	KeyEvent.Key = ConvertGLFWKeyCode(key);
-	
+
 	Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
 	Window->SEvent<SKeyboardEvent>::ITrigger::Trigger(KeyEvent);
 }
@@ -228,7 +228,7 @@ void CWindowManager::MouseScrollCallback(GLFWwindow * window, double xoffset, do
 }
 
 void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, double ypos)
-{	
+{
 	CWindowManager & WindowManager = Get();
 	CWindow * Window = WindowManager.Windows[window];
 
@@ -239,7 +239,7 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 
 	MouseEvent.Movement = MouseEvent.Location - Window->CursorLocation;
 	Window->CursorLocation = MouseEvent.Location;
-	
+
 	Window->SEvent<SMouseEvent>::ITrigger::Trigger(MouseEvent);
 }
 
@@ -255,10 +255,10 @@ void CWindowManager::PollEvents()
 
 bool CWindowManager::ShouldClose() const
 {
-	for (auto Window : Windows)
+	for (auto it = Windows.begin(); it != Windows.end(); ++ it)
 	{
-		Window.second->MakeContextCurrent();
-		if (Window.second->ShouldClose())
+		it->second->MakeContextCurrent();
+		if (it->second->ShouldClose())
 		{
 			return true;
 		}

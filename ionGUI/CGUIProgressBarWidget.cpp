@@ -1,10 +1,12 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "CGUIProgressBarWidget.h"
 #include "CGUIManager.h"
 
 
 CGUIProgressBarWidget::CGUIProgressBarWidget(CGUIManager * Manager, std::string const & label)
-	: CGUIWidget(Manager), Label(label), ProgressBar() 
+	: CGUIWidget(Manager), Label(label), ProgressBar()
 {}
 
 void CGUIProgressBarWidget::Start()
@@ -42,3 +44,5 @@ void CGUIProgressBarWidget::Finish()
 	ProgressBar = 0;
 	Window = 0;
 }
+
+#endif

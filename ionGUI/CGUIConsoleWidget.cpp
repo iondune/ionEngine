@@ -1,4 +1,6 @@
 
+#ifdef _ION_CONFIG_USE_GWEN
+
 #include "CGUIConsoleWidget.h"
 #include "CGUIManager.h"
 
@@ -43,7 +45,7 @@ void CGUIConsoleWidget::Update(f32 const Elapsed)
 				c.a -= Decrement;
 			else
 				c.a = 0;
-				
+
 			Messages[i]->SetTextColor(c);
 		}
 
@@ -66,3 +68,5 @@ void CGUIConsoleWidget::AddMessage(std::string const & Message, color4i const & 
 	MessageColors[0] = GwenColor;
 	Messages[0]->SetTextColor(GwenColor);
 }
+
+#endif

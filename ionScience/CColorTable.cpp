@@ -5,7 +5,7 @@
 
 CColorTable::CColorTable()
 {
-	for (u32 i = 0; i < DefaultColorTableCount; ++ i)
+	for (uint i = 0; i < DefaultColorTableCount; ++ i)
 	{
 		Colors.push_back(color3i(DefaultColorTable[i][0], DefaultColorTable[i][1], DefaultColorTable[i][2]));
 	}
@@ -19,5 +19,5 @@ color3i const & CColorTable::Get(f32 const Value)
 		return NoColorsAvailable;
 	}
 
-	return Colors[Clamp((u32) (Value * Colors.size()), 0u, Colors.size() - 1)];
+	return Colors[Clamp((uint) (Value * Colors.size()), 0u, (uint) Colors.size() - 1)];
 }

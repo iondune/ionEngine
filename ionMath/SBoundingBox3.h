@@ -38,7 +38,7 @@ public:
 
 	bool IsPointInside(Vector const & p) const
 	{
-		return 
+		return
 			p.X >= MinCorner.X && p.X <= MaxCorner.X &&
 			p.Y >= MinCorner.Y && p.Y <= MaxCorner.Y &&
 			p.Z >= MinCorner.Z && p.Z <= MaxCorner.Z;
@@ -111,7 +111,7 @@ public:
 
 	T const GetMaximumRadius(Vector const Scale) const
 	{
-		Vector const Extents = getExtent() / 2;
+		Vector const Extents = GetExtent() / 2;
 		return max((Extents*Scale).xy().length(), (Extents*Scale).xz().length(), (Extents*Scale).yz().length());
 	}
 
@@ -122,7 +122,7 @@ public:
 
 		switch (i)
 		{
-		default: 
+		default:
 		case 0: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
 		case 1: return Vector(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
 		case 2: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);

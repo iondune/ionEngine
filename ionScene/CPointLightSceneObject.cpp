@@ -8,6 +8,7 @@
 //#include "CDeferredShadingManager.h"
 
 #include "IScene.h"
+#include <ionGL.h>
 
 
 CPointLightSceneObject::CPointLightSceneObject(float const radius, SColorAf const & color)
@@ -59,7 +60,7 @@ bool CPointLightSceneObject::draw(IScene const * const scene, sharedPtr<IRenderP
 	//Context.bindTexture("uNormal", ((CDeferredShadingManager *) ((CSceneManager *)scene)->getEffectManager())->DeferredNormalOutput);
 	//Context.bindTexture("uPosition", ((CDeferredShadingManager *) ((CSceneManager *)scene)->getEffectManager())->DeferredPositionOutput);
 
-	glDrawElements(GL_TRIANGLES, MeshBuffer->IndexBuffer.getElements().size(), GL_UNSIGNED_SHORT, 0);
+	CheckedGLCall(glDrawElements(GL_TRIANGLES, MeshBuffer->IndexBuffer.getElements().size(), GL_UNSIGNED_SHORT, 0));
 
 	return true;
 }

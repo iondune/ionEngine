@@ -1,13 +1,15 @@
 
 #include "CGamePad.h"
 
-#include <windows.h>
-#include <xinput.h>
+#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
+	#include <windows.h>
+	#include <xinput.h>
 
+	static HMODULE hXInputModule = 0;
+	typedef DWORD (WINAPI *PFn_XInputGetState)(DWORD dwUserIndex, XINPUT_STATE* pState);
+	static PFn_XInputGetState pXInputGetState = 0;
+#endif
 
-static HMODULE hXInputModule = 0;
-typedef DWORD (WINAPI *PFn_XInputGetState)(DWORD dwUserIndex, XINPUT_STATE* pState);
-static PFn_XInputGetState pXInputGetState = 0;
 
 vec2f const & CGamePad::GetLeftStick() const
 {
@@ -56,6 +58,7 @@ static inline f32 GamepadTrigger(u8 in)
 
 void CGamePad::UpdateState()
 {
+#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
 	if (pXInputGetState)
 	{
 		XINPUT_STATE XInputState;
@@ -69,7 +72,7 @@ void CGamePad::UpdateState()
 		LeftStick.Y = GamepadStick(XInputState.Gamepad.sThumbLY);
 		RightStick.X = GamepadStick(XInputState.Gamepad.sThumbRX);
 		RightStick.Y = GamepadStick(XInputState.Gamepad.sThumbRY);
-		
+
 		ButtonPressed[(int) EGamePadButton::A] = (XInputState.Gamepad.wButtons & XINPUT_GAMEPAD_A) != 0;
 		ButtonPressed[(int) EGamePadButton::B] = (XInputState.Gamepad.wButtons & XINPUT_GAMEPAD_B) != 0;
 		ButtonPressed[(int) EGamePadButton::X] = (XInputState.Gamepad.wButtons & XINPUT_GAMEPAD_X) != 0;
@@ -85,17 +88,20 @@ void CGamePad::UpdateState()
 		ButtonPressed[(int) EGamePadButton::LeftThumb] = (XInputState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_THUMB) != 0;
 		ButtonPressed[(int) EGamePadButton::RightThumb] = (XInputState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_THUMB) != 0;
 	}
+#endif
 }
 
 CGamePad::CGamePad()
 	: LeftTrigger(0), RightTrigger(0)
 {
+#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
 	if (! hXInputModule)
 		hXInputModule = ::LoadLibraryA("Xinput9_1_0.dll");
 
 	if (! pXInputGetState && hXInputModule)
 		pXInputGetState = (PFn_XInputGetState) ::GetProcAddress(hXInputModule, "XInputGetState");
-	
+#endif
+
 	for (int i = 0; i < (int) EGamePadButton::Count; ++ i)
 		ButtonPressed[i] = false;
 }

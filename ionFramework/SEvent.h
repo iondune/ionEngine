@@ -23,16 +23,18 @@ struct SEvent : public IEventListener<EventType>
 			for (auto it = Events.begin(); it != Events.end();)
 			{
 				SEvent * Event = * it;
-				it = Events.erase(it);
+				// C++ 98 Fix
+				auto old = it ++;
+				Events.erase(old);
 				Event->RemoveTrigger(this);
 			}
 		}
 
 		void Trigger(EventType & EventData)
 		{
-			for (auto Event : Events)
+			for (auto it = Events.begin(); it != Events.end(); ++ it)
 			{
-				Event->OnTriggered(EventData);
+				(* it)->OnTriggered(EventData);
 			}
 		}
 
@@ -56,8 +58,8 @@ public:
 
 	void RemoveAllTriggers()
 	{
-		for (auto Trigger : Triggers)
-			Trigger->Events.erase(this);
+		for (auto it = Triggers.begin(); it != Triggers.end(); ++ it)
+			(* it)->Events.erase(this);
 		Triggers.clear();
 	}
 
@@ -68,7 +70,7 @@ public:
 	}
 
 protected:
-	
+
 	std::set<ITrigger *> Triggers;
 
 };

@@ -5,6 +5,7 @@
 #include <ionGraphics/CShaderLoader.h>
 
 #include <algorithm>
+#include <ionGL.h>
 
 
 CSceneEffectManager::SPostProcessPass::SPostProcessPass()
@@ -18,12 +19,12 @@ void CSceneEffectManager::SPostProcessPass::begin()
 		if (Target)
 			Target->bind();
 		else
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
-		glClear(GL_COLOR_BUFFER_BIT); 
+		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT)); 
 	}
 	
-	glDisable(GL_DEPTH_TEST);
+	CheckedGLCall(glDisable(GL_DEPTH_TEST));
 	Context = new CShaderContext(* Shader);
 }
 
@@ -54,13 +55,13 @@ void CSceneEffectManager::SPostProcessPass::end()
 
 	Context->bindBufferObject("aPosition", CSceneManager::getQuadHandle(), 2);
 
-	glDisable(GL_DEPTH_TEST);
-	glDrawArrays(GL_QUADS, 0, 4);
+	CheckedGLCall(glDisable(GL_DEPTH_TEST));
+	CheckedGLCall(glDrawArrays(GL_QUADS, 0, 4));
 
 	if (SetTarget)
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
-	glEnable(GL_DEPTH_TEST);
+	CheckedGLCall(glEnable(GL_DEPTH_TEST));
 
 	delete Context;
 }

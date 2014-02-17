@@ -2,8 +2,9 @@
 #pragma once
 
 #include <ionCore.h>
-
 #include <cmath>
+
+#include "Constants.h"
 
 
 template <typename T>

@@ -1,3 +1,6 @@
+
+#if 0
+
 #include "CKDTree.h"
 
 #include <functional>
@@ -77,13 +80,13 @@ void CKDTreeNode::Split(vec3f * Elements, u32 const Count, s32 const Axis)
 	if (Count > 2)
 	{
 		u32 const Split = Count / 2;
-		
+
 		LeftSide = new CKDTreeNode;
 		LeftSide->Split(Elements, Split, (SplitAxis + 1) % 3);
 		RightSide = new CKDTreeNode;
 		RightSide->Split(Elements + Split + 1, Count - Split - 1, (SplitAxis + 1) % 3);
 
-		Position = Elements[Split]; 
+		Position = Elements[Split];
 	}
 	else if (Count == 2)
 	{
@@ -156,3 +159,5 @@ void CKDTree::Build(vec3f * Elements, u32 const Count)
 	Root = new CKDTreeNode;
 	Root->Split(Elements, Count, 0);
 }
+
+#endif
