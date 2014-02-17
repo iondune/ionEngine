@@ -172,6 +172,12 @@ void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<s32, 4> con
 	printOpenGLErrors("Shader Context :: glUniform4i");
 }
 
+void CShaderContext::uniform(GLuint const uniformHandle, SVectorBase<u32, 2> const & uniform)
+{
+	glUniform2i(uniformHandle, uniform[0], uniform[1]);
+	printOpenGLErrors("Shader Context :: glUnifor2i");
+}
+
 
 //////////////
 // Textures //
