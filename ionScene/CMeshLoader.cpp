@@ -572,6 +572,14 @@ CMesh * const CMeshLoader::createCubeMesh()
     return MeshWrapper;
 }
 
+CMesh * const CMeshLoader::createReverseCubeMesh()
+{
+    CMesh * Mesh = createCubeMesh();
+	Mesh->reverseFaces();
+	Mesh->calculateNormalsPerFace();
+    return Mesh;
+}
+
 CMesh * const CMeshLoader::createPlaneMesh()
 {
     CMesh * MeshWrapper = new CMesh();

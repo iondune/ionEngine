@@ -18,8 +18,10 @@ public:
     static CMesh * const loadAsciiMesh(std::string const & fileName);
 
     static CMesh * const loadObjMesh(std::string const & fileName);
-
+	
     static CMesh * const createCubeMesh();
+
+    static CMesh * const createReverseCubeMesh();
 
     static CMesh * const createPlaneMesh();
 
