@@ -8,7 +8,7 @@
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.2\include\;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\include;
-      ;$(VisualStudioDir)\SDKs\glfw\include;
+      ;$(VisualStudioDir)\SDKs\glfw-3.0.4\include;
       ;$(VisualStudioDir)\SDKs\glm-0.9.4.4\;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\stb_image;
@@ -27,14 +27,14 @@
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       ;$(VisualStudioDir)\Projects\ionEngine\Debug;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\lib\Debug\Win32;
-      ;$(VisualStudioDir)\SDKs\glfw\build\src\Debug;
+      ;$(VisualStudioDir)\SDKs\glfw-3.0.4\build\src\Debug;
       ;$(LibraryPath);
     </LibraryPath>
 
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       ;$(VisualStudioDir)\Projects\ionEngine\Release;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\lib\Release\Win32;
-      ;$(VisualStudioDir)\SDKs\glfw\build\src\Release;
+      ;$(VisualStudioDir)\SDKs\glfw-3.0.4\build\src\Release;
       ;$(LibraryPath);
     </LibraryPath>
 
