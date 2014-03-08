@@ -66,6 +66,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWindowManager", "TestWi
 		{A24BACED-451D-4120-A386-136A963C3C72} = {A24BACED-451D-4120-A386-136A963C3C72}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGL", "TestGL\TestGL.vcxproj", "{6F837E71-5954-4D08-B1BE-598C8FDF021E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -120,6 +122,10 @@ Global
 		{03C6DAB6-20CA-4279-A89E-087373B27805}.Debug|Win32.Build.0 = Debug|Win32
 		{03C6DAB6-20CA-4279-A89E-087373B27805}.Release|Win32.ActiveCfg = Release|Win32
 		{03C6DAB6-20CA-4279-A89E-087373B27805}.Release|Win32.Build.0 = Release|Win32
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Debug|Win32.Build.0 = Debug|Win32
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Release|Win32.ActiveCfg = Release|Win32
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
