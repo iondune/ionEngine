@@ -48,8 +48,7 @@ int main()
 	};
 
 	GLuint const Elements[] = {
-		0, 1, 2,
-		2, 3, 0
+		0, 1, 2
 	};
 
 	GLuint VAO;
@@ -60,6 +59,7 @@ int main()
 	CheckedGLCall(glGenBuffers(1, & VBO));
 	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 	CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW));
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	GLuint EBO;
 	CheckedGLCall(glGenBuffers(1, & EBO));
@@ -95,15 +95,18 @@ int main()
 	CheckedGLCall(glUseProgram(ShaderProgram));
 
 	GLint PositionAttribute = CheckedGLCall(glGetAttribLocation(ShaderProgram, "position"));
-	CheckedGLCall(glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0));
 	CheckedGLCall(glEnableVertexAttribArray(PositionAttribute));
+	
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	CheckedGLCall(glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0));
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
 		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-		CheckedGLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
+		CheckedGLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0));
 		Window->SwapBuffers();
 	}
 
