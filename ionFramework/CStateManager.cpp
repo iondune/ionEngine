@@ -1,7 +1,7 @@
 #include "CStateManager.h"
 
 #include "CApplication.h"
-#include <ionWindow/CWindow.h>
+#include "CWindow.h"
 
 
 void CStateManager::SetState(IState * State)

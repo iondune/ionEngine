@@ -3,9 +3,9 @@
 
 #include <ionCore.h>
 #include <ionScene.h>
-#include <ionWindow.h>
 
 #include "CStateManager.h"
+#include "CWindowManager.h"
 
 
 class CApplication : public Singleton<CApplication>

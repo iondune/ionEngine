@@ -8,6 +8,15 @@
     <ClCompile Include="CStateManager.cpp">
       <Filter>State System</Filter>
     </ClCompile>
+    <ClCompile Include="CGamePad.cpp">
+      <Filter>Window System</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindow.cpp">
+      <Filter>Window System</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindowManager.cpp">
+      <Filter>Window System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h" />
@@ -39,6 +48,30 @@
     <ClInclude Include="CContextState.h">
       <Filter>State System</Filter>
     </ClInclude>
+    <ClInclude Include="CGamePad.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindow.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindowManager.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="EGamePadButton.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="EKey.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="SKeyboardEvent.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="SMouseEvent.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
+    <ClInclude Include="SWindowResizedEvent.h">
+      <Filter>Window System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Event Management">
@@ -49,6 +82,9 @@
     </Filter>
     <Filter Include="Context System">
       <UniqueIdentifier>{1f03d492-4701-4720-b96d-4346ab54f58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window System">
+      <UniqueIdentifier>{230478a8-ec8e-4f9c-81e2-8866b06d4e20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
