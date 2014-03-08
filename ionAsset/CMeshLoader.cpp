@@ -71,7 +71,7 @@ CMesh * const CMeshLoader::CreateCubeMesh()
 
 CMesh * const CMeshLoader::CreateReverseCubeMesh()
 {
-    CMesh * Mesh = createCubeMesh();
+    CMesh * Mesh = CreateCubeMesh();
 	Mesh->reverseFaces();
 	Mesh->calculateNormalsPerFace();
     return Mesh;
