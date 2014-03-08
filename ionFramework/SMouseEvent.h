@@ -4,12 +4,12 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
-#include <ionFramework/SEvent.h>
+#include "IEvent.h"
 
 
 class CWindow;
 
-struct SMouseEvent : public SEventData
+struct SMouseEvent : public IEvent
 {
     enum class EButton
     {

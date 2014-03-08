@@ -44,30 +44,30 @@
     <ClCompile Include="CCameraControl.cpp" />
     <ClCompile Include="CFadeOutState.cpp" />
     <ClCompile Include="CGamePad.cpp" />
+    <ClCompile Include="ConvertGLFWKeyCode.cpp" />
     <ClCompile Include="COrthoCamera.cpp" />
     <ClCompile Include="CStateManager.cpp" />
     <ClCompile Include="CWindow.cpp" />
+    <ClCompile Include="CWindowManager.Callbacks.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CApplicationContextObject.h" />
-    <ClInclude Include="CContextObject.h" />
     <ClInclude Include="CContextState.h" />
     <ClInclude Include="CGamePad.h" />
+    <ClInclude Include="ConvertGLFWKeyCode.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="EKey.h" />
     <ClInclude Include="IEventListener.h" />
     <ClInclude Include="IState.h" />
-    <ClInclude Include="SEvent.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CCameraControl.h" />
     <ClInclude Include="CFadeOutState.h" />
     <ClInclude Include="COrthoCamera.h" />
     <ClInclude Include="CStateManager.h" />
     <ClInclude Include="ionFramework.h" />
-    <ClInclude Include="SEventData.h" />
+    <ClInclude Include="IEvent.h" />
     <ClInclude Include="SKeyboardEvent.h" />
     <ClInclude Include="SMouseEvent.h" />
     <ClInclude Include="SWindowResizedEvent.h" />

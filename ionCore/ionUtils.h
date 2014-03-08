@@ -69,34 +69,3 @@ s32 Sign(T const & val)
 {
 	return (T(0) < val) - (val < T(0));
 }
-
-template <class Implementation>
-class Singleton
-{
-
-	Singleton(Singleton const &);
-	Singleton & operator = (Singleton const &);
-
-protected:
-
-	Singleton()
-	{}
-
-public:
-
-	static Implementation & Get()
-	{
-		static Implementation * Instance = 0;
-
-		if (! Instance)
-			Instance = new Implementation();
-
-		return * Instance;
-	}
-
-	static Implementation * GetPtr()
-	{
-		return & Get();
-	}
-
-};

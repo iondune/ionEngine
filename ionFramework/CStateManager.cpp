@@ -16,9 +16,7 @@ void CStateManager::DoStateChange()
 
 	if (CurrentState)
 	{
-		IEventListener<SMouseEvent>::RemoveChild(CurrentState);
-		IEventListener<SKeyboardEvent>::RemoveChild(CurrentState);
-		IEventListener<SWindowResizedEvent>::RemoveChild(CurrentState);
+		RemoveListener(CurrentState);
 		CurrentState->End();
 	}
 
@@ -26,9 +24,7 @@ void CStateManager::DoStateChange()
 	NextState = 0;
 
 	CurrentState->Begin();
-	IEventListener<SMouseEvent>::AddChild(CurrentState);
-	IEventListener<SKeyboardEvent>::AddChild(CurrentState);
-	IEventListener<SWindowResizedEvent>::AddChild(CurrentState);
+	AddListener(CurrentState);;
 }
 
 void CStateManager::Update(f32 const ElapsedTime)
@@ -39,9 +35,7 @@ void CStateManager::Update(f32 const ElapsedTime)
 
 void CStateManager::Connect(CWindow * Window)
 {
-	Window->MouseEvent.AddChild(this);
-	Window->KeyboardEvent.AddChild(this);
-	Window->WindowResizedEvent.AddChild(this);
+	Window->AddListener(this);
 }
 
 void CStateManager::ShutDown()

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionFramework/SEvent.h>
+#include "IEventListener.h"
 #include "SKeyboardEvent.h"
 #include "SMouseEvent.h"
 #include "SWindowResizedEvent.h"
@@ -9,7 +9,7 @@
 
 struct GLFWwindow;
 
-class CWindow : public SEvent<SKeyboardEvent>::ITrigger, public SEvent<SMouseEvent>::ITrigger, public SEvent<SWindowResizedEvent>::ITrigger
+class CWindow : public IEventListener
 {
 
 	friend class CWindowManager;
@@ -24,16 +24,14 @@ public:
 
 	bool IsKeyDown(EKey const Key);
     bool IsMouseDown(SMouseEvent::EButton const Button);
+
     vec2f const & GetCursorLocation() const;
 	void SetCursorLocation(vec2f const & position);
+
     vec2f GetRelativeCursorLocation() const;
 	void SetRelativeCursorLocation(vec2f const & position);
 	
-	SEvent<SKeyboardEvent> KeyboardEvent;
-	SEvent<SMouseEvent> MouseEvent;
-	SEvent<SWindowResizedEvent> WindowResizedEvent;
-	
-	GLFWwindow * const GetHandle();
+	GLFWwindow * const GetHandle() const;
 
 protected:
 

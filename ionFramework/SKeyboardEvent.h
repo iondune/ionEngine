@@ -1,14 +1,13 @@
 
 #pragma once
 
-#include <ionFramework/SEvent.h>
-
+#include "IEvent.h"
 #include "EKey.h"
 
 
 class CWindow;
 
-struct SKeyboardEvent : public SEventData
+struct SKeyboardEvent : public IEvent
 {
     bool Pressed;
     EKey Key;

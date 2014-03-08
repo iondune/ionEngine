@@ -9,39 +9,43 @@ CCameraControl::CCameraControl(SVector3f const position)
 	setPosition(position);
 }
 
-void CCameraControl::OnEvent(SMouseEvent & Event)
+void CCameraControl::OnEvent(IEvent & Event)
 {
-	if (Event.Type == SMouseEvent::EType::Click && (Event.Pressed) && Event.Button == SMouseEvent::EButton::Right && Application.GetSceneManager().getActiveCamera() == this)
-		Tracking = true;
-
-	if (Event.Type == SMouseEvent::EType::Click && (! Event.Pressed) && Event.Button == SMouseEvent::EButton::Right)
-		Tracking = false;
-
-	if ((Event.Type == SMouseEvent::EType::Move))
+	if (InstanceOf<SMouseEvent>(Event))
 	{
-		if (Tracking && Application.GetSceneManager().getActiveCamera() == this)
+		SMouseEvent & MouseEvent = As<SMouseEvent>(Event);
+		if (MouseEvent.Type == SMouseEvent::EType::Click && (MouseEvent.Pressed) && MouseEvent.Button == SMouseEvent::EButton::Right && Application.GetSceneManager().getActiveCamera() == this)
+			Tracking = true;
+
+		if (MouseEvent.Type == SMouseEvent::EType::Click && (! MouseEvent.Pressed) && MouseEvent.Button == SMouseEvent::EButton::Right)
+			Tracking = false;
+
+		if ((MouseEvent.Type == SMouseEvent::EType::Move))
 		{
-			Theta += (Event.Movement.X) * LookSpeed;
-			Phi -= (Event.Movement.Y) * LookSpeed;
+			if (Tracking && Application.GetSceneManager().getActiveCamera() == this)
+			{
+				Theta += (MouseEvent.Movement.X) * LookSpeed;
+				Phi -= (MouseEvent.Movement.Y) * LookSpeed;
 
-			if (Phi > Constants32::Pi/2 - MaxAngleEpsilon)
-				Phi = Constants32::Pi/2 - MaxAngleEpsilon;
-			if (Phi < -Constants32::Pi/2 + MaxAngleEpsilon)
-				Phi = -Constants32::Pi/2 + MaxAngleEpsilon;
+				if (Phi > Constants32::Pi/2 - MaxAngleEpsilon)
+					Phi = Constants32::Pi/2 - MaxAngleEpsilon;
+				if (Phi < -Constants32::Pi/2 + MaxAngleEpsilon)
+					Phi = -Constants32::Pi/2 + MaxAngleEpsilon;
+			}
 		}
-	}
 
-	if (Event.Type == SMouseEvent::EType::Scroll && Application.GetSceneManager().getActiveCamera() == this)
-	{
-		s32 ticks = (s32) Event.Movement.Y;
-		if (ticks > 0)
-			while (ticks-- > 0)
-				FocalLength *= FocalLengthDelta;
-		else if (ticks < 0)
-			while (ticks++ < 0)
-				FocalLength /= FocalLengthDelta;
+		if (MouseEvent.Type == SMouseEvent::EType::Scroll && Application.GetSceneManager().getActiveCamera() == this)
+		{
+			s32 ticks = (s32) MouseEvent.Movement.Y;
+			if (ticks > 0)
+				while (ticks-- > 0)
+					FocalLength *= FocalLengthDelta;
+			else if (ticks < 0)
+				while (ticks++ < 0)
+					FocalLength /= FocalLengthDelta;
 
-		UpdateProjection();
+			UpdateProjection();
+		}
 	}
 }
 

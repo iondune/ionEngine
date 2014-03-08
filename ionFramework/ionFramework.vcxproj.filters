@@ -8,14 +8,20 @@
     <ClCompile Include="CStateManager.cpp">
       <Filter>State System</Filter>
     </ClCompile>
-    <ClCompile Include="CGamePad.cpp">
-      <Filter>Window System</Filter>
-    </ClCompile>
     <ClCompile Include="CWindow.cpp">
       <Filter>Window System</Filter>
     </ClCompile>
     <ClCompile Include="CWindowManager.cpp">
       <Filter>Window System</Filter>
+    </ClCompile>
+    <ClCompile Include="CGamePad.cpp">
+      <Filter>Input Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindowManager.Callbacks.cpp">
+      <Filter>Window System</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvertGLFWKeyCode.cpp">
+      <Filter>Input Devices\Enumerations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -24,23 +30,11 @@
     <ClInclude Include="CFadeOutState.h" />
     <ClInclude Include="COrthoCamera.h" />
     <ClInclude Include="ionFramework.h" />
-    <ClInclude Include="SEvent.h">
-      <Filter>Event Management</Filter>
-    </ClInclude>
-    <ClInclude Include="SEventData.h">
-      <Filter>Event Management</Filter>
-    </ClInclude>
     <ClInclude Include="IEventListener.h">
       <Filter>Event Management</Filter>
     </ClInclude>
     <ClInclude Include="CStateManager.h">
       <Filter>State System</Filter>
-    </ClInclude>
-    <ClInclude Include="CContextObject.h">
-      <Filter>Context System</Filter>
-    </ClInclude>
-    <ClInclude Include="CApplicationContextObject.h">
-      <Filter>Context System</Filter>
     </ClInclude>
     <ClInclude Include="IState.h">
       <Filter>State System</Filter>
@@ -48,28 +42,34 @@
     <ClInclude Include="CContextState.h">
       <Filter>State System</Filter>
     </ClInclude>
-    <ClInclude Include="CGamePad.h">
-      <Filter>Window System</Filter>
-    </ClInclude>
     <ClInclude Include="CWindow.h">
       <Filter>Window System</Filter>
     </ClInclude>
-    <ClInclude Include="CWindowManager.h">
-      <Filter>Window System</Filter>
+    <ClInclude Include="EKey.h">
+      <Filter>Input Devices\Enumerations</Filter>
     </ClInclude>
     <ClInclude Include="EGamePadButton.h">
-      <Filter>Window System</Filter>
-    </ClInclude>
-    <ClInclude Include="EKey.h">
-      <Filter>Window System</Filter>
+      <Filter>Input Devices\Enumerations</Filter>
     </ClInclude>
     <ClInclude Include="SKeyboardEvent.h">
-      <Filter>Window System</Filter>
+      <Filter>Input Devices\Events</Filter>
     </ClInclude>
     <ClInclude Include="SMouseEvent.h">
-      <Filter>Window System</Filter>
+      <Filter>Input Devices\Events</Filter>
     </ClInclude>
     <ClInclude Include="SWindowResizedEvent.h">
+      <Filter>Input Devices\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IEvent.h">
+      <Filter>Event Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CGamePad.h">
+      <Filter>Input Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertGLFWKeyCode.h">
+      <Filter>Input Devices\Enumerations</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindowManager.h">
       <Filter>Window System</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,11 +80,17 @@
     <Filter Include="State System">
       <UniqueIdentifier>{a3e29e70-dca9-4ad2-9f42-9334a6c1e900}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Context System">
-      <UniqueIdentifier>{1f03d492-4701-4720-b96d-4346ab54f58d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Window System">
       <UniqueIdentifier>{230478a8-ec8e-4f9c-81e2-8866b06d4e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input Devices">
+      <UniqueIdentifier>{155b022a-3a70-4b1b-a823-bda6a3b1c8bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input Devices\Events">
+      <UniqueIdentifier>{1e89cd42-0a0b-4efa-8c68-9c38e66a9f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input Devices\Enumerations">
+      <UniqueIdentifier>{6ce2750d-1f4f-4168-b148-0e23cf951c26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

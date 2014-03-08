@@ -6,7 +6,7 @@
 
 class CWindow;
 
-class CStateManager : public Singleton<CStateManager>, public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public IEventListener<SWindowResizedEvent>
+class CStateManager : public Singleton<CStateManager>, public IEventListener
 {
 
     friend class Singleton<CStateManager>;

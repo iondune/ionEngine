@@ -1,8 +1,10 @@
 
 #pragma once
 
+#include <ionCore.h>
 
-struct SEventData
+
+class IEvent
 {
 
 public:
@@ -22,9 +24,12 @@ public:
 		return Blocked;
 	}
 
+	virtual ~IEvent()
+	{}
+
 protected:
 
-	SEventData()
+	IEvent()
 		: Blocked(false)
 	{}
 

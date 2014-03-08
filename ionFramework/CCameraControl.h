@@ -7,7 +7,7 @@
 #include "CApplication.h"
 
 
-class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListener<SMouseEvent>
+class CCameraControl : public CPerspectiveCameraSceneObject, public IEventListener
 {
 
 	CApplication & Application;
@@ -20,7 +20,7 @@ public:
 
 	CCameraControl(SVector3f const position = SVector3f(0, 3, 2));
 
-	void OnEvent(SMouseEvent & Event);
+	void OnEvent(IEvent & Event);
 	void Update(float const TickTime);
 
 	SVector3f const & GetPosition();

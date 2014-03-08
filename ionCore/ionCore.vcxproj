@@ -27,6 +27,7 @@
     <Import Project="..\ionEngine.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionThread.h" />
