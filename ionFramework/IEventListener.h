@@ -10,7 +10,8 @@ class IEventListener : public ITreeNode<IEventListener>
 
 public:
 
-	virtual void OnEvent(IEvent & Event);
+	virtual void OnEvent(IEvent & Event)
+	{}
 
 	void AddListener(IEventListener * Listener)
 	{
