@@ -50,24 +50,24 @@ int main()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Elements), Elements, GL_STATIC_DRAW);
 
-    GLuint VertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(VertexShader, 1, & VertexShaderSource, NULL);
-    glCompileShader(VertexShader);
+	GLuint VertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(VertexShader, 1, & VertexShaderSource, NULL);
+	glCompileShader(VertexShader);
 
-    GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(FragmentShader, 1, & FragmentShaderSource, NULL);
-    glCompileShader(FragmentShader);
+	glCompileShader(FragmentShader);
 
-    GLuint ShaderProgram = glCreateProgram();
-    glAttachShader(ShaderProgram, VertexShader);
-    glAttachShader(ShaderProgram, FragmentShader);
-    glBindFragDataLocation(ShaderProgram, 0, "outColor");
-    glLinkProgram(ShaderProgram);
-    glUseProgram(ShaderProgram);
+	GLuint ShaderProgram = glCreateProgram();
+	glAttachShader(ShaderProgram, VertexShader);
+	glAttachShader(ShaderProgram, FragmentShader);
+	glBindFragDataLocation(ShaderProgram, 0, "outColor");
+	glLinkProgram(ShaderProgram);
+	glUseProgram(ShaderProgram);
 
-    GLint PositionAttribute = glGetAttribLocation(ShaderProgram, "position");
-    glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(PositionAttribute);
+	GLint PositionAttribute = glGetAttribLocation(ShaderProgram, "position");
+	glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(PositionAttribute);
 
 	while (! WindowManager->ShouldClose())
 	{
@@ -78,13 +78,13 @@ int main()
 		Window->SwapBuffers();
 	}
 
-    glDeleteProgram(ShaderProgram);
-    glDeleteShader(FragmentShader);
-    glDeleteShader(VertexShader);
+	glDeleteProgram(ShaderProgram);
+	glDeleteShader(FragmentShader);
+	glDeleteShader(VertexShader);
 
-    glDeleteBuffers(1, & EBO);
-    glDeleteBuffers(1, & VBO);
-    glDeleteVertexArrays(1, & VAO);
+	glDeleteBuffers(1, & EBO);
+	glDeleteBuffers(1, & VBO);
+	glDeleteVertexArrays(1, & VAO);
 
 	return 0;
 }
