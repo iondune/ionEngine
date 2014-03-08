@@ -12,7 +12,7 @@ namespace ion
 			bool Succeeded = true;
 
 			GLenum Error = glGetError();
-			while (Error != GL_NO_ERROR)
+			if (Error != GL_NO_ERROR)
 			{
 				c8 const * ErrorString = (c8 const *) gluErrorString(Error);
 				std::cerr << "OpenGL Error in " << File << " at line " << Line << " calling function " << Function << ": " << (ErrorString ? ErrorString : "") << std::endl;

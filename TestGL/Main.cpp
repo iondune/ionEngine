@@ -2,6 +2,22 @@
 #include <ionEngine.h>
 
 
+void PrintShaderInfoLog(GLint const Shader)
+{
+	int InfoLogLength = 0;
+	int CharsWritten = 0;
+ 
+	glGetShaderiv(Shader, GL_INFO_LOG_LENGTH, & InfoLogLength);
+ 
+	if (InfoLogLength > 0)
+	{
+		GLchar * InfoLog = new GLchar[InfoLogLength];
+		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
+		std::cout << "Shader Info Log:" << std::endl << InfoLog << std::endl;
+		delete [] InfoLog;
+	}
+}
+
 int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
@@ -37,54 +53,67 @@ int main()
 	};
 
 	GLuint VAO;
-	glGenVertexArrays(1, & VAO);
-	glBindVertexArray(VAO);
+	CheckedGLCall(glGenVertexArrays(1, & VAO));
+	CheckedGLCall(glBindVertexArray(VAO));
 
 	GLuint VBO;
-	glGenBuffers(1, & VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+	CheckedGLCall(glGenBuffers(1, & VBO));
+	CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW));
 
 	GLuint EBO;
-	glGenBuffers(1, & EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Elements), Elements, GL_STATIC_DRAW);
+	CheckedGLCall(glGenBuffers(1, & EBO));
+	CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Elements), Elements, GL_STATIC_DRAW));
+	
+	GLint Compiled;
+	GLuint VertexShader = CheckedGLCall(glCreateShader(GL_VERTEX_SHADER));
+	CheckedGLCall(glShaderSource(VertexShader, 1, & VertexShaderSource, NULL));
+	CheckedGLCall(glCompileShader(VertexShader));
+	CheckedGLCall(glGetShaderiv(VertexShader, GL_COMPILE_STATUS, & Compiled));
+	if (! Compiled)
+	{
+		std::cerr << "Failed to compile vertex shader!" << std::endl;
+		PrintShaderInfoLog(VertexShader);
+	}
 
-	GLuint VertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(VertexShader, 1, & VertexShaderSource, NULL);
-	glCompileShader(VertexShader);
+	GLuint FragmentShader = CheckedGLCall(glCreateShader(GL_FRAGMENT_SHADER));
+	CheckedGLCall(glShaderSource(FragmentShader, 1, & FragmentShaderSource, NULL));
+	CheckedGLCall(glCompileShader(FragmentShader));
+	CheckedGLCall(glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, & Compiled));
+	if (! Compiled)
+	{
+		std::cerr << "Failed to compile fragment shader!" << std::endl;
+		PrintShaderInfoLog(FragmentShader);
+	}
 
-	GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(FragmentShader, 1, & FragmentShaderSource, NULL);
-	glCompileShader(FragmentShader);
+	GLuint ShaderProgram = CheckedGLCall(glCreateProgram());
+	CheckedGLCall(glAttachShader(ShaderProgram, VertexShader));
+	CheckedGLCall(glAttachShader(ShaderProgram, FragmentShader));
+	CheckedGLCall(glBindFragDataLocation(ShaderProgram, 0, "outColor"));
+	CheckedGLCall(glLinkProgram(ShaderProgram));
+	CheckedGLCall(glUseProgram(ShaderProgram));
 
-	GLuint ShaderProgram = glCreateProgram();
-	glAttachShader(ShaderProgram, VertexShader);
-	glAttachShader(ShaderProgram, FragmentShader);
-	glBindFragDataLocation(ShaderProgram, 0, "outColor");
-	glLinkProgram(ShaderProgram);
-	glUseProgram(ShaderProgram);
-
-	GLint PositionAttribute = glGetAttribLocation(ShaderProgram, "position");
-	glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(PositionAttribute);
+	GLint PositionAttribute = CheckedGLCall(glGetAttribLocation(ShaderProgram, "position"));
+	CheckedGLCall(glVertexAttribPointer(PositionAttribute, 2, GL_FLOAT, GL_FALSE, 0, 0));
+	CheckedGLCall(glEnableVertexAttribArray(PositionAttribute));
 
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		CheckedGLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
 		Window->SwapBuffers();
 	}
 
-	glDeleteProgram(ShaderProgram);
-	glDeleteShader(FragmentShader);
-	glDeleteShader(VertexShader);
+	CheckedGLCall(glDeleteProgram(ShaderProgram));
+	CheckedGLCall(glDeleteShader(FragmentShader));
+	CheckedGLCall(glDeleteShader(VertexShader));
 
-	glDeleteBuffers(1, & EBO);
-	glDeleteBuffers(1, & VBO);
-	glDeleteVertexArrays(1, & VAO);
+	CheckedGLCall(glDeleteBuffers(1, & EBO));
+	CheckedGLCall(glDeleteBuffers(1, & VBO));
+	CheckedGLCall(glDeleteVertexArrays(1, & VAO));
 
 	return 0;
 }
