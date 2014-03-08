@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionScene", "ionScene\ionSce
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionMath", "ionMath\ionMath.vcxproj", "{A24BACED-451D-4120-A386-136A963C3C72}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilityCompileTest", "UtilityCompileTest\UtilityCompileTest.vcxproj", "{2D08659B-B706-4A3C-95C0-9294710DC5EE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDeployment", "TestDeployment\TestDeployment.vcxproj", "{2D08659B-B706-4A3C-95C0-9294710DC5EE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
 		{463C7B23-416C-4F21-B643-10A82D600C8C} = {463C7B23-416C-4F21-B643-10A82D600C8C}
