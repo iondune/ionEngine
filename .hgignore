@@ -14,3 +14,4 @@ syntax: glob
 *.unsuccessfulbuild
 *.o
 *.a
+Documentation/html
