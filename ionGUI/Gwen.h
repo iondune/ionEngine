@@ -3,7 +3,10 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGL.h>
 
+#include <Windows.h>
+#include <GL/glew.h>
 #include <Gwen/Gwen.h>
 
 #include <Gwen/Controls.h>

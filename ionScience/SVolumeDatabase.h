@@ -33,7 +33,6 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 	using SVolume<SVolumeDataRecord<T>>::Values;
 	using SVolume<SVolumeDataRecord<T>>::Dimensions;
 	using SVolume<SVolumeDataRecord<T>>::Get;
-	using SVolume<SVolumeDataRecord<T>>::Size;
 
 	SVolumeDatabase()
 		: SVolume<SVolumeDataRecord<T>>(SVolumeDataRecord<T>(* this))
