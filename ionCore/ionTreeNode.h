@@ -46,7 +46,7 @@ public:
 	void SetParent(Implementation * parent)
 	{
 		if (Parent)
-			static_cast<ITreeNode<Implementation> *>(parent)->Children.erase(static_cast<Implementation *>(this));
+			static_cast<ITreeNode<Implementation> *>(Parent)->Children.erase(static_cast<Implementation *>(this));
 
 		Parent = parent;
 
