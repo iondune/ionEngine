@@ -15,6 +15,7 @@ template <typename T>
 struct SVolumeDataRecord : public IDataRecord<T>
 {
 
+	SVolumeDataRecord();
 	SVolumeDataRecord(SVolumeDatabase<T> & database);
 	SVolumeDataRecord<T> & operator = (SVolumeDataRecord<T> const & other);
 
@@ -22,7 +23,7 @@ struct SVolumeDataRecord : public IDataRecord<T>
 	T & GetField(std::string const & Field);
 
 	std::vector<T> Values;
-	SVolumeDatabase<T> & Database;
+	SVolumeDatabase<T> * Database;
 
 };
 
@@ -37,6 +38,11 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 	SVolumeDatabase()
 		: SVolume<SVolumeDataRecord<T>>(SVolumeDataRecord<T>(* this))
 	{}
+
+	void Allocate()
+	{
+		Values.resize(Dimensions.X * Dimensions.Y * Dimensions.Z, SVolumeDataRecord<T>(* this));
+	}
 
 	void AddField(std::string const & Field)
 	{
@@ -101,7 +107,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 	{
 		ColorMapper->PreProcessValues(* this);
 
-		u8 * const VolumeData = new u8[Dimensions.X * Dimensions.Y * Dimensions.Z];
+		u8 * const VolumeData = new u8[Dimensions.X * Dimensions.Y * Dimensions.Z * 4];
 
 		for (s32 k = 0; k < Dimensions.Z; ++ k)
 		for (s32 j = 0; j < Dimensions.Y; ++ j)
@@ -200,16 +206,27 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 };
 
 template <typename T>
+SVolumeDataRecord<T>::SVolumeDataRecord()
+: Database()
+{}
+
+template <typename T>
 SVolumeDataRecord<T>::SVolumeDataRecord(SVolumeDatabase<T> & database)
-	: Database(database)
+: Database(& database)
 {
-	Values.resize(Database.Fields.size(), 0);
+	Values.resize(Database->Fields.size(), 0);
 }
 
 template <typename T>
 SVolumeDataRecord<T> & SVolumeDataRecord<T>::operator = (SVolumeDataRecord<T> const & other)
 {
-	assert(& Database == & other.Database);
+	if (!Database)
+	{
+		Database = other.Database;
+		Values.resize(Database->Fields.size(), 0);
+	}
+
+	assert(Database == other.Database);
 	Values = other.Values;
 
 	return * this;
@@ -218,22 +235,22 @@ SVolumeDataRecord<T> & SVolumeDataRecord<T>::operator = (SVolumeDataRecord<T> co
 template <typename T>
 T SVolumeDataRecord<T>::GetField(std::string const & Field) const
 {
-	if (! Database.HasField(Field))
+	if (!Database->HasField(Field))
 		return 0;
 
-	auto it = std::find(Database.Fields.begin(), Database.Fields.end(), Field);
-	assert(it != Database.Fields.end());
+	auto it = std::find(Database->Fields.begin(), Database->Fields.end(), Field);
+	assert(it != Database->Fields.end());
 
-	return Values[std::distance(Database.Fields.begin(), it)];
+	return Values[std::distance(Database->Fields.begin(), it)];
 }
 
 template <typename T>
 T & SVolumeDataRecord<T>::GetField(std::string const & Field)
 {
-	Database.AddField(Field);
+	Database->AddField(Field);
 
-	auto it = std::find(Database.Fields.begin(), Database.Fields.end(), Field);
-	assert(it != Database.Fields.end());
+	auto it = std::find(Database->Fields.begin(), Database->Fields.end(), Field);
+	assert(it != Database->Fields.end());
 
-	return Values[std::distance(Database.Fields.begin(), it)];
+	return Values[std::distance(Database->Fields.begin(), it)];
 }
