@@ -2,6 +2,7 @@
 #pragma once
 
 
+#include <ionConfig.h>
 #include "FreeType.h"
 
 #ifdef _ION_CONFIG_USE_GWEN

@@ -1,0 +1,20 @@
+h1. ionEngine
+
+h2. Overview
+
+ionEngine is an application framework written in C++ designed primarily for use
+in game development and other graphics-heavy applications. The forefront features
+are:
+
+# class-based modern OpenGL interface
+# highly extensible scene graph supporting culling
+# complex event and state management scheme
+# robust mathematics library
+
+h2. Distribution
+
+The ionEngine is available under the "Apache v2 license":http://www.apache.org/licenses/LICENSE-2.0.html
+
+Source code distributions are available "from Bitbucket":https://bitbucket.org/iondune/ionengine
+
+Further documentation can be found "at the wiki":https://bitbucket.org/iondune/ionengine/wiki/Home

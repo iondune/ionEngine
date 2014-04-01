@@ -26,7 +26,7 @@ public:
 	CWindowManager & GetWindowManager();
 	CWindow & GetWindow(uint const Index = 0);
 
-	void AddWindow(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application");
+	void AddWindow(vec2i const & WindowSize, std::string const & WindowTitle = "OpenGL / GLFW / ionEngine - Application", bool const FullScreen = false);
 
 	void Run();
 

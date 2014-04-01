@@ -1,10 +1,9 @@
 
 #pragma once
 
-#include <GL/glew.h>
-
 #include "Gwen.h"
 
+#include <ionGL.h>
 #include <ionCore.h>
 #include <ionMath.h>
 #include <ionScene.h>

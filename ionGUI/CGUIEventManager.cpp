@@ -1,8 +1,9 @@
 
+#include <ionConfig.h>
+
 #ifdef _ION_CONFIG_USE_GWEN
 
 #include "CGUIEventManager.h"
-
 #include <ionFramework/CApplication.h>
 
 
