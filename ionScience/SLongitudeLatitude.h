@@ -87,7 +87,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			break;
 		}
 
-		return DMStoDecimal(Deg, Min, Sec, Direction); // Where/What is this?
+		return DMStoDecimal(Deg, Min, Sec, Direction);
 	}
 
 	ION_FUNC_DEF vec2f Vector() const
