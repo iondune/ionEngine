@@ -1,4 +1,6 @@
 
+#include <ionConfig.h>
+
 #ifdef _ION_CONFIG_USE_GWEN
 
 #include "CGUIConsoleWidget.h"

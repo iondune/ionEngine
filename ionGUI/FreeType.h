@@ -9,8 +9,8 @@
 #include <fttrigon.h>
 
 // OpenGL Headers 
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include <Windows.h>
+#include <GL/glew.h>
 
 // STL
 #include <vector>

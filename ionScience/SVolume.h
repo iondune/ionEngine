@@ -23,35 +23,35 @@ struct SVolume
 		Allocate(init);
 	}
 
-	void Allocate()
+	virtual void Allocate()
 	{
 		Values.resize(Dimensions.X * Dimensions.Y * Dimensions.Z);
 	}
 
-	void Allocate(T const & value)
+	virtual void Allocate(T const & value)
 	{
 		Values.resize(Dimensions.X * Dimensions.Y * Dimensions.Z, value);
 	}
 
-	bool const InBounds(vec3i const Index) const
+	virtual bool const InBounds(vec3i const Index) const
 	{
 		return InBounds(Index.X, Index.Y, Index.Z);
 	}
 
-	bool const InBounds(s32 const X, s32 const Y, s32 const Z) const
+	virtual bool const InBounds(s32 const X, s32 const Y, s32 const Z) const
 	{
 		return X >= 0 && X < Dimensions.X &&
 			Y >= 0 && Y < Dimensions.Y &&
 			Z >= 0 && Z < Dimensions.Z;
 	}
 
-	T & Get(s32 const X, s32 const Y, s32 const Z)
+	virtual T & Get(s32 const X, s32 const Y, s32 const Z)
 	{
 		s32 const Index = Clamp(X, 0, Dimensions.X - 1) + Dimensions.X * Clamp(Y, 0, Dimensions.Y - 1) + Dimensions.X * Dimensions.Y * Clamp(Z, 0, Dimensions.Z - 1);
 		return Values[Index];
 	}
 
-	T const & Get(s32 const X, s32 const Y, s32 const Z) const
+	virtual T const & Get(s32 const X, s32 const Y, s32 const Z) const
 	{
 		s32 const Index = Clamp(X, 0, Dimensions.X - 1) + Dimensions.X * Clamp(Y, 0, Dimensions.Y - 1) + Dimensions.X * Dimensions.Y * Clamp(Z, 0, Dimensions.Z - 1);
 		return Values[Index];
@@ -170,32 +170,32 @@ struct SVolume
 
 	};
 
-	SLayerAccess operator[] (u32 const X)
+	virtual SLayerAccess operator[] (u32 const X)
 	{
 		return SLayerAccess(* this, X);
 	}
 
-	SConstLayerAccess operator[] (u32 const X) const
+	virtual SConstLayerAccess operator[] (u32 const X) const
 	{
 		return SConstLayerAccess(* this, X);
 	}
 
-	T & operator[] (vec3i const & index)
+	virtual T & operator[] (vec3i const & index)
 	{
 		return Get(index.X, index.Y, index.Z);
 	}
 
-	T & operator[] (glm::ivec3 const & index)
+	virtual T & operator[] (glm::ivec3 const & index)
 	{
 		return Get(index.x, index.y, index.z);
 	}
 
-	T const & operator[] (vec3i const & index) const
+	virtual T const & operator[] (vec3i const & index) const
 	{
 		return Get(index.X, index.Y, index.Z);
 	}
 
-	T const & operator[] (glm::ivec3 const & index) const
+	virtual T const & operator[] (glm::ivec3 const & index) const
 	{
 		return Get(index.x, index.y, index.z);
 	}
@@ -203,22 +203,22 @@ struct SVolume
 	typedef typename std::vector<T>::iterator iterator;
 	typedef typename std::vector<T>::const_iterator const_iterator;
 	
-	iterator begin()
+	virtual iterator begin()
 	{
 		return Values.begin();
 	}
 
-	iterator end()
+	virtual iterator end()
 	{
 		return Values.end();
 	}
 
-	const_iterator begin() const
+	virtual const_iterator begin() const
 	{
 		return Values.begin();
 	}
 
-	const_iterator end() const
+	virtual const_iterator end() const
 	{
 		return Values.end();
 	}

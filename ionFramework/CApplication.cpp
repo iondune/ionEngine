@@ -15,7 +15,7 @@ void CApplication::Init(vec2i const & WindowSize, std::string const & WindowTitl
 	StateManager = & CStateManager::Get();
 
 	WindowManager->Init();
-	AddWindow(WindowSize, WindowTitle);
+	AddWindow(WindowSize, WindowTitle, FullScreen);
 	
 	SceneManager = new CSceneManager(WindowSize);
 }
@@ -40,9 +40,9 @@ CWindow & CApplication::GetWindow(uint const Index)
 	return * Windows[Index];
 }
 
-void CApplication::AddWindow(vec2i const & WindowSize, std::string const & WindowTitle)
+void CApplication::AddWindow(vec2i const & WindowSize, std::string const & WindowTitle, bool const Fullscreen)
 {
-	Windows.push_back(WindowManager->CreateWindow(WindowSize, WindowTitle, false));
+	Windows.push_back(WindowManager->CreateWindow(WindowSize, WindowTitle, Fullscreen));
 	StateManager->Connect(Windows.back());
 }
 
