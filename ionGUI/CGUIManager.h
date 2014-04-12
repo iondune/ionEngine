@@ -2,7 +2,6 @@
 #pragma once
 
 #include <ionCore/ionTypes.h>
-#include <ionWindow/ionWindow.h>
 #include <ionFramework.h>
 
 #include "CGUIWidget.h"
