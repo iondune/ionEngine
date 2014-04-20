@@ -13,9 +13,6 @@ class IRenderTarget
 
 public:
 
-	IRenderTarget()
-	{}
-
-	virtual ERenderTargetType const getRenderTargetType() = 0;
+	virtual ERenderTargetType const GetRenderTargetType() = 0;
 
 };

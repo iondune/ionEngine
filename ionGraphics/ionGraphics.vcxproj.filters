@@ -1,20 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="CBufferObject.h" />
     <ClInclude Include="CDeferredShadingManager.h" />
     <ClInclude Include="CFrameBufferObject.h" />
     <ClInclude Include="CRenderable.h" />
     <ClInclude Include="CRenderBufferObject.h" />
     <ClInclude Include="CSceneObject.h" />
-    <ClInclude Include="IRenderTarget.h" />
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CShaderContext.h" />
     <ClInclude Include="CShaderLoader.h" />
     <ClInclude Include="SAttribute.h" />
     <ClInclude Include="SUniform.h" />
-    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CBufferObject.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderTarget.h">
+      <Filter>Render Targets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDeferredShadingManager.cpp" />
@@ -33,6 +39,16 @@
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CShaderContext.cpp" />
     <ClCompile Include="CShaderLoader.cpp" />
-    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{7f10ebe0-d142-47f6-bfb4-cd37a61a3e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render Targets">
+      <UniqueIdentifier>{4cc405f3-b6be-4870-b5e2-d3be78bd63fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

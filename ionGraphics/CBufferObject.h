@@ -1,8 +1,6 @@
 
-#ifndef _ION_SCENE_CBUFFEROBJECT_H_INCLUDED_
-#define _ION_SCENE_CBUFFEROBJECT_H_INCLUDED_
+#pragma once
 
-#include <vector>
 #include <GL/glew.h>
 #include <ionGL.h>
 
@@ -14,18 +12,18 @@ class CBufferObject
 	GLuint Handle;
 	bool IndexBuffer;
 	bool Dirty;
-	unsigned int AllocatedSize;
+	uint AllocatedSize;
 	GLenum Usage;
 
 	std::vector<T> Elements;
 
-	void reallocate(unsigned int const size, void * data)
+	void Reallocate(uint const size, void * data)
 	{
 		CheckedGLCall(glDeleteBuffers(1, & Handle));
-		allocate(size, data);
+		Allocate(size, data);
 	}
 
-	void allocate(unsigned int const size, void * data = 0)
+	void Allocate(uint const size, void * data = 0)
 	{
 		CheckedGLCall(glGenBuffers(1, & Handle));
 		CheckedGLCall(glBindBuffer(IndexBuffer ? GL_ELEMENT_ARRAY_BUFFER : GL_ARRAY_BUFFER, Handle));
@@ -35,94 +33,94 @@ class CBufferObject
 
 public:
 
-	CBufferObject(unsigned int const preAllocate = 0, GLenum const usage = GL_STATIC_DRAW)
+	CBufferObject(uint const preAllocate = 0, GLenum const usage = GL_STATIC_DRAW)
 		: Handle(0), IndexBuffer(false), Dirty(true), AllocatedSize(0), Usage(usage)
 	{
 		if (preAllocate)
-			allocate(preAllocate);
+			Allocate(preAllocate);
 	}
 
 	~CBufferObject()
 	{
-		if (Handle && glDeleteBuffers)
+		if (Handle)
 			CheckedGLCall(glDeleteBuffers(1, & Handle));
 	}
 
-	std::vector<T> const & getElements() const
+	std::vector<T> const & GetElements() const
 	{
 		return Elements;
 	}
 
-	std::vector<T> & getElements()
+	std::vector<T> & GetElements()
 	{
 		return Elements;
 	}
 
-	T const & operator [] (unsigned int const i) const
+	T const & operator [] (uint const i) const
 	{
 		return Elements[i];
 	}
 
-	T & operator [] (unsigned int const i)
+	T & operator [] (uint const i)
 	{
 		return Elements[i];
 	}
 
-	void push_back(T const element)
+	void Push(T const element)
 	{
 		Elements.push_back(element);
 	}
 
-	unsigned int const size() const
+	uint Size() const
 	{
 		return Elements.size();
 	}
 
-	bool const isIndexBuffer() const
+	bool const IsIndexBuffer() const
 	{
 		return IndexBuffer;
 	}
 
-	void clear()
+	void Clear()
 	{
 		Elements.clear();
 		Dirty = true;
 	}
 
-	void resize(u32 const size)
+	void Resize(u32 const size)
 	{
 		Elements.resize(size);
 		Dirty = true;
 	}
 
-	void setIsIndexBuffer(bool const isIndexBuffer)
+	void SetIsIndexBuffer(bool const isIndexBuffer)
 	{
 		IndexBuffer = isIndexBuffer;
 	}
 
-	bool const isDirty() const
+	bool const IsDirty() const
 	{
 		return Dirty;
 	}
 
-	void setIsDirty(bool const isDirty)
+	void SetIsDirty(bool const isDirty)
 	{
 		Dirty = isDirty;
 	}
 
-	unsigned int const getHandle() const
+	uint const GetHandle() const
 	{
 		return Handle;
 	}
 
-	virtual void syncData()
+	virtual void SyncData()
 	{
 		if (! Elements.size())
 			return;
 
 		if (! Handle)
 		{
-			allocate(Elements.size(), & Elements[0]);
+			Allocate(Elements.size(), & Elements[0]);
 		}
 		else
 		{
@@ -134,7 +132,7 @@ public:
 			}
 			else
 			{
-				reallocate(Elements.size(), & Elements[0]);
+				Reallocate(Elements.size(), & Elements[0]);
 			}
 		}
 
@@ -142,5 +140,3 @@ public:
 	}
 
 };
-
-#endif

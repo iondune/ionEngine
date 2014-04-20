@@ -11,9 +11,9 @@ namespace ion
 		void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
 
 #ifdef _DEBUG
-		#define CheckedGLCall(x) (x); ion::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__);
+		#define CheckedGLCall(x) (x); ion::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__)
 #else
-		#define CheckedGLCall(x) (x);
+		#define CheckedGLCall(x) (x)
 #endif
 
 		enum class EFormatType

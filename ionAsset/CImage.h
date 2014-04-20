@@ -27,8 +27,8 @@ public:
 	color4i GetPixel(uint const x, uint const y) const;
 	void SetPixel(uint const x, uint const y, color4i const color);
 
-	u8 const * GetImageData() const;
-	u8 * GetImageData();
+	u8 const * GetData() const;
+	u8 * GetData();
 
 	bool HasAlpha() const;
 

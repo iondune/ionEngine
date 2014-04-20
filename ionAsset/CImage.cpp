@@ -89,12 +89,12 @@ void CImage::SetPixel(uint const x, uint const y, color4i const color)
 		Data[x * Stride + y * Size.X * Stride + i] = color[i];
 }
 
-u8 const * CImage::GetImageData() const
+u8 const * CImage::GetData() const
 {
 	return Data.get();
 }
 
-u8 * CImage::GetImageData()
+u8 * CImage::GetData()
 {
 	return Data.get();
 }

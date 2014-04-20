@@ -3,8 +3,8 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
-
 #include <ionAsset/CImage.h>
+
 #include "IRenderTarget.h"
 
 
@@ -18,11 +18,9 @@ public:
 	bool MipMaps;
 	u32 Wrap;
 	u32 Filter;
-	u32 PixelInternalFormat;
 	u32 PixelFormat;
-	u32 PixelType;
 
-	void apply() const;
+	void Apply() const;
 
 };
 
@@ -32,29 +30,23 @@ class CTexture : public IRenderTarget
 public:
 
     CTexture(CImage * Image, STextureCreationFlags const Flags = STextureCreationFlags());
-    CTexture(SColorAf const & Color, STextureCreationFlags const Flags = STextureCreationFlags());
-	CTexture(int const Width, int const Height, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
-	CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
-	CTexture(u32 const textureHandle);
+	CTexture(vec2u const & Size, bool const Alpha, STextureCreationFlags const Flags = STextureCreationFlags());
+	CTexture(u32 const Handle);
 
 	~CTexture();
 
-    u32 const getTextureHandle() const;
+    u32 const GetHandle() const;
+	vec2i const & GetSize() const;
+	bool const IsValid() const;
 
-	vec2i const & getSize() const;
-    int const getWidth() const;
-    int const getHeight() const;
+	void SetImage(CImage * Image);
+	void SetImage(void const * const Data, u8 const Channels);
 
-	bool const isValid() const;
-
-	void setImage(CImage * Image);
-	void setImage(void const * const Data, bool const hasAlpha);
-
-	virtual ERenderTargetType const getRenderTargetType();
+	virtual ERenderTargetType const GetRenderTargetType();
 
 protected:
 
-    u32 TextureHandle;
+    u32 Handle;
 	vec2i Size;
 
 	STextureCreationFlags Flags;

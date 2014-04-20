@@ -8,46 +8,34 @@ STextureCreationFlags::STextureCreationFlags()
 	MipMaps = true;
 	Wrap = GL_REPEAT;
 	Filter = GL_LINEAR;
-	PixelType = GL_UNSIGNED_BYTE;
-	PixelInternalFormat = PixelFormat = 0;
+	PixelFormat = GL_RGBA;
 }
 
-void STextureCreationFlags::apply() const
+void STextureCreationFlags::Apply() const
 {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, Wrap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, Wrap);
-	if (MipMaps)
-	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, 
-			Filter == GL_LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR_MIPMAP_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-	}
-	else
-	{
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
-	}
-	
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Filter);
+	if (MipMaps)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+			Filter == GL_LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR_MIPMAP_NEAREST);
+	else
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
 }
 
-CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
-	: TextureHandle(0), Size(), Flags(flags)
+CTexture::CTexture(CImage * Image, STextureCreationFlags const Flags)
+: Handle(0)
 {
+	this->Flags = Flags;
+
 	if (Image)
 	{
 		Size.X = Image->GetWidth();
 		Size.Y = Image->GetHeight();
 
-		glGenTextures(1, & TextureHandle);
-		glBindTexture(GL_TEXTURE_2D, TextureHandle);
-
-		Flags.apply();
-
-		glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-			Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
-		if (Flags.MipMaps && glGenerateMipmap)
-			glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glGenTextures(1, & Handle);
+		SetImage(Image);
 	}
 	else
 	{
@@ -55,74 +43,22 @@ CTexture::CTexture(CImage * Image, STextureCreationFlags const flags)
 	}
 }
 
-CTexture::CTexture(SColorAf const & Color, STextureCreationFlags const Flags)
+CTexture::CTexture(vec2u const & Size, bool const Alpha, STextureCreationFlags const Flags)
+: Handle(0)
 {
-	CImage * Image = new CImage(Color, false);
+	this->Size = Size;
+	this->Flags = Flags;
 
-	Size = Image->GetSize();
-
-	glGenTextures(1, & TextureHandle);
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-
-	Flags.apply();
-
-	glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void CTexture::setImage(void const * const Data, bool const hasAlpha)
-{
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-	glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat, Size.X, Size.Y, 0, 
-		Flags.PixelFormat, Flags.PixelType, Data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-void CTexture::setImage(CImage * Image)
-{
-	if (Size.X != Image->GetWidth() || Size.Y != Image->GetHeight())
-		return;
-
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-	glTexImage2D(GL_TEXTURE_2D, 0, Image->HasAlpha() ? GL_RGBA8 : GL_RGB8, Size.X, Size.Y, 0, 
-		Image->HasAlpha() ? GL_RGBA : GL_RGB, Flags.PixelType, Image->GetImageData());
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-CTexture::CTexture(int const width, int const height, bool const Alpha, STextureCreationFlags const flags)
-	: TextureHandle(0), Size(width, height), Flags(flags)
-{
-	glGenTextures(1, & TextureHandle);
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-
-	Flags.apply();
-	glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat ? Flags.PixelInternalFormat : (Alpha ? GL_RGBA : GL_RGB), 
-		Size.X, Size.Y, 0, 
-		Flags.PixelFormat ? Flags.PixelFormat : (Alpha ? GL_RGBA : GL_RGB), Flags.PixelType, 0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-CTexture::CTexture(vec2i const & size, bool const Alpha, STextureCreationFlags const flags)
-	: TextureHandle(0), Size(size), Flags(flags)
-{
-	glGenTextures(1, & TextureHandle);
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
-
-	Flags.apply();
-	glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelInternalFormat ? Flags.PixelInternalFormat : (Alpha ? GL_RGBA : GL_RGB),
-		Size.X, Size.Y, 0, 
-		Flags.PixelFormat ? Flags.PixelFormat : (Alpha ? GL_RGBA : GL_RGB), Flags.PixelType, 0);
-	
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glGenTextures(1, & Handle);
+	SetImage(0, Alpha ? 4 : 3);
 }
 
 CTexture::CTexture(GLuint const textureHandle)
-	: TextureHandle(textureHandle)
+: Handle(textureHandle)
 {
 	GLint Width, Height;
 
-	glBindTexture(GL_TEXTURE_2D, TextureHandle);
+	glBindTexture(GL_TEXTURE_2D, Handle);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, & Width);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, & Height);
 
@@ -130,37 +66,61 @@ CTexture::CTexture(GLuint const textureHandle)
 	Size.Y = Height;
 }
 
+void CTexture::SetImage(void const * const Data, u8 const Channels)
+{
+	uint Format = 0;
+	switch (Channels)
+	{
+	default:
+	case 1:
+		Format = GL_RED;
+		break;
+	case 2:
+		Format = GL_RG;
+		break;
+	case 3:
+		Format = GL_RGB;
+		break;
+	case 4:
+		Format = GL_RGBA;
+		break;
+	}
+
+	glBindTexture(GL_TEXTURE_2D, Handle);
+	Flags.Apply();
+	glTexImage2D(GL_TEXTURE_2D, 0, Flags.PixelFormat, Size.X, Size.Y, 0,
+		Format, GL_UNSIGNED_BYTE, Data);
+	if (Flags.MipMaps)
+		glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void CTexture::SetImage(CImage * Image)
+{
+	SetImage(Image->GetData(), Image->GetChannels());
+}
+
 CTexture::~CTexture()
 {
-	glDeleteTextures(1, & TextureHandle);
+	glDeleteTextures(1, & Handle);
 }
 
-GLuint const CTexture::getTextureHandle() const
+GLuint const CTexture::GetHandle() const
 {
-    return TextureHandle;
+    return Handle;
 }
 
-vec2i const & CTexture::getSize() const
+vec2i const & CTexture::GetSize() const
 {
 	return Size;
 }
 
-int const CTexture::getWidth() const
+bool const CTexture::IsValid() const
 {
-    return Size.X;
+	return Handle != 0;
 }
 
-int const CTexture::getHeight() const
-{
-    return Size.Y;
-}
-
-bool const CTexture::isValid() const
-{
-	return TextureHandle != 0;
-}
-
-ERenderTargetType const CTexture::getRenderTargetType()
+ERenderTargetType const CTexture::GetRenderTargetType()
 {
 	return ERenderTargetType::Texture;
 }
