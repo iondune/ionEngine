@@ -9,34 +9,37 @@
 class CImage
 {
 
-	friend class CImageLoader;
-
-	unsigned char * ImageData;
-	vec2u Size;
-
-	bool Alpha;
-
 public:
 
 	static CImage * Load(std::string const & FileName);
 
-	CImage(u8 * const imageData, u32 const width, u32 const height, bool const alpha = false);
+	//! Deprecated, for backwards compatibility
+	CImage(byte * const Data, uint const Width, uint const Height, bool const Alpha = false);
+	CImage(byte * const Data, vec2u const Size, u8 const Channels);
 	CImage(color4f const & Color, bool const Alpha = false);
 	~CImage();
 
-	u32 GetWidth() const;
-	u32 GetHeight() const;
+	uint GetWidth() const;
+	uint GetHeight() const;
 	vec2u GetSize() const;
+	uint GetStride() const;
+	uint GetChannels() const;
 	
 	color4i GetPixel(u32 const x, u32 const y) const;
 	void SetPixel(u32 const x, u32 const y, color4i const color);
 
-	u8 const * const GetImageData() const;
+	u8 const * GetImageData() const;
 	u8 * GetImageData();
 
-	bool const HasAlpha() const;
+	bool HasAlpha() const;
 
 	void Write(std::string const & fileName);
 	void FlipY();
+
+protected:
+
+	byte * Data;
+	vec2u Size;
+	u8 Channels;
 
 };
