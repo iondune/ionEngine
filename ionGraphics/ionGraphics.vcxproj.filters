@@ -10,8 +10,6 @@
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CShaderContext.h" />
     <ClInclude Include="CShaderLoader.h" />
-    <ClInclude Include="SAttribute.h" />
-    <ClInclude Include="SUniform.h" />
     <ClInclude Include="CBufferObject.h">
       <Filter>Utilities</Filter>
     </ClInclude>
@@ -20,6 +18,12 @@
     </ClInclude>
     <ClInclude Include="IRenderTarget.h">
       <Filter>Render Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="SUniform.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SAttribute.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +44,9 @@
     <ClCompile Include="CShaderContext.cpp" />
     <ClCompile Include="CShaderLoader.cpp" />
     <ClCompile Include="CTexture.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SUniform.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,12 +1,7 @@
-#ifndef _ION_SCENE_SUNIFORM_H_INCLUDED_
-#define _ION_SCENE_SUNIFORM_H_INCLUDED_
 
-// Core
+#pragma once
+
 #include <ionCore.h>
-#include <glm/gtc/type_ptr.hpp>
-
-// Scene
-#include "CShaderContext.h"
 
 
 class IUniform
@@ -14,8 +9,7 @@ class IUniform
 
 public:
 
-	virtual void bind(GLuint const handle, CShaderContext & shaderContext) const = 0;
-	virtual void bind(GLuint const handle) const = 0;
+	virtual void Bind(uint const Handle) const = 0;
 
 };
 
@@ -25,17 +19,14 @@ class SUniform : public IUniform
 
 public:
 
-	virtual T const & getValue() const = 0;
+	virtual T const & GetValue() const = 0;
 
-	void bind(GLuint const handle, CShaderContext & shaderContext) const
+	void Bind(uint const Handle) const
 	{
-		shaderContext.uniform(handle, getValue());
+		Bind(Handle, GetValue());
 	}
 
-	void bind(GLuint const handle) const
-	{
-		CShaderContext::uniform(handle, getValue());
-	}
+	static void Bind(uint const Handle, T const & Value);
 
 };
 
@@ -102,5 +93,3 @@ static sharedPtr<IUniform const> BindUniform(T const & uniform)
 {
 	return BindUniformReference(uniform);
 }
-
-#endif

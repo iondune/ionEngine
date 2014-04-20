@@ -73,6 +73,7 @@
     <ClCompile Include="CShaderContext.cpp" />
     <ClCompile Include="CShaderLoader.cpp" />
     <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="SUniform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

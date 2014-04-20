@@ -10,10 +10,10 @@ class IAttribute
 
 public:
 	
-	virtual void load() const = 0;
-	virtual void bind(GLint const handle) const = 0;
-	virtual void bind(GLint const handle, CShaderContext & shaderContext) const = 0;
-	virtual void unbind(GLuint const handle) const = 0;
+	virtual void Load() const = 0;
+	virtual void Bind(GLint const handle) const = 0;
+	virtual void Bind(GLint const handle, CShaderContext & shaderContext) const = 0;
+	virtual void Unbind(GLuint const handle) const = 0;
 
 };
 
@@ -34,13 +34,13 @@ public:
 		: Buffer(buffer), ElementSize(elementSize)
 	{}
 
-	void load() const
+	void Load() const
 	{
 		if (Buffer && Buffer->isDirty())
 			Buffer->syncData();
 	}
 
-	void bind(GLint const Handle) const
+	void Bind(GLint const Handle) const
 	{
 		load();
 
@@ -52,7 +52,7 @@ public:
 		}
 	}
 
-	void bind(GLint const handle, CShaderContext & shaderContext) const
+	void Bind(GLint const handle, CShaderContext & shaderContext) const
 	{
 		load();
 		if (Buffer)
