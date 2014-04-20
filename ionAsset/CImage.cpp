@@ -7,7 +7,7 @@
 CImage * CImage::Load(std::string const & FileName)
 {
 	int x, y, n;
-	u8 * data = stbi_load(FileName.c_str(), & x, & y, & n, 0);
+	byte * data = stbi_load(FileName.c_str(), & x, & y, & n, 0);
 
 	if (! data)
 	{
@@ -21,13 +21,13 @@ CImage * CImage::Load(std::string const & FileName)
 	return Image;
 }
 
-CImage::CImage(u8 * const Data, uint const Width, uint const Height, bool const Alpha)
+CImage::CImage(byte * const Data, uint const Width, uint const Height, bool const Alpha)
 : CImage(Data, vec2u(Width, Height), Alpha ? 4 : 3)
 {}
 
 CImage::CImage(byte * const Data, vec2u const Size, u8 const Channels)
 {
-	this->Data = Data;
+	this->Data = uniquePtr<byte[]>(Data);
 	this->Size = Size;
 	this->Channels = Channels;
 }
@@ -38,16 +38,11 @@ CImage::CImage(color4f const & Color, bool const Alpha)
 	this->Channels = (Alpha ? 4 : 3);
 
 	u32 Stride = GetStride();
-	Data = new u8[Size.X * Size.Y * Stride];
+	Data = uniquePtr<byte[]>(new u8[Size.X * Size.Y * Stride]);
 
 	for (u32 i = 0; i < Size.X * Size.Y; ++ i)
 		for (u32 j = 0; j < Stride; ++ j)
 			Data[i*Stride + j] = (u8) (255.f * Color[j]);
-}
-
-CImage::~CImage()
-{
-	delete Data;
 }
 
 u32 CImage::GetWidth() const
@@ -96,12 +91,12 @@ void CImage::SetPixel(u32 const x, u32 const y, color4i const color)
 
 u8 const * CImage::GetImageData() const
 {
-	return Data;
+	return Data.get();
 }
 
 u8 * CImage::GetImageData()
 {
-	return Data;
+	return Data.get();
 }
 
 bool CImage::HasAlpha() const
@@ -112,7 +107,7 @@ bool CImage::HasAlpha() const
 void CImage::Write(std::string const & FileName)
 {
 	u32 Stride = GetStride();
-	stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data, Size.X * Stride);
+	stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data.get(), Size.X * Stride);
 }
 
 void CImage::FlipY()

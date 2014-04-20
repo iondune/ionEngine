@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <string>
+#include <ionCore.h>
 #include <ionMath/SVector2.h>
 #include <ionMath/SColor.h>
 
@@ -17,7 +17,6 @@ public:
 	CImage(byte * const Data, uint const Width, uint const Height, bool const Alpha = false);
 	CImage(byte * const Data, vec2u const Size, u8 const Channels);
 	CImage(color4f const & Color, bool const Alpha = false);
-	~CImage();
 
 	uint GetWidth() const;
 	uint GetHeight() const;
@@ -38,7 +37,7 @@ public:
 
 protected:
 
-	byte * Data;
+	uniquePtr<byte[]> Data;
 	vec2u Size;
 	u8 Channels;
 
