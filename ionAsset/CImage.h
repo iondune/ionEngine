@@ -24,8 +24,8 @@ public:
 	uint GetStride() const;
 	uint GetChannels() const;
 	
-	color4i GetPixel(u32 const x, u32 const y) const;
-	void SetPixel(u32 const x, u32 const y, color4i const color);
+	color4i GetPixel(uint const x, uint const y) const;
+	void SetPixel(uint const x, uint const y, color4i const color);
 
 	u8 const * GetImageData() const;
 	u8 * GetImageData();

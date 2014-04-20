@@ -37,20 +37,20 @@ CImage::CImage(color4f const & Color, bool const Alpha)
 	this->Size = vec2u(2);
 	this->Channels = (Alpha ? 4 : 3);
 
-	u32 Stride = GetStride();
+	uint Stride = GetStride();
 	Data = uniquePtr<byte[]>(new u8[Size.X * Size.Y * Stride]);
 
-	for (u32 i = 0; i < Size.X * Size.Y; ++ i)
-		for (u32 j = 0; j < Stride; ++ j)
+	for (uint i = 0; i < Size.X * Size.Y; ++ i)
+		for (uint j = 0; j < Stride; ++ j)
 			Data[i*Stride + j] = (u8) (255.f * Color[j]);
 }
 
-u32 CImage::GetWidth() const
+uint CImage::GetWidth() const
 {
 	return Size.X;
 }
 
-u32 CImage::GetHeight() const
+uint CImage::GetHeight() const
 {
 	return Size.Y;
 }
@@ -60,19 +60,19 @@ vec2u CImage::GetSize() const
 	return Size;
 }
 
-u32 CImage::GetStride() const
+uint CImage::GetStride() const
 {
 	return Size.Y;
 }
 
-u32 CImage::GetChannels() const
+uint CImage::GetChannels() const
 {
 	return Channels;
 }
 
-color4i CImage::GetPixel(u32 const x, u32 const y) const
+color4i CImage::GetPixel(uint const x, uint const y) const
 {
-	u32 Stride = GetStride();
+	uint Stride = GetStride();
 
 	return color4i(
 		Data[x * Stride + y * Size.X * Stride + 0],
@@ -81,11 +81,11 @@ color4i CImage::GetPixel(u32 const x, u32 const y) const
 		Data[x * Stride + y * Size.X * Stride + 3]);
 }
 
-void CImage::SetPixel(u32 const x, u32 const y, color4i const color)
+void CImage::SetPixel(uint const x, uint const y, color4i const color)
 {
-	u32 Stride = GetStride();
+	uint Stride = GetStride();
 
-	for (u32 i = 0; i < Stride; ++ i)
+	for (uint i = 0; i < Stride; ++ i)
 		Data[x * Stride + y * Size.X * Stride + i] = color[i];
 }
 
@@ -106,19 +106,19 @@ bool CImage::HasAlpha() const
 
 void CImage::Write(std::string const & FileName)
 {
-	u32 Stride = GetStride();
+	uint Stride = GetStride();
 	stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data.get(), Size.X * Stride);
 }
 
 void CImage::FlipY()
 {
-	u32 Stride = GetStride();
+	uint Stride = GetStride();
 
-	for (u32 x = 0; x < Size.X; ++ x)
+	for (uint x = 0; x < Size.X; ++ x)
 	{
-		for (u32 y = 0; y < Size.Y / 2; ++ y)
+		for (uint y = 0; y < Size.Y / 2; ++ y)
 		{
-			for (u32 j = 0; j < Stride; ++ j)
+			for (uint j = 0; j < Stride; ++ j)
 				std::swap(Data[x * Stride + y * Size.X * Stride + j], Data[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
 		}
 	}
