@@ -19,7 +19,7 @@ CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::
 	for (uint i = 0; i < Node->mNumMeshes; ++ i)
 	{
 		aiMesh * Mesh = Scene->mMeshes[Node->mMeshes[i]];
-		CMesh::SMeshBuffer * Buffer = new CMesh::SMeshBuffer;
+		sharedPtr<CMesh::SMeshBuffer> Buffer = sharedNew(new CMesh::SMeshBuffer);
 
 		for (uint j = 0; j < Mesh->mNumVertices; ++ j)
 		{
@@ -40,7 +40,7 @@ CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::
 		}
 		for (uint j = 0; j < Mesh->mNumFaces; ++ j)
 		{
-			CMesh::STriangle Triangle;
+			SMeshTriangle Triangle;
 			for (uint k = 0; k < 3; ++ k)
 				Triangle.Indices[k] = Mesh->mFaces[j].mIndices[k];
 
@@ -50,11 +50,11 @@ CMesh * TraverseMesh(CMesh * Result, aiScene const * Scene, aiNode * Node, glm::
 		aiMaterial * Material = Scene->mMaterials[Mesh->mMaterialIndex];
 		aiColor4D Color;
 		Material->Get(AI_MATKEY_COLOR_DIFFUSE, Color);
-		Buffer->Material.DiffuseColor = color4f(Color.r, Color.g, Color.b, Color.a);
+		Buffer->Material.Diffuse = color4f(Color.r, Color.g, Color.b, Color.a);
 		Material->Get(AI_MATKEY_COLOR_AMBIENT, Color);
-		Buffer->Material.AmbientColor = color4f(Color.r, Color.g, Color.b, Color.a);
+		Buffer->Material.Ambient = color4f(Color.r, Color.g, Color.b, Color.a);
 		Material->Get(AI_MATKEY_COLOR_SPECULAR, Color);
-		Buffer->Material.SpecularColor = color4f(Color.r, Color.g, Color.b, Color.a);
+		Buffer->Material.Specular = color4f(Color.r, Color.g, Color.b, Color.a);
 
 		Result->MeshBuffers.push_back(Buffer);
 	}

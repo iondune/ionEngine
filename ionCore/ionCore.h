@@ -12,16 +12,8 @@
 #include "ionTypes.h"
 #include "ionUtils.h"
 
-#include <vector>
-#include <set>
-#include <map>
-#include <list>
 #include <algorithm>
-
-#include <string>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-#include <type_traits>

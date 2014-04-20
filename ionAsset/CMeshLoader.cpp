@@ -13,7 +13,7 @@ CMesh * const CMeshLoader::LoadMesh(std::string const & FileName)
 CMesh * const CMeshLoader::CreateCubeMesh()
 {
     CMesh * MeshWrapper = new CMesh();
-    CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
+    sharedPtr<CMesh::SMeshBuffer> Mesh = sharedNew(new CMesh::SMeshBuffer());
 
     Mesh->Vertices.resize(24);
     Mesh->Vertices[0].Position = SVector3f(-0.5, -0.5, -0.5);
@@ -65,22 +65,22 @@ CMesh * const CMeshLoader::CreateCubeMesh()
 
     MeshWrapper->MeshBuffers.push_back(Mesh);
 
-    MeshWrapper->calculateNormalsPerFace();
+    MeshWrapper->CalculateNormalsPerFace();
     return MeshWrapper;
 }
 
 CMesh * const CMeshLoader::CreateReverseCubeMesh()
 {
     CMesh * Mesh = CreateCubeMesh();
-	Mesh->reverseFaces();
-	Mesh->calculateNormalsPerFace();
+	Mesh->ReverseFaces();
+	Mesh->CalculateNormalsPerFace();
     return Mesh;
 }
 
 CMesh * const CMeshLoader::CreatePlaneMesh()
 {
     CMesh * MeshWrapper = new CMesh();
-    CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
+	sharedPtr<CMesh::SMeshBuffer> Mesh = sharedNew(new CMesh::SMeshBuffer());
 
     Mesh->Vertices.resize(4);
     Mesh->Vertices[0].Position = SVector3f(-0.5, 0, -0.5);
@@ -103,14 +103,14 @@ CMesh * const CMeshLoader::CreatePlaneMesh()
     Mesh->Triangles[1].Indices[2] = 3;
 
     MeshWrapper->MeshBuffers.push_back(Mesh);
-    MeshWrapper->calculateNormalsPerFace();
+    MeshWrapper->CalculateNormalsPerFace();
     return MeshWrapper;
 }
 
 CMesh * const CMeshLoader::CreateDiscMesh(unsigned int const Triangles)
 {
     CMesh * MeshWrapper = new CMesh();
-    CMesh::SMeshBuffer * Mesh = new CMesh::SMeshBuffer();
+	sharedPtr<CMesh::SMeshBuffer> Mesh = sharedNew(new CMesh::SMeshBuffer());
 
     Mesh->Vertices.resize(Triangles * 3);
     Mesh->Triangles.resize(Triangles);
@@ -145,6 +145,6 @@ CMesh * const CMeshLoader::CreateDiscMesh(unsigned int const Triangles)
 
     MeshWrapper->MeshBuffers.push_back(Mesh);
 
-    MeshWrapper->calculateNormalsPerFace();
+    MeshWrapper->CalculateNormalsPerFace();
     return MeshWrapper;
 }
