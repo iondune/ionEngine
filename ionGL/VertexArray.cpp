@@ -9,29 +9,40 @@ namespace ion
 	{
 		VertexArray::VertexArray()
 		{
+			BoundIndexBuffer = 0;
+			PrimativeType = EPrimativeType::Triangles;
+
 			glGenVertexArrays(1, & Handle);
 		}
 
-		void VertexArray::AttributePointer(VertexBuffer * Buffer, u32 const index, u32 const size, EFormatType const type, u32 const stride, void * offset)
+		void VertexArray::SetIndexBuffer(IndexBuffer * ibo)
 		{
 			glBindVertexArray(Handle);
-			Buffer->Bind();
-			glVertexAttribPointer(index, size, Util::TypeMatrix[(int) type], false, stride, offset);
-			Buffer->Unbind();
+			BoundIndexBuffer = ibo;
+			BoundIndexBuffer->Bind();
 			glBindVertexArray(0);
 		}
 
-		void VertexArray::EnableAttribute(u32 const index)
+		void VertexArray::BindAttribute(u32 const index, VertexBuffer * vbo)
 		{
 			glBindVertexArray(Handle);
 			glEnableVertexAttribArray(index);
+			vbo->Bind();
+			glVertexAttribPointer(index, vbo->Components(), Util::TypeMatrix[(int) vbo->Type()], GL_FALSE, 0, 0);
+			vbo->Unbind();
 			glBindVertexArray(0);
 		}
 
-		void VertexArray::DisableAttribute(u32 const index)
+		void VertexArray::Draw()
 		{
 			glBindVertexArray(Handle);
-			glDisableVertexAttribArray(index);
+			if (BoundIndexBuffer)
+			{
+				glDrawElements(
+					Util::PrimativeMatrix[(int) PrimativeType],
+					BoundIndexBuffer->Size(),
+					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
+			}
 			glBindVertexArray(0);
 		}
 

@@ -27,11 +27,20 @@ namespace ion
 			F32 = 6
 		};
 
+		enum class EPrimativeType
+		{
+			Points = 0,
+			Lines = 1,
+			Triangles = 2,
+			Quads = 3
+		};
+
 		class Util
 		{
 		public:
 
 			static u32 const TypeMatrix[7];
+			static u32 const PrimativeMatrix[4];
 		};
 	}
 }

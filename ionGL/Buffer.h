@@ -4,6 +4,8 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
+#include "Utilities.h"
+
 
 namespace ion
 {
@@ -29,11 +31,16 @@ namespace ion
 				Copy = 2
 			};
 
-			void Data(u32 const size, void const * const data,
+			template <typename T>
+			void Data(u32 const size, T const * const data, u32 const components,
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw);
 
 			void SubData(u32 const size, u32 const offset, void const * const data);
+
+			u32 Size() const;
+			u32 Components() const;
+			EFormatType Type() const;
 
 			void Delete();
 			~Buffer();
@@ -44,9 +51,17 @@ namespace ion
 
 			void Bind();
 			void Unbind();
+
+			void InternalData(u32 const size, void const * const data, u32 const components,
+				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
+				EAccessNature const accessNature = EAccessNature::Draw);
+
 			virtual u32 GetTarget() = 0;
 
 			u32 Handle;
+			u32 DataSize;
+			u32 DataComponents;
+			EFormatType DataType;
 		};
 
 		class VertexBuffer : public Buffer
@@ -56,8 +71,18 @@ namespace ion
 			u32 GetTarget();
 		};
 
-		class IndexBuffer : Buffer
+		class IndexBuffer : public Buffer
 		{
+		public:
+
+			template <typename T>
+			void Data(u32 const size, T const * const data,
+				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
+				EAccessNature const accessNature = EAccessNature::Draw)
+			{
+				Buffer::Data(size, data, 1, accessFrequency, accessNature);
+			}
+
 		protected:
 
 			u32 GetTarget();

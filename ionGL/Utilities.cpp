@@ -19,7 +19,7 @@ namespace ion
 			}
 		}
 
-		u32 const Util::TypeMatrix[7] = 
+		u32 const Util::TypeMatrix[7] =
 		{
 			GL_UNSIGNED_BYTE,
 			GL_UNSIGNED_SHORT,
@@ -28,6 +28,14 @@ namespace ion
 			GL_SHORT,
 			GL_INT,
 			GL_FLOAT
+		};
+
+		u32 const Util::PrimativeMatrix[4] =
+		{
+			GL_POINTS,
+			GL_LINES,
+			GL_QUADS,
+			GL_TRIANGLES
 		};
 	}
 }

@@ -12,20 +12,20 @@ namespace ion
 		// Data //
 		//////////
 
-		void Buffer::Data(u32 const size, void const * const data,
-			EAccessFrequency const accessFrequency,
-			EAccessNature const accessNature)
+		template <>
+		void Buffer::Data<f32>(u32 const size, f32 const * const data, u32 const components,
+			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
 		{
-			static u32 const UsageMatrix[3][3] = 
-			{
-				{GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY},
-				{GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY},
-				{GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, GL_DYNAMIC_COPY}
-			};
+			DataType = EFormatType::F32;
+			InternalData(size, data, components, accessFrequency, accessNature);
+		}
 
-			Bind();
-			CheckedGLCall(glBufferData(GetTarget(), size, data, UsageMatrix[(int) accessFrequency][(int) accessNature]));
-			Unbind();
+		template <>
+		void Buffer::Data<u32>(u32 const size, u32 const * const data, u32 const components,
+			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
+		{
+			DataType = EFormatType::U32;
+			InternalData(size, data, components, accessFrequency, accessNature);
 		}
 
 		void Buffer::SubData(u32 const size, u32 const offset, void const * const data)
@@ -33,6 +33,21 @@ namespace ion
 			Bind();
 			CheckedGLCall(glBufferSubData(GetTarget(), offset, size, data));
 			Unbind();
+		}
+
+		u32 Buffer::Size() const
+		{
+			return DataSize;
+		}
+
+		u32 Buffer::Components() const
+		{
+			return DataComponents;
+		}
+
+		EFormatType Buffer::Type() const
+		{
+			return DataType;
 		}
 
 
@@ -53,6 +68,9 @@ namespace ion
 		Buffer::Buffer()
 		{
 			glGenBuffers(1, & Handle);
+			DataSize = 0;
+			DataComponents = 2;
+			DataType = EFormatType::U8;
 		}
 
 		void Buffer::Bind()
@@ -63,6 +81,23 @@ namespace ion
 		void Buffer::Unbind()
 		{
 			CheckedGLCall(glBindBuffer(GetTarget(), 0));
+		}
+
+		void Buffer::InternalData(u32 const size, void const * const data, u32 const components,
+			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
+		{
+			static u32 const UsageMatrix[3][3] =
+			{
+				{ GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY },
+				{ GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY },
+				{ GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, GL_DYNAMIC_COPY }
+			};
+
+			Bind();
+			CheckedGLCall(glBufferData(GetTarget(), size, data, UsageMatrix[(int) accessFrequency][(int) accessNature]));
+			DataSize = size;
+			DataComponents = components;
+			Unbind();
 		}
 
 
