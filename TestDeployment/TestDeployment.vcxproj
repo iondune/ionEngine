@@ -38,22 +38,8 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="..\ionEngine.props" />
     <Import Project="..\ionDefaultBuild.props" />
+    <Import Project="..\ionGLFW.props" />
   </ImportGroup>
-  <ItemDefinitionGroup>
-    <Link>
-      <AdditionalDependencies>ionWindow.lib;ionFramework.lib;ionScene.lib;ionScience.lib;ionGUI.lib;OpenGL32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Link>
-      <AdditionalDependencies>glew32sd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Link>
-      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Build.cpp" />
   </ItemGroup>
