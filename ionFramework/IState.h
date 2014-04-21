@@ -4,9 +4,6 @@
 #include <ionCore.h>
 
 #include "IEventListener.h"
-#include "SKeyboardEvent.h"
-#include "SMouseEvent.h"
-#include "SWindowResizedEvent.h"
 
 
 class IState : public IEventListener

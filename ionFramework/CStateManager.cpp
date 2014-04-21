@@ -1,8 +1,5 @@
 #include "CStateManager.h"
 
-#include "CApplication.h"
-#include "CWindow.h"
-
 
 void CStateManager::SetState(IState * State)
 {
@@ -33,29 +30,12 @@ void CStateManager::Update(f32 const ElapsedTime)
 		CurrentState->Update(ElapsedTime);
 }
 
-void CStateManager::Connect(CWindow * Window)
-{
-	Window->AddListener(this);
-}
-
 void CStateManager::ShutDown()
 {
 	if (CurrentState)
 		CurrentState->End();
 
 	CurrentState = 0;
-}
-
-void CStateManager::OnEvent(SMouseEvent & Event)
-{
-}
-
-void CStateManager::OnEvent(SKeyboardEvent & Event)
-{
-}
-
-void CStateManager::OnEvent(SWindowResizedEvent & Event)
-{
 }
 
 CStateManager::CStateManager()

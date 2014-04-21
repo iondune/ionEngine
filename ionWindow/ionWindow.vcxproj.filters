@@ -1,19 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include=".\ionWindow.h" />
-    <ClInclude Include="EKey.h" />
-    <ClInclude Include="SKeyboardEvent.h" />
-    <ClInclude Include="SMouseEvent.h" />
-    <ClInclude Include="SWindowResizedEvent.h" />
-    <ClInclude Include="CWindowManager.h" />
-    <ClInclude Include="CWindow.h" />
-    <ClInclude Include="CGamePad.h" />
-    <ClInclude Include="EGamePadButton.h" />
+    <ClCompile Include="CWindow.cpp" />
+    <ClCompile Include="CWindowManager.Callbacks.cpp" />
+    <ClCompile Include="CWindowManager.cpp" />
+    <ClCompile Include="ConvertGLFWKeyCode.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CWindowManager.cpp" />
-    <ClCompile Include="CWindow.cpp" />
-    <ClCompile Include="CGamePad.cpp" />
+    <ClInclude Include="CWindow.h" />
+    <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="EKey.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SKeyboardEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SMouseEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SWindowResizedEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertGLFWKeyCode.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ionWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Events">
+      <UniqueIdentifier>{206af996-b490-4aa3-95fa-e48c35522abf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@
 #include <ionMath.h>
 
 #include "CWindow.h"
-#include "CGamePad.h"
 #undef CreateWindow
 
 
@@ -18,8 +17,6 @@ public:
 	bool ShouldClose() const;
 
 	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen);
-
-	CGamePad GamePad;
 
 protected:
 	

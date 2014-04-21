@@ -38,8 +38,13 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="..\ionEngine.props" />
     <Import Project="..\ionDefaultBuild.props" />
-    <Import Project="..\ionDefaultTarget.props" />
+    <Import Project="..\ionGLFW.props" />
   </ImportGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

@@ -89,7 +89,6 @@ CWindowManager::CWindowManager()
 void CWindowManager::PollEvents()
 {
 	glfwPollEvents();
-	GamePad.UpdateState();
 }
 
 bool CWindowManager::ShouldClose() const

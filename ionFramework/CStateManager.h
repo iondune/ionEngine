@@ -21,10 +21,6 @@ public:
 	void Connect(CWindow * Window);
 	void ShutDown();
 
-	void OnEvent(SMouseEvent & Event);
-	void OnEvent(SKeyboardEvent & Event);
-	void OnEvent(SWindowResizedEvent & Event);
-
 private:
 
     CStateManager();
