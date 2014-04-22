@@ -1,26 +1,9 @@
 
 #include <ionWindow.h>
 #include <ionGL.h>
-#include <GL/glew.h>
 
 using namespace ion::GL;
 
-
-void PrintShaderInfoLog(GLint const Shader)
-{
-	int InfoLogLength = 0;
-	int CharsWritten = 0;
- 
-	glGetShaderiv(Shader, GL_INFO_LOG_LENGTH, & InfoLogLength);
- 
-	if (InfoLogLength > 0)
-	{
-		GLchar * InfoLog = new GLchar[InfoLogLength];
-		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		std::cout << "Shader Info Log:" << std::endl << InfoLog << std::endl;
-		delete [] InfoLog;
-	}
-}
 
 int main()
 {
@@ -29,38 +12,39 @@ int main()
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", false);
 
-	char const * VertexShaderSource =
-		"	#version 150			\n"
-		"	in vec2 position;		\n"
-		"	void main()			\n"
-		"	{					\n"
+	string const VertexShaderSource(
+		"	#version 150								\n"
+		"	in vec2 position;							\n"
+		"	void main()								\n"
+		"	{										\n"
 		"		gl_Position = vec4(position, 0.0, 1.0);	\n"
-		"	}					\n";
+		"	}										\n");
 
-	char const * FragmentShaderSource =
-		"	#version 150				\n"
-		"	out vec4 outColor;			\n"
-		"	void main()				\n"
-		"	{						\n"
+	string const FragmentShaderSource(
+		"	#version 150							\n"
+		"	out vec4 outColor;						\n"
+		"	void main()							\n"
+		"	{									\n"
 		"		outColor = vec4(1.0, 1.0, 1.0, 1.0);	\n"
-		"	}						\n";
+		"	}									\n"
+	);
 
-	GLfloat const Vertices[] = {
+	vector<f32> const Vertices{
 		0.0f,  0.5f,
 		0.5f, -0.5f,
 		-0.5f, -0.5f
 	};
 
-	GLuint const Elements[] = {
+	vector<u32> const Indices{
 		0, 1, 2
 	};
 
 
 	VertexBuffer * vbo = new VertexBuffer;
-	vbo->Data(sizeof(Vertices), Vertices, 2);
+	vbo->Data(Vertices, 2);
 
 	IndexBuffer * ibo = new IndexBuffer;
-	ibo->Data(sizeof(Elements), Elements);
+	ibo->Data(Indices);
 
 	VertexArray * vao = new VertexArray;
 	vao->SetIndexBuffer(ibo);

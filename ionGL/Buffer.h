@@ -41,7 +41,7 @@ namespace ion
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw)
 			{
-				Data(data.size(), data.data());
+				Data(data.size() * sizeof(T), data.data(), components, accessFrequency, accessNature);
 			}
 
 			void SubData(u32 const size, u32 const offset, void const * const data);
