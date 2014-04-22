@@ -86,7 +86,7 @@ int main()
 	{
 		WindowManager->PollEvents();
 
-		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		Context::Clear({ EBuffer::Color, EBuffer::Depth });
 
 		shader->Use();
 		vao->Draw();

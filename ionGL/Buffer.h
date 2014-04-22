@@ -36,6 +36,14 @@ namespace ion
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw);
 
+			template <typename T>
+			void Data(vector<T> data, u32 const components,
+				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
+				EAccessNature const accessNature = EAccessNature::Draw)
+			{
+				Data(data.size(), data.data());
+			}
+
 			void SubData(u32 const size, u32 const offset, void const * const data);
 
 			u32 Size() const;
@@ -81,6 +89,14 @@ namespace ion
 				EAccessNature const accessNature = EAccessNature::Draw)
 			{
 				Buffer::Data(size, data, 1, accessFrequency, accessNature);
+			}
+
+			template <typename T>
+			void Data(vector<T> data,
+				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
+				EAccessNature const accessNature = EAccessNature::Draw)
+			{
+				Buffer::Data(data, 1, accessFrequency, accessNature);
 			}
 
 		protected:

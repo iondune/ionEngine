@@ -8,6 +8,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="Context.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
@@ -16,5 +17,6 @@
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Context.cpp" />
   </ItemGroup>
 </Project>

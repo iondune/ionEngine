@@ -10,6 +10,7 @@
 #include <list>
 #include <string>
 #include <type_traits>
+#include <initializer_list>
 
 
 // 8 bits integer types
