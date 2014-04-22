@@ -35,6 +35,25 @@ namespace ion
 			return Compiled != 0;
 		}
 
+		std::string Shader::InfoLog() const
+		{
+			std::string Log;
+			int InfoLogLength = 0;
+			int CharsWritten = 0;
+
+			glGetShaderiv(Handle, GL_INFO_LOG_LENGTH, & InfoLogLength);
+
+			if (InfoLogLength > 0)
+			{
+				GLchar * InfoLog = new GLchar[InfoLogLength];
+				glGetShaderInfoLog(Handle, InfoLogLength, & CharsWritten, InfoLog);
+				Log = InfoLog;
+				delete[] InfoLog;
+			}
+
+			return Log;
+		}
+
 		void Shader::Delete()
 		{
 			delete this;

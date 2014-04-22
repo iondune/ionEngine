@@ -11,12 +11,16 @@ namespace ion
 	{
 		class Shader
 		{
+
+			friend class Program;
+
 		public:
 
 			void Source(std::vector<std::string> const & Source);
 			void Source(std::string const & Source);
 
 			bool Compile();
+			std::string InfoLog() const;
 
 			void Delete();
 			~Shader();
