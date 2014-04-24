@@ -2,4 +2,9 @@
 
 \page modules Modules
 
+\dotfile ModuleDependencies.dot "Module Dependency Diagram"
+
+\section ionGL
+ionGL is an object oriented C++ interface to OpenGL. See additional documentation here: \ref moduleGL.
+
 */

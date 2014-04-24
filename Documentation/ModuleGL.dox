@@ -1,0 +1,59 @@
+/*!
+
+\page moduleGL Module ionGL
+
+\section ionGL
+
+ionGL is an object oriented C++ interface to OpenGL that offers a few benefits over the
+traditional state-machine C interface:
+
+- Removal of as much global state as possible.
+- Clean, readable syntax.
+- Minimal interface that promotes best-practice, modern OpenGL programs.
+- Prevent global namespace polution by GL.h inclusion.
+
+Consider the below example which shows the initialization of a VAO with a position VBO and an index buffer.
+
+\code{.cpp}
+ion::GL::VertexBuffer * vbo = new ion::GL::VertexBuffer();
+vbo->Data(Vertices, 2);
+
+ion::GL::IndexBuffer * ibo = new ion::GL::IndexBuffer();
+ibo->Data(Indices);
+
+ion::GL::VertexArray * vao = new ion::GL::VertexArray();
+vao->SetIndexBuffer(ibo);
+vao->BindAttribute(0, vbo);
+\endcode
+
+The next example shows how to initialize a shader program with Vertex and Fragment stages.
+
+\code{.cpp}
+ion::GL::VertexShader * vert = new ion::GL::VertexShader();
+vert->Source(VertexShaderSource);
+if (! vert->Compile())
+    std::cerr << "Failed to compile vertex shader!" << std::endl << vert->InfoLog() << std::endl;
+
+ion::GL::FragmentShader * frag = new ion::GL::FragmentShader();
+frag->Source(FragmentShaderSource);
+if (! frag->Compile())
+    std::cerr << "Failed to compile vertex shader!" << std::endl << frag->InfoLog() << std::endl;
+
+ion::GL::Program * shader = new ion::GL::Program();
+shader->AttachShader(vert);
+shader->AttachShader(frag);
+shader->Link();
+shader->BindAttributeLocation(0, "position");
+\endcode
+
+Finally, the below example shows how to implement a simple draw loop.
+
+\code{.cpp}
+ion::GL::Context::Clear({ EBuffer::Color, EBuffer::Depth });
+
+shader->Use();
+vao->Draw();
+ion::GL::Program::End();
+\endcode
+
+*/
