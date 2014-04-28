@@ -27,7 +27,7 @@ namespace ion
 			static void End();
 
 			//std::map<std::string, u32> const & GetActiveAttributes();
-			//std::map<std::string, u32> const & GetActiveUniforms();
+			std::map<std::string, u32> const & GetActiveUniforms();
 
 		private:
 

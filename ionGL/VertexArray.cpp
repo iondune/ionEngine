@@ -40,7 +40,7 @@ namespace ion
 			{
 				glDrawElements(
 					Util::PrimativeMatrix[(int) PrimativeType],
-					BoundIndexBuffer->Size(),
+					BoundIndexBuffer->Elements(),
 					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
 			}
 			glBindVertexArray(0);

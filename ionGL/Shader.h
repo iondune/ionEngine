@@ -23,7 +23,7 @@ namespace ion
 			std::string InfoLog() const;
 
 			void Delete();
-			~Shader();
+			virtual ~Shader();
 
 		protected:
 

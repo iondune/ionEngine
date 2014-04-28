@@ -47,6 +47,7 @@ namespace ion
 			void SubData(u32 const size, u32 const offset, void const * const data);
 
 			u32 Size() const;
+			u32 Elements() const;
 			u32 Components() const;
 			EFormatType Type() const;
 

@@ -30,12 +30,23 @@ namespace ion
 			GL_FLOAT
 		};
 
+		u32 const Util::SizeMatrix[7] =
+		{
+			sizeof(u8),
+			sizeof(u16),
+			sizeof(u32),
+			sizeof(c8),
+			sizeof(s16),
+			sizeof(s32),
+			sizeof(f32)
+		};
+
 		u32 const Util::PrimativeMatrix[4] =
 		{
 			GL_POINTS,
 			GL_LINES,
-			GL_QUADS,
-			GL_TRIANGLES
+			GL_TRIANGLES,
+			GL_QUADS
 		};
 	}
 }

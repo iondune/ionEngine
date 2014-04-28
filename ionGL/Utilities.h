@@ -40,6 +40,7 @@ namespace ion
 		public:
 
 			static u32 const TypeMatrix[7];
+			static u32 const SizeMatrix[7];
 			static u32 const PrimativeMatrix[4];
 		};
 	}

@@ -45,6 +45,11 @@ namespace ion
 			return DataComponents;
 		}
 
+		u32 Buffer::Elements() const
+		{
+			return DataSize / Util::SizeMatrix[(int) DataType];
+		}
+
 		EFormatType Buffer::Type() const
 		{
 			return DataType;
@@ -68,8 +73,8 @@ namespace ion
 		Buffer::Buffer()
 		{
 			glGenBuffers(1, & Handle);
-			DataSize = 0;
-			DataComponents = 2;
+			DataSize = -1;
+			DataComponents = -1;
 			DataType = EFormatType::U8;
 		}
 
