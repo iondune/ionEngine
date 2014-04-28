@@ -1,0 +1,205 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Racket/Racket.sublime-build",
+	"command_palette":
+	{
+		"height": 400.0,
+		"selected_items":
+		[
+			[
+				"close",
+				"Project: Close"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 655.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/tmp/rsub-ya18w0/Dependencies.dox",
+		"/home/ian/Projects/CalPolySYNTH.wiki/Features.md",
+		"/home/ian/Projects/430/LabChecksums.txt",
+		"/home/ian/Projects/430/Lab1.rkt",
+		"/home/ian/Projects/430/Lab2.rkt",
+		"/home/ian/Projects/430/Lab3.rkt",
+		"/home/ian/Projects/430/Lab4.rkt",
+		"/home/ian/Projects/430/Assignment2.rkt",
+		"/home/ian/Projects/430/Assignment1.rkt",
+		"/home/ian/Projects/430/430.sublime-project",
+		"/home/ian/Projects/430/.hgignore",
+		"/home/ian/Projects/430/Lab 1/2.2.2.rkt",
+		"/home/ian/Projects/430/Lab 1/5.1.4.rkt",
+		"/home/ian/Projects/430/Lab 1/4.4.4.rkt",
+		"/home/ian/Projects/430/Lab 1/4.4.1.rkt",
+		"/home/ian/Projects/430/Lab 1/2.3.2.rkt",
+		"/home/ian/Projects/ionEngine/Documentation/Installation.dox",
+		"/home/ian/Projects/ionEngine/Documentation/Modules.dox",
+		"/home/ian/Projects/ionEngine/Documentation/MainPage.dox",
+		"/home/ian/Projects/ionEngine/Documentation/Dependencies.dox",
+		"/home/ian/.bashrc",
+		"/home/ian/Projects/ionEngine/Doxyfile",
+		"/home/ian/Projects/scivis2014paper/Paper.tex",
+		"/home/ian/.hgrc",
+		"/home/ian/Projects/ionEngine/ionWindow/CWindowManager.cpp",
+		"/home/ian/Projects/ionEngine/ionWindow/CWindowManager.",
+		"/home/ian/Projects/ionWebsite/functions.php",
+		"/home/ian/Projects/ionWebsite/content/about.html",
+		"/home/ian/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/ian/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 230.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "ionEngine.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 224.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
