@@ -2,7 +2,8 @@
 #pragma once
 
 #include <ionMath/SBoundingBox3.h>
-#include <ionGraphics/CBufferObject.h>
+#include <ionGL/Buffer.h>
+#include <ionGL/VertexArray.h>
 
 #include "SVertex.h"
 #include "SMeshTriangle.h"
@@ -19,9 +20,11 @@ public:
         std::vector<SVertex> Vertices;
         std::vector<SMeshTriangle> Triangles;
 
-		CBufferObject<f32> Positions, Colors, Normals, TexCoords;
-		CBufferObject<uint> Indices;
+		ion::GL::VertexBuffer * Positions, * Colors, * Normals, * TexCoords;
+		ion::GL::IndexBuffer * Indices;
+		ion::GL::VertexArray * ArrayObject;
 
+		SMeshBuffer();
 		void UpdateBuffers();
 		void WriteObjMesh(std::string const & FileName);
 
