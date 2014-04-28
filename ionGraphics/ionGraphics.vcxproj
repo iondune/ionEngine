@@ -53,7 +53,6 @@
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="IRenderTarget.h" />
     <ClInclude Include="SAttribute.h" />
-    <ClInclude Include="SUniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDeferredShadingManager.cpp" />
@@ -73,7 +72,6 @@
     <ClCompile Include="CShaderContext.cpp" />
     <ClCompile Include="CShaderLoader.cpp" />
     <ClCompile Include="CTexture.cpp" />
-    <ClCompile Include="SUniform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

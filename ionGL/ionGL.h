@@ -11,5 +11,6 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "VertexArray.h"
+#include "Uniform.h"
 
 #include "Context.h"

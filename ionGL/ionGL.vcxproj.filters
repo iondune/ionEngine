@@ -9,6 +9,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="Uniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
@@ -18,5 +19,6 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="Uniform.cpp" />
   </ItemGroup>
 </Project>
