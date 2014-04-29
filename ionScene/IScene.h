@@ -16,9 +16,9 @@ class IScene
 
 public:
 
-	virtual ICameraSceneObject * const getActiveCamera() = 0;
-	virtual ICameraSceneObject const * const getActiveCamera() const = 0;
-	virtual void setActiveCamera(ICameraSceneObject * const activeCamera) = 0;
+	virtual ICameraSceneObject * const GetActiveCamera() = 0;
+	virtual ICameraSceneObject const * const GetActiveCamera() const = 0;
+	virtual void GetActiveCamera(ICameraSceneObject * const activeCamera) = 0;
 	
 	virtual sharedPtr<IAttribute const> const getAttribute(std::string const & label) const = 0;
 	virtual sharedPtr<IUniform const> const getUniform(std::string const & label) const = 0;
