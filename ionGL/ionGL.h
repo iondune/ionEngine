@@ -15,3 +15,13 @@
 
 #include "Context.h"
 #include "DrawContext.h"
+
+namespace ion
+{
+	//! \brief Documentation of the ionGL module
+	//!
+	//! Further documentation can be found
+	//! at the \ref moduleGL page.
+	namespace GL
+	{}
+}

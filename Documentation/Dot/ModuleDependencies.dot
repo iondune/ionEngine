@@ -1,6 +1,6 @@
-// The graph name and the semicolons are optional
 digraph graphname {
     node [shape=box];
+    ionGL [URL="module_g_l.html"];
     ionCore -> ionMath;
     ionCore -> ionFramework;
     ionGL -> ionWindow;
