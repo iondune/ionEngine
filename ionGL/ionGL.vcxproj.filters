@@ -10,6 +10,7 @@
     <ClInclude Include="Program.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="Uniform.h" />
+    <ClInclude Include="DrawContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
@@ -20,5 +21,6 @@
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="Uniform.cpp" />
+    <ClCompile Include="DrawContext.cpp" />
   </ItemGroup>
 </Project>

@@ -17,9 +17,11 @@ int main()
 		#version 150
 		in vec3 Position;
 		uniform mat4 Model;
+		uniform mat4 View;
+		uniform mat4 Projection;
 		void main()
 		{
-			gl_Position = Model * vec4(Position, 1.0);
+			gl_Position = Projection * View * Model * vec4(Position, 1.0);
 		}
 	)SHADER";
 
@@ -46,6 +48,11 @@ int main()
 		std::cerr << "Failed to compile vertex shader!" << std::endl << Frag->InfoLog() << std::endl;
 
 	UniformValue<glm::mat4> * Model = new UniformValue<glm::mat4>;
+	UniformValue<glm::mat4> * View = new UniformValue<glm::mat4>;
+	UniformValue<glm::mat4> * Projection = new UniformValue<glm::mat4>;
+
+	View->Value = glm::lookAt(glm::vec3(5, 5, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	Projection->Value = glm::perspective(60.0f, 1.333f, 0.1f, 20.f);
 
 	Program * Shader = new Program;
 	Shader->AttachShader(Vert);
@@ -59,10 +66,12 @@ int main()
 
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
 
-		Shader->Use();
-		Cube->MeshBuffers[0]->ArrayObject->Draw();
-		Model->Bind(Shader->GetActiveUniforms().find("Model")->second);
-		Program::End();
+		DrawContext context(Shader);
+		context.BindUniform("Model", Model);
+		context.BindUniform("View", View);
+		context.BindUniform("Projection", Projection);
+		context.SetVertexArray(Cube->MeshBuffers[0]->ArrayObject);
+		context.Draw();
 
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
 
