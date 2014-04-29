@@ -1,6 +1,20 @@
 
 #include "CMesh.h"
 
+
+CMesh::CMesh()
+{}
+
+CMesh::CMesh(SMeshBuffer * Buffer)
+: CMesh(sharedNew(Buffer))
+{}
+
+CMesh::CMesh(sharedPtr<SMeshBuffer> Buffer)
+{
+	MeshBuffers.push_back(Buffer);
+}
+
+
 uint CMesh::GetVertexCount() const
 {
 	uint Count = 0;

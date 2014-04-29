@@ -20,11 +20,20 @@ public:
         std::vector<SVertex> Vertices;
         std::vector<SMeshTriangle> Triangles;
 
-		ion::GL::VertexBuffer * Positions, * Colors, * Normals, * TexCoords;
+		// struct SVertexBuffers
+		// {
+		ion::GL::VertexBuffer * Positions, * Normals, * Colors, * TexCoords;
 		ion::GL::IndexBuffer * Indices;
+		// } VertexBuffers;
 		ion::GL::VertexArray * ArrayObject;
 
 		SMeshBuffer();
+		SMeshBuffer(vector<uint> Indices,
+			vector<f32> const & Positions,
+			vector<f32> const & Normals = vector<f32>(),
+			vector<f32> const & Colors = vector<f32>(),
+			vector<f32> const & TexCoords = vector<f32>());
+
 		void UpdateBuffers();
 		void WriteObjMesh(std::string const & FileName);
 
@@ -34,6 +43,10 @@ public:
     std::vector<sharedPtr<SMeshBuffer>> MeshBuffers;
 
 	static CMesh * Load(std::string const & FileName);
+
+	CMesh();
+	CMesh(SMeshBuffer * Buffer);
+	CMesh(sharedPtr<SMeshBuffer> Buffer);
 
 	uint GetVertexCount() const;
 	SBoundingBox3f GetBoundingBox() const;

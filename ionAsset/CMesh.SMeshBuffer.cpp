@@ -12,14 +12,46 @@ CMesh::SMeshBuffer::SMeshBuffer()
 	ArrayObject = 0;
 }
 
+CMesh::SMeshBuffer::SMeshBuffer(vector<uint> Indices,
+	vector<f32> const & Positions,
+	vector<f32> const & Normals,
+	vector<f32> const & Colors,
+	vector<f32> const & TexCoords)
+	: SMeshBuffer()
+{
+	for (uint i = 0; i < Positions.size() / 3; ++ i)
+	{
+		SVertex Vertex;
+
+		Vertex.Position = vec3f(Positions[i * 3 + 0], Positions[i * 3 + 1], Positions[i * 3 + 2]);
+
+		if (i * 3 + 2 < Normals.size())
+			Vertex.Normal = vec3f(Normals[i * 3 + 0], Normals[i * 3 + 1], Normals[i * 3 + 2]);
+
+		if (i * 4 + 3 < Colors.size())
+			Vertex.Color = color4f(Colors[i * 4 + 0], Colors[i * 4 + 1], Colors[i * 4 + 2], Colors[i * 4 + 3]);
+
+		if (i * 3 + 2 < TexCoords.size())
+			Vertex.TextureCoordinates = vec2f(TexCoords[i * 3 + 0], TexCoords[i * 3 + 1]);
+
+		Vertices.push_back(Vertex);
+	}
+
+	for (uint i = 0; i < Indices.size() / 3; ++ i)
+		Triangles.push_back(SMeshTriangle(
+		Indices[i * 3 + 0],
+		Indices[i * 3 + 1],
+		Indices[i * 3 + 2]));
+}
+
 void CMesh::SMeshBuffer::UpdateBuffers()
 {
 	if (! Positions)
 		Positions = new ion::GL::VertexBuffer;
-	if (! Colors)
-		Colors = new ion::GL::VertexBuffer;
 	if (! Normals)
 		Normals = new ion::GL::VertexBuffer;
+	if (! Colors)
+		Colors = new ion::GL::VertexBuffer;
 	if (! TexCoords)
 		TexCoords = new ion::GL::VertexBuffer;
 	if (! Indices)
@@ -38,14 +70,14 @@ void CMesh::SMeshBuffer::UpdateBuffers()
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back(it->Color[j]);
-		Colors->Data(Data, 3);
+				Data.push_back(it->Normal[j]);
+		Normals->Data(Data, 3);
 		Data.clear();
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back(it->Normal[j]);
-		Normals->Data(Data, 3);
+				Data.push_back(it->Color[j]);
+		Colors->Data(Data, 3);
 		Data.clear();
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
@@ -67,8 +99,8 @@ void CMesh::SMeshBuffer::UpdateBuffers()
 
 	ArrayObject->SetIndexBuffer(Indices);
 	ArrayObject->BindAttribute(0, Positions);
-	ArrayObject->BindAttribute(1, Colors);
-	ArrayObject->BindAttribute(2, Normals);
+	ArrayObject->BindAttribute(1, Normals);
+	ArrayObject->BindAttribute(2, Colors);
 	ArrayObject->BindAttribute(3, TexCoords);
 }
 

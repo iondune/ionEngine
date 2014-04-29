@@ -9,6 +9,7 @@
     <ClInclude Include="SVertex.h" />
     <ClInclude Include="SMeshTriangle.h" />
     <ClInclude Include="SMaterial.h" />
+    <ClInclude Include="CGeometryCreator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CImage.cpp" />
@@ -18,5 +19,8 @@
     <ClCompile Include="CMesh.Load.cpp" />
     <ClCompile Include="SMaterial.cpp" />
     <ClCompile Include="CMesh.SMeshBuffer.cpp" />
+    <ClCompile Include="CGeometryCreator.cpp" />
+    <ClCompile Include="SVertex.cpp" />
+    <ClCompile Include="SMeshTriangle.cpp" />
   </ItemGroup>
 </Project>
