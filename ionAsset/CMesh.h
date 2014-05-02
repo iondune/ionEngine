@@ -5,25 +5,25 @@
 #include <ionGL/Buffer.h>
 #include <ionGL/VertexArray.h>
 
-#include "SVertex.h"
-#include "SMeshTriangle.h"
-#include "SMaterial.h"
+#include "SMeshBuffer.h"
 
 
-class CMesh
+class CMesh : public ITreeNode<CMesh>
 {
 
 public:
 
-	std::vector<sharedPtr<SMeshBuffer>> MeshBuffers;
+	SMeshBuffer MeshBuffer;
 
 	static CMesh * Load(std::string const & FileName);
 
 	CMesh();
-	CMesh(SMeshBuffer * Buffer);
-	CMesh(sharedPtr<SMeshBuffer> Buffer);
+	CMesh(SMeshBuffer const & Buffer);
+	CMesh(SMeshBuffer && Buffer);
 
 	uint GetVertexCount() const;
+
+	/*
 	SBoundingBox3f GetBoundingBox() const;
 	vec3f GetExtent() const;
 
@@ -36,6 +36,7 @@ public:
 	void CalculateNormalsPerFace();
 	void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.01f);
 	void CalculateTextureCoordinates(vec3f const & uVec, vec3f const & vVec, vec2f const & Scale = vec2f(1.f));
+	*/
 
 	void UpdateBuffers();
 

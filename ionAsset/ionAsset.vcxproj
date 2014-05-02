@@ -47,6 +47,7 @@
     <ClInclude Include="CMeshLoader.h" />
     <ClInclude Include="ionAsset.h" />
     <ClInclude Include="SMaterial.h" />
+    <ClInclude Include="SMeshBuffer.h" />
     <ClInclude Include="SMeshTriangle.h" />
     <ClInclude Include="SVertex.h" />
   </ItemGroup>
@@ -56,9 +57,9 @@
     <ClCompile Include="CImageLoader.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMesh.Load.cpp" />
-    <ClCompile Include="CMesh.SMeshBuffer.cpp" />
     <ClCompile Include="CMeshLoader.cpp" />
     <ClCompile Include="SMaterial.cpp" />
+    <ClCompile Include="SMeshBuffer.cpp" />
     <ClCompile Include="SMeshTriangle.cpp" />
     <ClCompile Include="SVertex.cpp" />
   </ItemGroup>

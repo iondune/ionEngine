@@ -2,7 +2,7 @@
 #include "CGeometryCreator.h"
 
 
-SMeshBuffer * CGeometryCreator::CreateCube(vec3f const & Size)
+CMesh * CGeometryCreator::CreateCube(vec3f const & Size)
 {
 	static f32 const CubePositions[] =
 	{
@@ -91,21 +91,21 @@ SMeshBuffer * CGeometryCreator::CreateCube(vec3f const & Size)
 		22, 23, 20
 	};
 
-	auto Buffer = new CMesh::SMeshBuffer();
+	SMeshBuffer Buffer;
 	for (uint i = 0; i < 24; ++ i)
-		Buffer->Vertices.push_back(SVertex(
+		Buffer.Vertices.push_back(SVertex(
 		vec3f(CubePositions[i * 3 + 0], CubePositions[i * 3 + 1], CubePositions[i * 3 + 2]),
 		vec3f(CubeNormals[i * 3 + 0], CubeNormals[i * 3 + 1], CubeNormals[i * 3 + 2])));
 	for (uint i = 0; i < 12; ++ i)
-		Buffer->Triangles.push_back(SMeshTriangle(
+		Buffer.Triangles.push_back(SMeshTriangle(
 		CubeIndices[i * 3 + 0],
 		CubeIndices[i * 3 + 1],
 		CubeIndices[i * 3 + 2]));
 
-	return Buffer;
+	return new CMesh(std::move(Buffer));
 }
 
-SMeshBuffer * CGeometryCreator::CreateCylinder(
+CMesh * CGeometryCreator::CreateCylinder(
 	f32 const baseRadius,
 	f32 const topRadius,
 	f32 const height,
@@ -187,10 +187,10 @@ SMeshBuffer * CGeometryCreator::CreateCylinder(
 		SideStart1 = SideStart2;
 	}
 
-	return new SMeshBuffer(Indices, Positions, Normals);
+	return new CMesh(SMeshBuffer(Indices, Positions, Normals));
 }
 
-SMeshBuffer * CGeometryCreator::CreateDisc(
+CMesh * CGeometryCreator::CreateDisc(
 	f32 const innerRadius,
 	f32 const outerRadius,
 	f32 const height,
@@ -318,10 +318,10 @@ SMeshBuffer * CGeometryCreator::CreateDisc(
 		SideStart1 = SideStart2;
 	}
 
-	return new SMeshBuffer(Indices, Positions, Normals);
+	return new CMesh(SMeshBuffer(Indices, Positions, Normals));
 }
 
-SMeshBuffer * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
+CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
 {
 	std::vector<f32> Positions, Normals;
 	std::vector<u32> Indices;
@@ -378,70 +378,70 @@ SMeshBuffer * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Sli
 		}
 	}
 
-	return new SMeshBuffer(Indices, Positions, Normals);
+	return new CMesh(SMeshBuffer(Indices, Positions, Normals));
 }
 
-SMeshBuffer * CGeometryCreator::CreatePlane(vec2f const & Size)
+CMesh * CGeometryCreator::CreatePlane(vec2f const & Size)
 {
-	SMeshBuffer * Mesh = new SMeshBuffer();
-	Mesh->Vertices.resize(4);
-	Mesh->Triangles.resize(2);
+	SMeshBuffer Mesh;
+	Mesh.Vertices.resize(4);
+	Mesh.Triangles.resize(2);
 
-	Mesh->Vertices[0].Position = vec3f(-0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
-	Mesh->Vertices[1].Position = vec3f(-0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
-	Mesh->Vertices[2].Position = vec3f( 0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
-	Mesh->Vertices[3].Position = vec3f( 0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh.Vertices[0].Position = vec3f(-0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh.Vertices[1].Position = vec3f(-0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh.Vertices[2].Position = vec3f( 0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh.Vertices[3].Position = vec3f( 0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
 
-	Mesh->Vertices[0].Normal =
-		Mesh->Vertices[1].Normal =
-		Mesh->Vertices[2].Normal =
-		Mesh->Vertices[3].Normal = vec3f(0, 1, );
+	Mesh.Vertices[0].Normal =
+		Mesh.Vertices[1].Normal =
+		Mesh.Vertices[2].Normal =
+		Mesh.Vertices[3].Normal = vec3f(0, 1, 0);
 
-	Mesh->Vertices[0].TextureCoordinates = vec2f(0, 1);
-	Mesh->Vertices[1].TextureCoordinates = vec2f(0, 0);
-	Mesh->Vertices[2].TextureCoordinates = vec2f(1, 0);
-	Mesh->Vertices[3].TextureCoordinates = vec2f(1, 1);
+	Mesh.Vertices[0].TextureCoordinates = vec2f(0, 1);
+	Mesh.Vertices[1].TextureCoordinates = vec2f(0, 0);
+	Mesh.Vertices[2].TextureCoordinates = vec2f(1, 0);
+	Mesh.Vertices[3].TextureCoordinates = vec2f(1, 1);
 
-	Mesh->Triangles[0].Indices[0] = 0;
-	Mesh->Triangles[0].Indices[1] = 1;
-	Mesh->Triangles[0].Indices[2] = 2;
+	Mesh.Triangles[0].Indices[0] = 0;
+	Mesh.Triangles[0].Indices[1] = 1;
+	Mesh.Triangles[0].Indices[2] = 2;
 
-	Mesh->Triangles[1].Indices[0] = 0;
-	Mesh->Triangles[1].Indices[1] = 2;
-	Mesh->Triangles[1].Indices[2] = 3;
+	Mesh.Triangles[1].Indices[0] = 0;
+	Mesh.Triangles[1].Indices[1] = 2;
+	Mesh.Triangles[1].Indices[2] = 3;
 
-	return Mesh;
+	return new CMesh(std::move(Mesh));
 }
 
-SMeshBuffer * CGeometryCreator::CreateWafer(f32 const radius, uint const Slices)
+CMesh * CGeometryCreator::CreateWafer(f32 const radius, uint const Slices)
 {
-	SMeshBuffer * Mesh = new SMeshBuffer();
+	SMeshBuffer Mesh;
 
-	Mesh->Vertices.resize(Slices + 1);
-	Mesh->Triangles.resize(Slices);
+	Mesh.Vertices.resize(Slices + 1);
+	Mesh.Triangles.resize(Slices);
 
-	Mesh->Vertices[0].Position.X = 0;
-	Mesh->Vertices[0].Position.Y = 0;
-	Mesh->Vertices[0].Position.Z = 0;
+	Mesh.Vertices[0].Position.X = 0;
+	Mesh.Vertices[0].Position.Y = 0;
+	Mesh.Vertices[0].Position.Z = 0;
 
 	for (uint i = 0; i < Slices; ++ i)
 	{
-		Mesh->Vertices[i + 1].Position.X = radius * Sin(float(i) / float(Triangles) * 2.f * 3.14159f);
-		Mesh->Vertices[i + 1].Position.Y = 0;
-		Mesh->Vertices[i + 1].Position.Z = radius * Cos(float(i) / float(Triangles) * 2.f * 3.14159f);
+		Mesh.Vertices[i + 1].Position.X = radius * Sin(float(i) / float(Slices) * 2.f * 3.14159f);
+		Mesh.Vertices[i + 1].Position.Y = 0;
+		Mesh.Vertices[i + 1].Position.Z = radius * Cos(float(i) / float(Slices) * 2.f * 3.14159f);
 
-		Mesh->Vertices[i + 1].Normal = SVector3f(0, 0, 1);
+		Mesh.Vertices[i + 1].Normal = SVector3f(0, 0, 1);
 
-		Mesh->Triangles[i].Indices[0] = 0;
-		Mesh->Triangles[i].Indices[1] = i+1;
-		Mesh->Triangles[i].Indices[2] = (i == Slices - 1 ? 1 : i+2);
+		Mesh.Triangles[i].Indices[0] = 0;
+		Mesh.Triangles[i].Indices[1] = i+1;
+		Mesh.Triangles[i].Indices[2] = (i == Slices - 1 ? 1 : i+2);
 	}
 
-	for (uint i = 0; i < Mesh->Vertices.size(); ++ i)
+	for (uint i = 0; i < Mesh.Vertices.size(); ++ i)
 	{
-		Mesh->Vertices[i].TextureCoordinates =
-			vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + SVector2f(0.5f);
+		Mesh.Vertices[i].TextureCoordinates =
+			vec2f(Mesh.Vertices[i].Position.X, Mesh.Vertices[i].Position.Y) / radius / 2 + SVector2f(0.5f);
 	}
 
-	return Mesh;
+	return new CMesh(std::move(Mesh));
 }

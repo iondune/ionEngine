@@ -1,8 +1,14 @@
 
 #pragma once
 
+#include <ionCore.h>
 #include <ionMath.h>
 #include <ionGL.h>
+
+#include "SVertex.h"
+#include "SMeshTriangle.h"
+#include "SMaterial.h"
+
 
 struct SMeshBuffer
 {

@@ -13,6 +13,7 @@
 #include "ionUtils.h"
 
 #include <algorithm>
+#include <numeric>
 #include <iomanip>
 #include <iostream>
 #include <fstream>

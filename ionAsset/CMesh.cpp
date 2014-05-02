@@ -5,22 +5,12 @@
 CMesh::CMesh()
 {}
 
-CMesh::CMesh(SMeshBuffer * Buffer)
-: CMesh(sharedNew(Buffer))
-{}
-
-CMesh::CMesh(sharedPtr<SMeshBuffer> Buffer)
-{
-	MeshBuffers.push_back(Buffer);
-}
-
-
 uint CMesh::GetVertexCount() const
 {
-	uint Count = 0;
-	for (std::vector<sharedPtr<SMeshBuffer>>::const_iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
-		Count += (* bit)->Vertices.size();
-	return Count;
+	return MeshBuffer.Vertices.size() + 	std::accumulate(Children.begin(), Children.end(), 0, [](uint Count, CMesh * Mesh)
+	{
+		return Count + Mesh->MeshBuffer.Vertices.size();
+	});
 }
 
 SBoundingBox3f CMesh::GetBoundingBox() const
