@@ -2,7 +2,7 @@
 #include "CGeometryCreator.h"
 
 
-CMesh * CGeometryCreator::CreateCube(vec3f const & Size)
+SMeshBuffer * CGeometryCreator::CreateCube(vec3f const & Size)
 {
 	static f32 const CubePositions[] =
 	{
@@ -102,10 +102,10 @@ CMesh * CGeometryCreator::CreateCube(vec3f const & Size)
 		CubeIndices[i * 3 + 1],
 		CubeIndices[i * 3 + 2]));
 
-	return new CMesh(Buffer);
+	return Buffer;
 }
 
-CMesh * CGeometryCreator::CreateCylinder(
+SMeshBuffer * CGeometryCreator::CreateCylinder(
 	f32 const baseRadius,
 	f32 const topRadius,
 	f32 const height,
@@ -122,7 +122,7 @@ CMesh * CGeometryCreator::CreateCylinder(
 	Positions.push_back(baseRadius); Positions.push_back(0.f); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
 
-	for (unsigned int i = 1; i <= slices; ++ i)
+	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
 		Positions.push_back(Cos<f32>(Angle)*baseRadius);
@@ -135,14 +135,14 @@ CMesh * CGeometryCreator::CreateCylinder(
 	}
 
 	// Make top disc
-	unsigned short const TopStart = Positions.size() / 3;
+	uint const TopStart = Positions.size() / 3;
 	Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(height);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 
 	Positions.push_back(topRadius); Positions.push_back(0.f); Positions.push_back(height);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 
-	for (unsigned int i = 1; i <= slices; ++ i)
+	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
 		Positions.push_back(Cos<f32>(Angle)*topRadius);
@@ -155,14 +155,14 @@ CMesh * CGeometryCreator::CreateCylinder(
 	}
 
 	// Make sides
-	unsigned int SideStart1 = 0, SideStart2 = 0;
-	for (unsigned int j = 0; j <= stacks; ++ j)
+	uint SideStart1 = 0, SideStart2 = 0;
+	for (uint j = 0; j <= stacks; ++ j)
 	{
 		f32 Interpolation = (f32) j / stacks;
 		f32 Radius = Interpolation * topRadius + (1.f - Interpolation) * baseRadius;
 
 		SideStart2 = Positions.size() / 3;
-		for (unsigned int k = 0; k <= slices; ++ k)
+		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
 			Positions.push_back(Cos<f32>(Angle)*Radius);
@@ -173,7 +173,7 @@ CMesh * CGeometryCreator::CreateCylinder(
 
 		if (j)
 		{
-			for (unsigned int k = 0; k < slices; ++ k)
+			for (uint k = 0; k < slices; ++ k)
 			{
 				Indices.push_back(SideStart1 + k);
 				Indices.push_back(SideStart1 + k + 1);
@@ -187,10 +187,10 @@ CMesh * CGeometryCreator::CreateCylinder(
 		SideStart1 = SideStart2;
 	}
 
-	return new CMesh(new CMesh::SMeshBuffer(Indices, Positions, Normals));
+	return new SMeshBuffer(Indices, Positions, Normals);
 }
 
-CMesh * CGeometryCreator::CreateDisc(
+SMeshBuffer * CGeometryCreator::CreateDisc(
 	f32 const innerRadius,
 	f32 const outerRadius,
 	f32 const height,
@@ -207,10 +207,10 @@ CMesh * CGeometryCreator::CreateDisc(
 	Positions.push_back(outerRadius); Positions.push_back(0.f); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
 
-	for (unsigned int i = 1; i <= slices; ++ i)
+	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
-		unsigned int const Current = Positions.size() / 3;
+		uint const Current = Positions.size() / 3;
 		Positions.push_back(Cos<f32>(Angle)*innerRadius);
 		Positions.push_back(Sin<f32>(Angle)*innerRadius);
 		Positions.push_back(0.f);
@@ -234,10 +234,10 @@ CMesh * CGeometryCreator::CreateDisc(
 	Positions.push_back(outerRadius); Positions.push_back(0.f); Positions.push_back(height);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 
-	for (unsigned int i = 1; i <= slices; ++ i)
+	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
-		unsigned int const Current = Positions.size() / 3;
+		uint const Current = Positions.size() / 3;
 		Positions.push_back(Cos<f32>(Angle)*innerRadius);
 		Positions.push_back(Sin<f32>(Angle)*innerRadius);
 		Positions.push_back(height);
@@ -255,13 +255,13 @@ CMesh * CGeometryCreator::CreateDisc(
 	}
 
 	// Make outer sides
-	unsigned int SideStart1 = 0, SideStart2 = 0;
-	for (unsigned int j = 0; j <= stacks; ++ j)
+	uint SideStart1 = 0, SideStart2 = 0;
+	for (uint j = 0; j <= stacks; ++ j)
 	{
 		f32 Interpolation = (f32) j / stacks;
 
 		SideStart2 = Positions.size() / 3;
-		for (unsigned int k = 0; k <= slices; ++ k)
+		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
 			Positions.push_back(Cos<f32>(Angle)*outerRadius);
@@ -272,7 +272,7 @@ CMesh * CGeometryCreator::CreateDisc(
 
 		if (j)
 		{
-			for (unsigned int k = 0; k < slices; ++ k)
+			for (uint k = 0; k < slices; ++ k)
 			{
 				Indices.push_back(SideStart1 + k);
 				Indices.push_back(SideStart1 + k + 1);
@@ -288,12 +288,12 @@ CMesh * CGeometryCreator::CreateDisc(
 
 	// Make inner sides
 	SideStart1 = 0, SideStart2 = 0;
-	for (unsigned int j = 0; j <= stacks; ++ j)
+	for (uint j = 0; j <= stacks; ++ j)
 	{
 		f32 Interpolation = (f32) j / stacks;
 
 		SideStart2 = Positions.size() / 3;
-		for (unsigned int k = 0; k <= slices; ++ k)
+		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
 			Positions.push_back(Cos<f32>(Angle)*innerRadius);
@@ -304,7 +304,7 @@ CMesh * CGeometryCreator::CreateDisc(
 
 		if (j)
 		{
-			for (unsigned int k = 0; k < slices; ++ k)
+			for (uint k = 0; k < slices; ++ k)
 			{
 				Indices.push_back(SideStart1 + k);
 				Indices.push_back(SideStart2 + k + 1);
@@ -318,10 +318,10 @@ CMesh * CGeometryCreator::CreateDisc(
 		SideStart1 = SideStart2;
 	}
 
-	return new CMesh(new CMesh::SMeshBuffer(Indices, Positions, Normals));
+	return new SMeshBuffer(Indices, Positions, Normals);
 }
 
-CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
+SMeshBuffer * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
 {
 	std::vector<f32> Positions, Normals;
 	std::vector<u32> Indices;
@@ -333,17 +333,17 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 	Positions.push_back(0.f); Positions.push_back(-Radii.Y); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(-1.f); Normals.push_back(0.f);
 
-	for (unsigned int i = 1; i <= Stacks; ++ i)
+	for (uint i = 1; i <= Stacks; ++ i)
 	{
 		f32 const AngleV = (f32) i * 3.14159f / Stacks;
-		for (unsigned int j = 0; j <= Slices; ++ j)
+		for (uint j = 0; j <= Slices; ++ j)
 		{
 			f32 const AngleH = (f32) j * 2.f * 3.14159f / Slices;
 			vec3f Radial = vec3f(
 				Cos<f32>(AngleH)*Sin<f32>(AngleV),
 				Cos<f32>(AngleV),
 				Sin<f32>(AngleH)*Sin<f32>(AngleV));
-			unsigned int const Start = Positions.size() / 3;
+			uint const Start = Positions.size() / 3;
 			Positions.push_back(Radial.X*Radii.X);
 			Positions.push_back(Radial.Y*Radii.Y);
 			Positions.push_back(Radial.Z*Radii.Z);
@@ -378,5 +378,70 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 		}
 	}
 
-	return new CMesh(new CMesh::SMeshBuffer(Indices, Positions, Normals));
+	return new SMeshBuffer(Indices, Positions, Normals);
+}
+
+SMeshBuffer * CGeometryCreator::CreatePlane(vec2f const & Size)
+{
+	SMeshBuffer * Mesh = new SMeshBuffer();
+	Mesh->Vertices.resize(4);
+	Mesh->Triangles.resize(2);
+
+	Mesh->Vertices[0].Position = vec3f(-0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh->Vertices[1].Position = vec3f(-0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh->Vertices[2].Position = vec3f( 0.5, 0,  0.5) * vec3f(Size.X, 1, Size.Y);
+	Mesh->Vertices[3].Position = vec3f( 0.5, 0, -0.5) * vec3f(Size.X, 1, Size.Y);
+
+	Mesh->Vertices[0].Normal =
+		Mesh->Vertices[1].Normal =
+		Mesh->Vertices[2].Normal =
+		Mesh->Vertices[3].Normal = vec3f(0, 1, );
+
+	Mesh->Vertices[0].TextureCoordinates = vec2f(0, 1);
+	Mesh->Vertices[1].TextureCoordinates = vec2f(0, 0);
+	Mesh->Vertices[2].TextureCoordinates = vec2f(1, 0);
+	Mesh->Vertices[3].TextureCoordinates = vec2f(1, 1);
+
+	Mesh->Triangles[0].Indices[0] = 0;
+	Mesh->Triangles[0].Indices[1] = 1;
+	Mesh->Triangles[0].Indices[2] = 2;
+
+	Mesh->Triangles[1].Indices[0] = 0;
+	Mesh->Triangles[1].Indices[1] = 2;
+	Mesh->Triangles[1].Indices[2] = 3;
+
+	return Mesh;
+}
+
+SMeshBuffer * CGeometryCreator::CreateWafer(f32 const radius, uint const Slices)
+{
+	SMeshBuffer * Mesh = new SMeshBuffer();
+
+	Mesh->Vertices.resize(Slices + 1);
+	Mesh->Triangles.resize(Slices);
+
+	Mesh->Vertices[0].Position.X = 0;
+	Mesh->Vertices[0].Position.Y = 0;
+	Mesh->Vertices[0].Position.Z = 0;
+
+	for (uint i = 0; i < Slices; ++ i)
+	{
+		Mesh->Vertices[i + 1].Position.X = radius * Sin(float(i) / float(Triangles) * 2.f * 3.14159f);
+		Mesh->Vertices[i + 1].Position.Y = 0;
+		Mesh->Vertices[i + 1].Position.Z = radius * Cos(float(i) / float(Triangles) * 2.f * 3.14159f);
+
+		Mesh->Vertices[i + 1].Normal = SVector3f(0, 0, 1);
+
+		Mesh->Triangles[i].Indices[0] = 0;
+		Mesh->Triangles[i].Indices[1] = i+1;
+		Mesh->Triangles[i].Indices[2] = (i == Slices - 1 ? 1 : i+2);
+	}
+
+	for (uint i = 0; i < Mesh->Vertices.size(); ++ i)
+	{
+		Mesh->Vertices[i].TextureCoordinates =
+			vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + SVector2f(0.5f);
+	}
+
+	return Mesh;
 }

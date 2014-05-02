@@ -1,8 +1,8 @@
 
-#include "CMesh.h"
+#include "SMeshBuffer.h"
 
 
-CMesh::SMeshBuffer::SMeshBuffer()
+SMeshBuffer::SMeshBuffer()
 {
 	Positions = 0;
 	Colors = 0;
@@ -12,7 +12,7 @@ CMesh::SMeshBuffer::SMeshBuffer()
 	ArrayObject = 0;
 }
 
-CMesh::SMeshBuffer::SMeshBuffer(vector<uint> Indices,
+SMeshBuffer::SMeshBuffer(vector<uint> Indices,
 	vector<f32> const & Positions,
 	vector<f32> const & Normals,
 	vector<f32> const & Colors,
@@ -44,7 +44,7 @@ CMesh::SMeshBuffer::SMeshBuffer(vector<uint> Indices,
 		Indices[i * 3 + 2]));
 }
 
-void CMesh::SMeshBuffer::UpdateBuffers()
+void SMeshBuffer::LoadDataIntoBuffers()
 {
 	if (! Positions)
 		Positions = new ion::GL::VertexBuffer;
@@ -104,7 +104,7 @@ void CMesh::SMeshBuffer::UpdateBuffers()
 	ArrayObject->BindAttribute(3, TexCoords);
 }
 
-void CMesh::SMeshBuffer::WriteObjMesh(std::string const & fileName)
+void SMeshBuffer::WriteObjMesh(std::string const & fileName)
 {
 	std::ofstream File(fileName);
 
