@@ -15,14 +15,14 @@ void SMaterial::LoadDefaults()
 	Specular = SColorf(1.f, 1.f, 1.f);
 }
 
-void SMaterial::SetTexture(uint const Layer, CTexture * const Texture)
+void SMaterial::SetTexture(uint const Layer, ion::GL::Texture * const Texture)
 {
 	if (Layer >= Textures.size())
 		Textures.resize(Layer + 1, 0);
 	Textures[Layer] = Texture;
 
-	std::vector<CTexture *>::iterator it = Textures.end();
-
+	// Clean dangling nulls from unused layers
+	auto it = Textures.end();
 	while (it != Textures.begin())
 	{
 		it --;

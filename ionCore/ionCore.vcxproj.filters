@@ -10,5 +10,6 @@
     <ClInclude Include="ionTreeNode.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionClass.h" />
+    <ClInclude Include="ionStandardLibrary.h" />
   </ItemGroup>
 </Project>

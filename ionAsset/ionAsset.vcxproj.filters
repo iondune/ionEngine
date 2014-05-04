@@ -4,24 +4,24 @@
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CImageLoader.h" />
     <ClInclude Include="CMesh.h" />
-    <ClInclude Include="CMeshLoader.h" />
     <ClInclude Include="ionAsset.h" />
     <ClInclude Include="SVertex.h" />
     <ClInclude Include="SMeshTriangle.h" />
     <ClInclude Include="SMaterial.h" />
     <ClInclude Include="CGeometryCreator.h" />
     <ClInclude Include="SMeshBuffer.h" />
+    <ClInclude Include="SMeshNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CImageLoader.cpp" />
     <ClCompile Include="CMesh.cpp" />
-    <ClCompile Include="CMeshLoader.cpp" />
     <ClCompile Include="CMesh.Load.cpp" />
     <ClCompile Include="SMaterial.cpp" />
     <ClCompile Include="CGeometryCreator.cpp" />
     <ClCompile Include="SVertex.cpp" />
     <ClCompile Include="SMeshTriangle.cpp" />
     <ClCompile Include="SMeshBuffer.cpp" />
+    <ClCompile Include="SMeshNode.cpp" />
   </ItemGroup>
 </Project>

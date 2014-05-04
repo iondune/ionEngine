@@ -16,7 +16,7 @@ public:
 		color4f const & color = color4f());
 
 	vec3f Position;
-    vec3f Normal;
+	vec3f Normal;
 	vec2f TextureCoordinates;
 
 	color4f Color;

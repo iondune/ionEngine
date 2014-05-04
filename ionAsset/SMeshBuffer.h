@@ -12,15 +12,6 @@
 
 struct SMeshBuffer
 {
-	std::vector<SVertex> Vertices;
-	std::vector<SMeshTriangle> Triangles;
-
-	// struct SVertexBuffers
-	// {
-	ion::GL::VertexBuffer * Positions, * Normals, * Colors, * TexCoords;
-	ion::GL::IndexBuffer * Indices;
-	// } VertexBuffers;
-	ion::GL::VertexArray * ArrayObject;
 
 	SMeshBuffer();
 	SMeshBuffer(vector<uint> Indices,
@@ -32,6 +23,21 @@ struct SMeshBuffer
 	void LoadDataIntoBuffers();
 	void WriteObjMesh(std::string const & FileName);
 
-	SMaterial Material;
-	glm::mat4 Transformation;
+	vector<SVertex> Vertices;
+	vector<SMeshTriangle> Triangles;
+
+	//! \brief Pointer to the Material of this buffer.
+	//! Assumed an element of the containing CMesh
+	//! Buffer and Material duration should be equivalent,
+	//! so this pointer is assumed valid.
+	//! It is up to the CMesh to ensure validity.
+	SMaterial * Material;
+
+	struct SVertexBuffers
+	{
+		ion::GL::VertexBuffer * Positions, * Normals, * Colors, * TexCoords;
+		ion::GL::IndexBuffer * Indices;
+	} VertexBuffers;
+	ion::GL::VertexArray * ArrayObject;
+
 };

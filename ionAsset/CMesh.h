@@ -6,14 +6,18 @@
 #include <ionGL/VertexArray.h>
 
 #include "SMeshBuffer.h"
+#include "SMeshNode.h"
+#include "SMaterial.h"
 
 
-class CMesh : public ITreeNode<CMesh>
+class CMesh
 {
 
 public:
 
-	SMeshBuffer MeshBuffer;
+	vector<SMaterial *> Materials;
+	vector<SMeshBuffer *> Buffers;
+	SMeshNode * Root;
 
 	static CMesh * Load(std::string const & FileName);
 

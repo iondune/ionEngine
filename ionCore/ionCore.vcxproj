@@ -30,6 +30,7 @@
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
+    <ClInclude Include="ionStandardLibrary.h" />
     <ClInclude Include="ionThread.h" />
     <ClInclude Include="ionRand.h" />
     <ClInclude Include="ionSmartPtr.h" />
