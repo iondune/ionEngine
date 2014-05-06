@@ -1,15 +1,34 @@
 
+/*!
+\file ionClass.h
+\brief Methods and classes for rudimentary reflection and other class related functionality.
+*/
+
 #pragma once
 
 #include <ionConfig.h>
 
 
+//! \brief Check whether an object is an instance of a type
+//! \param Object Object to check the type of
+//! \tparam T Type to check Object against
+//! \tparam U Actual type of Object (best left inferred)
+//!
+//! Implemented by checking the return value of dynamic_cast.
+//! Relies on RTTI.
 template <typename T, typename U>
 bool InstanceOf(U * Object)
 {
 	return dynamic_cast<T const *>(Object) != 0;
 }
 
+//! \brief Check whether an object is an instance of a type
+//! \param Object Object to check the type of
+//! \tparam T Type to check Object against
+//! \tparam U Actual type of Object (best left inferred)
+//!
+//! Implemented by checking the return value of dynamic_cast.
+//! Relies on RTTI.
 template <typename T, typename U>
 bool InstanceOf(U & Object)
 {

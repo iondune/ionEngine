@@ -1,6 +1,7 @@
 digraph graphname {
     node [shape=box];
     ionGL [URL="module_g_l.html"];
+    ionCore [URL="module_core.html"];
     ionCore -> ionMath;
     ionCore -> ionFramework;
     ionMath -> ionGL;
