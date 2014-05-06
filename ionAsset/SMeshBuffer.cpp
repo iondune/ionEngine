@@ -4,11 +4,11 @@
 
 SMeshBuffer::SMeshBuffer()
 {
-	Positions = 0;
-	Colors = 0;
-	Normals = 0;
-	TexCoords = 0;
-	Indices = 0;
+	VertexBuffers.Positions = 0;
+	VertexBuffers.Colors = 0;
+	VertexBuffers.Normals = 0;
+	VertexBuffers.TexCoords = 0;
+	VertexBuffers.Indices = 0;
 	ArrayObject = 0;
 }
 
@@ -46,16 +46,16 @@ SMeshBuffer::SMeshBuffer(vector<uint> Indices,
 
 void SMeshBuffer::LoadDataIntoBuffers()
 {
-	if (! Positions)
-		Positions = new ion::GL::VertexBuffer;
-	if (! Normals)
-		Normals = new ion::GL::VertexBuffer;
-	if (! Colors)
-		Colors = new ion::GL::VertexBuffer;
-	if (! TexCoords)
-		TexCoords = new ion::GL::VertexBuffer;
-	if (! Indices)
-		Indices = new ion::GL::IndexBuffer;
+	if (! VertexBuffers.Positions)
+		VertexBuffers.Positions = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.Normals)
+		VertexBuffers.Normals = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.Colors)
+		VertexBuffers.Colors = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.TexCoords)
+		VertexBuffers.TexCoords = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.Indices)
+		VertexBuffers.Indices = new ion::GL::IndexBuffer;
 	if (! ArrayObject)
 		ArrayObject = new ion::GL::VertexArray;
 
@@ -65,25 +65,25 @@ void SMeshBuffer::LoadDataIntoBuffers()
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
 				Data.push_back(it->Position[j]);
-		Positions->Data(Data, 3);
+		VertexBuffers.Positions->Data(Data, 3);
 		Data.clear();
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
 				Data.push_back(it->Normal[j]);
-		Normals->Data(Data, 3);
+		VertexBuffers.Normals->Data(Data, 3);
 		Data.clear();
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
 				Data.push_back(it->Color[j]);
-		Colors->Data(Data, 3);
+		VertexBuffers.Colors->Data(Data, 3);
 		Data.clear();
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 2; ++ j)
 				Data.push_back(it->TextureCoordinates[j]);
-		TexCoords->Data(Data, 2);
+		VertexBuffers.TexCoords->Data(Data, 2);
 		Data.clear();
 	}
 
@@ -93,15 +93,15 @@ void SMeshBuffer::LoadDataIntoBuffers()
 		for (std::vector<SMeshTriangle>::iterator it = Triangles.begin(); it != Triangles.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
 				Data.push_back((* it).Indices[j]);
-		Indices->Data(Data);
+		VertexBuffers.Indices->Data(Data);
 		Data.clear();
 	}
 
-	ArrayObject->SetIndexBuffer(Indices);
-	ArrayObject->BindAttribute(0, Positions);
-	ArrayObject->BindAttribute(1, Normals);
-	ArrayObject->BindAttribute(2, Colors);
-	ArrayObject->BindAttribute(3, TexCoords);
+	ArrayObject->SetIndexBuffer(VertexBuffers.Indices);
+	ArrayObject->BindAttribute(0, VertexBuffers.Positions);
+	ArrayObject->BindAttribute(1, VertexBuffers.Normals);
+	ArrayObject->BindAttribute(2, VertexBuffers.Colors);
+	ArrayObject->BindAttribute(3, VertexBuffers.TexCoords);
 }
 
 void SMeshBuffer::WriteObjMesh(std::string const & fileName)
