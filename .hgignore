@@ -15,4 +15,5 @@ syntax: glob
 *.unsuccessfulbuild
 *.o
 *.a
+*.sublime-workspace
 Documentation/html
