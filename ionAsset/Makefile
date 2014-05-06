@@ -1,17 +1,20 @@
 CXX=clang++
 INCLUDE=-I ../ \
-	-I ~/include/glm/
+	-I ~/include/glm/ \
+	-I ~/include/stb/
 CXXFLAGS=$(INCLUDE) -g -std=c++11
 
 SRCS=$(shell find . -name "*.cpp")
 OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: $(OBJS)
+TARGET=libionAsset.a
+
+all: $(TARGET)
 
 UCT: $(OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
-libionAsset.a: $(OBJS)
+$(TARGET): $(OBJS)
 	ar rc $@ $^
 
 clean:

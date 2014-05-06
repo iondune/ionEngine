@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <ionMath/SBoundingBox3.h>
-#include <ionGL/Buffer.h>
-#include <ionGL/VertexArray.h>
+#include <ionCore.h>
+#include <ionMath.h>
+#include <ionGL.h>
 
 #include "SMeshBuffer.h"
 #include "SMeshNode.h"

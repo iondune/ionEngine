@@ -13,6 +13,7 @@ public:
 
 	using SVectorBase<T, 2>::Values;
 	using SVectorBase<T, 2>::reset;
+	using SVectorBase<T, 2>::set;
 
 	T & X, & Y;
 

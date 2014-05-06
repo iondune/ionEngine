@@ -17,6 +17,7 @@ class SVector3 : public SVector<T, 3, SVector3<T> >
 public:
 
 	using SVectorBase<T, 3>::Values;
+	using SVectorBase<T, 3>::set;
 
 	T & X, & Y, & Z;
 

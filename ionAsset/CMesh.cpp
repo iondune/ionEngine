@@ -7,12 +7,13 @@ CMesh::CMesh()
 
 uint CMesh::GetVertexCount() const
 {
-	return MeshBuffer.Vertices.size() + 	std::accumulate(Children.begin(), Children.end(), 0, [](uint Count, CMesh * Mesh)
+/*	return MeshBuffer.Vertices.size() + std::accumulate(Children.begin(), Children.end(), 0, [](uint Count, CMesh * Mesh)
 	{
 		return Count + Mesh->MeshBuffer.Vertices.size();
-	});
+	});*/
 }
 
+/*
 SBoundingBox3f CMesh::GetBoundingBox() const
 {
 	SBoundingBox3f Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
@@ -226,3 +227,4 @@ void CMesh::UpdateBuffers()
 	for (std::vector<sharedPtr<SMeshBuffer>>::iterator bit = MeshBuffers.begin(); bit != MeshBuffers.end(); ++ bit)
 		(* bit)->UpdateBuffers();
 }
+*/
