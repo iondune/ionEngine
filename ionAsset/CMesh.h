@@ -25,9 +25,11 @@ public:
 	CMesh(SMeshBuffer const & Buffer);
 	CMesh(SMeshBuffer && Buffer);
 
-	uint GetVertexCount() const;
+	void LoadDataIntoBuffers();
 
 	/*
+	uint GetVertexCount() const;
+
 	SBoundingBox3f GetBoundingBox() const;
 	vec3f GetExtent() const;
 
@@ -41,7 +43,5 @@ public:
 	void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.01f);
 	void CalculateTextureCoordinates(vec3f const & uVec, vec3f const & vVec, vec2f const & Scale = vec2f(1.f));
 	*/
-
-	void UpdateBuffers();
 
 };

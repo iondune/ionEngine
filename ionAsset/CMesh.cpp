@@ -5,15 +5,20 @@
 CMesh::CMesh()
 {}
 
-uint CMesh::GetVertexCount() const
+void CMesh::LoadDataIntoBuffers()
 {
-/*	return MeshBuffer.Vertices.size() + std::accumulate(Children.begin(), Children.end(), 0, [](uint Count, CMesh * Mesh)
-	{
-		return Count + Mesh->MeshBuffer.Vertices.size();
-	});*/
+	std::for_each(Buffers.begin(), Buffers.end(), [](SMeshBuffer * Buffer){ Buffer->LoadDataIntoBuffers(); });
 }
 
 /*
+uint CMesh::GetVertexCount() const
+{
+	return MeshBuffer.Vertices.size() + std::accumulate(Children.begin(), Children.end(), 0, [](uint Count, CMesh * Mesh)
+	{
+		return Count + Mesh->MeshBuffer.Vertices.size();
+	});
+}
+
 SBoundingBox3f CMesh::GetBoundingBox() const
 {
 	SBoundingBox3f Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
