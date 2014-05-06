@@ -3,6 +3,11 @@ digraph graphname {
     ionGL [URL="module_g_l.html"];
     ionCore -> ionMath;
     ionCore -> ionFramework;
-    ionGL -> ionWindow;
     ionMath -> ionGL;
+    ionGL -> ionWindow;
+    ionGL -> ionAsset;
+    ionGL -> ionScene;
+    ionGL -> ionGUI;
+    ionScene -> ionScience;
+    ionScene -> ionBootstrap;
 }
