@@ -48,7 +48,7 @@ int main()
 		//CGeometryCreator::CreateDisc(0.5, 1.5, 0.25, 32, 5);
 		//CGeometryCreator::CreateCube();
 		//CGeometryCreator::CreateCylinder(2.f, 1.f, 1.f, 32, 16);
-	Mesh->UpdateBuffers();
+	Mesh->LoadDataIntoBuffers();
 
 	VertexShader * Vert = new VertexShader;
 	Vert->Source(VertexShaderSource);
@@ -78,13 +78,13 @@ int main()
 	{
 		WindowManager->PollEvents();
 
-		Context::Clear({ EBuffer::Color, EBuffer::Depth });
+		Context::Clear({EBuffer::Color, EBuffer::Depth});
 
 		DrawContext context(Shader);
 		context.BindUniform("Model", Model);
 		context.BindUniform("View", View);
 		context.BindUniform("Projection", Projection);
-		context.SetVertexArray(Mesh->MeshBuffers[0]->ArrayObject);
+		context.SetVertexArray(Mesh->Root->Buffers[0]->ArrayObject);
 		context.Draw();
 
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
