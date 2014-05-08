@@ -73,9 +73,11 @@ namespace ion
 		// Variants //
 		//////////////
 
+#ifdef GL_COMPUTE_SHADER
 		ComputeShader::ComputeShader()
 			: Shader(glCreateShader(GL_COMPUTE_SHADER))
 		{}
+#endif
 
 		VertexShader::VertexShader()
 			: Shader(glCreateShader(GL_VERTEX_SHADER))

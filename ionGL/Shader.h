@@ -32,12 +32,14 @@ namespace ion
 			u32 const Handle;
 		};
 
+#ifdef GL_COMPUTE_SHADER
 		class ComputeShader : public Shader
 		{
 		public:
 
 			ComputeShader();
 		};
+#endif
 
 		class VertexShader : public Shader
 		{

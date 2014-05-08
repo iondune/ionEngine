@@ -52,7 +52,7 @@ namespace ion
 			EFormatType Type() const;
 
 			void Delete();
-			~Buffer();
+			virtual ~Buffer();
 
 		protected:
 
