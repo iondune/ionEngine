@@ -23,23 +23,23 @@ public:
 	void SwapBuffers();
 
 	bool IsKeyDown(EKey const Key);
-    bool IsMouseDown(SMouseEvent::EButton const Button);
+	bool IsMouseDown(SMouseEvent::EButton const Button);
 
-    vec2f const & GetCursorLocation() const;
+	vec2f const & GetCursorLocation() const;
 	void SetCursorLocation(vec2f const & position);
 
-    vec2f GetRelativeCursorLocation() const;
+	vec2f GetRelativeCursorLocation() const;
 	void SetRelativeCursorLocation(vec2f const & position);
-	
+
 	GLFWwindow * const GetHandle() const;
 
 protected:
 
 	GLFWwindow * const WindowHandle;
-	
-	bool KeyStates[EKey::Count];
-    bool MouseStates[SMouseEvent::EButton::Count];
-    vec2f CursorLocation;
+
+	bool KeyStates[(int) EKey::Count];
+	bool MouseStates[(int) SMouseEvent::EButton::Count];
+	vec2f CursorLocation;
 
 	vec2i Size;
 
