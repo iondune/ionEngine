@@ -10,6 +10,6 @@
 
 struct SMeshNode : public ITreeNode<SMeshNode>
 {
-	vector<SMeshBuffer *> MeshBuffers;
+	vector<SMeshBuffer *> Buffers;
 	glm::mat4 Transformation;
 };

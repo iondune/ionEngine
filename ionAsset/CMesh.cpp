@@ -8,13 +8,14 @@ CMesh::CMesh()
 CMesh::CMesh(SMeshBuffer * const Buffer)
 {
 	Buffers.push_back(Buffer);
+	Materials.push_back(Buffer->GetMaterial());
+	Root = new SMeshNode{};
+	Root->Buffers.push_back(Buffer);
 }
 
 CMesh::CMesh(SMeshBuffer && Buffer)
-{
-	Buffers.push_back(new SMeshBuffer(Buffer));
-	Materials.push_back(Buffers.back()->GetMaterial());
-}
+: CMesh(new SMeshBuffer(Buffer))
+{}
 
 void CMesh::LoadDataIntoBuffers()
 {

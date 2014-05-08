@@ -70,7 +70,7 @@ SMeshNode * TraverseMesh(aiScene const * Scene, aiNode * Node, vector<SMeshBuffe
 		);
 
 	for (uint i = 0; i < Node->mNumMeshes; ++ i)
-		Result->MeshBuffers.push_back(Buffers[Node->mMeshes[i]]);
+		Result->Buffers.push_back(Buffers[Node->mMeshes[i]]);
 
 	for (uint i = 0; i < Node->mNumChildren; ++ i)
 		Result->AddChild(TraverseMesh(Scene, Node->mChildren[i], Buffers));
