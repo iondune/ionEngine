@@ -3,14 +3,7 @@
 
 
 SMeshBuffer::SMeshBuffer()
-{
-	VertexBuffers.Positions = 0;
-	VertexBuffers.Colors = 0;
-	VertexBuffers.Normals = 0;
-	VertexBuffers.TexCoords = 0;
-	VertexBuffers.Indices = 0;
-	ArrayObject = 0;
-}
+{}
 
 SMeshBuffer::SMeshBuffer(vector<uint> Indices,
 	vector<f32> const & Positions,
@@ -124,4 +117,9 @@ void SMeshBuffer::WriteObjMesh(std::string const & fileName)
 		it->Indices[2] + 1 << "//" << it->Indices[2] + 1 << std::endl;
 
 	File.close();
+}
+
+SMaterial * SMeshBuffer::GetMaterial()
+{
+	return Material ? Material : (Material = new SMaterial{});
 }

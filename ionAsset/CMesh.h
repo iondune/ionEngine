@@ -22,7 +22,7 @@ public:
 	static CMesh * Load(std::string const & FileName);
 
 	CMesh();
-	CMesh(SMeshBuffer const & Buffer);
+	CMesh(SMeshBuffer * const Buffer);
 	CMesh(SMeshBuffer && Buffer);
 
 	void LoadDataIntoBuffers();

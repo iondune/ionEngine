@@ -5,6 +5,17 @@
 CMesh::CMesh()
 {}
 
+CMesh::CMesh(SMeshBuffer * const Buffer)
+{
+	Buffers.push_back(Buffer);
+}
+
+CMesh::CMesh(SMeshBuffer && Buffer)
+{
+	Buffers.push_back(new SMeshBuffer(Buffer));
+	Materials.push_back(Buffers.back()->GetMaterial());
+}
+
 void CMesh::LoadDataIntoBuffers()
 {
 	std::for_each(Buffers.begin(), Buffers.end(), [](SMeshBuffer * Buffer){ Buffer->LoadDataIntoBuffers(); });

@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include <ionCore.h>
 #include <ionMath/SVector2.h>
 #include <ionMath/SColor.h>
 
@@ -23,7 +22,7 @@ public:
 	vec2u GetSize() const;
 	uint GetStride() const;
 	uint GetChannels() const;
-	
+
 	color4i GetPixel(uint const x, uint const y) const;
 	void SetPixel(uint const x, uint const y, color4i const color);
 

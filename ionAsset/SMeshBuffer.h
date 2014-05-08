@@ -23,6 +23,8 @@ struct SMeshBuffer
 	void LoadDataIntoBuffers();
 	void WriteObjMesh(std::string const & FileName);
 
+	SMaterial * GetMaterial();
+
 	vector<SVertex> Vertices;
 	vector<SMeshTriangle> Triangles;
 
@@ -31,13 +33,13 @@ struct SMeshBuffer
 	//! Buffer and Material duration should be equivalent,
 	//! so this pointer is assumed valid.
 	//! It is up to the CMesh to ensure validity.
-	SMaterial * Material;
+	SMaterial * Material = 0;
 
 	struct SVertexBuffers
 	{
-		ion::GL::VertexBuffer * Positions, * Normals, * Colors, * TexCoords;
-		ion::GL::IndexBuffer * Indices;
+		ion::GL::VertexBuffer * Positions = 0, * Normals = 0, * Colors = 0, * TexCoords = 0;
+		ion::GL::IndexBuffer * Indices = 0;
 	} VertexBuffers;
-	ion::GL::VertexArray * ArrayObject;
+	ion::GL::VertexArray * ArrayObject = 0;
 
 };
