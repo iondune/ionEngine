@@ -56,8 +56,7 @@
     <ClInclude Include="ICameraSceneObject.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IScene.h" />
-    <ClInclude Include="ISceneObject.Enumerations.h" />
-    <ClInclude Include="ISceneObject.h" />
+    <ClInclude Include="ISceneNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraSceneObject.cpp" />
@@ -76,10 +75,7 @@
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="ISceneObject.cpp" />
-    <ClCompile Include="ISceneObject.CullingMethods.cpp" />
     <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />
-    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp" />
-    <ClCompile Include="ISceneObject.StatisticMethods.cpp" />
     <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

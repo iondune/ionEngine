@@ -3,149 +3,140 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="ICameraSceneObject.h">
-      <Filter>Scene Management\Camera</Filter>
+      <Filter>Old\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CCameraSceneObject.h">
-      <Filter>Scene Management\Camera</Filter>
+      <Filter>Old\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CPerspectiveCameraSceneObject.h">
-      <Filter>Scene Management\Camera</Filter>
+      <Filter>Old\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CDirectionalLightSceneObject.h">
-      <Filter>Scene Management\Effects\Deferred</Filter>
+      <Filter>Old\Effects\Deferred</Filter>
     </ClInclude>
     <ClInclude Include="CPointLightSceneObject.h">
-      <Filter>Scene Management\Effects\Deferred</Filter>
+      <Filter>Old\Effects\Deferred</Filter>
     </ClInclude>
     <ClInclude Include="IScene.h">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>Scene Management\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ISceneObject.Enumerations.h">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ISceneObject.h">
-      <Filter>Scene Management\Objects\Base</Filter>
+      <Filter>Old\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CMeshSceneObject.h">
-      <Filter>Scene Management\Objects\Standard</Filter>
+      <Filter>Old\Objects\Standard</Filter>
     </ClInclude>
     <ClInclude Include="CSceneEffectManager.h">
-      <Filter>Scene Management\Effects</Filter>
+      <Filter>Old\Effects</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CLightSceneObject.h">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClInclude>
     <ClInclude Include="IRenderPass.h">
-      <Filter>Scene Management\Scene\RenderPasses</Filter>
+      <Filter>Old\Scene\RenderPasses</Filter>
     </ClInclude>
     <ClInclude Include="CDefaultColorRenderPass.h">
-      <Filter>Scene Management\Scene\RenderPasses</Filter>
+      <Filter>Old\Scene\RenderPasses</Filter>
     </ClInclude>
     <ClInclude Include="CMultiOutRenderPass.h">
-      <Filter>Scene Management\Scene\RenderPasses</Filter>
+      <Filter>Old\Scene\RenderPasses</Filter>
     </ClInclude>
     <ClInclude Include="CInstanceSceneObject.h">
-      <Filter>Scene Management\Objects\Standard</Filter>
+      <Filter>Old\Objects\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneNode.h">
+      <Filter>Refactored</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraSceneObject.cpp">
-      <Filter>Scene Management\Camera</Filter>
+      <Filter>Old\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CPerspectiveCameraSceneObject.cpp">
-      <Filter>Scene Management\Camera</Filter>
+      <Filter>Old\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
-      <Filter>Scene Management\Effects\Deferred</Filter>
+      <Filter>Old\Effects\Deferred</Filter>
     </ClCompile>
     <ClCompile Include="CPointLightSceneObject.cpp">
-      <Filter>Scene Management\Effects\Deferred</Filter>
+      <Filter>Old\Effects\Deferred</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
-      <Filter>Scene Management\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.CullingMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CMeshSceneObject.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
+      <Filter>Old\Objects\Standard</Filter>
     </ClCompile>
     <ClCompile Include="CSceneEffectManager.cpp">
-      <Filter>Scene Management\Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.StatisticMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.SceneGraphMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
-      <Filter>Scene Management\Objects\Base</Filter>
+      <Filter>Old\Effects</Filter>
     </ClCompile>
     <ClCompile Include="CLightSceneObject.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.Camera.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.SLightBinding.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.ShaderVariables.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.Update.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CScene.Details.cpp">
-      <Filter>Scene Management\Scene</Filter>
+      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CInstanceSceneObject.cpp">
-      <Filter>Scene Management\Objects\Standard</Filter>
+      <Filter>Old\Objects\Standard</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.UpdateMethods.cpp">
+      <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Scene Management">
+    <Filter Include="Old">
       <UniqueIdentifier>{423acf27-3230-43a1-b9d8-7abb2087818d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Camera">
+    <Filter Include="Old\Camera">
       <UniqueIdentifier>{7546853c-8ec4-4e30-b82a-8c1efd18ebac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Effects">
+    <Filter Include="Old\Effects">
       <UniqueIdentifier>{e9f02eaa-55ee-4cb8-8471-79be2509ca79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Effects\Deferred">
+    <Filter Include="Old\Effects\Deferred">
       <UniqueIdentifier>{d6b0bb5c-7812-4118-a132-9efb3bd2d177}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Objects">
+    <Filter Include="Old\Objects">
       <UniqueIdentifier>{648b9269-0b22-4211-b47c-7413b071df74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Scene">
-      <UniqueIdentifier>{ff9dda60-2a21-4d71-8572-177e4a3ffab5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene Management\Objects\Base">
+    <Filter Include="Old\Objects\Base">
       <UniqueIdentifier>{f747351a-da3d-4368-9275-7d2ad2410b39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Objects\Standard">
+    <Filter Include="Old\Objects\Standard">
       <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Management\Scene\RenderPasses">
+    <Filter Include="Old\Scene">
+      <UniqueIdentifier>{ff9dda60-2a21-4d71-8572-177e4a3ffab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Old\Scene\RenderPasses">
       <UniqueIdentifier>{40e5200e-32f2-4270-86fa-8813df1c0f85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Refactored">
+      <UniqueIdentifier>{1be6d910-fd64-41aa-b53d-b2eb2a0335d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
