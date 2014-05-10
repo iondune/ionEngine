@@ -56,9 +56,16 @@ public:
 
 	void RemoveAllChildren()
 	{
-		for (auto it = Children.begin(); it != Children.end(); ++ it)
-			(*it)->Parent = 0;
+		for (auto & Child : Children)
+			Child->Parent = 0;
 		Children.clear();
+	}
+
+	template <typename Return>
+	void RecurseOnChildren(Return (Implementation::* Function)())
+	{
+		for (auto Child : Children)
+			(Child->*Function)();
 	}
 
 protected:
