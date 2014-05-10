@@ -97,13 +97,13 @@
     <ClCompile Include="CInstanceSceneObject.cpp">
       <Filter>Old\Objects\Standard</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneObject.cpp">
+    <ClCompile Include="ISceneNode.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp">
+    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp">
+    <ClCompile Include="ISceneNode.UpdateMethods.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>

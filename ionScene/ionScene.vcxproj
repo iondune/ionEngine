@@ -74,9 +74,9 @@
     <ClCompile Include="CScene.Update.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="ISceneObject.cpp" />
-    <ClCompile Include="ISceneObject.ModelTransformMethods.cpp" />
-    <ClCompile Include="ISceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="ISceneNode.cpp" />
+    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />
+    <ClCompile Include="ISceneNode.UpdateMethods.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
