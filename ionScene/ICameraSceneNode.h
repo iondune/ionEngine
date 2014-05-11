@@ -8,8 +8,9 @@ class ICameraSceneNode : public ISceneNode
 {
 
 public:
-
+	
 	virtual void RecalculateViewMatrix() = 0;
+	virtual void RecalculateProjectionMatrix() = 0;
 
 	virtual vec3f GetLookDirecton() const = 0;
 	virtual vec3f GetLookAtTarget() const = 0;

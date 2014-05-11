@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CPerspectiveCameraSceneObject.h">
-      <Filter>Old\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="CDirectionalLightSceneObject.h">
       <Filter>Old\Effects\Deferred</Filter>
     </ClInclude>
@@ -50,11 +47,11 @@
     <ClInclude Include="CCameraSceneNode.h">
       <Filter>Refactored</Filter>
     </ClInclude>
+    <ClInclude Include="CPerspectiveCameraSceneNode.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CPerspectiveCameraSceneObject.cpp">
-      <Filter>Old\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
       <Filter>Old\Effects\Deferred</Filter>
     </ClCompile>
@@ -104,6 +101,9 @@
       <Filter>Refactored</Filter>
     </ClCompile>
     <ClCompile Include="CCameraSceneNode.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CPerspectiveCameraSceneNode.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>

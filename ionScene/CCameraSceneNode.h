@@ -12,12 +12,11 @@ public:
 	CCameraSceneNode();
 
 	virtual void RecalculateViewMatrix();
+	virtual void Update();
 
 	virtual vec3f GetLookDirecton() const;
 	virtual vec3f GetLookAtTarget() const;
 	virtual vec3f GetUpVector() const;
-	virtual f32 GetFocalLength() const = 0;
-	virtual f32 GetFieldOfView() const = 0;
 	virtual glm::mat4 GetViewMatrix() const;
 	virtual glm::mat4 GetProjectionMatrix() const;
 
@@ -31,7 +30,8 @@ protected:
 
 	vec3f LookDirection;
 	vec3f UpVector;
-	f32 FocalLength;
+
+	bool ViewDirty, ProjectionDirty;
 
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;

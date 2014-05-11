@@ -1,15 +1,15 @@
 
 #pragma once
 
-#include "CCameraSceneObject.h"
+#include "CCameraSceneNode.h"
 
 
-class CPerspectiveCameraSceneObject : public CCameraSceneObject
+class CPerspectiveCameraSceneNode : public CCameraSceneNode
 {
 
 public:
 
-	CPerspectiveCameraSceneObject(float const aspectRatio = 16.f/9.f, float const nearPlane = 0.1f, float const farPlane = 100.f, float const focalLength = 1.f);
+	CPerspectiveCameraSceneNode(f32 const aspectRatio = 16.f/9.f, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 1.f);
 
 	f32 GetFieldOfView() const;
 	f32 GetFocalLength() const;
@@ -23,7 +23,7 @@ public:
 	void SetNearPlane(f32 const nearPlane);
 	void SetFarPlane(f32 const farPlane);
 
-	void UpdateProjection();
+	void UpdateProjectionMatrix();
 
 protected:
 

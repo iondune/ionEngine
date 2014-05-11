@@ -1,11 +1,10 @@
 
 #include "CCameraSceneNode.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-
 
 CCameraSceneNode::CCameraSceneNode()
-    : LookDirection(0, 0, 1), UpVector(0, 1, 0), FocalLength(1)
+    : LookDirection(0, 0, 1), UpVector(0, 1, 0),
+	ViewDirty(false), ProjectionDirty(false)
 {
     RecalculateViewMatrix();
 }
@@ -13,6 +12,17 @@ CCameraSceneNode::CCameraSceneNode()
 void CCameraSceneNode::RecalculateViewMatrix()
 {
 	ViewMatrix = glm::lookAt(GetPosition().GetGLMVector(), (GetPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
+	ViewDirty = false;
+}
+
+void CCameraSceneNode::Update()
+{
+	if (ViewDirty)
+		RecalculateViewMatrix();
+	if (ProjectionDirty)
+		RecalculateProjectionMatrix();
+
+	ISceneNode::Update();
 }
 
 vec3f CCameraSceneNode::GetLookDirecton() const
@@ -28,16 +38,6 @@ vec3f CCameraSceneNode::GetLookAtTarget() const
 vec3f CCameraSceneNode::GetUpVector() const
 {
 	return UpVector;
-}
-
-f32 CCameraSceneNode::GetFocalLength() const
-{
-	return FocalLength;
-}
-
-f32 CCameraSceneNode::GetFieldOfView() const
-{
-	return ArcTan(FocalLength / 2.f);
 }
 
 void CCameraSceneNode::SetLookDirection(vec3f const & lookDirection)

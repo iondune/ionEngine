@@ -48,7 +48,7 @@
     <ClInclude Include="CLightSceneObject.h" />
     <ClInclude Include="CMeshSceneObject.h" />
     <ClInclude Include="CMultiOutRenderPass.h" />
-    <ClInclude Include="CPerspectiveCameraSceneObject.h" />
+    <ClInclude Include="CPerspectiveCameraSceneNode.h" />
     <ClInclude Include="CPointLightSceneObject.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneEffectManager.h" />
@@ -64,7 +64,7 @@
     <ClCompile Include="CInstanceSceneObject.cpp" />
     <ClCompile Include="CLightSceneObject.cpp" />
     <ClCompile Include="CMeshSceneObject.cpp" />
-    <ClCompile Include="CPerspectiveCameraSceneObject.cpp" />
+    <ClCompile Include="CPerspectiveCameraSceneNode.cpp" />
     <ClCompile Include="CPointLightSceneObject.cpp" />
     <ClCompile Include="CScene.Camera.cpp" />
     <ClCompile Include="CScene.cpp" />
