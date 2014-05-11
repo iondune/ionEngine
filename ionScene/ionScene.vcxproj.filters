@@ -41,13 +41,13 @@
     <ClInclude Include="ISceneNode.h">
       <Filter>Refactored</Filter>
     </ClInclude>
-    <ClInclude Include="ICameraSceneNode.h">
+    <ClInclude Include="CCamera.h">
       <Filter>Refactored</Filter>
     </ClInclude>
-    <ClInclude Include="CCameraSceneNode.h">
+    <ClInclude Include="CPerspectiveCamera.h">
       <Filter>Refactored</Filter>
     </ClInclude>
-    <ClInclude Include="CPerspectiveCameraSceneNode.h">
+    <ClInclude Include="ICamera.h">
       <Filter>Refactored</Filter>
     </ClInclude>
   </ItemGroup>
@@ -100,10 +100,10 @@
     <ClCompile Include="ISceneNode.UpdateMethods.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
-    <ClCompile Include="CCameraSceneNode.cpp">
+    <ClCompile Include="CCamera.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
-    <ClCompile Include="CPerspectiveCameraSceneNode.cpp">
+    <ClCompile Include="CPerspectiveCamera.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>

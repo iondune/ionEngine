@@ -1,15 +1,15 @@
 
 #pragma once
 
-#include "CCameraSceneNode.h"
+#include "CCamera.h"
 
 
-class CPerspectiveCameraSceneNode : public CCameraSceneNode
+class CPerspectiveCamera : public CCamera
 {
 
 public:
 
-	CPerspectiveCameraSceneNode(f32 const aspectRatio = 16.f/9.f, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 1.f);
+	CPerspectiveCamera(f32 const aspectRatio = 16.f/9.f, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 1.f);
 
 	f32 GetFieldOfView() const;
 	f32 GetFocalLength() const;

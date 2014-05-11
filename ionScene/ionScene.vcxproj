@@ -41,30 +41,30 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CCameraSceneNode.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CDefaultColorRenderPass.h" />
     <ClInclude Include="CDirectionalLightSceneObject.h" />
     <ClInclude Include="CInstanceSceneObject.h" />
     <ClInclude Include="CLightSceneObject.h" />
     <ClInclude Include="CMeshSceneObject.h" />
     <ClInclude Include="CMultiOutRenderPass.h" />
-    <ClInclude Include="CPerspectiveCameraSceneNode.h" />
+    <ClInclude Include="CPerspectiveCamera.h" />
     <ClInclude Include="CPointLightSceneObject.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneEffectManager.h" />
     <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="ICameraSceneNode.h" />
+    <ClInclude Include="ICamera.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneNode.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDirectionalLightSceneObject.cpp" />
     <ClCompile Include="CInstanceSceneObject.cpp" />
     <ClCompile Include="CLightSceneObject.cpp" />
     <ClCompile Include="CMeshSceneObject.cpp" />
-    <ClCompile Include="CPerspectiveCameraSceneNode.cpp" />
+    <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CPointLightSceneObject.cpp" />
     <ClCompile Include="CScene.Camera.cpp" />
     <ClCompile Include="CScene.cpp" />

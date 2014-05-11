@@ -1,15 +1,15 @@
 
 #pragma once
 
-#include "ICameraSceneNode.h"
+#include "ICamera.h"
 
 
-class CCameraSceneNode : public ICameraSceneNode
+class CCamera : public ICamera
 {
 
 public:
 
-	CCameraSceneNode();
+	CCamera();
 
 	virtual void RecalculateViewMatrix();
 	virtual void Update();

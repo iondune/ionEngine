@@ -4,7 +4,7 @@
 #include "ISceneNode.h"
 
 
-class ICameraSceneNode : public ISceneNode
+class ICamera : public ISceneNode
 {
 
 public:
