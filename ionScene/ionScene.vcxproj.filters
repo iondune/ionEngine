@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="ICameraSceneObject.h">
-      <Filter>Old\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CCameraSceneObject.h">
-      <Filter>Old\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="CPerspectiveCameraSceneObject.h">
       <Filter>Old\Camera</Filter>
     </ClInclude>
@@ -50,11 +44,14 @@
     <ClInclude Include="ISceneNode.h">
       <Filter>Refactored</Filter>
     </ClInclude>
+    <ClInclude Include="ICameraSceneNode.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraSceneNode.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneObject.cpp">
-      <Filter>Old\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="CPerspectiveCameraSceneObject.cpp">
       <Filter>Old\Camera</Filter>
     </ClCompile>
@@ -104,6 +101,9 @@
       <Filter>Refactored</Filter>
     </ClCompile>
     <ClCompile Include="ISceneNode.UpdateMethods.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraSceneNode.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>

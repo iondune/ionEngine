@@ -41,7 +41,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CCameraSceneObject.h" />
+    <ClInclude Include="CCameraSceneNode.h" />
     <ClInclude Include="CDefaultColorRenderPass.h" />
     <ClInclude Include="CDirectionalLightSceneObject.h" />
     <ClInclude Include="CInstanceSceneObject.h" />
@@ -53,13 +53,13 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneEffectManager.h" />
     <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="ICameraSceneObject.h" />
+    <ClInclude Include="ICameraSceneNode.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="ISceneNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraSceneObject.cpp" />
+    <ClCompile Include="CCameraSceneNode.cpp" />
     <ClCompile Include="CDirectionalLightSceneObject.cpp" />
     <ClCompile Include="CInstanceSceneObject.cpp" />
     <ClCompile Include="CLightSceneObject.cpp" />
