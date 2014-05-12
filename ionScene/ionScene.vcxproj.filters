@@ -50,6 +50,9 @@
     <ClInclude Include="ICamera.h">
       <Filter>Refactored</Filter>
     </ClInclude>
+    <ClInclude Include="CGLGraphicsEngine.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">

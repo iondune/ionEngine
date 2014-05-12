@@ -44,6 +44,7 @@
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CDefaultColorRenderPass.h" />
     <ClInclude Include="CDirectionalLightSceneObject.h" />
+    <ClInclude Include="CGLGraphicsEngine.h" />
     <ClInclude Include="CInstanceSceneObject.h" />
     <ClInclude Include="CLightSceneObject.h" />
     <ClInclude Include="CMeshSceneObject.h" />
