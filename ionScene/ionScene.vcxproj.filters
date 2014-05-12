@@ -111,9 +111,6 @@
     <Filter Include="Old">
       <UniqueIdentifier>{423acf27-3230-43a1-b9d8-7abb2087818d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Old\Camera">
-      <UniqueIdentifier>{7546853c-8ec4-4e30-b82a-8c1efd18ebac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Old\Effects">
       <UniqueIdentifier>{e9f02eaa-55ee-4cb8-8471-79be2509ca79}</UniqueIdentifier>
     </Filter>
@@ -122,9 +119,6 @@
     </Filter>
     <Filter Include="Old\Objects">
       <UniqueIdentifier>{648b9269-0b22-4211-b47c-7413b071df74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Objects\Base">
-      <UniqueIdentifier>{f747351a-da3d-4368-9275-7d2ad2410b39}</UniqueIdentifier>
     </Filter>
     <Filter Include="Old\Objects\Standard">
       <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
