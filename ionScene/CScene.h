@@ -1,4 +1,4 @@
-#ifndef _ION_SCENE_CSCENE_H_INCLUDED_
+#ifdef _ION_SCENE_CSCENE_H_INCLUDED_
 #define _ION_SCENE_CSCENE_H_INCLUDED_
 
 #include "ionConfig.h"

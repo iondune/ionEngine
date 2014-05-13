@@ -1,3 +1,5 @@
+
+#if 0
 #include "CMeshSceneObject.h"
 
 #include <ionGraphics/CShaderContext.h>
@@ -98,3 +100,4 @@ void CMeshSceneObject::setMesh(CMesh * mesh)
 		LoadedRevision = Mesh->getRevision();
 	}
 }
+#endif

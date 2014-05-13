@@ -1,3 +1,5 @@
+
+#if 0
 #include "CDirectionalLightSceneObject.h"
 
 #include <ionGraphics/CShaderLoader.h>
@@ -55,3 +57,4 @@ void CDirectionalLightSceneObject::setColor(SVector3f const & color)
 {
 	Color = color;
 }
+#endif

@@ -1,4 +1,5 @@
 
+#if 0
 #pragma once
 
 // Core
@@ -28,3 +29,4 @@ public:
 	virtual void draw(sharedPtr<IRenderPass> const Pass) = 0;
 
 };
+#endif

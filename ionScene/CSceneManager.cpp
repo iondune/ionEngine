@@ -1,3 +1,5 @@
+
+#if 0
 #include "CSceneManager.h"
 
 #include <algorithm>
@@ -256,3 +258,4 @@ vec2u const & CSceneManager::getScreenSize() const
 {
 	return ScreenSize;
 }
+#endif

@@ -1,4 +1,5 @@
 
+#if 0
 #pragma once
 
 #include <list>
@@ -65,3 +66,4 @@ public:
 	static GLuint const getQuadHandle();
 
 };
+#endif

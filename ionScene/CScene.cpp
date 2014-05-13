@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 #include <ionGraphics/SAttribute.h>
@@ -15,3 +17,4 @@ CScene::CScene()
 
 	RootObject.setCullingEnabled(false);
 }
+#endif

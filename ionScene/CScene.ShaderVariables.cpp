@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 #include <sstream>
@@ -53,3 +55,4 @@ sharedPtr<IUniform const> const CScene::getUniform(std::string const & label) co
 
 	return sharedPtr<IUniform const>();
 }
+#endif

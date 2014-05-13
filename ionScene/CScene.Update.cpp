@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 
@@ -23,3 +25,4 @@ void CScene::draw(sharedPtr<IRenderPass> const Pass)
 {
 	RootObject.draw(this, Pass, UseCulling);
 }
+#endif

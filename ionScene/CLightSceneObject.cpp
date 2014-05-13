@@ -1,3 +1,5 @@
+
+#if 0
 #include "CLightSceneObject.h"
 
 
@@ -34,3 +36,4 @@ void CLightSceneObject::setRadius(f32 const radius)
 {
 	Radius = radius;
 }
+#endif

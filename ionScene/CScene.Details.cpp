@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 
@@ -40,3 +42,4 @@ void CScene::disableDebugData(EDebugData const type)
 {
 	RootObject.disableDebugData(type);
 }
+#endif

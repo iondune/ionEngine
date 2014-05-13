@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 
@@ -15,3 +17,4 @@ void CScene::setActiveCamera(ICameraSceneObject * const activeCamera)
 {
 	ActiveCamera = activeCamera;
 }
+#endif

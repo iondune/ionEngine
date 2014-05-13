@@ -1,3 +1,5 @@
+
+#if 0
 #include "CScene.h"
 
 
@@ -53,3 +55,4 @@ u32 const CScene::getLightBindingCount() const
 {
 	return LightBindings.size();
 }
+#endif

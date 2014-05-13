@@ -1,3 +1,5 @@
+
+#if 0
 #include "CPointLightSceneObject.h"
 
 #include <ionGraphics/CShaderLoader.h>
@@ -82,3 +84,4 @@ void CPointLightSceneObject::setColor(SVector3f const & color)
 {
 	Color = color;
 }
+#endif

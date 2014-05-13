@@ -1,3 +1,5 @@
+
+#if 0
 #include "CSceneEffectManager.h"
 
 #include "CSceneManager.h"
@@ -379,3 +381,4 @@ CTexture * CSceneEffectManager::GetScratchTexture1()
 {
 	return ScratchTexture1;
 }
+#endif

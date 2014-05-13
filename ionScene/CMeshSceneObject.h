@@ -1,4 +1,5 @@
 
+#if 0
 #pragma once
 
 #include <ionMath/SVector3.h>
@@ -28,3 +29,4 @@ public:
 	virtual void setMesh(CMesh * mesh);
 
 };
+#endif

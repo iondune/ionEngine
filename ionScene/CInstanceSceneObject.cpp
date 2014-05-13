@@ -1,3 +1,5 @@
+
+#if 0
 #include "CInstanceSceneObject.h"
 
 #include "IScene.h"
@@ -248,3 +250,4 @@ CInstanceSceneObject::CInstance * const CInstanceSceneObject::addInstance()
 	Instances.push_back(Instance);
 	return Instance;
 }
+#endif
