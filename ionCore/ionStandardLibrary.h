@@ -23,3 +23,29 @@ U * ConditionalMapAccess(map<T, U *> & Map, T const Key)
 
 	return 0;
 }
+
+class File
+{
+
+public:
+	
+	static bool Exists(string const & FileName)
+	{
+	  ifstream ifile(FileName);
+	  return ifile.good();
+	}
+
+	static string && ReadAsString(string const & FileName)
+	{
+		std::ifstream t(FileName);
+		std::string str;
+
+		t.seekg(0, std::ios::end);   
+		str.reserve((uint) t.tellg());
+		t.seekg(0, std::ios::beg);
+
+		str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+
+		return move(str);
+	}
+};
