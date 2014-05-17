@@ -11,7 +11,7 @@ int main()
 	SingletonPointer<CWindowManager> WindowManager;
 
 	WindowManager->Init();
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", false);
+	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
 	string const VertexShaderSource = R"SHADER(
 		#version 150

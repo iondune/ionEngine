@@ -22,11 +22,11 @@ void CWindowManager::Init()
 	Initialized = true;
 }
 
-CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen)
+CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), FullScreen ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();

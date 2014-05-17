@@ -7,6 +7,12 @@
 #undef CreateWindow
 
 
+enum class EWindowType
+{
+	Fullscreen,
+	Windowed
+};
+
 class CWindowManager : public Singleton<CWindowManager>
 {
 
@@ -16,7 +22,7 @@ public:
 	void PollEvents();
 	bool ShouldClose() const;
 
-	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen);
+	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 
 protected:
 	
