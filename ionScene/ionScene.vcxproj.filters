@@ -53,6 +53,13 @@
     <ClInclude Include="CGLGraphicsEngine.h">
       <Filter>Refactored</Filter>
     </ClInclude>
+    <ClInclude Include="CShaderLibrary.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshLibrary.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -107,6 +114,12 @@
       <Filter>Refactored</Filter>
     </ClCompile>
     <ClCompile Include="CPerspectiveCamera.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderLibrary.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshLibrary.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>

@@ -47,6 +47,7 @@
     <ClInclude Include="CGLGraphicsEngine.h" />
     <ClInclude Include="CInstanceSceneObject.h" />
     <ClInclude Include="CLightSceneObject.h" />
+    <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="CMeshSceneObject.h" />
     <ClInclude Include="CMultiOutRenderPass.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
@@ -54,6 +55,8 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneEffectManager.h" />
     <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CSceneNodeFactory.h" />
+    <ClInclude Include="CShaderLibrary.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="IScene.h" />
@@ -64,6 +67,7 @@
     <ClCompile Include="CDirectionalLightSceneObject.cpp" />
     <ClCompile Include="CInstanceSceneObject.cpp" />
     <ClCompile Include="CLightSceneObject.cpp" />
+    <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="CMeshSceneObject.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CPointLightSceneObject.cpp" />
@@ -75,6 +79,7 @@
     <ClCompile Include="CScene.Update.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CShaderLibrary.cpp" />
     <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />
     <ClCompile Include="ISceneNode.UpdateMethods.cpp" />
