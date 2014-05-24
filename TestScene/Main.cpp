@@ -2,6 +2,7 @@
 #include <ionWindow.h>
 #include <ionGL.h>
 #include <ionAsset.h>
+#include <ionScene.h>
 
 
 int main()
@@ -12,9 +13,9 @@ int main()
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
-	SceneManager->MeshLibrary->Add("Sphere", CGeometryCreator::CreateSphere());
-	SceneManager->ShaderLibrary->Load("Diffuse");
-	SceneManager->Factory->AddMeshNode("Sphere", "Diffuse");
+	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
+	SceneManager->GetShaderLibrary()->Load("Diffuse");
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse");
 
 
 	while (! WindowManager->ShouldClose())

@@ -3,16 +3,17 @@
 
 #include <ionCore.h>
 
-#include "IScene.h"
 #include "CMeshSceneNode.h"
 
+
+class CSceneManager;
 
 class CSceneNodeFactory
 {
 
 public:
 
-	CSceneNodeFactory(IScene * Scene);
+	CSceneNodeFactory(CSceneManager * Scene);
 
 	CMeshSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
 
