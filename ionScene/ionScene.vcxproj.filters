@@ -32,39 +32,41 @@
     <ClInclude Include="CInstanceSceneObject.h">
       <Filter>Old\Objects\Standard</Filter>
     </ClInclude>
-    <ClInclude Include="CCamera.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="CPerspectiveCamera.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="ICamera.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="CGLGraphicsEngine.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderLibrary.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshLibrary.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="CSceneManager.Old.h">
       <Filter>Old\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>Refactored</Filter>
+      <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneNode.h">
-      <Filter>Refactored</Filter>
+    <ClInclude Include="CShaderLibrary.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeFactory.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshLibrary.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CGLGraphicsEngine.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CPerspectiveCamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="ISceneNode.h">
-      <Filter>Refactored</Filter>
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNode.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="CMeshComponent.h">
-      <Filter>Refactored</Filter>
+      <Filter>Node\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,35 +106,41 @@
     <ClCompile Include="CInstanceSceneObject.cpp">
       <Filter>Old\Objects\Standard</Filter>
     </ClCompile>
-    <ClCompile Include="CCamera.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
-    <ClCompile Include="CPerspectiveCamera.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderLibrary.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshLibrary.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneManager.Old.cpp">
       <Filter>Old\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderLibrary.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneNodeFactory.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshLibrary.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CPerspectiveCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
     <ClCompile Include="ISceneNode.cpp">
-      <Filter>Refactored</Filter>
+      <Filter>Node</Filter>
     </ClCompile>
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
-      <Filter>Refactored</Filter>
+      <Filter>Node</Filter>
     </ClCompile>
     <ClCompile Include="ISceneNode.UpdateMethods.cpp">
-      <Filter>Refactored</Filter>
+      <Filter>Node</Filter>
     </ClCompile>
     <ClCompile Include="CSceneNode.cpp">
-      <Filter>Refactored</Filter>
+      <Filter>Node</Filter>
     </ClCompile>
     <ClCompile Include="CMeshComponent.cpp">
-      <Filter>Refactored</Filter>
+      <Filter>Node\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,8 +165,17 @@
     <Filter Include="Old\Scene\RenderPasses">
       <UniqueIdentifier>{40e5200e-32f2-4270-86fa-8813df1c0f85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Refactored">
-      <UniqueIdentifier>{1be6d910-fd64-41aa-b53d-b2eb2a0335d0}</UniqueIdentifier>
+    <Filter Include="SceneManager">
+      <UniqueIdentifier>{16854fe6-41bd-42d4-8345-00c1d4470da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{1d505f92-ea19-47bc-be08-29ec50a5e310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Node">
+      <UniqueIdentifier>{9aa6fbd7-7084-411a-ad0f-ae937c462da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Node\Component">
+      <UniqueIdentifier>{113513f8-0344-44d6-9863-b55fc0d28ab0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

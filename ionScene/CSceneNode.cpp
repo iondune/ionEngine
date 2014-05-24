@@ -2,6 +2,11 @@
 #include "CSceneNode.h"
 
 
+
+CSceneNode::CSceneNode(ISceneNode * Parent)
+: ISceneNode(Parent)
+{}
+
 void CSceneNode::Update()
 {
 	for (auto it : Components)

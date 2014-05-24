@@ -2,14 +2,14 @@
 #include "ISceneNode.h"
 
 
-ISceneNode::ISceneNode()
-	: Visible(true), TransformationDirty(false), Scale(1.f)
-{}
+ISceneNode::ISceneNode(ISceneNode * Parent)
+{
+	this->Visible = true;
+	this->TransformationDirty = false;
+	this->Scale = 1.f;
 
-
-////////////////
-// Visibility //
-////////////////
+	SetParent(Parent);
+}
 
 bool ISceneNode::IsVisible() const
 {
@@ -18,6 +18,5 @@ bool ISceneNode::IsVisible() const
 
 void ISceneNode::SetVisible(bool const isVisible)
 {
-	// TO DO: Non visible objects should not be a part of hiearchies, so this should trigger a rebuild
 	Visible = isVisible;
 }

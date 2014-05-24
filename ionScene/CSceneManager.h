@@ -21,6 +21,15 @@ public:
 	CMeshLibrary * GetMeshLibrary();
 	CShaderLibrary * GetShaderLibrary();
 	CSceneNodeFactory * GetFactory();
+	ISceneNode * GetRoot();
+
+protected:
+
+	ICamera * ActiveCamera = nullptr;
+	CMeshLibrary * MeshLibrary = new CMeshLibrary;
+	CShaderLibrary * ShaderLibrary = new CShaderLibrary;
+	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
+	ISceneNode * Root = new ISceneNode{nullptr};
 
 private:
 

@@ -2,10 +2,14 @@
 #include "CCamera.h"
 
 
-CCamera::CCamera()
-    : LookDirection(0, 0, 1), UpVector(0, 1, 0),
-	ViewDirty(false), ProjectionDirty(false)
+CCamera::CCamera(ISceneNode * Parent)
+: ICamera(Parent)
 {
+	this->LookDirection = vec3f(0, 0, 1);
+	this->UpVector = vec3f(0, 1, 0);
+	this->ViewDirty = false;
+	this->ProjectionDirty = false;
+
     RecalculateViewMatrix();
 }
 

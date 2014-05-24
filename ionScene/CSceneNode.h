@@ -13,6 +13,8 @@ public:
 	// General Methods //
 	/////////////////////
 
+	CSceneNode(ISceneNode * Parent);
+
 	//! Perform pre-draw update
 	virtual void Update();
 

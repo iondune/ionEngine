@@ -2,8 +2,8 @@
 #include "CPerspectiveCamera.h"
 
 
-CPerspectiveCamera::CPerspectiveCamera(f32 const aspectRatio, f32 const nearPlane, f32 const farPlane, f32 const focalLength)
-	: AspectRatio(aspectRatio), NearPlane(nearPlane), FarPlane(farPlane), FocalLength(focalLength)
+CPerspectiveCamera::CPerspectiveCamera(ISceneNode * Parent, f32 const aspectRatio, f32 const nearPlane, f32 const farPlane, f32 const focalLength)
+	: CCamera(Parent), AspectRatio(aspectRatio), NearPlane(nearPlane), FarPlane(farPlane), FocalLength(focalLength)
 {}
 
 void CPerspectiveCamera::UpdateProjectionMatrix()

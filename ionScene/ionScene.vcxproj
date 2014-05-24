@@ -81,8 +81,10 @@
     <ClCompile Include="CScene.SLightBinding.cpp" />
     <ClCompile Include="CScene.Update.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
+    <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneManager.Old.cpp" />
     <ClCompile Include="CSceneNode.cpp" />
+    <ClCompile Include="CSceneNodeFactory.cpp" />
     <ClCompile Include="CShaderLibrary.cpp" />
     <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />

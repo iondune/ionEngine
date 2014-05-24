@@ -9,7 +9,7 @@ class CCamera : public ICamera
 
 public:
 
-	CCamera();
+	CCamera(ISceneNode * Parent);
 
 	virtual void RecalculateViewMatrix();
 	virtual void Update();

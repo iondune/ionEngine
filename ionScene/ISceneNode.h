@@ -17,7 +17,7 @@ public:
 	/////////////////////
 
 	//! Constructor
-	ISceneNode();
+	ISceneNode(ISceneNode * Parent);
 
 	//! Check if visible
 	virtual bool IsVisible() const;

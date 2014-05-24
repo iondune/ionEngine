@@ -115,5 +115,10 @@ struct Type
 		: Value(value)
 	{}
 
+	bool operator <(Type const & other) const
+	{
+		return Value.before(other.Value);
+	}
+
 	std::type_info const & Value;
 };

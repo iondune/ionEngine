@@ -4,10 +4,14 @@
 #include "CSceneNode.h"
 
 
-class ICamera : public CSceneNode
+class ICamera : public ISceneNode
 {
 
 public:
+	
+	ICamera(ISceneNode * Parent)
+		: ISceneNode(Parent)
+	{}
 	
 	virtual void RecalculateViewMatrix() = 0;
 	virtual void RecalculateProjectionMatrix() = 0;

@@ -11,7 +11,7 @@ int main()
 	SingletonPointer<CSceneManager> SceneManager;
 
 	WindowManager->Init();
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
+	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestScene", EWindowType::Windowed);
 
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
