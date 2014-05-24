@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "ISceneNode.h"
+#include "CSceneNode.h"
 
 
-class ICamera : public ISceneNode
+class ICamera : public CSceneNode
 {
 
 public:

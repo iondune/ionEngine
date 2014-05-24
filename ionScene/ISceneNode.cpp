@@ -7,27 +7,6 @@ ISceneNode::ISceneNode()
 {}
 
 
-//////////////////
-// Bounding Box //
-//////////////////
-
-SBoundingBox3f const & ISceneNode::GetAbsoluteBoundingBox() const
-{
-	return AbsoluteBoundingBox;
-}
-
-SBoundingBox3f const & ISceneNode::GetBoundingBox() const
-{
-	return BoundingBox;
-}
-
-void ISceneNode::SetBoundingBox(SBoundingBox3f const & boundingBox)
-{
-	BoundingBox = boundingBox;
-	BoundingBoxDirty = true;
-}
-
-
 ////////////////
 // Visibility //
 ////////////////

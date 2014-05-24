@@ -3,7 +3,7 @@
 
 #include <ionCore.h>
 
-#include "CMeshSceneNode.h"
+#include "ISceneNode.h"
 
 
 class CSceneManager;
@@ -15,6 +15,6 @@ public:
 
 	CSceneNodeFactory(CSceneManager * Scene);
 
-	CMeshSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
+	ISceneNode * AddMeshNode(string const & Mesh, string const & Shader);
 
 };

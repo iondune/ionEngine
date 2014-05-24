@@ -8,6 +8,8 @@
 
 #include <ionConfig.h>
 
+#include <typeinfo>
+
 
 //! \brief Check whether an object is an instance of a type
 //! \param Object Object to check the type of
@@ -105,4 +107,13 @@ struct SingletonPointer
 
 	T & Reference;
 
+};
+
+struct Type
+{
+	Type(std::type_info const & value)
+		: Value(value)
+	{}
+
+	std::type_info const & Value;
 };

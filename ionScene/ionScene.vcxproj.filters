@@ -8,12 +8,6 @@
     <ClInclude Include="CPointLightSceneObject.h">
       <Filter>Old\Effects\Deferred</Filter>
     </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>Old\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneManager.h">
-      <Filter>Old\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CMeshSceneObject.h">
       <Filter>Old\Objects\Standard</Filter>
     </ClInclude>
@@ -38,9 +32,6 @@
     <ClInclude Include="CInstanceSceneObject.h">
       <Filter>Old\Objects\Standard</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneNode.h">
-      <Filter>Refactored</Filter>
-    </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>Refactored</Filter>
     </ClInclude>
@@ -60,6 +51,21 @@
       <Filter>Refactored</Filter>
     </ClInclude>
     <ClInclude Include="CSceneNodeFactory.h" />
+    <ClInclude Include="CSceneManager.Old.h">
+      <Filter>Old\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNode.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneNode.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshComponent.h">
+      <Filter>Refactored</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -67,9 +73,6 @@
     </ClCompile>
     <ClCompile Include="CPointLightSceneObject.cpp">
       <Filter>Old\Effects\Deferred</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneManager.cpp">
-      <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CMeshSceneObject.cpp">
       <Filter>Old\Objects\Standard</Filter>
@@ -101,15 +104,6 @@
     <ClCompile Include="CInstanceSceneObject.cpp">
       <Filter>Old\Objects\Standard</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneNode.UpdateMethods.cpp">
-      <Filter>Refactored</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
@@ -120,6 +114,24 @@
       <Filter>Refactored</Filter>
     </ClCompile>
     <ClCompile Include="CMeshLibrary.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.Old.cpp">
+      <Filter>Old\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneNode.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneNode.UpdateMethods.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneNode.cpp">
+      <Filter>Refactored</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshComponent.cpp">
       <Filter>Refactored</Filter>
     </ClCompile>
   </ItemGroup>
