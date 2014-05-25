@@ -105,6 +105,11 @@ struct SingletonPointer
 		return & Reference;
 	}
 
+	T * Get()
+	{
+		return & Reference;
+	}
+
 	T & Reference;
 
 };
