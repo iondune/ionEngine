@@ -2,9 +2,10 @@
 #pragma once
 
 #include <ionGL.h>
+#include "IGraphicsEngine.h"
 
 
-class CGLGraphicsEngine
+class CGLGraphicsEngine : public IGraphicsEngine, public Singleton<CGLGraphicsEngine>
 {
 
 public:
@@ -31,7 +32,40 @@ public:
 
 	struct SRenderPass
 	{
-		map<ion::GL::Shader, vector<SDrawDefinition>> Elements; 
+		map<ion::GL::Program *, vector<SDrawDefinition>> Elements;
 	};
+
+
+	CGLGraphicsEngine()
+	{
+		RenderPasses.push_back(SRenderPass{});
+	}
+
+	void Begin()
+	{
+		ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
+	}
+	
+	void Finalize()
+	{
+		for (auto & Pass : RenderPasses)
+		{
+			for (auto & Element : Pass.Elements)
+			{
+				ion::GL::DrawContext context(Element.first);
+				for (auto & Definition : Element.second)
+				{
+					for (auto & Uniform : Definition.Uniforms)
+						context.BindUniform(Uniform.first, Uniform.second);
+
+					context.SetVertexArray(Definition.Array);
+					context.Draw();
+				}
+			}
+		}
+	}
+
+
+	vector<SRenderPass> RenderPasses;
 
 };

@@ -17,9 +17,11 @@ void CSceneManager::SetActiveCamera(ICamera * const activeCamera)
 	ActiveCamera = activeCamera;
 }
 
-void CSceneManager::DrawAll()
+void CSceneManager::DrawAll(IGraphicsEngine * Engine)
 {
-	Root->Draw();
+	Engine->Begin();
+	Root->Draw(Engine);
+	Engine->Finalize();
 }
 
 CMeshLibrary * CSceneManager::GetMeshLibrary()

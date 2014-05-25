@@ -5,6 +5,7 @@
 #include "CMeshLibrary.h"
 #include "CShaderLibrary.h"
 #include "CSceneNodeFactory.h"
+#include "IGraphicsEngine.h"
 
 
 class CSceneManager : public Singleton<CSceneManager>
@@ -16,7 +17,7 @@ public:
 	virtual ICamera const * const GetActiveCamera() const;
 	virtual void SetActiveCamera(ICamera * const activeCamera);
 
-	virtual void DrawAll();
+	virtual void DrawAll(IGraphicsEngine * Engine);
 
 	CMeshLibrary * GetMeshLibrary();
 	CShaderLibrary * GetShaderLibrary();

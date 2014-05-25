@@ -9,6 +9,7 @@ int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
+	SingletonPointer<CGLGraphicsEngine> GraphicsEngine;
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestScene", EWindowType::Windowed);
@@ -21,7 +22,7 @@ int main()
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
-		SceneManager->DrawAll();
+		SceneManager->DrawAll(GraphicsEngine.Get());
 		Window->SwapBuffers();
 	}
 

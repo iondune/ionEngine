@@ -19,7 +19,7 @@ public:
 	virtual void Update();
 
 	//! Perform draw
-	virtual void Draw();
+	virtual void Draw(IGraphicsEngine * Engine);
 
 
 	/////////////////////////////
@@ -32,7 +32,7 @@ public:
 	public:
 
 		virtual void Update(CSceneNode * Node) = 0;
-		virtual void Draw(CSceneNode * Node) = 0;
+		virtual void Draw(CSceneNode * Node, IGraphicsEngine * Engine) = 0;
 
 	};
 

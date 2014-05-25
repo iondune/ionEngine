@@ -15,10 +15,10 @@ void CSceneNode::Update()
 	ISceneNode::Update();
 }
 
-void CSceneNode::Draw()
+void CSceneNode::Draw(IGraphicsEngine * Engine)
 {
 	for (auto it : Components)
-		it.second->Draw(this);
+		it.second->Draw(this, Engine);
 	
-	ISceneNode::Draw();
+	ISceneNode::Draw(Engine);
 }

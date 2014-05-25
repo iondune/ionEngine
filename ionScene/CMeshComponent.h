@@ -12,7 +12,7 @@ public:
 	CMeshComponent(CMesh * Mesh, ion::GL::Program * Shader);
 	
 	void Update(CSceneNode * Node);
-	void Draw(CSceneNode * Node);
+	void Draw(CSceneNode * Node, IGraphicsEngine * Engine);
 
 private:
 

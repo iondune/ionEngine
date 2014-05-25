@@ -28,7 +28,7 @@ void ISceneNode::Update()
 	RecurseOnChildren(& ISceneNode::Update);
 }
 
-void ISceneNode::Draw()
+void ISceneNode::Draw(IGraphicsEngine * Engine)
 {
-	RecurseOnChildren(& ISceneNode::Draw);
+	RecurseOnChildren(& ISceneNode::Draw, Engine);
 }

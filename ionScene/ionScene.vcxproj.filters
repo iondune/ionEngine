@@ -68,6 +68,9 @@
     <ClInclude Include="CMeshComponent.h">
       <Filter>Node\Component</Filter>
     </ClInclude>
+    <ClInclude Include="IGraphicsEngine.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">

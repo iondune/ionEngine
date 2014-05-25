@@ -59,6 +59,7 @@
     <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="CShaderLibrary.h" />
     <ClInclude Include="ICamera.h" />
+    <ClInclude Include="IGraphicsEngine.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneNode.h" />

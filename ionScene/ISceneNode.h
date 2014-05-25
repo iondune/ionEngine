@@ -7,6 +7,8 @@
 #include <ionGL.h>
 #include <ionAsset.h>
 
+#include "IGraphicsEngine.h"
+
 
 class ISceneNode : public ITreeNode<ISceneNode>
 {
@@ -59,7 +61,7 @@ public:
 	/////////////////////////////
 
 	virtual void Update();
-	virtual void Draw();
+	virtual void Draw(IGraphicsEngine * Engine);
 
 
 protected:
