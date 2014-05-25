@@ -35,7 +35,7 @@ public:
 	  return ifile.good();
 	}
 
-	static string && ReadAsString(string const & FileName)
+	static string ReadAsString(string const & FileName)
 	{
 		std::ifstream t(FileName);
 		std::string str;
@@ -46,6 +46,6 @@ public:
 
 		str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 
-		return move(str);
+		return str;
 	}
 };
