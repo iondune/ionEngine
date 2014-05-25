@@ -68,6 +68,20 @@ public:
 			(Child->*Function)();
 	}
 
+	template <typename Return, typename P1>
+	void RecurseOnChildren(Return (Implementation::* Function)(P1), P1 p1)
+	{
+		for (auto Child : Children)
+			(Child->*Function)(p1);
+	}
+
+	template <typename Return, typename P1, typename P2>
+	void RecurseOnChildren(Return (Implementation::* Function)(P1, P2), P1 p1, P2 p2)
+	{
+		for (auto Child : Children)
+			(Child->*Function)(p1, p2);
+	}
+
 protected:
 
 	ITreeNode()
