@@ -2,25 +2,75 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ionGL.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Program.h" />
-    <ClInclude Include="Context.h" />
-    <ClInclude Include="Uniform.h" />
-    <ClInclude Include="DrawContext.h" />
+    <ClInclude Include="Program.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Uniform.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawContext.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="VertexArray.cpp" />
-    <ClCompile Include="Program.cpp" />
-    <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="Context.cpp" />
-    <ClCompile Include="Uniform.cpp" />
-    <ClCompile Include="DrawContext.cpp" />
+    <ClCompile Include="Program.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Uniform.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawContext.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{f23c82dc-62fc-4059-9631-6e06587d7220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer Object">
+      <UniqueIdentifier>{0e5fd2ac-7107-4f47-a667-e0481414da4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="General">
+      <UniqueIdentifier>{61f5b0fb-d4df-4338-bffc-bcb14d391733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{842203ca-65c9-4ce6-a3fb-d4911ae764cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
