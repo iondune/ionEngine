@@ -19,7 +19,7 @@ void CMeshComponent::Draw(CSceneNode * Node, IGraphicsEngine * Engine)
 	{
 		CGLGraphicsEngine * GLEngine = As<CGLGraphicsEngine>(Engine);
 		CGLGraphicsEngine::SDrawDefinition Definition{Mesh->Root->Buffers[0]->ArrayObject};
-		Definition.AddUniform("Model", new ion::GL::UniformValue<glm::mat4>());
+		Definition.AddUniform("Model", new ion::GL::UniformValue<glm::mat4>(Node->GetAbsoluteTransformation()));
 
 		GLEngine->RenderPasses[0].Elements[Shader].push_back(Definition);
 	}
