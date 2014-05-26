@@ -17,33 +17,7 @@ ion::GL::Program * CShaderLibrary::Load(string const & File)
 		string const VertShaderSource = File::ReadAsString(VertFileName);
 		string const FragShaderSource = File::ReadAsString(FragFileName);
 
-		ion::GL::VertexShader * Vert = new ion::GL::VertexShader;
-		Vert->Source(VertShaderSource);
-		if (! Vert->Compile())
-		{
-			delete Vert;
-			std::cerr << "Failed to compile vertex shader " << VertFileName << std::endl << Vert->InfoLog() << std::endl;
-			return 0;
-		}
-
-		ion::GL::FragmentShader * Frag = new ion::GL::FragmentShader;
-		Frag->Source(FragShaderSource);
-		if (! Frag->Compile())
-		{
-			delete Vert;
-			delete Frag;
-			std::cerr << "Failed to compile vertex shader " << FragFileName << std::endl << Frag->InfoLog() << std::endl;
-			return 0;
-		}
-
-		ion::GL::Program * Shader = new ion::GL::Program;
-		Shader->AttachShader(Vert);
-		Shader->AttachShader(Frag);
-		Shader->Link();
-		Shader->BindAttributeLocation(0, "Position");
-		Shader->BindAttributeLocation(1, "Normal");
-
-		return Shaders[File] = Shader;
+		return LoadFromSource(File, VertShaderSource, FragShaderSource);
 	}
 	else
 	{
@@ -54,4 +28,35 @@ ion::GL::Program * CShaderLibrary::Load(string const & File)
 	}
 
 	return 0;
+}
+
+ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource)
+{
+	ion::GL::VertexShader * Vert = new ion::GL::VertexShader;
+	Vert->Source(VertShaderSource);
+	if (! Vert->Compile())
+	{
+		delete Vert;
+		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Vert->InfoLog() << std::endl;
+		return 0;
+	}
+
+	ion::GL::FragmentShader * Frag = new ion::GL::FragmentShader;
+	Frag->Source(FragShaderSource);
+	if (! Frag->Compile())
+	{
+		delete Vert;
+		delete Frag;
+		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
+		return 0;
+	}
+
+	ion::GL::Program * Shader = new ion::GL::Program;
+	Shader->AttachShader(Vert);
+	Shader->AttachShader(Frag);
+	Shader->Link();
+	Shader->BindAttributeLocation(0, "Position");
+	Shader->BindAttributeLocation(1, "Normal");
+
+	return Shaders[Name] = Shader;
 }
