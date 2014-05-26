@@ -25,6 +25,7 @@ void ISceneNode::UpdateAbsoluteTransformation()
 
 void ISceneNode::Update()
 {
+	UpdateAbsoluteTransformation();
 	RecurseOnChildren(& ISceneNode::Update);
 }
 
