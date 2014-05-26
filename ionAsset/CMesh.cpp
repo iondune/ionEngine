@@ -11,6 +11,7 @@ CMesh::CMesh(SMeshBuffer * const Buffer)
 	Materials.push_back(Buffer->GetMaterial());
 	Root = new SMeshNode{};
 	Root->Buffers.push_back(Buffer);
+	LoadDataIntoBuffers();
 }
 
 CMesh::CMesh(SMeshBuffer && Buffer)

@@ -104,6 +104,7 @@ CMesh * CMesh::Load(std::string const & FileName)
 		Result->Buffers.push_back(LoadBuffer(Scene->mMeshes[i], Result->Materials));
 
 	Result->Root = TraverseMesh(Scene, Scene->mRootNode, Result->Buffers);
+	Result->LoadDataIntoBuffers();
 
 	return Result;
 }

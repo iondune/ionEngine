@@ -4,7 +4,6 @@
 
 CMesh * CMeshLibrary::Add(string const & Label, CMesh * Mesh)
 {
-	Mesh->LoadDataIntoBuffers();
 	return Meshes[Label] = Mesh;
 }
 
@@ -18,10 +17,7 @@ CMesh * CMeshLibrary::Load(string const & File)
 	CMesh * Mesh = CMesh::Load(File);
 
 	if (Mesh)
-	{
-		Mesh->LoadDataIntoBuffers();
 		return Meshes[File] = Mesh;
-	}
 
 	return 0;
 }
