@@ -45,6 +45,13 @@ ion::GL::Program * CShaderLibrary::Load(string const & File)
 
 		return Shaders[File] = Shader;
 	}
+	else
+	{
+		if (! File::Exists(VertFileName))
+			cerr << "Shader file does not exist: " << VertFileName << endl;
+		if (! File::Exists(FragFileName))
+			cerr << "Shader file does not exist: " << FragFileName << endl;
+	}
 
 	return 0;
 }
