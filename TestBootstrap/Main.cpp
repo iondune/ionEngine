@@ -19,6 +19,8 @@ int main()
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse");
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse")->SetPosition(vec3f(1, 0, 0));
+	SceneManager->GetFactory()->AddSkySphereNode();
 
 	ICamera * Camera = nullptr;
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera(Window->GetAspectRatio()));
@@ -32,8 +34,8 @@ int main()
 	TimeManager->Init();
 	while (! WindowManager->ShouldClose())
 	{
-		TimeManager->Update();
 		WindowManager->PollEvents();
+		TimeManager->Update();
 		SceneManager->DrawAll(GraphicsEngine.Get());
 		Window->SwapBuffers();
 	}
