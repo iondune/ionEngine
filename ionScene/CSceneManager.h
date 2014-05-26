@@ -1,11 +1,10 @@
 
 #pragma once
 
-#include "ICamera.h"
 #include "CMeshLibrary.h"
 #include "CShaderLibrary.h"
 #include "CSceneNodeFactory.h"
-#include "IGraphicsEngine.h"
+#include "CScene.h"
 
 
 class CSceneManager : public Singleton<CSceneManager>
@@ -13,24 +12,21 @@ class CSceneManager : public Singleton<CSceneManager>
 
 public:
 
-	virtual ICamera * const GetActiveCamera();
-	virtual ICamera const * const GetActiveCamera() const;
-	virtual void SetActiveCamera(ICamera * const activeCamera);
-
-	virtual void DrawAll(IGraphicsEngine * Engine);
-
 	CMeshLibrary * GetMeshLibrary();
 	CShaderLibrary * GetShaderLibrary();
 	CSceneNodeFactory * GetFactory();
+
+	virtual void DrawAll(IGraphicsEngine * Engine);
+
+	CScene * GetScene();
 	ISceneNode * GetRoot();
 
 protected:
 
-	ICamera * ActiveCamera = nullptr;
 	CMeshLibrary * MeshLibrary = new CMeshLibrary;
 	CShaderLibrary * ShaderLibrary = new CShaderLibrary;
 	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
-	ISceneNode * Root = new ISceneNode{nullptr};
+	CScene * Scene = new CScene{};
 
 private:
 

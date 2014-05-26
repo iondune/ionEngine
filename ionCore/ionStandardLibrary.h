@@ -12,6 +12,10 @@
 
 using std::move;
 using std::ifstream;
+using std::cout;
+using std::cerr;
+using std::endl;
+
 
 template <typename T, typename U>
 U * ConditionalMapAccess(map<T, U *> & Map, T const Key)

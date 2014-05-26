@@ -18,6 +18,8 @@ int main()
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse");
 
+	SceneManager->GetScene()->SetActiveCamera(SceneManager->GetFactory()->AddPerspectiveCamera());
+
 
 	while (! WindowManager->ShouldClose())
 	{

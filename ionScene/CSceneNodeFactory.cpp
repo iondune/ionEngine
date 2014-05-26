@@ -23,3 +23,8 @@ CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string con
 
 	return Node;
 }
+
+CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera()
+{
+	return new CPerspectiveCamera{SceneManager->GetRoot()};
+}

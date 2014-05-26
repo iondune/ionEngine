@@ -1,20 +1,54 @@
 
-#if 0
 #include "CScene.h"
-
-#include <ionGraphics/SAttribute.h>
 
 
 CScene::CScene()
-	: UseCulling(true)
 {
-	ActiveCamera = & DefaultCamera;
-
-	addUniform("uProjMatrix", sharedNew(new SUniformReference<glm::mat4>(ProjMatrix)));
-	addUniform("uViewMatrix", sharedNew(new SUniformReference<glm::mat4>(ViewMatrix)));
-	addUniform("uLightCount", sharedNew(new SUniformReference<s32>(LightCount)));
-	addUniform("uCameraPosition", sharedNew(new SUniformReference<vec3f>(CameraPosition)));
-
-	RootObject.setCullingEnabled(false);
 }
-#endif
+
+ICamera * const CScene::GetActiveCamera()
+{
+	return ActiveCamera;
+}
+
+ICamera const * const CScene::GetActiveCamera() const
+{
+	return ActiveCamera;
+}
+
+void CScene::SetActiveCamera(ICamera * const activeCamera)
+{
+	ActiveCamera = activeCamera;
+}
+
+void CScene::DrawAll(IGraphicsEngine * Engine)
+{
+	Engine->Begin(this);
+	Root->Draw(Engine);
+	Engine->Finalize(this);
+}
+
+ISceneNode * CScene::GetRoot()
+{
+	return Root;
+}
+
+ion::GL::Uniform * CScene::GetUniform(string const & Label)
+{
+	if (Label == "View")
+	{
+		if (ActiveCamera)
+			return new ion::GL::UniformValue<glm::mat4>(ActiveCamera->GetViewMatrix());
+		else
+			cerr << "Error! No bound camera" << endl;
+	}
+	else if (Label == "Projection")
+	{
+		if (ActiveCamera)
+			return new ion::GL::UniformValue<glm::mat4>(ActiveCamera->GetProjectionMatrix());
+		else
+			cerr << "Error! No bound camera" << endl;
+	}
+
+	return 0;
+}

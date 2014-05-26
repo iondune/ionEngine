@@ -23,7 +23,7 @@ public:
 	void SetNearPlane(f32 const nearPlane);
 	void SetFarPlane(f32 const farPlane);
 
-	void UpdateProjectionMatrix();
+	void RecalculateProjectionMatrix();
 
 protected:
 

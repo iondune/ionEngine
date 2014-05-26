@@ -14,9 +14,6 @@
     <ClInclude Include="CSceneEffectManager.h">
       <Filter>Old\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>Old\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CLightSceneObject.h">
       <Filter>Old\Scene</Filter>
     </ClInclude>
@@ -71,6 +68,9 @@
     <ClInclude Include="IGraphicsEngine.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -86,24 +86,6 @@
       <Filter>Old\Effects</Filter>
     </ClCompile>
     <ClCompile Include="CLightSceneObject.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.Camera.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.SLightBinding.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.ShaderVariables.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.Update.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.Details.cpp">
       <Filter>Old\Scene</Filter>
     </ClCompile>
     <ClCompile Include="CInstanceSceneObject.cpp">
@@ -144,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="CMeshComponent.cpp">
       <Filter>Node\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

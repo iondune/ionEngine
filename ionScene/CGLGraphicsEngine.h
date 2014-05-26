@@ -3,6 +3,7 @@
 
 #include <ionGL.h>
 #include "IGraphicsEngine.h"
+#include "CScene.h"
 
 
 class CGLGraphicsEngine : public IGraphicsEngine, public Singleton<CGLGraphicsEngine>
@@ -28,6 +29,11 @@ public:
 			Uniforms[Label] = Uniform;
 			return *this;
 		}
+
+		ion::GL::Uniform * GetUniform(string const & Label)
+		{
+			return ConditionalMapAccess(Uniforms, Label);
+		}
 	};
 
 	struct SRenderPass
@@ -41,25 +47,44 @@ public:
 		RenderPasses.push_back(SRenderPass{});
 	}
 
-	void Begin()
+	void Begin(CScene * Scene)
 	{
 		ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
 	}
 	
-	void Finalize()
+	void Finalize(CScene * Scene)
 	{
 		for (auto & Pass : RenderPasses)
 		{
 			for (auto & Element : Pass.Elements)
 			{
-				ion::GL::DrawContext context(Element.first);
+				auto ActiveUniforms = Element.first->GetActiveUniforms();
+				std::vector<string> RequiredUniforms;
+
+				ion::GL::DrawContext Context(Element.first);
+
+				for (auto & ActiveUniform : ActiveUniforms)
+				{
+					auto Uniform = Scene->GetUniform(ActiveUniform.first);
+					if (Uniform)
+						Context.BindUniform(ActiveUniform.first, Uniform);
+					else
+						RequiredUniforms.push_back(ActiveUniform.first);
+				}
+
 				for (auto & Definition : Element.second)
 				{
-					for (auto & Uniform : Definition.Uniforms)
-						context.BindUniform(Uniform.first, Uniform.second);
+					for (auto & RequiredUniform : RequiredUniforms)
+					{
+						auto Uniform = Definition.GetUniform(RequiredUniform);
+						if (Uniform)
+							Context.BindUniform(RequiredUniform, Uniform);
+						else
+							cerr << "Error! Unbound uniform " << RequiredUniform << endl;
+					}
 
-					context.SetVertexArray(Definition.Array);
-					context.Draw();
+					Context.SetVertexArray(Definition.Array);
+					Context.Draw();
 				}
 			}
 		}

@@ -75,12 +75,7 @@
     <ClCompile Include="CMeshSceneObject.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CPointLightSceneObject.cpp" />
-    <ClCompile Include="CScene.Camera.cpp" />
     <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CScene.Details.cpp" />
-    <ClCompile Include="CScene.ShaderVariables.cpp" />
-    <ClCompile Include="CScene.SLightBinding.cpp" />
-    <ClCompile Include="CScene.Update.cpp" />
     <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneManager.Old.cpp" />

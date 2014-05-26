@@ -6,7 +6,7 @@ CPerspectiveCamera::CPerspectiveCamera(ISceneNode * Parent, f32 const aspectRati
 	: CCamera(Parent), AspectRatio(aspectRatio), NearPlane(nearPlane), FarPlane(farPlane), FocalLength(focalLength)
 {}
 
-void CPerspectiveCamera::UpdateProjectionMatrix()
+void CPerspectiveCamera::RecalculateProjectionMatrix()
 {
 	ProjectionMatrix = glm::perspective<f32>(GetFieldOfView(), AspectRatio, NearPlane, FarPlane);
 	ProjectionDirty = false;
