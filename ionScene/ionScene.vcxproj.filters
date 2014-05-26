@@ -71,6 +71,9 @@
     <ClInclude Include="CScene.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
+    <ClInclude Include="CUpdateCallbackComponent.h">
+      <Filter>Node\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CUpdateCallbackComponent.cpp">
+      <Filter>Node\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
