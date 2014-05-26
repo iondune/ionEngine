@@ -3,9 +3,11 @@
 
 
 
-CSceneNode::CSceneNode(ISceneNode * Parent)
+CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 : ISceneNode(Parent)
-{}
+{
+	this->Scene = Scene;
+}
 
 void CSceneNode::Update()
 {
@@ -21,4 +23,9 @@ void CSceneNode::Draw(IGraphicsEngine * Engine)
 		it.second->Draw(this, Engine);
 	
 	ISceneNode::Draw(Engine);
+}
+
+CScene * CSceneNode::GetScene()
+{
+	return Scene;
 }

@@ -4,6 +4,8 @@
 #include "ISceneNode.h"
 
 
+class CScene;
+
 class CSceneNode : public ISceneNode
 {
 
@@ -13,13 +15,15 @@ public:
 	// General Methods //
 	/////////////////////
 
-	CSceneNode(ISceneNode * Parent);
+	CSceneNode(CScene * Scene, ISceneNode * Parent);
 
 	//! Perform pre-draw update
 	virtual void Update();
 
 	//! Perform draw
 	virtual void Draw(IGraphicsEngine * Engine);
+
+	CScene * GetScene();
 
 
 	/////////////////////////////
@@ -48,9 +52,9 @@ public:
 		return ConditionalMapAccess(Components, typeid(T));
 	}
 
-
 protected:
 
+	CScene * Scene;
 	map<Type, IComponent *> Components;
 
 };
