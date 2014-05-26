@@ -31,8 +31,6 @@ protected:
 	vec3f LookDirection;
 	vec3f UpVector;
 
-	bool ViewDirty, ProjectionDirty;
-
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
 

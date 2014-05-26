@@ -5,13 +5,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-CCameraControl::CCameraControl(ICamera * Camera, vec3f const Position)
+CCameraController::CCameraController(ICamera * Camera)
 {
 	this->Camera = Camera;
-	this->Camera->SetPosition(Position);
-
 	this->Phi = 0;
-	this->Theta = -1.5708f;
+	this->Theta = 1.5708f;
 	this->Tracking = false;
 	this->MoveSpeed = 20.5f;
 	this->LookSpeed = 0.005f;
@@ -19,10 +17,10 @@ CCameraControl::CCameraControl(ICamera * Camera, vec3f const Position)
 	this->MaxAngleEpsilon = 0.01f;
 
 	for (int i = 0; i < (int) ECommand::Count; ++ i)
-		Commands[i] = false;
+		this->Commands[i] = false;
 }
 
-void CCameraControl::OnEvent(IEvent & Event)
+void CCameraController::OnEvent(IEvent & Event)
 {
 	if (InstanceOf<SMouseEvent>(Event))
 	{
@@ -60,7 +58,6 @@ void CCameraControl::OnEvent(IEvent & Event)
 					FocalLength /= FocalLengthDelta;
 
 			Camera->SetFocalLength(FocalLength);
-			Camera->RecalculateProjectionMatrix();
 		}
 	}
 	else if (InstanceOf<SKeyboardEvent>(Event))
@@ -78,7 +75,7 @@ void CCameraControl::OnEvent(IEvent & Event)
 	}
 }
 
-void CCameraControl::Update(f64 const TickTime)
+void CCameraController::Update(f64 const TickTime)
 {
 	vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 	vec3f const UpVector = Camera->GetUpVector();
@@ -103,34 +100,35 @@ void CCameraControl::Update(f64 const TickTime)
 		Translation -= LookDirection * MoveDelta;
 
 	Camera->SetTranslation(Translation);
+	Camera->SetLookDirection(LookDirection);
 }
 
-SVector3f const & CCameraControl::GetPosition() const
+SVector3f const & CCameraController::GetPosition() const
 {
 	return Camera->GetPosition();
 }
 
-void CCameraControl::SetVelocity(float const velocity)
+void CCameraController::SetVelocity(float const velocity)
 {
 	MoveSpeed = velocity;
 }
 
-f32 CCameraControl::GetPhi() const
+f32 CCameraController::GetPhi() const
 {
 	return Phi;
 }
 
-void CCameraControl::SetPhi(f32 const Phi)
+void CCameraController::SetPhi(f32 const Phi)
 {
 	this->Phi = Phi;
 }
 
-f32 CCameraControl::GetTheta() const
+f32 CCameraController::GetTheta() const
 {
 	return Theta;
 }
 
-void CCameraControl::SetTheta(f32 const Theta)
+void CCameraController::SetTheta(f32 const Theta)
 {
 	this->Theta = Theta;
 }

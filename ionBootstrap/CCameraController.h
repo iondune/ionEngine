@@ -6,12 +6,12 @@
 #include <ionScene.h>
 
 
-class CCameraControl : public IEventListener
+class CCameraController : public IEventListener
 {
 
 public:
 
-	CCameraControl(ICamera * Camera, vec3f const Position = SVector3f(0, 3, 2));
+	CCameraController(ICamera * Camera);
 
 	void OnEvent(IEvent & Event);
 	void Update(f64 const TickTime);

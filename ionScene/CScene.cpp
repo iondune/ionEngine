@@ -24,6 +24,7 @@ void CScene::SetActiveCamera(ICamera * const activeCamera)
 void CScene::DrawAll(IGraphicsEngine * Engine)
 {
 	Engine->Begin(this);
+	Root->Update();
 	Root->Draw(Engine);
 	Engine->Finalize(this);
 }

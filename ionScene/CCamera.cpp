@@ -7,8 +7,6 @@ CCamera::CCamera(ISceneNode * Parent)
 {
 	this->LookDirection = vec3f(0, 0, 1);
 	this->UpVector = vec3f(0, 1, 0);
-	this->ViewDirty = false;
-	this->ProjectionDirty = false;
 
     RecalculateViewMatrix();
 }
@@ -16,15 +14,12 @@ CCamera::CCamera(ISceneNode * Parent)
 void CCamera::RecalculateViewMatrix()
 {
 	ViewMatrix = glm::lookAt(GetPosition().GetGLMVector(), (GetPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
-	ViewDirty = false;
 }
 
 void CCamera::Update()
 {
-	if (ViewDirty)
-		RecalculateViewMatrix();
-	if (ProjectionDirty)
-		RecalculateProjectionMatrix();
+	RecalculateViewMatrix();
+	RecalculateProjectionMatrix();
 
 	ISceneNode::Update();
 }

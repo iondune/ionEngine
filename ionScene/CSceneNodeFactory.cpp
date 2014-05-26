@@ -24,7 +24,7 @@ CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string con
 	return Node;
 }
 
-CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera()
+CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera(f32 const AspectRatio)
 {
-	return new CPerspectiveCamera{SceneManager->GetRoot()};
+	return new CPerspectiveCamera{SceneManager->GetRoot(), AspectRatio};
 }
