@@ -87,6 +87,8 @@ public:
 					Context.Draw();
 				}
 			}
+
+			Pass.Elements.clear();
 		}
 	}
 
