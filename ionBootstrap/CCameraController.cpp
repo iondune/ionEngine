@@ -12,7 +12,7 @@ CCameraController::CCameraController(ICamera * Camera)
 	this->Phi = 0;
 	this->Theta = 1.5708f;
 	this->Tracking = false;
-	this->MoveSpeed = 20.5f;
+	this->MoveSpeed = 2.5f;
 	this->LookSpeed = 0.005f;
 	this->FocalLengthDelta = 1.1f;
 	this->MaxAngleEpsilon = 0.01f;
