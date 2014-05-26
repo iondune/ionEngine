@@ -22,7 +22,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -40,19 +40,14 @@
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CCameraControl.cpp" />
-    <ClCompile Include="CFadeOutState.cpp" />
+    <ClCompile Include="CTimeManager.cpp" />
+    <ClCompile Include="CCameraController.cpp" />
     <ClCompile Include="CGamePad.cpp" />
-    <ClCompile Include="COrthoCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CCameraControl.h" />
-    <ClInclude Include="CContextState.h" />
-    <ClInclude Include="CFadeOutState.h" />
+    <ClInclude Include="CTimeManager.h" />
+    <ClInclude Include="CCameraController.h" />
     <ClInclude Include="CGamePad.h" />
-    <ClInclude Include="COrthoCamera.h" />
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="ionBootstrap.h" />
   </ItemGroup>

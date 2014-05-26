@@ -23,7 +23,9 @@ public:
 	virtual f32 GetFieldOfView() const = 0;
 	virtual glm::mat4 GetViewMatrix() const = 0;
 	virtual glm::mat4 GetProjectionMatrix() const = 0;
-
+	
+	virtual void SetFieldOfView(f32 const fieldOfView) = 0;
+	virtual void SetFocalLength(f32 const focalLength) = 0;
 	virtual void SetLookDirection(vec3f const & lookDirection) = 0;
 	virtual void SetLookAtTarget(vec3f const & lookAtTarget) = 0;
 	virtual void SetUpVector(vec3f const & upVector) = 0;

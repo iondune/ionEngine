@@ -1,20 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CApplication.cpp" />
-    <ClCompile Include="CCameraControl.cpp" />
-    <ClCompile Include="CFadeOutState.cpp" />
     <ClCompile Include="CGamePad.cpp" />
-    <ClCompile Include="COrthoCamera.cpp" />
+    <ClCompile Include="CTimeManager.cpp" />
+    <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CApplication.h" />
-    <ClInclude Include="CCameraControl.h" />
-    <ClInclude Include="CFadeOutState.h" />
     <ClInclude Include="CGamePad.h" />
-    <ClInclude Include="COrthoCamera.h" />
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="ionBootstrap.h" />
-    <ClInclude Include="CContextState.h" />
+    <ClInclude Include="CTimeManager.h" />
+    <ClInclude Include="CCameraController.h" />
   </ItemGroup>
 </Project>
