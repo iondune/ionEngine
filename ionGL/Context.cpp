@@ -12,6 +12,7 @@ namespace ion
 		void Context::Init()
 		{
 			CheckedGLCall(glEnable(GL_DEPTH_TEST));
+			CheckedGLCall(glDepthFunc(GL_LEQUAL));
 		}
 
 		void Context::Clear(std::initializer_list<EBuffer> Buffers)
