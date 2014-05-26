@@ -26,14 +26,13 @@ int main()
 
 	CCameraController * Controller = new CCameraController{Camera};
 	Window->AddListener(Controller);
+	TimeManager->MakeUpdateTick(0.02)->AddListener(Controller);
 	
 	ion::GL::Context::Init();
 	TimeManager->Init();
 	while (! WindowManager->ShouldClose())
 	{
-		TimeManager->UpdateTime();
-		Controller->Update(TimeManager->GetElapsedTime());
-
+		TimeManager->Update();
 		WindowManager->PollEvents();
 		SceneManager->DrawAll(GraphicsEngine.Get());
 		Window->SwapBuffers();

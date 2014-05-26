@@ -1,5 +1,6 @@
 
 #include "CCameraController.h"
+#include "CTimeManager.h"
 
 #include <ionWindow.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -72,6 +73,11 @@ void CCameraController::OnEvent(IEvent & Event)
 			Commands[(int) ECommand::Left] = KeyboardEvent.Pressed;
 		if (KeyboardEvent.Key == EKey::D || KeyboardEvent.Key == EKey::Right)
 			Commands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+	}
+	else if (InstanceOf<CTimeManager::CUpdateTick>(Event))
+	{
+		CTimeManager::CUpdateTick & UpdateTick = As<CTimeManager::CUpdateTick>(Event);
+		Update(UpdateTick.GetElapsedTime());
 	}
 }
 

@@ -5,7 +5,7 @@
 #include "IEvent.h"
 
 
-class IEventListener : public ITreeNode<IEventListener>
+class IEventListener : public IMultiTreeNode<IEventListener>
 {
 
 public:
@@ -15,17 +15,17 @@ public:
 
 	void AddListener(IEventListener * Listener)
 	{
-		ITreeNode<IEventListener>::AddChild(Listener);
+		IMultiTreeNode<IEventListener>::AddChild(Listener);
 	}
 
 	void RemoveListener(IEventListener * Listener)
 	{
-		ITreeNode<IEventListener>::RemoveChild(Listener);
+		IMultiTreeNode<IEventListener>::RemoveChild(Listener);
 	}
 
 protected:
 
-	using ITreeNode<IEventListener>::Children;
+	using IMultiTreeNode<IEventListener>::Children;
 
 	void TriggerEvent(IEvent & Event)
 	{
