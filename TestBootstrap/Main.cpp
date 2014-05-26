@@ -27,6 +27,7 @@ int main()
 	CCameraController * Controller = new CCameraController{Camera};
 	Window->AddListener(Controller);
 	
+	ion::GL::Context::Init();
 	TimeManager->Init();
 	while (! WindowManager->ShouldClose())
 	{

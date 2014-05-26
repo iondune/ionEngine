@@ -9,6 +9,11 @@ namespace ion
 {
 	namespace GL
 	{
+		void Context::Init()
+		{
+			CheckedGLCall(glEnable(GL_DEPTH_TEST));
+		}
+
 		void Context::Clear(std::initializer_list<EBuffer> Buffers)
 		{
 			static u32 const BufferLookup[3] =

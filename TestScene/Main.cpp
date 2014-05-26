@@ -22,7 +22,7 @@ int main()
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera((Window->GetAspectRatio())));
 	Camera->SetPosition(vec3f(0, 0, -3));
 
-
+	ion::GL::Context::Init();
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();

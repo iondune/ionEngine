@@ -20,6 +20,7 @@ namespace ion
 		{
 		public:
 
+			static void Init();
 			static void Clear(std::initializer_list<EBuffer> Buffers);
 
 		};
