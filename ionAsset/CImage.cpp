@@ -62,7 +62,7 @@ vec2u CImage::GetSize() const
 
 uint CImage::GetStride() const
 {
-	return Size.Y;
+	return Channels;
 }
 
 uint CImage::GetChannels() const
