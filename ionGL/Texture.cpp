@@ -1,5 +1,6 @@
 
 #include "Texture.h"
+#include "Utilities.h"
 #include <GL/glew.h>
 
 
@@ -46,15 +47,15 @@ namespace ion
 				GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT
 			};
 
-			glTexParameteri(GetTarget(), GL_TEXTURE_MIN_FILTER, FilterMatrix[(int) Parameters.MipMapMode][(int) Parameters.MinFilter]);
-			glTexParameteri(GetTarget(), GL_TEXTURE_MAG_FILTER, FilterLookup[(int) Parameters.MagFilter]);
+			CheckedGLCall(glTexParameteri(GetTarget(), GL_TEXTURE_MIN_FILTER, FilterMatrix[(int) Parameters.MipMapMode][(int) Parameters.MinFilter]));
+			CheckedGLCall(glTexParameteri(GetTarget(), GL_TEXTURE_MAG_FILTER, FilterLookup[(int) Parameters.MagFilter]));
 
 			if (Parameters.MipMapMode != EMipMaps::Disabled)
 				glTexParameteri(GetTarget(), GL_GENERATE_MIPMAP, GL_TRUE);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, WrapLookup[(int) Parameters.WrapMode]);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, WrapLookup[(int) Parameters.WrapMode]);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, WrapLookup[(int) Parameters.WrapMode]);
+			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, WrapLookup[(int) Parameters.WrapMode]));
+			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, WrapLookup[(int) Parameters.WrapMode]));
+			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, WrapLookup[(int) Parameters.WrapMode]));
 		}
 
 
@@ -69,12 +70,24 @@ namespace ion
 
 		Texture::~Texture()
 		{
-			glDeleteTextures(1, & Handle);
+			CheckedGLCall(glDeleteTextures(1, & Handle));
 		}
 
 		Texture::Texture()
 		{
-			glGenTextures(1, & Handle);
+			CheckedGLCall(glGenTextures(1, & Handle));
+		}
+
+		void ImageTexture::Activate(uint const index)
+		{
+			CheckedGLCall(glActiveTexture(GL_TEXTURE0 + index));
+			Bind();
+		}
+
+		void ImageTexture::Deactivate(uint const index)
+		{
+			CheckedGLCall(glActiveTexture(GL_TEXTURE0 + index));
+			Unbind();
 		}
 
 		ImageTexture::ImageTexture()
@@ -121,14 +134,14 @@ namespace ion
 		{
 			Size = size;
 			Bind();
-			glTexStorage1D(GL_TEXTURE_1D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size);
+			CheckedGLCall(glTexStorage1D(GL_TEXTURE_1D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size));
 			Unbind();
 		}
 
 		void Texture1D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage1D(GL_TEXTURE_1D, 0, 0, Size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -137,7 +150,7 @@ namespace ion
 		void Texture1D::SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage1D(GL_TEXTURE_1D, 0, offset, size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage1D(GL_TEXTURE_1D, 0, offset, size, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -155,14 +168,14 @@ namespace ion
 		{
 			Size = size;
 			Bind();
-			glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y);
+			CheckedGLCall(glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y));
 			Unbind();
 		}
 
 		void Texture2D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -171,7 +184,7 @@ namespace ion
 		void Texture2D::SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, offset.X, offset.Y, size.X, size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, offset.X, offset.Y, size.X, size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -186,14 +199,14 @@ namespace ion
 		{
 			Size = size;
 			Bind();
-			glTexStorage3D(GL_TEXTURE_3D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y, Size.Z);
+			CheckedGLCall(glTexStorage3D(GL_TEXTURE_3D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y, Size.Z));
 			Unbind();
 		}
 
 		void Texture3D::Image(void * data, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Size.X, Size.Y, Size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, Size.X, Size.Y, Size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();
@@ -202,7 +215,7 @@ namespace ion
 		void Texture3D::SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components, EFormatType const type)
 		{
 			Bind();
-			glTexSubImage3D(GL_TEXTURE_3D, 0, offset.X, offset.Y, offset.Z, size.X, size.Y, size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			CheckedGLCall(glTexSubImage3D(GL_TEXTURE_3D, 0, offset.X, offset.Y, offset.Z, size.X, size.Y, size.Z, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
 			ImageLoaded = true;
 			ApplyParams();
 			Unbind();

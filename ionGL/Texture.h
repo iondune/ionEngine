@@ -88,6 +88,9 @@ namespace ion
 			
 			Params const & GetParams() const;
 			void SetParams(Params const & params);
+			
+			void Activate(uint const index);
+			void Deactivate(uint const index);
 
 		protected:
 
@@ -106,6 +109,9 @@ namespace ion
 
 		class Texture1D : public ImageTexture
 		{
+
+		public:
+
 			void Storage(u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 			void SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
@@ -121,6 +127,9 @@ namespace ion
 
 		class Texture2D : public ImageTexture
 		{
+
+		public:
+
 			void Storage(vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 			void SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
@@ -134,6 +143,9 @@ namespace ion
 
 		class Texture3D : public ImageTexture
 		{
+
+		public:
+
 			void Storage(vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
 			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 			void SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
