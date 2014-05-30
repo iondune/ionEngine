@@ -15,6 +15,7 @@ public:
 	{
 		ion::GL::VertexArray * Array = 0;
 		map<string, ion::GL::Uniform *> Uniforms;
+		vector<ion::GL::ImageTexture *> Textures;
 
 		SDrawDefinition()
 		{}
@@ -58,6 +59,9 @@ public:
 		{
 			for (auto & Element : Pass.Elements)
 			{
+				if (! Element.first)
+					continue;
+
 				auto ActiveUniforms = Element.first->GetActiveUniforms();
 				std::vector<string> RequiredUniforms;
 
@@ -83,8 +87,18 @@ public:
 							cerr << "Error! Unbound uniform " << RequiredUniform << endl;
 					}
 
+					for (uint i = 0; i < Definition.Textures.size(); ++ i)
+					{
+						Definition.Textures[i]->Activate(i);
+					}
+
 					Context.SetVertexArray(Definition.Array);
 					Context.Draw();
+
+					for (uint i = 0; i < Definition.Textures.size(); ++ i)
+					{
+						Definition.Textures[i]->Deactivate(i);
+					}
 				}
 			}
 

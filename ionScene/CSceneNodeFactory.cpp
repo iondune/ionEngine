@@ -25,36 +25,39 @@ CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string con
 	return Node;
 }
 
-CSceneNode * CSceneNodeFactory::AddSkySphereNode()
+CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture)
 {
 	string const VertexShaderSource = R"SHADER(
 		#version 150
 		in vec3 Position;
 		in vec3 Normal;
+		in vec2 TexCoord;
 
 		uniform mat4 Model;
 		uniform mat4 View;
 		uniform mat4 Projection;
 
-		out vec3 Color;
+		ouv vec2 fTexCoord;
 
 		void main()
 		{
 			vec4 Position = Projection * View * Model * vec4(Position, 1.0);
 			gl_Position = Position.xyww;
-			Color = normalize(Normal) / 2.0 + vec3(0.5);
+			fTexCoord = TexCoord;
 		}
 	)SHADER";
 
 	string const FragmentShaderSource = R"SHADER(
 		#version 150
-		in vec3 Color;
+		in vec2 fTexCoord;
+
+		uniform sampler2D Texture0;
 
 		out vec4 outColor;
 
 		void main()
 		{
-			outColor = vec4(Color, 1.0);
+			outColor = texture(Texture0, fTexCoord);
 		}
 	)SHADER";
 
@@ -62,7 +65,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode()
 	CMesh * Mesh = CGeometryCreator::CreateSphere();
 
 	CSceneNode * Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
-	Node->AddComponent(new CMeshComponent{Mesh, Shader});
+	Node->AddComponent(new CMeshComponent{Mesh, Shader, Texture});
 	Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
 	{
 		Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());

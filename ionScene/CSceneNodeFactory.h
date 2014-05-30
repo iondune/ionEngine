@@ -17,7 +17,7 @@ public:
 	CSceneNodeFactory(CSceneManager * SceneManager);
 	
 	CSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
-	CSceneNode * AddSkySphereNode();
+	CSceneNode * AddSkySphereNode(ion::GL::ImageTexture * Texture);
 	CPerspectiveCamera * AddPerspectiveCamera(f32 const AspectRatio);
 
 private:

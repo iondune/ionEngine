@@ -323,15 +323,17 @@ CMesh * CGeometryCreator::CreateDisc(
 
 CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
 {
-	std::vector<f32> Positions, Normals;
+	std::vector<f32> Positions, Normals, TexCoords;
 	std::vector<u32> Indices;
 
 	// Make top and bottom points
 	Positions.push_back(0.f); Positions.push_back(Radii.Y); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(1.f); Normals.push_back(0.f);
+	TexCoords.push_back(0); TexCoords.push_back(1);
 
 	Positions.push_back(0.f); Positions.push_back(-Radii.Y); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(-1.f); Normals.push_back(0.f);
+	TexCoords.push_back(0); TexCoords.push_back(0);
 
 	for (uint i = 1; i <= Stacks; ++ i)
 	{
@@ -348,6 +350,7 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 			Positions.push_back(Radial.Y*Radii.Y);
 			Positions.push_back(Radial.Z*Radii.Z);
 			Normals.push_back(Radial.X); Normals.push_back(Radial.Y); Normals.push_back(Radial.Z);
+			TexCoords.push_back(j / (f32) Slices); TexCoords.push_back(i / (f32) (Stacks + 1));
 
 			if (j)
 			{
@@ -378,7 +381,22 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 		}
 	}
 
-	return new CMesh(SMeshBuffer(Indices, Positions, Normals));
+	return new CMesh(SMeshBuffer(Indices, Positions, Normals, TexCoords));
+}
+
+CMesh * CGeometryCreator::CreateSkySphere()
+{
+	CMesh * Mesh = CreateSphere();
+
+	for (auto & Buffer : Mesh->Buffers)
+	{
+		for (auto & Vertex : Buffer->Vertices)
+		{
+			Vertex.TextureCoordinates.Y = Abs(Vertex.Position.Y);
+		}
+	}
+
+	return Mesh;
 }
 
 CMesh * CGeometryCreator::CreatePlane(vec2f const & Size)

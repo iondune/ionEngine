@@ -30,6 +30,8 @@ public:
 		uint const Slices = 32,
 		uint const Stacks = 16);
 
+	static CMesh * CreateSkySphere();
+
 	static CMesh * CreatePlane(
 		vec2f const & Size = vec2f(1.f));
 

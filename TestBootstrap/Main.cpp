@@ -20,7 +20,12 @@ int main()
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse");
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse")->SetPosition(vec3f(1, 0, 0));
-	SceneManager->GetFactory()->AddSkySphereNode();
+
+	CImage * Image = CImage::Load("Assets/Images/SkyMap.jpg");
+	ion::GL::Texture2D * Texture = new ion::GL::Texture2D;
+	Texture->Storage(Image->GetSize());
+	Texture->Image(Image->GetData());
+	SceneManager->GetFactory()->AddSkySphereNode(Texture);
 
 	ICamera * Camera = nullptr;
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera(Window->GetAspectRatio()));
