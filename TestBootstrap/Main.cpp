@@ -23,8 +23,7 @@ int main()
 
 	CImage * Image = CImage::Load("Assets/Images/SkyMap.jpg");
 	ion::GL::Texture2D * Texture = new ion::GL::Texture2D;
-	Texture->Storage(Image->GetSize());
-	Texture->Image(Image->GetData());
+	Texture->Image(Image->GetData(), Image->GetSize(), ion::GL::ImageTexture::EFormatComponents::RGB);
 	SceneManager->GetFactory()->AddSkySphereNode(Texture);
 
 	ICamera * Camera = nullptr;
