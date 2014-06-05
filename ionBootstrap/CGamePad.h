@@ -3,6 +3,7 @@
 
 #include <ionMath.h>
 #include "EGamePadButton.h"
+#include "CCameraController.h"
 
 
 class CGamePad
@@ -14,7 +15,7 @@ protected:
 	vec2f RightStick;
 	f32 LeftTrigger;
 	f32 RightTrigger;
-	bool ButtonPressed[EGamePadButton::Count];
+	bool ButtonPressed[(int) EGamePadButton::Count];
 
 public:
 	
@@ -27,5 +28,19 @@ public:
 	void UpdateState();
 
 	CGamePad();
+
+};
+
+class CGamePadCameraController : public CCameraController, public CGamePad
+{
+
+public:
+
+	CGamePadCameraController(ICamera * Camera);
+	virtual void Update(f64 const TickTime);
+
+protected:
+
+	f32 FocalLengthAccumulator = 0;
 
 };
