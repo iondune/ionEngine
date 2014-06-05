@@ -8,12 +8,17 @@ namespace ion
 {
 	namespace GL
 	{
+		bool OpenGLError();
+		string GetOpenGLError();
+		void PrintOpenGLErrors();
 		void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
 
 #ifdef _DEBUG
 		#define CheckedGLCall(x) do { ion::GL::PrintOpenGLErrors("before "#x, __FILE__, __LINE__); (x); ion::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__); } while (0)
+		#define CheckExistingErrors(x) ion::GL::PrintOpenGLErrors("before "#x, __FILE__, __LINE__);
 #else
 		#define CheckedGLCall(x) (x)
+		#define CheckExistingErrors(x)
 #endif
 
 		enum class EFormatType
@@ -38,10 +43,14 @@ namespace ion
 		class Util
 		{
 		public:
-
+			
 			static u32 const TypeMatrix[7];
 			static u32 const SizeMatrix[7];
 			static u32 const PrimativeMatrix[4];
+
+			static string const TypeStringMatrix[7];
+			static string const SizeStringMatrix[7];
+			static string const PrimativeStringMatrix[4];
 		};
 	}
 }
