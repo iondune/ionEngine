@@ -329,11 +329,11 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 	// Make top and bottom points
 	Positions.push_back(0.f); Positions.push_back(Radii.Y); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(1.f); Normals.push_back(0.f);
-	TexCoords.push_back(0); TexCoords.push_back(1);
+	TexCoords.push_back(0); TexCoords.push_back(0.5);
 
 	Positions.push_back(0.f); Positions.push_back(-Radii.Y); Positions.push_back(0.f);
 	Normals.push_back(0.f); Normals.push_back(-1.f); Normals.push_back(0.f);
-	TexCoords.push_back(0); TexCoords.push_back(0);
+	TexCoords.push_back(0); TexCoords.push_back(0.5);
 
 	for (uint i = 1; i <= Stacks; ++ i)
 	{
@@ -350,7 +350,7 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 			Positions.push_back(Radial.Y*Radii.Y);
 			Positions.push_back(Radial.Z*Radii.Z);
 			Normals.push_back(Radial.X); Normals.push_back(Radial.Y); Normals.push_back(Radial.Z);
-			TexCoords.push_back(j / (f32) Slices); TexCoords.push_back(i / (f32) (Stacks + 1));
+			TexCoords.push_back(j / (f32) Slices); TexCoords.push_back((Stacks - i + 1) / (f32) (Stacks + 1));
 
 			if (j)
 			{
@@ -381,7 +381,7 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 		}
 	}
 
-	return new CMesh(SMeshBuffer(Indices, Positions, Normals, TexCoords));
+	return new CMesh(SMeshBuffer(Indices, Positions, Normals, vector<f32>(), TexCoords));
 }
 
 CMesh * CGeometryCreator::CreateSkySphere()
