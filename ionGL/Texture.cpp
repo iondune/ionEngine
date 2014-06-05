@@ -71,6 +71,7 @@ namespace ion
 		Texture::~Texture()
 		{
 			CheckedGLCall(glDeleteTextures(1, & Handle));
+			Handle = 0;
 		}
 
 		Texture::Texture()
@@ -125,6 +126,22 @@ namespace ion
 			GL_RGBA
 		};
 
+		string const ImageTexture::InternalFormatStringMatrix[4][10] = 
+		{
+			{"GL_R8", "GL_R16", "GL_R8UI", "GL_R32UI", "GL_R32UI", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R16F", "GL_R32F"},
+			{"GL_RG8", "GL_RG16", "GL_RG8UI", "GL_RG32UI", "GL_RG32UI", "GL_RG8I", "GL_RG16I", "GL_RG32I", "GL_RG16F", "GL_RG32F"},
+			{"GL_RGB8", "GL_RGB16", "GL_RGB8UI", "GL_RGB32UI", "GL_RGB32UI", "GL_RGB8I", "GL_RGB16I", "GL_RGB32I", "GL_RGB16F", "GL_RGB32F"},
+			{"GL_RGBA8", "GL_RGBA16", "GL_RGBA8UI", "GL_RGBA32UI", "GL_RGBA32UI", "GL_RGBA8I", "GL_RGBA16I", "GL_RGBA32I", "GL_RGBA16F", "GL_RGBA32F"}
+		};
+
+		string const ImageTexture::FormatStringMatrix[4] = 
+		{
+			"GL_R",
+			"GL_RG",
+			"GL_RGB",
+			"GL_RGBA"
+		};
+
 
 		//////////////
 		// Variants //
@@ -168,16 +185,37 @@ namespace ion
 		{
 			Size = size;
 			Bind();
-			CheckedGLCall(glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y));
+			CheckExistingErrors(Texture2D::Storage);
+			glTexStorage2D(GL_TEXTURE_2D, Parameters.MipMapLevels, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y);
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glTexStorage2D: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+			}
 			Unbind();
 		}
 
-		void Texture2D::Image(void * data, EFormatComponents const components, EFormatType const type)
+		void Texture2D::Image(void * data, vec2u const & size, EFormatComponents const components, EFormatType const type)
 		{
+			Size = size;
 			Bind();
-			CheckedGLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, Size.X, Size.Y, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data));
-			ImageLoaded = true;
-			ApplyParams();
+			CheckExistingErrors(Texture2D::Image);
+			glTexImage2D(GL_TEXTURE_2D, 0, InternalFormatMatrix[(int) components][(int) type], Size.X, Size.Y, 0, FormatMatrix[(int) components], Util::TypeMatrix[(int) type], data);
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glTexImage2D: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+				cerr << "Size is " << Size << endl;
+				cerr << "Format is " << FormatStringMatrix[(int) components] << endl;
+				cerr << "Type is " << Util::TypeStringMatrix[(int) type] << endl;
+				cerr << endl;
+			}
+			else
+			{
+				ImageLoaded = true;
+				ApplyParams();
+			}
+			CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D));
 			Unbind();
 		}
 

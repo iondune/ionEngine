@@ -74,6 +74,9 @@ namespace ion
 			static u32 const InternalFormatMatrix[4][10];
 			static u32 const FormatMatrix[4];
 
+			static string const InternalFormatStringMatrix[4][10];
+			static string const FormatStringMatrix[4];
+
 			struct Params
 			{
 
@@ -102,7 +105,6 @@ namespace ion
 			void Unbind();
 			virtual u32 GetTarget() = 0;
 
-			u32 Handle;
 			Params Parameters;
 			bool ImageLoaded;
 		};
@@ -131,7 +133,7 @@ namespace ion
 		public:
 
 			void Storage(vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
-			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+			void Image(void * const data, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 			void SubImage(void * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
 		protected:
