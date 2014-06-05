@@ -9,8 +9,10 @@ CMesh::CMesh(SMeshBuffer * const Buffer)
 {
 	Buffers.push_back(Buffer);
 	Materials.push_back(Buffer->GetMaterial());
+
 	Root = new SMeshNode{};
 	Root->Buffers.push_back(Buffer);
+
 	LoadDataIntoBuffers();
 }
 
