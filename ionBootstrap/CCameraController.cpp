@@ -73,6 +73,22 @@ void CCameraController::OnEvent(IEvent & Event)
 			Commands[(int) ECommand::Left] = KeyboardEvent.Pressed;
 		if (KeyboardEvent.Key == EKey::D || KeyboardEvent.Key == EKey::Right)
 			Commands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+
+		if (! KeyboardEvent.Pressed)
+		{
+			if (KeyboardEvent.Key == EKey::Num6)
+				SetVelocity(500.f);
+			if (KeyboardEvent.Key == EKey::Num5)
+				SetVelocity(50.f);
+			if (KeyboardEvent.Key == EKey::Num4)
+				SetVelocity(10.f);
+			if (KeyboardEvent.Key == EKey::Num3)
+				SetVelocity(2.5f);
+			if (KeyboardEvent.Key == EKey::Num2)
+				SetVelocity(0.75f);
+			if (KeyboardEvent.Key == EKey::Num1)
+				SetVelocity(0.1f);
+		}
 	}
 	else if (InstanceOf<CTimeManager::CUpdateTick>(Event))
 	{
