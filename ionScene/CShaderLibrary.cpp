@@ -36,8 +36,8 @@ ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string co
 	Vert->Source(VertShaderSource);
 	if (! Vert->Compile())
 	{
-		delete Vert;
 		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Vert->InfoLog() << std::endl;
+		delete Vert;
 		return 0;
 	}
 
@@ -45,9 +45,9 @@ ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string co
 	Frag->Source(FragShaderSource);
 	if (! Frag->Compile())
 	{
+		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
 		delete Vert;
 		delete Frag;
-		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
 		return 0;
 	}
 
