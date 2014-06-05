@@ -14,7 +14,7 @@ int main()
 	SingletonPointer<CTimeManager> TimeManager;
 
 	WindowManager->Init();
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestScene", EWindowType::Windowed);
+	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "TestScene", EWindowType::Windowed);
 
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
