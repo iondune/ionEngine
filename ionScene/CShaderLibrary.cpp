@@ -54,10 +54,11 @@ ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string co
 	ion::GL::Program * Shader = new ion::GL::Program;
 	Shader->AttachShader(Vert);
 	Shader->AttachShader(Frag);
-	Shader->Link();
 	Shader->BindAttributeLocation(0, "Position");
 	Shader->BindAttributeLocation(1, "Normal");
-	Shader->BindAttributeLocation(2, "TexCoord");
+	Shader->BindAttributeLocation(2, "Color");
+	Shader->BindAttributeLocation(3, "TexCoord");
+	Shader->Link();
 
 	return Shaders[Name] = Shader;
 }
