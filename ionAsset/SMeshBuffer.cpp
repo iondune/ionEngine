@@ -24,8 +24,8 @@ SMeshBuffer::SMeshBuffer(vector<uint> Indices,
 		if (i * 4 + 3 < Colors.size())
 			Vertex.Color = color4f(Colors[i * 4 + 0], Colors[i * 4 + 1], Colors[i * 4 + 2], Colors[i * 4 + 3]);
 
-		if (i * 3 + 2 < TexCoords.size())
-			Vertex.TextureCoordinates = vec2f(TexCoords[i * 3 + 0], TexCoords[i * 3 + 1]);
+		if (i * 2 + 1 < TexCoords.size())
+			Vertex.TextureCoordinates = vec2f(TexCoords[i * 2 + 0], TexCoords[i * 2 + 1]);
 
 		Vertices.push_back(Vertex);
 	}
