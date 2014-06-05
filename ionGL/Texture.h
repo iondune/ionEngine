@@ -22,7 +22,7 @@ namespace ion
 
 			Texture();
 			
-			u32 Handle;
+			u32 Handle = 0;
 		};
 
 		class ImageTexture : public Texture
