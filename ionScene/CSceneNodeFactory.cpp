@@ -62,7 +62,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture
 	)SHADER";
 
 	ion::GL::Program * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, FragmentShaderSource);
-	CMesh * Mesh = CGeometryCreator::CreateSphere();
+	CMesh * Mesh = CGeometryCreator::CreateSkySphere();
 
 	CSceneNode * Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
 	Node->AddComponent(new CMeshComponent{Mesh, Shader, Texture});
