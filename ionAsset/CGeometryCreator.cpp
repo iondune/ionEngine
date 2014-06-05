@@ -389,13 +389,10 @@ CMesh * CGeometryCreator::CreateSkySphere()
 	CMesh * Mesh = CreateSphere();
 
 	for (auto & Buffer : Mesh->Buffers)
-	{
 		for (auto & Vertex : Buffer->Vertices)
-		{
-			Vertex.TextureCoordinates.Y = Abs(Vertex.Position.Y);
-		}
-	}
+			Vertex.TextureCoordinates.Y = Abs(Vertex.Position.Y) * 2;
 
+	Mesh->LoadDataIntoBuffers();
 	return Mesh;
 }
 
