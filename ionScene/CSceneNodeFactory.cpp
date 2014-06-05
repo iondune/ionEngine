@@ -37,7 +37,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture
 		uniform mat4 View;
 		uniform mat4 Projection;
 
-		ouv vec2 fTexCoord;
+		out vec2 fTexCoord;
 
 		void main()
 		{
