@@ -130,6 +130,16 @@ SVector3f const & CCameraController::GetPosition() const
 	return Camera->GetPosition();
 }
 
+ICamera const * CCameraController::GetCamera() const
+{
+	return Camera;
+}
+
+ICamera * CCameraController::GetCamera()
+{
+	return Camera;
+}
+
 void CCameraController::SetVelocity(float const velocity)
 {
 	MoveSpeed = velocity;

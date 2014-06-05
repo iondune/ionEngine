@@ -13,18 +13,18 @@ public:
 
 	CCameraController(ICamera * Camera);
 
-	void OnEvent(IEvent & Event);
-	void Update(f64 const TickTime);
+	virtual void OnEvent(IEvent & Event);
+	virtual void Update(f64 const TickTime);
 
-	vec3f const & GetPosition() const;
-	f32 GetPhi() const;
-	f32 GetTheta() const;
-	ICamera const * GetCamera() const;
-	ICamera * GetCamera();
+	virtual vec3f const & GetPosition() const;
+	virtual f32 GetPhi() const;
+	virtual f32 GetTheta() const;
+	virtual ICamera const * GetCamera() const;
+	virtual ICamera * GetCamera();
 
-	void SetVelocity(f32 const Velocity);
-	void SetPhi(f32 const Phi);
-	void SetTheta(f32 const Theta);
+	virtual void SetVelocity(f32 const Velocity);
+	virtual void SetPhi(f32 const Phi);
+	virtual void SetTheta(f32 const Theta);
 
 protected:
 
