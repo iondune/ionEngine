@@ -41,10 +41,17 @@ namespace ion
 			std::string Log;
 			int InfoLogLength = 0;
 			int CharsWritten = 0;
+			
+			CheckExistingErrors(Shader::InfoLog);
+			glGetShaderiv(Handle, GL_INFO_LOG_LENGTH, & InfoLogLength);
 
-			CheckedGLCall(glGetShaderiv(Handle, GL_INFO_LOG_LENGTH, & InfoLogLength));
-
-			if (InfoLogLength > 0)
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glGetShaderiv: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+				cerr << endl;
+			}
+			else if (InfoLogLength > 0)
 			{
 				GLchar * InfoLog = new GLchar[InfoLogLength];
 				glGetShaderInfoLog(Handle, InfoLogLength, & CharsWritten, InfoLog);
