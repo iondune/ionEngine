@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CSceneNode.h"
+#include "CGLGraphicsEngine.h"
 
 
 class CMeshComponent : public CSceneNode::IComponent
@@ -16,8 +17,13 @@ public:
 
 private:
 
-	CMesh * Mesh;
-	ion::GL::Program * Shader;
+	CMesh * Mesh = nullptr;
+	ion::GL::Program * Shader = nullptr;
 	vector<ion::GL::ImageTexture *> Textures;
+	vector<ion::GL::UniformValue<int> *> TextureUniforms;
+	ion::GL::UniformValue<glm::mat4> * Model = nullptr;
+
+	friend void RecurseAndDraw(CMeshComponent * Component, CGLGraphicsEngine * GLEngine, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node,
+		glm::mat4 Transformation, vector<ion::GL::ImageTexture *> const & Textures);
 
 };

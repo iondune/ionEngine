@@ -39,14 +39,20 @@ ion::GL::Uniform * CScene::GetUniform(string const & Label)
 	if (Label == "View")
 	{
 		if (ActiveCamera)
-			return new ion::GL::UniformValue<glm::mat4>(ActiveCamera->GetViewMatrix());
+		{
+			View.Value = ActiveCamera->GetViewMatrix();
+			return & View;
+		}
 		else
 			cerr << "Error! No bound camera" << endl;
 	}
 	else if (Label == "Projection")
 	{
 		if (ActiveCamera)
-			return new ion::GL::UniformValue<glm::mat4>(ActiveCamera->GetProjectionMatrix());
+		{
+			View.Value = ActiveCamera->GetProjectionMatrix();
+			return & View;
+		}
 		else
 			cerr << "Error! No bound camera" << endl;
 	}

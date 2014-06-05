@@ -25,5 +25,7 @@ protected:
 
 	ICamera * ActiveCamera = nullptr;
 	ISceneNode * Root = new ISceneNode{nullptr};
+	ion::GL::UniformValue<glm::mat4> View;
+	ion::GL::UniformValue<glm::mat4> Proj;
 
 };
