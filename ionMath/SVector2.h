@@ -86,6 +86,11 @@ public:
 		return ArcTan(Y, X);
 	}
 
+	ION_FUNC_DEF friend std::ostream & operator << (std::ostream & stream, SVector2<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y;
+	}
+
 };
 
 
