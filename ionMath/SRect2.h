@@ -35,10 +35,10 @@ public:
 
 	bool const intersects(SRect2<T> const & r) const
 	{
-		return (otherCorner().Y > r.Position.Y || equals(otherCorner().Y, r.Position.Y) ) && 
-			(Position.Y < r.otherCorner().Y || equals(Position.Y, r.otherCorner().Y) ) && 
-			(otherCorner().X > r.Position.X || equals(otherCorner().X, r.Position.X) ) && 
-			(Position.X < r.otherCorner().X || equals(Position.X, r.otherCorner().X) );
+		return (otherCorner().Y > r.Position.Y || Equals(otherCorner().Y, r.Position.Y) ) && 
+			(Position.Y < r.otherCorner().Y || Equals(Position.Y, r.otherCorner().Y) ) && 
+			(otherCorner().X > r.Position.X || Equals(otherCorner().X, r.Position.X) ) && 
+			(Position.X < r.otherCorner().X || Equals(Position.X, r.otherCorner().X) );
 	}
 
 	SRect2 const getIntersection(SRect2<T> const & r) const
