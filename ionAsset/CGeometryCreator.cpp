@@ -37,6 +37,39 @@ CMesh * CGeometryCreator::CreateCube(vec3f const & Size)
 		0.5, -0.5, 0.5
 	};
 
+	static f32 const CubeTexCoords[] =
+	{
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0
+	};
+
 	static f32 const CubeNormals[] =
 	{
 		0, 0, -1, // back face verts [0-3]
@@ -95,7 +128,8 @@ CMesh * CGeometryCreator::CreateCube(vec3f const & Size)
 	for (uint i = 0; i < 24; ++ i)
 		Buffer.Vertices.push_back(SVertex(
 		vec3f(CubePositions[i * 3 + 0], CubePositions[i * 3 + 1], CubePositions[i * 3 + 2]),
-		vec3f(CubeNormals[i * 3 + 0], CubeNormals[i * 3 + 1], CubeNormals[i * 3 + 2])));
+		vec3f(CubeNormals[i * 3 + 0], CubeNormals[i * 3 + 1], CubeNormals[i * 3 + 2]),
+		vec2f(CubeTexCoords[i * 2 + 0], CubeTexCoords[i * 2 + 1])));
 	for (uint i = 0; i < 12; ++ i)
 		Buffer.Triangles.push_back(SMeshTriangle(
 		CubeIndices[i * 3 + 0],
