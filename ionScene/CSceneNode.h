@@ -49,7 +49,7 @@ public:
 	template <typename T>
 	IComponent * GetComponent()
 	{
-		return ConditionalMapAccess(Components, typeid(T));
+		return ConditionalMapAccess<Type, IComponent>(Components, typeid(T));
 	}
 
 protected:
