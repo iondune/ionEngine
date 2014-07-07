@@ -9,8 +9,8 @@ ion::GL::Program * CShaderLibrary::Get(string const & Label)
 
 ion::GL::Program * CShaderLibrary::Load(string const & File)
 {
-	string const VertFileName = File + ".vert";
-	string const FragFileName = File + ".frag";
+	string const VertFileName = BaseDirectory + "/" + File + ".vert";
+	string const FragFileName = BaseDirectory + "/" + File + ".frag";
 
 	if (File::Exists(VertFileName) && File::Exists(FragFileName))
 	{
@@ -61,4 +61,14 @@ ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string co
 	Shader->Link();
 
 	return Shaders[Name] = Shader;
+}
+
+void CShaderLibrary::SetBaseDirectory(string const & BaseDirectory)
+{
+	this->BaseDirectory = BaseDirectory;
+}
+
+string CShaderLibrary::GetBaseDirectory() const
+{
+	return BaseDirectory;
 }
