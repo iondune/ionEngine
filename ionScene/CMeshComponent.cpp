@@ -58,3 +58,9 @@ void CMeshComponent::Draw(CSceneNode * Node, IGraphicsEngine * Engine)
 		RecurseAndDraw(this, GLEngine, GLEngine->RenderPasses[0].Elements[Shader], Mesh->Root, Node->GetAbsoluteTransformation(), Textures);
 	}
 }
+
+void CMeshComponent::SetTexture(uint const Index, ion::GL::ImageTexture * Texture)
+{
+	Textures.push_back(Texture);
+	TextureUniforms.push_back(new ion::GL::UniformValue<int>(0));
+}

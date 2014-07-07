@@ -15,6 +15,8 @@ public:
 	void Update(CSceneNode * Node);
 	void Draw(CSceneNode * Node, IGraphicsEngine * Engine);
 
+	void SetTexture(uint const Index, ion::GL::ImageTexture * Texture);
+
 private:
 
 	CMesh * Mesh = nullptr;
