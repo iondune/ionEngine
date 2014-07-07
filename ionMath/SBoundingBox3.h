@@ -157,3 +157,7 @@ public:
 typedef SBoundingBox3<f32> SBoundingBox3f;
 typedef SBoundingBox3<f64> SBoundingBox3d;
 typedef SBoundingBox3<s32> SBoundingBox3i;
+
+typedef SBoundingBox3<f32> box3f;
+typedef SBoundingBox3<f64> box3d;
+typedef SBoundingBox3<s32> box3i;
