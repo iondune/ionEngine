@@ -55,7 +55,9 @@ void CMeshComponent::Draw(CSceneNode * Node, IGraphicsEngine * Engine)
 	if (InstanceOf<CGLGraphicsEngine>(Engine))
 	{
 		CGLGraphicsEngine * GLEngine = As<CGLGraphicsEngine>(Engine);
-		RecurseAndDraw(this, GLEngine, GLEngine->RenderPasses[0].Elements[Shader], Mesh->Root, Node->GetAbsoluteTransformation(), Textures);
+
+		if (Node->IsVisible())
+			RecurseAndDraw(this, GLEngine, GLEngine->RenderPasses[0].Elements[Shader], Mesh->Root, Node->GetAbsoluteTransformation(), Textures);
 	}
 }
 

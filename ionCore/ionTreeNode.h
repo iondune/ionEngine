@@ -60,6 +60,11 @@ public:
 			Child->Parent = 0;
 		Children.clear();
 	}
+	
+	void Remove()
+	{
+		delete this;
+	}
 
 	template <typename Return>
 	void RecurseOnChildren(Return (Implementation::* Function)())
@@ -80,6 +85,11 @@ public:
 	{
 		for (auto Child : Children)
 			(Child->*Function)(p1, p2);
+	}
+
+	virtual ~ITreeNode()
+	{
+		SetParent(0);
 	}
 
 protected:

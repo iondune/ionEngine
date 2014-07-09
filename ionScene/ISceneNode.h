@@ -21,6 +21,9 @@ public:
 	//! Constructor
 	ISceneNode(ISceneNode * Parent);
 
+	virtual ~ISceneNode()
+	{}
+
 	//! Check if visible
 	virtual bool IsVisible() const;
 
