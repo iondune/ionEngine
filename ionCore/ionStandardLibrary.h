@@ -11,7 +11,11 @@
 #include <sstream>
 
 using std::move;
+
 using std::ifstream;
+using std::ofstream;
+using std::stringstream;
+
 using std::cout;
 using std::cerr;
 using std::endl;

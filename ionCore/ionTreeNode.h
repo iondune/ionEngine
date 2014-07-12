@@ -17,9 +17,6 @@ template <typename Implementation>
 class ITreeNode
 {
 
-	// To Do : Why doesn't this work?
-	//static_assert(std::is_base_of<ITreeNode<Implementation>, Implementation>::value, "ITreeNode<Implementation> must be a base of implementation type.");
-
 public:
 
 	Implementation const * const GetParent() const
@@ -103,6 +100,10 @@ protected:
 
 };
 
+
+/*!
+	Variant of ITreeNode that doesn't require a single parent relationship.
+*/
 template <typename Implementation>
 class IMultiTreeNode
 {
@@ -126,8 +127,6 @@ public:
 
 	void RemoveAllChildren()
 	{
-		for (auto & Child : Children)
-			Child->Parent = 0;
 		Children.clear();
 	}
 
