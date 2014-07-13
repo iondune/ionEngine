@@ -5,6 +5,7 @@
 
 #include "ionClass.h"
 #include "ionComparison.h"
+#include "ionComponent.h"
 #include "ionRand.h"
 #include "ionSmartPtr.h"
 #include "ionThread.h"

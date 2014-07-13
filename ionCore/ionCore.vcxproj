@@ -28,6 +28,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="ionClass.h" />
+    <ClInclude Include="ionComponent.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionStandardLibrary.h" />
