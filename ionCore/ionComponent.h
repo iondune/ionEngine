@@ -14,7 +14,7 @@ public:
 	template <typename T>
 	void AddComponent(T * Component)
 	{
-		Components.insert(typeid(T), Component);
+		Components.insert(pair<Type, TComponent *>(typeid(T), Component));
 	}
 
 	template <typename T>
@@ -28,7 +28,7 @@ public:
 	{
 		int Count = Components.count(typeid(T));
 		if (Count >= 1)
-			Component = *Components.find(typeid(T));
+			Component = (T *) Components.find(typeid(T))->second;
 
 		return Count;
 	}
