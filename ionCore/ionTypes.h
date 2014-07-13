@@ -93,3 +93,5 @@ using std::string;
 using std::vector;
 using std::list;
 using std::map;
+using std::multimap;
+using std::pair;
