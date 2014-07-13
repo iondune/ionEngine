@@ -35,16 +35,7 @@
     <ClInclude Include="CSceneManager.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="CShaderLibrary.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneNodeFactory.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshLibrary.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CGLGraphicsEngine.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="CCamera.h">
@@ -65,14 +56,23 @@
     <ClInclude Include="CMeshComponent.h">
       <Filter>Node\Component</Filter>
     </ClInclude>
-    <ClInclude Include="IGraphicsEngine.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="CUpdateCallbackComponent.h">
       <Filter>Node\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshLibrary.h">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="CShaderLibrary.h">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="CGLGraphicsEngine.h">
+      <Filter>SceneManager\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsEngine.h">
+      <Filter>SceneManager\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -100,13 +100,7 @@
     <ClCompile Include="CSceneManager.cpp">
       <Filter>SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="CShaderLibrary.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneNodeFactory.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshLibrary.cpp">
       <Filter>SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
@@ -135,6 +129,18 @@
     </ClCompile>
     <ClCompile Include="CUpdateCallbackComponent.cpp">
       <Filter>Node\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshLibrary.cpp">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderLibrary.cpp">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="CGLGraphicsEngine.cpp">
+      <Filter>SceneManager\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp">
+      <Filter>SceneManager\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,12 @@
     </Filter>
     <Filter Include="Node\Component">
       <UniqueIdentifier>{113513f8-0344-44d6-9863-b55fc0d28ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager\Libraries">
+      <UniqueIdentifier>{501fbe7b-ef85-4f56-9637-6c23006da74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager\Graphics">
+      <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

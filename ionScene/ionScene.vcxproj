@@ -69,6 +69,8 @@
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDirectionalLightSceneObject.cpp" />
+    <ClCompile Include="CGLGraphicsEngine.cpp" />
+    <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp" />
     <ClCompile Include="CInstanceSceneObject.cpp" />
     <ClCompile Include="CLightSceneObject.cpp" />
     <ClCompile Include="CMeshComponent.cpp" />

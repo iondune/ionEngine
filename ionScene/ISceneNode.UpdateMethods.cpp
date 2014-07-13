@@ -31,5 +31,6 @@ void ISceneNode::Update()
 
 void ISceneNode::Draw(IGraphicsEngine * Engine)
 {
-	RecurseOnChildren(& ISceneNode::Draw, Engine);
+	if (Visible)
+		RecurseOnChildren(& ISceneNode::Draw, Engine);
 }

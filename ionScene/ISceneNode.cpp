@@ -11,6 +11,9 @@ ISceneNode::ISceneNode(ISceneNode * Parent)
 	SetParent(Parent);
 }
 
+ISceneNode::~ISceneNode()
+{}
+
 bool ISceneNode::IsVisible() const
 {
 	return Visible;

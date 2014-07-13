@@ -5,16 +5,24 @@
 
 
 class CScene;
+class CSceneNode;
 
-class CSceneNode : public ISceneNode
+
+class ISceneNodeComponent
 {
 
 public:
 
-	/////////////////////
-	// General Methods //
-	/////////////////////
+	virtual void Update(CSceneNode * Node) = 0;
 
+};
+
+class CSceneNode : public ISceneNode, public IEntity<ISceneNodeComponent>
+{
+
+public:
+
+	//! Constructor
 	CSceneNode(CScene * Scene, ISceneNode * Parent);
 
 	//! Perform pre-draw update
@@ -23,38 +31,16 @@ public:
 	//! Perform draw
 	virtual void Draw(IGraphicsEngine * Engine);
 
+	//! Scene accessor
 	CScene * GetScene();
 
-
-	/////////////////////////////
-	// Component/Entity System //
-	/////////////////////////////
-
-	class IComponent
-	{
-
-	public:
-
-		virtual void Update(CSceneNode * Node) = 0;
-		virtual void Draw(CSceneNode * Node, IGraphicsEngine * Engine) = 0;
-
-	};
-
-	template <typename T>
-	void AddComponent(T * Component)
-	{
-		Components[typeid(T)] = Component;
-	}
-
-	template <typename T>
-	IComponent * GetComponent()
-	{
-		return ConditionalMapAccess<Type, IComponent>(Components, typeid(T));
-	}
+	//! TransformationUniform accessor
+	CUniformReference<glm::mat4> & GetTransformationUniform();
 
 protected:
 
 	CScene * Scene;
-	map<Type, IComponent *> Components;
+
+	CUniformReference<glm::mat4> TransformationUniform;
 
 };

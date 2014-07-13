@@ -42,9 +42,10 @@
   <ItemGroup>
     <ClInclude Include="CGeometryCreator.h" />
     <ClInclude Include="CImage.h" />
-    <ClInclude Include="CImageLoader.h" />
     <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="ionAsset.h" />
+    <ClInclude Include="IUniform.h" />
     <ClInclude Include="SMaterial.h" />
     <ClInclude Include="SMeshBuffer.h" />
     <ClInclude Include="SMeshNode.h" />
@@ -54,9 +55,9 @@
   <ItemGroup>
     <ClCompile Include="CGeometryCreator.cpp" />
     <ClCompile Include="CImage.cpp" />
-    <ClCompile Include="CImageLoader.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMesh.Load.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="SMaterial.cpp" />
     <ClCompile Include="SMeshBuffer.cpp" />
     <ClCompile Include="SMeshNode.cpp" />

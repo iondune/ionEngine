@@ -4,7 +4,7 @@
 #include "CSceneNode.h"
 
 
-class CUpdateCallbackComponent : public CSceneNode::IComponent
+class CUpdateCallbackComponent : public ISceneNodeComponent
 {
 
 public:

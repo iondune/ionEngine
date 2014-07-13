@@ -7,6 +7,7 @@ CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 : ISceneNode(Parent)
 {
 	this->Scene = Scene;
+	TransformationUniform.Value = & AbsoluteTransformation;
 }
 
 void CSceneNode::Update()
@@ -19,8 +20,8 @@ void CSceneNode::Update()
 
 void CSceneNode::Draw(IGraphicsEngine * Engine)
 {
-	for (auto it : Components)
-		it.second->Draw(this, Engine);
+	if (Visible)
+		Engine->Draw(this);
 	
 	ISceneNode::Draw(Engine);
 }
@@ -28,4 +29,9 @@ void CSceneNode::Draw(IGraphicsEngine * Engine)
 CScene * CSceneNode::GetScene()
 {
 	return Scene;
+}
+
+CUniformReference<glm::mat4> & CSceneNode::GetTransformationUniform()
+{
+	return TransformationUniform;
 }

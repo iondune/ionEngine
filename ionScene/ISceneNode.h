@@ -21,8 +21,8 @@ public:
 	//! Constructor
 	ISceneNode(ISceneNode * Parent);
 
-	virtual ~ISceneNode()
-	{}
+	//! Destructor
+	virtual ~ISceneNode();
 
 	//! Check if visible
 	virtual bool IsVisible() const;
