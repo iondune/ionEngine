@@ -16,5 +16,6 @@ syntax: glob
 *.o
 *.a
 *.sublime-workspace
+*.dll
 .depend.mk
 Documentation/html
