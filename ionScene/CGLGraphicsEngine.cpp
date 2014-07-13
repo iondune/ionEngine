@@ -1,6 +1,7 @@
 
 #include "CGLGraphicsEngine.h"
 #include "CMeshComponent.h"
+#include "CTextureComponent.h"
 
 
 CGLGraphicsEngine::CGLGraphicsEngine()
@@ -13,7 +14,7 @@ void CGLGraphicsEngine::Begin(CScene * Scene)
 	ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
 }
 
-void RecurseAndDraw(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node, vector<ion::GL::ImageTexture *> const & Textures);
+void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node);
 
 void CGLGraphicsEngine::Draw(ISceneNode * Node)
 {
@@ -25,11 +26,30 @@ void CGLGraphicsEngine::Draw(ISceneNode * Node)
 		int Count = SceneNode->ExpectSingleComponent<CMeshComponent>(MeshComponent);
 
 		if (MeshComponent)
-			RecurseAndDraw(SceneNode, MeshComponent, RenderPasses[0].Elements[MeshComponent->GetShader()], MeshComponent->GetMesh()->Root, MeshComponent->GetTextures());
+			RecurseMesh(SceneNode, MeshComponent, RenderPasses[0].Elements[MeshComponent->GetShader()], MeshComponent->GetMesh()->Root);
+		
+		CTextureComponent * TextureComponent = nullptr;
+		Count = SceneNode->ExpectSingleComponent<CTextureComponent>(TextureComponent);
+
+		if (TextureComponent)
+		{
+			for (auto & Definition : RenderPasses[0].Elements[MeshComponent->GetShader()])
+			{
+				for (uint i = 0; i < TextureComponent->GetTextureCount(); ++ i)
+				{
+					stringstream Label;
+					Label << "Texture";
+					Label << i;
+					Definition.AddUniform(Label.str(), TextureComponent->GetTextureUniform(i));
+					Definition.Textures.push_back(TextureComponent->GetTexture(i));
+				}
+			}
+		}
+		
 	}
 }
 
-void RecurseAndDraw(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node, vector<ion::GL::ImageTexture *> const & Textures)
+void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node)
 {
 	for (uint i = 0; i < Node->Buffers.size(); ++ i)
 	{
@@ -37,21 +57,12 @@ void RecurseAndDraw(CSceneNode * SceneNode, CMeshComponent * Component, vector<C
 		Definition.AddUniform("Model", SceneNode->GetTransformationUniform());
 		Definition.AddUniform("Local", Node->AbsoluteTransformation);
 
-		for (uint i = 0; i < Textures.size(); ++ i)
-		{
-			stringstream Label;
-			Label << "Texture";
-			Label << i;
-			Definition.AddUniform(Label.str(), Component->GetTextureUniforms()[i]);
-			Definition.Textures.push_back(Textures[i]);
-		}
-
 		Definitions.push_back(Definition);
 	}
 	
 	for (auto & Child : Node->GetChildren())
 	{
-		RecurseAndDraw(SceneNode, Component, Definitions, Child, Textures);
+		RecurseMesh(SceneNode, Component, Definitions, Child);
 	}
 }
 

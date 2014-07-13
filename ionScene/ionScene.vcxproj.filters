@@ -74,6 +74,12 @@
     <ClInclude Include="IGraphicsEngine.h">
       <Filter>SceneManager\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="CTextureLibrary.h">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureComponent.h">
+      <Filter>Node\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -141,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp">
       <Filter>SceneManager\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureLibrary.cpp">
+      <Filter>SceneManager\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureComponent.cpp">
+      <Filter>Node\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

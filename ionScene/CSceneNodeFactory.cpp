@@ -2,6 +2,7 @@
 #include "CSceneNodeFactory.h"
 #include "CSceneManager.h"
 #include "CMeshComponent.h"
+#include "CTextureComponent.h"
 #include "CUpdateCallbackComponent.h"
 
 
@@ -65,7 +66,8 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture
 	CMesh * Mesh = CGeometryCreator::CreateSkySphere();
 
 	CSceneNode * Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
-	Node->AddComponent(new CMeshComponent{Mesh, Shader, Texture});
+	Node->AddComponent(new CMeshComponent{Mesh, Shader});
+	Node->AddComponent(new CTextureComponent{Texture});
 	Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
 	{
 		Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());

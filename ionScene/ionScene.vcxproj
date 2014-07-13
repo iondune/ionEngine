@@ -58,6 +58,8 @@
     <ClInclude Include="CSceneManager.Old.h" />
     <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="CShaderLibrary.h" />
+    <ClInclude Include="CTextureComponent.h" />
+    <ClInclude Include="CTextureLibrary.h" />
     <ClInclude Include="CUpdateCallbackComponent.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="IGraphicsEngine.h" />
@@ -85,6 +87,8 @@
     <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CSceneNodeFactory.cpp" />
     <ClCompile Include="CShaderLibrary.cpp" />
+    <ClCompile Include="CTextureComponent.cpp" />
+    <ClCompile Include="CTextureLibrary.cpp" />
     <ClCompile Include="CUpdateCallbackComponent.cpp" />
     <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />
