@@ -7,10 +7,18 @@ ion::GL::Program * CShaderLibrary::Get(string const & Label)
 	return ConditionalMapAccess(Shaders, Label);
 }
 
+static string MakeFileName(string const & BaseDirectory, string const & File, string const & Extension)
+{
+	if (BaseDirectory.length() > 0)
+		return BaseDirectory + "/" + File + Extension;
+	else
+		return File + Extension;
+}
+
 ion::GL::Program * CShaderLibrary::Load(string const & File)
 {
-	string const VertFileName = BaseDirectory + "/" + File + ".vert";
-	string const FragFileName = BaseDirectory + "/" + File + ".frag";
+	string const VertFileName = MakeFileName(BaseDirectory, File, ".vert");
+	string const FragFileName = MakeFileName(BaseDirectory, File, ".frag");
 
 	if (File::Exists(VertFileName) && File::Exists(FragFileName))
 	{
