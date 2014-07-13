@@ -81,6 +81,22 @@ namespace ion
 				return Value;
 			}
 
+			UniformValue & operator = (T const & value)
+			{
+				Value = value;
+				return * this;
+			}
+
+			operator T()
+			{
+				return Value;
+			}
+
+			operator T() const
+			{
+				return Value;
+			}
+
 		};
 
 		template <typename T>
