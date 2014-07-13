@@ -13,16 +13,27 @@ CMesh::CMesh(SMeshBuffer * const Buffer)
 	Root = new SMeshNode{};
 	Root->Buffers.push_back(Buffer);
 
-	LoadDataIntoBuffers();
+	Update();
 }
 
 CMesh::CMesh(SMeshBuffer && Buffer)
 : CMesh(new SMeshBuffer(Buffer))
 {}
 
+void CMesh::Update()
+{
+	LoadDataIntoBuffers();
+	UpdateNodeTransformations();
+}
+
 void CMesh::LoadDataIntoBuffers()
 {
 	std::for_each(Buffers.begin(), Buffers.end(), [](SMeshBuffer * Buffer){ Buffer->LoadDataIntoBuffers(); });
+}
+
+void CMesh::UpdateNodeTransformations()
+{
+	Root->CalculateAbsoluteTransformation();
 }
 
 /*

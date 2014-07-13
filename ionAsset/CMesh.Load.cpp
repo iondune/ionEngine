@@ -6,6 +6,43 @@
 #include <assimp/postprocess.h>
 
 
+SMaterial * LoadMaterial(aiMaterial * Material);
+SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials);
+SMeshNode * TraverseMesh(aiScene const * Scene, aiNode * Node, vector<SMeshBuffer *> const & Buffers);
+
+
+CMesh * CMesh::Load(std::string const & FileName)
+{
+	Assimp::Importer Importer;
+
+	aiScene const * const Scene = Importer.ReadFile(FileName,
+		aiProcess_CalcTangentSpace |
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType
+		);
+
+	if (! Scene)
+	{
+		std::cerr << "Failed to import mesh file '" << FileName << "': " << Importer.GetErrorString() << std::endl;
+		return 0;
+	}
+
+	CMesh * Result = new CMesh{};
+
+	for (uint i = 0; i < Scene->mNumMaterials; ++ i)
+		Result->Materials.push_back(LoadMaterial(Scene->mMaterials[i]));
+
+	for (uint i = 0; i < Scene->mNumMeshes; ++ i)
+		Result->Buffers.push_back(LoadBuffer(Scene->mMeshes[i], Result->Materials));
+
+	Result->Root = TraverseMesh(Scene, Scene->mRootNode, Result->Buffers);
+	Result->Update();
+
+	return Result;
+}
+
+
 SMaterial * LoadMaterial(aiMaterial * Material)
 {
 	SMaterial * Result = new SMaterial{};
@@ -74,37 +111,6 @@ SMeshNode * TraverseMesh(aiScene const * Scene, aiNode * Node, vector<SMeshBuffe
 
 	for (uint i = 0; i < Node->mNumChildren; ++ i)
 		Result->AddChild(TraverseMesh(Scene, Node->mChildren[i], Buffers));
-
-	return Result;
-}
-
-CMesh * CMesh::Load(std::string const & FileName)
-{
-	Assimp::Importer Importer;
-
-	aiScene const * const Scene = Importer.ReadFile(FileName,
-		aiProcess_CalcTangentSpace |
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices |
-		aiProcess_SortByPType
-		);
-
-	if (! Scene)
-	{
-		std::cerr << "Failed to import mesh file '" << FileName << "': " << Importer.GetErrorString() << std::endl;
-		return 0;
-	}
-
-	CMesh * Result = new CMesh{};
-
-	for (uint i = 0; i < Scene->mNumMaterials; ++ i)
-		Result->Materials.push_back(LoadMaterial(Scene->mMaterials[i]));
-
-	for (uint i = 0; i < Scene->mNumMeshes; ++ i)
-		Result->Buffers.push_back(LoadBuffer(Scene->mMeshes[i], Result->Materials));
-
-	Result->Root = TraverseMesh(Scene, Scene->mRootNode, Result->Buffers);
-	Result->LoadDataIntoBuffers();
 
 	return Result;
 }

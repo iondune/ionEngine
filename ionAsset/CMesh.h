@@ -25,7 +25,9 @@ public:
 	CMesh(SMeshBuffer * const Buffer);
 	CMesh(SMeshBuffer && Buffer);
 
+	void Update();
 	void LoadDataIntoBuffers();
+	void UpdateNodeTransformations();
 
 	/*
 	uint GetVertexCount() const;
