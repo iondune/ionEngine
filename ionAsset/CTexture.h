@@ -5,17 +5,19 @@
 #include "CImage.h"
 
 
+typedef ion::GL::Texture2D::Params STextureParams;
+
 class CTexture
 {
 
 public:
 
 	CTexture();
-	CTexture(CImage * Image);
+	CTexture(CImage * Image, STextureParams const & Params = STextureParams{});
 
 	void SetImage(CImage * Image);
-	void SetParams(ion::GL::Texture2D::Params const & Params);
-	ion::GL::Texture2D::Params & SetParams();
+	void SetParams(STextureParams const & Params);
+	STextureParams & SetParams();
 
 	CImage * GetImage();
 	ion::GL::Texture2D * GetHandle();
@@ -25,6 +27,6 @@ private:
 	ion::GL::Texture2D * Handle = new ion::GL::Texture2D();
 	CImage * Image = nullptr;
 
-	ion::GL::Texture2D::Params Params;
+	STextureParams Params;
 
 };

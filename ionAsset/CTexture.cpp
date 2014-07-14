@@ -5,8 +5,9 @@
 CTexture::CTexture()
 {}
 
-CTexture::CTexture(CImage * Image)
+CTexture::CTexture(CImage * Image, STextureParams const & Params)
 {
+	SetParams(Params);
 	SetImage(Image);
 }
 
@@ -21,10 +22,12 @@ void CTexture::SetImage(CImage * Image)
 void CTexture::SetParams(ion::GL::Texture2D::Params const & Params)
 {
 	this->Params = Params;
+	Handle->SetParams(Params);
 }
 
 ion::GL::Texture2D::Params & CTexture::SetParams()
 {
+	Handle->SetParams(Params);
 	return Params;
 }
 
