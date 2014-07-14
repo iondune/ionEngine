@@ -40,11 +40,14 @@ void CGLGraphicsEngine::Draw(ISceneNode * Node)
 			{
 				for (uint i = 0; i < TextureComponent->GetTextureCount(); ++ i)
 				{
-					stringstream Label;
-					Label << "Texture";
-					Label << i;
-					Definition.AddUniform(Label.str(), TextureComponent->GetTextureUniform(i));
-					Definition.Textures.push_back(TextureComponent->GetTexture(i)->GetHandle());
+					if (TextureComponent->GetTexture(i))
+					{
+						stringstream Label;
+						Label << "Texture";
+						Label << i;
+						Definition.AddUniform(Label.str(), TextureComponent->GetTextureUniform(i));
+						Definition.Textures.push_back(TextureComponent->GetTexture(i)->GetHandle());
+					}
 				}
 			}
 		}
