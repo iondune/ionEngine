@@ -1,5 +1,6 @@
 
 #include "CGLGraphicsEngine.h"
+#include "CShaderComponent.h"
 #include "CMeshComponent.h"
 #include "CTextureComponent.h"
 
@@ -14,7 +15,7 @@ void CGLGraphicsEngine::Begin(CScene * Scene)
 	ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
 }
 
-void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node);
+static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node);
 
 void CGLGraphicsEngine::Draw(ISceneNode * Node)
 {
@@ -22,18 +23,20 @@ void CGLGraphicsEngine::Draw(ISceneNode * Node)
 
 	if (SceneNode)
 	{
+		CShaderComponent * ShaderComponent = nullptr;
 		CMeshComponent * MeshComponent = nullptr;
-		int Count = SceneNode->ExpectSingleComponent<CMeshComponent>(MeshComponent);
+		CTextureComponent * TextureComponent = nullptr;
+		
+		SceneNode->ExpectSingleComponent<CShaderComponent>(ShaderComponent);
+		SceneNode->ExpectSingleComponent<CMeshComponent>(MeshComponent);
+		SceneNode->ExpectSingleComponent<CTextureComponent>(TextureComponent);
 
 		if (MeshComponent)
-			RecurseMesh(SceneNode, MeshComponent, RenderPasses[0].Elements[MeshComponent->GetShader()], MeshComponent->GetMesh()->Root);
+			RecurseMesh(SceneNode, MeshComponent, RenderPasses[0].Elements[ShaderComponent->GetShader()], MeshComponent->GetMesh()->Root);
 		
-		CTextureComponent * TextureComponent = nullptr;
-		Count = SceneNode->ExpectSingleComponent<CTextureComponent>(TextureComponent);
-
 		if (TextureComponent)
 		{
-			for (auto & Definition : RenderPasses[0].Elements[MeshComponent->GetShader()])
+			for (auto & Definition : RenderPasses[0].Elements[ShaderComponent->GetShader()])
 			{
 				for (uint i = 0; i < TextureComponent->GetTextureCount(); ++ i)
 				{
@@ -41,15 +44,14 @@ void CGLGraphicsEngine::Draw(ISceneNode * Node)
 					Label << "Texture";
 					Label << i;
 					Definition.AddUniform(Label.str(), TextureComponent->GetTextureUniform(i));
-					Definition.Textures.push_back(TextureComponent->GetTexture(i));
+					Definition.Textures.push_back(TextureComponent->GetTexture(i)->GetHandle());
 				}
 			}
 		}
-		
 	}
 }
 
-void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node)
+static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node)
 {
 	for (uint i = 0; i < Node->Buffers.size(); ++ i)
 	{

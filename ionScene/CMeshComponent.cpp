@@ -1,23 +1,23 @@
 
 #include "CMeshComponent.h"
 
-#include "CGLGraphicsEngine.h"
 
+CMeshComponent::CMeshComponent()
+{}
 
-CMeshComponent::CMeshComponent(CMesh * Mesh, ion::GL::Program * Shader)
+CMeshComponent::CMeshComponent(CMesh * Mesh)
 {
 	this->Mesh = Mesh;
-	this->Shader = Shader;
+}
+
+void CMeshComponent::SetMesh(CMesh * Mesh)
+{
+	this->Mesh = Mesh;
 }
 
 CMesh * CMeshComponent::GetMesh()
 {
 	return Mesh;
-}
-
-ion::GL::Program * CMeshComponent::GetShader()
-{
-	return Shader;
 }
 
 void CMeshComponent::Update(CSceneNode * Node)

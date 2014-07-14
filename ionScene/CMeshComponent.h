@@ -1,24 +1,25 @@
 
 #pragma once
 
-#include "CSceneNode.h"
+#include <ionAsset.h>
+#include "ISceneNodeComponent.h"
 
 
 class CMeshComponent : public ISceneNodeComponent
 {
 
 public:
-
-	CMeshComponent(CMesh * Mesh, ion::GL::Program * Shader);
+	
+	CMeshComponent();
+	CMeshComponent(CMesh * Mesh);
 	
 	void Update(CSceneNode * Node);
 
+	void SetMesh(CMesh * Mesh);
 	CMesh * GetMesh();
-	ion::GL::Program * GetShader();
 
 private:
 
 	CMesh * Mesh = nullptr;
-	ion::GL::Program * Shader = nullptr;
 
 };

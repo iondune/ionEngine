@@ -3,6 +3,7 @@
 
 #include "CMeshLibrary.h"
 #include "CShaderLibrary.h"
+#include "CTextureLibrary.h"
 #include "CSceneNodeFactory.h"
 #include "CScene.h"
 
@@ -14,6 +15,7 @@ public:
 
 	CMeshLibrary * GetMeshLibrary();
 	CShaderLibrary * GetShaderLibrary();
+	CTextureLibrary * GetTextureLibrary();
 	CSceneNodeFactory * GetFactory();
 
 	virtual void DrawAll(IGraphicsEngine * Engine);
@@ -23,8 +25,9 @@ public:
 
 protected:
 
-	CMeshLibrary * MeshLibrary = new CMeshLibrary;
-	CShaderLibrary * ShaderLibrary = new CShaderLibrary;
+	CMeshLibrary * MeshLibrary = new CMeshLibrary{};
+	CShaderLibrary * ShaderLibrary = new CShaderLibrary{};
+	CTextureLibrary * TextureLibrary = new CTextureLibrary{};
 	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
 	CScene * Scene = new CScene{};
 

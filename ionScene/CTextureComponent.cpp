@@ -2,7 +2,7 @@
 #include "CTextureComponent.h"
 
 
-CTextureComponent::CTextureComponent(ion::GL::ImageTexture * Texture0)
+CTextureComponent::CTextureComponent(CTexture * Texture0)
 {
 	if (Texture0)
 	{
@@ -16,7 +16,7 @@ uint CTextureComponent::GetTextureCount() const
 	return Textures.size();
 }
 
-ion::GL::ImageTexture * CTextureComponent::GetTexture(uint const Index)
+CTexture * CTextureComponent::GetTexture(uint const Index)
 {
 	if (Textures.size() >= Index)
 		return Textures[Index];
@@ -30,7 +30,7 @@ ion::GL::UniformValue<int> * CTextureComponent::GetTextureUniform(uint const Ind
 	return 0;
 }
 
-vector<ion::GL::ImageTexture *> & CTextureComponent::GetTextures()
+vector<CTexture *> & CTextureComponent::GetTextures()
 {
 	return Textures;
 }
@@ -40,12 +40,12 @@ vector<ion::GL::UniformValue<int> *> & CTextureComponent::GetTextureUniforms()
 	return TextureUniforms;
 }
 
-void CTextureComponent::SetTexture(uint const Index, ion::GL::ImageTexture * Texture)
+void CTextureComponent::SetTexture(uint const Index, CTexture * Texture)
 {
 	if (Index >= Textures.size())
 	{
-		Textures.resize(Index, nullptr);
-		TextureUniforms.resize(Index, nullptr);
+		Textures.resize(Index + 1, nullptr);
+		TextureUniforms.resize(Index + 1, nullptr);
 	}
 
 	Textures[Index] = Texture;

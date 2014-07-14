@@ -30,6 +30,9 @@
     <ClInclude Include="IUniform.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGeometryCreator.cpp" />

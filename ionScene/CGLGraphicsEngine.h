@@ -27,7 +27,7 @@ public:
 
 	struct SRenderPass
 	{
-		map<ion::GL::Program *, vector<SDrawDefinition>> Elements;
+		map<CShader *, vector<SDrawDefinition>> Elements;
 	};
 
 

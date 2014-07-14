@@ -2,7 +2,7 @@
 #pragma once
 
 #include <ionCore.h>
-#include <ionGL.h>
+#include <ionAsset.h>
 
 
 class CShaderLibrary
@@ -10,16 +10,16 @@ class CShaderLibrary
 
 public:
 
-	ion::GL::Program * Get(string const & Label);
-	ion::GL::Program * Load(string const & File);
-	ion::GL::Program * LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource);
+	CShader * Get(string const & Label);
+	CShader * Load(string const & File);
+	CShader * LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource);
 
 	void SetBaseDirectory(string const & BaseDirectory);
 	string GetBaseDirectory() const;
 
 protected:
 
-	map<string, ion::GL::Program *> Shaders;
+	map<string, CShader *> Shaders;
 	string BaseDirectory;
 
 };

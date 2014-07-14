@@ -80,6 +80,12 @@
     <ClInclude Include="CTextureComponent.h">
       <Filter>Node\Component</Filter>
     </ClInclude>
+    <ClInclude Include="CShaderComponent.h">
+      <Filter>Node\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneNodeComponent.h">
+      <Filter>Node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDirectionalLightSceneObject.cpp">
@@ -152,6 +158,9 @@
       <Filter>SceneManager\Libraries</Filter>
     </ClCompile>
     <ClCompile Include="CTextureComponent.cpp">
+      <Filter>Node\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CShaderComponent.cpp">
       <Filter>Node\Component</Filter>
     </ClCompile>
   </ItemGroup>

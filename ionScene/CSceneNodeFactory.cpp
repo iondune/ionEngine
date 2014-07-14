@@ -13,20 +13,21 @@ CSceneNodeFactory::CSceneNodeFactory(CSceneManager * SceneManager)
 
 CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string const & ShaderLabel)
 {
-	CSceneNode * Node = 0;
+	CSceneNode * Node = nullptr;
 	CMesh * Mesh = SceneManager->GetMeshLibrary()->Get(MeshLabel);
-	ion::GL::Program * Shader = SceneManager->GetShaderLibrary()->Get(ShaderLabel);
+	CShader * Shader = SceneManager->GetShaderLibrary()->Get(ShaderLabel);
 
 	if (Mesh && Shader)
 	{
 		Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
-		Node->AddComponent(new CMeshComponent{Mesh, Shader});
+		Node->SetShader(Shader);
+		Node->SetMesh(Mesh);
 	}
 
 	return Node;
 }
 
-CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture)
+CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 {
 	string const VertexShaderSource = R"SHADER(
 		#version 150
@@ -61,17 +62,23 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(ion::GL::ImageTexture * Texture
 			outColor = texture(Texture0, fTexCoord);
 		}
 	)SHADER";
-
-	ion::GL::Program * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, FragmentShaderSource);
+	
+	CSceneNode * Node = nullptr;
+	CShader * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, FragmentShaderSource);
 	CMesh * Mesh = CGeometryCreator::CreateSkySphere();
+	CTexture * Texture = SceneManager->GetTextureLibrary()->Get(TextureLabel);
 
-	CSceneNode * Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
-	Node->AddComponent(new CMeshComponent{Mesh, Shader});
-	Node->AddComponent(new CTextureComponent{Texture});
-	Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
+	if (Texture)
 	{
-		Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());
-	}});
+		Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
+		Node->SetShader(Shader);
+		Node->SetMesh(Mesh);
+		Node->SetTexture(0, Texture);
+		Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
+		{
+			Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());
+		}});
+	}
 
 	return Node;
 }

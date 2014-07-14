@@ -2,7 +2,7 @@
 #include "CShaderLibrary.h"
 
 
-ion::GL::Program * CShaderLibrary::Get(string const & Label)
+CShader * CShaderLibrary::Get(string const & Label)
 {
 	return ConditionalMapAccess(Shaders, Label);
 }
@@ -15,7 +15,7 @@ static string MakeFileName(string const & BaseDirectory, string const & File, st
 		return File + Extension;
 }
 
-ion::GL::Program * CShaderLibrary::Load(string const & File)
+CShader * CShaderLibrary::Load(string const & File)
 {
 	string const VertFileName = MakeFileName(BaseDirectory, File, ".vert");
 	string const FragFileName = MakeFileName(BaseDirectory, File, ".frag");
@@ -38,7 +38,7 @@ ion::GL::Program * CShaderLibrary::Load(string const & File)
 	return 0;
 }
 
-ion::GL::Program * CShaderLibrary::LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource)
+CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource)
 {
 	ion::GL::VertexShader * Vert = new ion::GL::VertexShader;
 	Vert->Source(VertShaderSource);

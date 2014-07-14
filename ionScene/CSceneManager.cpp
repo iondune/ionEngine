@@ -13,6 +13,11 @@ CShaderLibrary * CSceneManager::GetShaderLibrary()
 	return ShaderLibrary;
 }
 
+CTextureLibrary * CSceneManager::GetTextureLibrary()
+{
+	return TextureLibrary;
+}
+
 CSceneNodeFactory * CSceneManager::GetFactory()
 {
 	return Factory;

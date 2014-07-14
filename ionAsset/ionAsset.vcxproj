@@ -43,6 +43,7 @@
     <ClInclude Include="CGeometryCreator.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CShader.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="ionAsset.h" />
     <ClInclude Include="IUniform.h" />

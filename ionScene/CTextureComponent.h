@@ -9,23 +9,23 @@ class CTextureComponent : public ISceneNodeComponent
 
 public:
 
-	CTextureComponent(ion::GL::ImageTexture * Texture0 = 0);
+	CTextureComponent(CTexture * Texture0 = 0);
 	
 	void Update(CSceneNode * Node);
 
 	uint GetTextureCount() const;
 
-	ion::GL::ImageTexture * GetTexture(uint const Index);
+	CTexture * GetTexture(uint const Index);
 	ion::GL::UniformValue<int> * GetTextureUniform(uint const Index);
 
-	vector<ion::GL::ImageTexture *> & GetTextures();
+	vector<CTexture *> & GetTextures();
 	vector<ion::GL::UniformValue<int> *> & GetTextureUniforms();
 
-	void SetTexture(uint const Index, ion::GL::ImageTexture * Texture);
+	void SetTexture(uint const Index, CTexture * Texture);
 
 private:
 
-	vector<ion::GL::ImageTexture *> Textures;
+	vector<CTexture *> Textures;
 	vector<ion::GL::UniformValue<int> *> TextureUniforms;
 
 };

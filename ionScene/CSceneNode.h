@@ -2,20 +2,14 @@
 #pragma once
 
 #include "ISceneNode.h"
+#include "ISceneNodeComponent.h"
+
+#include "CShaderComponent.h"
+#include "CMeshComponent.h"
+#include "CTextureComponent.h"
 
 
 class CScene;
-class CSceneNode;
-
-
-class ISceneNodeComponent
-{
-
-public:
-
-	virtual void Update(CSceneNode * Node) = 0;
-
-};
 
 class CSceneNode : public ISceneNode, public IEntity<ISceneNodeComponent>
 {
@@ -36,6 +30,14 @@ public:
 
 	//! TransformationUniform accessor
 	CUniformReference<glm::mat4> & GetTransformationUniform();
+	
+	CShader * GetShader();
+	CMesh * GetMesh();
+	CTexture * GetTexture(uint const Index);
+
+	void SetShader(CShader * Shader);
+	void SetMesh(CMesh * Mesh);
+	void SetTexture(uint const Index, CTexture * Texture);
 
 protected:
 
