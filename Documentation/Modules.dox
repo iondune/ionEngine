@@ -5,10 +5,10 @@
 \dotfile ModuleDependencies.dot "Module Dependency Diagram"
 
 \section ionCore
-ionCore is the basis for all other modules, a set of basic boilerplate code and templates. See
-additional documentation here: \ref moduleCore
+ionCore is the basis for all other modules, a set of boilerplate functions and templates. See
+module documentation here: \ref moduleCore
 
 \section ionGL
-ionGL is an object oriented C++ interface to OpenGL. See additional documentation here: \ref moduleGL.
+ionGL is an object oriented C++ interface to OpenGL. See module documentation here: \ref moduleGL.
 
 */

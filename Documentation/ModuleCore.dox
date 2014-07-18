@@ -6,7 +6,7 @@
 
 \subsection Overview
 
-ionCore is the basis for all other modules, a set of basic boilerplate code and templates.
+ionCore is the basis for all other modules, a set of boilerplate functions and templates.
 
 \subsection Documentation
 
@@ -15,8 +15,7 @@ are used by all other modules, so most other module examples serve as example us
 
 \subsubsection Files
 
-The elements of the ionCore module are largely sorted by file, so the best place to learn specifics is the
-\link ionCore/ ionCore directory
-.
+The elements of the ionCore module are sorted by file, so the best place to learn specifics is the
+\link ionCore/ ionCore directory \endlink .
 
 */
