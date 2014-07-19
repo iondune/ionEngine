@@ -18,22 +18,22 @@ public:
 		: Start(start), End(end)
 	{}
 
-	Vector const GetMiddle() const
+	Vector GetMiddle() const
 	{
 		return (Start + End) / 2;
 	}
 
-	Vector const GetVector() const
+	Vector GetVector() const
 	{
 		return Start - End;
 	}
 
-	T const Length() const
+	T Length() const
 	{
 		return GetVector().Length();
 	}
 
-	friend T const Length(Type const & Line)
+	friend T Length(Type const & Line)
 	{
 		return Line.GetVector().Length();
 	}
