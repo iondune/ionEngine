@@ -13,12 +13,16 @@ public:
 	CShaderComponent();
 	CShaderComponent(CShader * Shader);
 	void Update(CSceneNode * Node);
-
+	
 	void SetShader(CShader * Shader);
+	void SetUniform(string const & Label, IUniform * Uniform);
 	CShader * GetShader();
+	IUniform * GetUniform(string const & Label);
+	map<string, IUniform *> & GetUniforms();
 
 private:
 
 	CShader * Shader = nullptr;
+	map<string, IUniform *> Uniforms;
 
 };

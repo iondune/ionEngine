@@ -34,6 +34,10 @@ void CGLGraphicsEngine::Draw(ISceneNode * Node)
 		if (MeshComponent)
 			RecurseMesh(SceneNode, MeshComponent, RenderPasses[0].Elements[ShaderComponent->GetShader()], MeshComponent->GetMesh()->Root);
 		
+		for (auto & Uniform : ShaderComponent->GetUniforms())
+			for (auto & Definition : RenderPasses[0].Elements[ShaderComponent->GetShader()])
+				Definition.AddUniform(Uniform.first, Uniform.second);
+
 		if (TextureComponent)
 		{
 			for (auto & Definition : RenderPasses[0].Elements[ShaderComponent->GetShader()])

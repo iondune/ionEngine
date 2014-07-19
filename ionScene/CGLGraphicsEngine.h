@@ -19,7 +19,7 @@ public:
 
 		SDrawDefinition();
 		SDrawDefinition(ion::GL::VertexArray * Array);
-		
+
 		SDrawDefinition & AddUniform(string const & Label, IUniform * Uniform);
 		SDrawDefinition & AddUniform(string const & Label, IUniform & Uniform);
 		ion::GL::Uniform * GetUniform(string const & Label);
@@ -34,9 +34,7 @@ public:
 	CGLGraphicsEngine();
 
 	void Begin(CScene * Scene);
-
 	void Draw(ISceneNode * Node);
-	
 	void Finalize(CScene * Scene);
 
 

@@ -2,7 +2,6 @@
 #include "CSceneNode.h"
 
 
-
 CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 : ISceneNode(Parent)
 {
