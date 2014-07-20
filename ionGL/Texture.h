@@ -85,6 +85,7 @@ namespace ion
 				EMipMaps MipMapMode;
 				EWrapMode WrapMode;
 				u32 MipMapLevels;
+				f32 Anisotropy;
 
 				Params();
 			};

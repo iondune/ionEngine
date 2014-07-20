@@ -15,7 +15,7 @@ namespace ion
 		ImageTexture::Params::Params()
 			: MinFilter(EFilter::Linear), MagFilter(EFilter::Linear), 
 			MipMapMode(EMipMaps::Linear), WrapMode(EWrapMode::Repeat),
-			MipMapLevels(8)
+			MipMapLevels(8), Anisotropy(1024.f)
 		{}
 		
 		ImageTexture::Params const & ImageTexture::GetParams() const
@@ -56,6 +56,10 @@ namespace ion
 			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, WrapLookup[(int) Parameters.WrapMode]));
 			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, WrapLookup[(int) Parameters.WrapMode]));
 			CheckedGLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, WrapLookup[(int) Parameters.WrapMode]));
+
+			f32 LargestAnisotropy;
+			CheckedGLCall(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
+			CheckedGLCall(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Parameters.Anisotropy, 0.f, LargestAnisotropy)));
 		}
 
 
