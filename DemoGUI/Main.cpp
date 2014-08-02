@@ -6,6 +6,13 @@
 using namespace ion::GL;
 
 
+void CheckSize(IFont * Font, char * str)
+{
+	int Width, Height;
+	Font->measure(& Width, & Height, str);
+	printf("'%s' is %d x %d\n", str, Width, Height);
+}
+
 int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
@@ -14,6 +21,13 @@ int main()
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
 	IFont * Font = IFont::init("OpenSans.ttf", 12);
+	
+	CheckSize(Font, "a");
+	CheckSize(Font, "ab");
+	CheckSize(Font, "abc");
+	CheckSize(Font, "A");
+	CheckSize(Font, "AB");
+	CheckSize(Font, "ABC");
 
 	while (! WindowManager->ShouldClose())
 	{

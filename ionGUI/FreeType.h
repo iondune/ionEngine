@@ -14,7 +14,7 @@ public:
 	virtual ~IFont()
 	{}
 
-	//virtual void measure(int * width, int * height, char const * fmt, ...) = 0;
+	virtual void measure(int * width, int * height, char const * fmt, ...) = 0;
 
 	virtual void print(float x, float y, const char *fmt, ...) = 0;
 

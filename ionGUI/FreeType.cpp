@@ -21,7 +21,7 @@ public:
 
 	virtual ~CFont();
 
-	//virtual void measure(int * width, int * height, char const * fmt, ...);
+	virtual void measure(int * width, int * height, char const * fmt, ...);
 
 	virtual void print(float x, float y, const char *fmt, ...) ;
 
@@ -38,7 +38,7 @@ protected:
 
 
 int NextLargerPowerOfTwo(int const a);
-//void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height);
+void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height);
 void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base);
 
 
@@ -121,58 +121,35 @@ inline void pop_projection_matrix()
 	glPopAttrib();
 }
 
-//void CFont::measure(int * width, int * height, char const * fmt, ...)
-//{
-//	char text[16386]; // Holds Our String
-//	va_list ap; // Pointer To List Of Arguments
-//
-//	if (fmt == NULL) // If There's No Text
-//		* text=0; // Do Nothing
-//	else
-//	{
-//		va_start(ap, fmt); // Parses The String For Variables
-//		vsprintf(text, fmt, ap); // And Converts Symbols To Actual Numbers
-//		va_end(ap); // Results Are Stored In Text
-//	}
-//
-//	const char * start_line = text;
-//	vector<string> lines;
-//	const char * c = text;
-//	for (; * c; ++ c)
-//	{
-//		if (* c == '\n')
-//		{
-//			string line;
-//			for (char const * n = start_line; n < c; ++ n)
-//				line.append(1, * n);
-//			lines.push_back(line);
-//			start_line = c + 1;
-//		}
-//	}
-//	if (start_line)
-//	{
-//		string line;
-//		for (char const * n = start_line; n < c; ++ n)
-//			line.append(1,* n);
-//		lines.push_back(line);
-//	}
-//
-//	*width = 0;
-//	*height = 0;
-//
-//	int x, y;
-//	for (unsigned int i = 0; i < lines.size(); ++ i)
-//	{
-//		for (unsigned int t = 0; t < lines[i].size(); ++ t)
-//		{
-//			get_glyph_size(this->face, lines[i][t], (int) Height, & x, & y);
-//			if (y > * height)
-//				*height = y;
-//			*width += x;
-//		}
-//	}
-//	*height += (int) ((lines.size() - 1) * Height);
-//}
+void CFont::measure(int * width, int * height, char const * fmt, ...)
+{
+	if (! fmt)
+		return;
+
+	char text[16386];
+	va_list ap;
+
+	va_start(ap, fmt);
+	vsprintf(text, fmt, ap);
+	va_end(ap);
+
+	*width = 0;
+	*height = 0;
+
+	int x, y;
+	vector<string> lines = String::SeparateLines(text);
+	for (unsigned int i = 0; i < lines.size(); ++ i)
+	{
+		for (unsigned int t = 0; t < lines[i].size(); ++ t)
+		{
+			get_glyph_size(this->face, lines[i][t], (int) Height, & x, & y);
+			if (y > * height)
+				*height = y;
+			*width += x;
+		}
+	}
+	*height += (int) ((lines.size() - 1) * Height);
+}
 
 void CFont::print(float x, float y, const char * fmt, ...)
 {
@@ -251,37 +228,6 @@ int NextLargerPowerOfTwo(int const a)
 	return rval;
 }
 
-//void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height)
-//{
-//	// The first thing we do is get FreeType to render our character
-//	// into a bitmap.  This actually requires a couple of FreeType commands:
-//
-//	// Load the Glyph for our character.
-//	if(FT_Load_Glyph(face, FT_Get_Char_Index(face, ch), FT_LOAD_DEFAULT))
-//		throw std::runtime_error("FT_Load_Glyph failed");
-//
-//	// Move the face's glyph into a Glyph object.
-//	FT_Glyph glyph;
-//	if(FT_Get_Glyph(face->glyph, & glyph))
-//		throw std::runtime_error("FT_Get_Glyph failed");
-//
-//	// Convert the glyph to a bitmap.
-//	FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
-//	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
-//
-//	// This reference will make accessing the bitmap easier
-//	FT_Bitmap & bitmap = bitmap_glyph->bitmap;
-//
-//	*width = //bitmap.width;
-//	//*width += bitmap_glyph->left;
-//	/*width +=*/ face->glyph->advance.x >> 6;
-//	*height = bitmap.rows;
-//	*height += font_height - bitmap_glyph->top;
-//	//*height = face.h/.63f;
-//
-//	FT_Done_Glyph(glyph);
-//}
-
 struct GlyphInfo
 {
 	GlyphInfo(FT_Face Face, char Ch)
@@ -292,25 +238,27 @@ struct GlyphInfo
 			return;
 		}
 
-		FT_Glyph glyph;
-		if (FT_Get_Glyph(Face->glyph, & glyph))
+		if (FT_Get_Glyph(Face->glyph, & Glyph))
 		{
 			cerr << "FT_Get_Glyph failed" << endl;
 			return;
 		}
 
-		FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
-		FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
-		FT_Bitmap & bitmap = bitmap_glyph->bitmap;
+		FT_Glyph_To_Bitmap(& Glyph, ft_render_mode_normal, 0, 1);
+		FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) Glyph;
+		Bitmap = bitmap_glyph->bitmap;
 
 		Top = bitmap_glyph->top;
 		Left = bitmap_glyph->left;
-		BitmapRows = bitmap.rows;
-		BitmapWidth = bitmap.width;
+		BitmapRows = Bitmap.rows;
+		BitmapWidth = Bitmap.width;
 		Advance = Face->glyph->advance.x / 64;
+	}
 
-		ImageWidth = NextLargerPowerOfTwo(bitmap.width);
-		ImageHeight = NextLargerPowerOfTwo(bitmap.rows);
+	void CreateImage()
+	{
+		ImageWidth = NextLargerPowerOfTwo(Bitmap.width);
+		ImageHeight = NextLargerPowerOfTwo(Bitmap.rows);
 		
 		// Two Channels
 		ImageData = new byte[2 * ImageWidth * ImageHeight];
@@ -323,19 +271,19 @@ struct GlyphInfo
 				ImageData[2 * (i + j * ImageWidth)] = 255;
 
 				// Alpha
-				if (i >= bitmap.width || j >= bitmap.rows)
+				if (i >= Bitmap.width || j >= Bitmap.rows)
 					ImageData[2 * (i + j * ImageWidth) + 1] = 0;
 				else
-					ImageData[2 * (i + j * ImageWidth) + 1] = bitmap.buffer[i + bitmap.width * j];
+					ImageData[2 * (i + j * ImageWidth) + 1] = Bitmap.buffer[i + Bitmap.width * j];
 			}
 		}
-
-		FT_Done_Glyph(glyph);
 	}
 
 	~GlyphInfo()
 	{
-		delete [] ImageData;
+		if (ImageData)
+			delete [] ImageData;
+		FT_Done_Glyph(Glyph);
 	}
 
 	byte * ImageData = nullptr;
@@ -348,19 +296,30 @@ struct GlyphInfo
 	int BitmapRows = 0;
 	int BitmapWidth = 0;
 	int Advance = 0;
+	
+	FT_Glyph Glyph;
+	FT_Bitmap Bitmap;
 };
 
-/// Create a display list coresponding to the give character.
+void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height)
+{
+	GlyphInfo Glyph(face, ch);
+
+	*width = Glyph.Advance;
+	*height = Glyph.BitmapRows;
+	*height += font_height - Glyph.Top;
+}
+
 void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 {
 	GlyphInfo Glyph(face, ch);
+	Glyph.CreateImage();
 
 	glBindTexture(GL_TEXTURE_2D, tex_base[ch]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Glyph.ImageWidth, Glyph.ImageHeight,
 		0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, Glyph.ImageData);
-
 
 	// So now we can create the display list
 	glNewList(list_base + ch, GL_COMPILE);
