@@ -3,22 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A69E0D16-25DF-4226-878D-91224A10551C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{A69E0D16-25DF-4226-878D-91224A10551C}"
 	ProjectSection(SolutionItems) = preProject
-		Include\ionAnimation.h = Include\ionAnimation.h
-		Include\ionAsset.h = Include\ionAsset.h
-		Include\ionBootstrap.h = Include\ionBootstrap.h
 		Include\ionConfig.h = Include\ionConfig.h
-		Include\ionCore.h = Include\ionCore.h
 		Include\ionEngine.h = Include\ionEngine.h
-		Include\ionFramework.h = Include\ionFramework.h
-		Include\ionGL.h = Include\ionGL.h
-		Include\ionGraphics.h = Include\ionGraphics.h
-		Include\ionGUI.h = Include\ionGUI.h
-		Include\ionMath.h = Include\ionMath.h
-		Include\ionScene.h = Include\ionScene.h
-		Include\ionScience.h = Include\ionScience.h
-		Include\ionWindow.h = Include\ionWindow.h
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoAsset", "DemoAsset\DemoAsset.vcxproj", "{791485D8-0C8C-48C2-B943-6E10C34860C0}"
@@ -76,6 +64,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGL", "ionGL\ionGL.vcxpro
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGUI", "ionGUI\ionGUI.vcxproj", "{B9BEDC8B-802D-48AB-B6D4-8A2CAD197F35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B8548F57-DF33-4215-AE44-83CF8BCF18C1} = {B8548F57-DF33-4215-AE44-83CF8BCF18C1}
+		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
+		{1FDC44C8-0538-4FDD-8F94-531DFC28D166} = {1FDC44C8-0538-4FDD-8F94-531DFC28D166}
+		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A} = {BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionMath", "ionMath\ionMath.vcxproj", "{A24BACED-451D-4120-A386-136A963C3C72}"
 EndProject
@@ -95,6 +89,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoGUI", "DemoGUI\DemoGUI.
 		{B9BEDC8B-802D-48AB-B6D4-8A2CAD197F35} = {B9BEDC8B-802D-48AB-B6D4-8A2CAD197F35}
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
 		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A} = {BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{EAB41B6E-7AAE-4A64-A98E-A0ACE574E0A1}"
+	ProjectSection(SolutionItems) = preProject
+		Include\ionAnimation.h = Include\ionAnimation.h
+		Include\ionAsset.h = Include\ionAsset.h
+		Include\ionBootstrap.h = Include\ionBootstrap.h
+		Include\ionCore.h = Include\ionCore.h
+		Include\ionFramework.h = Include\ionFramework.h
+		Include\ionGL.h = Include\ionGL.h
+		Include\ionGraphics.h = Include\ionGraphics.h
+		Include\ionGUI.h = Include\ionGUI.h
+		Include\ionMath.h = Include\ionMath.h
+		Include\ionScene.h = Include\ionScene.h
+		Include\ionScience.h = Include\ionScience.h
+		Include\ionWindow.h = Include\ionWindow.h
 	EndProjectSection
 EndProject
 Global
