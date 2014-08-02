@@ -22,11 +22,14 @@ int main()
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
 		
 		Font->print(0, 0, "Hello from 0, 0");
+		Font->print(320, 0, "Hello from 320, 0");
 		Font->print(0, 480, "Hello from 0, 480");
 		Font->print(0, 240, "Hello from 0, 240");
 
 		Window->SwapBuffers();
 	}
+
+	delete Font;
 
 	return 0;
 }

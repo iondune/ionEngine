@@ -27,7 +27,8 @@ public:
 
 protected:
 
-	float h;			///< Holds the height of the font.
+	float Height;			///< Holds the height of the font.
+	float LineSpacing = 1.5f;
 	GLuint * textures;	///< Holds the texture id's 
 	GLuint list_base;	///< Holds the first display list id
 	FT_Library library;
@@ -48,7 +49,6 @@ IFont * IFont::init(const char * fname, unsigned int h)
 
 IFont * CFont::init(const char * fname, unsigned int h)
 {
-
 	FT_Library library;
 	if (FT_Init_FreeType(& library))
 	{
@@ -57,7 +57,6 @@ IFont * CFont::init(const char * fname, unsigned int h)
 	}
 
 	FT_Face face;
-
 	if (FT_New_Face(library, fname, 0, & face))
 	{
 		cerr << "FT_New_Face failed (there is probably a problem with your font file)" << endl;
@@ -67,30 +66,18 @@ IFont * CFont::init(const char * fname, unsigned int h)
 	// For some twisted reason, Freetype measures font size
 	// in terms of 1/64ths of pixels.  Thus, to make a font
 	// h pixels high, we need to request a size of h*64.
-	// (h << 6 is just a prettier way of writting h*64)
-	FT_Set_Char_Size(face, h << 6, h << 6, 96, 96);
+	FT_Set_Char_Size(face, h*64, h*64, 96, 96);
 
-	// Here we ask opengl to allocate resources for
-	// all the textures and displays lists which we
-	// are about to create.
 	GLuint list_base = glGenLists(128);
 
 	GLuint * textures = new GLuint[128];
 	glGenTextures(128, textures);
 
-	// This is where we actually create each of the fonts display lists.
 	for (unsigned char i = 0; i < 128; ++ i)
 		make_dlist(face, i, list_base, textures);
 
-	// We don't need the face information now that the display
-	// lists have been created, so we free the assosiated resources.
-	//FT_Done_Face(face);
-
-	// Ditto for the library.
-	//FT_Done_FreeType(library);
-
 	CFont * Font = new CFont();
-	Font->h = (float) h;
+	Font->Height = (float) h;
 	Font->textures = textures;
 	Font->list_base = list_base;
 	Font->library = library;
@@ -136,8 +123,6 @@ inline void pop_projection_matrix()
 
 void CFont::measure(int * width, int * height, char const * fmt, ...)
 {
-	float h = this->h / 0.63f; //We make the height about 1.5* that of
-
 	char text[16386]; // Holds Our String
 	va_list ap; // Pointer To List Of Arguments
 
@@ -180,13 +165,13 @@ void CFont::measure(int * width, int * height, char const * fmt, ...)
 	{
 		for (unsigned int t = 0; t < lines[i].size(); ++ t)
 		{
-			get_glyph_size(this->face, lines[i][t], (int) this->h, & x, & y);
+			get_glyph_size(this->face, lines[i][t], (int) Height, & x, & y);
 			if (y > * height)
 				*height = y;
 			*width += x;
 		}
 	}
-	*height += (int) ((lines.size() - 1) * this->h);
+	*height += (int) ((lines.size() - 1) * Height);
 }
 
 void CFont::print(float x, float y, const char * fmt, ...)
@@ -195,7 +180,6 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	pushScreenCoordinateMatrix();
 
 	GLuint font = list_base;
-	float h = this->h/.63f; //We make the height about 1.5* that of
 
 	char text[16386]; // Holds Our String
 	va_list ap; // Pointer To List Of Arguments
@@ -264,7 +248,7 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	{
 		glPushMatrix();
 		glLoadIdentity();
-		glTranslatef(x, viewport[3] - y - 2 - h*i - this->h, 0);
+		glTranslatef(x, viewport[3] - y - 2 - Height * LineSpacing *i - Height, 0);
 		glMultMatrixf(modelview_matrix);
 
 		// The commented out raster position stuff can be useful if you need to
