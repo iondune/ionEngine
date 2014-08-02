@@ -21,7 +21,7 @@ public:
 
 	virtual ~CFont();
 
-	virtual void measure(int * width, int * height, char const * fmt, ...);
+	//virtual void measure(int * width, int * height, char const * fmt, ...);
 
 	virtual void print(float x, float y, const char *fmt, ...) ;
 
@@ -38,7 +38,7 @@ protected:
 
 
 int NextLargerPowerOfTwo(int const a);
-void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height);
+//void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height);
 void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base);
 
 
@@ -121,58 +121,58 @@ inline void pop_projection_matrix()
 	glPopAttrib();
 }
 
-void CFont::measure(int * width, int * height, char const * fmt, ...)
-{
-	char text[16386]; // Holds Our String
-	va_list ap; // Pointer To List Of Arguments
-
-	if (fmt == NULL) // If There's No Text
-		* text=0; // Do Nothing
-	else
-	{
-		va_start(ap, fmt); // Parses The String For Variables
-		vsprintf(text, fmt, ap); // And Converts Symbols To Actual Numbers
-		va_end(ap); // Results Are Stored In Text
-	}
-
-	const char * start_line = text;
-	vector<string> lines;
-	const char * c = text;
-	for (; * c; ++ c)
-	{
-		if (* c == '\n')
-		{
-			string line;
-			for (char const * n = start_line; n < c; ++ n)
-				line.append(1, * n);
-			lines.push_back(line);
-			start_line = c + 1;
-		}
-	}
-	if (start_line)
-	{
-		string line;
-		for (char const * n = start_line; n < c; ++ n)
-			line.append(1,* n);
-		lines.push_back(line);
-	}
-
-	*width = 0;
-	*height = 0;
-
-	int x, y;
-	for (unsigned int i = 0; i < lines.size(); ++ i)
-	{
-		for (unsigned int t = 0; t < lines[i].size(); ++ t)
-		{
-			get_glyph_size(this->face, lines[i][t], (int) Height, & x, & y);
-			if (y > * height)
-				*height = y;
-			*width += x;
-		}
-	}
-	*height += (int) ((lines.size() - 1) * Height);
-}
+//void CFont::measure(int * width, int * height, char const * fmt, ...)
+//{
+//	char text[16386]; // Holds Our String
+//	va_list ap; // Pointer To List Of Arguments
+//
+//	if (fmt == NULL) // If There's No Text
+//		* text=0; // Do Nothing
+//	else
+//	{
+//		va_start(ap, fmt); // Parses The String For Variables
+//		vsprintf(text, fmt, ap); // And Converts Symbols To Actual Numbers
+//		va_end(ap); // Results Are Stored In Text
+//	}
+//
+//	const char * start_line = text;
+//	vector<string> lines;
+//	const char * c = text;
+//	for (; * c; ++ c)
+//	{
+//		if (* c == '\n')
+//		{
+//			string line;
+//			for (char const * n = start_line; n < c; ++ n)
+//				line.append(1, * n);
+//			lines.push_back(line);
+//			start_line = c + 1;
+//		}
+//	}
+//	if (start_line)
+//	{
+//		string line;
+//		for (char const * n = start_line; n < c; ++ n)
+//			line.append(1,* n);
+//		lines.push_back(line);
+//	}
+//
+//	*width = 0;
+//	*height = 0;
+//
+//	int x, y;
+//	for (unsigned int i = 0; i < lines.size(); ++ i)
+//	{
+//		for (unsigned int t = 0; t < lines[i].size(); ++ t)
+//		{
+//			get_glyph_size(this->face, lines[i][t], (int) Height, & x, & y);
+//			if (y > * height)
+//				*height = y;
+//			*width += x;
+//		}
+//	}
+//	*height += (int) ((lines.size() - 1) * Height);
+//}
 
 void CFont::print(float x, float y, const char * fmt, ...)
 {
@@ -251,36 +251,36 @@ int NextLargerPowerOfTwo(int const a)
 	return rval;
 }
 
-void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height)
-{
-	// The first thing we do is get FreeType to render our character
-	// into a bitmap.  This actually requires a couple of FreeType commands:
-
-	// Load the Glyph for our character.
-	if(FT_Load_Glyph(face, FT_Get_Char_Index(face, ch), FT_LOAD_DEFAULT))
-		throw std::runtime_error("FT_Load_Glyph failed");
-
-	// Move the face's glyph into a Glyph object.
-	FT_Glyph glyph;
-	if(FT_Get_Glyph(face->glyph, & glyph))
-		throw std::runtime_error("FT_Get_Glyph failed");
-
-	// Convert the glyph to a bitmap.
-	FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
-	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
-
-	// This reference will make accessing the bitmap easier
-	FT_Bitmap & bitmap = bitmap_glyph->bitmap;
-
-	*width = //bitmap.width;
-	//*width += bitmap_glyph->left;
-	/*width +=*/ face->glyph->advance.x >> 6;
-	*height = bitmap.rows;
-	*height += font_height - bitmap_glyph->top;
-	//*height = face.h/.63f;
-
-	FT_Done_Glyph(glyph);
-}
+//void get_glyph_size(FT_Face face, char ch, int font_height, int * width, int * height)
+//{
+//	// The first thing we do is get FreeType to render our character
+//	// into a bitmap.  This actually requires a couple of FreeType commands:
+//
+//	// Load the Glyph for our character.
+//	if(FT_Load_Glyph(face, FT_Get_Char_Index(face, ch), FT_LOAD_DEFAULT))
+//		throw std::runtime_error("FT_Load_Glyph failed");
+//
+//	// Move the face's glyph into a Glyph object.
+//	FT_Glyph glyph;
+//	if(FT_Get_Glyph(face->glyph, & glyph))
+//		throw std::runtime_error("FT_Get_Glyph failed");
+//
+//	// Convert the glyph to a bitmap.
+//	FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
+//	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
+//
+//	// This reference will make accessing the bitmap easier
+//	FT_Bitmap & bitmap = bitmap_glyph->bitmap;
+//
+//	*width = //bitmap.width;
+//	//*width += bitmap_glyph->left;
+//	/*width +=*/ face->glyph->advance.x >> 6;
+//	*height = bitmap.rows;
+//	*height += font_height - bitmap_glyph->top;
+//	//*height = face.h/.63f;
+//
+//	FT_Done_Glyph(glyph);
+//}
 
 /// Create a display list coresponding to the give character.
 void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
