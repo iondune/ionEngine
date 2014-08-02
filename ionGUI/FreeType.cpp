@@ -282,61 +282,85 @@ int NextLargerPowerOfTwo(int const a)
 //	FT_Done_Glyph(glyph);
 //}
 
+struct GlyphInfo
+{
+	GlyphInfo(FT_Face Face, char Ch)
+	{
+		if (FT_Load_Glyph(Face, FT_Get_Char_Index(Face, Ch), FT_LOAD_DEFAULT))
+		{
+			cerr << "FT_Load_Glyph failed" << endl;
+			return;
+		}
+
+		FT_Glyph glyph;
+		if (FT_Get_Glyph(Face->glyph, & glyph))
+		{
+			cerr << "FT_Get_Glyph failed" << endl;
+			return;
+		}
+
+		FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
+		FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
+		FT_Bitmap & bitmap = bitmap_glyph->bitmap;
+
+		Top = bitmap_glyph->top;
+		Left = bitmap_glyph->left;
+		BitmapRows = bitmap.rows;
+		BitmapWidth = bitmap.width;
+		Advance = Face->glyph->advance.x / 64;
+
+		ImageWidth = NextLargerPowerOfTwo(bitmap.width);
+		ImageHeight = NextLargerPowerOfTwo(bitmap.rows);
+		
+		// Two Channels
+		ImageData = new byte[2 * ImageWidth * ImageHeight];
+
+		for (int j = 0; j <ImageHeight ; ++ j)
+		{
+			for (int i = 0; i < ImageWidth; ++ i)
+			{
+				// Luminocity
+				ImageData[2 * (i + j * ImageWidth)] = 255;
+
+				// Alpha
+				if (i >= bitmap.width || j >= bitmap.rows)
+					ImageData[2 * (i + j * ImageWidth) + 1] = 0;
+				else
+					ImageData[2 * (i + j * ImageWidth) + 1] = bitmap.buffer[i + bitmap.width * j];
+			}
+		}
+
+		FT_Done_Glyph(glyph);
+	}
+
+	~GlyphInfo()
+	{
+		delete [] ImageData;
+	}
+
+	byte * ImageData = nullptr;
+	
+	int ImageWidth = 0;
+	int ImageHeight = 0;
+
+	int Top = 0;
+	int Left = 0;
+	int BitmapRows = 0;
+	int BitmapWidth = 0;
+	int Advance = 0;
+};
+
 /// Create a display list coresponding to the give character.
 void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 {
-	if (FT_Load_Glyph(face, FT_Get_Char_Index(face, ch), FT_LOAD_DEFAULT))
-	{
-		cerr << "FT_Load_Glyph failed" << endl;
-		return;
-	}
-
-	FT_Glyph glyph;
-	if (FT_Get_Glyph(face->glyph, & glyph))
-	{
-		cerr << "FT_Get_Glyph failed" << endl;
-		return;
-	}
-
-	FT_Glyph_To_Bitmap(& glyph, ft_render_mode_normal, 0, 1);
-	FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph) glyph;
-	FT_Bitmap & bitmap = bitmap_glyph->bitmap;
-
-	int width = NextLargerPowerOfTwo(bitmap.width);
-	int height = NextLargerPowerOfTwo(bitmap.rows);
-	
-	// Two Channels
-	GLubyte * ImageData = new GLubyte[2 * width * height];
-	for (int j = 0; j <height ; ++ j)
-	{
-		for (int i = 0; i < width; ++ i)
-		{
-			// Luminocity
-			ImageData[2 * (i + j * width)] = 255;
-
-			// Alpha
-			if (i >= bitmap.width || j >= bitmap.rows)
-				ImageData[2 * (i + j * width) + 1] = 0;
-			else
-				ImageData[2 * (i + j * width) + 1] = bitmap.buffer[i + bitmap.width * j];
-		}
-	}
-
-	int GlyphTop = bitmap_glyph->top;
-	int GlyphLeft = bitmap_glyph->left;
-	int BitmapRows = bitmap.rows;
-	int BitmapWidth = bitmap.width;
-	int GlyphAdvance = face->glyph->advance.x / 64;
-
-	FT_Done_Glyph(glyph);
+	GlyphInfo Glyph(face, ch);
 
 	glBindTexture(GL_TEXTURE_2D, tex_base[ch]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-		0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, ImageData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Glyph.ImageWidth, Glyph.ImageHeight,
+		0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, Glyph.ImageData);
 
-	delete [] ImageData;
 
 	// So now we can create the display list
 	glNewList(list_base + ch, GL_COMPILE);
@@ -346,12 +370,12 @@ void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 	// first we need to move over a little so that
 	// the character has the right amount of space
 	// between it and the one before it.
-	glTranslatef((float) GlyphLeft, 0, 0);
+	glTranslatef((float) Glyph.Left, 0, 0);
 
 	// Now we move down a little in the case that the
 	// bitmap extends past the bottom of the line
 	// (this is only true for characters like 'g' or 'y'.
-	glTranslatef(0, (float) GlyphTop - BitmapRows, 0);
+	glTranslatef(0, (float) Glyph.Top - Glyph.BitmapRows, 0);
 
 	// Now we need to account for the fact that many of
 	// our textures are filled with empty padding space.
@@ -360,8 +384,8 @@ void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 	// the x and y variables, then when we draw the
 	// quad, we will only reference the parts of the texture
 	// that we contain the character itself.
-	float x = (float) BitmapWidth / (float) width,
-		y = (float) BitmapRows / (float) height;
+	float x = (float) Glyph.BitmapWidth / (float) Glyph.ImageWidth,
+		y = (float) Glyph.BitmapRows / (float) Glyph.ImageHeight;
 
 	// Here we draw the texturemaped quads.
 	// The bitmap that we got from FreeType was not
@@ -369,17 +393,13 @@ void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 	// so we need to link the texture to the quad
 	// so that the result will be properly aligned.
 	glBegin(GL_QUADS);
-	glTexCoord2d(0, 0); glVertex2f(0, (float) BitmapRows);
+	glTexCoord2d(0, 0); glVertex2f(0, (float) Glyph.BitmapRows);
 	glTexCoord2d(0, y); glVertex2f(0, 0);
-	glTexCoord2d(x, y); glVertex2f((float) BitmapWidth, 0);
-	glTexCoord2d(x, 0); glVertex2f((float) BitmapWidth, (float) BitmapRows);
+	glTexCoord2d(x, y); glVertex2f((float) Glyph.BitmapWidth, 0);
+	glTexCoord2d(x, 0); glVertex2f((float) Glyph.BitmapWidth, (float) Glyph.BitmapRows);
 	glEnd();
 	glPopMatrix();
-	glTranslatef((float) GlyphAdvance, 0, 0);
-
-	// increment the raster position as if we were a bitmap font.
-	// (only needed if you want to calculate text length)
-	// glBitmap(0, 0, 0, 0, face->glyph->advance.x >> 6, 0, NULL);
+	glTranslatef((float) Glyph.Advance, 0, 0);
 
 	// Finish the display list
 	glEndList();
