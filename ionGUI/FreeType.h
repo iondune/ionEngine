@@ -9,7 +9,6 @@
 #include <fttrigon.h>
 
 // OpenGL Headers 
-#include <Windows.h>
 #include <GL/glew.h>
 
 // STL
