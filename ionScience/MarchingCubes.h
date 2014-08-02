@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionScene/CMesh.h>
+#include <ionAsset/CMesh.h>
 #include "SVolume.h"
 
 

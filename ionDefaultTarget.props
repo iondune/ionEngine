@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\ionEngine.props" />
+    <Import Project="..\ionDefaultBuild.props" />
+    <Import Project="..\ionGLFW.props" />
+  </ImportGroup>
+
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionGL.lib;ionWindow.lib;ionFramework.lib;ionScene.lib;ionScience.lib;ionGUI.lib;OpenGL32.lib;glu32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        ;ionAsset.lib;
+        ;ionGraphics.lib;
+        ;ionGL.lib;
+        ;ionFramework.lib;
+        ;ionScene.lib;
+        ;ionScience.lib;
+        ;ionGUI.lib;
+        ;%(AdditionalDependencies);
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>libovrd.lib;winmm.lib;glew32sd.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        ;zlibd.lib;
+        ;assimpD.lib;
+        ;libovrd.lib;
+        ;winmm.lib;
+        ;freetype252_D.lib;
+        ;%(AdditionalDependencies);
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>libovr.lib;winmm.lib;freetype252.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        ;zlib.lib;
+        ;assimp.lib;
+        ;libovr.lib;
+        ;winmm.lib;
+        ;glew32s.lib;
+        ;freetype252.lib;
+        ;%(AdditionalDependencies);
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 

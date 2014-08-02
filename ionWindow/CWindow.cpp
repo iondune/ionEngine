@@ -70,13 +70,9 @@ CWindow::CWindow(GLFWwindow * windowHandle)
 
     for (uint i = 0; i < (uint) SMouseEvent::EButton::Count; ++ i)
         MouseStates[i] = false;
-
-	KeyboardEvent.AddTrigger(this);
-	MouseEvent.AddTrigger(this);
-	WindowResizedEvent.AddTrigger(this);
 }
 
-GLFWwindow * const CWindow::GetHandle()
+GLFWwindow * const CWindow::GetHandle() const
 {
 	return WindowHandle;
 }

@@ -43,17 +43,25 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Context.h" />
+    <ClInclude Include="DrawContext.h" />
+    <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="ionGL.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Uniform.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DrawContext.cpp" />
+    <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Uniform.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="VertexArray.cpp" />

@@ -2,7 +2,6 @@
 #pragma once
 
 #include <ionCore.h>
-#include <ionWindow.h>
 
 #include "Gwen.h"
 

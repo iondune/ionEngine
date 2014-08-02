@@ -2,37 +2,38 @@
 #pragma once
 
 #include <ionCore.h>
+#include "IEvent.h"
 
 
-template <typename EventType>
-class IEventListener : public ITreeNode<IEventListener<EventType>>
+class IEventListener : public IMultiTreeNode<IEventListener>
 {
 
 public:
 
-	virtual void OnEvent(EventType & Event) = 0;
+	virtual void OnEvent(IEvent & Event)
+	{}
+
+	void AddListener(IEventListener * Listener)
+	{
+		IMultiTreeNode<IEventListener>::AddChild(Listener);
+	}
+
+	void RemoveListener(IEventListener * Listener)
+	{
+		IMultiTreeNode<IEventListener>::RemoveChild(Listener);
+	}
 
 protected:
 
-	using ITreeNode<IEventListener<EventType>>::Children;
+	using IMultiTreeNode<IEventListener>::Children;
 
-	void OnTriggered(EventType & Event)
+	void TriggerEvent(IEvent & Event)
 	{
 		OnEvent(Event);
 		if (! Event.IsBlocked())
 			for (auto it = Children.begin(); it != Children.end(); ++ it)
-				(* it)->OnTriggered(Event);
+				(* it)->TriggerEvent(Event);
 		Event.Unblock();
-	}
-
-	void AddSubListener(IEventListener<EventType> * Listener)
-	{
-		AddChild(Listener);
-	}
-
-	void RemoveSubListener(IEventListener<EventType> * Listener)
-	{
-		RemoveChild(Listener);
 	}
 
 };

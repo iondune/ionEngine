@@ -15,4 +15,7 @@ syntax: glob
 *.unsuccessfulbuild
 *.o
 *.a
+*.sublime-workspace
+*.dll
+.depend.mk
 Documentation/html

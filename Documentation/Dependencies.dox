@@ -4,18 +4,15 @@
 
 ionEngine depends on the following external libraries:
 
-- stb_image [Header-only]
-- glm [Header-only]
-- glew
-- glfw
-- freetype
-- GWEN
+- [stb_image](http://www.nothings.org/) [Header-only]
+- [GLM](http://glm.g-truc.net/) [Header-only]
+- [GLEW](http://glew.sourceforge.net/)
+- [GLFW](http://www.glfw.org/)
+- [FreeType](http://www.freetype.org/)
+- [GWEN](https://github.com/garrynewman/GWEN)
 
-The easiest way to acquire these dependencies is to clone the [ionEngine SDKs respository][sdks]
+The easiest way to acquire these dependencies is to clone the [ionEngine SDKs respository](https://bitbucket.org/iondune/sdks)
 which contains pre-built binaries for Windows x64 platforms. Visual Studio 2013 project files are included for Windows builds
 on alternate platforms.
-
-
-[sdks]: https://bitbucket.org/iondune/sdks "SDKs Repository"
 
 */

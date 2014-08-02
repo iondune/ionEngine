@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="ionAsset.h" />
+    <ClInclude Include="CGeometryCreator.h" />
+    <ClInclude Include="CImage.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SMeshBuffer.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SMeshNode.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SMeshTriangle.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SVertex.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="IUniform.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CGeometryCreator.cpp" />
+    <ClCompile Include="CImage.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.Load.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SMeshBuffer.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SMeshTriangle.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="SVertex.cpp">
+      <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="SMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="SMeshNode.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Image">
+      <UniqueIdentifier>{b90bd074-9e12-4b6d-b374-1ccdbb7f3780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{b5bded56-4a79-429e-a224-405c6cb6c762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{f524027e-0f48-4d59-9c61-d0e148598011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{7c07ada0-44c3-4a40-b0c6-9f0f863ac835}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

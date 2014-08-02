@@ -1,258 +1,42 @@
+
 #include "CSceneManager.h"
 
-#include <algorithm>
-#include <sstream>
-
-#include "CShaderLoader.h"
-#include "CMeshLoader.h"
-#include "CImageLoader.h"
-
-#include "CDeferredShadingManager.h"
-#include <ionGL.h>
 
 
-GLuint const CSceneManager::getQuadHandle()
+CMeshLibrary * CSceneManager::GetMeshLibrary()
 {
-	static GLuint QuadHandle = 0;
-
-	// Create a simple quad VBO to use for draw operations!
-	if (! QuadHandle)
-	{
-		GLfloat QuadVertices[] =
-		{
-			-1.0, -1.0,
-			 1.0, -1.0,
-			 1.0,  1.0,
-			-1.0,  1.0
-		};
-
-		CheckedGLCall(glGenBuffers(1, & QuadHandle));
-		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, QuadHandle));
-		CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertices), QuadVertices, GL_STATIC_DRAW));
-		CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-	}
-
-	return QuadHandle;
+	return MeshLibrary;
 }
 
-CSceneManager::CSceneManager(vec2u const & screenSize)
-	: SceneFrameTexture(0), SceneDepthTexture(0), SceneFrameBuffer(0),
-	EffectManager(0), DefaultManager(0),
-	ScreenSize(screenSize)
+CShaderLibrary * CSceneManager::GetShaderLibrary()
 {
-	CurrentScene = this;
-	DefaultColorRenderPass = sharedNew(new CDefaultColorRenderPass());
-
-	addUniform("uScreenSize", BindUniformReference(ScreenSize));
+	return ShaderLibrary;
 }
 
-void CSceneManager::OnWindowResized(vec2u const & screenSize)
+CTextureLibrary * CSceneManager::GetTextureLibrary()
 {
-	ScreenSize = screenSize;
-	if (SceneFrameBuffer)
-	{
-		delete SceneFrameBuffer;
-		delete SceneFrameTexture;
-		delete SceneDepthTexture;
-
-		SceneFrameBuffer = 0;
-		SceneFrameTexture = 0;
-		SceneDepthTexture = 0;
-
-		init(false, true);
-	}
-
-	if (EffectManager)
-	{
-		EffectManager->OnWindowResized();
-	}
+	return TextureLibrary;
 }
 
-void CSceneManager::init(bool const EffectsManager, bool const FrameBuffer)
+CSceneNodeFactory * CSceneManager::GetFactory()
 {
-	if (FrameBuffer)
-	{
-		// Create special framebuffer for draw operations
-		{
-			STextureCreationFlags Flags;
-			Flags.MipMaps = false;
-			Flags.Wrap = GL_CLAMP_TO_EDGE;
-			SceneFrameTexture = new CTexture(ScreenSize, true, Flags);
-			printOpenGLErrors("SceneManager :: Create Frame Texture");
-			Flags.PixelFormat = GL_DEPTH_COMPONENT;
-			Flags.PixelInternalFormat = GL_DEPTH_COMPONENT;
-			SceneDepthTexture = new CTexture(ScreenSize, true, Flags);
-			printOpenGLErrors("SceneManager :: Create Depth Texture");
-		}
-
-		SceneFrameBuffer = new CFrameBufferObject();
-		SceneFrameBuffer->attachColorTexture(SceneFrameTexture, 0);
-		SceneFrameBuffer->attachDepthTexture(SceneDepthTexture);
-		printOpenGLErrors("SceneManager :: Create Frame Buffer");
-
-		/*SceneFrameBuffer->bind();
-		GLenum Buffers[] =
-		{
-			GL_COLOR_ATTACHMENT0,
-			GL_COLOR_ATTACHMENT1
-		};
-
-		glDrawBuffers(sizeof(Buffers)/sizeof(GLenum), Buffers);*/
-
-		if (! SceneFrameBuffer->isValid())
-		{
-			std::cerr << "Failed to make FBO for scene drawing!" << std::endl << std::endl << std::endl;
-
-			delete SceneFrameBuffer;
-			SceneFrameBuffer = 0;
-			delete SceneFrameTexture;
-			SceneFrameTexture = 0;
-			delete SceneDepthTexture;
-			SceneDepthTexture = 0;
-		}
-		else
-		{
-			QuadCopy = CShaderLoader::loadShader("FBO/QuadCopy");
-
-			if (! QuadCopy)
-			{
-				std::cerr << "Failed to load copy shader for scene drawing!" << std::endl << std::endl << std::endl;
-
-				delete SceneFrameBuffer;
-				SceneFrameBuffer = 0;
-				delete SceneFrameTexture;
-				SceneFrameTexture = 0;
-				delete SceneDepthTexture;
-				SceneDepthTexture = 0;
-			}
-		}
-
-		DefaultColorRenderPass->setFrameBuffer(SceneFrameBuffer);
-
-		getQuadHandle();
-		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-	}
-
-
-	// Set default effect manager and initialize
-	if (EffectsManager)
-	{
-		EffectManager = DefaultManager = new CSceneEffectManager(this);
-
-		// If effects manager failed to load, revert to no-effects
-		if (! EffectManager->isLoaded())
-		{
-			delete EffectManager;
-			EffectManager = 0;
-		}
-
-		// Default-enable bloom
-		//if (EffectManager)
-		//	EffectManager->setEffectEnabled(ESE_BLOOM, true);
-
-		// Setup deferred effecst manager
-		//DeferredManager = new CDeferredShadingManager(this);
-	}
+	return Factory;
 }
 
-sharedPtr<CDefaultColorRenderPass> CSceneManager::getDefaultColorRenderPass()
+void CSceneManager::DrawAll(IGraphicsEngine * Engine)
 {
-	return DefaultColorRenderPass;
+	Scene->DrawAll(Engine);
 }
 
-void CSceneManager::drawAll()
+CScene * CSceneManager::GetScene()
 {
-	ISceneObject::resetObjectCounts();
-	CurrentScene->update();
-
-	if (EffectManager && SceneFrameBuffer)
-	{
-		for (auto it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
-		{
-			if ((* it)->isEnabled())
-			{
-				(* it)->onPreDraw();
-				CurrentScene->load(* it);
-				CurrentScene->draw(* it);
-				(* it)->onPostDraw();
-			}
-		}
-
-		EffectManager->apply();
-
-		for (auto it = EffectManager->RenderPasses.begin(); it != EffectManager->RenderPasses.end(); ++ it)
-		{
-			if ((* it)->isEnabled())
-			{
-				(* it)->onPostEffects();
-			}
-		}
-
-		SceneFrameBuffer->bind();
-	}
-	else
-	{
-		DefaultColorRenderPass->onPreDraw();
-		CurrentScene->load(DefaultColorRenderPass);
-		CurrentScene->draw(DefaultColorRenderPass);
-		DefaultColorRenderPass->onPostDraw();
-
-		if (SceneFrameBuffer)
-			SceneFrameBuffer->bind();
-	}
-
-	printOpenGLErrors("Scene Manager :: Draw All");
+	return Scene;
 }
 
-void CSceneManager::endDraw()
+ISceneNode * CSceneManager::GetRoot()
 {
-	if (SceneFrameBuffer)
-	{
-		// Draw to screen
-		CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-		CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-
-		CheckedGLCall(glDisable(GL_DEPTH_TEST));
-		{
-			CShaderContext Context(* QuadCopy);
-			Context.bindTexture("uTexColor", SceneFrameTexture);
-			Context.bindBufferObject("aPosition", getQuadHandle(), 2);
-
-			CheckedGLCall(glDrawArrays(GL_QUADS, 0, 4));
-		}
-		CheckedGLCall(glEnable(GL_DEPTH_TEST));
-	}
-
-	printOpenGLErrors("Scene Manager :: End Draw");
+	return Scene->GetRoot();
 }
 
-
-CFrameBufferObject * CSceneManager::getSceneFrameBuffer()
-{
-	return SceneFrameBuffer;
-}
-
-CTexture * CSceneManager::getSceneFrameTexture()
-{
-	return SceneFrameTexture;
-}
-
-CTexture * CSceneManager::getSceneDepthTexture()
-{
-	return SceneDepthTexture;
-}
-
-CSceneEffectManager * CSceneManager::getEffectManager()
-{
-	return EffectManager;
-}
-
-void CSceneManager::setEffectManager(CSceneEffectManager * effectManager)
-{
-	EffectManager = effectManager;
-}
-
-vec2u const & CSceneManager::getScreenSize() const
-{
-	return ScreenSize;
-}
+CSceneManager::CSceneManager()
+{}

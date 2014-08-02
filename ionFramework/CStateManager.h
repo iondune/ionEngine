@@ -6,7 +6,7 @@
 
 class CWindow;
 
-class CStateManager : public Singleton<CStateManager>, public IEventListener<SKeyboardEvent>, public IEventListener<SMouseEvent>, public IEventListener<SWindowResizedEvent>
+class CStateManager : public Singleton<CStateManager>, public IEventListener
 {
 
     friend class Singleton<CStateManager>;
@@ -20,10 +20,6 @@ public:
 
 	void Connect(CWindow * Window);
 	void ShutDown();
-
-	void OnEvent(SMouseEvent & Event);
-	void OnEvent(SKeyboardEvent & Event);
-	void OnEvent(SWindowResizedEvent & Event);
 
 private:
 

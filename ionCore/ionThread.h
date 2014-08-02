@@ -5,6 +5,6 @@
 #include <mutex>
 
 
-typedef std::thread thread;
-typedef std::mutex mutex;
+using std::thread;
+using std::mutex;
 typedef std::lock_guard<std::mutex> scopedLock;

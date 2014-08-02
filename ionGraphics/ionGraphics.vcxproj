@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{463C7B23-416C-4F21-B643-10A82D600C8C}</ProjectGuid>
+    <RootNamespace>ionGraphics</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\ionEngine.props" />
+    <Import Project="..\ionDefaultBuild.props" />
+  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="CBufferObject.h" />
+    <ClInclude Include="CDeferredShadingManager.h" />
+    <ClInclude Include="CFrameBufferObject.h" />
+    <ClInclude Include="CRenderable.h" />
+    <ClInclude Include="CRenderBufferObject.h" />
+    <ClInclude Include="CSceneObject.h" />
+    <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShaderContext.h" />
+    <ClInclude Include="CShaderLoader.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="ionGraphics.h" />
+    <ClInclude Include="IRenderTarget.h" />
+    <ClInclude Include="SAttribute.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDeferredShadingManager.cpp" />
+    <ClCompile Include="CFrameBufferObject.cpp" />
+    <ClCompile Include="CRenderable.cpp" />
+    <ClCompile Include="CRenderable.ShaderVariables.cpp" />
+    <ClCompile Include="CRenderable.SMaterial.cpp" />
+    <ClCompile Include="CRenderable.SShaderSetup.cpp" />
+    <ClCompile Include="CRenderable.UpdateMethods.cpp" />
+    <ClCompile Include="CRenderBufferObject.cpp" />
+    <ClCompile Include="CSceneObject.ContextManagement.cpp" />
+    <ClCompile Include="CSceneObject.cpp" />
+    <ClCompile Include="CSceneObject.RenderableManagement.cpp" />
+    <ClCompile Include="CSceneObject.ShaderManagement.cpp" />
+    <ClCompile Include="CSceneObject.UpdateMethods.cpp" />
+    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShaderContext.cpp" />
+    <ClCompile Include="CShaderLoader.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

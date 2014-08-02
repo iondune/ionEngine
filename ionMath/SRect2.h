@@ -23,25 +23,25 @@ public:
 		: Position(x, y), Size(w, h)
 	{}
 
-	SVector2<T> const otherCorner() const
+	SVector2<T> OtherCorner() const
 	{
 		return Position + Size;
 	}
 
-	SVector2<T> const getCenter() const
+	SVector2<T> GetCenter() const
 	{
 		return Position + Size / 2.f;
 	}
 
-	bool const intersects(SRect2<T> const & r) const
+	bool Intersects(SRect2<T> const & r) const
 	{
-		return (otherCorner().Y > r.Position.Y || equals(otherCorner().Y, r.Position.Y) ) && 
-			(Position.Y < r.otherCorner().Y || equals(Position.Y, r.otherCorner().Y) ) && 
-			(otherCorner().X > r.Position.X || equals(otherCorner().X, r.Position.X) ) && 
-			(Position.X < r.otherCorner().X || equals(Position.X, r.otherCorner().X) );
+		return (OtherCorner().Y > r.Position.Y || Equals(OtherCorner().Y, r.Position.Y) ) && 
+			(Position.Y < r.OtherCorner().Y || Equals(Position.Y, r.OtherCorner().Y) ) && 
+			(OtherCorner().X > r.Position.X || Equals(OtherCorner().X, r.Position.X) ) && 
+			(Position.X < r.OtherCorner().X || Equals(Position.X, r.OtherCorner().X) );
 	}
 
-	SRect2 const getIntersection(SRect2<T> const & r) const
+	SRect2 GetIntersection(SRect2<T> const & r) const
 	{
 		SVector2<T> Position(std::max(r.Position.X, Position.X), std::max(r.Position.Y, Position.Y));
 		SVector2<T> OtherCorner(std::min(r.otherCorner().X, otherCorner().X), std::min(r.otherCorner().Y, otherCorner().Y));
@@ -49,7 +49,7 @@ public:
 		return SRect2<T>(Position, OtherCorner - Position);
 	}
 
-	bool const isPointInside(SVector2<T> const & v) const
+	bool IsPointInside(SVector2<T> const & v) const
 	{
 		return (otherCorner().Y > v.Y && 
 			Position.Y < v.Y && 
@@ -57,7 +57,7 @@ public:
 			Position.X < v.X);
 	}
 
-	bool const isPointInsideOrOn(SVector2<T> const & v) const
+	bool IsPointInsideOrOn(SVector2<T> const & v) const
 	{
 		return (otherCorner().Y >= v.Y && 
 			Position.Y <= v.Y && 
@@ -65,12 +65,12 @@ public:
 			Position.X <= v.X);
 	}
 
-	T const getArea() const
+	T GetArea() const
 	{
 		return Size.X * Size.Y;
 	}
 
-	void bounds(SVector2<T> const & pos1, SVector2<T> const & pos2)
+	void Bounds(SVector2<T> const & pos1, SVector2<T> const & pos2)
 	{
 		Position = pos1;
 		Size = pos2 - Position;
@@ -86,7 +86,7 @@ public:
 		}
 	}
 
-	void clipTo(SRect2 const & r)
+	void ClipTo(SRect2 const & r)
 	{
 		SVector2<T> UpperLeftCorner = Position;
 		SVector2<T> LowerRightCorner = otherCorner();

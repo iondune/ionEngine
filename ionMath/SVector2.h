@@ -13,6 +13,7 @@ public:
 
 	using SVectorBase<T, 2>::Values;
 	using SVectorBase<T, 2>::reset;
+	using SVectorBase<T, 2>::set;
 
 	T & X, & Y;
 
@@ -83,6 +84,11 @@ public:
 	T GetAngle() const
 	{
 		return ArcTan(Y, X);
+	}
+
+	ION_FUNC_DEF friend std::ostream & operator << (std::ostream & stream, SVector2<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y;
 	}
 
 };

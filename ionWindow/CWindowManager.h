@@ -4,9 +4,14 @@
 #include <ionMath.h>
 
 #include "CWindow.h"
-#include "CGamePad.h"
 #undef CreateWindow
 
+
+enum class EWindowType
+{
+	Fullscreen,
+	Windowed
+};
 
 class CWindowManager : public Singleton<CWindowManager>
 {
@@ -17,9 +22,7 @@ public:
 	void PollEvents();
 	bool ShouldClose() const;
 
-	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, bool const FullScreen);
-
-	CGamePad GamePad;
+	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 
 protected:
 	

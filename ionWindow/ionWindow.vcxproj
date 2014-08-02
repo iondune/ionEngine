@@ -10,6 +10,22 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConvertGLFWKeyCode.cpp" />
+    <ClCompile Include="CWindow.cpp" />
+    <ClCompile Include="CWindowManager.Callbacks.cpp" />
+    <ClCompile Include="CWindowManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConvertGLFWKeyCode.h" />
+    <ClInclude Include="CWindow.h" />
+    <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="EKey.h" />
+    <ClInclude Include="ionWindow.h" />
+    <ClInclude Include="SKeyboardEvent.h" />
+    <ClInclude Include="SMouseEvent.h" />
+    <ClInclude Include="SWindowResizedEvent.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}</ProjectGuid>
     <RootNamespace>ionWindow</RootNamespace>
@@ -39,21 +55,5 @@
     <Import Project="..\ionEngine.props" />
     <Import Project="..\ionDefaultBuild.props" />
   </ImportGroup>
-  <ItemGroup>
-    <ClInclude Include=".\ionWindow.h" />
-    <ClInclude Include="CGamePad.h" />
-    <ClInclude Include="CWindow.h" />
-    <ClInclude Include="CWindowManager.h" />
-    <ClInclude Include="EGamePadButton.h" />
-    <ClInclude Include="EKey.h" />
-    <ClInclude Include="SKeyboardEvent.h" />
-    <ClInclude Include="SMouseEvent.h" />
-    <ClInclude Include="SWindowResizedEvent.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CGamePad.cpp" />
-    <ClCompile Include="CWindow.cpp" />
-    <ClCompile Include="CWindowManager.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -4,6 +4,13 @@
 #include "ionConfig.h"
 
 #include <climits>
+#include <vector>
+#include <set>
+#include <map>
+#include <list>
+#include <string>
+#include <type_traits>
+#include <initializer_list>
 
 
 // 8 bits integer types
@@ -79,3 +86,13 @@ typedef double f64;
 typedef unsigned short ushort;
 typedef unsigned int   uint;
 typedef unsigned long  ulong;
+typedef unsigned char  byte;
+
+// STL imports
+using std::string;
+using std::vector;
+using std::list;
+using std::map;
+using std::multimap;
+using std::pair;
+using std::make_pair;

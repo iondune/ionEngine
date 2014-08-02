@@ -27,3 +27,4 @@
 
 // winuser.h Cleanup +_+
 #undef LoadImage
+#undef CreateWindow

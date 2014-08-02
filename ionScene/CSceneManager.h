@@ -1,67 +1,39 @@
 
 #pragma once
 
-#include <list>
-
-#include "CSceneObject.h"
-#include "CMeshSceneObject.h"
-#include "CFrameBufferObject.h"
-#include "CSceneEffectManager.h"
-#include "CPerspectiveCameraSceneObject.h"
+#include "CMeshLibrary.h"
+#include "CShaderLibrary.h"
+#include "CTextureLibrary.h"
+#include "CSceneNodeFactory.h"
 #include "CScene.h"
 
-#include <ionMath/SLine3.h>
-#include <ionMath/SColor.h>
-#include <ionMath/SVector2.h>
 
-#include "SUniform.h"
-#include "SAttribute.h"
-
-#include "CDefaultColorRenderPass.h"
-#include "CMultiOutRenderPass.h"
-
-
-class CSceneManager : public CScene
+class CSceneManager : public Singleton<CSceneManager>
 {
-
-	//! Current scene used for rendering
-	IScene * CurrentScene;
-
-	//! Default frame buffer used for drawing, allows post-processing passes to access scene texture without implementing a custom pass
-	CFrameBufferObject * SceneFrameBuffer;
-	//! Default frame and depth textures from render using defualt frame buffer
-	CTexture * SceneFrameTexture, * SceneDepthTexture;
-
-	//! Simple shader used to draw a texture to the screen
-	CShader * QuadCopy;
-
-	CSceneEffectManager * EffectManager, * DeferredManager, * DefaultManager;
-
-	//! Current render context window size
-	vec2u ScreenSize;
-
-	//! Built in default color rendering pass
-	sharedPtr<CDefaultColorRenderPass> DefaultColorRenderPass;
 
 public:
 
-	CSceneManager(vec2u const & screenSize);
-	void init(bool const EffectsManager = true, bool const FrameBuffer = true);
+	CMeshLibrary * GetMeshLibrary();
+	CShaderLibrary * GetShaderLibrary();
+	CTextureLibrary * GetTextureLibrary();
+	CSceneNodeFactory * GetFactory();
 
-	void OnWindowResized(vec2u const & screenSize);
+	virtual void DrawAll(IGraphicsEngine * Engine);
 
-	void drawAll();
-	void endDraw();
+	CScene * GetScene();
+	ISceneNode * GetRoot();
 
-	CFrameBufferObject * getSceneFrameBuffer();
-	CTexture * getSceneFrameTexture();
-	CTexture * getSceneDepthTexture();
-	sharedPtr<CDefaultColorRenderPass> getDefaultColorRenderPass();
+protected:
 
-	CSceneEffectManager * getEffectManager();
-	void setEffectManager(CSceneEffectManager * effectManager);
+	CMeshLibrary * MeshLibrary = new CMeshLibrary{};
+	CShaderLibrary * ShaderLibrary = new CShaderLibrary{};
+	CTextureLibrary * TextureLibrary = new CTextureLibrary{};
+	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
+	CScene * Scene = new CScene{};
 
-	vec2u const & getScreenSize() const;
-	static GLuint const getQuadHandle();
+private:
+
+	friend class Singleton<CSceneManager>;
+	CSceneManager();
 
 };
