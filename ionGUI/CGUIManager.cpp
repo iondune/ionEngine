@@ -18,12 +18,11 @@ Gwen::Font * LoadFont(Gwen::UnicodeString const & File, float const Size)
 
 
 CGUIManager::CGUIManager()
-	: Application(CApplication::Get())
 {}
 
 void CGUIManager::Init()
 {
-	Gwen::Renderer::Base * pRenderer = new Gwen::Renderer::OpenGL3Font(CApplication::Get().GetWindow().GetSize());
+	Gwen::Renderer::Base * pRenderer = new Gwen::Renderer::OpenGL3Font(ion::GL::Context::GetViewportSize());
 
 	Gwen::Skin::TexturedBase * skin = new Gwen::Skin::TexturedBase(pRenderer);
 	skin->Init("DefaultSkin.png");
@@ -34,7 +33,7 @@ void CGUIManager::Init()
 	RegularFont = LoadFont(L"OpenSans.ttf", 12.f);
 
 	Canvas = new Gwen::Controls::Canvas(skin);
-	Canvas->SetSize(CApplication::Get().GetWindow().GetSize().X, CApplication::Get().GetWindow().GetSize().Y);
+	Canvas->SetSize(ion::GL::Context::GetViewportSize().X, ion::GL::Context::GetViewportSize().Y);
 }
 
 void CGUIManager::Draw(f32 const Elapsed, bool const ClearAll)

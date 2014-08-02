@@ -5,22 +5,16 @@
 
 #include "OpenGL3.h"
 
-#include <math.h>
-
-#include <FreeImage.h>
-#include <assert.h>
-#include <sys/stat.h>
-#include <vector>
-
-#include <iostream>
-
-#include <ionGraphics/CShaderLoader.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/swizzle.hpp>
 
 
 namespace Gwen
 {
 	namespace Renderer
 	{
+		using namespace ion::GL;
 
 		OpenGL3::OpenGL3(vec2i const & screenSize)
 			: Shader(0),
@@ -28,15 +22,11 @@ namespace Gwen
 			ScreenSize(screenSize),
 			m_maxSpriteCount(2)
 		{
-			::FreeImage_Initialise();
-
 			Init();
 		}
 
 		OpenGL3::~OpenGL3()
 		{
-			::FreeImage_DeInitialise();
-
 			glDeleteBuffers(1, &m_vbo);
 			glDeleteBuffers(1, &m_ebo);
 
@@ -47,13 +37,66 @@ namespace Gwen
 
 		void OpenGL3::Init()
 		{
-			Shader = CShaderLoader::loadShader("GUI/Sprite");
+			static string const VertexShaderSource = R"SHADER(
+				#version 330
+
+				uniform mat4 mvp;
+
+				in vec2 position;
+				in vec2 texcoord;
+				in vec4 color;
+
+				out vec2 TextureCoordinates;
+				out vec4 Color;
+
+				void main()
+				{
+					gl_Position = mvp * vec4(position, 0.0, 1.0);
+					TextureCoordinates = texcoord;
+					Color = color;
+				}
+			)SHADER";
+
+			static string const FragmentShaderSource = R"SHADER(
+				#version 330
+
+				uniform sampler2D tex;
+
+				in vec2 TextureCoordinates;
+				in vec4 Color;
+
+				out vec4 FragColor;
+
+				void main()
+				{
+					FragColor = Color * texture2D(tex, TextureCoordinates);
+				}
+			)SHADER";
+
+			VertexShader * vert = new VertexShader;
+			vert->Source(VertexShaderSource);
+			if (! vert->Compile())
+				std::cerr << "Failed to compile vertex shader!" << std::endl << vert->InfoLog() << std::endl;
+
+			FragmentShader * frag = new FragmentShader;
+			frag->Source(FragmentShaderSource);
+			if (! frag->Compile())
+				std::cerr << "Failed to compile vertex shader!" << std::endl << frag->InfoLog() << std::endl;
+
+			Shader = new Program;
+			Shader->AttachShader(vert);
+			Shader->AttachShader(frag);
+			Shader->Link();
+			Shader->BindAttributeLocation(0, "position");
+			Shader->BindAttributeLocation(1, "texcoord");
+			Shader->BindAttributeLocation(2, "color");
+
 
 			m_projectionMatrix = glm::ortho(0.0f, (f32) ScreenSize.X, (f32) ScreenSize.Y, 0.0f, -1.0f, 1.0f);
 			glm::mat4 mvp = m_projectionMatrix;
-
-			CShaderContext Context(Shader);
-			Context.uniform("mvp", mvp);
+			
+			DrawContext context(Shader);
+			context.BindUniform("mvp", new UniformValue<glm::mat4>(mvp));
 
 			initGL();
 			checkGLError();
@@ -174,7 +217,7 @@ namespace Gwen
 			}
 
 			addQuad(rect, Gwen::Color(), u1, v1, u2, v2);
-
+			
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, * tex);
 
@@ -195,8 +238,10 @@ namespace Gwen
 
 			size_t buffer_offset = 0;
 
-			CShaderContext Context(Shader);
-			GLint pos_attrib = Shader->getAttributeHandles().find("position")->second.Handle;
+			
+			Shader->Use();
+
+			GLint pos_attrib = 0;
 			glEnableVertexAttribArray(pos_attrib);
 			glVertexAttribPointer(
 				pos_attrib,
@@ -207,7 +252,7 @@ namespace Gwen
 				(const GLvoid*)buffer_offset);
 			buffer_offset += sizeof(f32) * 2;
 
-			GLint color_attrib = Shader->getAttributeHandles().find("color")->second.Handle;
+			GLint color_attrib = 2;
 
 			checkGLError();
 
@@ -223,7 +268,7 @@ namespace Gwen
 
 			checkGLError();
 
-			GLint texcoord_attrib = Shader->getAttributeHandles().find("texcoord")->second.Handle;
+			GLint texcoord_attrib = 1;
 			glEnableVertexAttribArray(texcoord_attrib);
 			glVertexAttribPointer(
 				texcoord_attrib,
@@ -238,6 +283,8 @@ namespace Gwen
 				6 * (m_currentQuadCount), // 6 indices per 2 triangles
 				GL_UNSIGNED_INT,
 				(const GLvoid*)0);
+
+			Program::End();
 
 			glBindVertexArray(0);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -302,65 +349,27 @@ namespace Gwen
 
 		void OpenGL3::LoadTexture(Gwen::Texture* pTexture)
 		{
-			checkGLError();
-			const wchar_t *wFileName = pTexture->name.GetUnicode().c_str();
-
-			struct stat buf;
-			const int status = stat( pTexture->name.Get().c_str(), &buf);
-			Gwen::Debug::AssertCheck(status != -1,  pTexture->name.Get().c_str());
-
-
-			FREE_IMAGE_FORMAT imageFormat = FreeImage_GetFileType( pTexture->name.Get().c_str() );
-
-			if ( imageFormat == FIF_UNKNOWN )
-				imageFormat = FreeImage_GetFIFFromFilename( pTexture->name.Get().c_str() );
+			CImage * Image = CImage::Load(pTexture->name.c_str());
 
 			// Image failed to load..
-			if ( imageFormat == FIF_UNKNOWN )
+			if (! Image)
 			{
 				pTexture->failed = true;
 				std::string str;
-				str.append("Texture load failure, image format unknown filename: ");
+				str.append("Texture load failure, image format unknown or file does not exist: ");
 				str.append(pTexture->name.Get());
-				Gwen::Debug::AssertCheck(false,  str.c_str());
 				return;
 			}
 
-			// Try to load the image..
-			FIBITMAP* bits = FreeImage_Load( imageFormat, pTexture->name.Get().c_str() );
-			if ( !bits )
-			{
-				pTexture->failed = true;
-				std::string str;
-				str.append("Texture load failure, filename: ");
-				str.append(pTexture->name.Get());
-				Gwen::Debug::AssertCheck(false,  str.c_str());
-				return;
-			}
-
-			// Convert to 32bit
-			FIBITMAP * bits32 = FreeImage_ConvertTo32Bits( bits );
-			FreeImage_Unload( bits );
-			if ( !bits32 )
-			{
-				pTexture->failed = true;
-				std::string str;
-				str.append("Texture load failure, filename: ");
-				str.append(pTexture->name.Get());
-				Gwen::Debug::AssertCheck(false,  str.c_str());
-				return;
-			}
-
-			// Flip
-			::FreeImage_FlipVertical( bits32 );
+			Image->FlipY();
 
 			// Create a little texture pointer..
 			GLuint* pglTexture = new GLuint;
 
 			// Sort out our GWEN texture
 			pTexture->data = pglTexture;
-			pTexture->width = FreeImage_GetWidth( bits32 );
-			pTexture->height = FreeImage_GetHeight( bits32 );
+			pTexture->width = Image->GetWidth();
+			pTexture->height = Image->GetHeight();
 
 			glActiveTexture(GL_TEXTURE0);
 			// Create the opengl texture
@@ -371,15 +380,10 @@ namespace Gwen
 
 			m_currentBoundTexture = *pglTexture;
 
-#ifdef FREEIMAGE_BIGENDIAN
 			GLenum format = GL_RGBA;
-#else
-			GLenum format = GL_BGRA;
-#endif
 
-			glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, pTexture->width, pTexture->height, 0, format, GL_UNSIGNED_BYTE, (const GLvoid*)FreeImage_GetBits( bits32 ) );
+			glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, pTexture->width, pTexture->height, 0, format, GL_UNSIGNED_BYTE, Image->GetData() );
 
-			FreeImage_Unload( bits32 );
 			checkGLError();
 		}
 

@@ -2,19 +2,23 @@
 #pragma once
 
 #include "Gwen.h"
-#include <ionFramework/CWindow.h>
-#include <ionFramework/IEventListener.h>
+#include <ionWindow.h>
+#include <ionFramework.h>
 
 
 class CGUIEventManager : public IEventListener
 {
-
-	Gwen::Controls::Canvas * Canvas;
 
 public:
 
 	CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window);
 
 	void OnEvent(IEvent & Event);
+
+private:
+
+	CWindow * Window;
+
+	Gwen::Controls::Canvas * Canvas;
 
 };

@@ -3,14 +3,10 @@
 
 #include "Gwen.h"
 
-#include <ionGL.h>
 #include <ionCore.h>
 #include <ionMath.h>
-#include <ionScene.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/swizzle.hpp>
+#include <ionGL.h>
+#include <ionAsset.h>
 
 
 namespace Gwen

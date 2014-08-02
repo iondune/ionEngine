@@ -4,12 +4,13 @@
 #ifdef _ION_CONFIG_USE_GWEN
 
 #include "CGUIEventManager.h"
-#include <ionFramework/CApplication.h>
 
 
 CGUIEventManager::CGUIEventManager(Gwen::Controls::Canvas * pCanvas, CWindow * Window)
 	: Canvas(pCanvas)
 {
+	this->Window = Window;
+
 	Window->AddListener(this);
 }
 
@@ -21,8 +22,8 @@ void CGUIEventManager::OnEvent(IEvent & Event)
 		if (KeyboardEvent.Key >= EKey::A && KeyboardEvent.Key <= EKey::Z)
 		{
 			char key = 'a' + ((int) KeyboardEvent.Key - (int) EKey::A);
-			if (CApplication::Get().GetWindow().IsKeyDown(EKey::LeftShift) ||
-				CApplication::Get().GetWindow().IsKeyDown(EKey::RightShift))
+			if (Window->IsKeyDown(EKey::LeftShift) ||
+				Window->IsKeyDown(EKey::RightShift))
 				key += 'A' - 'a';
 			Canvas->InputCharacter(key);
 		}
@@ -34,20 +35,20 @@ void CGUIEventManager::OnEvent(IEvent & Event)
 			case EKey::Return:			gwenkey = Gwen::Key::Return;	break;
 			case EKey::Backspace:		gwenkey = Gwen::Key::Backspace;	break;
 			case EKey::Delete:			gwenkey = Gwen::Key::Delete;	break;
-			case EKey::Up:				gwenkey = Gwen::Key::Up;		break;
+			case EKey::Up:			gwenkey = Gwen::Key::Up;		break;
 			case EKey::Down:			gwenkey = Gwen::Key::Down;		break;
 			case EKey::Left:			gwenkey = Gwen::Key::Left;		break;
 			case EKey::Right:			gwenkey = Gwen::Key::Right;		break;
 			case EKey::LeftShift:		gwenkey = Gwen::Key::Shift;		break;
 			case EKey::RightShift:		gwenkey = Gwen::Key::Shift;		break;
-			case EKey::Tab:				gwenkey = Gwen::Key::Tab;		break;
+			case EKey::Tab:			gwenkey = Gwen::Key::Tab;		break;
 			case EKey::Space:			gwenkey = Gwen::Key::Space;		break;
 			case EKey::Home:			gwenkey = Gwen::Key::Home;		break;
-			case EKey::End:				gwenkey = Gwen::Key::End;		break;
-			case EKey::LeftControl:		gwenkey = Gwen::Key::Control;	break;
+			case EKey::End:			gwenkey = Gwen::Key::End;		break;
+			case EKey::LeftControl:	gwenkey = Gwen::Key::Control;	break;
 			case EKey::RightControl:	gwenkey = Gwen::Key::Control;	break;
 			case EKey::Escape:			gwenkey = Gwen::Key::Escape;	break;
-			case EKey::LeftAlt:			gwenkey = Gwen::Key::Alt;		break;
+			case EKey::LeftAlt:		gwenkey = Gwen::Key::Alt;		break;
 			case EKey::RightAlt:		gwenkey = Gwen::Key::Alt;		break;
 			}
 			Canvas->InputKey(gwenkey, KeyboardEvent.Pressed);

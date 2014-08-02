@@ -4,12 +4,6 @@
 #ifdef _ION_CONFIG_USE_GWEN
 
 #include "OpenGL3Font.h"
-
-#include "Gwen.h"
-
-#include <math.h>
-#include "GL/glew.h"
-
 #include "FreeType.h"
 
 
@@ -26,10 +20,7 @@ namespace Gwen
 			if (pFont->data)
 				return;
 
-			freetype::font_data * font;
-
-			pFont->data = font = new freetype::font_data;
-			font->init(Gwen::Utility::UnicodeToString(pFont->facename).c_str(), pFont->size);
+			pFont->data = IFont::init(Gwen::Utility::UnicodeToString(pFont->facename).c_str(), pFont->size);
 		}
 
 		void OpenGL3Font::RenderText(Gwen::Font * pFont, Gwen::Point pos, Gwen::UnicodeString const & text)
@@ -38,7 +29,10 @@ namespace Gwen
 			Translate(pos.x, pos.y);
 			Gwen::String String = Gwen::Utility::UnicodeToString(text);
 
-			freetype::print(* (freetype::font_data *) pFont->data, pos.x, pos.y, String.c_str());
+			IFont * Font = (IFont *) pFont->data;
+			glDisable(GL_SCISSOR_TEST);
+			Font->print(pos.x, pos.y, String.c_str());
+			glEnable(GL_SCISSOR_TEST);
 		}
 
 		Gwen::Point OpenGL3Font::MeasureText(Gwen::Font * pFont, Gwen::UnicodeString const & text)
@@ -48,7 +42,11 @@ namespace Gwen
 			Gwen::String String = Gwen::Utility::UnicodeToString(text);
 
 			Gwen::Point pos;
-			freetype::measure(* (freetype::font_data *) pFont->data, & pos.x, & pos.y, String.c_str());
+			IFont * Font = (IFont *) pFont->data;
+			Font->measure(& pos.x, & pos.y, String.c_str());
+
+			pos.y *= Scale();
+
 			return pos;
 		}
 	}
