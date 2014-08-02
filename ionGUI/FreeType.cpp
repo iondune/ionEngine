@@ -1,5 +1,4 @@
 
-#include <ionFramework/CApplication.h>
 #include "FreeType.h"
 
 
@@ -9,7 +8,7 @@ namespace freetype
 	/// int that we pass it.
 	inline int next_p2(int a)
 	{
-		int rval=1;
+		int rval = 2;
 		while (rval < a)
 			rval <<= 1;
 		return rval;
@@ -154,6 +153,7 @@ namespace freetype
 
 		// Finish the display list
 		glEndList();
+
 		FT_Done_Glyph(glyph);
 	}
 
@@ -288,8 +288,8 @@ namespace freetype
 			{
 				get_glyph_size(ft_font.face, lines[i][t], (int) ft_font.h, & x, & y);
 				if (y > * height)
-					* height = y;
-				* width += x;
+					*height = y;
+				*width += x;
 			}
 		}
 		*height += (int) ((lines.size() - 1) * ft_font.h);
@@ -357,6 +357,9 @@ namespace freetype
 
 		float modelview_matrix[16];
 		glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
+		
+		GLint viewport[4];
+		glGetIntegerv(GL_VIEWPORT, viewport);
 
 		//This is where the text display actually happens.
 		//For each line of text we reset the modelview matrix
@@ -369,7 +372,7 @@ namespace freetype
 		{
 			glPushMatrix();
 			glLoadIdentity();
-			glTranslatef(x, CApplication::Get().GetWindow().GetSize().Y - y - h*i - ft_font.h, 0);
+			glTranslatef(x, viewport[3] - y - 2 - h*i - ft_font.h, 0);
 			glMultMatrixf(modelview_matrix);
 
 			// The commented out raster position stuff can be useful if you need to
