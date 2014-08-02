@@ -57,3 +57,22 @@ public:
 		return str;
 	}
 };
+
+class String
+{
+
+public:
+
+	static vector<string> SeparateLines(string const & str)
+	{
+		vector<string> lines;
+		stringstream stream(str);
+		string line;
+
+		while (std::getline(stream, line))
+			lines.push_back(line);
+
+		return lines;
+	}
+
+};

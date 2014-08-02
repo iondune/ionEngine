@@ -176,50 +176,19 @@ void CFont::measure(int * width, int * height, char const * fmt, ...)
 
 void CFont::print(float x, float y, const char * fmt, ...)
 {
+	if (! fmt)
+		return;
+
 	// We want a coordinate system where things coresponding to window pixels.
 	pushScreenCoordinateMatrix();
 
-	GLuint font = list_base;
+	char text[16386];
+	va_list ap;
 
-	char text[16386]; // Holds Our String
-	va_list ap; // Pointer To List Of Arguments
+	va_start(ap, fmt);
+	vsprintf(text, fmt, ap);
+	va_end(ap);
 
-	if (fmt == NULL) // If There's No Text
-		* text=0; // Do Nothing
-	else
-	{
-		va_start(ap, fmt); // Parses The String For Variables
-		vsprintf(text, fmt, ap); // And Converts Symbols To Actual Numbers
-		va_end(ap); // Results Are Stored In Text
-	}
-
-	// Here is some code to split the text that we have been
-	// given into a set of lines.
-	// This could be made much neater by using
-	// a regular expression library such as the one avliable from
-	// boost.org (I've only done it out by hand to avoid complicating
-	// this tutorial with unnecessary library dependencies).
-	const char * start_line = text;
-	vector<string> lines;
-	const char * c = text;
-	for (; *c; ++ c)
-	{
-		if (*c == '\n')
-		{
-			string line;
-			for (char const * n = start_line; n<c; ++ n)
-				line.append(1, *n);
-			lines.push_back(line);
-			start_line = c + 1;
-		}
-	}
-	if (start_line)
-	{
-		string line;
-		for (char const * n = start_line; n < c; ++ n)
-			line.append(1,*n);
-		lines.push_back(line);
-	}
 
 	glPushAttrib(GL_LIST_BIT | GL_CURRENT_BIT  | GL_ENABLE_BIT | GL_TRANSFORM_BIT);
 	glMatrixMode(GL_MODELVIEW);
@@ -228,7 +197,9 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
 
+	GLuint font = list_base;
 	glListBase(font);
 
 	float modelview_matrix[16];
@@ -244,6 +215,7 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	//down by h. This is because when each character is
 	//draw it modifies the current matrix so that the next character
 	//will be drawn immediatly after it.
+	vector<string> lines = String::SeparateLines(text);
 	for (unsigned int i = 0; i < lines.size(); ++ i)
 	{
 		glPushMatrix();
