@@ -1,59 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="OpenGL3.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL3Font.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="FreeType.cpp">
       <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIEventManager.cpp">
-      <Filter>Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIManager.cpp">
-      <Filter>Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIProgressBarWidget.cpp">
-      <Filter>Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIWidget.cpp">
-      <Filter>Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIConsoleWidget.cpp">
-      <Filter>Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
-    <ClInclude Include="OpenGL3.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL3Font.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="FreeType.h">
       <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIEventManager.h">
-      <Filter>Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIManager.h">
-      <Filter>Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIProgressBarWidget.h">
-      <Filter>Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIWidget.h">
-      <Filter>Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Gwen.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIConsoleWidget.h">
-      <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
