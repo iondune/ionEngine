@@ -29,17 +29,30 @@ int main()
 	CheckSize(Font, "AB");
 	CheckSize(Font, "ABC");
 
+	CGUIManager * Manager = new CGUIManager();
+	Manager->Init();
+
+	CGUIEventManager * EventManager = new CGUIEventManager(Manager->GetCanvas(), Window);
+	
+	auto Control = new Gwen::Controls::WindowControl(Manager->GetCanvas());
+	Control->SetTitle("Window");
+	Control->SetBounds(30, 30, 150, 100);
+
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
+
+		Font->print(20, 20, "a\nab\nabc\nA\nAB\nABC");
 		
 		Font->print(0, 0, "Hello from 0, 0");
 		Font->print(320, 0, "Hello from 320, 0");
 		Font->print(0, 240, "Hello from 0, 240");
 		Font->print(320, 240, "Hello from 320, 240\nWith multiple lines!");
 		Font->print(0, 480, "Hello from 0, 480");
+
+		Manager->Draw(0.01f);
 
 		Window->SwapBuffers();
 	}

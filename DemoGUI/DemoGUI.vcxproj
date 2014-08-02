@@ -42,18 +42,18 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionGUI.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ionGUI.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gwen_staticd.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>freetype252.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gwen_static.lib;freetype252.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
