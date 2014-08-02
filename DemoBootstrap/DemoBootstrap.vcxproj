@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{791485D8-0C8C-48C2-B943-6E10C34860C0}</ProjectGuid>
-    <RootNamespace>TestAsset</RootNamespace>
+    <ProjectGuid>{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}</ProjectGuid>
+    <RootNamespace>DemoBootstrap</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,12 +42,12 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ionBootstrap.lib;ionScene.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>;assimpD.lib;%(AdditionalDependencies);</AdditionalDependencies>
+      <AdditionalDependencies>assimpD.lib;%(AdditionalDependencies);</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

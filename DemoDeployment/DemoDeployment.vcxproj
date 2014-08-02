@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8C46A561-981F-447F-BD14-B96007179478}</ProjectGuid>
-    <RootNamespace>TestScene</RootNamespace>
+    <ProjectGuid>{2D08659B-B706-4A3C-95C0-9294710DC5EE}</ProjectGuid>
+    <RootNamespace>DemoDeployment</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,23 +40,8 @@
     <Import Project="..\ionDefaultBuild.props" />
     <Import Project="..\ionGLFW.props" />
   </ImportGroup>
-  <ItemDefinitionGroup>
-    <Link>
-      <AdditionalDependencies>ionScene.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Link>
-      <AdditionalDependencies>assimpD.lib;%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Link>
-      <AdditionalDependencies>assimp.lib;%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Build.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
