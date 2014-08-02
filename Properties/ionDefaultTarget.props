@@ -2,21 +2,23 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\ionEngine.props" />
-    <Import Project="..\ionDefaultBuild.props" />
-    <Import Project="..\ionGLFW.props" />
+    <Import Project="ionEngine.props" />
+    <Import Project="ionDefaultBuild.props" />
+    <Import Project="ionGLFW.props" />
   </ImportGroup>
 
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
         ;ionAsset.lib;
-        ;ionGraphics.lib;
+        <!-- ;ionGraphics.lib; -->
         ;ionGL.lib;
         ;ionFramework.lib;
         ;ionScene.lib;
-        ;ionScience.lib;
+        <!-- ;ionScience.lib; -->
         ;ionGUI.lib;
+        ;ionWindow.lib;
+        ;ionBootstrap.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
@@ -30,6 +32,7 @@
         ;libovrd.lib;
         ;winmm.lib;
         ;freetype252_D.lib;
+        ;gwen_staticd.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
@@ -44,6 +47,7 @@
         ;winmm.lib;
         ;glew32s.lib;
         ;freetype252.lib;
+        ;gwen_static.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
