@@ -2,36 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CDirectionalLightSceneObject.h">
-      <Filter>Old\Effects\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="CPointLightSceneObject.h">
-      <Filter>Old\Effects\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshSceneObject.h">
-      <Filter>Old\Objects\Standard</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneEffectManager.h">
-      <Filter>Old\Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="CLightSceneObject.h">
-      <Filter>Old\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderPass.h">
-      <Filter>Old\Scene\RenderPasses</Filter>
-    </ClInclude>
-    <ClInclude Include="CDefaultColorRenderPass.h">
-      <Filter>Old\Scene\RenderPasses</Filter>
-    </ClInclude>
-    <ClInclude Include="CMultiOutRenderPass.h">
-      <Filter>Old\Scene\RenderPasses</Filter>
-    </ClInclude>
-    <ClInclude Include="CInstanceSceneObject.h">
-      <Filter>Old\Objects\Standard</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneManager.Old.h">
-      <Filter>Old\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneManager.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
@@ -88,27 +58,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CDirectionalLightSceneObject.cpp">
-      <Filter>Old\Effects\Deferred</Filter>
-    </ClCompile>
-    <ClCompile Include="CPointLightSceneObject.cpp">
-      <Filter>Old\Effects\Deferred</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshSceneObject.cpp">
-      <Filter>Old\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneEffectManager.cpp">
-      <Filter>Old\Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="CLightSceneObject.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CInstanceSceneObject.cpp">
-      <Filter>Old\Objects\Standard</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneManager.Old.cpp">
-      <Filter>Old\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>SceneManager</Filter>
     </ClCompile>
@@ -165,27 +114,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Old">
-      <UniqueIdentifier>{423acf27-3230-43a1-b9d8-7abb2087818d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Effects">
-      <UniqueIdentifier>{e9f02eaa-55ee-4cb8-8471-79be2509ca79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Effects\Deferred">
-      <UniqueIdentifier>{d6b0bb5c-7812-4118-a132-9efb3bd2d177}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Objects">
-      <UniqueIdentifier>{648b9269-0b22-4211-b47c-7413b071df74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Objects\Standard">
-      <UniqueIdentifier>{a71e5f67-40d8-4625-9533-9614e2a81da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Scene">
-      <UniqueIdentifier>{ff9dda60-2a21-4d71-8572-177e4a3ffab5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Old\Scene\RenderPasses">
-      <UniqueIdentifier>{40e5200e-32f2-4270-86fa-8813df1c0f85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneManager">
       <UniqueIdentifier>{16854fe6-41bd-42d4-8345-00c1d4470da9}</UniqueIdentifier>
     </Filter>

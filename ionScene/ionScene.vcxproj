@@ -42,20 +42,11 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CDefaultColorRenderPass.h" />
-    <ClInclude Include="CDirectionalLightSceneObject.h" />
     <ClInclude Include="CGLGraphicsEngine.h" />
-    <ClInclude Include="CInstanceSceneObject.h" />
-    <ClInclude Include="CLightSceneObject.h" />
     <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="CMeshComponent.h" />
-    <ClInclude Include="CMeshSceneObject.h" />
-    <ClInclude Include="CMultiOutRenderPass.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
-    <ClInclude Include="CPointLightSceneObject.h" />
     <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneEffectManager.h" />
-    <ClInclude Include="CSceneManager.Old.h" />
     <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="CShaderComponent.h" />
     <ClInclude Include="CShaderLibrary.h" />
@@ -64,7 +55,6 @@
     <ClInclude Include="CUpdateCallbackComponent.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="IGraphicsEngine.h" />
-    <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneNode.h" />
     <ClInclude Include="ISceneNode.h" />
@@ -72,20 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CDirectionalLightSceneObject.cpp" />
     <ClCompile Include="CGLGraphicsEngine.cpp" />
     <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp" />
-    <ClCompile Include="CInstanceSceneObject.cpp" />
-    <ClCompile Include="CLightSceneObject.cpp" />
     <ClCompile Include="CMeshComponent.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
-    <ClCompile Include="CMeshSceneObject.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
-    <ClCompile Include="CPointLightSceneObject.cpp" />
     <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CSceneEffectManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="CSceneManager.Old.cpp" />
     <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CSceneNodeFactory.cpp" />
     <ClCompile Include="CShaderComponent.cpp" />
