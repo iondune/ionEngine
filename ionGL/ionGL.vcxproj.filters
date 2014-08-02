@@ -29,6 +29,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Framebuffer.h">
+      <Filter>Framebuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -58,6 +61,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Framebuffer.cpp">
+      <Filter>Framebuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">
@@ -71,6 +77,9 @@
     </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{842203ca-65c9-4ce6-a3fb-d4911ae764cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framebuffer">
+      <UniqueIdentifier>{78d70acd-6c7d-496c-be89-09664524ecf6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
