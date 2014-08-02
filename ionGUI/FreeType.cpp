@@ -8,7 +8,7 @@
 #include <ftoutln.h>
 #include <fttrigon.h>
 
-// OpenGL Headers 
+// OpenGL Headers
 #include <GL/glew.h>
 
 
@@ -16,7 +16,7 @@ class CFont : public IFont
 {
 
 public:
-	
+
 	static IFont * init(const char * fname, unsigned int h);
 
 	virtual ~CFont();
@@ -29,7 +29,7 @@ protected:
 
 	float Height;			///< Holds the height of the font.
 	float LineSpacing = 1.5f;
-	GLuint * textures;	///< Holds the texture id's 
+	GLuint * textures;	///< Holds the texture id's
 	GLuint list_base;	///< Holds the first display list id
 	FT_Library library;
 	FT_Face face;
@@ -174,14 +174,14 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+
 
 	GLuint font = list_base;
 	glListBase(font);
 
 	float modelview_matrix[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
-		
+
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
@@ -217,7 +217,7 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	pop_projection_matrix();
 }
 
-	
+
 /// This function gets the first power of 2 >= the
 /// int that we pass it.
 int NextLargerPowerOfTwo(int const a)
@@ -259,7 +259,7 @@ struct GlyphInfo
 	{
 		ImageWidth = NextLargerPowerOfTwo(Bitmap.width);
 		ImageHeight = NextLargerPowerOfTwo(Bitmap.rows);
-		
+
 		// Two Channels
 		ImageData = new byte[2 * ImageWidth * ImageHeight];
 
@@ -287,7 +287,7 @@ struct GlyphInfo
 	}
 
 	byte * ImageData = nullptr;
-	
+
 	int ImageWidth = 0;
 	int ImageHeight = 0;
 
@@ -296,7 +296,7 @@ struct GlyphInfo
 	int BitmapRows = 0;
 	int BitmapWidth = 0;
 	int Advance = 0;
-	
+
 	FT_Glyph Glyph;
 	FT_Bitmap Bitmap;
 };
