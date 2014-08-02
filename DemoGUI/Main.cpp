@@ -16,6 +16,7 @@ void CheckSize(IFont * Font, char * str)
 int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
+	SingletonPointer<CGUIManager> GUIManager;
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
@@ -29,12 +30,11 @@ int main()
 	CheckSize(Font, "AB");
 	CheckSize(Font, "ABC");
 
-	CGUIManager * Manager = new CGUIManager();
-	Manager->Init();
+	GUIManager->Init();
 
-	CGUIEventManager * EventManager = new CGUIEventManager(Manager->GetCanvas(), Window);
+	CGUIEventManager * EventManager = new CGUIEventManager(GUIManager->GetCanvas(), Window);
 	
-	auto Control = new Gwen::Controls::WindowControl(Manager->GetCanvas());
+	auto Control = new Gwen::Controls::WindowControl(GUIManager->GetCanvas());
 	Control->SetTitle("Window");
 	Control->SetBounds(30, 30, 150, 100);
 
@@ -52,7 +52,7 @@ int main()
 		Font->print(320, 240, "Hello from 320, 240\nWith multiple lines!");
 		Font->print(0, 480, "Hello from 0, 480");
 
-		Manager->Draw(0.01f);
+		GUIManager->Draw(0.01f);
 
 		Window->SwapBuffers();
 	}

@@ -9,14 +9,12 @@
 
 class CApplication;
 
-class CGUIManager
+class CGUIManager : public Singleton<CGUIManager>
 {
 
 public:
 
-	CGUIManager();
-
-	void Init();
+	void Init(string const & Skin = "DefaultSkin.png");
 	void Draw(f32 const Elapsed, bool ClearAll = false);
 
 	Gwen::Controls::Canvas * GetCanvas();
@@ -40,5 +38,10 @@ protected:
 	Gwen::Font * RegularFont;
 
 	std::vector<CGUIWidget *> Widgets;
+
+private:
+	
+	friend class Singleton<CGUIManager>;
+	CGUIManager();
 
 };
