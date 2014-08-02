@@ -28,5 +28,13 @@ namespace ion
 				BitMask |= BufferLookup[(int) Buffer];
 			CheckedGLCall(glClear(BitMask));
 		}
+
+		vec2i Context::GetViewportSize()
+		{
+			int viewport[4];
+			CheckedGLCall(glGetIntegerv(GL_VIEWPORT, viewport));
+
+			return vec2i(viewport[2] - viewport[0], viewport[3] - viewport[1]);
+		}
 	}
 }

@@ -23,6 +23,8 @@ namespace ion
 			static void Init();
 			static void Clear(std::initializer_list<EBuffer> Buffers);
 
+			static vec2i GetViewportSize();
+
 		};
 	}
 }
