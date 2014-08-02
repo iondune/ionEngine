@@ -20,8 +20,6 @@
 #include <Gwen/WindowProvider.h>
 
 #include <Gwen/BaseRender.h>
-#include <Gwen/Renderers/OpenGL.h>
-
 #include <Gwen/Skins/Simple.h>
 #include <Gwen/Skins/TexturedBase.h>
 
