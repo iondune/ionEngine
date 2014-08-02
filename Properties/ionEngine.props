@@ -5,6 +5,7 @@
 
     <IncludePath>
       ;$(VisualStudioDir)\Projects\ionEngine\;
+      ;$(VisualStudioDir)\Projects\ionEngine\Include;
       ;$(VisualStudioDir)\SDKs\FreeImage\Dist\;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.2\include\;
       ;$(VisualStudioDir)\SDKs\glew-1.10.0\include;

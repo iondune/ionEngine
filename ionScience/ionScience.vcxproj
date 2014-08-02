@@ -36,8 +36,8 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\ionEngine.props" />
-    <Import Project="..\ionDefaultBuild.props" />
+    <Import Project="..\Properties\ionEngine.props" />
+    <Import Project="..\Properties\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="CColorTable.h" />
