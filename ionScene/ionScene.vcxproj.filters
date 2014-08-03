@@ -56,6 +56,9 @@
     <ClInclude Include="ISceneNodeComponent.h">
       <Filter>Node</Filter>
     </ClInclude>
+    <ClInclude Include="CGLGraphicsComponent.h">
+      <Filter>Node\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CSceneManager.cpp">
@@ -110,6 +113,9 @@
       <Filter>Node\Component</Filter>
     </ClCompile>
     <ClCompile Include="CShaderComponent.cpp">
+      <Filter>Node\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CGLGraphicsComponent.cpp">
       <Filter>Node\Component</Filter>
     </ClCompile>
   </ItemGroup>

@@ -42,6 +42,7 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CGLGraphicsComponent.h" />
     <ClInclude Include="CGLGraphicsEngine.h" />
     <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="CMeshComponent.h" />
@@ -62,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CGLGraphicsComponent.cpp" />
     <ClCompile Include="CGLGraphicsEngine.cpp" />
     <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp" />
     <ClCompile Include="CMeshComponent.cpp" />
