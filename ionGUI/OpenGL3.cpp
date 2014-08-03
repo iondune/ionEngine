@@ -92,11 +92,6 @@ namespace Gwen
 			Shader->BindAttributeLocation(2, "color");
 
 
-			m_projectionMatrix = glm::ortho(0.0f, (f32) ScreenSize.X, (f32) ScreenSize.Y, 0.0f, -1.0f, 1.0f);
-			glm::mat4 mvp = m_projectionMatrix;
-			
-			DrawContext context(Shader);
-			context.BindUniform("mvp", new UniformValue<glm::mat4>(mvp));
 
 			initGL();
 			checkGLError();
@@ -239,7 +234,11 @@ namespace Gwen
 			size_t buffer_offset = 0;
 
 			
-			Shader->Use();
+			m_projectionMatrix = glm::ortho(0.0f, (f32) ScreenSize.X, (f32) ScreenSize.Y, 0.0f, -1.0f, 1.0f);
+			glm::mat4 mvp = m_projectionMatrix;
+			
+			DrawContext context(Shader);
+			context.BindUniform("mvp", new UniformValue<glm::mat4>(mvp));
 
 			GLint pos_attrib = 0;
 			glEnableVertexAttribArray(pos_attrib);
@@ -283,8 +282,6 @@ namespace Gwen
 				6 * (m_currentQuadCount), // 6 indices per 2 triangles
 				GL_UNSIGNED_INT,
 				(const GLvoid*)0);
-
-			Program::End();
 
 			glBindVertexArray(0);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);

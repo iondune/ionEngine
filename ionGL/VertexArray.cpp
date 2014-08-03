@@ -2,6 +2,8 @@
 #include "VertexArray.h"
 #include <GL/glew.h>
 
+#include "Utilities.h"
+
 
 namespace ion
 {
@@ -12,30 +14,33 @@ namespace ion
 			BoundIndexBuffer = 0;
 			PrimativeType = EPrimativeType::Triangles;
 
-			glGenVertexArrays(1, & Handle);
+			CheckedGLCall(glGenVertexArrays(1, & Handle));
 		}
 
 		void VertexArray::SetIndexBuffer(IndexBuffer * ibo)
 		{
-			glBindVertexArray(Handle);
+			if (! ibo)
+				return;
+
+			CheckedGLCall(glBindVertexArray(Handle));
 			BoundIndexBuffer = ibo;
 			BoundIndexBuffer->Bind();
-			glBindVertexArray(0);
+			CheckedGLCall(glBindVertexArray(0));
 		}
 
 		void VertexArray::BindAttribute(u32 const index, VertexBuffer * vbo)
 		{
-			glBindVertexArray(Handle);
-			glEnableVertexAttribArray(index);
+			CheckedGLCall(glBindVertexArray(Handle));
+			CheckedGLCall(glEnableVertexAttribArray(index));
 			vbo->Bind();
-			glVertexAttribPointer(index, vbo->Components(), Util::TypeMatrix[(int) vbo->Type()], GL_FALSE, 0, 0);
+			CheckedGLCall(glVertexAttribPointer(index, vbo->Components(), Util::TypeMatrix[(int) vbo->Type()], GL_FALSE, 0, 0));
 			vbo->Unbind();
-			glBindVertexArray(0);
+			CheckedGLCall(glBindVertexArray(0));
 		}
 
 		void VertexArray::Draw()
 		{
-			glBindVertexArray(Handle);
+			CheckedGLCall(glBindVertexArray(Handle));
 			if (BoundIndexBuffer)
 			{
 				glDrawElements(
@@ -43,7 +48,7 @@ namespace ion
 					BoundIndexBuffer->Elements(),
 					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
 			}
-			glBindVertexArray(0);
+			CheckedGLCall(glBindVertexArray(0));
 		}
 
 		void VertexArray::Delete()
@@ -53,7 +58,7 @@ namespace ion
 
 		VertexArray::~VertexArray()
 		{
-			glDeleteVertexArrays(1, & Handle);
+			CheckedGLCall(glDeleteVertexArrays(1, & Handle));
 		}
 	}
 }

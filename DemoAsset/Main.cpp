@@ -74,6 +74,14 @@ int main()
 	Shader->BindAttributeLocation(0, "Position");
 	Shader->BindAttributeLocation(1, "Normal");
 
+	DrawConfig * Config = new DrawConfig{Shader};
+	Config->AddVertexBuffer("Position", Mesh->Root->Buffers[0]->VertexBuffers.Positions);
+	Config->AddVertexBuffer("Normal", Mesh->Root->Buffers[0]->VertexBuffers.Normals);
+	Config->AddUniform("Model", Model);
+	Config->AddUniform("View", View);
+	Config->AddUniform("Projection", Projection);
+	Config->SetIndexBuffer(Mesh->Root->Buffers[0]->VertexBuffers.Indices);
+
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
@@ -81,11 +89,7 @@ int main()
 		Context::Clear({EBuffer::Color, EBuffer::Depth});
 
 		DrawContext context(Shader);
-		context.BindUniform("Model", Model);
-		context.BindUniform("View", View);
-		context.BindUniform("Projection", Projection);
-		context.SetVertexArray(Mesh->Root->Buffers[0]->ArrayObject);
-		context.Draw();
+		context.Draw(Config);
 
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
 

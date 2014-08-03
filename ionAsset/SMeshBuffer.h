@@ -40,6 +40,5 @@ struct SMeshBuffer
 		ion::GL::VertexBuffer * Positions = 0, * Normals = 0, * Colors = 0, * TexCoords = 0;
 		ion::GL::IndexBuffer * Indices = 0;
 	} VertexBuffers;
-	ion::GL::VertexArray * ArrayObject = 0;
 
 };

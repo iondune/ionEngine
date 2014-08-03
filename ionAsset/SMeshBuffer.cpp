@@ -49,8 +49,6 @@ void SMeshBuffer::LoadDataIntoBuffers()
 		VertexBuffers.TexCoords = new ion::GL::VertexBuffer;
 	if (! VertexBuffers.Indices)
 		VertexBuffers.Indices = new ion::GL::IndexBuffer;
-	if (! ArrayObject)
-		ArrayObject = new ion::GL::VertexArray;
 
 	{
 		vector<f32> Data;
@@ -89,12 +87,6 @@ void SMeshBuffer::LoadDataIntoBuffers()
 		VertexBuffers.Indices->Data(Data);
 		Data.clear();
 	}
-
-	ArrayObject->SetIndexBuffer(VertexBuffers.Indices);
-	ArrayObject->BindAttribute(0, VertexBuffers.Positions);
-	ArrayObject->BindAttribute(1, VertexBuffers.Normals);
-	ArrayObject->BindAttribute(2, VertexBuffers.Colors);
-	ArrayObject->BindAttribute(3, VertexBuffers.TexCoords);
 }
 
 void SMeshBuffer::WriteObjMesh(std::string const & fileName)
