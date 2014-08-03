@@ -31,13 +31,15 @@ protected:
 	
 	SingletonPointer<CWindowManager> WindowManager;
 
-	Gwen::Controls::Canvas * Canvas;
+	Gwen::Controls::Canvas * Canvas = nullptr;
 	
-	Gwen::Font * LargeFont;
-	Gwen::Font * MediumFont;
-	Gwen::Font * RegularFont;
+	Gwen::Font * LargeFont = nullptr;
+	Gwen::Font * MediumFont = nullptr;
+	Gwen::Font * RegularFont = nullptr;
 
 	std::vector<CGUIWidget *> Widgets;
+
+	bool Initialized = false;
 
 private:
 	

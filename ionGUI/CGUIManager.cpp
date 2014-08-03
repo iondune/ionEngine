@@ -22,6 +22,12 @@ CGUIManager::CGUIManager()
 
 void CGUIManager::Init(string const & SkinFile)
 {
+	if (Initialized)
+	{
+		cerr << "GUIManager being initialized is already initialized" << endl;
+		return;
+	}
+
 	Gwen::Renderer::Base * pRenderer = new Gwen::Renderer::OpenGL3Font(ion::GL::Context::GetViewportSize());
 
 	Gwen::Skin::TexturedBase * skin = new Gwen::Skin::TexturedBase(pRenderer);
@@ -34,10 +40,18 @@ void CGUIManager::Init(string const & SkinFile)
 
 	Canvas = new Gwen::Controls::Canvas(skin);
 	Canvas->SetSize(ion::GL::Context::GetViewportSize().X, ion::GL::Context::GetViewportSize().Y);
+
+	Initialized = true;
 }
 
 void CGUIManager::Draw(f32 const Elapsed, bool const ClearAll)
 {
+	if (! Initialized)
+	{
+		cerr << "GUIManager being used is uninitialized." << endl;
+		return;
+	}
+
 	for (auto it = Widgets.begin(); it != Widgets.end(); ++ it)
 		(* it)->Update(Elapsed);
 
