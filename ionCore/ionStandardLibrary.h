@@ -22,7 +22,7 @@ using std::endl;
 
 
 template <typename T, typename U>
-U * ConditionalMapAccess(map<T, U *> & Map, T const Key)
+U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 {
 	auto Iterator = Map.find(Key);
 
@@ -30,6 +30,26 @@ U * ConditionalMapAccess(map<T, U *> & Map, T const Key)
 		return Iterator->second;
 
 	return 0;
+}
+
+template <typename T, typename U>
+bool CheckMapAccess(map<T, U> const & Map, T const Key)
+{
+	return Map.find(Key) != Map.end();
+}
+
+template <typename T, typename U>
+bool TryMapAccess(map<T, U> const & Map, T const Key, U & Value)
+{
+	auto Iterator = Map.find(Key);
+
+	if (Iterator != Map.end())
+	{
+		Value = Iterator->second;
+		return true;
+	}
+
+	return false;
 }
 
 class File
