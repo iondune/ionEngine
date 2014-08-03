@@ -11,25 +11,7 @@ class CGLGraphicsEngine : public IGraphicsEngine, public Singleton<CGLGraphicsEn
 
 public:
 
-	struct SDrawDefinition
-	{
-		ion::GL::VertexArray * Array = 0;
-		map<string, ion::GL::Uniform *> Uniforms;
-		vector<ion::GL::ImageTexture *> Textures;
-
-		SDrawDefinition();
-		SDrawDefinition(ion::GL::VertexArray * Array);
-
-		SDrawDefinition & AddUniform(string const & Label, IUniform * Uniform);
-		SDrawDefinition & AddUniform(string const & Label, IUniform & Uniform);
-		ion::GL::Uniform * GetUniform(string const & Label);
-	};
-
-	struct SRenderPass
-	{
-		map<CShader *, vector<SDrawDefinition>> Elements;
-	};
-
+	typedef map<CShader *, vector<CDrawConfig *>> RenderPass;
 
 	CGLGraphicsEngine();
 
@@ -38,6 +20,6 @@ public:
 	void Finalize(CScene * Scene);
 
 
-	vector<SRenderPass> RenderPasses;
+	vector<RenderPass> RenderPasses;
 
 };

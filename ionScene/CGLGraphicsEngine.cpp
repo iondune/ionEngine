@@ -7,7 +7,7 @@
 
 CGLGraphicsEngine::CGLGraphicsEngine()
 {
-	RenderPasses.push_back(SRenderPass{});
+	RenderPasses.push_back(RenderPass{});
 }
 
 void CGLGraphicsEngine::Begin(CScene * Scene)
@@ -15,7 +15,7 @@ void CGLGraphicsEngine::Begin(CScene * Scene)
 	ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
 }
 
-static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node);
+static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
 
 void CGLGraphicsEngine::Draw(ISceneNode * Node)
 {
