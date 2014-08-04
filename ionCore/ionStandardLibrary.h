@@ -52,6 +52,12 @@ bool TryMapAccess(map<T, U> const & Map, T const Key, U & Value)
 	return false;
 }
 
+template <typename T>
+void AddAtEnd(vector<T> & A, vector<T> const & B)
+{
+	A.insert(A.end(), B.begin(), B.end());
+}
+
 class File
 {
 
