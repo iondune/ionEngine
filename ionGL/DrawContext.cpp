@@ -38,6 +38,24 @@ namespace ion
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
 				Uniforms[Handle] = Value;
+			else
+				cerr << "Draw configuration invalid: cannot find uniform '" << Label << "'" << endl;
+		}
+
+		void DrawConfig::OfferUniform(string const & Label, Uniform const * Value)
+		{
+			u32 Handle;
+			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
+				Uniforms[Handle] = Value;
+		}
+
+		void DrawConfig::AddTexture(string const & Label, ImageTexture * Texture)
+		{
+			u32 Handle;
+			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
+				Textures[Handle] = Texture;
+			else
+				cerr << "Draw configuration invalid: cannot find uniform '" << Label << "'" << endl;
 		}
 		
 		void DrawConfig::SetIndexBuffer(IndexBuffer * IBO)
@@ -114,6 +132,13 @@ namespace ion
 
 			for (auto Uniform : DrawConfig->Uniforms)
 				Uniform.second->Bind(Uniform.first);
+
+			int TextureIndex = 0;
+			for (auto Texture : DrawConfig->Textures)
+			{
+				Uniform::Bind(Texture.first, TextureIndex);
+				Texture.second->Activate(TextureIndex);
+			}
 				
 			DrawConfig->VAO->Draw();
 		}

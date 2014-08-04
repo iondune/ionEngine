@@ -7,6 +7,7 @@
 #include "VertexArray.h"
 #include "Program.h"
 #include "Uniform.h"
+#include "Texture.h"
 
 
 namespace ion
@@ -23,6 +24,8 @@ namespace ion
 			void AddVertexBuffer(string const & Label, VertexBuffer * VBO);
 			void OfferVertexBuffer(string const & Label, VertexBuffer * VBO);
 			void AddUniform(string const & Label, Uniform const * Value);
+			void OfferUniform(string const & Label, Uniform const * Value);
+			void AddTexture(string const & Label, ImageTexture * Texture);
 			void SetIndexBuffer(IndexBuffer * IBO);
 			
 			bool Loaded() const;
@@ -34,6 +37,7 @@ namespace ion
 			
 			map<u32, VertexBuffer *> VertexBuffers;
 			map<u32, Uniform const *> Uniforms;
+			map<u32, ImageTexture *> Textures;
 			
 			Program * BoundProgram = nullptr;
 			VertexArray * VAO = nullptr;
