@@ -15,6 +15,9 @@ namespace ion
 
 			virtual void Bind(uint const Handle) const = 0;
 
+			template <typename T>
+			static void Bind(uint const Handle, T const & Value);
+
 		};
 
 		template <typename T>
@@ -27,10 +30,8 @@ namespace ion
 
 			void Bind(uint const Handle) const
 			{
-				Bind(Handle, GetValue());
+				Uniform::Bind(Handle, GetValue());
 			}
-
-			static void Bind(uint const Handle, T const & Value);
 
 		};
 
