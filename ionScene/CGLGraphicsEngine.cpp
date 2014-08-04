@@ -1,5 +1,7 @@
 
 #include "CGLGraphicsEngine.h"
+
+#include "CGLGraphicsComponent.h"
 #include "CShaderComponent.h"
 #include "CMeshComponent.h"
 #include "CTextureComponent.h"
@@ -15,63 +17,89 @@ void CGLGraphicsEngine::Begin(CScene * Scene)
 	ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
 }
 
-static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
+static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
 
-void CGLGraphicsEngine::Draw(ISceneNode * Node)
+void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 {
 	CSceneNode * SceneNode = As<CSceneNode>(Node);
 
 	if (SceneNode)
 	{
+		CGLGraphicsComponent * GraphicsComponent = SceneNode->RequireSingleComponent<CGLGraphicsComponent>();
+
 		CShaderComponent * ShaderComponent = nullptr;
 		CMeshComponent * MeshComponent = nullptr;
 		CTextureComponent * TextureComponent = nullptr;
-		
 		SceneNode->ExpectSingleComponent<CShaderComponent>(ShaderComponent);
 		SceneNode->ExpectSingleComponent<CMeshComponent>(MeshComponent);
 		SceneNode->ExpectSingleComponent<CTextureComponent>(TextureComponent);
 
-		if (MeshComponent)
-			RecurseMesh(SceneNode, MeshComponent, RenderPasses[0].Elements[ShaderComponent->GetShader()], MeshComponent->GetMesh()->Root);
-		
-		for (auto & Uniform : ShaderComponent->GetUniforms())
-			for (auto & Definition : RenderPasses[0].Elements[ShaderComponent->GetShader()])
-				Definition.AddUniform(Uniform.first, Uniform.second);
-
-		if (TextureComponent)
+		if (! CheckMapAccess(GraphicsComponent->GetDrawConfigurations(), ShaderComponent->GetShader()))
 		{
-			for (auto & Definition : RenderPasses[0].Elements[ShaderComponent->GetShader()])
+			vector<CDrawConfig *> DrawDefinitions;
+
+			if (MeshComponent)
+				RecurseMesh(SceneNode, ShaderComponent->GetShader(), DrawDefinitions, MeshComponent->GetMesh()->Root);
+
+			auto ActiveUniforms = ShaderComponent->GetShader()->GetActiveUniforms();
+			
+			for (auto & ActiveUniform : ActiveUniforms)
 			{
-				for (uint i = 0; i < TextureComponent->GetTextureCount(); ++ i)
+				auto Uniform = Scene->GetUniform(ActiveUniform.first);
+				if (Uniform)
+					for (auto & Definition : DrawDefinitions)
+						Definition->AddUniform(ActiveUniform.first, Uniform);
+			}
+		
+			for (auto & Uniform : ShaderComponent->GetUniforms())
+				for (auto & Definition : DrawDefinitions)
+					Definition->AddUniform(Uniform.first, Uniform.second);
+
+			if (TextureComponent)
+			{
+				for (auto & Definition : DrawDefinitions)
 				{
-					if (TextureComponent->GetTexture(i))
+					for (uint i = 0; i < TextureComponent->GetTextureCount(); ++ i)
 					{
-						stringstream Label;
-						Label << "Texture";
-						Label << i;
-						Definition.AddUniform(Label.str(), TextureComponent->GetTextureUniform(i));
-						Definition.Textures.push_back(TextureComponent->GetTexture(i)->GetHandle());
+						if (TextureComponent->GetTexture(i))
+						{
+							stringstream Label;
+							Label << "Texture";
+							Label << i;
+							Definition->AddTexture(Label.str(), TextureComponent->GetTexture(i)->GetHandle());
+						}
 					}
 				}
 			}
+
+			GraphicsComponent->GetDrawConfigurations()[ShaderComponent->GetShader()] = DrawDefinitions;
 		}
+		
+		AddAtEnd(RenderPasses[0][ShaderComponent->GetShader()], GraphicsComponent->GetDrawConfigurations()[ShaderComponent->GetShader()]);
 	}
 }
 
-static void RecurseMesh(CSceneNode * SceneNode, CMeshComponent * Component, vector<CGLGraphicsEngine::SDrawDefinition> & Definitions, SMeshNode * Node)
+static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node)
 {
-	for (uint i = 0; i < Node->Buffers.size(); ++ i)
+	for (auto & Buffer : Node->Buffers)
 	{
-		CGLGraphicsEngine::SDrawDefinition Definition{Node->Buffers[i]->ArrayObject};
-		Definition.AddUniform("Model", SceneNode->GetTransformationUniform());
-		Definition.AddUniform("Local", Node->AbsoluteTransformation);
+		CDrawConfig * DrawConfig = new CDrawConfig{Shader};
 
-		Definitions.push_back(Definition);
+		DrawConfig->OfferVertexBuffer("Position", Buffer->VertexBuffers.Positions);
+		DrawConfig->OfferVertexBuffer("Color", Buffer->VertexBuffers.Colors);
+		DrawConfig->OfferVertexBuffer("Normal", Buffer->VertexBuffers.Normals);
+		DrawConfig->OfferVertexBuffer("TexCoord", Buffer->VertexBuffers.TexCoords);
+		DrawConfig->SetIndexBuffer(Buffer->VertexBuffers.Indices);
+
+		DrawConfig->OfferUniform("Model", & SceneNode->GetTransformationUniform());
+		DrawConfig->OfferUniform("Local", & Node->AbsoluteTransformation);
+
+		Definitions.push_back(DrawConfig);
 	}
 	
 	for (auto & Child : Node->GetChildren())
 	{
-		RecurseMesh(SceneNode, Component, Definitions, Child);
+		RecurseMesh(SceneNode, Shader, Definitions, Child);
 	}
 }
 
@@ -80,51 +108,17 @@ void CGLGraphicsEngine::Finalize(CScene * Scene)
 {
 	for (auto & Pass : RenderPasses)
 	{
-		for (auto & Element : Pass.Elements)
+		for (auto & Shader : Pass)
 		{
-			if (! Element.first)
+			if (! Shader.first)
 				continue;
 
-			auto ActiveUniforms = Element.first->GetActiveUniforms();
-			std::vector<string> RequiredUniforms;
+			ion::GL::DrawContext Context(Shader.first);
 
-			ion::GL::DrawContext Context(Element.first);
-
-			for (auto & ActiveUniform : ActiveUniforms)
-			{
-				auto Uniform = Scene->GetUniform(ActiveUniform.first);
-				if (Uniform)
-					Context.BindUniform(ActiveUniform.first, Uniform);
-				else
-					RequiredUniforms.push_back(ActiveUniform.first);
-			}
-
-			for (auto & Definition : Element.second)
-			{
-				for (auto & RequiredUniform : RequiredUniforms)
-				{
-					auto Uniform = Definition.GetUniform(RequiredUniform);
-					if (Uniform)
-						Context.BindUniform(RequiredUniform, Uniform);
-					else
-						cerr << "Error! Unbound uniform " << RequiredUniform << endl;
-				}
-
-				for (uint i = 0; i < Definition.Textures.size(); ++ i)
-				{
-					Definition.Textures[i]->Activate(i);
-				}
-
-				Context.SetVertexArray(Definition.Array);
-				Context.Draw();
-
-				for (uint i = 0; i < Definition.Textures.size(); ++ i)
-				{
-					Definition.Textures[i]->Deactivate(i);
-				}
-			}
+			for (auto & Element : Shader.second)
+				Context.Draw(Element);
 		}
 
-		Pass.Elements.clear();
+		Pass.clear();
 	}
 }

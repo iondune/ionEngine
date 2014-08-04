@@ -17,11 +17,11 @@ public:
 	
 	void Update(CSceneNode * Node);
 	
-	map<CShader *, CDrawConfig *> & GetRenderPasses();
-	map<CShader *, CDrawConfig *> const & GetRenderPasses() const;
+	map<CShader *, vector<CDrawConfig *>> & GetDrawConfigurations();
+	map<CShader *, vector<CDrawConfig *>> const & GetDrawConfigurations() const;
 
 private:
 
-	map<CShader *, CDrawConfig *> RenderPasses;
+	map<CShader *, vector<CDrawConfig *>> DrawConfigurations;
 
 };

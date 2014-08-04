@@ -20,7 +20,7 @@ void CSceneNode::Update()
 void CSceneNode::Draw(IGraphicsEngine * Engine)
 {
 	if (Visible)
-		Engine->Draw(this);
+		Engine->Draw(Scene, this);
 	
 	ISceneNode::Draw(Engine);
 }

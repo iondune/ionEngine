@@ -21,9 +21,16 @@ void CScene::SetActiveCamera(ICamera * const activeCamera)
 	ActiveCamera = activeCamera;
 }
 
+void CScene::Update()
+{
+	View.Value = ActiveCamera->GetViewMatrix();
+	Proj.Value = ActiveCamera->GetProjectionMatrix();
+}
+
 void CScene::DrawAll(IGraphicsEngine * Engine)
 {
 	Engine->Begin(this);
+	Update();
 	Root->Update();
 	Root->Draw(Engine);
 	Engine->Finalize(this);
@@ -39,22 +46,16 @@ ion::GL::Uniform * CScene::GetUniform(string const & Label)
 	if (Label == "View")
 	{
 		if (ActiveCamera)
-		{
-			View.Value = ActiveCamera->GetViewMatrix();
 			return & View;
-		}
 		else
-			cerr << "Error! No bound camera" << endl;
+			cerr << "Error! No active camera" << endl;
 	}
 	else if (Label == "Projection")
 	{
 		if (ActiveCamera)
-		{
-			View.Value = ActiveCamera->GetProjectionMatrix();
-			return & View;
-		}
+			return & Proj;
 		else
-			cerr << "Error! No bound camera" << endl;
+			cerr << "Error! No active camera" << endl;
 	}
 
 	return nullptr;

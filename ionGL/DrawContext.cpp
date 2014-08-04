@@ -93,7 +93,7 @@ namespace ion
 		void DrawConfig::CheckUniforms()
 		{
 			for (auto BoundUniform : BoundProgram->GetActiveUniforms())
-				if (! CheckMapAccess(Uniforms, BoundUniform.second))
+				if (! CheckMapAccess(Uniforms, BoundUniform.second) && ! CheckMapAccess(Textures, BoundUniform.second))
 					cerr << "Draw configuration invalid: Uniform is bound but not supplied '" << BoundUniform.first << "' (" << BoundUniform.second << ")" << endl;
 		}
 

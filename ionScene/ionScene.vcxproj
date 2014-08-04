@@ -65,7 +65,6 @@
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CGLGraphicsComponent.cpp" />
     <ClCompile Include="CGLGraphicsEngine.cpp" />
-    <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp" />
     <ClCompile Include="CMeshComponent.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />

@@ -10,12 +10,12 @@ void CGLGraphicsComponent::Update(CSceneNode * Node)
 {
 }
 
-map<CShader *, CDrawConfig *> & CGLGraphicsComponent::GetRenderPasses()
+map<CShader *, vector<CDrawConfig *>> & CGLGraphicsComponent::GetDrawConfigurations()
 {
-	return RenderPasses;
+	return DrawConfigurations;
 }
 
-map<CShader *, CDrawConfig *> const & CGLGraphicsComponent::GetRenderPasses() const
+map<CShader *, vector<CDrawConfig *>> const & CGLGraphicsComponent::GetDrawConfigurations() const
 {
-	return RenderPasses;
+	return DrawConfigurations;
 }

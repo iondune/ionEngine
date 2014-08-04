@@ -103,9 +103,6 @@
     <ClCompile Include="CGLGraphicsEngine.cpp">
       <Filter>SceneManager\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CGLGraphicsEngine.SDrawDefinition.cpp">
-      <Filter>SceneManager\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="CTextureLibrary.cpp">
       <Filter>SceneManager\Libraries</Filter>
     </ClCompile>
