@@ -30,8 +30,8 @@ void CScene::Update()
 void CScene::DrawAll(IGraphicsEngine * Engine)
 {
 	Engine->Begin(this);
-	Update();
 	Root->Update();
+	Update();
 	Root->Draw(Engine);
 	Engine->Finalize(this);
 }
