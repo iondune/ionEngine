@@ -20,6 +20,8 @@ public:
 	map<CShader *, vector<CDrawConfig *>> & GetDrawConfigurations();
 	map<CShader *, vector<CDrawConfig *>> const & GetDrawConfigurations() const;
 
+	void Reset();
+
 private:
 
 	map<CShader *, vector<CDrawConfig *>> DrawConfigurations;

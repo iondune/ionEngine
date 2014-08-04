@@ -20,9 +20,14 @@ public:
 	IUniform * GetUniform(string const & Label);
 	map<string, IUniform *> & GetUniforms();
 
+	bool IsDirty() const;
+	void Clean();
+
 private:
 
 	CShader * Shader = nullptr;
 	map<string, IUniform *> Uniforms;
+
+	bool Dirty = false;
 
 };

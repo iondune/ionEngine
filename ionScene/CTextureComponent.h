@@ -23,9 +23,14 @@ public:
 
 	void SetTexture(uint const Index, CTexture * Texture);
 
+	bool IsDirty() const;
+	void Clean();
+
 private:
 
 	vector<CTexture *> Textures;
 	vector<ion::GL::UniformValue<int> *> TextureUniforms;
+
+	bool Dirty = false;
 
 };

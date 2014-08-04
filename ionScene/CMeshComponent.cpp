@@ -13,6 +13,7 @@ CMeshComponent::CMeshComponent(CMesh * Mesh)
 void CMeshComponent::SetMesh(CMesh * Mesh)
 {
 	this->Mesh = Mesh;
+	Dirty = true;
 }
 
 CMesh * CMeshComponent::GetMesh()
@@ -22,3 +23,13 @@ CMesh * CMeshComponent::GetMesh()
 
 void CMeshComponent::Update(CSceneNode * Node)
 {}
+
+bool CMeshComponent::IsDirty() const
+{
+	return Dirty;
+}
+
+void CMeshComponent::Clean()
+{
+	Dirty = false;
+}

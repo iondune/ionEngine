@@ -34,12 +34,23 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 		SceneNode->ExpectSingleComponent<CMeshComponent>(MeshComponent);
 		SceneNode->ExpectSingleComponent<CTextureComponent>(TextureComponent);
 
-		if (! CheckMapAccess(GraphicsComponent->GetDrawConfigurations(), ShaderComponent->GetShader()))
+		bool NeedReset = false;
+		if (ShaderComponent && ShaderComponent->IsDirty())
+			NeedReset = true;
+		if (MeshComponent && MeshComponent->IsDirty())
+			NeedReset = true;
+		if (TextureComponent && TextureComponent->IsDirty())
+			NeedReset = true;
+
+		if (! CheckMapAccess(GraphicsComponent->GetDrawConfigurations(), ShaderComponent->GetShader()) || NeedReset)
 		{
 			vector<CDrawConfig *> DrawDefinitions;
 
 			if (MeshComponent)
+			{
 				RecurseMesh(SceneNode, ShaderComponent->GetShader(), DrawDefinitions, MeshComponent->GetMesh()->Root);
+				MeshComponent->Clean();
+			}
 
 			auto ActiveUniforms = ShaderComponent->GetShader()->GetActiveUniforms();
 			
@@ -54,6 +65,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 			for (auto & Uniform : ShaderComponent->GetUniforms())
 				for (auto & Definition : DrawDefinitions)
 					Definition->AddUniform(Uniform.first, Uniform.second);
+			ShaderComponent->Clean();
 
 			if (TextureComponent)
 			{
@@ -70,6 +82,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 						}
 					}
 				}
+				TextureComponent->Clean();
 			}
 
 			GraphicsComponent->GetDrawConfigurations()[ShaderComponent->GetShader()] = DrawDefinitions;

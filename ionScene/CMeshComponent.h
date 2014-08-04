@@ -17,9 +17,14 @@ public:
 
 	void SetMesh(CMesh * Mesh);
 	CMesh * GetMesh();
+	
+	bool IsDirty() const;
+	void Clean();
 
 private:
 
 	CMesh * Mesh = nullptr;
+
+	bool Dirty = false;
 
 };

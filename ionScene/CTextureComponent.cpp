@@ -51,7 +51,19 @@ void CTextureComponent::SetTexture(uint const Index, CTexture * Texture)
 	Textures[Index] = Texture;
 	if (! TextureUniforms[Index])
 		TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
+
+	Dirty = true;
 }
 
 void CTextureComponent::Update(CSceneNode * Node)
 {}
+
+bool CTextureComponent::IsDirty() const
+{
+	return Dirty;
+}
+
+void CTextureComponent::Clean()
+{
+	Dirty = false;
+}
