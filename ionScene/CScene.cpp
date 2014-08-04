@@ -57,5 +57,5 @@ ion::GL::Uniform * CScene::GetUniform(string const & Label)
 			cerr << "Error! No bound camera" << endl;
 	}
 
-	return 0;
+	return nullptr;
 }
