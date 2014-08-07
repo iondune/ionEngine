@@ -279,6 +279,8 @@ namespace Gwen
 				sizeof(Vertex),
 				(const GLvoid*)buffer_offset);
 
+			checkGLError();
+
 			glDrawElements(
 				GL_TRIANGLES,
 				6 * (m_currentQuadCount), // 6 indices per 2 triangles
