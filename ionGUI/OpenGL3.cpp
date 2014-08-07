@@ -134,6 +134,8 @@ namespace Gwen
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesv.size() * sizeof(u32), indicesv.data(), GL_STATIC_DRAW);
 
+			glBindVertexArray(0);
+
 			checkGLError();
 		}
 
