@@ -3,8 +3,7 @@
 
 
 CScene::CScene()
-{
-}
+{}
 
 ICamera * const CScene::GetActiveCamera()
 {

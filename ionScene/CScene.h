@@ -19,13 +19,14 @@ public:
 	virtual void Update();
 	virtual void DrawAll(IGraphicsEngine * Engine);
 
-	ISceneNode * GetRoot();
-	ion::GL::Uniform * GetUniform(string const & Label);
+	virtual ISceneNode * GetRoot();
+	virtual ion::GL::Uniform * GetUniform(string const & Label);
 
 protected:
 
 	ICamera * ActiveCamera = nullptr;
 	ISceneNode * Root = new ISceneNode{nullptr};
+
 	ion::GL::UniformValue<glm::mat4> View;
 	ion::GL::UniformValue<glm::mat4> Proj;
 
