@@ -41,7 +41,7 @@
     <Import Project="..\Properties\ionGLFW.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="Build.cpp" />
+    <ClCompile Include="DeploymentTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
