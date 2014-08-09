@@ -83,6 +83,11 @@ namespace ion
 			CheckedGLCall(glGenTextures(1, & Handle));
 		}
 
+		u32 Texture::GetHandle()
+		{
+			return Handle;
+		}
+
 		void ImageTexture::Activate(uint const index)
 		{
 			CheckedGLCall(glActiveTexture(GL_TEXTURE0 + index));

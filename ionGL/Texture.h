@@ -18,6 +18,8 @@ namespace ion
 			void Delete();
 			~Texture();
 
+			u32 GetHandle();
+
 		protected:
 
 			Texture();
