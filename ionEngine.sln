@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{A69E0D16-25DF-4226-878D-91224A10551C}"
-	ProjectSection(SolutionItems) = preProject
-		Include\ionConfig.h = Include\ionConfig.h
-		Include\ionEngine.h = Include\ionEngine.h
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoAsset", "DemoAsset\DemoAsset.vcxproj", "{791485D8-0C8C-48C2-B943-6E10C34860C0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
@@ -23,11 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoBootstrap", "DemoBootst
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
 		{1FDC44C8-0538-4FDD-8F94-531DFC28D166} = {1FDC44C8-0538-4FDD-8F94-531DFC28D166}
 		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A} = {BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoDeployment", "DemoDeployment\DemoDeployment.vcxproj", "{2D08659B-B706-4A3C-95C0-9294710DC5EE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoGL", "DemoGL\DemoGL.vcxproj", "{6F837E71-5954-4D08-B1BE-598C8FDF021E}"
@@ -46,6 +35,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoWindowManager", "DemoWindowManager\DemoWindowManager.vcxproj", "{03C6DAB6-20CA-4279-A89E-087373B27805}"
 	ProjectSection(ProjectDependencies) = postProject
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeploymentTest", "DeploymentTest\DeploymentTest.vcxproj", "{2D08659B-B706-4A3C-95C0-9294710DC5EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionAnimation", "ionAnimation\ionAnimation.vcxproj", "{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}"
@@ -89,6 +83,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoGUI", "DemoGUI\DemoGUI.
 		{B9BEDC8B-802D-48AB-B6D4-8A2CAD197F35} = {B9BEDC8B-802D-48AB-B6D4-8A2CAD197F35}
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
 		{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A} = {BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{A69E0D16-25DF-4226-878D-91224A10551C}"
+	ProjectSection(SolutionItems) = preProject
+		Include\ionConfig.h = Include\ionConfig.h
+		Include\ionEngine.h = Include\ionEngine.h
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{EAB41B6E-7AAE-4A64-A98E-A0ACE574E0A1}"
