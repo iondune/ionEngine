@@ -185,17 +185,11 @@ namespace ion
 
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
 			glTexStorage2D(GL_TEXTURE_2D, Levels, InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
-			//glTexStorage2D(GL_TEXTURE_2D, Levels, GL_RGBA8, Size.X, Size.Y);
 			if (OpenGLError())
 			{
 				cerr << "Error occured during glTexStorage2D: " << GetOpenGLError() << endl;
 				cerr << "Handle is " << Handle << endl;
 			}
-			int Immutable = -1;
-			glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_IMMUTABLE_FORMAT, & Immutable);
-			printf("Texture is immutable: %d\n", Immutable);
-			glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_IMMUTABLE_LEVELS, & Immutable);
-			printf("Texture has %d immutable levels\n", Immutable);
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 		}
 
