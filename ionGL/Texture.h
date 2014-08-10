@@ -112,24 +112,6 @@ namespace ion
 			bool ImageLoaded;
 		};
 
-		class Texture1D : public ImageTexture
-		{
-
-		public:
-
-			void Storage(u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
-			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-			void SubImage(void * const data, u32 const offset, u32 const size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-
-			Texture1D();
-
-		protected:
-
-			u32 GetTarget();
-
-			u32 Size;
-		};
-
 		class Texture2D : public ImageTexture
 		{
 
@@ -144,22 +126,6 @@ namespace ion
 			u32 GetTarget();
 
 			vec2u Size;
-		};
-
-		class Texture3D : public ImageTexture
-		{
-
-		public:
-
-			void Storage(vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EInternalFormatType const type = EInternalFormatType::U8);
-			void Image(void * const data, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-			void SubImage(void * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
-
-		protected:
-
-			u32 GetTarget();
-
-			vec3u Size;
 		};
 	}
 }
