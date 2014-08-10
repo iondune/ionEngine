@@ -123,3 +123,21 @@ void CImage::FlipY()
 		}
 	}
 }
+
+CTexture2D * CImage::MakeTexture() const
+{
+	ion::GL::Texture::EFormatComponents Components;
+	switch (Channels)
+	{
+	case 3:
+		Components = ion::GL::Texture::EFormatComponents::RGB;
+		break;
+	case 4:
+		Components = ion::GL::Texture::EFormatComponents::RGBA;
+		break;
+	}
+	CTexture2D * Texture = new CTexture2D(Size, true, Components);
+	Texture->Image(Data.get(), Components);
+
+	return Texture;
+}

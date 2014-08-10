@@ -78,7 +78,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 							stringstream Label;
 							Label << "Texture";
 							Label << i;
-							Definition->AddTexture(Label.str(), TextureComponent->GetTexture(i)->GetHandle());
+							Definition->AddTexture(Label.str(), TextureComponent->GetTexture(i));
 						}
 					}
 				}

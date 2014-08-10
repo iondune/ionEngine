@@ -11,7 +11,7 @@ class CTextureLibrary
 public:
 
 	CTexture * Get(string const & Label);
-	CTexture * Load(string const & File, STextureParams const & Params = STextureParams{});
+	CTexture * Load(string const & File);
 
 	void SetBaseDirectory(string const & BaseDirectory);
 	string GetBaseDirectory() const;

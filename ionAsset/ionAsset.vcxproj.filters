@@ -24,9 +24,6 @@
     <ClInclude Include="SMaterial.h">
       <Filter>Material</Filter>
     </ClInclude>
-    <ClInclude Include="CTexture.h">
-      <Filter>Image</Filter>
-    </ClInclude>
     <ClInclude Include="IUniform.h">
       <Filter>Mesh</Filter>
     </ClInclude>
@@ -56,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="SMaterial.cpp">
       <Filter>Material</Filter>
-    </ClCompile>
-    <ClCompile Include="CTexture.cpp">
-      <Filter>Image</Filter>
     </ClCompile>
     <ClCompile Include="SMeshNode.cpp">
       <Filter>Mesh</Filter>

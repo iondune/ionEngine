@@ -1,9 +1,12 @@
 
 #pragma once
 
-#include <ionMath/SVector2.h>
-#include <ionMath/SColor.h>
+#include <ionMath.h>
+#include <ionGL.h>
 
+
+typedef ion::GL::Texture CTexture;
+typedef ion::GL::Texture2D CTexture2D;
 
 class CImage
 {
@@ -33,6 +36,8 @@ public:
 
 	void Write(std::string const & fileName);
 	void FlipY();
+
+	CTexture2D * MakeTexture() const;
 
 protected:
 

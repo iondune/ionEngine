@@ -1,6 +1,8 @@
 
 #include "DrawContext.h"
 
+#include <GL/glew.h>
+
 
 namespace ion
 {
@@ -49,7 +51,7 @@ namespace ion
 				Uniforms[Handle] = Value;
 		}
 
-		void DrawConfig::AddTexture(string const & Label, ImageTexture * Texture)
+		void DrawConfig::AddTexture(string const & Label, Texture * Texture)
 		{
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
@@ -137,7 +139,8 @@ namespace ion
 			for (auto Texture : DrawConfig->Textures)
 			{
 				Uniform::Bind(Texture.first, TextureIndex);
-				Texture.second->Activate(TextureIndex);
+				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+				CheckedGLCall(glBindTexture(Texture.second->GetGLBindTextureTarget(), Texture.second->GetHandle()));
 			}
 				
 			DrawConfig->VAO->Draw();

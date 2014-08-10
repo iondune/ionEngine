@@ -15,12 +15,12 @@ static string MakeFileName(string const & BaseDirectory, string const & File)
 		return File;
 }
 
-CTexture * CTextureLibrary::Load(string const & File, STextureParams const & Params)
+CTexture * CTextureLibrary::Load(string const & File)
 {
 	string const FileName = MakeFileName(BaseDirectory, File);
 
 	CImage * Image = CImage::Load(FileName);
-	CTexture * Texture = new CTexture{Image, Params};
+	CTexture * Texture = Image->MakeTexture();
 	
 	return Textures[File] = Texture;
 }

@@ -25,7 +25,7 @@ namespace ion
 			void OfferVertexBuffer(string const & Label, VertexBuffer * VBO);
 			void AddUniform(string const & Label, Uniform const * Value);
 			void OfferUniform(string const & Label, Uniform const * Value);
-			void AddTexture(string const & Label, ImageTexture * Texture);
+			void AddTexture(string const & Label, Texture * Texture);
 			void SetIndexBuffer(IndexBuffer * IBO);
 			
 			bool Loaded() const;
@@ -37,7 +37,7 @@ namespace ion
 			
 			map<u32, VertexBuffer *> VertexBuffers;
 			map<u32, Uniform const *> Uniforms;
-			map<u32, ImageTexture *> Textures;
+			map<u32, Texture *> Textures;
 			
 			Program * BoundProgram = nullptr;
 			VertexArray * VAO = nullptr;
