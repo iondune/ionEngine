@@ -16,6 +16,6 @@ are used by all other modules, so most other module examples serve as example us
 \subsubsection Files
 
 The elements of the ionCore module are sorted by file, so the best place to learn specifics is the
-\link ionCore/ ionCore directory \endlink .
+by navigating to the ionCore directory in the Files tab.
 
 */
