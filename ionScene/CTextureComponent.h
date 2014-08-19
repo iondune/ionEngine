@@ -24,7 +24,7 @@ public:
 	void SetTexture(uint const Index, CTexture * Texture);
 
 	bool IsDirty() const;
-	void Clean();
+	void SetClean();
 
 private:
 

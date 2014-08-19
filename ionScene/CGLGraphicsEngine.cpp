@@ -49,7 +49,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 			if (MeshComponent)
 			{
 				RecurseMesh(SceneNode, ShaderComponent->GetShader(), DrawDefinitions, MeshComponent->GetMesh()->Root);
-				MeshComponent->Clean();
+				MeshComponent->SetClean();
 			}
 
 			auto ActiveUniforms = ShaderComponent->GetShader()->GetActiveUniforms();
@@ -65,7 +65,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 			for (auto & Uniform : ShaderComponent->GetUniforms())
 				for (auto & Definition : DrawDefinitions)
 					Definition->AddUniform(Uniform.first, Uniform.second);
-			ShaderComponent->Clean();
+			ShaderComponent->SetClean();
 
 			if (TextureComponent)
 			{
@@ -82,7 +82,7 @@ void CGLGraphicsEngine::Draw(CScene * Scene, ISceneNode * Node)
 						}
 					}
 				}
-				TextureComponent->Clean();
+				TextureComponent->SetClean();
 			}
 
 			GraphicsComponent->GetDrawConfigurations()[ShaderComponent->GetShader()] = DrawDefinitions;

@@ -63,7 +63,7 @@ bool CTextureComponent::IsDirty() const
 	return Dirty;
 }
 
-void CTextureComponent::Clean()
+void CTextureComponent::SetClean()
 {
 	Dirty = false;
 }

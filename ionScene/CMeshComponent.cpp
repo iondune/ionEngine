@@ -29,7 +29,7 @@ bool CMeshComponent::IsDirty() const
 	return Dirty;
 }
 
-void CMeshComponent::Clean()
+void CMeshComponent::SetClean()
 {
 	Dirty = false;
 }

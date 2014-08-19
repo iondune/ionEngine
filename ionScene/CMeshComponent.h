@@ -19,7 +19,7 @@ public:
 	CMesh * GetMesh();
 	
 	bool IsDirty() const;
-	void Clean();
+	void SetClean();
 
 private:
 

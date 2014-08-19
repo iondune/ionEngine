@@ -45,7 +45,7 @@ bool CShaderComponent::IsDirty() const
 	return Dirty;
 }
 
-void CShaderComponent::Clean()
+void CShaderComponent::SetClean()
 {
 	Dirty = false;
 }

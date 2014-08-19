@@ -23,7 +23,7 @@ public:
 	map<string, IUniform *> & GetUniforms();
 
 	bool IsDirty() const;
-	void Clean();
+	void SetClean();
 
 private:
 
