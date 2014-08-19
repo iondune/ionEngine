@@ -5,14 +5,14 @@
 CShaderComponent::CShaderComponent()
 {}
 
-CShaderComponent::CShaderComponent(CShader * Shader)
+CShaderComponent::CShaderComponent(CShader * Shader, IRenderPass * RenderPass)
 {
-	this->Shader = Shader;
+	this->Shaders[DefaultForwardRenderPass] = Shader;
 }
 
-void CShaderComponent::SetShader(CShader * Shader)
+void CShaderComponent::SetShader(CShader * Shader, IRenderPass * RenderPass)
 {
-	this->Shader = Shader;
+	this->Shaders[RenderPass] = Shader;
 	Dirty = true;
 }
 
@@ -22,9 +22,9 @@ void CShaderComponent::SetUniform(string const & Label, IUniform * Uniform)
 	Dirty = true;
 }
 
-CShader * CShaderComponent::GetShader()
+CShader * CShaderComponent::GetShader(IRenderPass * RenderPass)
 {
-	return Shader;
+	return Shaders[RenderPass];
 }
 
 IUniform * CShaderComponent::GetUniform(string const & Label)
