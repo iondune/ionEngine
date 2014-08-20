@@ -11,6 +11,7 @@
 #include <sstream>
 
 using std::move;
+using std::for_each;
 
 using std::ifstream;
 using std::ofstream;
