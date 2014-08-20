@@ -16,7 +16,7 @@ public:
 	CGLGraphicsEngine();
 
 	void Begin(CScene * Scene);
-	void Draw(CScene * Scene, ISceneNode * Node);
+	void Draw(CScene * Scene, map<CShader *, vector<CDrawConfig *>> const & Configurations);
 	void Finalize(CScene * Scene);
 
 

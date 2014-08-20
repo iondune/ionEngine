@@ -42,16 +42,12 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CGLGraphicsComponent.h" />
     <ClInclude Include="CGLGraphicsEngine.h" />
     <ClInclude Include="CMeshLibrary.h" />
-    <ClInclude Include="CMeshComponent.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneNodeFactory.h" />
-    <ClInclude Include="CShaderComponent.h" />
     <ClInclude Include="CShaderLibrary.h" />
-    <ClInclude Include="CTextureComponent.h" />
     <ClInclude Include="CTextureLibrary.h" />
     <ClInclude Include="CUpdateCallbackComponent.h" />
     <ClInclude Include="ICamera.h" />
@@ -64,18 +60,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CGLGraphicsComponent.cpp" />
     <ClCompile Include="CGLGraphicsEngine.cpp" />
-    <ClCompile Include="CMeshComponent.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneNode.cpp" />
     <ClCompile Include="CSceneNodeFactory.cpp" />
-    <ClCompile Include="CShaderComponent.cpp" />
     <ClCompile Include="CShaderLibrary.cpp" />
-    <ClCompile Include="CTextureComponent.cpp" />
     <ClCompile Include="CTextureLibrary.cpp" />
     <ClCompile Include="CUpdateCallbackComponent.cpp" />
     <ClCompile Include="IRenderPass.cpp" />

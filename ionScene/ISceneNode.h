@@ -8,6 +8,7 @@
 #include <ionAsset.h>
 
 #include "IGraphicsEngine.h"
+#include "IRenderPass.h"
 
 
 class ISceneNode : public ITreeNode<ISceneNode>
@@ -64,7 +65,7 @@ public:
 	/////////////////////////////
 
 	virtual void Update();
-	virtual void Draw(IGraphicsEngine * Engine);
+	virtual map<CShader *, vector<CDrawConfig *>> PrepareDrawConfigurations(IRenderPass * Pass);
 
 
 protected:

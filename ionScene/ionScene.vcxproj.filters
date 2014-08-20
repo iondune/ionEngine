@@ -23,9 +23,6 @@
     <ClInclude Include="ICamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshComponent.h">
-      <Filter>Node\Component</Filter>
-    </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
@@ -47,17 +44,8 @@
     <ClInclude Include="CTextureLibrary.h">
       <Filter>SceneManager\Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="CTextureComponent.h">
-      <Filter>Node\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderComponent.h">
-      <Filter>Node\Component</Filter>
-    </ClInclude>
     <ClInclude Include="ISceneNodeComponent.h">
       <Filter>Node</Filter>
-    </ClInclude>
-    <ClInclude Include="CGLGraphicsComponent.h">
-      <Filter>Node\Component</Filter>
     </ClInclude>
     <ClInclude Include="IRenderPass.h">
       <Filter>SceneManager\Render Passes</Filter>
@@ -88,9 +76,6 @@
     <ClCompile Include="CSceneNode.cpp">
       <Filter>Node</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshComponent.cpp">
-      <Filter>Node\Component</Filter>
-    </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>SceneManager</Filter>
     </ClCompile>
@@ -108,15 +93,6 @@
     </ClCompile>
     <ClCompile Include="CTextureLibrary.cpp">
       <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="CTextureComponent.cpp">
-      <Filter>Node\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderComponent.cpp">
-      <Filter>Node\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CGLGraphicsComponent.cpp">
-      <Filter>Node\Component</Filter>
     </ClCompile>
     <ClCompile Include="IRenderPass.cpp">
       <Filter>SceneManager\Render Passes</Filter>

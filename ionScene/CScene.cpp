@@ -31,7 +31,8 @@ void CScene::DrawAll(IGraphicsEngine * Engine)
 	Engine->Begin(this);
 	Root->Update();
 	Update();
-	Root->Draw(Engine);
+	if (Root->IsVisible())
+		Engine->Draw(this, Root->PrepareDrawConfigurations(DefaultForwardRenderPass));
 	Engine->Finalize(this);
 }
 

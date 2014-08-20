@@ -55,6 +55,11 @@ namespace ion
 		{
 		public:
 
+			// Specify framebuffer here?
+			// DrawContext for framebuffer
+			// Set Program call
+			// then draw
+
 			DrawContext(Program * program);
 			~DrawContext();
 			

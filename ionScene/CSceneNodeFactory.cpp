@@ -1,8 +1,6 @@
 
 #include "CSceneNodeFactory.h"
 #include "CSceneManager.h"
-#include "CMeshComponent.h"
-#include "CTextureComponent.h"
 #include "CUpdateCallbackComponent.h"
 
 

@@ -28,9 +28,25 @@ void ISceneNode::Update()
 	UpdateAbsoluteTransformation();
 	RecurseOnChildren(& ISceneNode::Update);
 }
-
-void ISceneNode::Draw(IGraphicsEngine * Engine)
+ 
+map<CShader *, vector<CDrawConfig *>> ISceneNode::PrepareDrawConfigurations(IRenderPass * Pass)
 {
+	map<CShader *, vector<CDrawConfig *>> Configurations;
+
 	if (Visible)
-		RecurseOnChildren(& ISceneNode::Draw, Engine);
+	{
+		for (auto Child : Children)
+		{
+			if (Child->Visible)
+			{
+				auto ChildConfigurations = Child->PrepareDrawConfigurations(Pass);
+				for (auto Config : ChildConfigurations)
+				{
+					AddAtEnd(Configurations[Config.first], Config.second);
+				}
+			}
+		}
+	}
+
+	return Configurations;
 }
