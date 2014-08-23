@@ -8,6 +8,7 @@
 #include "Program.h"
 #include "Uniform.h"
 #include "Texture.h"
+#include "Framebuffer.h"
 
 
 namespace ion
@@ -60,15 +61,17 @@ namespace ion
 			// Set Program call
 			// then draw
 
-			DrawContext(Program * program);
+			DrawContext(Framebuffer * Framebuffer = DefaultFrameBuffer);
 			~DrawContext();
 			
+			void LoadProgram(Program * Program);
 			void Draw(DrawConfig * DrawConfig);
 
 			void BindUniform(string const & Name, Uniform const * Value);
 
 		protected:
 
+			Framebuffer * Target = nullptr;
 			Program * BoundProgram = nullptr;
 			VertexArray * BoundArray = nullptr;
 		};

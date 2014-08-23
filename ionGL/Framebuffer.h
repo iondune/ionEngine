@@ -27,5 +27,8 @@ namespace ion
 
 			u32 Handle;
 		};
+
+
+		extern Framebuffer * DefaultFrameBuffer;
 	}
 }

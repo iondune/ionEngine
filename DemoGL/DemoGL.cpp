@@ -85,7 +85,8 @@ int main()
 
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
 
-		DrawContext Context{shader};
+		DrawContext Context{};
+		Context.LoadProgram(shader);
 		Context.Draw(Config);
 
 		Window->SwapBuffers();

@@ -10,6 +10,9 @@ namespace ion
 {
 	namespace GL
 	{
+		Framebuffer * DefaultFrameBuffer = nullptr;
+
+
 		Framebuffer::Framebuffer()
 		{
 			CheckedGLCall(glGenFramebuffers(1, & Handle));

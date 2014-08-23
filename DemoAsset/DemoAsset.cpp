@@ -88,7 +88,8 @@ int main()
 
 		Context::Clear({EBuffer::Color, EBuffer::Depth});
 
-		DrawContext context(Shader);
+		DrawContext context{};
+		context.LoadProgram(Shader);
 		context.Draw(Config);
 
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));

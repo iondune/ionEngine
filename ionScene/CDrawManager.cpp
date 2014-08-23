@@ -51,7 +51,8 @@ void CDrawManager::Finalize()
 			if (! Shader.first)
 				continue;
 
-			ion::GL::DrawContext Context(Shader.first);
+			ion::GL::DrawContext Context{};
+			Context.LoadProgram(Shader.first);
 
 			for (auto & Element : Shader.second)
 				Context.Draw(Element);

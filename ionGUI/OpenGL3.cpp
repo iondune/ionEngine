@@ -239,7 +239,8 @@ namespace Gwen
 			m_projectionMatrix = glm::ortho(0.0f, (f32) ScreenSize.X, (f32) ScreenSize.Y, 0.0f, -1.0f, 1.0f);
 			glm::mat4 mvp = m_projectionMatrix;
 			
-			DrawContext context(Shader);
+			DrawContext context{};
+			context.LoadProgram(Shader);
 			context.BindUniform("mvp", new UniformValue<glm::mat4>(mvp));
 
 			GLint pos_attrib = 0;

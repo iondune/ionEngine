@@ -100,18 +100,23 @@ namespace ion
 		}
 
 
-		DrawContext::DrawContext(Program * program)
+		DrawContext::DrawContext(Framebuffer * Framebuffer)
 		{
-			BoundProgram = program;
-			BoundArray = 0;
-
-			if (BoundProgram)
-				BoundProgram->Use();
+			Target = Framebuffer;
 		}
 
 		DrawContext::~DrawContext()
 		{
 			Program::End();
+		}
+		
+		void DrawContext::LoadProgram(Program * Program)
+		{
+			BoundProgram = Program;
+			if (BoundProgram)
+				BoundProgram->Use();
+			else
+				Program::End();
 		}
 
 		void DrawContext::BindUniform(string const & Name, Uniform const * Value)
@@ -126,6 +131,12 @@ namespace ion
 
 		void DrawContext::Draw(DrawConfig * DrawConfig)
 		{
+			if (! BoundProgram)
+			{
+				cerr << "Draw context invalid: no bound program." << endl;
+				return;
+			}
+
 			if (! DrawConfig->VAO)
 			{
 				DrawConfig->CreateVertexArray();
