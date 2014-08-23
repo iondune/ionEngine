@@ -33,8 +33,8 @@ void CDrawManager::Finalize()
 	for (uint i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
 	{
 		*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
-		*LightBindings[i].Color = Colors::White;
-		*LightBindings[i].Radius = 10.f;
+		*LightBindings[i].Color = RegisteredLights[i]->GetColor();
+		*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
 	}
 	for (uint i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
 	{

@@ -20,18 +20,20 @@ int main()
 	SceneManager->GetShaderLibrary()->SetBaseDirectory("Assets/Shaders");
 	
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
-	SceneManager->GetMeshLibrary()->Add("Plane", CGeometryCreator::CreatePlane(vec2f(10.f)));
+	SceneManager->GetMeshLibrary()->Add("Plane", CGeometryCreator::CreatePlane(vec2f(100.f)));
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
 	SceneManager->GetShaderLibrary()->Load("Simple");
 	SceneManager->GetShaderLibrary()->Load("Normals");
 	SceneManager->GetTextureLibrary()->Load("SkyMap.jpg")->SetMagFilter(ion::GL::Texture::EFilter::Nearest);
 
-	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(0, 2, 0));
-	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(2, 3, 0));
-	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(4, 1, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(0, 1, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(4, 2, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(12, 3, 0));
 	SceneManager->GetFactory()->AddMeshNode("Plane", "Diffuse");
 	SceneManager->GetFactory()->AddSkySphereNode("SkyMap.jpg");
-	SceneManager->GetFactory()->AddLight(vec3f(0, 2, 0));
+	ILightSceneNode * Light1 = SceneManager->GetFactory()->AddLight(vec3f(0, 1, 0));
+	ILightSceneNode * Light2 = SceneManager->GetFactory()->AddLight(vec3f(4, 2, 0));
+	ILightSceneNode * Light3 = SceneManager->GetFactory()->AddLight(vec3f(12, 3, 0));
 
 	ICamera * Camera = nullptr;
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera(Window->GetAspectRatio()));
@@ -47,6 +49,12 @@ int main()
 	{
 		WindowManager->PollEvents();
 		TimeManager->Update();
+		
+		float Radius = 1.f;(Sin(TimeManager->GetRunTime()) / 2.f + 0.5f) * 10.f;
+		Light1->SetRadius(Radius);
+		Light2->SetRadius(Radius);
+		Light3->SetRadius(Radius);
+
 		SceneManager->DrawAll(GraphicsEngine.Get());
 		Window->SwapBuffers();
 	}

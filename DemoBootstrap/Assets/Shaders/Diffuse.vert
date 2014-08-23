@@ -29,10 +29,10 @@ void main()
 
 	for (int i = 0; i < LIGHT_MAX && i < uLightCount; ++ i)
 	{
-		vLight[i] = normalize(uLights[i].Position - vec3(Position));
+		vLight[i] = uLights[i].Position - vec3(Position);
 		vLightColor[i] = uLights[i].Color;
 	}
-	vNormal = normalize(Normal);
+	vNormal = Normal;
 
 	gl_Position = Projection * View * Position;
 }
