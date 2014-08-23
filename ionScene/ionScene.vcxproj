@@ -42,7 +42,7 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CGLGraphicsEngine.h" />
+    <ClInclude Include="CDrawManager.h" />
     <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
     <ClInclude Include="CScene.h" />
@@ -51,7 +51,6 @@
     <ClInclude Include="CTextureLibrary.h" />
     <ClInclude Include="CUpdateCallbackComponent.h" />
     <ClInclude Include="ICamera.h" />
-    <ClInclude Include="IGraphicsEngine.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneNode.h" />
     <ClInclude Include="IRenderPass.h" />
@@ -60,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CGLGraphicsEngine.cpp" />
+    <ClCompile Include="CDrawManager.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CScene.cpp" />

@@ -29,7 +29,7 @@ void ISceneNode::Update()
 	RecurseOnChildren(& ISceneNode::Update);
 }
  
-map<CShader *, vector<CDrawConfig *>> ISceneNode::PrepareDrawConfigurations(IRenderPass * Pass)
+map<CShader *, vector<CDrawConfig *>> ISceneNode::PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass)
 {
 	map<CShader *, vector<CDrawConfig *>> Configurations;
 
@@ -39,7 +39,7 @@ map<CShader *, vector<CDrawConfig *>> ISceneNode::PrepareDrawConfigurations(IRen
 		{
 			if (Child->Visible)
 			{
-				auto ChildConfigurations = Child->PrepareDrawConfigurations(Pass);
+				auto ChildConfigurations = Child->PrepareDrawConfigurations(DrawManager, Pass);
 				for (auto Config : ChildConfigurations)
 				{
 					AddAtEnd(Configurations[Config.first], Config.second);

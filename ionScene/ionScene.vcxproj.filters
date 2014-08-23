@@ -35,12 +35,6 @@
     <ClInclude Include="CShaderLibrary.h">
       <Filter>SceneManager\Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="CGLGraphicsEngine.h">
-      <Filter>SceneManager\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="IGraphicsEngine.h">
-      <Filter>SceneManager\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="CTextureLibrary.h">
       <Filter>SceneManager\Libraries</Filter>
     </ClInclude>
@@ -49,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="IRenderPass.h">
       <Filter>SceneManager\Render Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="CDrawManager.h">
+      <Filter>SceneManager\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,14 +85,14 @@
     <ClCompile Include="CShaderLibrary.cpp">
       <Filter>SceneManager\Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="CGLGraphicsEngine.cpp">
-      <Filter>SceneManager\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="CTextureLibrary.cpp">
       <Filter>SceneManager\Libraries</Filter>
     </ClCompile>
     <ClCompile Include="IRenderPass.cpp">
       <Filter>SceneManager\Render Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="CDrawManager.cpp">
+      <Filter>SceneManager\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

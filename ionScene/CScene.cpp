@@ -20,43 +20,20 @@ void CScene::SetActiveCamera(ICamera * const activeCamera)
 	ActiveCamera = activeCamera;
 }
 
-void CScene::Update()
-{
-	View.Value = ActiveCamera->GetViewMatrix();
-	Proj.Value = ActiveCamera->GetProjectionMatrix();
-}
-
-void CScene::DrawAll(IGraphicsEngine * Engine)
+void CScene::DrawAll(CDrawManager * Engine)
 {
 	Engine->Begin(this);
+
 	Root->Update();
-	Update();
+	Engine->Update();
+
 	if (Root->IsVisible())
-		Engine->Draw(this, Root->PrepareDrawConfigurations(DefaultForwardRenderPass));
-	Engine->Finalize(this);
+		Engine->Draw(Root->PrepareDrawConfigurations(Engine, DefaultForwardRenderPass));
+
+	Engine->Finalize();
 }
 
 ISceneNode * CScene::GetRoot()
 {
 	return Root;
-}
-
-ion::GL::Uniform * CScene::GetUniform(string const & Label)
-{
-	if (Label == "View")
-	{
-		if (ActiveCamera)
-			return & View;
-		else
-			cerr << "Error! No active camera" << endl;
-	}
-	else if (Label == "Projection")
-	{
-		if (ActiveCamera)
-			return & Proj;
-		else
-			cerr << "Error! No active camera" << endl;
-	}
-
-	return nullptr;
 }

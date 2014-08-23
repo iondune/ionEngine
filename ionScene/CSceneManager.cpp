@@ -23,7 +23,7 @@ CSceneNodeFactory * CSceneManager::GetFactory()
 	return Factory;
 }
 
-void CSceneManager::DrawAll(IGraphicsEngine * Engine)
+void CSceneManager::DrawAll(CDrawManager * Engine)
 {
 	Scene->DrawAll(Engine);
 }

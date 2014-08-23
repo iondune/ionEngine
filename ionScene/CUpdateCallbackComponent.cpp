@@ -12,5 +12,5 @@ void CUpdateCallbackComponent::Update(CSceneNode * Node)
 	Callback(Node);
 }
 
-void CUpdateCallbackComponent::Draw(CSceneNode * Node, IGraphicsEngine * Engine)
+void CUpdateCallbackComponent::Draw(CSceneNode * Node, CDrawManager * Engine)
 {}

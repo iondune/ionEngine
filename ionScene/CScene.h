@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ICamera.h"
-#include "IGraphicsEngine.h"
+#include "CDrawManager.h"
 
 
 class CScene
@@ -16,18 +16,13 @@ public:
 	virtual ICamera const * const GetActiveCamera() const;
 	virtual void SetActiveCamera(ICamera * const activeCamera);
 
-	virtual void Update();
-	virtual void DrawAll(IGraphicsEngine * Engine);
+	virtual void DrawAll(CDrawManager * Engine);
 
 	virtual ISceneNode * GetRoot();
-	virtual ion::GL::Uniform * GetUniform(string const & Label);
 
 protected:
 
 	ICamera * ActiveCamera = nullptr;
 	ISceneNode * Root = new ISceneNode{nullptr};
-
-	ion::GL::UniformValue<glm::mat4> View;
-	ion::GL::UniformValue<glm::mat4> Proj;
 
 };

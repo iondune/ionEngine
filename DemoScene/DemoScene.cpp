@@ -9,7 +9,7 @@ int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
-	SingletonPointer<CGLGraphicsEngine> GraphicsEngine;
+	SingletonPointer<CDrawManager> GraphicsEngine;
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestScene", EWindowType::Windowed);

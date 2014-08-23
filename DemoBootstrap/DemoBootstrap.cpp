@@ -10,7 +10,7 @@ int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
-	SingletonPointer<CGLGraphicsEngine> GraphicsEngine;
+	SingletonPointer<CDrawManager> GraphicsEngine;
 	SingletonPointer<CTimeManager> TimeManager;
 
 	WindowManager->Init();

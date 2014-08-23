@@ -6,6 +6,7 @@
 
 
 class CScene;
+class CDrawManager;
 
 class CSceneNode : public ISceneNode, public IEntity<ISceneNodeComponent>
 {
@@ -19,7 +20,7 @@ public:
 	virtual void Update();
 
 	//! Perform draw
-	virtual map<CShader *, vector<CDrawConfig *>> PrepareDrawConfigurations(IRenderPass * Pass);
+	virtual map<CShader *, vector<CDrawConfig *>> PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass);
 	void ResetDrawConfigurations();
 
 	//! Scene accessor

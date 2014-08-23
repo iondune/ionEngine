@@ -21,30 +21,34 @@ void CSceneNode::Update()
 
 static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
 
-map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(IRenderPass * Pass)
+map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass)
 {
-	auto Configurations = ISceneNode::PrepareDrawConfigurations(Pass);
+	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
 
+	// If we have a mesh and either draw configuration hasn't been specified or this node is 'dirty' and must be loaded again
 	if (Mesh && (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty))
 	{
+		// Get a draw definition for each mesh buffer in the mesh
 		vector<CDrawConfig *> DrawDefinitions;
-
 		RecurseMesh(this, Shaders[Pass], DrawDefinitions, Mesh->Root);
 
 		auto ActiveUniforms = Shaders[Pass]->GetActiveUniforms();
 
+		// Grab automatically-supplied uniforms and set as appropriate
 		for (auto & ActiveUniform : ActiveUniforms)
 		{
-			auto Uniform = Scene->GetUniform(ActiveUniform.first);
+			auto Uniform = DrawManager->GetUniform(ActiveUniform.first);
 			if (Uniform)
 				for (auto & Definition : DrawDefinitions)
 					Definition->AddUniform(ActiveUniform.first, Uniform);
 		}
 
+		// Load the uniforms specified by this node
 		for (auto & Uniform : Uniforms)
 			for (auto & Definition : DrawDefinitions)
 				Definition->AddUniform(Uniform.first, Uniform.second);
 
+		// Add textures
 		for (auto & Definition : DrawDefinitions)
 		{
 			for (uint i = 0; i < Textures.size(); ++ i)
@@ -60,7 +64,6 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(IRen
 		}
 
 		DrawConfigurations[Pass][Shaders[Pass]] = DrawDefinitions;
-
 		Dirty = false;
 	}
 

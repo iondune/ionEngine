@@ -18,7 +18,7 @@ public:
 	CTextureLibrary * GetTextureLibrary();
 	CSceneNodeFactory * GetFactory();
 
-	virtual void DrawAll(IGraphicsEngine * Engine);
+	virtual void DrawAll(CDrawManager * Engine);
 
 	CScene * GetScene();
 	ISceneNode * GetRoot();
