@@ -50,7 +50,7 @@ int main()
 		WindowManager->PollEvents();
 		TimeManager->Update();
 		
-		float Radius = 1.f;(Sin(TimeManager->GetRunTime()) / 2.f + 0.5f) * 10.f;
+		float Radius = ((f32) Sin(TimeManager->GetRunTime()) / 2.f + 0.5f) * 10.f;
 		Light1->SetRadius(Radius);
 		Light2->SetRadius(Radius);
 		Light3->SetRadius(Radius);
