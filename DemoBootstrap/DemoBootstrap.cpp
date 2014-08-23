@@ -15,20 +15,27 @@ int main()
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "TestBootstrap", EWindowType::Windowed);
-
+	
 	SceneManager->GetTextureLibrary()->SetBaseDirectory("Assets/Images");
-
+	SceneManager->GetShaderLibrary()->SetBaseDirectory("Assets/Shaders");
+	
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
+	SceneManager->GetMeshLibrary()->Add("Plane", CGeometryCreator::CreatePlane(vec2f(10.f)));
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
-	SceneManager->GetTextureLibrary()->Load("SkyMap.jpg");
+	SceneManager->GetShaderLibrary()->Load("Simple");
+	SceneManager->GetShaderLibrary()->Load("Normals");
+	SceneManager->GetTextureLibrary()->Load("SkyMap.jpg")->SetMagFilter(ion::GL::Texture::EFilter::Nearest);
 
-	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse");
-	SceneManager->GetFactory()->AddMeshNode("Sphere", "Diffuse")->SetPosition(vec3f(1, 0, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(0, 2, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(2, 3, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(4, 1, 0));
+	SceneManager->GetFactory()->AddMeshNode("Plane", "Diffuse");
 	SceneManager->GetFactory()->AddSkySphereNode("SkyMap.jpg");
+	SceneManager->GetFactory()->AddLight(vec3f(0, 2, 0));
 
 	ICamera * Camera = nullptr;
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera(Window->GetAspectRatio()));
-	Camera->SetPosition(vec3f(0, 0, -3));
+	Camera->SetPosition(vec3f(0, 3, -3));
 
 	CCameraController * Controller = new CCameraController{Camera};
 	Window->AddListener(Controller);

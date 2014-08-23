@@ -85,3 +85,10 @@ CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera(f32 const AspectRat
 {
 	return new CPerspectiveCamera{SceneManager->GetRoot(), AspectRatio};
 }
+
+ILightSceneNode * CSceneNodeFactory::AddLight(vec3f const & Position)
+{
+	ILightSceneNode * Light = new ILightSceneNode(SceneManager->GetRoot());
+	Light->SetPosition(Position);
+	return Light;
+}

@@ -19,3 +19,4 @@ syntax: glob
 *.dll
 .depend.mk
 Documentation/html
+*.psd

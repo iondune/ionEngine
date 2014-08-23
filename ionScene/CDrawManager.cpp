@@ -1,6 +1,7 @@
 
 #include "CDrawManager.h"
 #include "CScene.h"
+#include "ILightSceneNode.h"
 
 
 CDrawManager::CDrawManager()
@@ -29,6 +30,20 @@ void CDrawManager::Draw(map<CShader *, vector<CDrawConfig *>> const & Configurat
 
 void CDrawManager::Finalize()
 {
+	for (uint i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
+	{
+		*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
+		*LightBindings[i].Color = Colors::White;
+		*LightBindings[i].Radius = 10.f;
+	}
+	for (uint i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
+	{
+		*LightBindings[i].Position = vec3f();
+		*LightBindings[i].Color = color3f();
+		*LightBindings[i].Radius = 0.f;
+	}
+	LightCount = RegisteredLights.size();
+
 	for (auto & Pass : RenderPasses)
 	{
 		for (auto & Shader : Pass)
@@ -44,6 +59,9 @@ void CDrawManager::Finalize()
 
 		Pass.clear();
 	}
+
+	RegisteredLights.clear();
+	LightCount = 0;
 }
 
 static bool MatchAndExtractIndex(string const & Label, string Match, int & Index, string & Remaining)
@@ -82,6 +100,10 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 		else
 			cerr << "Error! No active camera" << endl;
 	}
+	else if (Label == "uLightCount")
+	{
+		return & LightCount;
+	}
 	else if (MatchAndExtractIndex(Label, "uLights", Index, Remaining))
 	{
 		if (Index >= (int) LightBindings.size())
@@ -100,4 +122,9 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 	}
 
 	return nullptr;
+}
+
+void CDrawManager::RegisterLight(ILightSceneNode * Light)
+{
+	RegisteredLights.push_back(Light);
 }

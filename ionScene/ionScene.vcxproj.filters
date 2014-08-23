@@ -47,6 +47,9 @@
     <ClInclude Include="CDrawManager.h">
       <Filter>SceneManager\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="ILightSceneNode.h">
+      <Filter>Node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CSceneManager.cpp">
@@ -93,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="CDrawManager.cpp">
       <Filter>SceneManager\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ILightSceneNode.cpp">
+      <Filter>Node</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,12 @@ namespace ion
 		}
 
 		template <>
+		void Uniform::Bind<uint>(uint const Handle, uint const & Value)
+		{
+			CheckedGLCall(glUniform1i(Handle, Value));
+		}
+
+		template <>
 		void Uniform::Bind<glm::mat4>(uint const Handle, glm::mat4 const & Value)
 		{
 			CheckedGLCall(glUniformMatrix4fv(Handle, 1, GL_FALSE, glm::value_ptr(Value)));

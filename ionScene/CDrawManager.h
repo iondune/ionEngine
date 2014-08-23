@@ -5,6 +5,7 @@
 #include <ionAsset.h>
 
 class CScene;
+class ILightSceneNode;
 
 
 class CDrawManager : public Singleton<CDrawManager>
@@ -15,11 +16,14 @@ public:
 
 	CDrawManager();
 
-	void Begin(CScene * Scene);
-	void Update();
-	void Draw(map<CShader *, vector<CDrawConfig *>> const & Configurations);
-	void Finalize();
+	virtual void Begin(CScene * Scene);
+	virtual void Update();
+	virtual void Draw(map<CShader *, vector<CDrawConfig *>> const & Configurations);
+	virtual void Finalize();
+
 	virtual ion::GL::Uniform * GetUniform(string const & Label);
+
+	virtual void RegisterLight(ILightSceneNode * Light);
 
 private:
 
@@ -27,9 +31,10 @@ private:
 	
 	typedef map<CShader *, vector<CDrawConfig *>> RenderPass;
 	vector<RenderPass> RenderPasses;
+	vector<ILightSceneNode *> RegisteredLights;
 
-	ion::GL::UniformValue<glm::mat4> View;
-	ion::GL::UniformValue<glm::mat4> Proj;
+	CUniformValue<glm::mat4> View;
+	CUniformValue<glm::mat4> Proj;
 
 	struct SLightBinding
 	{
@@ -39,5 +44,6 @@ private:
 	};
 
 	vector<SLightBinding> LightBindings;
+	CUniformValue<uint> LightCount = 0;
 
 };
