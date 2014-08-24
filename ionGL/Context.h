@@ -21,7 +21,7 @@ namespace ion
 		public:
 
 			static void Init();
-			static void Clear(std::initializer_list<EBuffer> Buffers);
+			static void Clear(std::initializer_list<EBuffer> Buffers = { EBuffer::Color, EBuffer::Depth });
 
 			static vec2i GetViewportSize();
 
