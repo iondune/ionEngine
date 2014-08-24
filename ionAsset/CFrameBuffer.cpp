@@ -11,11 +11,20 @@ void CFrameBuffer::MakeScreenSizedColorAttachment(u32 const Attachment)
 	AttachColorTexture(Target, Attachment);
 }
 
+void CFrameBuffer::DrawColorAttachmentToScreen(u32 const Attachment)
+{
+	auto Texture = GetColorTextureAttachment(Attachment);
+
+	if (Texture)
+		DrawTextureToScreen(Texture);
+}
+
 void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 {
 	ion::GL::Context::Clear();
 	
-	static ion::GL::DrawConfig * DrawConfig = nullptr;
+	static CShader * Shader = nullptr;
+	static CDrawConfig * DrawConfig = nullptr;
 
 	if (! DrawConfig)
 	{
@@ -38,6 +47,7 @@ void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 		IndexBuffer->Data(Indices);
 		
 		string const VertexShaderSource = R"SHADER(
+			#version 150
 			in vec2 aPosition;
 			out vec2 vTexCoord;
 
@@ -49,6 +59,7 @@ void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 		)SHADER";
 
 		string const FragmentShaderSource = R"SHADER(
+			#version 150
 			uniform sampler2D uTexColor;
 
 			in vec2 vTexCoord;
@@ -60,9 +71,9 @@ void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 			}
 		)SHADER";
 
-		CShader * Shader = CompileVertFragShader(VertexShaderSource, FragmentShaderSource);
+		Shader = CompileVertFragShader(VertexShaderSource, FragmentShaderSource);
 
-		DrawConfig = new ion::GL::DrawConfig{Shader, ion::GL::EPrimativeType::Quads};
+		DrawConfig = new CDrawConfig{Shader, ion::GL::EPrimativeType::Quads};
 		DrawConfig->AddVertexBuffer("aPosition", VertexBuffer);
 		DrawConfig->SetIndexBuffer(IndexBuffer);
 	}
@@ -70,5 +81,6 @@ void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 	DrawConfig->AddTexture("uTexColor", Texture);
 
 	ion::GL::DrawContext DrawContext;
+	DrawContext.LoadProgram(Shader);
 	DrawContext.Draw(DrawConfig);
 }

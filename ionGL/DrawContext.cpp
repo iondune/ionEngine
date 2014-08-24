@@ -10,17 +10,18 @@ namespace ion
 		DrawContext::DrawContext(Framebuffer * Framebuffer)
 		{
 			Target = Framebuffer;
-
+			
 			if (Target)
 				CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Target->GetHandle()));
+			else
+				CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		}
 
 		DrawContext::~DrawContext()
 		{
 			Program::End();
 
-			if (Target)
-				CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		}
 		
 		void DrawContext::LoadProgram(Program * Program)

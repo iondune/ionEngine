@@ -20,17 +20,13 @@ namespace ion
 		{
 		public:
 
-			// Specify framebuffer here?
-			// DrawContext for framebuffer
-			// Set Program call
-			// then draw
-
 			DrawContext(Framebuffer * Framebuffer = DefaultFrameBuffer);
 			~DrawContext();
 			
 			void LoadProgram(Program * Program);
 			void Draw(DrawConfig * DrawConfig);
 
+			//! Deprecated.
 			void BindUniform(string const & Name, Uniform const * Value);
 
 		protected:

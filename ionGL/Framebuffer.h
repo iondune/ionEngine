@@ -6,6 +6,7 @@
 
 #include "Texture.h"
 #include "Renderbuffer.h"
+#include "Context.h"
 
 
 namespace ion
@@ -25,6 +26,8 @@ namespace ion
 
 			Texture2D * GetColorTextureAttachment(u32 const Attachment);
 			Texture2D * GetDepthTextureAttachment(u32 const Attachment);
+
+			void Clear(std::initializer_list<EBuffer> Buffers = { EBuffer::Color, EBuffer::Depth });
 
 			u32 GetHandle() const;
 

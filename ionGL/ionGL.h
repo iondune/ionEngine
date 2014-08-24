@@ -16,6 +16,9 @@
 #include "Context.h"
 #include "DrawContext.h"
 
+#include "Framebuffer.h"
+#include "Renderbuffer.h"
+
 
 namespace ion
 {

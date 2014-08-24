@@ -4,6 +4,8 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
+#include "Context.h"
+
 
 namespace ion
 {
@@ -13,7 +15,7 @@ namespace ion
 		{
 		public:
 
-			Renderbuffer();
+			Renderbuffer(vec2i const & Size = Context::GetViewportSize());
 			~Renderbuffer();
 
 		private:

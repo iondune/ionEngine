@@ -66,6 +66,13 @@ namespace ion
 			return DepthAttachment;
 		}
 		
+		void Framebuffer::Clear(std::initializer_list<EBuffer> Buffers)
+		{
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
+			ion::GL::Context::Clear(Buffers);
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		}
+
 		u32 Framebuffer::GetHandle() const
 		{
 			return Handle;

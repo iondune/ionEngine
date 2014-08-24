@@ -40,18 +40,24 @@ int main()
 	Config->AddUniform("Projection", Projection);
 	Config->SetIndexBuffer(Mesh->Root->Buffers[0]->VertexBuffers.Indices);
 
+	CFrameBuffer * FrameBuffer = new CFrameBuffer;
+	FrameBuffer->MakeScreenSizedColorAttachment(0);
+	FrameBuffer->AttachDepthRenderBuffer(new CRenderBuffer());
+
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
-		ion::GL::Context::Clear();
-
-		CDrawContext DrawContext;
-		DrawContext.LoadProgram(Shader);
-		DrawContext.Draw(Config);
-
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
+		
+		{
+			FrameBuffer->Clear();
+			CDrawContext DrawContext(FrameBuffer);
+			DrawContext.LoadProgram(Shader);
+			DrawContext.Draw(Config);
+		}
 
+		CFrameBuffer::DrawTextureToScreen(FrameBuffer->GetColorTextureAttachment(0));
 		Window->SwapBuffers();
 	}
 

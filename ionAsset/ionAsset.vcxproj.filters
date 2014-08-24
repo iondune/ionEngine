@@ -36,6 +36,9 @@
     <ClInclude Include="CTexture.h">
       <Filter>GL</Filter>
     </ClInclude>
+    <ClInclude Include="CDrawContext.h">
+      <Filter>GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGeometryCreator.cpp" />
