@@ -3,45 +3,16 @@
 #include <ionGL.h>
 #include <ionAsset.h>
 
-using namespace ion::GL;
-
 
 int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 
 	WindowManager->Init();
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestAsset", EWindowType::Windowed);
-
-	string const VertexShaderSource = R"SHADER(
-		#version 150
-		in vec3 Position;
-		in vec3 Normal;
-
-		uniform mat4 Model;
-		uniform mat4 View;
-		uniform mat4 Projection;
-
-		out vec3 Color;
-
-		void main()
-		{
-			gl_Position = Projection * View * Model * vec4(Position, 1.0);
-			Color = normalize(Normal) / 2.0 + vec3(0.5);
-		}
-	)SHADER";
-
-	string const FragmentShaderSource = R"SHADER(
-		#version 150
-		in vec3 Color;
-
-		out vec4 outColor;
-
-		void main()
-		{
-			outColor = vec4(Color, 1.0);
-		}
-	)SHADER";
+	CWindow * Window = WindowManager->CreateWindow(vec2i(800, 600), "TestAsset", EWindowType::Windowed);
+		
+	string const VertShaderSource = File::ReadAsString("Assets/Shaders/Normals.vert");
+	string const FragShaderSource = File::ReadAsString("Assets/Shaders/Normals.frag");
 
 	CMesh * Mesh =
 		CGeometryCreator::CreateSphere();
@@ -50,31 +21,18 @@ int main()
 		//CGeometryCreator::CreateCylinder(2.f, 1.f, 1.f, 32, 16);
 	Mesh->LoadDataIntoBuffers();
 
-	VertexShader * Vert = new VertexShader;
-	Vert->Source(VertexShaderSource);
-	if (! Vert->Compile())
-		std::cerr << "Failed to compile vertex shader!" << std::endl << Vert->InfoLog() << std::endl;
-
-	FragmentShader * Frag = new FragmentShader;
-	Frag->Source(FragmentShaderSource);
-	if (! Frag->Compile())
-		std::cerr << "Failed to compile vertex shader!" << std::endl << Frag->InfoLog() << std::endl;
-
-	UniformValue<glm::mat4> * Model = new UniformValue<glm::mat4>;
-	UniformValue<glm::mat4> * View = new UniformValue<glm::mat4>;
-	UniformValue<glm::mat4> * Projection = new UniformValue<glm::mat4>;
-
-	View->Value = glm::lookAt(glm::vec3(5, 5, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	Projection->Value = glm::perspective(60.0f, 1.333f, 0.1f, 20.f);
-
-	Program * Shader = new Program;
-	Shader->AttachShader(Vert);
-	Shader->AttachShader(Frag);
-	Shader->Link();
+	CShader * Shader = CompileVertFragShader(VertShaderSource, FragShaderSource);
 	Shader->BindAttributeLocation(0, "Position");
 	Shader->BindAttributeLocation(1, "Normal");
 
-	DrawConfig * Config = new DrawConfig{Shader};
+	CUniformValue<glm::mat4> * Model = new CUniformValue<glm::mat4>;
+	CUniformValue<glm::mat4> * View = new CUniformValue<glm::mat4>;
+	CUniformValue<glm::mat4> * Projection = new CUniformValue<glm::mat4>;
+
+	View->Value = glm::lookAt(glm::vec3(3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	Projection->Value = glm::perspective(25.0f, 1.333f, 0.1f, 20.f);
+
+	CDrawConfig * Config = new CDrawConfig{Shader};
 	Config->AddVertexBuffer("Position", Mesh->Root->Buffers[0]->VertexBuffers.Positions);
 	Config->AddVertexBuffer("Normal", Mesh->Root->Buffers[0]->VertexBuffers.Normals);
 	Config->AddUniform("Model", Model);
@@ -86,11 +44,11 @@ int main()
 	{
 		WindowManager->PollEvents();
 
-		Context::Clear({EBuffer::Color, EBuffer::Depth});
+		ion::GL::Context::Clear();
 
-		DrawContext context{};
-		context.LoadProgram(Shader);
-		context.Draw(Config);
+		CDrawContext DrawContext;
+		DrawContext.LoadProgram(Shader);
+		DrawContext.Draw(Config);
 
 		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
 
