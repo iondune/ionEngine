@@ -9,10 +9,10 @@ namespace ion
 {
 	namespace GL
 	{
-		VertexArray::VertexArray()
+		VertexArray::VertexArray(EPrimativeType const PrimativeType)
 		{
 			BoundIndexBuffer = 0;
-			PrimativeType = EPrimativeType::Triangles;
+			this->PrimativeType = PrimativeType;
 
 			CheckedGLCall(glGenVertexArrays(1, & Handle));
 		}
@@ -40,14 +40,14 @@ namespace ion
 
 		void VertexArray::Draw()
 		{
+			if (! BoundIndexBuffer)
+				return;
+			
 			CheckedGLCall(glBindVertexArray(Handle));
-			if (BoundIndexBuffer)
-			{
-				glDrawElements(
-					Util::PrimativeMatrix[(int) PrimativeType],
-					BoundIndexBuffer->Elements(),
-					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
-			}
+			glDrawElements(
+				Util::PrimativeMatrix[(int) PrimativeType],
+				BoundIndexBuffer->Elements(),
+				Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
 			CheckedGLCall(glBindVertexArray(0));
 		}
 

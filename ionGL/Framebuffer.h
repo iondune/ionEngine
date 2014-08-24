@@ -23,7 +23,15 @@ namespace ion
 			void AttachDepthTexture(Texture2D * Texture);
 			void AttachDepthRenderBuffer(Renderbuffer * RBO);
 
+			Texture2D * GetColorTextureAttachment(u32 const Attachment);
+			Texture2D * GetDepthTextureAttachment(u32 const Attachment);
+
+			u32 GetHandle() const;
+
 		private:
+
+			vector<Texture2D *> ColorAttachments;
+			Texture2D * DepthAttachment = nullptr;
 
 			u32 Handle;
 		};

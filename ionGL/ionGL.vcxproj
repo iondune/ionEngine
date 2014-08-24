@@ -44,6 +44,7 @@
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="DrawConfig.h" />
     <ClInclude Include="DrawContext.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="ionGL.h" />
@@ -58,6 +59,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DrawConfig.cpp" />
     <ClCompile Include="DrawContext.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="Program.cpp" />

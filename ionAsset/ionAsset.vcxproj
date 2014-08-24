@@ -40,10 +40,12 @@
     <Import Project="..\Properties\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CFrameBuffer.h" />
     <ClInclude Include="CGeometryCreator.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="ionAsset.h" />
     <ClInclude Include="IUniform.h" />
     <ClInclude Include="SMaterial.h" />
@@ -53,10 +55,12 @@
     <ClInclude Include="SVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CFrameBuffer.cpp" />
     <ClCompile Include="CGeometryCreator.cpp" />
     <ClCompile Include="CImage.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMesh.Load.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="SMaterial.cpp" />
     <ClCompile Include="SMeshBuffer.cpp" />
     <ClCompile Include="SMeshNode.cpp" />

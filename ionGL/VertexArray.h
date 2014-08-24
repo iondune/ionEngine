@@ -16,7 +16,7 @@ namespace ion
 		{
 		public:
 
-			VertexArray();
+			VertexArray(EPrimativeType const PrimativeType = EPrimativeType::Triangles);
 
 			void SetIndexBuffer(IndexBuffer * ibo);
 			void BindAttribute(u32 const index, VertexBuffer * vbo);

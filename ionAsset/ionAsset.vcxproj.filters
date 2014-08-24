@@ -25,10 +25,16 @@
       <Filter>Material</Filter>
     </ClInclude>
     <ClInclude Include="IUniform.h">
-      <Filter>Mesh</Filter>
+      <Filter>GL</Filter>
     </ClInclude>
     <ClInclude Include="CShader.h">
-      <Filter>Material</Filter>
+      <Filter>GL</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrameBuffer.h">
+      <Filter>GL</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>GL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +63,12 @@
     <ClCompile Include="SMeshNode.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="CFrameBuffer.cpp">
+      <Filter>GL</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>GL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Image">
@@ -70,6 +82,9 @@
     </Filter>
     <Filter Include="Material">
       <UniqueIdentifier>{7c07ada0-44c3-4a40-b0c6-9f0f863ac835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GL">
+      <UniqueIdentifier>{85c99bad-a450-42ca-b017-478f5c902577}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

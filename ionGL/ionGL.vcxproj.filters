@@ -35,6 +35,9 @@
     <ClInclude Include="Renderbuffer.h">
       <Filter>Framebuffer</Filter>
     </ClInclude>
+    <ClInclude Include="DrawConfig.h">
+      <Filter>General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -69,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="Renderbuffer.cpp">
       <Filter>Framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawConfig.cpp">
+      <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
