@@ -15,6 +15,16 @@ void CFrameBuffer::MakeScreenSizedColorAttachment(u32 const Attachment)
 	AttachColorTexture(Target, Attachment);
 }
 
+void CFrameBuffer::MakeScreenSizedDepthTextureAttachment()
+{
+	CTexture2D * Target = new CTexture2D(ion::GL::Context::GetViewportSize(), CTexture2D::EDepthComponents::Depth24);
+	Target->SetMagFilter(CTexture2D::EFilter::Nearest);
+	Target->SetMinFilter(CTexture2D::EFilter::Nearest);
+	Target->SetAnisotropy(1);
+	
+	AttachDepthTexture(Target);
+}
+
 void CFrameBuffer::DrawColorAttachmentToScreen(u32 const Attachment)
 {
 	auto Texture = GetColorTextureAttachment(Attachment);

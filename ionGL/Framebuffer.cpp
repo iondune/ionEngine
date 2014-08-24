@@ -61,7 +61,7 @@ namespace ion
 			return ColorAttachments[Attachment];
 		}
 
-		Texture2D * Framebuffer::GetDepthTextureAttachment(u32 const Attachment)
+		Texture2D * Framebuffer::GetDepthTextureAttachment()
 		{
 			return DepthAttachment;
 		}

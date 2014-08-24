@@ -15,6 +15,8 @@ class CFrameBuffer : public ion::GL::Framebuffer
 public:
 
 	void MakeScreenSizedColorAttachment(u32 const Attachment);
+	void MakeScreenSizedDepthTextureAttachment();
+
 	void DrawColorAttachmentToScreen(u32 const Attachment);
 	
 	static void DrawTextureToScreen(CTexture2D * Texture);

@@ -152,6 +152,16 @@ namespace ion
 			GL_RGBA
 		};
 
+		u32 const Texture::DepthComponentMatrix[6] = 
+		{
+			GL_DEPTH_COMPONENT16,
+			GL_DEPTH_COMPONENT24,
+			GL_DEPTH_COMPONENT32,
+			GL_DEPTH24_STENCIL8,
+			GL_DEPTH32F_STENCIL8,
+			GL_STENCIL_INDEX8
+		};
+
 		string const Texture::InternalFormatStringMatrix[4][10] = 
 		{
 			{"GL_R8", "GL_R16", "GL_R8UI", "GL_R32UI", "GL_R32UI", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R16F", "GL_R32F"},
@@ -185,6 +195,21 @@ namespace ion
 
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
 			glTexStorage2D(GL_TEXTURE_2D, Levels, InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glTexStorage2D: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
+		}
+
+		Texture2D::Texture2D(vec2u const & Size, EDepthComponents const Components)
+		{
+			this->Size = Size;
+			this->MipMaps = false;
+
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
+			glTexStorage2D(GL_TEXTURE_2D, 1, DepthComponentMatrix[(int) Components], Size.X, Size.Y);
 			if (OpenGLError())
 			{
 				cerr << "Error occured during glTexStorage2D: " << GetOpenGLError() << endl;

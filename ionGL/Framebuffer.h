@@ -25,7 +25,7 @@ namespace ion
 			void AttachDepthRenderBuffer(Renderbuffer * RBO);
 
 			Texture2D * GetColorTextureAttachment(u32 const Attachment);
-			Texture2D * GetDepthTextureAttachment(u32 const Attachment);
+			Texture2D * GetDepthTextureAttachment();
 
 			void Clear(std::initializer_list<EBuffer> Buffers = { EBuffer::Color, EBuffer::Depth });
 

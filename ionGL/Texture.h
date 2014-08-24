@@ -40,6 +40,16 @@ namespace ion
 				RGBA = 3
 			};
 
+			enum class EDepthComponents
+			{
+				Depth16 = 0,
+				Depth24 = 1,
+				Depth32F = 2,
+				Depth24Stencil8 = 3,
+				Depth32FStencil8 = 4,
+				Stencil8 = 5
+			};
+
 			enum class EInternalFormatType
 			{
 				Fix8 = 0,
@@ -56,6 +66,7 @@ namespace ion
 			
 			static u32 const InternalFormatMatrix[4][10];
 			static u32 const FormatMatrix[4];
+			static u32 const DepthComponentMatrix[6];
 
 			static string const InternalFormatStringMatrix[4][10];
 			static string const FormatStringMatrix[4];
@@ -121,8 +132,9 @@ namespace ion
 		{
 
 		public:
-
+			
 			Texture2D(vec2u const & Size, bool const MipMaps = true, EFormatComponents const Components = EFormatComponents::RGBA, EInternalFormatType const Type = EInternalFormatType::Fix8);
+			Texture2D(vec2u const & Size, EDepthComponents const Components);
 
 			//! 
 			//! Note that this is not a direct corollary to the glTextureImage2D call - you must first call Storage to allocate space for this texture

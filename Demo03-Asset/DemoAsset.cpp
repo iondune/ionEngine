@@ -42,14 +42,15 @@ int main()
 
 	CFrameBuffer * FrameBuffer = new CFrameBuffer;
 	FrameBuffer->MakeScreenSizedColorAttachment(0);
-	FrameBuffer->AttachDepthRenderBuffer(new CRenderBuffer());
+	FrameBuffer->MakeScreenSizedDepthTextureAttachment();
 
 	CShader * FXAAShader = CompileVertFragShader(File::ReadAsString("Assets/Shaders/FXAA.vert"), File::ReadAsString("Assets/Shaders/FXAA.frag"));
 	CDrawConfig * FXAAConfig = new CDrawConfig(FXAAShader, ion::GL::EPrimativeType::Quads);
 	FXAAConfig->AddVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
 	FXAAConfig->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
 	FXAAConfig->AddUniform("uPixelOffset", new CUniformValue<vec2f>(1 / vec2f(ion::GL::Context::GetViewportSize())));
-
+	
+	ion::GL::Context::Init();
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
@@ -62,9 +63,11 @@ int main()
 			DrawContext.LoadProgram(Shader);
 			DrawContext.Draw(Config);
 		}
-
+		
 		if (Window->IsKeyDown(EKey::F1))
 			FrameBuffer->DrawColorAttachmentToScreen(0);
+		else if (Window->IsKeyDown(EKey::F2))
+			CFrameBuffer::DrawTextureToScreen(FrameBuffer->GetDepthTextureAttachment());
 		else
 		{
 			FXAAConfig->AddTexture("uTexColor", FrameBuffer->GetColorTextureAttachment(0));
