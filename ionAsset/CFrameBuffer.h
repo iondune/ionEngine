@@ -18,5 +18,13 @@ public:
 	void DrawColorAttachmentToScreen(u32 const Attachment);
 	
 	static void DrawTextureToScreen(CTexture2D * Texture);
+	static ion::GL::IndexBuffer * GetQuadIndexBuffer();
+	static ion::GL::VertexBuffer * GetQuadVertexBuffer();
+
+
+private:
+	
+	static ion::GL::IndexBuffer * QuadIndexBuffer;
+	static ion::GL::VertexBuffer * QuadVertexBuffer;
 
 };

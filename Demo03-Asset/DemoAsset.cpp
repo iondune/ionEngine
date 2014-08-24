@@ -15,7 +15,7 @@ int main()
 	string const FragShaderSource = File::ReadAsString("Assets/Shaders/Normals.frag");
 
 	CMesh * Mesh =
-		CGeometryCreator::CreateSphere();
+		CGeometryCreator::CreateSphere(vec3f(0.5f), 64, 32);
 		//CGeometryCreator::CreateDisc(0.5, 1.5, 0.25, 32, 5);
 		//CGeometryCreator::CreateCube();
 		//CGeometryCreator::CreateCylinder(2.f, 1.f, 1.f, 32, 16);
@@ -44,6 +44,12 @@ int main()
 	FrameBuffer->MakeScreenSizedColorAttachment(0);
 	FrameBuffer->AttachDepthRenderBuffer(new CRenderBuffer());
 
+	CShader * FXAAShader = CompileVertFragShader(File::ReadAsString("Assets/Shaders/FXAA.vert"), File::ReadAsString("Assets/Shaders/FXAA.frag"));
+	CDrawConfig * FXAAConfig = new CDrawConfig(FXAAShader, ion::GL::EPrimativeType::Quads);
+	FXAAConfig->AddVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
+	FXAAConfig->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
+	FXAAConfig->AddUniform("uPixelOffset", new CUniformValue<vec2f>(1 / vec2f(ion::GL::Context::GetViewportSize())));
+
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
@@ -57,7 +63,17 @@ int main()
 			DrawContext.Draw(Config);
 		}
 
-		CFrameBuffer::DrawTextureToScreen(FrameBuffer->GetColorTextureAttachment(0));
+		if (Window->IsKeyDown(EKey::F1))
+			FrameBuffer->DrawColorAttachmentToScreen(0);
+		else
+		{
+			FXAAConfig->AddTexture("uTexColor", FrameBuffer->GetColorTextureAttachment(0));
+			ion::GL::Context::Clear();
+			CDrawContext DrawContext;
+			DrawContext.LoadProgram(FXAAShader);
+			DrawContext.Draw(FXAAConfig);
+		}
+
 		Window->SwapBuffers();
 	}
 
