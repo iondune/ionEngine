@@ -213,6 +213,9 @@ void CFont::print(float x, float y, const char * fmt, ...)
 		glPopMatrix();
 	}
 
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+
 	glPopAttrib();
 	pop_projection_matrix();
 }
