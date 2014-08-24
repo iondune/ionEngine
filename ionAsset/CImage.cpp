@@ -135,7 +135,11 @@ CTexture2D * CImage::MakeTexture() const
 	case 4:
 		Components = ion::GL::Texture::EFormatComponents::RGBA;
 		break;
+	default:
+		cerr << "Unable to create texture - unknown number of channels (" << Channels << ")" << endl;
+		return nullptr;
 	}
+
 	CTexture2D * Texture = new CTexture2D(Size, true, Components);
 	Texture->Image(Data.get(), Components);
 
