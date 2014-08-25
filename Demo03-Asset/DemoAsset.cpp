@@ -59,7 +59,7 @@ int main()
 		
 		{
 			FrameBuffer->Clear();
-			CDrawContext DrawContext(FrameBuffer);
+			CDrawContext DrawContext(FrameBuffer->GetHandle());
 			DrawContext.LoadProgram(Shader);
 			DrawContext.Draw(Config);
 		}

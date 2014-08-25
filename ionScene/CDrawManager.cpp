@@ -5,64 +5,62 @@
 
 
 CDrawManager::CDrawManager()
-{
-	RenderPasses.push_back(RenderPass{});
-}
+{}
 
-void CDrawManager::Begin(CScene * Scene)
+void CDrawManager::Draw(CScene * Scene)
 {
-	CurrentScene = Scene;
+	if (! Scene->GetRoot()->IsVisible())
+		return;
 
-	ion::GL::Context::Clear({ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth});
-}
-
-void CDrawManager::Update()
-{
-	View.Value = CurrentScene->GetActiveCamera()->GetViewMatrix();
-	Proj.Value = CurrentScene->GetActiveCamera()->GetProjectionMatrix();
-}
-
-void CDrawManager::Draw(map<CShader *, vector<CDrawConfig *>> const & Configurations)
-{
-	for (auto Shader : Configurations)
-		AddAtEnd(RenderPasses[0][Shader.first], Shader.second);
-}
-
-void CDrawManager::Finalize()
-{
-	for (uint i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
+	if (Scene->GetActiveCamera())
 	{
-		*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
-		*LightBindings[i].Color = RegisteredLights[i]->GetColor();
-		*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
+		View.Value = Scene->GetActiveCamera()->GetViewMatrix();
+		Proj.Value = Scene->GetActiveCamera()->GetProjectionMatrix();
 	}
-	for (uint i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
+	else
 	{
-		*LightBindings[i].Position = vec3f();
-		*LightBindings[i].Color = color3f();
-		*LightBindings[i].Radius = 0.f;
+		cerr << "Error! No active camera" << endl;
 	}
-	LightCount = RegisteredLights.size();
 
-	for (auto & Pass : RenderPasses)
+	for (auto Pass : {IRenderPass::GetDefaultForwardShadingPass()})
 	{
-		for (auto & Shader : Pass)
+		Pass->GetTarget()->Clear();
+
+		map<CShader *, vector<CDrawConfig *>> const ShaderConfigurations = Scene->GetRoot()->PrepareDrawConfigurations(this, Pass);
+		
+		for (uint i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
 		{
-			if (! Shader.first)
-				continue;
-
-			ion::GL::DrawContext Context{};
-			Context.LoadProgram(Shader.first);
-
-			for (auto & Element : Shader.second)
-				Context.Draw(Element);
+			*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
+			*LightBindings[i].Color = RegisteredLights[i]->GetColor();
+			*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
+		}
+		for (uint i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
+		{
+			*LightBindings[i].Position = vec3f();
+			*LightBindings[i].Color = color3f();
+			*LightBindings[i].Radius = 0.f;
 		}
 
-		Pass.clear();
-	}
+		LightCount = RegisteredLights.size();
+		
+		CDrawContext Context{Pass->GetTarget()->GetHandle()};
+		for (auto & ShaderConfig : ShaderConfigurations)
+		{
+			CShader * Shader = ShaderConfig.first;
+			vector<CDrawConfig *> const & DrawConfigurations = ShaderConfig.second;
 
-	RegisteredLights.clear();
-	LightCount = 0;
+			if (! Shader)
+				continue;
+
+			Context.LoadProgram(Shader);
+
+			for (auto & Config : DrawConfigurations)
+				Context.Draw(Config);
+		}
+
+		RegisteredLights.clear();
+		LightCount = 0;
+	}
 }
 
 static bool MatchAndExtractIndex(string const & Label, string Match, int & Index, string & Remaining)
@@ -89,17 +87,11 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 
 	if (Label == "View")
 	{
-		if (CurrentScene->GetActiveCamera())
-			return & View;
-		else
-			cerr << "Error! No active camera" << endl;
+		return & View;
 	}
 	else if (Label == "Projection")
 	{
-		if (CurrentScene->GetActiveCamera())
-			return & Proj;
-		else
-			cerr << "Error! No active camera" << endl;
+		return & Proj;
 	}
 	else if (Label == "uLightCount")
 	{

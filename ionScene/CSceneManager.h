@@ -17,8 +17,9 @@ public:
 	CShaderLibrary * GetShaderLibrary();
 	CTextureLibrary * GetTextureLibrary();
 	CSceneNodeFactory * GetFactory();
+	CDrawManager * GetDrawManager();
 
-	virtual void DrawAll(CDrawManager * Engine);
+	virtual void DrawAll();
 
 	CScene * GetScene();
 	ISceneNode * GetRoot();
@@ -30,6 +31,7 @@ protected:
 	CTextureLibrary * TextureLibrary = new CTextureLibrary{};
 	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
 	CScene * Scene = new CScene{};
+	CDrawManager * DrawManager = new CDrawManager{};
 
 private:
 

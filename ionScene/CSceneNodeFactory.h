@@ -25,6 +25,6 @@ public:
 
 private:
 
-	CSceneManager * SceneManager;
+	CSceneManager * SceneManager = nullptr;
 
 };

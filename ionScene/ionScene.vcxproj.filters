@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
-    <ClInclude Include="CSceneManager.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneNodeFactory.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
     <ClInclude Include="CCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -45,19 +39,19 @@
       <Filter>SceneManager\Render Passes</Filter>
     </ClInclude>
     <ClInclude Include="CDrawManager.h">
-      <Filter>SceneManager\Graphics</Filter>
+      <Filter>SceneManager\Management</Filter>
     </ClInclude>
     <ClInclude Include="ILightSceneNode.h">
       <Filter>Node</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>SceneManager\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeFactory.h">
+      <Filter>SceneManager\Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CSceneManager.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneNodeFactory.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -95,10 +89,16 @@
       <Filter>SceneManager\Render Passes</Filter>
     </ClCompile>
     <ClCompile Include="CDrawManager.cpp">
-      <Filter>SceneManager\Graphics</Filter>
+      <Filter>SceneManager\Management</Filter>
     </ClCompile>
     <ClCompile Include="ILightSceneNode.cpp">
       <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>SceneManager\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneNodeFactory.cpp">
+      <Filter>SceneManager\Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,11 +117,11 @@
     <Filter Include="SceneManager\Libraries">
       <UniqueIdentifier>{501fbe7b-ef85-4f56-9637-6c23006da74d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneManager\Graphics">
-      <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneManager\Render Passes">
       <UniqueIdentifier>{410dd937-3448-496d-8ef1-64f09e73841a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager\Management">
+      <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

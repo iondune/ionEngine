@@ -13,11 +13,15 @@ namespace ion
 {
 	namespace GL
 	{
+		struct ForceDefaultFramebuffer
+		{};
+
 		class Framebuffer
 		{
 		public:
-
+			
 			Framebuffer();
+			Framebuffer(ForceDefaultFramebuffer);
 			~Framebuffer();
 
 			void AttachColorTexture(Texture2D * Texture, u32 const Attachment);
@@ -36,9 +40,8 @@ namespace ion
 			vector<Texture2D *> ColorAttachments;
 			Texture2D * DepthAttachment = nullptr;
 
-			u32 Handle;
+			u32 Handle = 0;
 		};
-
 
 		extern Framebuffer * DefaultFrameBuffer;
 	}

@@ -41,10 +41,10 @@ public:
 	// Shaders //
 	/////////////
 	
-	void SetShader(CShader * Shader, IRenderPass * RenderPass = DefaultForwardRenderPass);
+	void SetShader(CShader * Shader, IRenderPass * RenderPass = IRenderPass::GetDefaultForwardShadingPass());
 	void SetUniform(string const & Label, IUniform * Uniform);
 
-	CShader * GetShader(IRenderPass * RenderPass = DefaultForwardRenderPass);
+	CShader * GetShader(IRenderPass * RenderPass = IRenderPass::GetDefaultForwardShadingPass());
 	IUniform * GetUniform(string const & Label);
 	map<string, IUniform *> & GetUniforms();
 	

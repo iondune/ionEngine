@@ -6,20 +6,17 @@
 
 class CScene;
 class ILightSceneNode;
+class IRenderPass;
 
 
-class CDrawManager : public Singleton<CDrawManager>
+class CDrawManager
 {
 
 public:
 
-
 	CDrawManager();
 
-	virtual void Begin(CScene * Scene);
-	virtual void Update();
-	virtual void Draw(map<CShader *, vector<CDrawConfig *>> const & Configurations);
-	virtual void Finalize();
+	virtual void Draw(CScene * Scene);
 
 	virtual ion::GL::Uniform * GetUniform(string const & Label);
 
@@ -27,10 +24,6 @@ public:
 
 private:
 
-	CScene * CurrentScene = nullptr;
-	
-	typedef map<CShader *, vector<CDrawConfig *>> RenderPass;
-	vector<RenderPass> RenderPasses;
 	vector<ILightSceneNode *> RegisteredLights;
 
 	CUniformValue<glm::mat4> View;

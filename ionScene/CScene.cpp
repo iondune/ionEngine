@@ -20,17 +20,10 @@ void CScene::SetActiveCamera(ICamera * const activeCamera)
 	ActiveCamera = activeCamera;
 }
 
-void CScene::DrawAll(CDrawManager * Engine)
+void CScene::DrawAll(CDrawManager * DrawManager)
 {
-	Engine->Begin(this);
-
 	Root->Update();
-	Engine->Update();
-
-	if (Root->IsVisible())
-		Engine->Draw(Root->PrepareDrawConfigurations(Engine, DefaultForwardRenderPass));
-
-	Engine->Finalize();
+	DrawManager->Draw(this);
 }
 
 ISceneNode * CScene::GetRoot()

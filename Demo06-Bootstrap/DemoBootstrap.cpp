@@ -10,7 +10,6 @@ int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
-	SingletonPointer<CDrawManager> GraphicsEngine;
 	SingletonPointer<CTimeManager> TimeManager;
 
 	WindowManager->Init();
@@ -55,7 +54,7 @@ int main()
 		Light2->SetRadius(Radius);
 		Light3->SetRadius(Radius);
 
-		SceneManager->DrawAll(GraphicsEngine.Get());
+		SceneManager->DrawAll();
 		Window->SwapBuffers();
 	}
 

@@ -5,6 +5,24 @@
 ion::GL::IndexBuffer * CFrameBuffer::QuadIndexBuffer = nullptr;
 ion::GL::VertexBuffer * CFrameBuffer::QuadVertexBuffer = nullptr;
 
+CFrameBuffer * CFrameBuffer::GetDefaultFrameBuffer()
+{
+	static CFrameBuffer * DefaultFramebuffer = nullptr;
+	if (! DefaultFramebuffer)
+		DefaultFramebuffer = new CFrameBuffer{ion::GL::DefaultFrameBuffer};
+
+	return DefaultFramebuffer;
+}
+
+CFrameBuffer::CFrameBuffer()
+{
+	Handle = new ion::GL::Framebuffer{};
+}
+
+CFrameBuffer::CFrameBuffer(ion::GL::Framebuffer * Handle)
+{
+	this->Handle = Handle;
+}
 
 void CFrameBuffer::MakeScreenSizedColorAttachment(u32 const Attachment)
 {
@@ -12,7 +30,7 @@ void CFrameBuffer::MakeScreenSizedColorAttachment(u32 const Attachment)
 	Target->SetMagFilter(CTexture2D::EFilter::Nearest);
 	Target->SetMinFilter(CTexture2D::EFilter::Nearest);
 	
-	AttachColorTexture(Target, Attachment);
+	Handle->AttachColorTexture(Target, Attachment);
 }
 
 void CFrameBuffer::MakeScreenSizedDepthTextureAttachment()
@@ -22,15 +40,50 @@ void CFrameBuffer::MakeScreenSizedDepthTextureAttachment()
 	Target->SetMinFilter(CTexture2D::EFilter::Nearest);
 	Target->SetAnisotropy(1);
 	
-	AttachDepthTexture(Target);
+	Handle->AttachDepthTexture(Target);
 }
 
 void CFrameBuffer::DrawColorAttachmentToScreen(u32 const Attachment)
 {
-	auto Texture = GetColorTextureAttachment(Attachment);
+	auto Texture = Handle->GetColorTextureAttachment(Attachment);
 
 	if (Texture)
 		DrawTextureToScreen(Texture);
+}
+
+void CFrameBuffer::AttachColorTexture(CTexture2D * Texture, u32 const Attachment)
+{
+	Handle->AttachColorTexture(Texture, Attachment);
+}
+
+void CFrameBuffer::AttachDepthTexture(CTexture2D * Texture)
+{
+	Handle->AttachDepthTexture(Texture);
+}
+
+void CFrameBuffer::AttachDepthRenderBuffer(CRenderBuffer * RBO)
+{
+	Handle->AttachDepthRenderBuffer(RBO);
+}
+
+CTexture2D * CFrameBuffer::GetColorTextureAttachment(u32 const Attachment)
+{
+	return Handle->GetColorTextureAttachment(Attachment);
+}
+
+CTexture2D * CFrameBuffer::GetDepthTextureAttachment()
+{
+	return Handle->GetDepthTextureAttachment();
+}
+
+void CFrameBuffer::Clear(std::initializer_list<ion::GL::EBuffer> Buffers)
+{
+	Handle->Clear(Buffers);
+}
+
+ion::GL::Framebuffer * CFrameBuffer::GetHandle()
+{
+	return Handle;
 }
 
 void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)

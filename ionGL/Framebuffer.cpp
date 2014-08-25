@@ -10,21 +10,28 @@ namespace ion
 {
 	namespace GL
 	{
-		Framebuffer * DefaultFrameBuffer = nullptr;
+		Framebuffer * DefaultFrameBuffer = new Framebuffer(ForceDefaultFramebuffer{});
 
 
 		Framebuffer::Framebuffer()
 		{
 			CheckedGLCall(glGenFramebuffers(1, & Handle));
 		}
+		
+		Framebuffer::Framebuffer(ForceDefaultFramebuffer f)
+		{}
 
 		Framebuffer::~Framebuffer()
 		{
-			CheckedGLCall(glDeleteFramebuffers(1, & Handle));
+			if (Handle)
+				CheckedGLCall(glDeleteFramebuffers(1, & Handle));
 		}
 
 		void Framebuffer::AttachColorTexture(Texture2D * Texture, u32 const Attachment)
 		{
+			if (! Handle)
+				return;
+
 			if (ColorAttachments.size() <= Attachment)
 				ColorAttachments.resize(Attachment + 1, nullptr);
 
@@ -37,6 +44,9 @@ namespace ion
 
 		void Framebuffer::AttachDepthTexture(Texture2D * Texture)
 		{
+			if (! Handle)
+				return;
+
 			DepthAttachment = Texture;
 
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
@@ -46,6 +56,9 @@ namespace ion
 
 		void Framebuffer::AttachDepthRenderBuffer(Renderbuffer * RBO)
 		{
+			if (! Handle)
+				return;
+
 			DepthAttachment = nullptr;
 
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));

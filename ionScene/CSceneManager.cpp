@@ -2,7 +2,6 @@
 #include "CSceneManager.h"
 
 
-
 CMeshLibrary * CSceneManager::GetMeshLibrary()
 {
 	return MeshLibrary;
@@ -23,9 +22,14 @@ CSceneNodeFactory * CSceneManager::GetFactory()
 	return Factory;
 }
 
-void CSceneManager::DrawAll(CDrawManager * Engine)
+CDrawManager * CSceneManager::GetDrawManager()
 {
-	Scene->DrawAll(Engine);
+	return DrawManager;
+}
+
+void CSceneManager::DrawAll()
+{
+	Scene->DrawAll(DrawManager);
 }
 
 CScene * CSceneManager::GetScene()
