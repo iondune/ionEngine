@@ -16,6 +16,7 @@ void CDrawManager::Draw(CScene * Scene)
 	{
 		View.Value = Scene->GetActiveCamera()->GetViewMatrix();
 		Proj.Value = Scene->GetActiveCamera()->GetProjectionMatrix();
+		CameraPosition.Value = Scene->GetActiveCamera()->GetPosition();
 	}
 	else
 	{
@@ -92,6 +93,10 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 	else if (Label == "Projection")
 	{
 		return & Proj;
+	}
+	else if (Label == "uCameraPosition")
+	{
+		return & CameraPosition;
 	}
 	else if (Label == "uLightCount")
 	{

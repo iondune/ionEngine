@@ -28,6 +28,7 @@ private:
 
 	CUniformValue<glm::mat4> View;
 	CUniformValue<glm::mat4> Proj;
+	CUniformValue<vec3f> CameraPosition;
 
 	struct SLightBinding
 	{

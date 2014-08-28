@@ -23,16 +23,22 @@ int main()
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
 	SceneManager->GetShaderLibrary()->Load("Simple");
 	SceneManager->GetShaderLibrary()->Load("Normals");
+	SceneManager->GetShaderLibrary()->Load("Specular");
 	SceneManager->GetTextureLibrary()->Load("SkyMap.jpg")->SetMagFilter(ion::GL::Texture::EFilter::Nearest);
 
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(0, 1, 0));
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(4, 2, 0));
 	SceneManager->GetFactory()->AddMeshNode("Sphere", "Simple")->SetPosition(vec3f(12, 3, 0));
+	SceneManager->GetFactory()->AddMeshNode("Sphere", "Specular")->SetPosition(vec3f(3, 3, 6));
 	SceneManager->GetFactory()->AddMeshNode("Plane", "Diffuse");
 	SceneManager->GetFactory()->AddSkySphereNode("SkyMap.jpg");
 	ILightSceneNode * Light1 = SceneManager->GetFactory()->AddLight(vec3f(0, 1, 0));
 	ILightSceneNode * Light2 = SceneManager->GetFactory()->AddLight(vec3f(4, 2, 0));
 	ILightSceneNode * Light3 = SceneManager->GetFactory()->AddLight(vec3f(12, 3, 0));
+	
+	Light1->SetColor(Colors::Red);
+	Light2->SetColor(Colors::Green);
+	Light3->SetColor(Colors::Blue);
 
 	ICamera * Camera = nullptr;
 	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera(Window->GetAspectRatio()));

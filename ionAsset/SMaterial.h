@@ -5,6 +5,8 @@
 #include <ionMath.h>
 #include <ionGL.h>
 
+#include "IUniform.h"
+
 
 class SMaterial
 {
@@ -17,7 +19,7 @@ public:
 
 	vector<ion::GL::Texture *> Textures;
 
-	color3f Ambient, Diffuse, Specular;
-	f32 Shininess;
+	CUniformValue<color3f> Ambient, Diffuse, Specular;
+	CUniformValue<f32> Shininess;
 
 };

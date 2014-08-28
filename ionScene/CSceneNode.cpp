@@ -84,9 +84,13 @@ static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawCo
 		DrawConfig->OfferVertexBuffer("Normal", Buffer->VertexBuffers.Normals);
 		DrawConfig->OfferVertexBuffer("TexCoord", Buffer->VertexBuffers.TexCoords);
 		DrawConfig->SetIndexBuffer(Buffer->VertexBuffers.Indices);
-
+		
 		DrawConfig->OfferUniform("Model", & SceneNode->GetTransformationUniform());
 		DrawConfig->OfferUniform("Local", & Node->AbsoluteTransformation);
+		DrawConfig->OfferUniform("uMaterial.AmbientColor", & Buffer->GetMaterial()->Ambient);
+		DrawConfig->OfferUniform("uMaterial.DiffuseColor", & Buffer->GetMaterial()->Diffuse);
+		DrawConfig->OfferUniform("uMaterial.SpecularColor", & Buffer->GetMaterial()->Specular);
+		DrawConfig->OfferUniform("uMaterial.Shininess", & Buffer->GetMaterial()->Shininess);
 
 		Definitions.push_back(DrawConfig);
 	}
