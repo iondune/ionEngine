@@ -10,9 +10,9 @@ SMaterial::SMaterial()
 void SMaterial::LoadDefaults()
 {
 	Shininess = 1000.0f;
-	Ambient = SColorf(0.15f, 0.15f, 0.15f);
-	Diffuse = SColorf(0.8f, 0.8f, 0.8f);
-	Specular = SColorf(1.f, 1.f, 1.f);
+	Ambient = SColorf(0.05f);
+	Diffuse = SColorf(0.9f);
+	Specular = SColorf(1.f);
 }
 
 void SMaterial::SetTexture(uint const Layer, ion::GL::Texture * const Texture)
