@@ -75,6 +75,14 @@ namespace ion
 			GL_TRIANGLES,
 			GL_QUADS
 		};
+		
+		uint const Util::PrimativeVertices[4] =
+		{
+			1,
+			2,
+			3,
+			4
+		};
 
 		string const Util::TypeStringMatrix[7] =
 		{

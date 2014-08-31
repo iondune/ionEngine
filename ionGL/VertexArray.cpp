@@ -11,7 +11,6 @@ namespace ion
 	{
 		VertexArray::VertexArray(EPrimativeType const PrimativeType)
 		{
-			BoundIndexBuffer = 0;
 			this->PrimativeType = PrimativeType;
 
 			CheckedGLCall(glGenVertexArrays(1, & Handle));
@@ -27,6 +26,11 @@ namespace ion
 			BoundIndexBuffer->Bind();
 			CheckedGLCall(glBindVertexArray(0));
 		}
+		
+		void VertexArray::SetElementCount(uint count)
+		{
+			this->ElementCount = count;
+		}
 
 		void VertexArray::BindAttribute(u32 const index, VertexBuffer * vbo)
 		{
@@ -40,15 +44,25 @@ namespace ion
 
 		void VertexArray::Draw()
 		{
-			if (! BoundIndexBuffer)
-				return;
+			if (BoundIndexBuffer)
+			{
+				CheckedGLCall(glBindVertexArray(Handle));
+				glDrawElements(
+					Util::PrimativeMatrix[(int) PrimativeType],
+					BoundIndexBuffer->Elements(),
+					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
+				CheckedGLCall(glBindVertexArray(0));
+			}
+			else
+			{
+				CheckedGLCall(glBindVertexArray(Handle));
+				glDrawArrays(
+					Util::PrimativeMatrix[(int) PrimativeType],
+					0,
+					ElementCount * Util::PrimativeVertices[(int) PrimativeType]);
+				CheckedGLCall(glBindVertexArray(0));
+			}
 			
-			CheckedGLCall(glBindVertexArray(Handle));
-			glDrawElements(
-				Util::PrimativeMatrix[(int) PrimativeType],
-				BoundIndexBuffer->Elements(),
-				Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
-			CheckedGLCall(glBindVertexArray(0));
 		}
 
 		void VertexArray::Delete()

@@ -26,11 +26,14 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
 
 	// If we have a mesh and either draw configuration hasn't been specified or this node is 'dirty' and must be loaded again
-	if (Mesh && (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty))
+	if (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty)
 	{
 		// Get a draw definition for each mesh buffer in the mesh
 		vector<CDrawConfig *> DrawDefinitions;
-		RecurseMesh(this, Shaders[Pass], DrawDefinitions, Mesh->Root);
+		if (Mesh)
+			RecurseMesh(this, Shaders[Pass], DrawDefinitions, Mesh->Root);
+		if (DrawDefinitions.empty())
+			DrawDefinitions.push_back(new CDrawConfig{Shaders[Pass]});
 
 		auto ActiveUniforms = Shaders[Pass]->GetActiveUniforms();
 
@@ -42,11 +45,21 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 				for (auto & Definition : DrawDefinitions)
 					Definition->AddUniform(ActiveUniform.first, Uniform);
 		}
-
+		
 		// Load the uniforms specified by this node
 		for (auto & Uniform : Uniforms)
 			for (auto & Definition : DrawDefinitions)
 				Definition->AddUniform(Uniform.first, Uniform.second);
+
+		// Load the vertex buffers specified by this node
+		for (auto & Buffer : VertexBuffers)
+			for (auto & Definition : DrawDefinitions)
+				Definition->AddVertexBuffer(Buffer.first, Buffer.second);
+		for (auto & Definition : DrawDefinitions)
+		{
+			Definition->SetElementCount(ElementCount);
+			Definition->SetPrimativeType(PrimativeType);
+		}
 
 		// Add textures
 		for (auto & Definition : DrawDefinitions)
@@ -136,6 +149,22 @@ void CSceneNode::SetMesh(CMesh * Mesh)
 CMesh * CSceneNode::GetMesh()
 {
 	return Mesh;
+}
+
+void CSceneNode::SetVertexBuffer(string const & Label, ion::GL::VertexBuffer * Buffer)
+{
+	VertexBuffers[Label] = Buffer;
+	Dirty = true;
+}
+
+void CSceneNode::SetElementCount(uint const ElementCount)
+{
+	this->ElementCount = ElementCount;
+}
+
+void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
+{
+	this->PrimativeType = PrimativeType;
 }
 
 

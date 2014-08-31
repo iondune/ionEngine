@@ -64,6 +64,11 @@ namespace ion
 		{
 			this->IBO = IBO;
 		}
+
+		void DrawConfig::SetElementCount(uint ElementCount)
+		{
+			this->ElementCount = ElementCount;
+		}
 		
 		void DrawConfig::SetPrimativeType(EPrimativeType const PrimativeType)
 		{
@@ -90,8 +95,10 @@ namespace ion
 
 			if (IBO)
 				VAO->SetIndexBuffer(IBO);
+			else if (ElementCount)
+				VAO->SetElementCount(ElementCount);
 			else
-				cerr << "Draw configuration invalid: IBO not supplied" << endl;
+				cerr << "Draw configuration invalid: IBO not supplied and element count is 0" << endl;
 
 			for (auto VBO : VertexBuffers)
 				VAO->BindAttribute(VBO.first, VBO.second);

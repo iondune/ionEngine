@@ -27,6 +27,7 @@ namespace ion
 			void OfferUniform(string const & Label, Uniform const * Value);
 			void AddTexture(string const & Label, Texture * Texture);
 			void SetIndexBuffer(IndexBuffer * IBO);
+			void SetElementCount(uint ElementCount);
 			void SetPrimativeType(EPrimativeType const PrimativeType);
 			
 			bool Loaded() const;
@@ -43,6 +44,7 @@ namespace ion
 			Program * BoundProgram = nullptr;
 			VertexArray * VAO = nullptr;
 			IndexBuffer * IBO = nullptr;
+			uint ElementCount = 0;
 
 			EPrimativeType PrimativeType = EPrimativeType::Triangles;
 
