@@ -70,6 +70,11 @@ f64 CTimeManager::GetElapsedTime() const
 	return ElapsedTime;
 }
 
+f64 CTimeManager::GetActualElapsedTime() const
+{
+	return ElapsedTime / TimeMultiplier;
+}
+
 f64 CTimeManager::GetRunTime() const
 {
 	return RunTime;

@@ -37,6 +37,7 @@ public:
 
 	void SkipElapsedTime();
 	f64 GetElapsedTime() const;
+	f64 GetActualElapsedTime() const;
 	f64 GetRunTime() const;
 	f64 GetTimeMultiplier() const;
 
