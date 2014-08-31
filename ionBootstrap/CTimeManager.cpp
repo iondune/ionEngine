@@ -3,7 +3,6 @@
 #include <GLFW/glfw3.h>
 
 
-
 f64 CTimeManager::CUpdateTick::GetTick() const
 {
 	return Tick;
