@@ -25,6 +25,20 @@ CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string con
 	return Node;
 }
 
+CSceneNode * CSceneNodeFactory::AddSceneNode(string const & ShaderLabel)
+{
+	CSceneNode * Node = nullptr;
+	CShader * Shader = SceneManager->GetShaderLibrary()->Get(ShaderLabel);
+
+	if (Shader)
+	{
+		Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
+		Node->SetShader(Shader);
+	}
+
+	return Node;
+}
+
 CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 {
 	string const VertexShaderSource = R"SHADER(

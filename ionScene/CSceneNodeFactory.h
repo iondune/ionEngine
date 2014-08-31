@@ -18,6 +18,7 @@ public:
 	CSceneNodeFactory(CSceneManager * SceneManager);
 	
 	CSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
+	CSceneNode * AddSceneNode(string const & Shader);
 	CSceneNode * AddSkySphereNode(string const & TextureLabel);
 	CPerspectiveCamera * AddPerspectiveCamera(f32 const AspectRatio);
 
