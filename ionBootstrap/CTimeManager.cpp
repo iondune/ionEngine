@@ -45,13 +45,14 @@ void CTimeManager::CUpdateTick::Update(f64 const Elapsed)
 void CTimeManager::Init()
 {
 	LastTime = glfwGetTime();
-	RunTime = ElapsedTime = 0.f;
+	RunTime = ElapsedTime = 0;
+	TimeMultiplier = 1;
 }
 
 void CTimeManager::Update()
 {
 	f64 NewTime = glfwGetTime();
-	ElapsedTime = NewTime - LastTime;
+	ElapsedTime = (NewTime - LastTime) * TimeMultiplier;
 	RunTime += ElapsedTime;
 	LastTime = NewTime;
 
@@ -74,6 +75,16 @@ f64 CTimeManager::GetRunTime() const
 	return RunTime;
 }
 
+f64 CTimeManager::GetTimeMultiplier() const
+{
+	return TimeMultiplier;
+}
+
+void CTimeManager::SetTimeMultiplier(f64 const TimeMultiplier)
+{
+	this->TimeMultiplier = TimeMultiplier;
+}
+
 CTimeManager::CUpdateTick * CTimeManager::MakeUpdateTick(f64 const Tick, f32 const MaxDuration)
 {
 	UpdateTicks.push_back(new CUpdateTick{Tick, MaxDuration});
@@ -81,4 +92,5 @@ CTimeManager::CUpdateTick * CTimeManager::MakeUpdateTick(f64 const Tick, f32 con
 }
 
 CTimeManager::CTimeManager()
-{}
+{
+}

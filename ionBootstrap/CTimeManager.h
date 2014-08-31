@@ -38,6 +38,9 @@ public:
 	void SkipElapsedTime();
 	f64 GetElapsedTime() const;
 	f64 GetRunTime() const;
+	f64 GetTimeMultiplier() const;
+
+	void SetTimeMultiplier(f64 const TimeMultiplier);
 
 	CUpdateTick * MakeUpdateTick(f64 const Tick, f32 const MaxDuration = 1.0);
 
@@ -46,6 +49,7 @@ protected:
 	f64 ElapsedTime;
 	f64 RunTime;
 	f64 LastTime;
+	f64 TimeMultiplier;
 
 	vector<CUpdateTick *> UpdateTicks;
 
