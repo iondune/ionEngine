@@ -31,7 +31,7 @@ namespace ion
 		void Buffer::SubData(u32 const size, u32 const offset, void const * const data)
 		{
 			Bind();
-			CheckedGLCall(glBufferSubData(GetTarget(), offset, size, data));
+			CheckedGLCall(glBufferSubData(GetTarget(), Min(offset, DataSize), Min(size, DataSize - offset), data));
 			Unbind();
 		}
 

@@ -32,16 +32,22 @@ namespace ion
 			};
 
 			template <typename T>
-			void Data(u32 const size, T const * const data, u32 const components,
-				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
-				EAccessNature const accessNature = EAccessNature::Draw);
-
-			template <typename T>
 			void Data(vector<T> data, u32 const components,
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw)
 			{
 				Data(data.size() * sizeof(T), data.data(), components, accessFrequency, accessNature);
+			}
+
+			template <typename T>
+			void Data(u32 const size, T const * const data, u32 const components,
+				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
+				EAccessNature const accessNature = EAccessNature::Draw);
+
+			template <typename T>
+			void SubData(vector<T> data, u32 const offset = 0)
+			{
+				SubData(data.size() * sizeof(T), offset * sizeof(T), data.data());
 			}
 
 			void SubData(u32 const size, u32 const offset, void const * const data);
