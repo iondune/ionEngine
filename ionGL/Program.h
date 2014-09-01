@@ -21,6 +21,7 @@ namespace ion
 
 			void AttachShader(Shader * shader);
 			bool Link();
+			std::string InfoLog() const;
 			void BindAttributeLocation(u32 const index, string const name);
 
 			std::map<std::string, u32> const & GetActiveAttributes();

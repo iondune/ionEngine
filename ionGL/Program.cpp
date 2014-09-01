@@ -28,6 +28,11 @@ namespace ion
 		{
 			CheckedGLCall(glBindFragDataLocation(Handle, 0, "outColor"));
 			CheckedGLCall(glLinkProgram(Handle));
+			
+			int Linked;
+			CheckedGLCall(glGetProgramiv(Handle, GL_LINK_STATUS, & Linked));
+			if (! Linked)
+				return false;
 
 			// Load active uniforms
 			int ActiveUniforms = 0;
@@ -62,6 +67,32 @@ namespace ion
 			}
 
 			return true;
+		}
+
+		std::string Program::InfoLog() const
+		{
+			std::string Log;
+			int InfoLogLength = 0;
+			int CharsWritten = 0;
+			
+			CheckExistingErrors(Program::InfoLog);
+			glGetProgramiv(Handle, GL_INFO_LOG_LENGTH, & InfoLogLength);
+
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glGetProgramiv: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+				cerr << endl;
+			}
+			else if (InfoLogLength > 0)
+			{
+				GLchar * InfoLog = new GLchar[InfoLogLength];
+				glGetProgramInfoLog(Handle, InfoLogLength, & CharsWritten, InfoLog);
+				Log = InfoLog;
+				delete[] InfoLog;
+			}
+
+			return Log;
 		}
 
 		void Program::BindAttributeLocation(u32 const index, string const name)
