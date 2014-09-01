@@ -76,7 +76,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 	)SHADER";
 	
 	CSceneNode * Node = nullptr;
-	CShader * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, FragmentShaderSource);
+	CShader * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, "", FragmentShaderSource);
 	CMesh * Mesh = CGeometryCreator::CreateSkySphere();
 	CTexture * Texture = SceneManager->GetTextureLibrary()->Get(TextureLabel);
 

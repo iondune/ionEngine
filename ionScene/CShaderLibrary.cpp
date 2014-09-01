@@ -18,6 +18,7 @@ static string MakeFileName(string const & BaseDirectory, string const & File, st
 CShader * CShaderLibrary::Load(string const & File)
 {
 	string const VertFileName = MakeFileName(BaseDirectory, File, ".vert");
+	string const GeomFileName = MakeFileName(BaseDirectory, File, ".geom");
 	string const FragFileName = MakeFileName(BaseDirectory, File, ".frag");
 
 	if (File::Exists(VertFileName) && File::Exists(FragFileName))
@@ -25,7 +26,11 @@ CShader * CShaderLibrary::Load(string const & File)
 		string const VertShaderSource = File::ReadAsString(VertFileName);
 		string const FragShaderSource = File::ReadAsString(FragFileName);
 
-		return LoadFromSource(File, VertShaderSource, FragShaderSource);
+		string GeomShaderSource;
+		if (File::Exists(GeomFileName))
+			GeomShaderSource = File::ReadAsString(GeomFileName);
+
+		return LoadFromSource(File, VertShaderSource, GeomShaderSource, FragShaderSource);
 	}
 	else
 	{
@@ -38,35 +43,71 @@ CShader * CShaderLibrary::Load(string const & File)
 	return 0;
 }
 
-CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & VertShaderSource, string const & FragShaderSource)
+CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & VertShaderSource, string const & GeomShaderSource, string const & FragShaderSource)
 {
-	ion::GL::VertexShader * Vert = new ion::GL::VertexShader;
-	Vert->Source(VertShaderSource);
-	if (! Vert->Compile())
+	ion::GL::VertexShader * Vert = nullptr;
+	ion::GL::GeometryShader * Geom = nullptr;
+	ion::GL::FragmentShader * Frag = nullptr;
+	
+	if (VertShaderSource.length())
 	{
-		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Vert->InfoLog() << std::endl;
-		delete Vert;
-		return 0;
+		Vert = new ion::GL::VertexShader;
+		Vert->Source(VertShaderSource);
+		if (! Vert->Compile())
+		{
+			std::cerr << "Failed to compile vertex shader " << Name << std::endl << Vert->InfoLog() << std::endl;
+			delete Vert;
+			return 0;
+		}
 	}
 
-	ion::GL::FragmentShader * Frag = new ion::GL::FragmentShader;
-	Frag->Source(FragShaderSource);
-	if (! Frag->Compile())
+	if (GeomShaderSource.length())
 	{
-		std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
-		delete Vert;
-		delete Frag;
-		return 0;
+		Geom = new ion::GL::GeometryShader;
+		Geom->Source(GeomShaderSource);
+		if (! Geom->Compile())
+		{
+			std::cerr << "Failed to compile geometry shader " << Name << std::endl << Geom->InfoLog() << std::endl;
+			if (Vert)
+				delete Vert;
+			delete Geom;
+			return 0;
+		}
+	}
+	
+	if (FragShaderSource.length())
+	{
+		Frag = new ion::GL::FragmentShader;
+		Frag->Source(FragShaderSource);
+		if (! Frag->Compile())
+		{
+			std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
+			if (Vert)
+				delete Vert;
+			if (Geom)
+				delete Geom;
+			delete Frag;
+			return 0;
+		}
 	}
 
 	ion::GL::Program * Shader = new ion::GL::Program;
-	Shader->AttachShader(Vert);
-	Shader->AttachShader(Frag);
-	Shader->BindAttributeLocation(0, "Position");
+	if (Vert)
+		Shader->AttachShader(Vert);
+	if (Geom)
+		Shader->AttachShader(Geom);
+	if (Frag)
+		Shader->AttachShader(Frag);
+	Shader->BindAttributeLocation(0, "Position"); // Unnecessary?
 	Shader->BindAttributeLocation(1, "Normal");
 	Shader->BindAttributeLocation(2, "Color");
 	Shader->BindAttributeLocation(3, "TexCoord");
-	Shader->Link();
+	if (! Shader->Link())
+	{
+		std::cerr << "Failed to link shader " << Name << std::endl << Shader->InfoLog() << std::endl;
+		delete Shader;
+		return 0;
+	}
 
 	return Shaders[Name] = Shader;
 }
