@@ -160,6 +160,7 @@ void CSceneNode::SetVertexBuffer(string const & Label, ion::GL::VertexBuffer * B
 void CSceneNode::SetElementCount(uint const ElementCount)
 {
 	this->ElementCount = ElementCount;
+	Dirty = true;
 }
 
 void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
