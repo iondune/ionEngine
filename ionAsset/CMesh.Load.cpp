@@ -19,7 +19,8 @@ CMesh * CMesh::Load(std::string const & FileName)
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
-		aiProcess_SortByPType
+		aiProcess_SortByPType |
+		aiProcess_GenNormals
 		);
 
 	if (! Scene)
