@@ -16,6 +16,15 @@
     <ClCompile Include="OpenGL3Font.cpp">
       <Filter>Renderers</Filter>
     </ClCompile>
+    <ClCompile Include="CGUIConsoleWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="CGUIProgressBarWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="CGUIWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
@@ -34,6 +43,15 @@
     </ClInclude>
     <ClInclude Include="OpenGL3Font.h">
       <Filter>Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="CGUIConsoleWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="CGUIProgressBarWidget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="CGUIWidget.h">
+      <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

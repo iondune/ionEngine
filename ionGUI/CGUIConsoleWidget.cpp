@@ -26,7 +26,7 @@ void CGUIConsoleWidget::SetSize(u32 const size)
 			continue;
 
 		Messages[i] = new Gwen::Controls::Label(GUIManager->GetCanvas());
-		Messages[i]->SetPos(20, CApplication::Get().GetWindow().GetSize().Y - 50 - 25 * i);
+		Messages[i]->SetPos(20, ion::GL::Context::GetViewportSize().Y - 50 - 25 * i);
 		Messages[i]->SetSize(1500, 30);
 	}
 }

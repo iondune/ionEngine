@@ -42,15 +42,21 @@
     <Import Project="..\Properties\ionDefaultBuild.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClCompile Include="CGUIConsoleWidget.cpp" />
     <ClCompile Include="CGUIEventManager.cpp" />
     <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="CGUIProgressBarWidget.cpp" />
+    <ClCompile Include="CGUIWidget.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CGUIConsoleWidget.h" />
     <ClInclude Include="CGUIEventManager.h" />
     <ClInclude Include="CGUIManager.h" />
+    <ClInclude Include="CGUIProgressBarWidget.h" />
+    <ClInclude Include="CGUIWidget.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="Gwen.h" />
     <ClInclude Include="ionGUI.h" />
