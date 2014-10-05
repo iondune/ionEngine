@@ -80,24 +80,24 @@ namespace ion
 			
 			//! Sets the minimizing filter for this texture
 			//! Default is EFilter::Linear
-			void SetMinFilter(EFilter const MinFilter);
+			Texture * SetMinFilter(EFilter const MinFilter);
 
 			//! Sets the maximizing filter for this texture
 			//! Default is EFilter::Linear
-			void SetMagFilter(EFilter const MagFilter);
+			Texture * SetMagFilter(EFilter const MagFilter);
 
 			//! Sets the mip map filter for this texture
 			//! Default is EFilter::Linear
-			void SetMipMapFilter(EFilter const MipMapFilter);
+			Texture * SetMipMapFilter(EFilter const MipMapFilter);
 
 			//! Sets the wrap mode for this texture
 			//! Default is EWrapMode::Repeat
-			void SetWrapMode(EWrapMode const WrapMode);
+			Texture * SetWrapMode(EWrapMode const WrapMode);
 
 			//! Sets the anisotropy filtering value for this texture
 			//! A value < 0 indicates that the max anisotrophy value should be used
 			//! Default is -1
-			void SetAnisotropy(f32 const Anisotropy);
+			Texture * SetAnisotropy(f32 const Anisotropy);
 			
 			EFilter GetMinFilter();
 			EFilter GetMagFilter();
