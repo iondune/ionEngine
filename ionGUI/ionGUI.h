@@ -14,8 +14,8 @@
 	#include "CGUIManager.h"
 	#include "CGUIEventManager.h"
 
-	//#include "CGUIWidget.h"
-	//#include "CGUIConsoleWidget.h"
-	//#include "CGUIProgressBarWidget.h"
+	#include "CGUIWidget.h"
+	#include "CGUIConsoleWidget.h"
+	#include "CGUIProgressBarWidget.h"
 
 #endif
