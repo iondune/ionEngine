@@ -8,7 +8,6 @@
 #include "ionAsset.h"
 #include "ionFramework.h"
 #include "ionGL.h"
-#include "ionGraphics.h"
 #include "ionGUI.h"
 #include "ionMath.h"
 #include "ionScene.h"
