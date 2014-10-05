@@ -26,3 +26,5 @@
 // winuser.h Cleanup +_+
 #undef LoadImage
 #undef CreateWindow
+#undef min
+#undef max
