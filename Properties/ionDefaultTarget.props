@@ -11,11 +11,11 @@
     <Link>
       <AdditionalDependencies>
         ;ionAsset.lib;
-        <!-- ;ionGraphics.lib; -->
+        ;ionGUI.lib;
         ;ionGL.lib;
         ;ionFramework.lib;
         ;ionScene.lib;
-        <!-- ;ionScience.lib; -->
+        ;ionScience.lib;
         ;ionGUI.lib;
         ;ionWindow.lib;
         ;ionBootstrap.lib;

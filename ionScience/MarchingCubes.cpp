@@ -24,9 +24,9 @@ CMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 
 	CMesh * Mesh = new CMesh();
 	int CurrentBuffer = 0;
-	Mesh->MeshBuffers.push_back(new CMesh::SMeshBuffer());
-	Mesh->MeshBuffers[CurrentBuffer]->Vertices.reserve(1 << 14);
-	Mesh->MeshBuffers[CurrentBuffer]->Triangles.reserve(1 << 11);
+	Mesh->Buffers.push_back(new SMeshBuffer());
+	Mesh->Buffers[CurrentBuffer]->Vertices.reserve(1 << 14);
+	Mesh->Buffers[CurrentBuffer]->Triangles.reserve(1 << 11);
 
 	SVertex Vertices[12];
 
@@ -87,22 +87,22 @@ CMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 
 			for (u32 i = 0; TriTable[Lookup][i] != -1; i += 3)
 			{
-				if (Mesh->MeshBuffers[CurrentBuffer]->Vertices.size() + 3 >= 1 << 20)
+				if (Mesh->Buffers[CurrentBuffer]->Vertices.size() + 3 >= 1 << 20)
 				{
 					++ CurrentBuffer;
-					Mesh->MeshBuffers.push_back(new CMesh::SMeshBuffer());
-					Mesh->MeshBuffers[CurrentBuffer]->Vertices.reserve(1 << 14);
-					Mesh->MeshBuffers[CurrentBuffer]->Triangles.reserve(1 << 11);
+					Mesh->Buffers.push_back(new SMeshBuffer());
+					Mesh->Buffers[CurrentBuffer]->Vertices.reserve(1 << 14);
+					Mesh->Buffers[CurrentBuffer]->Triangles.reserve(1 << 11);
 				}
 
 				for (u32 j = i; j < (i+3); ++ j)
-					Mesh->MeshBuffers[CurrentBuffer]->Vertices.push_back(Vertices[TriTable[Lookup][j]]);
+					Mesh->Buffers[CurrentBuffer]->Vertices.push_back(Vertices[TriTable[Lookup][j]]);
 
-				CMesh::STriangle Tri;
-				Tri.Indices[0] = Mesh->MeshBuffers[CurrentBuffer]->Vertices.size() - 3;
-				Tri.Indices[1] = Mesh->MeshBuffers[CurrentBuffer]->Vertices.size() - 2;
-				Tri.Indices[2] = Mesh->MeshBuffers[CurrentBuffer]->Vertices.size() - 1;
-				Mesh->MeshBuffers[CurrentBuffer]->Triangles.push_back(Tri);
+				SMeshTriangle Tri;
+				Tri.Indices[0] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 3;
+				Tri.Indices[1] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 2;
+				Tri.Indices[2] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 1;
+				Mesh->Buffers[CurrentBuffer]->Triangles.push_back(Tri);
 			}
 		}
 	}
