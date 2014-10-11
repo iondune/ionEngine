@@ -52,6 +52,7 @@
     <ClInclude Include="IProgressBar.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesLookupTables.h" />
+    <ClInclude Include="SGrid.h" />
     <ClInclude Include="SLongitudeLatitude.h" />
     <ClInclude Include="SRange.h" />
     <ClInclude Include="STable.h" />
