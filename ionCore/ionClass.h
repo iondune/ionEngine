@@ -129,11 +129,33 @@ public:
 		return GetReference();
 	}
 
+	T const * operator ->() const
+	{
+		return GetReference();
+	}
+
+	T const * Get() const
+	{
+		return GetReference();
+	}
+
+	operator T const *() const
+	{
+		return GetReference();
+	}
+
 private:
 
-	T * Reference = 0;
+	mutable T * Reference = 0;
 
 	T * GetReference()
+	{
+		if (! Reference)
+			Reference = T::GetPtr();
+		return Reference;
+	}
+
+	T const * GetReference() const
 	{
 		if (! Reference)
 			Reference = T::GetPtr();
