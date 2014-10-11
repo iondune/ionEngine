@@ -45,6 +45,16 @@ struct SVolume
 			Z >= 0 && Z < Dimensions.Z;
 	}
 
+	virtual T & Get(vec3i const Index)
+	{
+		return Get(Index.X, Index.Y, Index.Z);
+	}
+
+	virtual T const & Get(vec3i const Index) const
+	{
+		return Get(Index.X, Index.Y, Index.Z);
+	}
+
 	virtual T & Get(s32 const X, s32 const Y, s32 const Z)
 	{
 		s32 const Index = Clamp(X, 0, Dimensions.X - 1) + Dimensions.X * Clamp(Y, 0, Dimensions.Y - 1) + Dimensions.X * Dimensions.Y * Clamp(Z, 0, Dimensions.Z - 1);
