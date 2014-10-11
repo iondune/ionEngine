@@ -1,6 +1,7 @@
 
 #include "CWindowManager.h"
 
+#include <ionGL.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -46,6 +47,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
 
 	Window->MakeContextCurrent();
+	ion::GL::Context::Init();
 	glfwSwapInterval(0);
 
 	static bool Initialized = false;
