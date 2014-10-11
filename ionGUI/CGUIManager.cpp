@@ -56,9 +56,9 @@ void CGUIManager::Draw(f32 const Elapsed, bool const ClearAll)
 		(* it)->Update(Elapsed);
 
 	if (ClearAll)
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		ion::GL::Context::Clear({ ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth });
 	else
-		glClear(GL_DEPTH_BUFFER_BIT);
+		ion::GL::Context::Clear({ ion::GL::EBuffer::Depth });
 
 	Canvas->RenderCanvas();
 }
