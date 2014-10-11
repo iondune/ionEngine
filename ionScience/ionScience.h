@@ -11,6 +11,7 @@
 #include "SVolumeDatabase.h"
 
 #include "CKDTree.h"
+#include "SGrid.h"
 #include "SVolume.h"
 
 #include "MarchingCubes.h"
