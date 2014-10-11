@@ -36,8 +36,13 @@ public:
 	void Update();
 
 	void SkipElapsedTime();
+
+	//! Get the time elapsed between this frame and the last frame in seconds
 	f64 GetElapsedTime() const;
+
+	//! Same as ElapsedTime, except before TimeMultiplier is applied
 	f64 GetActualElapsedTime() const;
+
 	f64 GetRunTime() const;
 	f64 GetTimeMultiplier() const;
 
