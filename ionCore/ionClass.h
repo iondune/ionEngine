@@ -84,11 +84,6 @@ class Singleton
 	Singleton(Singleton const &);
 	Singleton & operator = (Singleton const &);
 
-protected:
-
-	Singleton()
-	{}
-
 public:
 
 	static Implementation & Get()
@@ -106,27 +101,44 @@ public:
 		return & Get();
 	}
 
+protected:
+
+	Singleton()
+	{}
+
 };
 
 template <class T>
-struct SingletonPointer
+class SingletonPointer
 {
 
-	SingletonPointer()
-		: Reference(T::Get())
-	{}
+public:
 
 	T * operator ->()
 	{
-		return & Reference;
+		return GetReference();
 	}
 
 	T * Get()
 	{
-		return & Reference;
+		return GetReference();
 	}
 
-	T & Reference;
+	operator T*()
+	{
+		return GetReference();
+	}
+
+private:
+
+	T * Reference = 0;
+
+	T * GetReference()
+	{
+		if (! Reference)
+			Reference = T::GetPtr();
+		return Reference;
+	}
 
 };
 
