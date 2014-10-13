@@ -55,7 +55,7 @@ CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & Ver
 		Vert->Source(VertShaderSource);
 		if (! Vert->Compile())
 		{
-			std::cerr << "Failed to compile vertex shader " << Name << std::endl << Vert->InfoLog() << std::endl;
+			std::cerr << "Failed to compile vertex shader " << Name << ".vert" << std::endl << Vert->InfoLog() << std::endl;
 			delete Vert;
 			return 0;
 		}
@@ -67,7 +67,7 @@ CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & Ver
 		Geom->Source(GeomShaderSource);
 		if (! Geom->Compile())
 		{
-			std::cerr << "Failed to compile geometry shader " << Name << std::endl << Geom->InfoLog() << std::endl;
+			std::cerr << "Failed to compile geometry shader " << Name << ".geom" << std::endl << Geom->InfoLog() << std::endl;
 			if (Vert)
 				delete Vert;
 			delete Geom;
@@ -81,7 +81,7 @@ CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & Ver
 		Frag->Source(FragShaderSource);
 		if (! Frag->Compile())
 		{
-			std::cerr << "Failed to compile vertex shader " << Name << std::endl << Frag->InfoLog() << std::endl;
+			std::cerr << "Failed to compile fragment shader " << Name << ".frag" << std::endl << Frag->InfoLog() << std::endl;
 			if (Vert)
 				delete Vert;
 			if (Geom)
