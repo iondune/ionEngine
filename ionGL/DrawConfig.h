@@ -14,6 +14,12 @@ namespace ion
 {
 	namespace GL
 	{
+		enum EDrawFeature
+		{
+			Wireframe = 0,
+			Count = 1
+		};
+
 		class DrawConfig
 		{
 		public:
@@ -29,6 +35,9 @@ namespace ion
 			void SetIndexBuffer(IndexBuffer * IBO);
 			void SetElementCount(uint ElementCount);
 			void SetPrimativeType(EPrimativeType const PrimativeType);
+
+			bool IsFeatureEnabled(EDrawFeature const Feature);
+			void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
 			
 			bool Loaded() const;
 			void Load();
@@ -47,6 +56,8 @@ namespace ion
 			uint ElementCount = 0;
 
 			EPrimativeType PrimativeType = EPrimativeType::Triangles;
+
+			bool DrawFeatures[EDrawFeature::Count];
 
 		private:
 

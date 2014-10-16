@@ -67,6 +67,14 @@ public:
 	void SetTexture(uint const Index, CTexture * Texture);
 
 
+	//////////////
+	// Features //
+	//////////////
+	
+	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature);
+	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled);
+
+
 	// Has an optional Material
 	// If set, objects use that material instead of the mesh provided one
 	// Calling SetMaterial will need to set Dirty = true
@@ -87,6 +95,7 @@ protected:
 	ion::GL::EPrimativeType PrimativeType = ion::GL::EPrimativeType::Triangles;
 
 	CMesh * Mesh = nullptr;
+	bool DrawFeatures[ion::GL::EDrawFeature::Count];
 
 	map<IRenderPass *, map<CShader *, vector<CDrawConfig *>>> DrawConfigurations;
 

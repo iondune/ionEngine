@@ -67,8 +67,18 @@ namespace ion
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 				CheckedGLCall(glBindTexture(Texture.second->GetGLBindTextureTarget(), Texture.second->GetHandle()));
 			}
-				
+
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
+			{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			}
+
 			DrawConfig->VAO->Draw();
+
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
+			{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
 		}
 	}
 }

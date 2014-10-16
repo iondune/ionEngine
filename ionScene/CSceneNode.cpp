@@ -9,6 +9,9 @@ CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 {
 	this->Scene = Scene;
 	TransformationUniform.Value = & AbsoluteTransformation;
+
+	for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
+		DrawFeatures[i] = false;
 }
 
 void CSceneNode::Update()
@@ -59,6 +62,9 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		{
 			Definition->SetElementCount(ElementCount);
 			Definition->SetPrimativeType(PrimativeType);
+			
+			for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
+				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i, DrawFeatures[i]);
 		}
 
 		// Add textures
@@ -246,5 +252,21 @@ void CSceneNode::SetTexture(uint const Index, CTexture * Texture)
 	if (! TextureUniforms[Index])
 		TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
 
+	Dirty = true;
+}
+
+
+//////////////
+// Features //
+//////////////
+
+bool CSceneNode::IsFeatureEnabled(ion::GL::EDrawFeature const Feature)
+{
+	return DrawFeatures[Feature];
+}
+
+void CSceneNode::SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled)
+{
+	DrawFeatures[Feature] = Enabled;
 	Dirty = true;
 }

@@ -11,6 +11,9 @@ namespace ion
 		{
 			this->BoundProgram = Program;
 			this->PrimativeType = PrimativeType;
+
+			for (int i = 0; i < EDrawFeature::Count; ++ i)
+				DrawFeatures[i] = false;
 		}
 
 		DrawConfig::~DrawConfig()
@@ -73,6 +76,16 @@ namespace ion
 		void DrawConfig::SetPrimativeType(EPrimativeType const PrimativeType)
 		{
 			this->PrimativeType = PrimativeType;
+		}
+		
+		bool DrawConfig::IsFeatureEnabled(EDrawFeature const Feature)
+		{
+			return DrawFeatures[Feature];
+		}
+
+		void DrawConfig::SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled)
+		{
+			DrawFeatures[Feature] = Enabled;
 		}
 			
 		bool DrawConfig::Loaded() const
