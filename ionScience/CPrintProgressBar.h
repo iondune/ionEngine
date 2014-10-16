@@ -23,14 +23,18 @@ protected:
 	void Render()
 	{
 		s32 IntegerProgress = (s32) (100 * Progress);
-		printf("\r");
-		printf("%3d%% :[", IntegerProgress);
-		int i = 0;
-		for (; i < IntegerProgress * BarLength / 100; ++ i)
-			printf("%c", 0xB2);
-		for (; i < BarLength; ++ i)
-			printf("%c", 0xB0);
-		printf("]");
+		if (IntegerProgress != LastProgress)
+		{
+			printf("\r");
+			printf("%3d%% :[", IntegerProgress);
+			int i = 0;
+			for (; i < IntegerProgress * BarLength / 100; ++ i)
+				printf("%c", 0xB2);
+			for (; i < BarLength; ++ i)
+				printf("%c", 0xB0);
+			printf("]");
+		}
+		LastProgress = IntegerProgress;
 	}
 
 	void Finish()
@@ -38,6 +42,7 @@ protected:
 		printf("\n");
 	}
 
+	int LastProgress = -1;
 	int BarLength;
 
 };
