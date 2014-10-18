@@ -76,6 +76,10 @@ void CCameraController::OnEvent(IEvent & Event)
 
 		if (! KeyboardEvent.Pressed)
 		{
+			if (KeyboardEvent.Key == EKey::Num8)
+				SetVelocity(50000.f);
+			if (KeyboardEvent.Key == EKey::Num7)
+				SetVelocity(5000.f);
 			if (KeyboardEvent.Key == EKey::Num6)
 				SetVelocity(500.f);
 			if (KeyboardEvent.Key == EKey::Num5)
