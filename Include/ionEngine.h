@@ -6,6 +6,7 @@
 
 #include "ionAnimation.h"
 #include "ionAsset.h"
+#include "ionBootstrap.h"
 #include "ionFramework.h"
 #include "ionGL.h"
 #include "ionGUI.h"
