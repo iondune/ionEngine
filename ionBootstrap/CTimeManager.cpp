@@ -98,3 +98,14 @@ CTimeManager::CUpdateTick * CTimeManager::MakeUpdateTick(f64 const Tick, f32 con
 CTimeManager::CTimeManager()
 {
 }
+
+CStopWatch::CStopWatch()
+{
+	t0 = glfwGetTime();
+}
+
+f64 CStopWatch::Stop()
+{
+	f64 const t1 = glfwGetTime();
+	return t1 - t0;
+}

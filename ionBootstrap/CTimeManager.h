@@ -65,3 +65,17 @@ private:
 	CTimeManager();
 
 };
+
+class CStopWatch
+{
+
+public:
+
+	CStopWatch();
+	f64 Stop();
+
+private:
+
+	f64 t0;
+
+};
