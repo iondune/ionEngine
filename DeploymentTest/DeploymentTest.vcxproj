@@ -67,6 +67,11 @@
     <Import Project="..\Properties\ionDefaultBuild.props" />
     <Import Project="..\Properties\ionGLFW.props" />
   </ImportGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>copy "$(VisualStudioDir)\SDKs\DLLs\*" "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DeploymentTest.cpp" />
   </ItemGroup>
