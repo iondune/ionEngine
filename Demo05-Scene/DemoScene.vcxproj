@@ -70,27 +70,7 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionScene.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Link>
-      <AdditionalDependencies>assimpD.lib;%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Link>
-      <AdditionalDependencies>assimpD.lib;%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Link>
-      <AdditionalDependencies>assimp.lib;%(AdditionalDependencies);</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Link>
-      <AdditionalDependencies>assimp.lib;%(AdditionalDependencies);</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;ionScene.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
