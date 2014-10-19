@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
 
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+
+  <PropertyGroup>
     <IncludePath>
       ;$(VisualStudioDir)\Projects\ionEngine\;
       ;$(VisualStudioDir)\Projects\ionEngine\Include;
@@ -12,40 +22,29 @@
       ;$(VisualStudioDir)\SDKs\glfw-3.0.4\include;
       ;$(VisualStudioDir)\SDKs\assimp-3.1.1\include;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.3\include\;
-
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(IncludePath);
     </IncludePath>
-
     <LibraryPath>
       ;$(VisualStudioDir)\SDKs\glew-1.11.0\lib\Release\x64;
       ;$(VisualStudioDir)\SDKs\glfw-3.0.4\lib-msvc120;
       ;$(VisualStudioDir)\SDKs\assimp-3.1.1\lib64;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.3\builds\windows\vc2010\x64\Release;
-
       ;$(LibraryPath);
     </LibraryPath>
-
     <LibraryPath Condition="'$(Configuration)'=='Debug'">
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Debug;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\Projects\windows\vs2010\x64\Debug;
       ;$(LibraryPath);
     </LibraryPath>
-
     <LibraryPath Condition="'$(Configuration)'=='Release'">
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Release;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\Projects\windows\vs2010\x64\Release;
       ;$(LibraryPath);
     </LibraryPath>
-
   </PropertyGroup>
 
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-    <ClCompile>
-      <PreprocessorDefinitions>SFML_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+  <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>SFML_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

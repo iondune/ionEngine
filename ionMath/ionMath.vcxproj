@@ -14,17 +14,8 @@
     <ProjectGuid>{A24BACED-451D-4120-A386-136A963C3C72}</ProjectGuid>
     <RootNamespace>ionMath</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\ionEngine.props" />
+    <Import Project="..\Properties\Utility.props" />
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
