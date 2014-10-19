@@ -20,12 +20,12 @@ that only the necessary components need to be included in a project.
 
 Features included in ionEngine or additional modules are:
 
-- Component-entity based scene graph which is renderer-agnostic to maximize extendability
-- Forward and deferred lighting systems implemented using OpenGL
-- Bloom, SSAO, depth-of-field, and other post-processing effects
-- Volumetric utilities such as a shader-based raycast volume renderer and marching cubes implementation
-- GUI elements provided through GWEN
-- Windowing and input provided through GLFW
+* Component-entity based scene graph which is renderer-agnostic to maximize extendability
+* Forward and deferred lighting systems implemented using OpenGL
+* Bloom, SSAO, depth-of-field, and other post-processing effects
+* Volumetric utilities such as a shader-based raycast volume renderer and marching cubes implementation
+* GUI elements provided through GWEN
+* Windowing and input provided through GLFW
 
 h2. Distribution
 
