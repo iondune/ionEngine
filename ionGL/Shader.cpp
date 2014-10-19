@@ -17,7 +17,7 @@ namespace ion
 			c8 const ** Lines = new c8 const *[Source.size()];
 			for (u32 i = 0; i < Source.size(); ++ i)
 				Lines[i] = Source[i].c_str();
-			CheckedGLCall(glShaderSource(Handle, Source.size(), Lines, 0));
+			CheckedGLCall(glShaderSource(Handle, (int) Source.size(), Lines, 0));
 		}
 
 		void Shader::Source(std::string const & Source)
