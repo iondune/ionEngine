@@ -70,27 +70,18 @@
   </ImportGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>ionGUI.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Link>
-      <AdditionalDependencies>gwen_staticd.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype253.lib;ionGUI.lib;ionAsset.lib;ionGL.lib;ionWindow.lib;ionFramework.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>gwen_staticd.lib;freetype252_D.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Link>
-      <AdditionalDependencies>gwen_static.lib;freetype252.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gwen_staticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>gwen_static.lib;freetype252.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gwen_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

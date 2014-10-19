@@ -29,13 +29,13 @@ void CDrawManager::Draw(CScene * Scene)
 
 		map<CShader *, vector<CDrawConfig *>> const ShaderConfigurations = Scene->GetRoot()->PrepareDrawConfigurations(this, Pass);
 		
-		for (uint i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
+		for (u64 i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
 		{
 			*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
 			*LightBindings[i].Color = RegisteredLights[i]->GetColor();
 			*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
 		}
-		for (uint i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
+		for (u64 i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
 		{
 			*LightBindings[i].Position = vec3f();
 			*LightBindings[i].Color = color3f();

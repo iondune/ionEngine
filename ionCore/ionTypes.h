@@ -79,14 +79,18 @@ typedef Uint16 u16;
 typedef Int32  s32;
 typedef Uint32 u32;
 
+typedef Int64  s64;
+typedef Uint64 u64;
+
 typedef float  f32;
 typedef double f64;
 
 // Standard types
 typedef unsigned short ushort;
-typedef unsigned int   uint;
-typedef unsigned long  ulong;
-typedef unsigned char  byte;
+typedef unsigned int uint;
+typedef unsigned long ulong;
+typedef unsigned long long  ulonglong;
+typedef unsigned char byte;
 
 // STL imports
 using std::string;

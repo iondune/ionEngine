@@ -19,6 +19,8 @@
         ;ionGUI.lib;
         ;ionWindow.lib;
         ;ionBootstrap.lib;
+        ;assimp.lib;
+        ;freetype253.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
@@ -27,34 +29,20 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <Link>
       <AdditionalDependencies>
-        ;zlibd.lib;
-        ;assimpD.lib;
-        ;libovrd.lib;
-        ;winmm.lib;
-        ;freetype252_D.lib;
         ;gwen_staticd.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <Link>
       <AdditionalDependencies>
-        ;zlib.lib;
-        ;assimp.lib;
-        ;libovr.lib;
-        ;winmm.lib;
-        ;glew32s.lib;
-        ;freetype252.lib;
         ;gwen_static.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
-
-    <PostBuildEvent>
-      <Command>copy "$(VisualStudioDir)\SDKs\DLLs\*" "$(TargetDir)"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
 
 </Project>

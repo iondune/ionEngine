@@ -57,7 +57,7 @@ namespace ion
 			GL_FLOAT
 		};
 
-		u32 const Util::SizeMatrix[7] =
+		u64 const Util::SizeMatrix[7] =
 		{
 			sizeof(u8),
 			sizeof(u16),

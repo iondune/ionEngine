@@ -46,10 +46,12 @@ namespace ion
 		{
 			if (BoundIndexBuffer)
 			{
+				if (BoundIndexBuffer->Elements() > INT_MAX)
+					cerr << "Index buffer is too large for OpenGL rendering: " << BoundIndexBuffer << " (" << BoundIndexBuffer->Elements() << ")" << endl;
 				CheckedGLCall(glBindVertexArray(Handle));
 				glDrawElements(
 					Util::PrimativeMatrix[(int) PrimativeType],
-					BoundIndexBuffer->Elements(),
+					(int) BoundIndexBuffer->Elements(),
 					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
 				CheckedGLCall(glBindVertexArray(0));
 			}

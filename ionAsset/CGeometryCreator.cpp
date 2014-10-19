@@ -169,7 +169,7 @@ CMesh * CGeometryCreator::CreateCylinder(
 	}
 
 	// Make top disc
-	uint const TopStart = Positions.size() / 3;
+	uint const TopStart = (uint) Positions.size() / 3;
 	Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(height);
 	Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 
@@ -195,7 +195,7 @@ CMesh * CGeometryCreator::CreateCylinder(
 		f32 Interpolation = (f32) j / stacks;
 		f32 Radius = Interpolation * topRadius + (1.f - Interpolation) * baseRadius;
 
-		SideStart2 = Positions.size() / 3;
+		SideStart2 = (uint) Positions.size() / 3;
 		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
@@ -244,7 +244,7 @@ CMesh * CGeometryCreator::CreateDisc(
 	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
-		uint const Current = Positions.size() / 3;
+		uint const Current = (uint) Positions.size() / 3;
 		Positions.push_back(Cos<f32>(Angle)*innerRadius);
 		Positions.push_back(Sin<f32>(Angle)*innerRadius);
 		Positions.push_back(0.f);
@@ -271,7 +271,7 @@ CMesh * CGeometryCreator::CreateDisc(
 	for (uint i = 1; i <= slices; ++ i)
 	{
 		f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
-		uint const Current = Positions.size() / 3;
+		uint const Current = (uint) Positions.size() / 3;
 		Positions.push_back(Cos<f32>(Angle)*innerRadius);
 		Positions.push_back(Sin<f32>(Angle)*innerRadius);
 		Positions.push_back(height);
@@ -294,7 +294,7 @@ CMesh * CGeometryCreator::CreateDisc(
 	{
 		f32 Interpolation = (f32) j / stacks;
 
-		SideStart2 = Positions.size() / 3;
+		SideStart2 = (uint) Positions.size() / 3;
 		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
@@ -326,7 +326,7 @@ CMesh * CGeometryCreator::CreateDisc(
 	{
 		f32 Interpolation = (f32) j / stacks;
 
-		SideStart2 = Positions.size() / 3;
+		SideStart2 = (uint) Positions.size() / 3;
 		for (uint k = 0; k <= slices; ++ k)
 		{
 			f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
@@ -379,7 +379,7 @@ CMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, u
 				Cos<f32>(AngleH)*Sin<f32>(AngleV),
 				Cos<f32>(AngleV),
 				Sin<f32>(AngleH)*Sin<f32>(AngleV));
-			uint const Start = Positions.size() / 3;
+			uint const Start = (uint) Positions.size() / 3;
 			Positions.push_back(Radial.X*Radii.X);
 			Positions.push_back(Radial.Y*Radii.Y);
 			Positions.push_back(Radial.Z*Radii.Z);
