@@ -28,6 +28,6 @@ STable::SRow STable::SRow::operator = (SRow const & Other)
 	return * this;
 }
 
-STable::SRow::SRow(STable & table, u32 const index)
+STable::SRow::SRow(STable & table, u64 const index)
 	: Table(table), Index(index)
 {}

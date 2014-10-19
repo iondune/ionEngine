@@ -4,6 +4,7 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>OpenGL32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries Condition="'$(Configuration)'=='Debug'">MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
 

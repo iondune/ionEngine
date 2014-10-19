@@ -42,7 +42,7 @@ void CDrawManager::Draw(CScene * Scene)
 			*LightBindings[i].Radius = 0.f;
 		}
 
-		LightCount = RegisteredLights.size();
+		LightCount = (uint) RegisteredLights.size();
 		
 		CDrawContext Context{Pass->GetTarget()->GetHandle()};
 		for (auto & ShaderConfig : ShaderConfigurations)
@@ -67,7 +67,7 @@ void CDrawManager::Draw(CScene * Scene)
 static bool MatchAndExtractIndex(string const & Label, string Match, int & Index, string & Remaining)
 {
 	Match += "[";
-	uint const MatchLength = Match.length();
+	u64 const MatchLength = Match.length();
 
 	if (Label.substr(0, MatchLength) == Match)
 	{

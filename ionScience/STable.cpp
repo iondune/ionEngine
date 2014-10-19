@@ -35,7 +35,7 @@ SRange<f64> STable::GetFieldRange(std::string const & Field, double const Outlie
 {
 	// Calculate mean
 	double Mean = 0;
-	unsigned int Count = Rows.size();
+	u64 Count = Rows.size();
 	for (auto it = Rows.begin(); it != Rows.end(); ++ it)
 	{
 		double const v = it->GetField(Field);
@@ -83,7 +83,7 @@ STable::SFieldIterator STable::End(std::string const & Field)
 	return SFieldIterator(Rows.end(), Field);
 }
 
-u32 const STable::Size() const
+u64 STable::Size() const
 {
 	return Rows.size();
 }
@@ -96,7 +96,7 @@ void STable::Clear()
 void STable::WriteToFile(std::ofstream & File)
 {
 	// Write Fields
-	u32 Dims = Fields.size();
+	u64 Dims = Fields.size();
 	File.write((char *) & Dims, sizeof(u32));
 
 	for (auto it = Fields.begin(); it != Fields.end(); ++ it)

@@ -213,7 +213,7 @@ map<string, IUniform *> & CSceneNode::GetUniforms()
 
 uint CSceneNode::GetTextureCount() const
 {
-	return Textures.size();
+	return (uint) Textures.size();
 }
 
 CTexture * CSceneNode::GetTexture(uint const Index)

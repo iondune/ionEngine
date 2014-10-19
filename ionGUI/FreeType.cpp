@@ -205,7 +205,7 @@ void CFont::print(float x, float y, const char * fmt, ...)
 		// If you decide to use it make sure to also uncomment the glBitmap command
 		// in make_dlist().
 		// glRasterPos2f(0, 0);
-		glCallLists(lines[i].length(), GL_UNSIGNED_BYTE, lines[i].c_str());
+		glCallLists((int) lines[i].length(), GL_UNSIGNED_BYTE, lines[i].c_str());
 		// float rpos[4];
 		// glGetFloatv(GL_CURRENT_RASTER_POSITION, rpos);
 		// float len = x - rpos[0];

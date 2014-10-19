@@ -32,7 +32,6 @@
         ;gwen_staticd.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
 

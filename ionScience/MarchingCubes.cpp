@@ -99,9 +99,9 @@ CMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 					Mesh->Buffers[CurrentBuffer]->Vertices.push_back(Vertices[TriTable[Lookup][j]]);
 
 				SMeshTriangle Tri;
-				Tri.Indices[0] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 3;
-				Tri.Indices[1] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 2;
-				Tri.Indices[2] = Mesh->Buffers[CurrentBuffer]->Vertices.size() - 1;
+				Tri.Indices[0] = (uint) Mesh->Buffers[CurrentBuffer]->Vertices.size() - 3;
+				Tri.Indices[1] = (uint) Mesh->Buffers[CurrentBuffer]->Vertices.size() - 2;
+				Tri.Indices[2] = (uint) Mesh->Buffers[CurrentBuffer]->Vertices.size() - 1;
 				Mesh->Buffers[CurrentBuffer]->Triangles.push_back(Tri);
 			}
 		}

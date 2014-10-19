@@ -28,9 +28,9 @@ public:
 
 	protected:
 		
-		SRow(STable & table, u32 const index);
+		SRow(STable & table, u64 const index);
 
-		u32 Index;
+		u64 Index;
 		STable & Table;
 
 	};
@@ -79,7 +79,7 @@ public:
 	SFieldIterator Begin(std::string const & Field);
 	SFieldIterator End(std::string const & Field);
 
-	u32 const Size() const;
+	u64 Size() const;
 	void Clear();
 	void WriteToFile(std::ofstream & File);
 	void ReadFromFile(std::ifstream & File);
