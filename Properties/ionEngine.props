@@ -35,7 +35,7 @@
     </LibraryPath>
 
     <LibraryPath Condition="'$(Configuration)'=='Debug'">
-      ;$(VisualStudioDir)\Projects\ionEngine\Debug;
+      ;$(VisualStudioDir)\Projects\ionEngine\x64\Debug;
       ;$(VisualStudioDir)\SDKs\glfw-3.0.4\build\src\Debug;
       ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-source-only\build\code\Debug;
       ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-source-only\build\contrib\zlib\Debug;
@@ -43,7 +43,7 @@
     </LibraryPath>
 
     <LibraryPath Condition="'$(Configuration)'=='Release'">
-      ;$(VisualStudioDir)\Projects\ionEngine\Release;
+      ;$(VisualStudioDir)\Projects\ionEngine\x64\Release;
       ;$(VisualStudioDir)\SDKs\glfw-3.0.4\build\src\Release;
       ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-source-only\build\code\Release;
       ;$(VisualStudioDir)\SDKs\assimp--3.0.1270-source-only\build\contrib\zlib\Release;
