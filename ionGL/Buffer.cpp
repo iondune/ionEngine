@@ -13,7 +13,7 @@ namespace ion
 		//////////
 
 		template <>
-		void Buffer::Data<f32>(u32 const size, f32 const * const data, u32 const components,
+		void Buffer::Data<f32>(u64 const size, f32 const * const data, u32 const components,
 			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
 		{
 			DataType = EFormatType::F32;
@@ -21,21 +21,21 @@ namespace ion
 		}
 
 		template <>
-		void Buffer::Data<u32>(u32 const size, u32 const * const data, u32 const components,
+		void Buffer::Data<u32>(u64 const size, u32 const * const data, u32 const components,
 			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
 		{
 			DataType = EFormatType::U32;
 			InternalData(size, data, components, accessFrequency, accessNature);
 		}
 
-		void Buffer::SubData(u32 const size, u32 const offset, void const * const data)
+		void Buffer::SubData(u64 const size, u64 const offset, void const * const data)
 		{
 			Bind();
 			CheckedGLCall(glBufferSubData(GetTarget(), Min(offset, DataSize), Min(size, DataSize - offset), data));
 			Unbind();
 		}
 
-		u32 Buffer::Size() const
+		u64 Buffer::Size() const
 		{
 			return DataSize;
 		}
@@ -45,7 +45,7 @@ namespace ion
 			return DataComponents;
 		}
 
-		u32 Buffer::Elements() const
+		u64 Buffer::Elements() const
 		{
 			return DataSize / Util::SizeMatrix[(int) DataType];
 		}
@@ -88,7 +88,7 @@ namespace ion
 			CheckedGLCall(glBindBuffer(GetTarget(), 0));
 		}
 
-		void Buffer::InternalData(u32 const size, void const * const data, u32 const components,
+		void Buffer::InternalData(size_t const size, void const * const data, u32 const components,
 			EAccessFrequency const accessFrequency, EAccessNature const accessNature)
 		{
 			static u32 const UsageMatrix[3][3] =

@@ -40,7 +40,7 @@ namespace ion
 			}
 
 			template <typename T>
-			void Data(u32 const size, T const * const data, u32 const components,
+			void Data(u64 const size, T const * const data, u32 const components,
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw);
 
@@ -50,10 +50,15 @@ namespace ion
 				SubData(data.size() * sizeof(T), offset * sizeof(T), data.data());
 			}
 
-			void SubData(u32 const size, u32 const offset, void const * const data);
+			void SubData(u64 const size, u64 const offset, void const * const data);
 
-			u32 Size() const;
-			u32 Elements() const;
+			//! Get allocated size (bytes)
+			u64 Size() const;
+
+			//! Get number of elements allocated
+			u64 Elements() const;
+
+			//! Get number of components (e.g. 3D data has 3 components)
 			u32 Components() const;
 			EFormatType Type() const;
 
@@ -67,14 +72,14 @@ namespace ion
 			void Bind();
 			void Unbind();
 
-			void InternalData(u32 const size, void const * const data, u32 const components,
+			void InternalData(u64 const size, void const * const data, u32 const components,
 				EAccessFrequency const accessFrequency = EAccessFrequency::Stream,
 				EAccessNature const accessNature = EAccessNature::Draw);
 
 			virtual u32 GetTarget() = 0;
 
 			u32 Handle;
-			u32 DataSize;
+			u64 DataSize;
 			u32 DataComponents;
 			EFormatType DataType;
 		};
