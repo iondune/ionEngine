@@ -19,8 +19,13 @@ ionEngine depends on the following external libraries:
   - Latest build uses: 3.0.4
 - [FreeType](http://www.freetype.org/)
   - Font rendering
+  - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
+  - Latest build uses: 2.5.3
 - [GWEN](https://github.com/garrynewman/GWEN)
   - GUI library
+  - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
+  - You will need to change the runtime library from Static to DLL.
+  - Latest build uses: as of [a0f0a2be6b87fae889c6a49183cd7b8132f6e554](https://github.com/garrynewman/GWEN/commit/a0f0a2be6b87fae889c6a49183cd7b8132f6e554)
 
 The easiest way to acquire these dependencies is to clone the [ionEngine SDKs respository](https://bitbucket.org/iondune/sdks)
 which contains pre-built binaries for Windows x64 platforms. Visual Studio 2013 project files are included for Windows builds
