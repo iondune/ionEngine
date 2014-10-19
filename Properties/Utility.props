@@ -5,10 +5,9 @@
 
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
 
-  <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\DefaultCompile.props" />
-  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
 
 </Project>
