@@ -17,8 +17,8 @@ CShader * CompileVertFragShader(string const VertexShaderSource, string const Fr
 	ion::GL::Program * Program = new ion::GL::Program;
 	Program->AttachShader(VertexShader);
 	Program->AttachShader(FragmentShader);
-	Program->Link();
-	Program->InfoLog();
+	if (! Program->Link())
+		std::cerr << "Failed to link vertex/fragment program!" << std::endl << Program->InfoLog() << std::endl;
 	
 	return Program;
 }
