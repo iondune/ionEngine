@@ -12,7 +12,7 @@ CShader * CompileVertFragShader(string const VertexShaderSource, string const Fr
 	ion::GL::FragmentShader * FragmentShader = new ion::GL::FragmentShader;
 	FragmentShader->Source(FragmentShaderSource);
 	if (! FragmentShader->Compile())
-		std::cerr << "Failed to compile vertex shader!" << std::endl << FragmentShader->InfoLog() << std::endl;
+		std::cerr << "Failed to compile fragment shader!" << std::endl << FragmentShader->InfoLog() << std::endl;
 
 	ion::GL::Program * Program = new ion::GL::Program;
 	Program->AttachShader(VertexShader);
