@@ -14,11 +14,8 @@ struct SLight
 	float Radius;
 };
 
-in vec4 vColor;
-in vec3 vNormal;
 in vec3 vLight[LIGHT_MAX];
-in vec3 vLightColor[LIGHT_MAX];
-in vec3 vEye;
+in vec3 vNormal;
 
 uniform int uLightCount;
 uniform SLight uLights[LIGHT_MAX];
@@ -34,8 +31,6 @@ float sq(float v)
 
 void main()
 {
-	vec3 nEye = normalize(vEye);
-
 	vec3 Diffuse = vec3(0);
 
 

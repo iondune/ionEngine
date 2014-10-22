@@ -18,7 +18,6 @@ uniform int uLightCount;
 uniform SLight uLights[LIGHT_MAX];
 uniform vec3 uCameraPosition;
 
-out vec4 vColor;
 out vec3 vLight[LIGHT_MAX];
 out vec3 vNormal;
 
