@@ -5,7 +5,7 @@
 uniform sampler2D uTexColor;
 uniform vec2 uPixelOffset;
 
-in vec4 vTexCoord;
+in vec2 vTexCoord;
 out vec4 outColor;
 
 void main()
