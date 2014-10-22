@@ -18,6 +18,7 @@ CShader * CompileVertFragShader(string const VertexShaderSource, string const Fr
 	Program->AttachShader(VertexShader);
 	Program->AttachShader(FragmentShader);
 	Program->Link();
+	Program->InfoLog();
 	
 	return Program;
 }

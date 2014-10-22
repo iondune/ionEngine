@@ -37,15 +37,15 @@ namespace ion
 			// Load active uniforms
 			int ActiveUniforms = 0;
 			int ActiveUniformMaxLength = 0;
-			glGetProgramiv(Handle, GL_ACTIVE_UNIFORMS, & ActiveUniforms);
-			glGetProgramiv(Handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, & ActiveUniformMaxLength);
+			CheckedGLCall(glGetProgramiv(Handle, GL_ACTIVE_UNIFORMS, & ActiveUniforms));
+			CheckedGLCall(glGetProgramiv(Handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, & ActiveUniformMaxLength));
 			for (int i = 0; i < ActiveUniforms; ++ i)
 			{
 				int Length = -1, Size = -1;
 				uint DataType;
 				char * Name = new char[ActiveUniformMaxLength + 1]();
 
-				glGetActiveUniform(Handle, i, ActiveUniformMaxLength, & Length, & Size, & DataType, Name);
+				CheckedGLCall(glGetActiveUniform(Handle, i, ActiveUniformMaxLength, & Length, & Size, & DataType, Name));
 				Uniforms[Name] = glGetUniformLocation(Handle, Name);
 				delete [] Name;
 			}
@@ -53,15 +53,15 @@ namespace ion
 			// Load active attributes
 			int ActiveAttributes = 0;
 			int ActiveAttributeMaxLength = 0;
-			glGetProgramiv(Handle, GL_ACTIVE_ATTRIBUTES, & ActiveAttributes);
-			glGetProgramiv(Handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, & ActiveAttributeMaxLength);
+			CheckedGLCall(glGetProgramiv(Handle, GL_ACTIVE_ATTRIBUTES, & ActiveAttributes));
+			CheckedGLCall(glGetProgramiv(Handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, & ActiveAttributeMaxLength));
 			for (GLint i = 0; i < ActiveAttributes; ++ i)
 			{
 				int Length = -1, Size = -1;
 				uint DataType;
 				char * Name = new char[ActiveAttributeMaxLength + 1];
 
-				glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name);
+				CheckedGLCall(glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name));
 				Attributes[Name] = glGetAttribLocation(Handle, Name);
 				delete Name;
 			}
