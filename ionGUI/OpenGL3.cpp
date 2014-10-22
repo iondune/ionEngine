@@ -76,17 +76,19 @@ namespace Gwen
 			VertexShader * vert = new VertexShader;
 			vert->Source(VertexShaderSource);
 			if (! vert->Compile())
-				std::cerr << "Failed to compile vertex shader!" << std::endl << vert->InfoLog() << std::endl;
+				std::cerr << "Failed to compile gui vertex shader!" << std::endl << vert->InfoLog() << std::endl;
 
 			FragmentShader * frag = new FragmentShader;
 			frag->Source(FragmentShaderSource);
 			if (! frag->Compile())
-				std::cerr << "Failed to compile vertex shader!" << std::endl << frag->InfoLog() << std::endl;
+				std::cerr << "Failed to compile gui fragment shader!" << std::endl << frag->InfoLog() << std::endl;
 
 			Shader = new Program;
 			Shader->AttachShader(vert);
 			Shader->AttachShader(frag);
 			Shader->Link();
+			if (! Shader->Link())
+				std::cerr << "Failed to compile gui fragment shader!" << std::endl << frag->InfoLog() << std::endl;
 			Shader->BindAttributeLocation(0, "position");
 			Shader->BindAttributeLocation(1, "texcoord");
 			Shader->BindAttributeLocation(2, "color");
