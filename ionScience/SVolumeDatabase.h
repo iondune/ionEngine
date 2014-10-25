@@ -65,7 +65,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 	{
 		// Calculate mean
 		T Mean = 0;
-		u32 Count = Values.size();
+		size_t Count = Values.size();
 		for (auto it = Values.begin(); it != Values.end(); ++ it)
 		{
 			T const v = it->GetField(Field);
