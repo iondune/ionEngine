@@ -112,5 +112,11 @@ namespace ion
 		{
 			CheckedGLCall(glUniform4ui(Handle, Value[0], Value[1], Value[2], Value[3]));
 		}
+
+		template <>
+		void Uniform::Bind<bool>(uint const Handle, bool const & Value)
+		{
+			CheckedGLCall(glUniform1i(Handle, Value ? 1 : 0));
+		}
 	}
 }
