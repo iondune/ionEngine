@@ -35,7 +35,8 @@ public:
 
 	void SetMesh(CMesh * Mesh);
 	CMesh * GetMesh();
-	void SetVertexBuffer(string const & Label, ion::GL::VertexBuffer * Buffer);
+	void SetVertexBuffer(string const & Label, CVertexBuffer * Buffer);
+	void SetIndexBuffer(CIndexBuffer * Buffer);
 	void SetElementCount(uint const ElementCount);
 	void SetPrimativeType(ion::GL::EPrimativeType const PrimativeType);
 
@@ -90,7 +91,8 @@ protected:
 
 	map<IRenderPass *, CShader *> Shaders;
 	map<string, IUniform *> Uniforms;
-	map<string, ion::GL::VertexBuffer *> VertexBuffers;
+	map<string, CVertexBuffer *> VertexBuffers;
+	CIndexBuffer * IndexBuffer = nullptr;
 	uint ElementCount = 0;
 	ion::GL::EPrimativeType PrimativeType = ion::GL::EPrimativeType::Triangles;
 

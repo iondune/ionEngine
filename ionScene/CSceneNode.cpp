@@ -28,7 +28,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 {
 	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
 
-	// If we have a mesh and either draw configuration hasn't been specified or this node is 'dirty' and must be loaded again
+	// If either draw configuration hasn't been specified or this node is 'dirty' and must be loaded again
 	if (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty)
 	{
 		// Get a draw definition for each mesh buffer in the mesh
@@ -58,6 +58,9 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		for (auto & Buffer : VertexBuffers)
 			for (auto & Definition : DrawDefinitions)
 				Definition->AddVertexBuffer(Buffer.first, Buffer.second);
+		if (IndexBuffer)
+			for (auto & Definition : DrawDefinitions)
+				Definition->SetIndexBuffer(IndexBuffer);
 		for (auto & Definition : DrawDefinitions)
 		{
 			Definition->SetElementCount(ElementCount);
@@ -161,6 +164,11 @@ void CSceneNode::SetVertexBuffer(string const & Label, ion::GL::VertexBuffer * B
 {
 	VertexBuffers[Label] = Buffer;
 	Dirty = true;
+}
+
+void CSceneNode::SetIndexBuffer(CIndexBuffer * Buffer)
+{
+	IndexBuffer = Buffer;
 }
 
 void CSceneNode::SetElementCount(uint const ElementCount)
