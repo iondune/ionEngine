@@ -64,8 +64,9 @@ public:
 
 	vector<CTexture *> & GetTextures();
 	vector<ion::GL::UniformValue<int> *> & GetTextureUniforms();
-
+	
 	void SetTexture(uint const Index, CTexture * Texture);
+	void SetTexture(string const & Label, CTexture * Texture);
 
 
 	//////////////
@@ -88,6 +89,7 @@ protected:
 
 	vector<CTexture *> Textures;
 	vector<ion::GL::UniformValue<int> *> TextureUniforms;
+	map<string, CTexture *> NamedTextures;
 
 	map<IRenderPass *, CShader *> Shaders;
 	map<string, IUniform *> Uniforms;

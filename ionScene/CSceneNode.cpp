@@ -83,6 +83,8 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 					Definition->AddTexture(Label.str(), Textures[i]);
 				}
 			}
+			for (auto NamedTexture : NamedTextures)
+				Definition->AddTexture(NamedTexture.first, NamedTexture.second);
 		}
 
 		DrawConfigurations[Pass][Shaders[Pass]] = DrawDefinitions;
@@ -261,6 +263,11 @@ void CSceneNode::SetTexture(uint const Index, CTexture * Texture)
 		TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
 
 	Dirty = true;
+}
+
+void CSceneNode::SetTexture(string const & Label, CTexture * Texture)
+{
+	NamedTextures[Label] = Texture;
 }
 
 
