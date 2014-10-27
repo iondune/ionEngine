@@ -86,11 +86,11 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 	int Index;
 	string Remaining;
 
-	if (Label == "View")
+	if (Label == "View" || Label == "uViewMatrix" || Label == "uView")
 	{
 		return & View;
 	}
-	else if (Label == "Projection")
+	else if (Label == "Projection" || Label == "uProjMatrix" || Label == "uProjection")
 	{
 		return & Proj;
 	}
