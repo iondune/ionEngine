@@ -442,11 +442,7 @@ public:
 
 	ION_FUNC_DEF bool operator < (Other const & v) const
 	{
-		bool result = true;
-		for (u32 i = 0; i < Dimension; ++ i)
-			result = result && (Values[i] < v[i]);
-
-		return result;
+		return Values[0] < v.Values[0] || (Values[0] == v.Values[0] && Values[1] < v.Values[1]);
 	}
 
 	ION_FUNC_DEF bool operator >= (Other const & v) const

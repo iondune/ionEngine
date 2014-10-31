@@ -14,7 +14,7 @@ CCameraController::CCameraController(ICamera * Camera)
 	this->Tracking = false;
 	this->MoveSpeed = 2.5f;
 	this->LookSpeed = 0.005f;
-	this->FocalLengthDelta = 1.1f;
+	this->FocalLengthDelta = 1.001f;
 	this->MaxAngleEpsilon = 0.01f;
 
 	for (int i = 0; i < (int) ECommand::Count; ++ i)

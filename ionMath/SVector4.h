@@ -43,7 +43,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	ION_FUNC_DEF SVector4(glm::detail::tvec4<U> const & v)
+	ION_FUNC_DEF SVector4(glm::detail::tvec4<U, glm::defaultp> const & v)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		Values[0] = (T) v.x;
@@ -101,7 +101,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	ION_FUNC_DEF operator glm::detail::tvec4<U> ()
+	ION_FUNC_DEF operator glm::detail::tvec4<U, glm::defaultp> ()
 	{
 		return glm::detail::tvec4<U>(X, Y, Z, W);
 	}

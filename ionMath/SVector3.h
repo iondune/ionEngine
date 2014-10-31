@@ -53,7 +53,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	ION_FUNC_DEF SVector3(glm::detail::tvec3<U> const & v)
+	ION_FUNC_DEF SVector3(glm::detail::tvec3<U, glm::defaultp> const & v)
 		: X(Values[0]), Y(Values[1]), Z(Values[2])
 	{
 		Values[0] = (T) v.x;
