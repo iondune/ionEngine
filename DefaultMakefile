@@ -1,7 +1,6 @@
 CXX=clang++
-INCLUDE=-I ../ \
-	-I ~/include/glm/ \
-	-I ~/include/stb/
+INCLUDE=-I .. \
+	-I ../Include
 CXXFLAGS=$(INCLUDE) -g -std=c++11
 
 SRCS=$(shell find . -name "*.cpp")
@@ -9,24 +8,24 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: $(TARGET)
 
-UCT: $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS)
-
 $(TARGET): $(OBJS)
 	ar rc $@ $^
+
+.depend.mk:
+	@echo --- Regenerating dependencies. ------------------
+	$(CXX) -MM $(CXXFLAGS) $(SRCS) > .depend.mk
+	@echo --- Dependencies generated ----------------------
 
 clean:
 	rm -f $(OBJS) $(TARGET)
 
 remake: clean all
 
-depend: .depend.mk
-	@echo Regenerating local dependencies.
-	@makedepend -Y $(SRCS) $(HDRS) -I ../ -f.depend.mk > /dev/null 2>&1
-	@rm .depend.mk.bak
+depend:
+	@rm .depend.mk
+	@$(MAKE) --no-print-directory .depend.mk
 
-.depend.mk:
-	@touch .depend.mk
+.PHONY: celan remake depend
 
 # Dependencies
 include .depend.mk
