@@ -25,7 +25,6 @@
         ;ionGL.lib;
         ;ionWindow.lib;
         ;ionAsset.lib;
-        ;ionGUI.lib;
         ;ionScene.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
