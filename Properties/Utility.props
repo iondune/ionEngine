@@ -10,4 +10,8 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
 
+  <ImportGroup Label="PropertySheets">
+    <Import Project="DefaultPaths.props" />
+  </ImportGroup>
+
 </Project>
