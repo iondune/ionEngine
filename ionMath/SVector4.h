@@ -103,7 +103,7 @@ public:
 	template <typename U>
 	ION_FUNC_DEF operator glm::detail::tvec4<U, glm::defaultp> ()
 	{
-		return glm::detail::tvec4<U>(X, Y, Z, W);
+		return glm::detail::tvec4<U, glm::defaultp>(X, Y, Z, W);
 	}
 
 };

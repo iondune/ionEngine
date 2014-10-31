@@ -35,33 +35,33 @@ public:
 
 	bool Intersects(SRect2<T> const & r) const
 	{
-		return (OtherCorner().Y > r.Position.Y || Equals(OtherCorner().Y, r.Position.Y) ) && 
-			(Position.Y < r.OtherCorner().Y || Equals(Position.Y, r.OtherCorner().Y) ) && 
-			(OtherCorner().X > r.Position.X || Equals(OtherCorner().X, r.Position.X) ) && 
+		return (OtherCorner().Y > r.Position.Y || Equals(OtherCorner().Y, r.Position.Y) ) &&
+			(Position.Y < r.OtherCorner().Y || Equals(Position.Y, r.OtherCorner().Y) ) &&
+			(OtherCorner().X > r.Position.X || Equals(OtherCorner().X, r.Position.X) ) &&
 			(Position.X < r.OtherCorner().X || Equals(Position.X, r.OtherCorner().X) );
 	}
 
 	SRect2 GetIntersection(SRect2<T> const & r) const
 	{
 		SVector2<T> Position(std::max(r.Position.X, Position.X), std::max(r.Position.Y, Position.Y));
-		SVector2<T> OtherCorner(std::min(r.otherCorner().X, otherCorner().X), std::min(r.otherCorner().Y, otherCorner().Y));
+		SVector2<T> OtherCorner(std::min(r.OtherCorner().X, OtherCorner().X), std::min(r.OtherCorner().Y, OtherCorner().Y));
 
 		return SRect2<T>(Position, OtherCorner - Position);
 	}
 
 	bool IsPointInside(SVector2<T> const & v) const
 	{
-		return (otherCorner().Y > v.Y && 
-			Position.Y < v.Y && 
-			otherCorner().X > v.X && 
+		return (OtherCorner().Y > v.Y &&
+			Position.Y < v.Y &&
+			OtherCorner().X > v.X &&
 			Position.X < v.X);
 	}
 
 	bool IsPointInsideOrOn(SVector2<T> const & v) const
 	{
-		return (otherCorner().Y >= v.Y && 
-			Position.Y <= v.Y && 
-			otherCorner().X >= v.X && 
+		return (OtherCorner().Y >= v.Y &&
+			Position.Y <= v.Y &&
+			OtherCorner().X >= v.X &&
 			Position.X <= v.X);
 	}
 
@@ -89,9 +89,9 @@ public:
 	void ClipTo(SRect2 const & r)
 	{
 		SVector2<T> UpperLeftCorner = Position;
-		SVector2<T> LowerRightCorner = otherCorner();
+		SVector2<T> LowerRightCorner = OtherCorner();
 		SVector2<T> const otherUpperLeftCorner = r.Position;
-		SVector2<T> const otherLowerRightCorner = r.otherCorner();
+		SVector2<T> const otherLowerRightCorner = r.OtherCorner();
 
 		if (otherLowerRightCorner.X <= LowerRightCorner.X)
 			LowerRightCorner.X = otherLowerRightCorner.X - 1;
