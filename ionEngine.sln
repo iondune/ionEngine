@@ -140,6 +140,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 		Include\ionWindow.h = Include\ionWindow.h
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCore", "TestCore\TestCore.vcxproj", "{56E0477E-8C3D-4FA3-9E44-D2981E61D462}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -218,6 +223,10 @@ Global
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Debug|x64.Build.0 = Debug|x64
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|x64.ActiveCfg = Release|x64
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}.Release|x64.Build.0 = Release|x64
+		{56E0477E-8C3D-4FA3-9E44-D2981E61D462}.Debug|x64.ActiveCfg = Debug|x64
+		{56E0477E-8C3D-4FA3-9E44-D2981E61D462}.Debug|x64.Build.0 = Debug|x64
+		{56E0477E-8C3D-4FA3-9E44-D2981E61D462}.Release|x64.ActiveCfg = Release|x64
+		{56E0477E-8C3D-4FA3-9E44-D2981E61D462}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
