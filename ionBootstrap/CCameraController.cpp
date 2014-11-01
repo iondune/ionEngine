@@ -32,7 +32,7 @@ void CCameraController::OnEvent(IEvent & Event)
 		if (MouseEvent.Type == SMouseEvent::EType::Click && (! MouseEvent.Pressed) && MouseEvent.Button == SMouseEvent::EButton::Right)
 			Tracking = false;
 
-		if ((MouseEvent.Type == SMouseEvent::EType::Move))
+		if (MouseEvent.Type == SMouseEvent::EType::Move)
 		{
 			if (Tracking)
 			{
