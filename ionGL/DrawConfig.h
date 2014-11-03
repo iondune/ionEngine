@@ -16,8 +16,11 @@ namespace ion
 	{
 		enum EDrawFeature
 		{
-			Wireframe = 0,
-			Count = 1
+			Wireframe			= 0,
+			CullFront			= 1,
+			CullBack			= 2,
+			DisableDepthTest	= 3,
+			Count				= 4
 		};
 
 		class DrawConfig

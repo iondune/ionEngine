@@ -74,7 +74,7 @@ public:
 	//////////////
 	
 	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature);
-	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled);
+	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled = true);
 
 
 	// Has an optional Material

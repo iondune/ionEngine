@@ -67,17 +67,40 @@ namespace ion
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 				CheckedGLCall(glBindTexture(Texture.second->GetGLBindTextureTarget(), Texture.second->GetHandle()));
 			}
-
+			
 			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
 			{
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::CullFront) || DrawConfig->IsFeatureEnabled(EDrawFeature::CullBack))
+			{
+				glEnable(GL_CULL_FACE);
+				if (! DrawConfig->IsFeatureEnabled(EDrawFeature::CullFront))
+					CheckedGLCall(glCullFace(GL_BACK));
+				else if (! DrawConfig->IsFeatureEnabled(EDrawFeature::CullBack))
+					CheckedGLCall(glCullFace(GL_FRONT));
+				else
+					CheckedGLCall(glCullFace(GL_FRONT_AND_BACK));
+			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::DisableDepthTest))
+			{
+				CheckedGLCall(glDisable(GL_DEPTH_TEST));
 			}
 
 			DrawConfig->VAO->Draw();
 
 			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
 			{
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::CullFront) || DrawConfig->IsFeatureEnabled(EDrawFeature::CullBack))
+			{
+				CheckedGLCall(glDisable(GL_CULL_FACE));
+				CheckedGLCall(glCullFace(GL_BACK)); // Default value
+			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::DisableDepthTest))
+			{
+				CheckedGLCall(glEnable(GL_DEPTH_TEST));
 			}
 		}
 	}
