@@ -1,0 +1,2 @@
+TARGET=TestCore
+include ../DefaultMakefile

@@ -8,8 +8,13 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: $(TARGET)
 
+ifeq "$(suffix $(TARGET))" ".a"
 $(TARGET): $(OBJS)
 	ar rc $@ $^
+else
+$(TARGET): $(OBJS)
+	$(CXX) -o $@ $^
+endif
 
 .depend.mk:
 	@echo --- Regenerating dependencies. ------------------
