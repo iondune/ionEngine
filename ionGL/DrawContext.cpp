@@ -86,6 +86,12 @@ namespace ion
 			{
 				CheckedGLCall(glDisable(GL_DEPTH_TEST));
 			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Blend))
+			{
+				CheckedGLCall(glEnable(GL_BLEND));
+				CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+			}
+			
 
 			DrawConfig->VAO->Draw();
 
@@ -101,6 +107,10 @@ namespace ion
 			if (DrawConfig->IsFeatureEnabled(EDrawFeature::DisableDepthTest))
 			{
 				CheckedGLCall(glEnable(GL_DEPTH_TEST));
+			}
+			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Blend))
+			{
+				CheckedGLCall(glDisable(GL_BLEND));
 			}
 		}
 	}

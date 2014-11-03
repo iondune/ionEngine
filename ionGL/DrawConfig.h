@@ -20,7 +20,8 @@ namespace ion
 			CullFront			= 1,
 			CullBack			= 2,
 			DisableDepthTest	= 3,
-			Count				= 4
+			Blend				= 4,
+			Count				= 5
 		};
 
 		class DrawConfig
