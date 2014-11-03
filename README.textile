@@ -1,4 +1,4 @@
-!ionEngine-Banner-Small!
+!ionEngine-Banner-Small.png!
 
 h1. ionEngine
 
