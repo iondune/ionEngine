@@ -1,5 +1,3 @@
-!ionEngine-Banner-Small.png!
-
 h1. ionEngine
 
 h2. Overview
