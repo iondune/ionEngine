@@ -25,6 +25,11 @@ CSceneNode * CSceneNodeFactory::AddMeshNode(string const & MeshLabel, string con
 	return Node;
 }
 
+CSceneNode * CSceneNodeFactory::AddSceneNode()
+{
+	return new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
+}
+
 CSceneNode * CSceneNodeFactory::AddSceneNode(string const & ShaderLabel)
 {
 	CSceneNode * Node = nullptr;
