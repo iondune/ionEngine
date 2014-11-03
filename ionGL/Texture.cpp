@@ -131,6 +131,11 @@ namespace ion
 			CheckedGLCall(glGenTextures(1, & Handle));
 		}
 
+		Texture::Texture(u32 const Handle)
+		{
+			this->Handle = Handle;
+		}
+
 		u32 Texture::GetHandle() const
 		{
 			return Handle;
@@ -184,9 +189,9 @@ namespace ion
 		};
 
 
-		//////////////
-		// Variants //
-		//////////////
+		///////////////
+		// Texture2D //
+		///////////////
 		
 		Texture2D::Texture2D(vec2u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
 		{
@@ -260,6 +265,74 @@ namespace ion
 		u32 Texture2D::GetGLTextureBindingEnum()
 		{
 			return GL_TEXTURE_BINDING_2D;
+		}
+
+
+		///////////////
+		// Texture3D //
+		///////////////
+
+		Texture3D::Texture3D(u32 const Handle)
+			: Texture(Handle)
+		{}
+		
+		Texture3D::Texture3D(vec3u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
+		{
+			this->Size = Size;
+			this->MipMaps = MipMaps;
+
+			int Levels = 1;
+
+			if (MipMaps)
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
+			glTexStorage3D(GL_TEXTURE_3D, Levels, InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glTexStorage2D: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
+		}
+
+		void Texture3D::Image(void const * const Data, EFormatComponents const Components, EFormatType const Type)
+		{
+			SubImage(Data, vec2u(0, 0), Size, Components, Type);
+		}
+
+		void Texture3D::SubImage(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EFormatType const Type)
+		{
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
+			CheckExistingErrors(Texture2D::SubImage);
+			glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components], Util::TypeMatrix[(int) Type], Data);
+			if (OpenGLError())
+			{
+				cerr << "Error occured during glTexSubImage3D: " << GetOpenGLError() << endl;
+				cerr << "Handle is " << Handle << endl;
+				cerr << "Offset is " << Offset << endl;
+				cerr << "Size is " << Size << endl;
+				cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
+				cerr << "Type is " << Util::TypeStringMatrix[(int) Type] << endl;
+				cerr << endl;
+			}
+			else
+			{
+				if (MipMaps)
+					CheckedGLCall(glGenerateMipmap(GL_TEXTURE_3D));
+				ApplyParams();
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
+		}
+
+		u32 Texture3D::GetGLBindTextureTarget()
+		{
+			return GL_TEXTURE_3D;
+		}
+
+		u32 Texture3D::GetGLTextureBindingEnum()
+		{
+			return GL_TEXTURE_BINDING_3D;
 		}
 	}
 }

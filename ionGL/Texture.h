@@ -109,8 +109,9 @@ namespace ion
 			virtual u32 GetGLBindTextureTarget() = 0;
 
 		protected:
-
+			
 			Texture();
+			Texture(u32 const Handle);
 			virtual u32 GetGLTextureBindingEnum() = 0;
 			void ApplyParams();
 			
@@ -142,6 +143,31 @@ namespace ion
 			void Image(void const * const data, EFormatComponents const Components = EFormatComponents::RGBA, EFormatType const Type = EFormatType::U8);
 
 			void SubImage(void const * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
+
+			u32 GetGLBindTextureTarget();
+
+		protected:
+
+			u32 GetGLTextureBindingEnum();
+
+			vec2u Size;
+		};
+
+		class Texture3D : public Texture
+		{
+
+		public:
+			
+			//! Deprecated
+			Texture3D(u32 const Handle);
+			Texture3D(vec3u const & Size, bool const MipMaps = true, EFormatComponents const Components = EFormatComponents::RGBA, EInternalFormatType const Type = EInternalFormatType::Fix8);
+
+			//! 
+			//! Note that this is not a direct corollary to the glTextureImage3D call - you must first call Storage to allocate space for this texture
+			//! This method simply calls SubImage with a zero offset and size = texture size
+			void Image(void const * const data, EFormatComponents const Components = EFormatComponents::RGBA, EFormatType const Type = EFormatType::U8);
+
+			void SubImage(void const * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
 			u32 GetGLBindTextureTarget();
 
