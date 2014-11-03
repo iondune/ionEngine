@@ -12,6 +12,19 @@ IRenderPass * IRenderPass::GetDefaultForwardShadingPass()
 	return DefaultForwardShadingPass;
 }
 
+IRenderPass * IRenderPass::GetDefaultPostProcessPass()
+{
+	static IRenderPass * DefaultPostProcessPass = nullptr;
+	
+	if (! DefaultPostProcessPass)
+	{
+		DefaultPostProcessPass = new IRenderPass{CFrameBuffer::GetDefaultFrameBuffer()};
+		DefaultPostProcessPass->SetClearTarget(false);
+	}
+
+	return DefaultPostProcessPass;
+}
+
 IRenderPass::IRenderPass(CFrameBuffer * Target)
 {
 	this->Target = Target;
@@ -20,4 +33,15 @@ IRenderPass::IRenderPass(CFrameBuffer * Target)
 CFrameBuffer * IRenderPass::GetTarget()
 {
 	return Target;
+}
+
+void IRenderPass::SetClearTarget(bool const ClearTarget)
+{
+	this->ClearTarget = ClearTarget;
+}
+
+void IRenderPass::Setup()
+{
+	if (ClearTarget)
+		Target->Clear();
 }

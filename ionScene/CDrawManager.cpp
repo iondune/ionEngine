@@ -23,9 +23,9 @@ void CDrawManager::Draw(CScene * Scene)
 		cerr << "Error! No active camera" << endl;
 	}
 
-	for (auto Pass : {IRenderPass::GetDefaultForwardShadingPass()})
+	for (auto Pass : {IRenderPass::GetDefaultForwardShadingPass(), IRenderPass::GetDefaultPostProcessPass()})
 	{
-		Pass->GetTarget()->Clear();
+		Pass->Setup();
 
 		map<CShader *, vector<CDrawConfig *>> const ShaderConfigurations = Scene->GetRoot()->PrepareDrawConfigurations(this, Pass);
 		
