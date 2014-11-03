@@ -29,7 +29,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
 
 	// If either draw configuration hasn't been specified or this node is 'dirty' and must be loaded again
-	if (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty)
+	if (Shaders[Pass] && (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty))
 	{
 		// Get a draw definition for each mesh buffer in the mesh
 		vector<CDrawConfig *> DrawDefinitions;
@@ -91,8 +91,9 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		Dirty = false;
 	}
 
-	for (auto Shader : DrawConfigurations[Pass])
-		AddAtEnd(Configurations[Shader.first], Shader.second);
+	// Add our generated configurations to the global configurations list
+	for (auto ShaderConfigurationSet : DrawConfigurations[Pass])
+		AddAtEnd(Configurations[ShaderConfigurationSet.first], ShaderConfigurationSet.second);
 
 	return Configurations;
 }
