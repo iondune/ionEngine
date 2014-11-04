@@ -50,6 +50,9 @@
     <ClInclude Include="CSceneNodeFactory.h">
       <Filter>SceneManager\Management</Filter>
     </ClInclude>
+    <ClInclude Include="CRenderPassManager.h">
+      <Filter>SceneManager\Render Passes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -99,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="CSceneNodeFactory.cpp">
       <Filter>SceneManager\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderPassManager.cpp">
+      <Filter>SceneManager\Render Passes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

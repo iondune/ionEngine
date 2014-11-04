@@ -5,6 +5,7 @@
 #include "CShaderLibrary.h"
 #include "CTextureLibrary.h"
 #include "CSceneNodeFactory.h"
+#include "CRenderPassManager.h"
 #include "CScene.h"
 
 
@@ -18,6 +19,7 @@ public:
 	CTextureLibrary * GetTextureLibrary();
 	CSceneNodeFactory * GetFactory();
 	CDrawManager * GetDrawManager();
+	CRenderPassManager * GetRenderPassManager();
 
 	virtual void DrawAll();
 
@@ -32,6 +34,7 @@ protected:
 	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
 	CScene * Scene = new CScene{};
 	CDrawManager * DrawManager = new CDrawManager{};
+	CRenderPassManager * RenderPassManager = new CRenderPassManager{};
 
 private:
 

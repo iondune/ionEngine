@@ -27,9 +27,14 @@ CDrawManager * CSceneManager::GetDrawManager()
 	return DrawManager;
 }
 
+CRenderPassManager * CSceneManager::GetRenderPassManager()
+{
+	return RenderPassManager;
+}
+
 void CSceneManager::DrawAll()
 {
-	Scene->DrawAll(DrawManager);
+	Scene->DrawAll(DrawManager, RenderPassManager);
 }
 
 CScene * CSceneManager::GetScene()

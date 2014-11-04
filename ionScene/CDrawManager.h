@@ -7,6 +7,7 @@
 class CScene;
 class ILightSceneNode;
 class IRenderPass;
+class CRenderPassManager;
 
 
 class CDrawManager
@@ -16,10 +17,8 @@ public:
 
 	CDrawManager();
 
-	virtual void Draw(CScene * Scene);
-
+	virtual void Draw(CScene * Scene, CRenderPassManager * RenderPassManager);
 	virtual ion::GL::Uniform * GetUniform(string const & Label);
-
 	virtual void RegisterLight(ILightSceneNode * Light);
 
 private:

@@ -8,21 +8,24 @@ class IRenderPass
 {
 
 public:
-	
-	static IRenderPass * GetDefaultForwardShadingPass();
-	static IRenderPass * GetDefaultPostProcessPass();
-
-	IRenderPass(CFrameBuffer * Target);
 
 	CFrameBuffer * GetTarget();
 
 	void Setup();
 	void SetClearTarget(bool const ClearTarget);
 
+	string const & GetName() const;
+
 protected:
 
 	bool ClearTarget = true;
+	string Name;
 
 	CFrameBuffer * Target = nullptr;
+
+private:
+
+	friend class CRenderPassManager;
+	IRenderPass(string const & Name, CFrameBuffer * Target);
 
 };

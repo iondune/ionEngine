@@ -27,18 +27,19 @@ static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawCo
 map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass)
 {
 	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
+	CShader * Shader = Shaders[Pass->GetName()];
 
-	// If Shader is specified for this pass and either draw configuration hasn't been loaded or this node is 'dirty' and must be loaded again
-	if (Shaders[Pass] && (! CheckMapAccess(DrawConfigurations[Pass], Shaders[Pass]) || Dirty))
+	// If Shader is specified for this pass and this node is 'dirty' and must be loaded
+	if (Dirty && Shader)
 	{
 		// Get a draw definition for each mesh buffer in the mesh
 		vector<CDrawConfig *> DrawDefinitions;
 		if (Mesh)
-			RecurseMesh(this, Shaders[Pass], DrawDefinitions, Mesh->Root);
+			RecurseMesh(this, Shader, DrawDefinitions, Mesh->Root);
 		if (DrawDefinitions.empty())
-			DrawDefinitions.push_back(new CDrawConfig{Shaders[Pass]});
+			DrawDefinitions.push_back(new CDrawConfig{Shader});
 
-		auto ActiveUniforms = Shaders[Pass]->GetActiveUniforms();
+		auto ActiveUniforms = Shader->GetActiveUniforms();
 
 		// Grab automatically-supplied uniforms and set as appropriate
 		for (auto & ActiveUniform : ActiveUniforms)
@@ -87,7 +88,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 				Definition->AddTexture(NamedTexture.first, NamedTexture.second);
 		}
 
-		DrawConfigurations[Pass][Shaders[Pass]] = DrawDefinitions;
+		DrawConfigurations[Pass][Shader] = DrawDefinitions;
 		Dirty = false;
 	}
 
@@ -190,7 +191,7 @@ void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
 // Shaders //
 /////////////
 
-void CSceneNode::SetShader(CShader * Shader, IRenderPass * RenderPass)
+void CSceneNode::SetShader(CShader * Shader, string const & RenderPass)
 {
 	this->Shaders[RenderPass] = Shader;
 	Dirty = true;
@@ -202,7 +203,7 @@ void CSceneNode::SetUniform(string const & Label, IUniform * Uniform)
 	Dirty = true;
 }
 
-CShader * CSceneNode::GetShader(IRenderPass * RenderPass)
+CShader * CSceneNode::GetShader(string const & RenderPass)
 {
 	return Shaders[RenderPass];
 }

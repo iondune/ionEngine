@@ -2,12 +2,13 @@
 #include "CDrawManager.h"
 #include "CScene.h"
 #include "ILightSceneNode.h"
+#include "CRenderPassManager.h"
 
 
 CDrawManager::CDrawManager()
 {}
 
-void CDrawManager::Draw(CScene * Scene)
+void CDrawManager::Draw(CScene * Scene, CRenderPassManager * RenderPassManager)
 {
 	if (! Scene->GetRoot()->IsVisible())
 		return;
@@ -23,27 +24,29 @@ void CDrawManager::Draw(CScene * Scene)
 		cerr << "Error! No active camera" << endl;
 	}
 
-	// Setup Lights
-	for (u64 i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
-	{
-		*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
-		*LightBindings[i].Color = RegisteredLights[i]->GetColor();
-		*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
-	}
-	for (u64 i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
-	{
-		*LightBindings[i].Position = vec3f();
-		*LightBindings[i].Color = color3f();
-		*LightBindings[i].Radius = 0.f;
-	}
+	RenderPassManager->CheckConfiguration();
 
-	LightCount = (uint) RegisteredLights.size();
-
-	for (auto Pass : {IRenderPass::GetDefaultForwardShadingPass(), IRenderPass::GetDefaultPostProcessPass()})
+	for (auto Pass : RenderPassManager->GetOrderedRenderPasses())
 	{
 		Pass->Setup();
 
 		map<CShader *, vector<CDrawConfig *>> const ShaderConfigurations = Scene->GetRoot()->PrepareDrawConfigurations(this, Pass);
+
+		// Setup Lights (Registered by PrepareDrawConfigurations(...))
+		for (u64 i = 0; i < RegisteredLights.size() && i < LightBindings.size(); ++ i)
+		{
+			*LightBindings[i].Position = RegisteredLights[i]->GetPosition();
+			*LightBindings[i].Color = RegisteredLights[i]->GetColor();
+			*LightBindings[i].Radius = RegisteredLights[i]->GetRadius();
+		}
+		for (u64 i = RegisteredLights.size(); i < LightBindings.size(); ++ i)
+		{
+			*LightBindings[i].Position = vec3f();
+			*LightBindings[i].Color = color3f();
+			*LightBindings[i].Radius = 0.f;
+		}
+
+		LightCount = (uint) RegisteredLights.size();
 
 		CDrawContext Context{Pass->GetTarget()->GetHandle()};
 		for (auto & ShaderConfig : ShaderConfigurations)
@@ -59,10 +62,11 @@ void CDrawManager::Draw(CScene * Scene)
 			for (auto & Config : DrawConfigurations)
 				Context.Draw(Config);
 		}
-	}
 
-	RegisteredLights.clear();
-	LightCount = 0;
+		// Cleanup Lights
+		RegisteredLights.clear();
+		LightCount = 0;
+	}
 }
 
 static bool MatchAndExtractIndex(string const & Label, string Match, int & Index, string & Remaining)

@@ -16,7 +16,7 @@ public:
 	virtual ICamera const * const GetActiveCamera() const;
 	virtual void SetActiveCamera(ICamera * const activeCamera);
 
-	virtual void DrawAll(CDrawManager * Engine);
+	virtual void DrawAll(CDrawManager * Engine, CRenderPassManager * RenderPassManager);
 
 	virtual ISceneNode * GetRoot();
 

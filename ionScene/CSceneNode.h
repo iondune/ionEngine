@@ -45,10 +45,10 @@ public:
 	// Shaders //
 	/////////////
 	
-	void SetShader(CShader * Shader, IRenderPass * RenderPass = IRenderPass::GetDefaultForwardShadingPass());
+	void SetShader(CShader * Shader, string const & RenderPass = "Default");
 	void SetUniform(string const & Label, IUniform * Uniform);
 
-	CShader * GetShader(IRenderPass * RenderPass = IRenderPass::GetDefaultForwardShadingPass());
+	CShader * GetShader(string const & RenderPass = "Default");
 	IUniform * GetUniform(string const & Label);
 	map<string, IUniform *> & GetUniforms();
 	
@@ -91,7 +91,7 @@ protected:
 	vector<ion::GL::UniformValue<int> *> TextureUniforms;
 	map<string, CTexture *> NamedTextures;
 
-	map<IRenderPass *, CShader *> Shaders;
+	map<string, CShader *> Shaders;
 	map<string, IUniform *> Uniforms;
 	map<string, CVertexBuffer *> VertexBuffers;
 	CIndexBuffer * IndexBuffer = nullptr;

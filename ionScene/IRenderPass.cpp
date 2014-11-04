@@ -2,31 +2,9 @@
 #include "IRenderPass.h"
 
 
-IRenderPass * IRenderPass::GetDefaultForwardShadingPass()
+IRenderPass::IRenderPass(string const & Name, CFrameBuffer * Target)
 {
-	static IRenderPass * DefaultForwardShadingPass = nullptr;
-	
-	if (! DefaultForwardShadingPass)
-		DefaultForwardShadingPass = new IRenderPass{CFrameBuffer::GetDefaultFrameBuffer()};
-
-	return DefaultForwardShadingPass;
-}
-
-IRenderPass * IRenderPass::GetDefaultPostProcessPass()
-{
-	static IRenderPass * DefaultPostProcessPass = nullptr;
-	
-	if (! DefaultPostProcessPass)
-	{
-		DefaultPostProcessPass = new IRenderPass{CFrameBuffer::GetDefaultFrameBuffer()};
-		DefaultPostProcessPass->SetClearTarget(false);
-	}
-
-	return DefaultPostProcessPass;
-}
-
-IRenderPass::IRenderPass(CFrameBuffer * Target)
-{
+	this->Name = Name;
 	this->Target = Target;
 }
 
@@ -44,4 +22,9 @@ void IRenderPass::Setup()
 {
 	if (ClearTarget)
 		Target->Clear();
+}
+
+string const & IRenderPass::GetName() const
+{
+	return Name;
 }
