@@ -55,7 +55,7 @@ int main()
 	{
 		WindowManager->PollEvents();
 
-		Model->Value = glm::rotate(Model->Value, 0.01f, glm::vec3(0, 1, 0.25));
+		Model->Value = glm::rotate(Model->Value, 0.0001f, glm::vec3(0, 1, 0.25));
 		
 		{
 			FrameBuffer->Clear();
