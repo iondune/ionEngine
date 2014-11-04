@@ -171,6 +171,7 @@ void CFont::print(float x, float y, const char * fmt, ...)
 	glMatrixMode(GL_MODELVIEW);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE0);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -317,7 +318,9 @@ void make_dlist(FT_Face face, char ch, GLuint list_base, GLuint * tex_base)
 {
 	GlyphInfo Glyph(face, ch);
 	Glyph.CreateImage();
-
+	
+	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, tex_base[ch]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
