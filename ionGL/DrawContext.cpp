@@ -95,6 +95,13 @@ namespace ion
 
 			DrawConfig->VAO->Draw();
 
+
+			for (auto Texture : DrawConfig->Textures)
+			{
+				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+				CheckedGLCall(glBindTexture(Texture.second->GetGLBindTextureTarget(), 0));
+			}
+
 			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
 			{
 				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
