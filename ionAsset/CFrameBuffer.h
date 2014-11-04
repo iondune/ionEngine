@@ -17,8 +17,8 @@ public:
 	CFrameBuffer();
 	CFrameBuffer(ion::GL::Framebuffer * Handle);
 
-	void MakeScreenSizedColorAttachment(u32 const Attachment);
-	void MakeScreenSizedDepthTextureAttachment();
+	CTexture2D * MakeScreenSizedColorAttachment(u32 const Attachment);
+	CTexture2D * MakeScreenSizedDepthTextureAttachment();
 
 	void DrawColorAttachmentToScreen(u32 const Attachment);
 
