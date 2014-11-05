@@ -17,6 +17,8 @@ syntax: glob
 *.a
 *.sublime-workspace
 *.dll
+Debug/
+Release/
 .depend.mk
 Documentation/html
 *.psd

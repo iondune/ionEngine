@@ -1,2 +1,2 @@
 TARGET=TestCore
-include ../DefaultMakefile
+include ../Default.make
