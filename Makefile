@@ -1,8 +1,13 @@
 SUBDIRS = ionAsset ionBootstrap ionFramework ionGL ionScene ionScience ionWindow
 
-.PHONY: subdirs $(SUBDIRS)
+.PHONY: $(addprefix all_, $(SUBDIRS)) $(addprefix clean_, $(SUBDIRS)) all clean remake
 
-subdirs: $(SUBDIRS)
+all: $(addprefix all_, $(SUBDIRS))
 
-$(SUBDIRS):
-	$(MAKE) -C $@
+clean: $(addprefix clean_, $(SUBDIRS))
+
+$(addprefix all_, $(SUBDIRS)):
+	$(MAKE) -C $(subst all_,, $@) all
+
+$(addprefix clean_, $(SUBDIRS)):
+	$(MAKE) -C $(subst clean_,, $@) clean

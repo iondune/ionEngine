@@ -1,2 +1,2 @@
 TARGET=libionScience.a
-include ../DefaultMakefile
+include ../Default.make

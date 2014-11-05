@@ -1,2 +1,2 @@
 TARGET=libionAsset.a
-include ../DefaultMakefile
+include ../Default.make

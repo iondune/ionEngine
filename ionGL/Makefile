@@ -1,2 +1,2 @@
 TARGET=libionGL.a
-include ../DefaultMakefile
+include ../Default.make

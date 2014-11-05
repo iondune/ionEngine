@@ -1,2 +1,2 @@
 TARGET=libionWindow.a
-include ../DefaultMakefile
+include ../Default.make

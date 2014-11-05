@@ -21,3 +21,4 @@ syntax: glob
 Documentation/html
 *.psd
 Thumbs.db
+.configuration.mk
