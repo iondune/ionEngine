@@ -30,7 +30,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 	CShader * Shader = Shaders[Pass->GetName()];
 
 	// If Shader is specified for this pass and this node is 'dirty' and must be loaded
-	if (Dirty && Shader)
+	if (ConfigurationNeedsRebuild[Pass->GetName()] && Shader)
 	{
 		// Get a draw definition for each mesh buffer in the mesh
 		vector<CDrawConfig *> DrawDefinitions;
@@ -89,7 +89,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		}
 
 		DrawConfigurations[Pass][Shader] = DrawDefinitions;
-		Dirty = false;
+		ConfigurationNeedsRebuild[Pass->GetName()] = false;
 	}
 
 	// Add our generated configurations to the global configurations list
@@ -156,7 +156,7 @@ CUniformReference<glm::mat4> & CSceneNode::GetTransformationUniform()
 void CSceneNode::SetMesh(CMesh * Mesh)
 {
 	this->Mesh = Mesh;
-	Dirty = true;
+	AllConfigurationsNeedRebuild();
 }
 
 CMesh * CSceneNode::GetMesh()
@@ -167,23 +167,25 @@ CMesh * CSceneNode::GetMesh()
 void CSceneNode::SetVertexBuffer(string const & Label, ion::GL::VertexBuffer * Buffer)
 {
 	VertexBuffers[Label] = Buffer;
-	Dirty = true;
+	AllConfigurationsNeedRebuild();
 }
 
 void CSceneNode::SetIndexBuffer(CIndexBuffer * Buffer)
 {
 	IndexBuffer = Buffer;
+	AllConfigurationsNeedRebuild();
 }
 
 void CSceneNode::SetElementCount(uint const ElementCount)
 {
 	this->ElementCount = ElementCount;
-	Dirty = true;
+	AllConfigurationsNeedRebuild();
 }
 
 void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
 {
 	this->PrimativeType = PrimativeType;
+	AllConfigurationsNeedRebuild();
 }
 
 
@@ -194,13 +196,13 @@ void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
 void CSceneNode::SetShader(CShader * Shader, string const & RenderPass)
 {
 	this->Shaders[RenderPass] = Shader;
-	Dirty = true;
+	this->ConfigurationNeedsRebuild[RenderPass] = true;
 }
 
 void CSceneNode::SetUniform(string const & Label, IUniform * Uniform)
 {
 	Uniforms[Label] = Uniform;
-	Dirty = true;
+	AllConfigurationsNeedRebuild();
 }
 
 CShader * CSceneNode::GetShader(string const & RenderPass)
@@ -263,13 +265,14 @@ void CSceneNode::SetTexture(uint const Index, CTexture * Texture)
 	Textures[Index] = Texture;
 	if (! TextureUniforms[Index])
 		TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
-
-	Dirty = true;
+	
+	AllConfigurationsNeedRebuild();
 }
 
 void CSceneNode::SetTexture(string const & Label, CTexture * Texture)
 {
 	NamedTextures[Label] = Texture;
+	AllConfigurationsNeedRebuild();
 }
 
 
@@ -285,5 +288,16 @@ bool CSceneNode::IsFeatureEnabled(ion::GL::EDrawFeature const Feature)
 void CSceneNode::SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled)
 {
 	DrawFeatures[Feature] = Enabled;
-	Dirty = true;
+	AllConfigurationsNeedRebuild();
+}
+
+
+//////////////
+// Features //
+//////////////
+
+void CSceneNode::AllConfigurationsNeedRebuild()
+{
+	for (auto & It : ConfigurationNeedsRebuild)
+		It.second = true;
 }

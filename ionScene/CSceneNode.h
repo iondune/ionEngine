@@ -79,9 +79,11 @@ public:
 
 	// Has an optional Material
 	// If set, objects use that material instead of the mesh provided one
-	// Calling SetMaterial will need to set Dirty = true
+	// Calling SetMaterial will need to set ConfigurationNeedsRebuild = true
 
 protected:
+
+	void AllConfigurationsNeedRebuild();
 
 	CScene * Scene;
 
@@ -92,6 +94,8 @@ protected:
 	map<string, CTexture *> NamedTextures;
 
 	map<string, CShader *> Shaders;
+	map<string, bool> ConfigurationNeedsRebuild;
+
 	map<string, IUniform *> Uniforms;
 	map<string, CVertexBuffer *> VertexBuffers;
 	CIndexBuffer * IndexBuffer = nullptr;
@@ -102,7 +106,5 @@ protected:
 	bool DrawFeatures[ion::GL::EDrawFeature::Count];
 
 	map<IRenderPass *, map<CShader *, vector<CDrawConfig *>>> DrawConfigurations;
-
-	bool Dirty = true;
 
 };
