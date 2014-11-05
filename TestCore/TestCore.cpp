@@ -73,6 +73,10 @@ TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
 int main(int argc, char * const argv[])
 {
 	int result = Catch::Session().run(argc, argv);
+
+#ifdef WIN32
 	system("PAUSE");
+#endif
+
 	return result;
 }
