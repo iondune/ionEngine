@@ -175,7 +175,7 @@ namespace ion
 
 			u32 GetGLTextureBindingEnum();
 
-			vec2u Size;
+			vec3u Size;
 		};
 	}
 }
