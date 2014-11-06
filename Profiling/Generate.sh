@@ -9,19 +9,19 @@ if [ $? -ne 0 ] ; then
 fi
 
 # Initial
-cd /home/ian/Projects/ionEngine/Coverage
-lcov --gcov-tool llvm-cov-3.5 --capture --no-external --directory /home/ian/Projects/ionEngine/ --initial --output-file basline.info
+cd /home/ian/Projects/ionEngine/Profiling
+lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --initial --output-file basline.info
 
 # Run
 cd /home/ian/Projects/ionEngine/TestCore
 ./Coverage/TestCore
 
 # Coverage
-cd /home/ian/Projects/ionEngine/Coverage
-lcov --gcov-tool llvm-cov-3.5 --capture --no-external --directory /home/ian/Projects/ionEngine/ --output-file coverage.info
+cd /home/ian/Projects/ionEngine/Profiling
+lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --output-file coverage.info
 
 # Combine
-lcov --gcov-tool llvm-cov-3.5 --add-tracefile coverage.info --add-tracefile basline.info --output-file combined.info
+lcov --add-tracefile coverage.info --add-tracefile basline.info --output-file combined.info
 
 # Report
 rm -r html

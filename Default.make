@@ -7,12 +7,12 @@ all: $(CONFIGURATION)/$(TARGET)
 	@echo 'No configuration found, defaulting to Debug'
 	@echo 'CONFIGURATION=Debug' > $@
 
-CXX=clang++
+CXX=g++
 INCLUDE=-I .. -I ../Include
-CXXFLAGS=$(INCLUDE) -std=c++11
+CXXFLAGS=$(INCLUDE) -std=c++11 -DGLM_FORCE_RADIANS
 CXXFLAGS_DEBUG=-g
 CXXFLAGS_RELEASE=-O3
-CXXFLAGS_COVERAGE=-g --coverage -fno-inline -O0 -fno-elide-constructors
+CXXFLAGS_COVERAGE=-g -O0 --coverage
 
 ifeq      "$(CONFIGURATION)" "Debug"
 CXXFLAGS+=$(CXXFLAGS_DEBUG)
