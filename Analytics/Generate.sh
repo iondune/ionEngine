@@ -33,6 +33,7 @@ lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --output-
 echo "Finalizing coverage data..."
 lcov --add-tracefile coverage.info --add-tracefile baseline.info --output-file combined.info --quiet
 lcov --remove combined.info 'Instantiate.h' --output-file final.info --quiet
+lcov --remove final.info 'Test*' --output-file final.info --quiet
 
 # Report
 echo "Generating report..."
