@@ -42,7 +42,7 @@ $(CONFIGURATION)/%.o: %.cpp
 .depend.mk:
 	@echo --- Regenerating dependencies. ------------------
 	$(CXX) -MM $(CXXFLAGS) $(SRCS) > .depend.mk
-	sed -i -re 's/(^[A-Za-z]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
+	@sed -i -re 's/(^[A-Za-z]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
 	@echo --- Dependencies generated ----------------------
 
 clean:
