@@ -1,23 +1,20 @@
 #! /bin/bash
 
-RootDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 if [ -z "$1" ] ; then
 	echo "usage: ./SetConfiguration.sh <configuration>"
 	exit 1
 fi
 
-CurrentConfiguration=
-if [ -f "$RootDirectory/.configuration.mk" ] ; then
-	CurrentConfiguration=$(sed 's/CONFIGURATION=//' "$RootDirectory/.configuration.mk")
-fi
+RootDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$RootDirectory"
+CurrentConfiguration=$(GetConfiguration.sh)
 
 Set ()
 {
+	echo "CONFIGURATION=$1" > ".configuration.mk"
 	if [ "$1" != "$CurrentConfiguration" ] ; then
-		echo "Changing configuration from $CurrentConfiguration to $1"
+		echo "Changed configuration from $CurrentConfiguration to $1"
 	fi
-	echo "CONFIGURATION=$1" > "$RootDirectory/.configuration.mk"
 }
 
 if [ "$1" = "Debug" ] || [ "$1" = "-d" ] ; then
