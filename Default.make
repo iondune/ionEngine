@@ -1,18 +1,31 @@
 
 include ../.configuration.mk
 
-all: $(CONFIGURATION)/$(TARGET)
+############
+# Settings #
+############
 
-../.configuration.mk:
-	@echo 'No configuration found, defaulting to Debug'
-	@echo 'CONFIGURATION=Debug' > $@
-
+# Compiler
 CXX=g++
+
+# Include Path
 INCLUDE=-I .. -I ../Include
-CXXFLAGS=$(INCLUDE) -std=c++11 -DGLM_FORCE_RADIANS
+
+# Non-Configuration-Specific Settings
+CXXFLAGS_BASE=$(INCLUDE) -std=c++11 -DGLM_FORCE_RADIANS
+
+# Configuration-Specific Settings
 CXXFLAGS_DEBUG=-g
 CXXFLAGS_RELEASE=-O3
 CXXFLAGS_COVERAGE=-g -O0 --coverage -fprofile-arcs -ftest-coverage
+
+
+#############
+# Variables #
+#############
+
+# Configuration-Specific Settings
+CXXFLAGS=$(CXXFLAGS_BASE)
 
 ifeq      "$(CONFIGURATION)" "Debug"
 CXXFLAGS+=$(CXXFLAGS_DEBUG)
@@ -24,8 +37,34 @@ else
 $(warn Unknown build configuration: $(CONFIGURATION))
 endif
 
+# Files
 SRCS=$(wildcard *.cpp)
 OBJS=$(addprefix $(CONFIGURATION)/,$(subst .cpp,.o,$(SRCS)))
+
+
+###########
+# Targets #
+###########
+
+.PHONY: all clean depend remake
+
+all: $(CONFIGURATION)/$(TARGET)
+
+clean:
+	rm -rf $(OBJS) $(TARGET) $(CONFIGURATION) coverage.info
+
+remake: | clean all
+
+depend:
+	@rm -f .depend.mk
+	@echo --- Regenerating dependencies. ------------------
+	$(CXX) -MM $(CXXFLAGS_BASE) $(SRCS) > .depend.mk
+	@sed -i -re 's/(^[A-Za-z]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
+	@echo --- Dependencies generated. ---------------------
+
+../.configuration.mk:
+	@echo 'No configuration found, defaulting to Debug'
+	@echo 'CONFIGURATION=Debug' > $@
 
 ifeq "$(suffix $(TARGET))" ".a"
 $(CONFIGURATION)/$(TARGET): $(OBJS)
@@ -39,22 +78,5 @@ $(CONFIGURATION)/%.o: %.cpp
 	@mkdir -p $(CONFIGURATION)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-.depend.mk:
-	@echo --- Regenerating dependencies. ------------------
-	$(CXX) -MM $(CXXFLAGS) $(SRCS) > .depend.mk
-	@sed -i -re 's/(^[A-Za-z]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
-	@echo --- Dependencies generated ----------------------
-
-clean:
-	rm -rf $(OBJS) $(TARGET) $(CONFIGURATION) coverage.info
-
-remake: clean all
-
-depend:
-	@rm .depend.mk
-	@$(MAKE) --no-print-directory .depend.mk
-
-.PHONY: clean remake depend
-
 # Dependencies
-include .depend.mk
+-include .depend.mk
