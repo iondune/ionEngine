@@ -19,6 +19,7 @@ fi
 echo "Generating basline zero coverage..."
 cd "$ScriptDirectory"
 rm -f *.info
+lcov --zerocounters --no-external --directory /home/ian/Projects/ionEngine/ --quiet
 lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --initial --output-file baseline.info --quiet
 
 # Run
