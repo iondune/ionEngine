@@ -9,7 +9,8 @@ if [ $? -ne 0 ] ; then
 fi
 
 # Initial
-cd /home/ian/Projects/ionEngine/Profiling
+cd /home/ian/Projects/ionEngine/Analytics
+rm -f *.info
 lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --initial --output-file basline.info
 
 # Run
@@ -17,7 +18,7 @@ cd /home/ian/Projects/ionEngine/TestCore
 ./Coverage/TestCore
 
 # Coverage
-cd /home/ian/Projects/ionEngine/Profiling
+cd /home/ian/Projects/ionEngine/Analytics
 lcov --capture --no-external --directory /home/ian/Projects/ionEngine/ --output-file coverage.info
 
 # Combine

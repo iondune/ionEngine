@@ -23,7 +23,7 @@ Coverage/
 .depend.mk
 .configuration.mk
 Documentation/html
-Profiling/html
+Analytics/html
 *.info
 *.psd
 Thumbs.db

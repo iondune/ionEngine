@@ -12,7 +12,7 @@ INCLUDE=-I .. -I ../Include
 CXXFLAGS=$(INCLUDE) -std=c++11 -DGLM_FORCE_RADIANS
 CXXFLAGS_DEBUG=-g
 CXXFLAGS_RELEASE=-O3
-CXXFLAGS_COVERAGE=-g -O0 --coverage
+CXXFLAGS_COVERAGE=-g -O0 --coverage -fprofile-arcs -ftest-coverage
 
 ifeq      "$(CONFIGURATION)" "Debug"
 CXXFLAGS+=$(CXXFLAGS_DEBUG)

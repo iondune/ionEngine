@@ -1,6 +1,8 @@
 
 #define CATCH_CONFIG_RUNNER
-#include "catch.hpp"
+#include <catch.hpp>
+#include <ionCore/Instantiate.h>
+
 
 int main(int argc, char * const argv[])
 {
