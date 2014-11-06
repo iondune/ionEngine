@@ -19,8 +19,11 @@ syntax: glob
 *.dll
 Debug/
 Release/
+Coverage/
 .depend.mk
+.configuration.mk
 Documentation/html
+Profiling/html
+*.info
 *.psd
 Thumbs.db
-.configuration.mk

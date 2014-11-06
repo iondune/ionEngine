@@ -12,7 +12,7 @@ INCLUDE=-I .. -I ../Include
 CXXFLAGS=$(INCLUDE) -std=c++11
 CXXFLAGS_DEBUG=-g
 CXXFLAGS_RELEASE=-O3
-CXXFLAGS_COVERAGE=
+CXXFLAGS_COVERAGE=-g --coverage -fno-inline -O0 -fno-elide-constructors
 
 ifeq      "$(CONFIGURATION)" "Debug"
 CXXFLAGS+=$(CXXFLAGS_DEBUG)
@@ -32,7 +32,7 @@ $(CONFIGURATION)/$(TARGET): $(OBJS)
 	ar rc $@ $^
 else
 $(CONFIGURATION)/$(TARGET): $(OBJS)
-	$(CXX) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 endif
 
 $(CONFIGURATION)/%.o: %.cpp
@@ -46,7 +46,7 @@ $(CONFIGURATION)/%.o: %.cpp
 	@echo --- Dependencies generated ----------------------
 
 clean:
-	rm -f $(OBJS) $(TARGET) $(CONFIGURATION)
+	rm -rf $(OBJS) $(TARGET) $(CONFIGURATION) coverage.info
 
 remake: clean all
 
