@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ionClass.cpp" />
+    <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="TestCore.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
