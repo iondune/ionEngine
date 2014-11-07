@@ -44,24 +44,25 @@ public:
 	//! Note: Does not count elements of a type derived from T
 	//! \tparam T Type of matched components
 	template <typename T>
-	int GetComponentCount() const
+	size_t GetComponentCount() const
 	{
 		return Components.count(typeid(T));
 	}
 
 	template <typename T>
-	int ExpectSingleComponent(T * & Component)
+	size_t ExpectSingleComponent(T * & Component)
 	{
-		int Count = GetComponentCount<T>();
+		size_t Count = GetComponentCount<T>();
 		if (Count >= 1)
 			Component = (T *) Components.find(typeid(T))->second;
 
 		return Count;
 	}
+
 	template <typename T>
 	T * RequireSingleComponent()
 	{
-		int Count = GetComponentCount<T>();
+		size_t Count = GetComponentCount<T>();
 		if (Count >= 1)
 			return (T *) Components.find(typeid(T))->second;
 		else

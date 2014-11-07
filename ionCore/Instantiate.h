@@ -57,10 +57,10 @@ class Component
 {};
 
 template class IEntity<Component>;
-template int IEntity<Component>::GetComponentCount<Component>() const;
+template size_t IEntity<Component>::GetComponentCount<Component>() const;
 template pair<typename multimap<Type, Component *>::iterator, typename multimap<Type, Component *>::iterator> IEntity<Component>::GetComponents<Component>();
 template Component * IEntity<Component>::AddComponent(Component * Component);
-template int IEntity<Component>::ExpectSingleComponent(Component * & Component);
+template size_t IEntity<Component>::ExpectSingleComponent(Component * & Component);
 template Component * IEntity<Component>::RequireSingleComponent();
 
 
