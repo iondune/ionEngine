@@ -5,15 +5,13 @@
 // Config Options //
 ////////////////////
 
-#define _ION_CONFIG_CPP11_SUPPORT_
 #define _ION_CONFIG_USE_GWEN
 #define _ION_CONFIG_GAMEPAD
+
 
 ////////////////////////
 // End Config Options //
 ////////////////////////
-
-
 
 #ifdef _ION_CONFIG_GAMEPAD
 
