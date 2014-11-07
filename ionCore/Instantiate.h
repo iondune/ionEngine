@@ -36,19 +36,19 @@ template class SingletonPointer<SingletonInstantiate>;
 
 template struct RoundingError<int>;
 
-template static bool Equals<int>(int const a, int const b, int const epsilon);
-template static int Maximum(int const & a, int const & b);
-template static int const Maximum(int const & a, int const & b, int const & c);
-template static int const Maximum(int const & a, int const & b, int const & c, int const & d);
-template static int Minimum(int const & a, int const & b);
-template static int const Minimum(int const & a, int const & b, int const & c);
-template static int const Minimum(int const & a, int const & b, int const & c, int const & d);
-template static int const Max(int const & a, int const & b);
-template static int const Max(int const & a, int const & b, int const & c);
-template static int const Max(int const & a, int const & b, int const & c, int const & d);
-template static int const Min(int const & a, int const & b);
-template static int const Min(int const & a, int const & b, int const & c);
-template static int const Min(int const & a, int const & b, int const & c, int const & d);
+template bool Equals<int>(int const a, int const b, int const epsilon);
+template int Maximum(int const & a, int const & b);
+template int const Maximum(int const & a, int const & b, int const & c);
+template int const Maximum(int const & a, int const & b, int const & c, int const & d);
+template int Minimum(int const & a, int const & b);
+template int const Minimum(int const & a, int const & b, int const & c);
+template int const Minimum(int const & a, int const & b, int const & c, int const & d);
+template int const Max(int const & a, int const & b);
+template int const Max(int const & a, int const & b, int const & c);
+template int const Max(int const & a, int const & b, int const & c, int const & d);
+template int const Min(int const & a, int const & b);
+template int const Min(int const & a, int const & b, int const & c);
+template int const Min(int const & a, int const & b, int const & c, int const & d);
 
 
 // ionComponent.h
@@ -66,7 +66,7 @@ template Component * IEntity<Component>::RequireSingleComponent();
 
 // ionSmartPtr.h
 
-template static sharedPtr<Base> sharedNew(Base * const t);
+template sharedPtr<Base> sharedNew(Base * const t);
 
 
 // ionStandardLibrary.h
@@ -95,9 +95,9 @@ template void IMultiTreeNode<ITreeNodeInstantiate>::RecurseOnChildren<int, int, 
 
 // ionUtils.h
 
-template static int const Clamp<int>(int const & v, int const & min, int const & max);
-template static int const Sq<int>(int const & a);
-template static int const Average<int>(int const & a, int const & b);
-template static int const Average<int>(int const & a, int const & b, int const & c);
-template static int const Average<int>(int const & a, int const & b, int const & c, int const & d);
+template int const Clamp<int>(int const & v, int const & min, int const & max);
+template int const Sq<int>(int const & a);
+template int const Average<int>(int const & a, int const & b);
+template int const Average<int>(int const & a, int const & b, int const & c);
+template int const Average<int>(int const & a, int const & b, int const & c, int const & d);
 template s32 Sign<int>(int const & val);
