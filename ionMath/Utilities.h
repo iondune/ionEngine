@@ -19,6 +19,15 @@ T AbsoluteValue(T const & value)
 	return abs(value);
 }
 
+//! \brief Template function for selecting from two values the one with larger magnitude
+//! The aboslute values of a and b are compared, but the original values of a or b
+//! are returned.
+template <typename T>
+ION_FUNC_DEF static T const MaxAbs(T const & a, T const & b)
+{
+	return Abs(b) < Abs(a) ? a : b;
+}
+
 
 template <typename T>
 T Sin(T const & value)

@@ -152,12 +152,3 @@ ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c, T const &
 {
 	return Max(a, Max(b, c, d));
 }
-
-//! \brief Template function for selecting from two values the one with larger magnitude
-//! The aboslute values of a and b are compared, but the original values of a or b
-//! are returned.
-template <typename T>
-ION_FUNC_DEF static T const MaxAbs(T const & a, T const & b)
-{
-	return Abs(b) < Abs(a) ? a : b;
-}
