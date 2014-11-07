@@ -84,28 +84,28 @@ ION_FUNC_DEF static inline T Maximum(T const & a, T const & b)
 
 //! \brief Template function for selecting the minimum of three values
 template <typename T>
-ION_FUNC_DEF static T const Minimum(T const & a, T const & b, T const & c)
+ION_FUNC_DEF static inline T Minimum(T const & a, T const & b, T const & c)
 {
 	return Minimum(a, Minimum(b, c));
 }
 
 //! \brief Template function for selecting the maximum of three values
 template <typename T>
-ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c)
+ION_FUNC_DEF static inline T Maximum(T const & a, T const & b, T const & c)
 {
 	return Maximum(a, Maximum(b, c));
 }
 
 //! \brief Template function for selecting the minimum of four values
 template <typename T>
-ION_FUNC_DEF static T const Minimum(T const & a, T const & b, T const & c, T const & d)
+ION_FUNC_DEF static inline T Minimum(T const & a, T const & b, T const & c, T const & d)
 {
 	return Minimum(a, Minimum(b, c, d));
 }
 
 //! \brief Template function for selecting the maximum of four values
 template <typename T>
-ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c, T const & d)
+ION_FUNC_DEF static inline T Maximum(T const & a, T const & b, T const & c, T const & d)
 {
 	return Maximum(a, Maximum(b, c, d));
 }
@@ -113,42 +113,42 @@ ION_FUNC_DEF static T const Maximum(T const & a, T const & b, T const & c, T con
 
 //! \brief Template function for selecting the minimum of two values
 template <typename T>
-ION_FUNC_DEF static T const Min(T const & a, T const & b)
+ION_FUNC_DEF static inline T Min(T const & a, T const & b)
 {
 	return a < b ? a : b;
 }
 
 //! \brief Template function for selecting the maximum of two values
 template <typename T>
-ION_FUNC_DEF static T const Max(T const & a, T const & b)
+ION_FUNC_DEF static inline T Max(T const & a, T const & b)
 {
 	return b < a ? a : b;
 }
 
 //! \brief Template function for selecting the minimum of three values
 template <typename T>
-ION_FUNC_DEF static T const Min(T const & a, T const & b, T const & c)
+ION_FUNC_DEF static inline T Min(T const & a, T const & b, T const & c)
 {
 	return Min(a, Min(b, c));
 }
 
 //! \brief Template function for selecting the maximum of three values
 template <typename T>
-ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c)
+ION_FUNC_DEF static inline T Max(T const & a, T const & b, T const & c)
 {
 	return Max(a, Max(b, c));
 }
 
 //! \brief Template function for selecting the minimum of four values
 template <typename T>
-ION_FUNC_DEF static T const Min(T const & a, T const & b, T const & c, T const & d)
+ION_FUNC_DEF static inline T Min(T const & a, T const & b, T const & c, T const & d)
 {
 	return Min(a, Min(b, c, d));
 }
 
 //! \brief Template function for selecting the maximum of four values
 template <typename T>
-ION_FUNC_DEF static T const Max(T const & a, T const & b, T const & c, T const & d)
+ION_FUNC_DEF static inline T Max(T const & a, T const & b, T const & c, T const & d)
 {
 	return Max(a, Max(b, c, d));
 }

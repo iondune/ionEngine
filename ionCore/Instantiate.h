@@ -38,17 +38,17 @@ template struct RoundingError<int>;
 
 template bool Equals<int>(int const a, int const b, int const epsilon);
 template int Maximum(int const & a, int const & b);
-template int const Maximum(int const & a, int const & b, int const & c);
-template int const Maximum(int const & a, int const & b, int const & c, int const & d);
+template int Maximum(int const & a, int const & b, int const & c);
+template int Maximum(int const & a, int const & b, int const & c, int const & d);
 template int Minimum(int const & a, int const & b);
-template int const Minimum(int const & a, int const & b, int const & c);
-template int const Minimum(int const & a, int const & b, int const & c, int const & d);
-template int const Max(int const & a, int const & b);
-template int const Max(int const & a, int const & b, int const & c);
-template int const Max(int const & a, int const & b, int const & c, int const & d);
-template int const Min(int const & a, int const & b);
-template int const Min(int const & a, int const & b, int const & c);
-template int const Min(int const & a, int const & b, int const & c, int const & d);
+template int Minimum(int const & a, int const & b, int const & c);
+template int Minimum(int const & a, int const & b, int const & c, int const & d);
+template int Max(int const & a, int const & b);
+template int Max(int const & a, int const & b, int const & c);
+template int Max(int const & a, int const & b, int const & c, int const & d);
+template int Min(int const & a, int const & b);
+template int Min(int const & a, int const & b, int const & c);
+template int Min(int const & a, int const & b, int const & c, int const & d);
 
 
 // ionComponent.h
