@@ -14,7 +14,7 @@ private:
 
 protected:
 
-	ION_FUNC_DEF SVectorBase()
+	SVectorBase()
 	{}
 
 public:
@@ -25,34 +25,34 @@ public:
 
 	//! Const member copy access
 	//! Note: Out-of-bounds access returns a dummy value without error
-	ION_FUNC_DEF virtual T const operator[] (int i) const
+	virtual T const operator[] (int i) const
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
 	//! Member reference access
 	//! Note: Out-of-bounds access returns a dummy value without error
-	ION_FUNC_DEF virtual T & operator[] (int i)
+	virtual T & operator[] (int i)
 	{
 		return (i >= 0 && i < Dimension ? Values[i] : OutOfBounds = 0);
 	}
 
 	//! Sets all values to 0
-	ION_FUNC_DEF void reset()
+	void reset()
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = 0;
 	}
 
 	//! Sets all values to a single scalar
-	ION_FUNC_DEF void set(T const in)
+	void set(T const in)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = in;
 	}
 
 	//! Sets all values by an input C-style array
-	ION_FUNC_DEF void set(T const in[])
+	void set(T const in[])
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = in[i];
@@ -60,14 +60,14 @@ public:
 
 	//! Sets all values by an input vector
 	template <typename U, u32 otherDimension>
-	ION_FUNC_DEF void set(SVectorBase<U, otherDimension> const & other)
+	void set(SVectorBase<U, otherDimension> const & other)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	//! Length of vector
-	ION_FUNC_DEF T const Length() const
+	T const Length() const
 	{
 		T sum = 0;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -76,13 +76,13 @@ public:
 	}
 
 	//! Length of vector
-	ION_FUNC_DEF friend T const Length(SVectorBase<T, Dimension> const & vec)
+	friend T const Length(SVectorBase<T, Dimension> const & vec)
 	{
 		return vec.Length();
 	}
 
 	//! Squared-length of vector (computationally fast)
-	ION_FUNC_DEF T const LengthSq() const
+	T const LengthSq() const
 	{
 		T sum = 0;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -91,19 +91,19 @@ public:
 	}
 
 	//! Squared-length of vector (computationally fast)
-	ION_FUNC_DEF friend T const LengthSq(SVectorBase<T, Dimension> const & vec)
+	friend T const LengthSq(SVectorBase<T, Dimension> const & vec)
 	{
 		return vec.LengthSq();
 	}
 
 	//! Raw pointer access to vector values
-	ION_FUNC_DEF T const * GetValuePointer() const
+	T const * GetValuePointer() const
 	{
 		return Values;
 	}
 
 	//! Raw pointer access to vector values
-	ION_FUNC_DEF T * GetValuePointer()
+	T * GetValuePointer()
 	{
 		return Values;
 	}
@@ -132,7 +132,7 @@ private:
 
 protected:
 
-	ION_FUNC_DEF SVector()
+	SVector()
 	{}
 
 public:
@@ -146,7 +146,7 @@ public:
 	// Dot Product //
 	/////////////////
 
-	ION_FUNC_DEF T const DotProduct(Other const & other) const
+	T const DotProduct(Other const & other) const
 	{
 		T sum = 0;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -154,12 +154,12 @@ public:
 		return sum;
 	}
 
-	ION_FUNC_DEF T const Dot(Other const & other) const
+	T const Dot(Other const & other) const
 	{
 		return DotProduct(other);
 	}
 
-	ION_FUNC_DEF friend T const Dot(Type const & lhs, Other const & rhs)
+	friend T const Dot(Type const & lhs, Other const & rhs)
 	{
 		return lhs.Dot(rhs);
 	}
@@ -168,22 +168,22 @@ public:
 	// Distance //
 	//////////////
 
-	ION_FUNC_DEF T const GetDistanceFrom(Other const & v) const
+	T const GetDistanceFrom(Other const & v) const
 	{
 		return (* this - v).Length();
 	}
 
-	ION_FUNC_DEF friend T const Distance(Type const & lhs, Other const & rhs)
+	friend T const Distance(Type const & lhs, Other const & rhs)
 	{
 		return (lhs - rhs).Length();
 	}
 
-	ION_FUNC_DEF T const GetDistanceSqFrom(Other const & v) const
+	T const GetDistanceSqFrom(Other const & v) const
 	{
 		return (* this - v).LengthSq();
 	}
 
-	ION_FUNC_DEF friend T const DistanceSq(Type const & lhs, Other const & rhs)
+	friend T const DistanceSq(Type const & lhs, Other const & rhs)
 	{
 		return (lhs - rhs).LengthSq();
 	}
@@ -193,7 +193,7 @@ public:
 	///////////////////
 
 	template <typename Real>
-	ION_FUNC_DEF Implementation const GetInterpolated(Other const & v, Real const d)
+	Implementation const GetInterpolated(Other const & v, Real const d)
 	{
 		Real inv = (Real) 1 - d;
 		Implementation ret;
@@ -203,7 +203,7 @@ public:
 	}
 
 	template <typename Real>
-	ION_FUNC_DEF friend Implementation const Interpolate(Type const & lhs, Other const & rhs, Real const d)
+	friend Implementation const Interpolate(Type const & lhs, Other const & rhs, Real const d)
 	{
 		return lhs.GetInterpolated(rhs, d);
 	}
@@ -212,7 +212,7 @@ public:
 	// Normalization //
 	///////////////////
 
-	ION_FUNC_DEF Implementation const GetNormalized() const
+	Implementation const GetNormalized() const
 	{
 		Implementation ret = Clone();
 		ret.Normalize();
@@ -220,7 +220,7 @@ public:
 	}
 
 	//! Normalize this vector
-	ION_FUNC_DEF Type & Normalize()
+	Type & Normalize()
 	{
 		T const len = Length();
 
@@ -230,7 +230,7 @@ public:
 		return * this;
 	}
 
-	friend ION_FUNC_DEF Implementation const Normalize(Implementation const & v)
+	friend Implementation const Normalize(Implementation const & v)
 	{
 		Implementation ret = v;
 		ret.Normalize();
@@ -241,7 +241,7 @@ public:
 	// Basic Arithmetic //
 	//////////////////////
 
-	ION_FUNC_DEF Implementation const operator + (Other const & v) const
+	Implementation const operator + (Other const & v) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -249,7 +249,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator - (Other const & v) const
+	Implementation const operator - (Other const & v) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -257,7 +257,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator * (Other const & v) const
+	Implementation const operator * (Other const & v) const
 	{
 
 		Implementation ret;
@@ -266,7 +266,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator / (Other const & v) const
+	Implementation const operator / (Other const & v) const
 	{
 
 		Implementation ret;
@@ -279,7 +279,7 @@ public:
 	// Scalar Arithmetic //
 	///////////////////////
 
-	ION_FUNC_DEF Implementation const operator + (T const s) const
+	Implementation const operator + (T const s) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -287,7 +287,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator - (T const s) const
+	Implementation const operator - (T const s) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -295,7 +295,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator * (T const s) const
+	Implementation const operator * (T const s) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -303,7 +303,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF Implementation const operator / (T const s) const
+	Implementation const operator / (T const s) const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -311,7 +311,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const operator + (T const lhs, Type const & rhs)
+	friend Implementation const operator + (T const lhs, Type const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -319,7 +319,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const operator - (T const lhs, Type const & rhs)
+	friend Implementation const operator - (T const lhs, Type const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -327,7 +327,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const operator * (T const lhs, Type const & rhs)
+	friend Implementation const operator * (T const lhs, Type const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -335,7 +335,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const operator / (T const lhs, Type const & rhs)
+	friend Implementation const operator / (T const lhs, Type const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -347,7 +347,7 @@ public:
 	// Basic Arithmetic Assignment //
 	/////////////////////////////////
 
-	ION_FUNC_DEF Type & operator += (Other const & v)
+	Type & operator += (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] += v[i];
@@ -355,7 +355,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator -= (Other const & v)
+	Type & operator -= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] -= v[i];
@@ -363,7 +363,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator *= (Other const & v)
+	Type & operator *= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] *= v[i];
@@ -371,7 +371,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator /= (Other const & v)
+	Type & operator /= (Other const & v)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] /= v[i];
@@ -383,7 +383,7 @@ public:
 	// Scalar Arithmetic Assignment //
 	//////////////////////////////////
 
-	ION_FUNC_DEF Type & operator += (T const s)
+	Type & operator += (T const s)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] += s;
@@ -391,7 +391,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator -= (T const s)
+	Type & operator -= (T const s)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] -= s;
@@ -399,7 +399,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator *= (T const s)
+	Type & operator *= (T const s)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] *= s;
@@ -407,7 +407,7 @@ public:
 		return * this;
 	}
 
-	ION_FUNC_DEF Type & operator /= (T const s)
+	Type & operator /= (T const s)
 	{
 		for (u32 i = 0; i < Dimension; ++ i)
 			Values[i] /= s;
@@ -419,7 +419,7 @@ public:
 	// Negation //
 	//////////////
 
-	ION_FUNC_DEF Implementation const operator - () const
+	Implementation const operator - () const
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -431,7 +431,7 @@ public:
 	// Comparison operators //
 	//////////////////////////
 
-	ION_FUNC_DEF bool operator <= (Other const & v) const
+	bool operator <= (Other const & v) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -440,12 +440,12 @@ public:
 		return result;
 	}
 
-	ION_FUNC_DEF bool operator < (Other const & v) const
+	bool operator < (Other const & v) const
 	{
 		return Values[0] < v.Values[0] || (Values[0] == v.Values[0] && Values[1] < v.Values[1]);
 	}
 
-	ION_FUNC_DEF bool operator >= (Other const & v) const
+	bool operator >= (Other const & v) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -454,7 +454,7 @@ public:
 		return result;
 	}
 
-	ION_FUNC_DEF bool operator > (Other const & v) const
+	bool operator > (Other const & v) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -467,17 +467,17 @@ public:
 	// Equality operators //
 	////////////////////////
 
-	ION_FUNC_DEF bool operator == (Other const & v) const
+	bool operator == (Other const & v) const
 	{
 		return Equals(v);
 	}
 
-	ION_FUNC_DEF bool operator != (Other const & v) const
+	bool operator != (Other const & v) const
 	{
 		return ! Equals(v);
 	}
 
-	ION_FUNC_DEF bool Equals(Other const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool Equals(Other const & v, T const Epsilon = RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -490,7 +490,7 @@ public:
 	// Extrema //
 	/////////////
 
-	ION_FUNC_DEF friend Implementation const ComponentMinimum(Type const & lhs, Other const & rhs)
+	friend Implementation const ComponentMinimum(Type const & lhs, Other const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)
@@ -499,7 +499,7 @@ public:
 		return ret;
 	}
 
-	ION_FUNC_DEF friend Implementation const ComponentMaximum(Type const & lhs, Other const & rhs)
+	friend Implementation const ComponentMaximum(Type const & lhs, Other const & rhs)
 	{
 		Implementation ret;
 		for (u32 i = 0; i < Dimension; ++ i)

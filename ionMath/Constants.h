@@ -23,11 +23,11 @@ namespace Constants64
 template <typename T>
 struct Constants
 {
-/*	ION_FUNC_DEF static T const Pi()
+/*	static T const Pi()
 	{
 		return 0;
 	}
-	ION_FUNC_DEF static T const e()
+	static T const e()
 	{
 		return 0;
 	}*/
@@ -36,11 +36,11 @@ struct Constants
 template <>
 struct Constants<f32>
 {
-	ION_FUNC_DEF static f32 Pi()
+	static f32 Pi()
 	{
 		return Constants32::Pi;
 	}
-	ION_FUNC_DEF static f32 e()
+	static f32 e()
 	{
 		return Constants32::e;
 	}
@@ -49,11 +49,11 @@ struct Constants<f32>
 template <>
 struct Constants<f64>
 {
-	ION_FUNC_DEF static f64 Pi()
+	static f64 Pi()
 	{
 		return Constants64::Pi;
 	}
-	ION_FUNC_DEF static f64 e()
+	static f64 e()
 	{
 		return Constants64::e;
 	}

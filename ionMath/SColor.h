@@ -19,19 +19,19 @@ public:
 	T & Red, & Green, & Blue;
 	static T const Full;
 
-	ION_FUNC_DEF SColor()
+	SColor()
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set((T) 0);
 	}
 
-	ION_FUNC_DEF SColor(T const in)
+	SColor(T const in)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set(in);
 	}
 
-	ION_FUNC_DEF SColor(T const r, T const g, T const b)
+	SColor(T const r, T const g, T const b)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		Values[0] = r;
@@ -39,20 +39,20 @@ public:
 		Values[2] = b;
 	}
 
-	ION_FUNC_DEF SColor(SColor<T> const & vec)
+	SColor(SColor<T> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set(vec);
 	}
 
 	template <typename U, u32 OtherDimension>
-	ION_FUNC_DEF SColor(SVectorBase<U, OtherDimension> const & vec)
+	SColor(SVectorBase<U, OtherDimension> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
 	{
 		set(vec);
 	}
 
-	ION_FUNC_DEF SColor<T> & operator = (SColor<T> const & vec)
+	SColor<T> & operator = (SColor<T> const & vec)
 	{
 		set(vec);
 
@@ -60,46 +60,46 @@ public:
 	}
 
 	template <typename U, u32 OtherDimension>
-	ION_FUNC_DEF SColor<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
+	SColor<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
 		set(vec);
 
 		return * this;
 	}
 
-	ION_FUNC_DEF virtual T const operator[] (int i) const
+	virtual T const operator[] (int i) const
 	{
 		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
 	}
 
-	ION_FUNC_DEF virtual T & operator[] (int i)
+	virtual T & operator[] (int i)
 	{
 		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
 	}
 
 	template <typename U, u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<U, OtherDimension> const & other)
+	void set(SVectorBase<U, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<u8, OtherDimension> const & other)
+	void set(SVectorBase<u8, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<f32, OtherDimension> const & other)
+	void set(SVectorBase<f32, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<f64, OtherDimension> const & other)
+	void set(SVectorBase<f64, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 3; ++ i)
 			Values[i] = (T) other[i];
@@ -112,7 +112,7 @@ T const SColor<T>::Full = 1;
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColor<f32>::set(SVectorBase<u8, OtherDimension> const & other)
+void SColor<f32>::set(SVectorBase<u8, OtherDimension> const & other)
 {
 	for (u32 i = 0; i < 3; ++ i)
 		Values[i] = (f32) other[i] / 255.f;
@@ -120,7 +120,7 @@ ION_FUNC_DEF void SColor<f32>::set(SVectorBase<u8, OtherDimension> const & other
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColor<f64>::set(SVectorBase<u8, OtherDimension> const & other)
+void SColor<f64>::set(SVectorBase<u8, OtherDimension> const & other)
 {
 	for (u32 i = 0; i < 3; ++ i)
 		Values[i] = (f64) other[i] / 255.0;
@@ -128,7 +128,7 @@ ION_FUNC_DEF void SColor<f64>::set(SVectorBase<u8, OtherDimension> const & other
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColor<u8>::set(SVectorBase<f32, OtherDimension> const & other)
+void SColor<u8>::set(SVectorBase<f32, OtherDimension> const & other)
 {
 	for (u32 i = 0; i < 3; ++ i)
 		Values[i] = (u8) (other[i] * 255);
@@ -136,7 +136,7 @@ ION_FUNC_DEF void SColor<u8>::set(SVectorBase<f32, OtherDimension> const & other
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColor<u8>::set(SVectorBase<f64, OtherDimension> const & other)
+void SColor<u8>::set(SVectorBase<f64, OtherDimension> const & other)
 {
 	for (u32 i = 0; i < 3; ++ i)
 		Values[i] = (u8) (other[i] * 255);
@@ -155,19 +155,19 @@ public:
 	T & Red, & Green, & Blue, & Alpha;
 	static T const Full;
 
-	ION_FUNC_DEF SColorA()
+	SColorA()
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set((T) 0);
 	}
 
-	ION_FUNC_DEF SColorA(T const in)
+	SColorA(T const in)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(in);
 	}
 
-	ION_FUNC_DEF SColorA(T const r, T const g, T const b, T const a = Full)
+	SColorA(T const r, T const g, T const b, T const a = Full)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		Values[0] = r;
@@ -176,20 +176,20 @@ public:
 		Values[3] = a;
 	}
 
-	ION_FUNC_DEF SColorA(SColorA<T> const & vec)
+	SColorA(SColorA<T> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(vec);
 	}
 
 	template <typename U, int otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SColorA(SVector<U, otherDimension, otherImplementation> const & vec)
+	SColorA(SVector<U, otherDimension, otherImplementation> const & vec)
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(vec);
 	}
 
-	ION_FUNC_DEF SColorA<T> & operator = (SColorA<T> const & vec)
+	SColorA<T> & operator = (SColorA<T> const & vec)
 	{
 		set(vec);
 
@@ -197,7 +197,7 @@ public:
 	}
 
 	template <typename U, u32 OtherDimension>
-	ION_FUNC_DEF SColorA<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
+	SColorA<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
 		set(vec);
 
@@ -205,28 +205,28 @@ public:
 	}
 
 	template <typename U, u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<U, OtherDimension> const & other)
+	void set(SVectorBase<U, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<u8, OtherDimension> const & other)
+	void set(SVectorBase<u8, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<f32, OtherDimension> const & other)
+	void set(SVectorBase<f32, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
 	template <u32 OtherDimension>
-	ION_FUNC_DEF void set(SVectorBase<f64, OtherDimension> const & other)
+	void set(SVectorBase<f64, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
@@ -239,7 +239,7 @@ T const SColorA<T>::Full = 1;
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColorA<f32>::set(SVectorBase<u8, OtherDimension> const & other)
+void SColorA<f32>::set(SVectorBase<u8, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
 		Values[i] = (f32) other[i] / 255.f;
@@ -247,7 +247,7 @@ ION_FUNC_DEF void SColorA<f32>::set(SVectorBase<u8, OtherDimension> const & othe
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColorA<f64>::set(SVectorBase<u8, OtherDimension> const & other)
+void SColorA<f64>::set(SVectorBase<u8, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
 		Values[i] = (f64) other[i] / 255.0;
@@ -255,7 +255,7 @@ ION_FUNC_DEF void SColorA<f64>::set(SVectorBase<u8, OtherDimension> const & othe
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColorA<u8>::set(SVectorBase<f32, OtherDimension> const & other)
+void SColorA<u8>::set(SVectorBase<f32, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
 		Values[i] = (u8) (other[i] * 255);
@@ -263,7 +263,7 @@ ION_FUNC_DEF void SColorA<u8>::set(SVectorBase<f32, OtherDimension> const & othe
 
 template <>
 template <u32 OtherDimension>
-ION_FUNC_DEF void SColorA<u8>::set(SVectorBase<f64, OtherDimension> const & other)
+void SColorA<u8>::set(SVectorBase<f64, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
 		Values[i] = (u8) (other[i] * 255);

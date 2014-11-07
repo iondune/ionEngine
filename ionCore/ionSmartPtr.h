@@ -24,7 +24,7 @@ using weakPtr = std::weak_ptr<T>;
 #endif
 
 template <typename T>
-ION_FUNC_DEF static sharedPtr<T> sharedNew(T * const t)
+static sharedPtr<T> sharedNew(T * const t)
 {
 	return sharedPtr<T>(t);
 }

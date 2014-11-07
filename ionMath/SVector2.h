@@ -18,21 +18,21 @@ public:
 	T & X, & Y;
 
 	//! Default constructor
-	ION_FUNC_DEF SVector2()
+	SVector2()
 		: X(Values[0]), Y(Values[1])
 	{
 		reset();
 	}
 
 	//! Scalar constructor
-	ION_FUNC_DEF SVector2(T const in)
+	SVector2(T const in)
 		: X(Values[0]), Y(Values[1])
 	{
 		set(in);
 	}
 
 	//! Explicit constructor
-	ION_FUNC_DEF SVector2(T const x, T const y)
+	SVector2(T const x, T const y)
 		: X(Values[0]), Y(Values[1])
 	{
 		Values[0] = x;
@@ -40,7 +40,7 @@ public:
 	}
 
 	//! Copy constructor
-	ION_FUNC_DEF SVector2(SVector2<T> const & vec)
+	SVector2(SVector2<T> const & vec)
 		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
@@ -48,14 +48,14 @@ public:
 
 	//! Generic vector constructor
 	template <typename U>
-	ION_FUNC_DEF SVector2(SVectorBase<U, 2> const & vec)
+	SVector2(SVectorBase<U, 2> const & vec)
 		: X(Values[0]), Y(Values[1])
 	{
 		set(vec);
 	}
 
 	//! Assignment operator
-	ION_FUNC_DEF SVector2<T> & operator = (SVector2<T> const & vec)
+	SVector2<T> & operator = (SVector2<T> const & vec)
 	{
 		set(vec);
 
@@ -64,14 +64,14 @@ public:
 
 	//! Generic vector assignment operator
 	template <typename U, u32 otherDimension, typename otherImplementation>
-	ION_FUNC_DEF SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
+	SVector2<T> & operator = (SVector<U, otherDimension, otherImplementation> const & vec)
 	{
 		set(vec);
 
 		return * this;
 	}
 
-	ION_FUNC_DEF SVector2<T> Rotate(T const radians) const
+	SVector2<T> Rotate(T const radians) const
 	{
 		SVector2<T> Ret;
 		T C = Cos(radians);
@@ -86,7 +86,7 @@ public:
 		return ArcTan(Y, X);
 	}
 
-	ION_FUNC_DEF friend std::ostream & operator << (std::ostream & stream, SVector2<T> const & vec)
+	friend std::ostream & operator << (std::ostream & stream, SVector2<T> const & vec)
 	{
 		return stream << vec.X << " " << vec.Y;
 	}

@@ -16,7 +16,7 @@ public:
 	typedef SVector4<T> Column;
 	Column Columns[4];
 
-	ION_FUNC_DEF SMatrix4()
+	SMatrix4()
 	{
 		Columns[0] = Column(1, 0, 0, 0);
 		Columns[1] = Column(0, 1, 0, 0);
@@ -24,7 +24,7 @@ public:
 		Columns[3] = Column(0, 0, 0, 1);
 	}
 
-	ION_FUNC_DEF SMatrix4(T const Scalar)
+	SMatrix4(T const Scalar)
 	{
 		Columns[0] = Column(Scalar, 0, 0, 0);
 		Columns[1] = Column(0, Scalar, 0, 0);
@@ -32,7 +32,7 @@ public:
 		Columns[3] = Column(0, 0, 0, Scalar);
 	}
 
-	ION_FUNC_DEF SMatrix4(Column v1, Column v2, Column v3, Column v4)
+	SMatrix4(Column v1, Column v2, Column v3, Column v4)
 	{
 		Columns[0] = v1;
 		Columns[1] = v2;
@@ -40,7 +40,7 @@ public:
 		Columns[3] = v4;
 	}
 
-	ION_FUNC_DEF SMatrix4(
+	SMatrix4(
 		T const x0, T const y0, T const z0, T const w0,
 		T const x1, T const y1, T const z1, T const w1,
 		T const x2, T const y2, T const z2, T const w2,
@@ -52,7 +52,7 @@ public:
 		Columns[3] = Column(x3, y3, z3, w3);
 	}
 
-	ION_FUNC_DEF SMatrix4<T>(SMatrix4<T> const & other)
+	SMatrix4<T>(SMatrix4<T> const & other)
 	{
 		Columns[0] = other.Columns[0];
 		Columns[1] = other.Columns[1];
@@ -60,7 +60,7 @@ public:
 		Columns[3] = other.Columns[3];
 	}
 
-	ION_FUNC_DEF SMatrix4<T> & operator =(SMatrix4<T> const & other)
+	SMatrix4<T> & operator =(SMatrix4<T> const & other)
 	{
 		Columns[0] = other.Columns[0];
 		Columns[1] = other.Columns[1];
@@ -70,24 +70,24 @@ public:
 		return *this;
 	}
 	
-	ION_FUNC_DEF Column const & operator[] (u32 const index) const
+	Column const & operator[] (u32 const index) const
 	{
 		return Columns[index];
 	}
 
-	ION_FUNC_DEF Column & operator[] (u32 const index)
+	Column & operator[] (u32 const index)
 	{
 		return Columns[index];
 	}
 	
-	ION_FUNC_DEF SMatrix4<T> Translate(SVector3<T> const & v) const
+	SMatrix4<T> Translate(SVector3<T> const & v) const
 	{
 		SMatrix4<T> Result(*this);
 		Result[3] = Columns[0] * v[0] + Columns[1] * v[1] + Columns[2] * v[2] + Columns[3];
 		return Result;
 	}
 
-	ION_FUNC_DEF SMatrix4<T> Rotate(T const & angle, SVector3<T> const & v) const
+	SMatrix4<T> Rotate(T const & angle, SVector3<T> const & v) const
 	{
 		SMatrix4 const & m = *this;
 
@@ -119,7 +119,7 @@ public:
 		return Result;
 	}
 
-	ION_FUNC_DEF SMatrix4<T> Scale(SVector3<T> const & v)
+	SMatrix4<T> Scale(SVector3<T> const & v)
 	{
 		SMatrix4 const & m = *this;
 
@@ -131,12 +131,12 @@ public:
 		return Result;
 	}
 
-	ION_FUNC_DEF SMatrix4<T> & operator /= (SMatrix4<T> const & m)
+	SMatrix4<T> & operator /= (SMatrix4<T> const & m)
 	{
 		return (*this = *this / m);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> operator / (SMatrix4<T> const & m)
+	SMatrix4<T> operator / (SMatrix4<T> const & m)
 	{
 		return SMatrix4(
 			Columns[0] / m[0],
@@ -145,12 +145,12 @@ public:
 			Columns[3] / m[3]);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> & operator /= (f32 const & s)
+	SMatrix4<T> & operator /= (f32 const & s)
 	{
 		return (*this = *this / s);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> operator / (f32 const & s)
+	SMatrix4<T> operator / (f32 const & s)
 	{
 		return SMatrix4(
 			Columns[0] / s,
@@ -159,12 +159,12 @@ public:
 			Columns[3] / s);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> & operator *= (SMatrix4<T> const & m)
+	SMatrix4<T> & operator *= (SMatrix4<T> const & m)
 	{
 		return (*this = *this * m);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> operator * (SMatrix4<T> const & m2)
+	SMatrix4<T> operator * (SMatrix4<T> const & m2)
 	{
 		SMatrix4 const & m1 = *this;
 
@@ -186,7 +186,7 @@ public:
 		return Result;
 	}
 
-	ION_FUNC_DEF SVector4<T> operator * (SVector4<T> const & v) const
+	SVector4<T> operator * (SVector4<T> const & v) const
 	{
 		return SVector4<T>(
 			Columns[0][0] * v.X + Columns[1][0] * v.Y + Columns[2][0] * v.Z + Columns[3][0] * v.W,
@@ -195,7 +195,7 @@ public:
 			Columns[0][3] * v.X + Columns[1][3] * v.Y + Columns[2][3] * v.Z + Columns[3][3] * v.W);
 	}
 
-	ION_FUNC_DEF SMatrix4<T> Inverse() const
+	SMatrix4<T> Inverse() const
 	{
 		T Coef00 = Columns[2][2] * Columns[3][3] - Columns[3][2] * Columns[2][3];
 		T Coef02 = Columns[1][2] * Columns[3][3] - Columns[3][2] * Columns[1][3];

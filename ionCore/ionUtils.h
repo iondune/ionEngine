@@ -9,14 +9,14 @@
 
 
 //! Portable version of system("PAUSE")
-ION_FUNC_DEF static void WaitForUser() 
+static void WaitForUser() 
 {
 	std::cout << "Press [Enter] to continue . . .";
 	std::cin.get();
 }
 
 //! Count the number of digits (including a - for negative numbers) in a decimal integer
-ION_FUNC_DEF static u32 DigitCount(s32 n)
+static u32 DigitCount(s32 n)
 {
 	u32 count = 1;
 	if (n < 0)
@@ -35,31 +35,31 @@ ION_FUNC_DEF static u32 DigitCount(s32 n)
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Clamp(T const & v, T const & min, T const & max)
+static T const Clamp(T const & v, T const & min, T const & max)
 {
 	return ((v > max) ? max : ((v < min) ? min : v));
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Sq(T const & a)
+static T const Sq(T const & a)
 {
 	return a * a;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Average(T const & a, T const & b)
+static T const Average(T const & a, T const & b)
 {
 	return (a + b) / 2;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Average(T const & a, T const & b, T const & c)
+static T const Average(T const & a, T const & b, T const & c)
 {
 	return (a + b + c) / 3;
 }
 
 template <typename T>
-ION_FUNC_DEF static T const Average(T const & a, T const & b, T const & c, T const & d)
+static T const Average(T const & a, T const & b, T const & c, T const & d)
 {
 	return (a + b + c + d) / 4;
 }

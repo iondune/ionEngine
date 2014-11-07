@@ -21,21 +21,21 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	T & Latitude;
 
 	//! Default constructor
-	ION_FUNC_DEF SLongitudeLatitude()
+	SLongitudeLatitude()
 		: Longitude(Values[0]), Latitude(Values[1])
 	{
 		reset();
 	}
 
 	//! Scalar constructor
-	ION_FUNC_DEF SLongitudeLatitude(T const in)
+	SLongitudeLatitude(T const in)
 		: Longitude(Values[0]), Latitude(Values[1])
 	{
 		set(in);
 	}
 
 	//! Explicit constructor
-	ION_FUNC_DEF SLongitudeLatitude(T const lon, T const lat)
+	SLongitudeLatitude(T const lon, T const lat)
 		: Longitude(Values[0]), Latitude(Values[1])
 	{
 		Values[0] = lon;
@@ -43,26 +43,26 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	}
 
 	//! Copy constructor
-	ION_FUNC_DEF SLongitudeLatitude(SLongitudeLatitude<T> const & vec)
+	SLongitudeLatitude(SLongitudeLatitude<T> const & vec)
 		: Longitude(Values[0]), Latitude(Values[1])
 	{
 		set(vec);
 	}
 
 	//! Assignment operator
-	ION_FUNC_DEF SLongitudeLatitude<T> & operator = (SLongitudeLatitude<T> const & vec)
+	SLongitudeLatitude<T> & operator = (SLongitudeLatitude<T> const & vec)
 	{
 		set(vec);
 
 		return * this;
 	}
 
-	ION_FUNC_DEF static T DMStoDecimal(T const Degrees, T const Minutes, T const Seconds, ECompassDirection const Direction = ECompassDirection::N)
+	static T DMStoDecimal(T const Degrees, T const Minutes, T const Seconds, ECompassDirection const Direction = ECompassDirection::N)
 	{
 		return (Degrees + Minutes/60 + Seconds/3600) * (int) Direction;
 	}
 
-	ION_FUNC_DEF static T DMStoDecimal(std::string const & String)
+	static T DMStoDecimal(std::string const & String)
 	{
 		f64 Deg, Min, Sec;
 		char Dir, Dummy;
@@ -90,7 +90,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		return DMStoDecimal(Deg, Min, Sec, Direction);
 	}
 
-	ION_FUNC_DEF vec2f Vector() const
+	vec2f Vector() const
 	{
 		return vec2f(Longitude, Latitude);
 	}
@@ -100,8 +100,8 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	public:
 
-		ION_FUNC_DEF virtual T DistanceBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
-		ION_FUNC_DEF virtual SVector2<T> OffsetBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
+		virtual T DistanceBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
+		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
 
 	};
 
@@ -117,7 +117,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			Average
 		};
 
-		ION_FUNC_DEF T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			T EarthRadius = (T) 6378.137;
 			T DeltaLat = DegreesToRadians(Right.Latitude - Left.Latitude);
@@ -131,7 +131,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return Distance * 1000;
 		}
 
-		ION_FUNC_DEF SVector2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
+		SVector2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
 		{
 			SVector2<T> Offset;
 			SLongitudeLatitude Left, Right;
@@ -173,11 +173,11 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return Offset;
 		}
 
-		ION_FUNC_DEF CHaversineProjection()
+		CHaversineProjection()
 			: OffsetMode(EOffsetMode::Average)
 		{}
 
-		ION_FUNC_DEF CHaversineProjection(EOffsetMode const offsetMode)
+		CHaversineProjection(EOffsetMode const offsetMode)
 			: OffsetMode(OffsetMode)
 		{}
 
@@ -190,7 +190,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	public:
 
-		ION_FUNC_DEF T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			T const lon1 = DegreesToRadians(Left.Longitude), lat1 = DegreesToRadians(Left.Latitude);
 			T const lon2 = DegreesToRadians(Right.Longitude), lat2 = DegreesToRadians(Right.Latitude);
@@ -238,11 +238,11 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return s;
 		}
 
-		ION_FUNC_DEF CVincentyProjection()
+		CVincentyProjection()
 		{}
 
 		// Doesn't compile on g++ 4.4.7 for some reason
-		// ION_FUNC_DEF CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
+		// CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
 		// 	: CHaversineProjection(OffsetMode)
 		// {}
 
@@ -253,7 +253,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	public:
 
-		ION_FUNC_DEF T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
@@ -268,7 +268,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return LeftProjected.GetDistanceFrom(RightProjected);
 		}
 
-		ION_FUNC_DEF virtual SVector2<T> OffsetBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
@@ -291,12 +291,12 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	};
 
-	ION_FUNC_DEF T DistanceTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
+	T DistanceTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
 	{
 		return Projection->DistanceBetween(* this, Other);
 	}
 
-	ION_FUNC_DEF SVector2<T> OffsetTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
+	SVector2<T> OffsetTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
 	{
 		return Projection->OffsetBetween(* this, Other);
 	}

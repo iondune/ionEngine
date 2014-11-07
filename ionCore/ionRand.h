@@ -7,12 +7,12 @@
 #include <cstdlib>
 
 
-ION_FUNC_DEF static f32 frand()
+static f32 frand()
 {
 	return std::rand() / (f32) RAND_MAX;
 }
 
-ION_FUNC_DEF static f32 nrand()
+static f32 nrand()
 {
 	return (std::rand() / (f32) RAND_MAX) * 2.f - 1.f;
 }
