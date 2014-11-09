@@ -2,4 +2,54 @@
 
 \page installation Installation
 
+\section windows Windows
+
+The easiest way to acquire the dependencies is to clone the [ionEngine SDKs respository](https://bitbucket.org/iondune/sdks)
+which contains pre-built binaries for Windows x64 platforms. Visual Studio 2013 project files are included for Windows builds
+on alternate platforms.
+
+\section linux Linux
+
+These instructions are tailored for Ubuntu 14.04 but the same principles should apply to most Linux distros and in
+particular to any similar version of Ubuntu.
+
+\subsection packages Packages
+
+Thankfully most of the dependencies are available as packages.
+
+You will need `g++` for compilation. `clang++` should work as well, but the code coverage tools for `clang++` will not.
+
+\code{bash}
+sudo apt-get install g++
+\endcode
+
+You'll also need to install the following dependencies:
+
+- `libglew-dev`
+- `libglm-dev`
+- `libassimp-dev`
+
+For unit testing and code coverage, you'll need to get these dependencies as well:
+
+- `catch`
+
+To install all packages:
+
+\code{bash}
+sudo apt-get install libglew-dev libglm-dev libassimp-dev catch
+\endcode
+
+Unfortunately, at time of this writing the Ubuntu GLFW and lcov packages are prohibitively out of date. Both
+need to be manually installed.
+
+\paragraph lcov LCOV
+
+To install lcov, clone the git repository, build it, and install it:
+
+\code{bash}
+git clone https://github.com/linux-test-project/lcov.git
+cd lcov
+sudo make install
+\endcode
+
 */
