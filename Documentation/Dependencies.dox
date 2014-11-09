@@ -10,8 +10,7 @@ ionEngine depends on the following external libraries:
 - [GLM](http://glm.g-truc.net/)
   - Header-only
   - Vector and matrix math
-  - Latest build uses: 0.9.4.4
-  - Note: be careful with any version after 0.9.4.4 as newer versions are not backwards compatible
+  - Latest build uses: 0.9.5.4
 - [GLEW](http://glew.sourceforge.net/)
   - OpenGL extensions wrangling
 - [GLFW](http://www.glfw.org/)
@@ -27,8 +26,6 @@ ionEngine depends on the following external libraries:
   - You will need to change the runtime library from Static to DLL.
   - Latest build uses: as of [a0f0a2be6b87fae889c6a49183cd7b8132f6e554](https://github.com/garrynewman/GWEN/commit/a0f0a2be6b87fae889c6a49183cd7b8132f6e554)
 
-The easiest way to acquire these dependencies is to clone the [ionEngine SDKs respository](https://bitbucket.org/iondune/sdks)
-which contains pre-built binaries for Windows x64 platforms. Visual Studio 2013 project files are included for Windows builds
-on alternate platforms.
+For instructions on how to build and install, see the \ref installation page.
 
 */
