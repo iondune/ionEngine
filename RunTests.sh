@@ -1,6 +1,6 @@
 #! /bin/bash
 
-tests=TestCore
+tests=UnitTests
 
 RootDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$RootDirectory"

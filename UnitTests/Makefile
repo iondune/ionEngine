@@ -1,2 +1,2 @@
-TARGET=TestCore
+TARGET=UnitTests
 include ../Default.make

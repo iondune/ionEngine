@@ -1,6 +1,6 @@
 
 LIBRARIES = ionAsset ionBootstrap ionFramework ionGL ionScene ionScience ionWindow
-TESTS = TestCore
+TESTS = UnitTests
 SUBDIRS = $(LIBRARIES) $(TESTS)
 
 .PHONY: $(addprefix all_, $(SUBDIRS)) $(addprefix clean_, $(SUBDIRS)) $(addprefix remake_, $(SUBDIRS)) $(addprefix depend_, $(SUBDIRS)) all clean remake depend
