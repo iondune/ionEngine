@@ -13,9 +13,6 @@
     <Filter Include="Vector\Implementations">
       <UniqueIdentifier>{4b3689d5-3e37-4e95-a6d1-65ef7fe87c2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Matrix">
-      <UniqueIdentifier>{60e9b50a-52a7-45aa-9800-936594ab931d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SBoundingBox3.h">
@@ -45,9 +42,6 @@
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="SVector4.h">
       <Filter>Vector\Implementations</Filter>
-    </ClInclude>
-    <ClInclude Include="SMatrix4.h">
-      <Filter>Matrix</Filter>
     </ClInclude>
     <ClInclude Include="SPlane3.h">
       <Filter>Vector\Extensions</Filter>
