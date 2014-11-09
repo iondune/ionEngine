@@ -42,7 +42,7 @@ sudo apt-get install libglew-dev libglm-dev libassimp-dev catch
 Unfortunately, at time of this writing the Ubuntu GLFW and lcov packages are prohibitively out of date. Both
 need to be manually installed.
 
-\paragraph lcov LCOV
+\subsubsection lcov LCOV
 
 To install lcov, clone the git repository, build it, and install it:
 
