@@ -59,7 +59,7 @@ depend:
 	@rm -f .depend.mk
 	@echo --- Regenerating dependencies. ------------------
 	$(CXX) -MM $(CXXFLAGS_BASE) $(SRCS) > .depend.mk
-	@sed -i -re 's/(^[A-Za-z]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
+	@sed -i -re 's/(^[A-Za-z0-9]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
 	@echo --- Dependencies generated. ---------------------
 
 ../.configuration.mk:
