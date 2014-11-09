@@ -38,7 +38,5 @@ lcov --remove final.info 'Test*' --output-file final.info --quiet
 
 # Report
 echo "Generating report..."
-rm -r html
+rm -rf html
 genhtml final.info --output-directory html --quiet
-rm -r /var/www/amethyst.iondune.net/public_html/cov
-cp -r html /var/www/amethyst.iondune.net/public_html/cov
