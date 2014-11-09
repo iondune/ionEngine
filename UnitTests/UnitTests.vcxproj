@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ionCore\ionClass.cpp" />
-    <ClCompile Include="ionCore\ionComparison.cpp" />
-    <ClCompile Include="ionCore\ionCore.cpp" />
-    <ClCompile Include="ionMath\SVector2.cpp" />
+    <ClCompile Include="ionClass.cpp" />
+    <ClCompile Include="ionComparison.cpp" />
+    <ClCompile Include="ionCore.cpp" />
+    <ClCompile Include="SVector2.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

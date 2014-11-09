@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="UnitTests.cpp" />
-    <ClCompile Include="ionCore\ionClass.cpp">
+    <ClCompile Include="ionClass.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
-    <ClCompile Include="ionCore\ionComparison.cpp">
+    <ClCompile Include="ionComparison.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
-    <ClCompile Include="ionCore\ionCore.cpp">
+    <ClCompile Include="ionCore.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
-    <ClCompile Include="ionMath\SVector2.cpp">
+    <ClCompile Include="SVector2.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
   </ItemGroup>
