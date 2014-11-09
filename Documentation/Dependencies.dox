@@ -10,8 +10,7 @@ ionEngine depends on the following external libraries:
 - [GLM](http://glm.g-truc.net/)
   - Header-only
   - Vector and matrix math
-  - Latest build uses: 0.9.4.4
-  - Note: be careful with any version after 0.9.4.4 as newer versions are not backwards compatible
+  - Latest build uses: 0.9.5.4
 - [GLEW](http://glew.sourceforge.net/)
   - OpenGL extensions wrangling
 - [GLFW](http://www.glfw.org/)
