@@ -2,6 +2,7 @@
 #include <ionCore.h>
 #include <catch.hpp>
 
+
 TEST_CASE("ionComparison::RoundingError", "rounding error constants")
 {
 	REQUIRE(RoundingError<int>::Value() == 0);

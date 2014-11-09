@@ -1,6 +1,6 @@
 
-#include "catch.hpp"
 #include <ionCore.h>
+#include <catch.hpp>
 
 
 class A

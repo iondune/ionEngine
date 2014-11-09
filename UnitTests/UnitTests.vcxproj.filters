@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="UnitTests.cpp" />
+    <ClCompile Include="ionCore\ionClass.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ionCore\ionComparison.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ionCore\ionCore.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ionMath\SVector2.cpp">
+      <Filter>ionMath</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ionCore">
+      <UniqueIdentifier>{cce43ec2-8d43-4b26-bb8e-003836510a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ionMath">
+      <UniqueIdentifier>{c920e00c-2f9f-4c5c-bbae-d1ca00f40e12}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

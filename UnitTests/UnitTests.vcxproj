@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ionClass.cpp" />
-    <ClCompile Include="ionComparison.cpp" />
-    <ClCompile Include="TestCore.cpp" />
+    <ClCompile Include="ionCore\ionClass.cpp" />
+    <ClCompile Include="ionCore\ionComparison.cpp" />
+    <ClCompile Include="ionCore\ionCore.cpp" />
+    <ClCompile Include="ionMath\SVector2.cpp" />
+    <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{56E0477E-8C3D-4FA3-9E44-D2981E61D462}</ProjectGuid>
