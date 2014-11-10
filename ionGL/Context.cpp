@@ -27,6 +27,11 @@ namespace ion
 			CheckedGLCall(glClear(BitMask));
 		}
 
+		void Context::SetClearColor(color3f const & Color)
+		{
+			CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, 1.f));
+		}
+
 		vec2i Context::GetViewportSize()
 		{
 			int viewport[4];
