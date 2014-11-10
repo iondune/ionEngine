@@ -10,6 +10,11 @@ void CWindow::MakeContextCurrent()
 	glfwMakeContextCurrent(WindowHandle);
 }
 
+void CWindow::Close()
+{
+	glfwSetWindowShouldClose(WindowHandle, true);
+}
+
 bool CWindow::ShouldClose() const
 {
 	return glfwWindowShouldClose(WindowHandle) != 0;

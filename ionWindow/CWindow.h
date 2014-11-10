@@ -18,6 +18,7 @@ public:
 
 	void MakeContextCurrent();
 	bool ShouldClose() const;
+	void Close();
 	vec2i const & GetSize() const;
 	f32 GetAspectRatio() const;
 	void SwapBuffers();
