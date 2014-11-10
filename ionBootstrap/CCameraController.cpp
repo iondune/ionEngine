@@ -48,17 +48,21 @@ void CCameraController::OnEvent(IEvent & Event)
 
 		if (MouseEvent.Type == SMouseEvent::EType::Scroll)
 		{
-			f32 FocalLength = Camera->GetFocalLength();
+			CPerspectiveCamera * PerspectiveCamera = nullptr;
+			if (PerspectiveCamera = As<CPerspectiveCamera>(Camera))
+			{
+				f32 FocalLength = PerspectiveCamera->GetFocalLength();
 
-			s32 ticks = (s32) MouseEvent.Movement.Y;
-			if (ticks > 0)
-				while (ticks-- > 0)
-					FocalLength *= FocalLengthDelta;
-			else if (ticks < 0)
-				while (ticks++ < 0)
-					FocalLength /= FocalLengthDelta;
+				s32 ticks = (s32) MouseEvent.Movement.Y;
+				if (ticks > 0)
+					while (ticks-- > 0)
+						FocalLength *= FocalLengthDelta;
+				else if (ticks < 0)
+					while (ticks++ < 0)
+						FocalLength /= FocalLengthDelta;
 
-			Camera->SetFocalLength(FocalLength);
+				PerspectiveCamera->SetFocalLength(FocalLength);
+			}
 		}
 	}
 	else if (InstanceOf<SKeyboardEvent>(Event))

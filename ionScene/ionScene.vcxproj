@@ -22,6 +22,7 @@
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CDrawManager.h" />
     <ClInclude Include="CMeshLibrary.h" />
+    <ClInclude Include="COrthogonalCamera.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
     <ClInclude Include="CRenderPassManager.h" />
     <ClInclude Include="CScene.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDrawManager.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
+    <ClCompile Include="COrthogonalCamera.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CRenderPassManager.cpp" />
     <ClCompile Include="CScene.cpp" />

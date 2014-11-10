@@ -7,6 +7,8 @@ CCamera::CCamera(ISceneNode * Parent)
 {
 	this->LookDirection = vec3f(0, 0, 1);
 	this->UpVector = vec3f(0, 1, 0);
+	this->NearPlane = 0.1f;
+	this->FarPlane = 100.f;
 
     RecalculateViewMatrix();
 }
@@ -72,4 +74,24 @@ void CCamera::SetViewMatrix(glm::mat4 const & viewMatrix)
 void CCamera::SetProjectionMatrix(glm::mat4 const & projectionMatrix)
 {
 	ProjectionMatrix = projectionMatrix;
+}
+
+f32 CCamera::GetNearPlane() const
+{
+	return NearPlane;
+}
+
+f32 CCamera::GetFarPlane() const
+{
+	return FarPlane;
+}
+
+void CCamera::SetNearPlane(f32 const nearPlane)
+{
+	NearPlane = nearPlane;
+}
+
+void CCamera::SetFarPlane(f32 const farPlane)
+{
+	FarPlane = farPlane;
 }

@@ -105,6 +105,11 @@ CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera(f32 const AspectRat
 	return new CPerspectiveCamera{SceneManager->GetRoot(), AspectRatio};
 }
 
+COrthogonalCamera * CSceneNodeFactory::AddOrthogonalCamera(rect2f const & Area)
+{
+	return new COrthogonalCamera{SceneManager->GetRoot(), Area.Position.X, Area.OtherCorner().X, Area.Position.Y, Area.OtherCorner().Y};
+}
+
 ILightSceneNode * CSceneNodeFactory::AddLight(vec3f const & Position)
 {
 	ILightSceneNode * Light = new ILightSceneNode(SceneManager->GetRoot());

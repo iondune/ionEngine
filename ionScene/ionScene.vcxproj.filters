@@ -53,6 +53,9 @@
     <ClInclude Include="CRenderPassManager.h">
       <Filter>SceneManager\Render Passes</Filter>
     </ClInclude>
+    <ClInclude Include="COrthogonalCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -105,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="CRenderPassManager.cpp">
       <Filter>SceneManager\Render Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="COrthogonalCamera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

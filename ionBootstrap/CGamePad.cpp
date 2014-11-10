@@ -143,28 +143,32 @@ void CGamePadCameraController::Update(f64 const TickTime)
 	// Focal Length - DPad
 	f32 const ZoomSpeed = 100.f;
 	f32 const ZoomMod = 1.01f;
-	f32 FocalLength = Camera->GetFocalLength();
-	if (IsButtonPressed(EGamePadButton::DPadUp))
-		FocalLengthAccumulator += ZoomSpeed * (f32) TickTime;
-	if (IsButtonPressed(EGamePadButton::DPadDown))
-		FocalLengthAccumulator -= ZoomSpeed * (f32) TickTime;
-	if (FocalLengthAccumulator > 1)
+	CPerspectiveCamera * PerspectiveCamera = nullptr;
+	if (PerspectiveCamera = As<CPerspectiveCamera>(Camera))
 	{
-		while (FocalLengthAccumulator > 1)
+		f32 FocalLength = PerspectiveCamera->GetFocalLength();
+		if (IsButtonPressed(EGamePadButton::DPadUp))
+			FocalLengthAccumulator += ZoomSpeed * (f32) TickTime;
+		if (IsButtonPressed(EGamePadButton::DPadDown))
+			FocalLengthAccumulator -= ZoomSpeed * (f32) TickTime;
+		if (FocalLengthAccumulator > 1)
 		{
-			FocalLengthAccumulator -= 1.f;
-			FocalLength *= ZoomMod;
+			while (FocalLengthAccumulator > 1)
+			{
+				FocalLengthAccumulator -= 1.f;
+				FocalLength *= ZoomMod;
+			}
 		}
-	}
-	else if (FocalLengthAccumulator < -1)
-	{
-		while (FocalLengthAccumulator < -1)
+		else if (FocalLengthAccumulator < -1)
 		{
-			FocalLengthAccumulator += 1.f;
-			FocalLength /= ZoomMod;
+			while (FocalLengthAccumulator < -1)
+			{
+				FocalLengthAccumulator += 1.f;
+				FocalLength /= ZoomMod;
+			}
 		}
+		PerspectiveCamera->SetFocalLength(FocalLength);
 	}
-	Camera->SetFocalLength(FocalLength);
 
 	CCameraController::Update(TickTime);
 }

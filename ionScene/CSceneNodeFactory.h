@@ -5,6 +5,7 @@
 
 #include "CSceneNode.h"
 #include "CPerspectiveCamera.h"
+#include "COrthogonalCamera.h"
 #include "ILightSceneNode.h"
 
 
@@ -22,6 +23,7 @@ public:
 	CSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
 	CSceneNode * AddSkySphereNode(string const & TextureLabel);
 	CPerspectiveCamera * AddPerspectiveCamera(f32 const AspectRatio);
+	COrthogonalCamera * AddOrthogonalCamera(rect2f const & Area);
 
 	ILightSceneNode * AddLight(vec3f const & Position);
 
