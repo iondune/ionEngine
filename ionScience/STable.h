@@ -74,6 +74,8 @@ public:
 	bool HasField(std::string const & Field);
 
 	//! \param OutlierCutoff Values outside of this many standard deviations are excluded
+	//! \param Field Field to find range of
+	//! \param acceptedValues Range of values to consider (superset of return value)
 	SRange<f64> GetFieldRange(std::string const & Field, double const OutlierCutoff = 5, SRange<f64> const & acceptedValues = SRange<f64>::Full) const;
 
 	SFieldIterator Begin(std::string const & Field);
