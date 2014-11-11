@@ -48,6 +48,7 @@ class Derived : public Base
 TEST_CASE("ionClass::As", "As function converts between objects")
 {
 	Base a;
+	Base const constA;
 	Derived b;
 	C c;
 
@@ -57,6 +58,10 @@ TEST_CASE("ionClass::As", "As function converts between objects")
 
 	REQUIRE(As<Derived>((Base*)&b) == &b);
 	REQUIRE(As<Derived>((Base const * const)bPtr) == bPtr);
+	REQUIRE(As<Base>(& a) == & a);
+	REQUIRE(! As<Derived>(& a));
+	REQUIRE(! & As<Derived>(a));
+	REQUIRE(! & As<Derived>(constA));
 }
 
 TEST_CASE("Type", "[ionClass :: Type]")
@@ -87,8 +92,13 @@ public:
 TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
 {
 	SingletonPointer<E> e;
+	SingletonPointer<E> const constE;
 	SingletonPointer<F> f;
 	
 	REQUIRE(e->FPtr.Get() == f.Get());
+	REQUIRE(constE->FPtr.Get() == f.Get());
 	REQUIRE(f->EPtr.Get() == e.Get());
+	REQUIRE(f->EPtr.Get() == constE.Get());
+	REQUIRE(f->EPtr == e);
+	REQUIRE(f->EPtr == constE);
 }
