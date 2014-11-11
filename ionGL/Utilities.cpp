@@ -42,7 +42,7 @@ namespace ion
 			if (Error != GL_NO_ERROR)
 			{
 				c8 const * ErrorString = (c8 const *) gluErrorString(Error);
-				std::cerr << "OpenGL Error in " << File << " at line " << Line << " calling function " << Function << ": " << (ErrorString ? ErrorString : "") << std::endl;
+				std::cerr << "OpenGL Error in " << File << " at line " << Line << " calling function " << Function << ": '" << (ErrorString ? ErrorString : "NULL") << "'" << std::endl;
 			}
 		}
 
