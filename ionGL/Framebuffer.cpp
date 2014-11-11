@@ -93,10 +93,12 @@ namespace ion
 
 		bool Framebuffer::Check() const
 		{
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
 			CheckExistingErrors(glCheckFramebufferStatus);
 			uint Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 			if (OpenGLError())
 				cerr << "Error occured during glCheckFramebufferStatus: " << GetOpenGLError() << endl;
+			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
 			if (Status == GL_FRAMEBUFFER_COMPLETE)
 				return true;
