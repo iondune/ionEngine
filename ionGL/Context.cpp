@@ -15,7 +15,7 @@ namespace ion
 			CheckedGLCall(glDepthFunc(GL_LEQUAL));
 		}
 
-		void Context::Clear(std::initializer_list<EBuffer> Buffers)
+		void Context::Clear(std::vector<EBuffer> Buffers)
 		{
 			static u32 const BufferLookup[3] =
 			{

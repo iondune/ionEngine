@@ -12,13 +12,13 @@ public:
 	CFrameBuffer * GetTarget();
 
 	void Setup();
-	void SetClearTarget(bool const ClearTarget);
+	void SetClearBuffers(vector<ion::GL::EBuffer> const & ClearBuffers);
 
 	string const & GetName() const;
 
 protected:
 
-	bool ClearTarget = true;
+	vector<ion::GL::EBuffer> ClearBuffers;
 	string Name;
 
 	CFrameBuffer * Target = nullptr;

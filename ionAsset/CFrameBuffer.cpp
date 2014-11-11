@@ -78,7 +78,7 @@ CTexture2D * CFrameBuffer::GetDepthTextureAttachment()
 	return Handle->GetDepthTextureAttachment();
 }
 
-void CFrameBuffer::Clear(std::initializer_list<ion::GL::EBuffer> Buffers)
+void CFrameBuffer::Clear(std::vector<ion::GL::EBuffer> Buffers)
 {
 	Handle->Clear(Buffers);
 }

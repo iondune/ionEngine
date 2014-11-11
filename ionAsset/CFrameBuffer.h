@@ -29,7 +29,7 @@ public:
 	CTexture2D * GetColorTextureAttachment(u32 const Attachment);
 	CTexture2D * GetDepthTextureAttachment();
 
-	void Clear(std::initializer_list<ion::GL::EBuffer> Buffers = { ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth });
+	void Clear(std::vector<ion::GL::EBuffer> Buffers = { ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth });
 
 	ion::GL::Framebuffer * GetHandle();
 	

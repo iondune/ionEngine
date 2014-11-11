@@ -31,7 +31,7 @@ namespace ion
 			Texture2D * GetColorTextureAttachment(u32 const Attachment);
 			Texture2D * GetDepthTextureAttachment();
 
-			void Clear(std::initializer_list<EBuffer> Buffers = { EBuffer::Color, EBuffer::Depth });
+			void Clear(std::vector<EBuffer> Buffers = { EBuffer::Color, EBuffer::Depth });
 
 			u32 GetHandle() const;
 
