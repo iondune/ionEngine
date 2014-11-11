@@ -145,7 +145,11 @@ namespace Gwen
 			GLenum error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
-				std::cout << gluErrorString(error) << "\n";
+				GLubyte const * ErrorString = gluErrorString(error);
+				if (ErrorString)
+					std::cout << ErrorString << endl;
+				else
+					std::cout << "gluErrorString returned NULL" << endl;
 				assert(0);
 			}
 		}
