@@ -20,4 +20,12 @@ TEST_CASE("SVector2::operator <", "Check that operator < works consistently")
 	
 	REQUIRE(vec2i(-1, -1) < vec2i(0, -1));
 	REQUIRE(! (vec2i(-1, -1) > vec2i(0, -1)));
+	REQUIRE(! (vec2i(0, 0) < vec2i(0, 0)));
+	REQUIRE(! (vec2i(2, 2) < vec2i(2, 2)));
+	REQUIRE(! (vec2i(-2, 2) < vec2i(-2, 2)));
+	REQUIRE(! (vec2i(2, -2) < vec2i(2, -2)));
+
+	REQUIRE(vec2i(-4, -4) < vec2i(-3, -10));
+	REQUIRE(vec2i(-4, -4) < vec2i(-3, 10));
+	REQUIRE(vec2i(-4, -4) < vec2i(-4, -3));
 }

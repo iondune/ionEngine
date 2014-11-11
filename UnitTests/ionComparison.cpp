@@ -35,6 +35,12 @@ TEST_CASE("ionComparsion::Minimum2", "minimum of two operands")
 	REQUIRE(Minimum(3, -4) == -4);
 	REQUIRE(Minimum(-3, -4) == -4);
 	REQUIRE(Minimum(-3, 4) == -3);
+	REQUIRE(Min(4, 3) == 3);
+	REQUIRE(Min(3, 3) == 3);
+	REQUIRE(Min(3, 4) == 3);
+	REQUIRE(Min(3, -4) == -4);
+	REQUIRE(Min(-3, -4) == -4);
+	REQUIRE(Min(-3, 4) == -3);
 }
 
 TEST_CASE("ionComparsion::Maximum2", "maximum of two operands")
@@ -45,6 +51,12 @@ TEST_CASE("ionComparsion::Maximum2", "maximum of two operands")
 	REQUIRE(Maximum(3, -4) == 3);
 	REQUIRE(Maximum(-3, -4) == -3);
 	REQUIRE(Maximum(-3, 4) == 4);
+	REQUIRE(Max(4, 3) == 4);
+	REQUIRE(Max(3, 3) == 3);
+	REQUIRE(Max(3, 4) == 4);
+	REQUIRE(Max(3, -4) == 3);
+	REQUIRE(Max(-3, -4) == -3);
+	REQUIRE(Max(-3, 4) == 4);
 }
 
 TEST_CASE("ionComparsion::MinMax3", "minimum/maximum of three operands")
@@ -62,4 +74,49 @@ TEST_CASE("ionComparsion::MinMax3", "minimum/maximum of three operands")
 	REQUIRE(Minimum(-5, 3, -4) == -5);
 	REQUIRE(Minimum(-2, -3, -4) == -4);
 	REQUIRE(Minimum(-3, 2, 4) == -3);
+
+	REQUIRE(Max(4, 3, 2) == 4);
+	REQUIRE(Max(3, 3, 2) == 3);
+	REQUIRE(Max(3, 2, 4) == 4);
+	REQUIRE(Max(-5, 3, -4) == 3);
+	REQUIRE(Max(-2, -3, -4) == -2);
+	REQUIRE(Max(-3, 2, 4) == 4);
+
+	REQUIRE(Min(4, 3, 2) == 2);
+	REQUIRE(Min(3, 3, 2) == 2);
+	REQUIRE(Min(3, 2, 4) == 2);
+	REQUIRE(Min(-5, 3, -4) == -5);
+	REQUIRE(Min(-2, -3, -4) == -4);
+	REQUIRE(Min(-3, 2, 4) == -3);
+}
+
+TEST_CASE("ionComparsion::MinMax4", "minimum/maximum of four operands")
+{
+	REQUIRE(Maximum(4, 3, 2, 1) == 4);
+	REQUIRE(Maximum(3, 3, 2, 1) == 3);
+	REQUIRE(Maximum(3, 2, 4, -1) == 4);
+	REQUIRE(Maximum(-5, 3, -4, -6) == 3);
+	REQUIRE(Maximum(-2, -3, -4, -2) == -2);
+	REQUIRE(Maximum(-3, 2, 4, 5) == 5);
+
+	REQUIRE(Minimum(4, 3, 2, 2) == 2);
+	REQUIRE(Minimum(3, 3, 2, 1) == 1);
+	REQUIRE(Minimum(3, 2, 4, 5) == 2);
+	REQUIRE(Minimum(-5, 3, -4, -3) == -5);
+	REQUIRE(Minimum(-2, -3, -4, -1) == -4);
+	REQUIRE(Minimum(-3, 2, 4, 1) == -3);
+
+	REQUIRE(Max(4, 3, 2, 1) == 4);
+	REQUIRE(Max(3, 3, 2, 1) == 3);
+	REQUIRE(Max(3, 2, 4, -1) == 4);
+	REQUIRE(Max(-5, 3, -4, -6) == 3);
+	REQUIRE(Max(-2, -3, -4, -2) == -2);
+	REQUIRE(Max(-3, 2, 4, 5) == 5);
+
+	REQUIRE(Min(4, 3, 2, 2) == 2);
+	REQUIRE(Min(3, 3, 2, 1) == 1);
+	REQUIRE(Min(3, 2, 4, 5) == 2);
+	REQUIRE(Min(-5, 3, -4, -3) == -5);
+	REQUIRE(Min(-2, -3, -4, -1) == -4);
+	REQUIRE(Min(-3, 2, 4, 1) == -3);
 }

@@ -21,8 +21,11 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 	A a;
 	B b;
 	C c;
-	
+
+	A const * const aPtr = &a;
+
 	REQUIRE(InstanceOf<A>(a));
+	REQUIRE(InstanceOf<A>(aPtr));
 	REQUIRE(InstanceOf<A>(&a));
 	REQUIRE(InstanceOf<A>(b));
 	REQUIRE(InstanceOf<A>(&b));
@@ -31,6 +34,29 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 	REQUIRE(NULL != As<A>(&a));
 	REQUIRE(NULL != As<A>(&b));
 	REQUIRE(NULL == As<A>(&c));
+}
+
+class Base
+{
+public:
+	virtual ~Base() {}
+};
+
+class Derived : public Base
+{};
+
+TEST_CASE("ionClass::As", "As function converts between objects")
+{
+	Base a;
+	Derived b;
+	C c;
+
+	Base const * const aPtr = &a;
+	Derived const * const bPtr = &b;
+	C const * const cPtr = &c;
+
+	REQUIRE(As<Derived>((Base*)&b) == &b);
+	REQUIRE(As<Derived>((Base const * const)bPtr) == bPtr);
 }
 
 TEST_CASE("Type", "[ionClass :: Type]")
