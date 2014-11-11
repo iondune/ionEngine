@@ -35,6 +35,8 @@ namespace ion
 
 			u32 GetHandle() const;
 
+			bool Check() const;
+
 		private:
 
 			vector<Texture2D *> ColorAttachments;

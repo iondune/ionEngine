@@ -28,6 +28,8 @@ void CDrawManager::Draw(CScene * Scene, CRenderPassManager * RenderPassManager)
 
 	for (auto Pass : RenderPassManager->GetOrderedRenderPasses())
 	{
+		if (! Pass->GetTarget()->GetHandle()->Check())
+			cerr << "Problem found with framebuffer for render pass " << Pass->GetName() << endl;
 		Pass->Setup();
 
 		map<CShader *, vector<CDrawConfig *>> const ShaderConfigurations = Scene->GetRoot()->PrepareDrawConfigurations(this, Pass);
