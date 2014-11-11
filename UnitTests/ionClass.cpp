@@ -29,6 +29,7 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 	REQUIRE(InstanceOf<A>(&a));
 	REQUIRE(InstanceOf<A>(b));
 	REQUIRE(InstanceOf<A>(&b));
+	REQUIRE(InstanceOf<C>(c));
 	REQUIRE(! InstanceOf<A>(c));
 	REQUIRE(! InstanceOf<A>(&c));
 	REQUIRE(NULL != As<A>(&a));

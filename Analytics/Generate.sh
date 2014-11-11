@@ -39,4 +39,4 @@ lcov --remove final.info 'Test*' --output-file final.info --quiet
 # Report
 echo "Generating report..."
 rm -rf html
-genhtml final.info --output-directory html --quiet
+genhtml final.info --no-function-coverage --output-directory html --quiet
