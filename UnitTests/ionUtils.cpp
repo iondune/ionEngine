@@ -42,3 +42,12 @@ TEST_CASE("ionUtils::Clamp", "")
 	REQUIRE(Clamp<int>(1, 1, 3) == 1);
 	REQUIRE(Clamp<int>(5, 1, 3) == 3);
 }
+
+TEST_CASE("ionUtils::Sq", "")
+{
+	REQUIRE(Sq<int>(0) == 0);
+	REQUIRE(Sq<int>(1) == 1);
+	REQUIRE(Sq<int>(2) == 4);
+	REQUIRE(Sq<int>(3) == 9);
+	REQUIRE(Sq<int>(-1) == 1);
+}
