@@ -68,10 +68,8 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 			Definition->SetPrimativeType(PrimativeType);
 			
 			for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
-			{
-				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i, DrawFeatures[i]);
-				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i, GetPassSpecificDrawFeatures(Pass->GetName())[i]);
-			}
+				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i,
+					DrawFeatures[i] || GetPassSpecificDrawFeatures(Pass->GetName())[i]);
 		}
 
 		// Add textures
