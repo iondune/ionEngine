@@ -73,8 +73,10 @@ public:
 	// Features //
 	//////////////
 	
-	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature);
+	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature) const;
 	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled = true);
+	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature, string const & RenderPass);
+	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, string const & RenderPass, bool const Enabled);
 
 
 	// Has an optional Material
@@ -104,6 +106,9 @@ protected:
 
 	CMesh * Mesh = nullptr;
 	bool DrawFeatures[ion::GL::EDrawFeature::Count];
+	map<string, bool *> PassSpecificDrawFeatures;
+
+	bool * GetPassSpecificDrawFeatures(string const & Pass);
 
 	map<IRenderPass *, map<CShader *, vector<CDrawConfig *>>> DrawConfigurations;
 

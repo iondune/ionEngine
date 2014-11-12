@@ -68,7 +68,10 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 			Definition->SetPrimativeType(PrimativeType);
 			
 			for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
+			{
 				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i, DrawFeatures[i]);
+				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i, GetPassSpecificDrawFeatures(Pass->GetName())[i]);
+			}
 		}
 
 		// Add textures
@@ -280,7 +283,7 @@ void CSceneNode::SetTexture(string const & Label, CTexture * Texture)
 // Features //
 //////////////
 
-bool CSceneNode::IsFeatureEnabled(ion::GL::EDrawFeature const Feature)
+bool CSceneNode::IsFeatureEnabled(ion::GL::EDrawFeature const Feature) const
 {
 	return DrawFeatures[Feature];
 }
@@ -291,10 +294,29 @@ void CSceneNode::SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool con
 	AllConfigurationsNeedRebuild();
 }
 
+bool CSceneNode::IsFeatureEnabled(ion::GL::EDrawFeature const Feature, string const & RenderPass)
+{
+	return GetPassSpecificDrawFeatures(RenderPass)[Feature];
+}
 
-//////////////
-// Features //
-//////////////
+void CSceneNode::SetFeatureEnabled(ion::GL::EDrawFeature const Feature, string const & RenderPass, bool const Enabled)
+{
+	GetPassSpecificDrawFeatures(RenderPass)[Feature] = Enabled;
+	AllConfigurationsNeedRebuild();
+}
+
+bool * CSceneNode::GetPassSpecificDrawFeatures(string const & Pass)
+{
+	bool * List = nullptr;
+	if (TryMapAccess(PassSpecificDrawFeatures, Pass, List))
+		return List;
+	else
+		return PassSpecificDrawFeatures[Pass] = new bool[ion::GL::EDrawFeature::Count]();
+}
+
+///////////////////
+// Configuration //
+///////////////////
 
 void CSceneNode::AllConfigurationsNeedRebuild()
 {
