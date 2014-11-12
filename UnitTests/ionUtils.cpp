@@ -35,3 +35,10 @@ TEST_CASE("ionUtils::DigitCount", "")
 	REQUIRE(DigitCount(-82093480) == 9);
 }
 
+TEST_CASE("ionUtils::Clamp", "")
+{
+	REQUIRE(Clamp<int>(0, -1, 1) == 0);
+	REQUIRE(Clamp<int>(0, 0, 1) == 0);
+	REQUIRE(Clamp<int>(1, 1, 3) == 1);
+	REQUIRE(Clamp<int>(5, 1, 3) == 3);
+}
