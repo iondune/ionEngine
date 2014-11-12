@@ -4,6 +4,8 @@
 #include "ILightSceneNode.h"
 #include "CRenderPassManager.h"
 
+#include <ionWindow.h>
+
 
 CDrawManager::CDrawManager()
 {}
@@ -12,6 +14,9 @@ void CDrawManager::Draw(CScene * Scene, CRenderPassManager * RenderPassManager)
 {
 	if (! Scene->GetRoot()->IsVisible())
 		return;
+
+	SingletonPointer<CTimeManager> TimeManager;
+	ElapsedTime = (f32) TimeManager->GetRunTime();
 
 	if (Scene->GetActiveCamera())
 	{
@@ -104,6 +109,10 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 	else if (Label == "uCameraPosition")
 	{
 		return & CameraPosition;
+	}
+	else if (Label == "uElapsedTime")
+	{
+		return & ElapsedTime;
 	}
 	else if (Label == "uLightCount")
 	{
