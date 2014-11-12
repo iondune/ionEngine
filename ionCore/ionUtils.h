@@ -25,7 +25,7 @@ static u32 DigitCount(s32 n)
 		++ count;
 	}
 
-	while (n > 10)
+	while (n >= 10)
 	{
 		++ count;
 		n /= 10;
