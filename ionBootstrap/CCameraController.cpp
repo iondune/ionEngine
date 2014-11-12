@@ -1,6 +1,5 @@
 
 #include "CCameraController.h"
-#include "CTimeManager.h"
 
 #include <ionWindow.h>
 #include <glm/gtc/matrix_transform.hpp>

@@ -19,12 +19,14 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="ConvertGLFWKeyCode.cpp" />
+    <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="CWindowManager.Callbacks.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConvertGLFWKeyCode.h" />
+    <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="EKey.h" />

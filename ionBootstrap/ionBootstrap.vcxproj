@@ -18,12 +18,10 @@
     <Import Project="..\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />
     <ClCompile Include="CGamePad.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CCameraController.h" />
     <ClInclude Include="CGamePad.h" />
     <ClInclude Include="EGamePadButton.h" />

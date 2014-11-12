@@ -2,14 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="CGamePad.cpp" />
-    <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGamePad.h" />
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="ionBootstrap.h" />
-    <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CCameraController.h" />
   </ItemGroup>
 </Project>
