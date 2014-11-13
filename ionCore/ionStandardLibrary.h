@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <numeric>
+#include <limits>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
@@ -20,6 +21,9 @@ using std::stringstream;
 using std::cout;
 using std::cerr;
 using std::endl;
+
+template <typename T>
+using NumericLimits = std::numeric_limits<T>;
 
 
 template <typename T, typename U>
