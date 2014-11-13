@@ -66,3 +66,26 @@ TEST_CASE("ionUtils::Average2", "")
 	REQUIRE(Average<float>(2, 4) == 3);
 	REQUIRE(Average<float>(3, 4) == 3.5);
 }
+
+TEST_CASE("ionUtils::Average3,4", "")
+{
+	REQUIRE(Average<int>(2, 4, 6) == 4);
+	REQUIRE(Average<int>(6, 4, 2) == 4);
+	REQUIRE(Average<int>(4, 4, 4) == 4);
+	REQUIRE(Average<int>(3, 3, 4) == 3);
+	REQUIRE(Average<int>(1, 3, 4) == 2);
+	REQUIRE(Average<int>(7, 3, 4) == 4);
+	REQUIRE(Average<int>(7, 3, 5) == 5);
+	REQUIRE(Average<int>(-1, 3, 4) == 2);
+	REQUIRE(Average<int>(0, -2934, 2934) == 0);
+
+	REQUIRE(Average<int>(2, 4, 6, 4) == 4);
+	REQUIRE(Average<int>(6, 4, 2, 0) == 3);
+	REQUIRE(Average<int>(4, 4, 4, 4) == 4);
+	REQUIRE(Average<int>(3, 3, 4, 3) == 3);
+	REQUIRE(Average<int>(1, 3, 4, 2) == 2);
+	REQUIRE(Average<int>(7, 3, 4, 1) == 3);
+	REQUIRE(Average<int>(7, 3, 5, 1) == 4);
+	REQUIRE(Average<int>(-1, 3, 4, -1) == 1);
+	REQUIRE(Average<int>(0, -2934, 2934, 0) == 0);
+}
