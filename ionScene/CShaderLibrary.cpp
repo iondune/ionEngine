@@ -17,9 +17,24 @@ static string MakeFileName(string const & BaseDirectory, string const & File, st
 
 CShader * CShaderLibrary::Load(string const & File)
 {
-	string const VertFileName = MakeFileName(BaseDirectory, File, ".vert");
-	string const GeomFileName = MakeFileName(BaseDirectory, File, ".geom");
-	string const FragFileName = MakeFileName(BaseDirectory, File, ".frag");
+	return Load(File, File, File, File);
+}
+
+CShader * CShaderLibrary::Load(string const & Name, string const & VertexFile, string const & FragFile)
+{
+	return Load(Name, VertexFile, "", FragFile);
+}
+
+CShader * CShaderLibrary::Load(string const & Name, string const & VertexFile, string const & GeomFile, string const & FragFile)
+{
+	string const VertFileName = (VertexFile.size() ? MakeFileName(BaseDirectory, VertexFile, ".vert") : "");
+	string const GeomFileName = (GeomFile.size() ? MakeFileName(BaseDirectory, GeomFile, ".geom") : "");
+	string const FragFileName = (FragFile.size() ? MakeFileName(BaseDirectory, FragFile, ".frag") : "");
+	
+	if (VertFileName.size() == 0)
+		cerr << "Vertex stage required for shader " << Name << endl;
+	if (FragFileName.size() == 0)
+		cerr << "Fragment stage required for shader " << Name << endl;
 
 	if (File::Exists(VertFileName) && File::Exists(FragFileName))
 	{
@@ -27,10 +42,10 @@ CShader * CShaderLibrary::Load(string const & File)
 		string const FragShaderSource = File::ReadAsString(FragFileName);
 
 		string GeomShaderSource;
-		if (File::Exists(GeomFileName))
+		if (GeomFileName.size() && File::Exists(GeomFileName))
 			GeomShaderSource = File::ReadAsString(GeomFileName);
 
-		return LoadFromSource(File, VertShaderSource, GeomShaderSource, FragShaderSource);
+		return LoadFromSource(Name, VertShaderSource, GeomShaderSource, FragShaderSource);
 	}
 	else
 	{
