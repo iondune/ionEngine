@@ -89,3 +89,27 @@ TEST_CASE("ionUtils::Average3,4", "")
 	REQUIRE(Average<int>(-1, 3, 4, -1) == 1);
 	REQUIRE(Average<int>(0, -2934, 2934, 0) == 0);
 }
+
+TEST_CASE("ionUtils::Sign")
+{
+	REQUIRE(Sign<int>(0) == 0);
+	REQUIRE(Sign<int>(1) == 1);
+	REQUIRE(Sign<int>(-1) == -1);
+	REQUIRE(Sign<int>(-5) == -1);
+	REQUIRE(Sign<int>(2) == 1);
+	REQUIRE(Sign<int>(2147483647) == 1);
+	REQUIRE(Sign<int>(-2147483647) == -1);
+
+	REQUIRE(Sign<uint>(0) == 0);
+	REQUIRE(Sign<uint>(-1) == 1);
+	REQUIRE(Sign<uint>(1) == 1);
+	REQUIRE(Sign<uint>(4294967295) == 1);
+
+	REQUIRE(Sign<float>(0.f) == 0);
+	REQUIRE(Sign<float>(0.1f) == 1);
+	REQUIRE(Sign<float>(-0.1f) == -1);
+	REQUIRE(Sign<float>(RoundingError32) == 1);
+	REQUIRE(Sign<float>(-RoundingError32) == -1);
+	REQUIRE(Sign<float>(NumericLimits<float>::max()) == 1);
+	REQUIRE(Sign<float>(-NumericLimits<float>::max()) == -1);
+}
