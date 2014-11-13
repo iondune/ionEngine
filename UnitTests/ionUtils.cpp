@@ -51,3 +51,18 @@ TEST_CASE("ionUtils::Sq", "")
 	REQUIRE(Sq<int>(3) == 9);
 	REQUIRE(Sq<int>(-1) == 1);
 }
+
+TEST_CASE("ionUtils::Average2", "")
+{
+	REQUIRE(Average<int>(2, 4) == 3);
+	REQUIRE(Average<int>(4, 2) == 3);
+	REQUIRE(Average<int>(3, 4) == 3);
+	REQUIRE(Average<int>(4, 4) == 4);
+	REQUIRE(Average<int>(0, 13) == 6);
+	REQUIRE(Average<int>(99, 101) == 100);
+	REQUIRE(Average<int>(-2934, 2934) == 0);
+	REQUIRE(Average<int>(0, 0) == 0);
+
+	REQUIRE(Average<float>(2, 4) == 3);
+	REQUIRE(Average<float>(3, 4) == 3.5);
+}
