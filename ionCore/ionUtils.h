@@ -9,11 +9,11 @@
 
 
 //! Portable version of system("PAUSE")
-static void WaitForUser() 
+static void WaitForUser() // LCOV_EXCL_LINE
 {
-	std::cout << "Press [Enter] to continue . . .";
-	std::cin.get();
-}
+	std::cout << "Press [Enter] to continue . . ."; // LCOV_EXCL_LINE
+	std::cin.get(); // LCOV_EXCL_LINE
+} // LCOV_EXCL_LINE
 
 //! Count the number of digits (including a - for negative numbers) in a decimal integer
 static u32 DigitCount(s32 n)
