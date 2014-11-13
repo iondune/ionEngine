@@ -39,5 +39,6 @@ private:
 	vector<SLightBinding> LightBindings;
 	CUniformValue<uint> LightCount = 0;
 	CUniformValue<f32> ElapsedTime = 0;
+	CUniformValue<vec2f> PixelOffset;
 
 };

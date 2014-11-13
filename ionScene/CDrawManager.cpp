@@ -17,6 +17,7 @@ void CDrawManager::Draw(CScene * Scene, CRenderPassManager * RenderPassManager)
 
 	SingletonPointer<CTimeManager> TimeManager;
 	ElapsedTime = (f32) TimeManager->GetRunTime();
+	PixelOffset = 1 / vec2f(ion::GL::Context::GetViewportSize());
 
 	if (Scene->GetActiveCamera())
 	{
@@ -117,6 +118,10 @@ ion::GL::Uniform * CDrawManager::GetUniform(string const & Label)
 	else if (Label == "uLightCount")
 	{
 		return & LightCount;
+	}
+	else if (Label == "uPixelOffset")
+	{
+		return & PixelOffset;
 	}
 	else if (MatchAndExtractIndex(Label, "uLights", Index, Remaining))
 	{
