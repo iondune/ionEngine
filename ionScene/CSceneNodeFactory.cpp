@@ -100,6 +100,24 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 	return Node;
 }
 
+CSceneNode * CSceneNodeFactory::AddPostProcessingSceneNode(string const & ShaderLabel, string const & Pass)
+{
+	CSceneNode * Node = nullptr;
+	CShader * Shader = SceneManager->GetShaderLibrary()->Get(ShaderLabel);
+
+	if (Shader)
+	{
+		Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
+		Node->SetShader(Shader, Pass);
+		Node->SetVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
+		Node->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
+		Node->SetPrimativeType(ion::GL::EPrimativeType::Quads);
+		Node->SetFeatureEnabled(ion::GL::EDrawFeature::DisableDepthTest, true);
+	}
+
+	return Node;
+}
+
 CPerspectiveCamera * CSceneNodeFactory::AddPerspectiveCamera(f32 const AspectRatio)
 {
 	return new CPerspectiveCamera{SceneManager->GetRoot(), AspectRatio};

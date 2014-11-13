@@ -22,6 +22,7 @@ public:
 	CSceneNode * AddSceneNode(string const & Shader);
 	CSceneNode * AddMeshNode(string const & Mesh, string const & Shader);
 	CSceneNode * AddSkySphereNode(string const & TextureLabel);
+	CSceneNode * AddPostProcessingSceneNode(string const & Shader, string const & Pass);
 	CPerspectiveCamera * AddPerspectiveCamera(f32 const AspectRatio);
 	COrthogonalCamera * AddOrthogonalCamera(rect2f const & Area);
 
