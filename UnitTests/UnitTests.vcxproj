@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
+    <ClCompile Include="ionComponent.cpp" />
     <ClCompile Include="ionCore.cpp" />
     <ClCompile Include="ionSmartPtr.cpp" />
     <ClCompile Include="ionUtils.cpp" />

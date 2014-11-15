@@ -20,6 +20,9 @@
     <ClCompile Include="ionUtils.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="ionComponent.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
