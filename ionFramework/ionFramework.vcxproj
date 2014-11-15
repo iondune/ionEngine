@@ -19,9 +19,11 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="CStateManager.cpp" />
+    <ClCompile Include="ionDirectory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IEventListener.h" />
+    <ClInclude Include="ionDirectory.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="CStateManager.h" />
     <ClInclude Include="ionFramework.h" />
