@@ -12,6 +12,7 @@
       ;$(VisualStudioDir)\SDKs\assimp-3.1.1\include;
       ;$(VisualStudioDir)\SDKs\freetype-2.5.3\include\;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
+      ;$(VisualStudioDir)\SDKs\dirent-1.20.1\include;
       ;$(IncludePath);
     </IncludePath>
     <LibraryPath>

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <dirent.h>
 
 using std::move;
 using std::for_each;
@@ -86,6 +87,28 @@ public:
 		str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 
 		return str;
+	}
+
+	static vector<string> ReadDirectory(string const & Path)
+	{
+		vector<string> Files;
+
+		DIR * dir = opendir(Path.c_str());
+		if (dir)
+		{
+			dirent * ent;
+			while (ent = readdir(dir))
+			{
+				std::string const FileName = ent->d_name;
+				if (FileName == "." || FileName == "..")
+					continue;
+
+				Files.push_back(FileName);
+			}
+			closedir(dir);
+		}
+
+		return Files;
 	}
 };
 
