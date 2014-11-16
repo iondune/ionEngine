@@ -31,11 +31,11 @@ namespace ion
 			DrawConfig(Program * Program, EPrimativeType const PrimativeType = EPrimativeType::Triangles);
 			~DrawConfig();
 			
-			void AddVertexBuffer(string const & Label, VertexBuffer * VBO);
+			bool AddVertexBuffer(string const & Label, VertexBuffer * VBO);
 			void OfferVertexBuffer(string const & Label, VertexBuffer * VBO);
-			void AddUniform(string const & Label, Uniform const * Value);
+			bool AddUniform(string const & Label, Uniform const * Value);
 			void OfferUniform(string const & Label, Uniform const * Value);
-			void AddTexture(string const & Label, Texture * Texture);
+			bool AddTexture(string const & Label, Texture * Texture);
 			void SetIndexBuffer(IndexBuffer * IBO);
 			void SetElementCount(uint ElementCount);
 			void SetPrimativeType(EPrimativeType const PrimativeType);
@@ -46,7 +46,7 @@ namespace ion
 			bool Loaded() const;
 			void Load();
 			void CreateVertexArray();
-			void CheckUniforms();
+			bool CheckUniforms();
 
 		protected:
 			

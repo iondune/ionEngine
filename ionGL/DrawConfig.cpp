@@ -22,13 +22,19 @@ namespace ion
 				delete VAO;
 		}
 
-		void DrawConfig::AddVertexBuffer(string const & Label, VertexBuffer * VBO)
+		bool DrawConfig::AddVertexBuffer(string const & Label, VertexBuffer * VBO)
 		{
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveAttributes(), Label, Handle))
+			{
 				VertexBuffers[Handle] = VBO;
+				return true;
+			}
 			else
+			{
 				cerr << "Draw configuration invalid: cannot find attribute '" << Label << "'" << endl;
+				return false;
+			}
 		}
 
 		void DrawConfig::OfferVertexBuffer(string const & Label, VertexBuffer * VBO)
@@ -38,13 +44,19 @@ namespace ion
 				VertexBuffers[Handle] = VBO;
 		}
 
-		void DrawConfig::AddUniform(string const & Label, Uniform const * Value)
+		bool DrawConfig::AddUniform(string const & Label, Uniform const * Value)
 		{
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
+			{
 				Uniforms[Handle] = Value;
+				return true;
+			}
 			else
+			{
 				cerr << "Draw configuration invalid: cannot find uniform '" << Label << "'" << endl;
+				return false;
+			}
 		}
 
 		void DrawConfig::OfferUniform(string const & Label, Uniform const * Value)
@@ -54,13 +66,19 @@ namespace ion
 				Uniforms[Handle] = Value;
 		}
 
-		void DrawConfig::AddTexture(string const & Label, Texture * Texture)
+		bool DrawConfig::AddTexture(string const & Label, Texture * Texture)
 		{
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))
+			{
 				Textures[Handle] = Texture;
+				return true;
+			}
 			else
+			{
 				cerr << "Draw configuration invalid: cannot find uniform '" << Label << "'" << endl;
+				return false;
+			}
 		}
 		
 		void DrawConfig::SetIndexBuffer(IndexBuffer * IBO)
@@ -117,11 +135,20 @@ namespace ion
 				VAO->BindAttribute(VBO.first, VBO.second);
 		}
 
-		void DrawConfig::CheckUniforms()
+		bool DrawConfig::CheckUniforms()
 		{
+			bool Errors = false;
+
 			for (auto BoundUniform : BoundProgram->GetActiveUniforms())
+			{
 				if (! CheckMapAccess(Uniforms, BoundUniform.second) && ! CheckMapAccess(Textures, BoundUniform.second))
+				{
+					Errors = true;
 					cerr << "Draw configuration invalid: Uniform is bound but not supplied '" << BoundUniform.first << "' (" << BoundUniform.second << ")" << endl;
+				}
+			}
+
+			return ! Errors;
 		}
 	}
 }

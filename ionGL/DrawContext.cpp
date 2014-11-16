@@ -43,18 +43,21 @@ namespace ion
 			}
 		}
 
-		void DrawContext::Draw(DrawConfig * DrawConfig)
+		bool DrawContext::Draw(DrawConfig * DrawConfig)
 		{
 			if (! BoundProgram)
 			{
 				cerr << "Draw context invalid: no bound program." << endl;
-				return;
+				return false;
 			}
+
+			bool Problems = false;
 
 			if (! DrawConfig->VAO)
 			{
 				DrawConfig->CreateVertexArray();
-				DrawConfig->CheckUniforms();
+				if (DrawConfig->CheckUniforms())
+					Problems = true;
 			}
 
 			for (auto Uniform : DrawConfig->Uniforms)
@@ -119,6 +122,8 @@ namespace ion
 			{
 				CheckedGLCall(glDisable(GL_BLEND));
 			}
+
+			return ! Problems;
 		}
 	}
 }

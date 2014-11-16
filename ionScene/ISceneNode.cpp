@@ -23,3 +23,13 @@ void ISceneNode::SetVisible(bool const isVisible)
 {
 	Visible = isVisible;
 }
+
+void ISceneNode::SetDebugName(string const & DebugName)
+{
+	this->DebugName = DebugName;
+}
+
+string const & ISceneNode::GetDebugName() const
+{
+	return DebugName;
+}

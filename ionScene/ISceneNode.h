@@ -30,6 +30,9 @@ public:
 
 	//! Set visibility
 	virtual void SetVisible(bool const isVisible);
+	
+	virtual void SetDebugName(string const & DebugName);
+	virtual string const & GetDebugName() const;
 
 
 	/////////////////////////////
@@ -85,5 +88,7 @@ protected:
 
 	//! Whether or not to draw this object and all its children
 	bool Visible;
+
+	string DebugName = "None";
 
 };

@@ -47,18 +47,21 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 			auto Uniform = DrawManager->GetUniform(ActiveUniform.first);
 			if (Uniform)
 				for (auto & Definition : DrawDefinitions)
-					Definition->AddUniform(ActiveUniform.first, Uniform);
+					if (! Definition->AddUniform(ActiveUniform.first, Uniform))
+						cerr << "Failed to add uniform " << ActiveUniform.first << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 		}
 		
 		// Load the uniforms specified by this node
 		for (auto & Uniform : Uniforms)
 			for (auto & Definition : DrawDefinitions)
-				Definition->AddUniform(Uniform.first, Uniform.second);
+				if (! Definition->AddUniform(Uniform.first, Uniform.second))
+					cerr << "Failed to add uniform " << Uniform.first << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 
 		// Load the vertex buffers specified by this node
 		for (auto & Buffer : VertexBuffers)
 			for (auto & Definition : DrawDefinitions)
-				Definition->AddVertexBuffer(Buffer.first, Buffer.second);
+				if (! Definition->AddVertexBuffer(Buffer.first, Buffer.second))
+					cerr << "Failed to add vertex buffer " << Buffer.first << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 		if (IndexBuffer)
 			for (auto & Definition : DrawDefinitions)
 				Definition->SetIndexBuffer(IndexBuffer);
@@ -82,11 +85,13 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 					stringstream Label;
 					Label << "Texture";
 					Label << i;
-					Definition->AddTexture(Label.str(), Textures[i]);
+					if (! Definition->AddTexture(Label.str(), Textures[i]))
+						cerr << "Failed to add texture " << Label.str() << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 				}
 			}
 			for (auto NamedTexture : NamedTextures)
-				Definition->AddTexture(NamedTexture.first, NamedTexture.second);
+				if (! Definition->AddTexture(NamedTexture.first, NamedTexture.second))
+					cerr << "Failed to add texture " << NamedTexture.first << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 		}
 
 		DrawConfigurations[Pass][Shader] = DrawDefinitions;

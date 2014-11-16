@@ -24,7 +24,7 @@ namespace ion
 			~DrawContext();
 			
 			void LoadProgram(Program * Program);
-			void Draw(DrawConfig * DrawConfig);
+			bool Draw(DrawConfig * DrawConfig);
 
 			//! Deprecated.
 			void BindUniform(string const & Name, Uniform const * Value);
