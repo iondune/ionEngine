@@ -62,6 +62,21 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		return (Degrees + Minutes/60 + Seconds/3600) * (int) Direction;
 	}
 
+	static void DecimalToDMS(T const Decimal, T & Degrees, T & Minutes, T & Seconds)
+	{
+		T Remainder = Decimal;
+
+		Degrees = floor(Remainder);
+		Remainder -= Degrees;
+
+		Remainder *= 60;
+		Minutes = floor(Remainder);
+		Remainder -= Minutes;
+
+		Remainder *= 60;
+		Seconds = Remainder;
+	}
+
 	static T DMStoDecimal(std::string const & String)
 	{
 		f64 Deg, Min, Sec;
