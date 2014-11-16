@@ -32,7 +32,7 @@ namespace ion
 			F32 = 6
 		};
 
-		enum class EPrimativeType
+		enum class EPrimitiveType
 		{
 			Points = 0,
 			Lines = 1,
@@ -46,12 +46,12 @@ namespace ion
 			
 			static u32 const TypeMatrix[7];
 			static u64 const SizeMatrix[7];
-			static u32 const PrimativeMatrix[4];
-			static uint const PrimativeVertices[4];
+			static u32 const PrimitiveMatrix[4];
+			static uint const PrimitiveVertices[4];
 
 			static string const TypeStringMatrix[7];
 			static string const SizeStringMatrix[7];
-			static string const PrimativeStringMatrix[4];
+			static string const PrimitiveStringMatrix[4];
 		};
 	}
 }

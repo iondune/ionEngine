@@ -124,7 +124,7 @@ void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 
 		Shader = CompileVertFragShader(VertexShaderSource, FragmentShaderSource);
 
-		DrawConfig = new CDrawConfig{Shader, ion::GL::EPrimativeType::Quads};
+		DrawConfig = new CDrawConfig{Shader, ion::GL::EPrimitiveType::Quads};
 		DrawConfig->AddVertexBuffer("aPosition", GetQuadVertexBuffer());
 		DrawConfig->SetIndexBuffer(GetQuadIndexBuffer());
 	}

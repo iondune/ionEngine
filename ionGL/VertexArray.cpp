@@ -9,9 +9,9 @@ namespace ion
 {
 	namespace GL
 	{
-		VertexArray::VertexArray(EPrimativeType const PrimativeType)
+		VertexArray::VertexArray(EPrimitiveType const PrimitiveType)
 		{
-			this->PrimativeType = PrimativeType;
+			this->PrimitiveType = PrimitiveType;
 
 			CheckedGLCall(glGenVertexArrays(1, & Handle));
 		}
@@ -50,7 +50,7 @@ namespace ion
 					cerr << "Index buffer is too large for OpenGL rendering: " << BoundIndexBuffer << " (" << BoundIndexBuffer->Elements() << ")" << endl;
 				CheckedGLCall(glBindVertexArray(Handle));
 				glDrawElements(
-					Util::PrimativeMatrix[(int) PrimativeType],
+					Util::PrimitiveMatrix[(int) PrimitiveType],
 					(int) BoundIndexBuffer->Elements(),
 					Util::TypeMatrix[(int) BoundIndexBuffer->Type()], 0);
 				CheckedGLCall(glBindVertexArray(0));
@@ -59,9 +59,9 @@ namespace ion
 			{
 				CheckedGLCall(glBindVertexArray(Handle));
 				glDrawArrays(
-					Util::PrimativeMatrix[(int) PrimativeType],
+					Util::PrimitiveMatrix[(int) PrimitiveType],
 					0,
-					ElementCount * Util::PrimativeVertices[(int) PrimativeType]);
+					ElementCount * Util::PrimitiveVertices[(int) PrimitiveType]);
 				CheckedGLCall(glBindVertexArray(0));
 			}
 			

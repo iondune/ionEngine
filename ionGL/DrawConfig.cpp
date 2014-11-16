@@ -7,10 +7,10 @@ namespace ion
 {
 	namespace GL
 	{
-		DrawConfig::DrawConfig(Program * Program, EPrimativeType const PrimativeType)
+		DrawConfig::DrawConfig(Program * Program, EPrimitiveType const PrimitiveType)
 		{
 			this->BoundProgram = Program;
-			this->PrimativeType = PrimativeType;
+			this->PrimitiveType = PrimitiveType;
 
 			for (int i = 0; i < EDrawFeature::Count; ++ i)
 				DrawFeatures[i] = false;
@@ -91,9 +91,9 @@ namespace ion
 			this->ElementCount = ElementCount;
 		}
 		
-		void DrawConfig::SetPrimativeType(EPrimativeType const PrimativeType)
+		void DrawConfig::SetPrimitiveType(EPrimitiveType const PrimitiveType)
 		{
-			this->PrimativeType = PrimativeType;
+			this->PrimitiveType = PrimitiveType;
 		}
 		
 		bool DrawConfig::IsFeatureEnabled(EDrawFeature const Feature)
@@ -122,7 +122,7 @@ namespace ion
 			if (VAO)
 				delete VAO;
 
-			VAO = new VertexArray(PrimativeType);
+			VAO = new VertexArray(PrimitiveType);
 
 			if (IBO)
 				VAO->SetIndexBuffer(IBO);

@@ -38,7 +38,7 @@ public:
 	void SetVertexBuffer(string const & Label, CVertexBuffer * Buffer);
 	void SetIndexBuffer(CIndexBuffer * Buffer);
 	void SetElementCount(uint const ElementCount);
-	void SetPrimativeType(ion::GL::EPrimativeType const PrimativeType);
+	void SetPrimitiveType(ion::GL::EPrimitiveType const PrimitiveType);
 
 
 	/////////////
@@ -102,7 +102,7 @@ protected:
 	map<string, CVertexBuffer *> VertexBuffers;
 	CIndexBuffer * IndexBuffer = nullptr;
 	uint ElementCount = 0;
-	ion::GL::EPrimativeType PrimativeType = ion::GL::EPrimativeType::Triangles;
+	ion::GL::EPrimitiveType PrimitiveType = ion::GL::EPrimitiveType::Triangles;
 
 	CMesh * Mesh = nullptr;
 	bool DrawFeatures[ion::GL::EDrawFeature::Count];

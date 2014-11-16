@@ -111,7 +111,7 @@ CSceneNode * CSceneNodeFactory::AddPostProcessingSceneNode(string const & Shader
 		Node->SetShader(Shader, Pass);
 		Node->SetVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
 		Node->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
-		Node->SetPrimativeType(ion::GL::EPrimativeType::Quads);
+		Node->SetPrimitiveType(ion::GL::EPrimitiveType::Quads);
 		Node->SetFeatureEnabled(ion::GL::EDrawFeature::DisableDepthTest, true);
 	}
 

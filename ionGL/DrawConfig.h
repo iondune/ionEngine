@@ -28,7 +28,7 @@ namespace ion
 		{
 		public:
 
-			DrawConfig(Program * Program, EPrimativeType const PrimativeType = EPrimativeType::Triangles);
+			DrawConfig(Program * Program, EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 			~DrawConfig();
 			
 			bool AddVertexBuffer(string const & Label, VertexBuffer * VBO);
@@ -38,7 +38,7 @@ namespace ion
 			bool AddTexture(string const & Label, Texture * Texture);
 			void SetIndexBuffer(IndexBuffer * IBO);
 			void SetElementCount(uint ElementCount);
-			void SetPrimativeType(EPrimativeType const PrimativeType);
+			void SetPrimitiveType(EPrimitiveType const PrimitiveType);
 
 			bool IsFeatureEnabled(EDrawFeature const Feature);
 			void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
@@ -59,7 +59,7 @@ namespace ion
 			IndexBuffer * IBO = nullptr;
 			uint ElementCount = 0;
 
-			EPrimativeType PrimativeType = EPrimativeType::Triangles;
+			EPrimitiveType PrimitiveType = EPrimitiveType::Triangles;
 
 			bool DrawFeatures[EDrawFeature::Count];
 

@@ -71,7 +71,7 @@ namespace ion
 			sizeof(f32)
 		};
 
-		u32 const Util::PrimativeMatrix[4] =
+		u32 const Util::PrimitiveMatrix[4] =
 		{
 			GL_POINTS,
 			GL_LINES,
@@ -79,7 +79,7 @@ namespace ion
 			GL_QUADS
 		};
 		
-		uint const Util::PrimativeVertices[4] =
+		uint const Util::PrimitiveVertices[4] =
 		{
 			1,
 			2,
@@ -109,7 +109,7 @@ namespace ion
 			"sizeof(f32)"
 		};
 
-		string const Util::PrimativeStringMatrix[4] =
+		string const Util::PrimitiveStringMatrix[4] =
 		{
 			"GL_POINTS",
 			"GL_LINES",

@@ -68,7 +68,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		for (auto & Definition : DrawDefinitions)
 		{
 			Definition->SetElementCount(ElementCount);
-			Definition->SetPrimativeType(PrimativeType);
+			Definition->SetPrimitiveType(PrimitiveType);
 			
 			for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
 				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i,
@@ -188,9 +188,9 @@ void CSceneNode::SetElementCount(uint const ElementCount)
 	AllConfigurationsNeedRebuild();
 }
 
-void CSceneNode::SetPrimativeType(ion::GL::EPrimativeType const PrimativeType)
+void CSceneNode::SetPrimitiveType(ion::GL::EPrimitiveType const PrimitiveType)
 {
-	this->PrimativeType = PrimativeType;
+	this->PrimitiveType = PrimitiveType;
 	AllConfigurationsNeedRebuild();
 }
 

@@ -16,7 +16,7 @@ namespace ion
 		{
 		public:
 
-			VertexArray(EPrimativeType const PrimativeType = EPrimativeType::Triangles);
+			VertexArray(EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 			
 			void SetIndexBuffer(IndexBuffer * ibo);
 			void SetElementCount(uint count);
@@ -30,7 +30,7 @@ namespace ion
 			
 			u32 Handle = 0;
 			uint ElementCount = 0;
-			EPrimativeType PrimativeType;
+			EPrimitiveType PrimitiveType;
 			IndexBuffer * BoundIndexBuffer = nullptr;
 
 		};

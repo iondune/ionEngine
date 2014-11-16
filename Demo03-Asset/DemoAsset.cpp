@@ -45,7 +45,7 @@ int main()
 	FrameBuffer->MakeScreenSizedDepthTextureAttachment();
 
 	CShader * FXAAShader = CompileVertFragShader(File::ReadAsString("Assets/Shaders/FXAA.vert"), File::ReadAsString("Assets/Shaders/FXAA.frag"));
-	CDrawConfig * FXAAConfig = new CDrawConfig(FXAAShader, ion::GL::EPrimativeType::Quads);
+	CDrawConfig * FXAAConfig = new CDrawConfig(FXAAShader, ion::GL::EPrimitiveType::Quads);
 	FXAAConfig->AddVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
 	FXAAConfig->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
 	FXAAConfig->AddUniform("uPixelOffset", new CUniformValue<vec2f>(1 / vec2f(ion::GL::Context::GetViewportSize())));
