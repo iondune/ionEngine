@@ -65,10 +65,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	static T DMStoDecimal(std::string const & String)
 	{
 		f64 Deg, Min, Sec;
-		char Dir, Dummy;
+		char Dir;
 		ECompassDirection Direction;
 
-		sscanf(String.c_str(), "%lf %c %lf %c %lf %c %c", & Deg, & Dummy, & Min, & Dummy, & Sec, & Dummy, & Dir);
+		sscanf(String.c_str(), "%lf %lf %lf %c", & Deg, & Min, & Sec, & Dir);
 
 		switch (tolower(Dir))
 		{
