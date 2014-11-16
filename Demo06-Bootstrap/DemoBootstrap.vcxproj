@@ -26,7 +26,6 @@
         ;ionWindow.lib;
         ;ionAsset.lib;
         ;ionScene.lib;
-        ;ionScience.lib;
         ;ionBootstrap.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
