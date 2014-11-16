@@ -15,20 +15,22 @@ public:
 		friend class IProgressBar;
 
 	public:
-
+		
 		void Update(f32 const progress);
+		void Update(f64 const progress);
 
 	protected:
 
-		CTask(f32 const value, f32 const start);
+		CTask(IProgressBar * ProgressBar, f32 const value, f32 const start);
 
-		IProgressBar * ProgressBar;
+		IProgressBar * ProgressBar = nullptr;
 		f32 Value, Start, Progress;
 
 	};
 
 	void BeginProgress();
 	void SetProgress(f32 const progress);
+	void SetProgress(f64 const progress);
 	void EndProgress();
 
 	CTask * NewTask(f32 const value);

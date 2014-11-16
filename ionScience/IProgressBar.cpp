@@ -2,6 +2,11 @@
 #include "IProgressBar.h"
 
 
+void IProgressBar::CTask::Update(f64 const progress)
+{
+	Update((f32) progress);
+}
+
 void IProgressBar::CTask::Update(f32 const progress)
 {
 	if (Progress < progress)
@@ -11,9 +16,11 @@ void IProgressBar::CTask::Update(f32 const progress)
 	}
 }
 
-IProgressBar::CTask::CTask(f32 const value, f32 const start)
+IProgressBar::CTask::CTask(IProgressBar * ProgressBar, f32 const value, f32 const start)
 	: Value(value), Start(start), Progress()
-{}
+{
+	this->ProgressBar = ProgressBar;
+}
 
 IProgressBar::IProgressBar()
 	: Progress(), Started(false)
@@ -25,6 +32,11 @@ void IProgressBar::BeginProgress()
 	Started = true;
 	Start();
 	Render();
+}
+
+void IProgressBar::SetProgress(f64 const progress)
+{
+	SetProgress((f32) progress);
 }
 
 void IProgressBar::SetProgress(f32 const progress)
@@ -50,5 +62,5 @@ void IProgressBar::EndProgress()
 
 IProgressBar::CTask * IProgressBar::NewTask(f32 const value)
 {
-	return new CTask(value, Progress);
+	return new CTask(this, value, Progress);
 }
