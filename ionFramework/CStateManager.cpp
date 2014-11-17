@@ -40,5 +40,4 @@ void CStateManager::ShutDown()
 }
 
 CStateManager::CStateManager()
-	: CurrentState(0)
 {}

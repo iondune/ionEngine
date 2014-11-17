@@ -27,7 +27,7 @@ private:
 
 protected:
 
-    IState * CurrentState;
-    IState * NextState;
+    IState * CurrentState = nullptr;
+    IState * NextState = nullptr;
 
 };
