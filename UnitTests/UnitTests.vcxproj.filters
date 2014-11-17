@@ -29,6 +29,9 @@
     <ClCompile Include="ionStandardLibrary.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="Interpolation.cpp">
+      <Filter>ionScience</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
@@ -36,6 +39,9 @@
     </Filter>
     <Filter Include="ionMath">
       <UniqueIdentifier>{c920e00c-2f9f-4c5c-bbae-d1ca00f40e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ionScience">
+      <UniqueIdentifier>{c3ea04eb-b2ef-4c61-8688-6159a87f5276}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

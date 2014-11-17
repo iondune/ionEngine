@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
