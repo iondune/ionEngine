@@ -3,6 +3,8 @@
 
 #include "ionTypes.h"
 
+#include <tinyformat.h>
+
 #include <algorithm>
 #include <numeric>
 #include <limits>
@@ -10,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
 
 using std::move;
 using std::for_each;
@@ -117,5 +120,10 @@ public:
 
 		return lines;
 	}
-
+	
+	template <typename... Args>
+	static string Build(char const * const Format, Args const &... args)
+	{
+		return tfm::format(Format, args...);
+	}
 };

@@ -26,6 +26,9 @@
     <ClCompile Include="ionLogger.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="ionStandardLibrary.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
