@@ -132,7 +132,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			Average
 		};
 
-		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		virtual T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			T EarthRadius = (T) 6378.137;
 			T DeltaLat = DegreesToRadians(Right.Latitude - Left.Latitude);
@@ -146,7 +146,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return Distance * 1000;
 		}
 
-		SVector2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
+		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
 		{
 			SVector2<T> Offset;
 			SLongitudeLatitude Left, Right;
@@ -205,7 +205,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	public:
 
-		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		virtual T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			T const lon1 = DegreesToRadians(Left.Longitude), lat1 = DegreesToRadians(Left.Latitude);
 			T const lon2 = DegreesToRadians(Right.Longitude), lat2 = DegreesToRadians(Right.Latitude);
@@ -256,10 +256,9 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		CVincentyProjection()
 		{}
 
-		// Doesn't compile on g++ 4.4.7 for some reason
-		// CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
-		// 	: CHaversineProjection(OffsetMode)
-		// {}
+		CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
+			: CHaversineProjection(OffsetMode)
+		{}
 
 	};
 
@@ -268,7 +267,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	public:
 
-		T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		virtual T DistanceBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
