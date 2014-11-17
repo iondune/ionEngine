@@ -38,6 +38,17 @@ U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 }
 
 template <typename T, typename U>
+U * ConditionalMapAccess(unordered_map<T, U *> const & Map, T const Key)
+{
+	auto Iterator = Map.find(Key);
+
+	if (Iterator != Map.end())
+		return Iterator->second;
+
+	return 0;
+}
+
+template <typename T, typename U>
 bool CheckMapAccess(map<T, U> const & Map, T const Key)
 {
 	return Map.find(Key) != Map.end();

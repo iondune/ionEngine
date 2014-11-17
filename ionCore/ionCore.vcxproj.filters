@@ -12,5 +12,6 @@
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionStandardLibrary.h" />
     <ClInclude Include="ionComponent.h" />
+    <ClInclude Include="ionLogger.h" />
   </ItemGroup>
 </Project>

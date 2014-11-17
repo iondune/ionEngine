@@ -7,6 +7,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <list>
 #include <string>
 #include <type_traits>
@@ -98,5 +99,6 @@ using std::vector;
 using std::list;
 using std::map;
 using std::multimap;
+using std::unordered_map;
 using std::pair;
 using std::make_pair;

@@ -13,3 +13,4 @@
 #include "ionTypes.h"
 #include "ionUtils.h"
 #include "ionStandardLibrary.h"
+#include "ionLogger.h"

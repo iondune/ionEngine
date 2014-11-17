@@ -15,6 +15,7 @@
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
     <ClCompile Include="ionCore.cpp" />
+    <ClCompile Include="ionLogger.cpp" />
     <ClCompile Include="ionSmartPtr.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="SVector2.cpp" />
