@@ -2,8 +2,6 @@
 #include <ionScience.h>
 #include <catch.hpp>
 
-#include <array>
-
 
 TEST_CASE("Linear interpolation (3) works", "[LinearInterpolation]") {
 	REQUIRE(LinearInterpolate(0.0, 1.0, 0.5) == 0.5);
