@@ -20,6 +20,9 @@ void CWindowManager::Init()
 		exit(33);
 	}
 
+	SingletonPointer<CStateManager> StateManager;
+	AddListener(StateManager.Get());
+
 	Initialized = true;
 }
 
@@ -45,6 +48,8 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
 	glfwSetCursorPosCallback(glfwWindow, CWindowManager::MouseCursorCallback);
 	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
+
+	Window->AddListener(this);
 
 	Window->MakeContextCurrent();
 	ion::GL::Context::Init();

@@ -22,7 +22,7 @@ void CStateManager::DoStateChange()
 	NextState = 0;
 
 	CurrentState->Begin();
-	AddListener(CurrentState);;
+	AddListener(CurrentState);
 }
 
 void CStateManager::Update(f32 const ElapsedTime)

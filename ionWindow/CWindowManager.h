@@ -13,7 +13,7 @@ enum class EWindowType
 	Windowed
 };
 
-class CWindowManager : public Singleton<CWindowManager>
+class CWindowManager : public Singleton<CWindowManager>, public IEventListener
 {
 
 public:
