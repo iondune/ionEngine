@@ -126,7 +126,7 @@ namespace ion
 			//! A value < 0 indicates that the max anisotrophy value should be used
 			f32 Anisotropy = -1;
 
-			bool MipMaps;
+			bool MipMaps = true;
 		};
 
 		class Texture2D : public Texture
