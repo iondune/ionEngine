@@ -57,6 +57,9 @@ remake: | clean all
 
 depend:
 	@rm -f .depend.mk
+	@$(MAKE) --no-print-directory .depend.mk
+
+.depend.mk:
 	@echo --- Regenerating dependencies. ------------------
 	$(CXX) -MM $(CXXFLAGS_BASE) $(SRCS) > .depend.mk
 	@sed -i -re 's/(^[A-Za-z0-9]+\.o:)/$$(CONFIGURATION)\/\1/' .depend.mk
