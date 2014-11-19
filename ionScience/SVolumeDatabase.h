@@ -144,7 +144,7 @@ struct SVolumeDatabase : public IDatabase<T>, public SVolume<SVolumeDataRecord<T
 		{
 			u32 const Length = it->size();
 			File.write((char *) & Length, sizeof(u32));
-			File.write(it->c_str(), Size);
+			File.write(it->c_str(), Length);
 		}
 
 		// Write Records

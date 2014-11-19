@@ -256,9 +256,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		CVincentyProjection()
 		{}
 
-		CVincentyProjection(CHaversineProjection::EOffsetMode const offsetMode)
-			: CHaversineProjection(OffsetMode)
-		{}
+		// Still causing problems on linux...
+		//CVincentyProjection(EOffsetMode const offsetMode)
+		//	: CHaversineProjection(OffsetMode)
+		//{}
 
 	};
 
