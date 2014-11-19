@@ -125,7 +125,7 @@ protected:
 				MessageMap[ToWrite] = 1;
 				Messages.push_back(ToWrite);
 				if (Write)
-					(*WriteTo) << ToWrite << endl;
+					(*WriteTo) << ToWrite << endl; // LCOV_EXCL_LINE
 
 				return true;
 			}
