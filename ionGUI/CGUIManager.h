@@ -14,7 +14,7 @@ class CGUIManager : public Singleton<CGUIManager>
 
 public:
 
-	void Init(string const & Skin = "DefaultSkin.png");
+	void Init(string const & Skin, string const & FontFile);
 	void Draw(f32 const Elapsed, bool ClearAll = false);
 
 	Gwen::Controls::Canvas * GetCanvas();

@@ -30,7 +30,7 @@ int main()
 	CheckSize(Font, "AB");
 	CheckSize(Font, "ABC");
 
-	GUIManager->Init();
+	GUIManager->Init("DefaultSkin.png", "OpenSans.ttf");
 
 	CGUIEventManager * EventManager = new CGUIEventManager(GUIManager->GetCanvas(), Window);
 	
