@@ -39,4 +39,4 @@ Doxygen-generated documentation can be found "here":http://www.ionengine3d.com/d
 
 h2. License
 
-The ionEngine is licensed under the "Apache v2 license":http://www.apache.org/licenses/LICENSE-2.0.html
+The ionEngine is licensed under the "ISC license":http://opensource.org/licenses/ISC
