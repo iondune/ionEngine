@@ -21,6 +21,13 @@ CImage * CImage::Load(std::string const & FileName)
 	return Image;
 }
 
+CImage * CImage::FromScreen()
+{
+	CImage * Image = new CImage(ion::GL::Context::ReadPixels(), vec2u(ion::GL::Context::GetViewportSize()), 4);
+	Image->FlipY();
+	return Image;
+}
+
 CImage::CImage(byte * const Data, uint const Width, uint const Height, bool const Alpha)
 : CImage(Data, vec2u(Width, Height), Alpha ? 4 : 3)
 {}

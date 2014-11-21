@@ -13,6 +13,7 @@ class CImage
 public:
 
 	static CImage * Load(std::string const & FileName);
+	static CImage * FromScreen();
 
 	//! Deprecated, for backwards compatibility
 	CImage(byte * const Data, uint const Width, uint const Height, bool const Alpha = false);

@@ -32,6 +32,18 @@ namespace ion
 			CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
 		}
 
+		byte * Context::ReadPixels()
+		{
+			int const Width = GetViewportSize().X;
+			int const Height = GetViewportSize().Y;
+			int const BytesPerPixel = 4;
+
+			byte * buffer = new byte[Width * Height * BytesPerPixel]();
+ 
+			CheckedGLCall(glReadPixels(0, 0, Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
+			return buffer;
+		}
+
 		vec2i Context::GetViewportSize()
 		{
 			int viewport[4];
