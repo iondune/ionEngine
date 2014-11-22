@@ -83,6 +83,16 @@ STable::SFieldIterator STable::End(std::string const & Field)
 	return SFieldIterator(Rows.end(), Field);
 }
 
+vector<STable::SRow>::iterator STable::begin()
+{
+	return Rows.begin();
+}
+
+vector<STable::SRow>::iterator STable::end()
+{
+	return Rows.end();
+}
+
 u64 STable::Size() const
 {
 	return Rows.size();

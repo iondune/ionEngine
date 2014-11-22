@@ -80,6 +80,9 @@ public:
 
 	SFieldIterator Begin(std::string const & Field);
 	SFieldIterator End(std::string const & Field);
+	
+	vector<SRow>::iterator begin();
+	vector<SRow>::iterator end();
 
 	u64 Size() const;
 	void Clear();
