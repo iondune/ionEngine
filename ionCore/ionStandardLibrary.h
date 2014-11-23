@@ -72,6 +72,17 @@ bool TryMapAccess(map<T, U> const & Map, T const Key, U & Value)
 	return false;
 }
 
+template <typename T, typename U>
+set<T> KeySet(map<T, U> const & Map)
+{
+	set<T> Return;
+
+	for (auto it : Map)
+		Return.insert(it.first);
+
+	return Return;
+}
+
 template <typename T>
 void AddAtEnd(vector<T> & A, vector<T> const & B)
 {

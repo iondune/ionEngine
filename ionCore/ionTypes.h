@@ -97,6 +97,7 @@ typedef unsigned char byte;
 using std::string;
 using std::vector;
 using std::list;
+using std::set;
 using std::map;
 using std::multimap;
 using std::unordered_map;
