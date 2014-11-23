@@ -106,7 +106,7 @@ CStopWatch::CStopWatch()
 
 f64 CStopWatch::Start()
 {
-	t0 = glfwGetTime();
+	return t0 = glfwGetTime();
 }
 
 f64 CStopWatch::Stop()
