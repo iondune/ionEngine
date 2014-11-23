@@ -101,6 +101,11 @@ CTimeManager::CTimeManager()
 
 CStopWatch::CStopWatch()
 {
+	Start();
+}
+
+f64 CStopWatch::Start()
+{
 	t0 = glfwGetTime();
 }
 

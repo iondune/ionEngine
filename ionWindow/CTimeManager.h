@@ -72,6 +72,7 @@ class CStopWatch
 public:
 
 	CStopWatch();
+	f64 Start();
 	f64 Stop();
 
 private:
