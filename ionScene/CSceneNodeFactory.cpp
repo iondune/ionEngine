@@ -94,6 +94,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 		Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
 		{
 			Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());
+			Node->SetScale(Max(1.f, Node->GetScene()->GetActiveCamera()->GetNearPlane() + 1.f));
 		}});
 	}
 
