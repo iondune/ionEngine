@@ -43,6 +43,27 @@ TEST_CASE("ionStandardLibrary::ConditionalUnorderedMapAccess")
 	REQUIRE(! ConditionalMapAccess(Test, 4));
 }
 
+TEST_CASE("ionStandardLibrary::CheckMapAccess")
+{
+	map<int, int *> Test;
+	REQUIRE(! CheckMapAccess(Test, 0));
+	REQUIRE(! CheckMapAccess(Test, 1));
+	REQUIRE(! CheckMapAccess(Test, 2));
+
+	int X, Y;
+
+	Test[0] = & X;
+	Test[1] = & Y;
+	Test[2] = & Y;
+	Test[3] = nullptr;
+	REQUIRE(! CheckMapAccess(Test, -1));
+	REQUIRE(CheckMapAccess(Test, 0));
+	REQUIRE(CheckMapAccess(Test, 1));
+	REQUIRE(CheckMapAccess(Test, 2));
+	REQUIRE(CheckMapAccess(Test, 3));
+	REQUIRE(! CheckMapAccess(Test, 4));
+}
+
 TEST_CASE("ionStandardLibrary::String::Build")
 {
 	REQUIRE(String::Build("") == string());
