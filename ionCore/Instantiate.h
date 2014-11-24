@@ -72,8 +72,10 @@ template sharedPtr<Base> sharedNew(Base * const t);
 // ionStandardLibrary.h
 
 template int * ConditionalMapAccess(map<int, int *> const & Map, int const Key);
+template int * ConditionalMapAccess(unordered_map<int, int *> const & Map, int const Key);
 template bool CheckMapAccess(map<int, int> const & Map, int const Key);
 template bool TryMapAccess(map<int, int> const & Map, int const Key, int & Value);
+template set<int> KeySet(map<int, int> const & Map);
 template void AddAtEnd(vector<int> & A, vector<int> const & B);
 
 
