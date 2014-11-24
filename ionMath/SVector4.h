@@ -14,6 +14,7 @@ class SVector4 : public SVector<T, 4, SVector4<T> >
 public:
 
 	using SVectorBase<T, 4>::Values;
+	using SVectorBase<T, 4>::set;
 
 	T & X, & Y, & Z, & W;
 

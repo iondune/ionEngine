@@ -16,6 +16,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	using SVectorBase<T, 2>::Values;
 	using SVectorBase<T, 2>::reset;
+	using SVectorBase<T, 2>::set;
 
 	T & Longitude;
 	T & Latitude;
