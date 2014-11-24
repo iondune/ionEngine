@@ -64,6 +64,76 @@ TEST_CASE("ionStandardLibrary::CheckMapAccess")
 	REQUIRE(! CheckMapAccess(Test, 4));
 }
 
+TEST_CASE("ionStandardLibrary::TryMapAccess")
+{
+	map<int, int> Map;
+	int X = -1;
+	
+	REQUIRE(! TryMapAccess(Map, 0, X));
+	REQUIRE(X == -1);
+	REQUIRE(! TryMapAccess(Map, 1, X));
+	REQUIRE(X == -1);
+
+	Map[0] = 2;
+
+	REQUIRE(TryMapAccess(Map, 0, X));
+	REQUIRE(X == 2);
+	X = -1;
+	REQUIRE(! TryMapAccess(Map, 1, X));
+	REQUIRE(X == -1);
+}
+
+TEST_CASE("ionStandardLibrary::KeySet")
+{
+	map<int, int> Map;
+
+	REQUIRE(KeySet(Map) == set<int>());
+	Map[0] = 0;
+	REQUIRE(KeySet(Map) == set<int>({0}));
+	Map[1] = 'a';
+	REQUIRE(KeySet(Map) == set<int>({0, 1}));
+	Map[2] = 'b';
+	REQUIRE(KeySet(Map) == set<int>({0, 1, 2}));
+}
+
+TEST_CASE("ionStandardLibrary::AddAtEnd")
+{
+	vector<int> A, B;
+
+	AddAtEnd(A, B);
+	REQUIRE(A == vector<int>());
+	REQUIRE(B == vector<int>());
+
+	A.push_back(1);
+	AddAtEnd(A, B);
+	REQUIRE(A == vector<int>({1}));
+	REQUIRE(B == vector<int>());
+
+	A.push_back(2);
+	AddAtEnd(A, B);
+	REQUIRE(A == vector<int>({1, 2}));
+	REQUIRE(B == vector<int>());
+
+	B.push_back(3);
+	AddAtEnd(A, B);
+	REQUIRE(A == vector<int>({1, 2, 3}));
+	REQUIRE(B == vector<int>({3}));
+
+	B.push_back(4);
+	AddAtEnd(A, B);
+	REQUIRE(A == vector<int>({1, 2, 3, 3, 4}));
+	REQUIRE(B == vector<int>({3, 4}));
+}
+
+TEST_CASE("ionStandardLibrary::String::SeparateLines")
+{
+	REQUIRE(String::SeparateLines("") == vector<string>());
+	REQUIRE(String::SeparateLines("asdf") == vector<string>({"asdf"}));
+	REQUIRE(String::SeparateLines("a\nb\nc\n") == vector<string>({"a", "b", "c"}));
+	REQUIRE(String::SeparateLines("a\nb\nc") == vector<string>({"a", "b", "c"}));
+	REQUIRE(String::SeparateLines("abc\n123\nqwe") == vector<string>({"abc", "123", "qwe"}));
+}
+
 TEST_CASE("ionStandardLibrary::String::Build")
 {
 	REQUIRE(String::Build("") == string());
