@@ -4,27 +4,38 @@
 
 ionEngine depends on the following external libraries:
 
-- [stb_image](http://www.nothings.org/)
-  - Header-only
-  - Basic image loading
-- [GLM](http://glm.g-truc.net/)
-  - Header-only
-  - Vector and matrix math
-  - Latest build uses: 0.9.5.4
-- [GLEW](http://glew.sourceforge.net/)
-  - OpenGL extensions wrangling
-- [GLFW](http://www.glfw.org/)
-  - Windowing and other OS functions
-  - Latest build uses: 3.0.4
-- [FreeType](http://www.freetype.org/)
-  - Font rendering
-  - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
-  - Latest build uses: 2.5.3
-- [GWEN](https://github.com/garrynewman/GWEN)
-  - GUI library
-  - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
-  - You will need to change the runtime library from Static to DLL.
-  - Latest build uses: as of [a0f0a2be6b87fae889c6a49183cd7b8132f6e554](https://github.com/garrynewman/GWEN/commit/a0f0a2be6b87fae889c6a49183cd7b8132f6e554)
+- **Header Only**
+  - [stb_image](http://www.nothings.org/)
+    - Basic image loading
+  - [GLM](http://glm.g-truc.net/)
+    - Vector and matrix math
+    - Latest build uses: 0.9.5.4
+  - [tinyformat](https://github.com/c42f/tinyformat)
+    - Typesafe C++11 printf-style string formatting
+  - [dirent](http://www.softagalleria.net/dirent.php)
+    - Directory navigation
+    - Only on windows (UNIX-variants have it by default)
+  - [Catch](https://github.com/philsquared/Catch)
+    - Unit testing (only necessary to build UnitTests)
+- **Compiled**
+  - [GLEW](http://glew.sourceforge.net/)
+    - OpenGL extensions wrangling
+  - [GLFW](http://www.glfw.org/)
+    - Windowing and other OS functions
+    - Latest build uses: 3.0.4
+  - [FreeType](http://www.freetype.org/)
+    - Font rendering
+    - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
+    - Latest build uses: 2.5.3
+  - [GWEN](https://github.com/garrynewman/GWEN)
+    - GUI library
+    - No sufficient binary distribution is available, but the vc2010 solution file included in the source distribution is upgradeable to vc2013
+    - You will need to change the runtime library from Static to DLL.
+    - Latest build uses: as of [a0f0a2be6b87fae889c6a49183cd7b8132f6e554](https://github.com/garrynewman/GWEN/commit/a0f0a2be6b87fae889c6a49183cd7b8132f6e554)
+  - [assimp]()
+
+
+
 
 For instructions on how to build and install, see the \ref installation page.
 
