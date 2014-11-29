@@ -16,7 +16,8 @@ namespace ion
 
 		string GetOpenGLError()
 		{
-			string Error = (c8 const *) gluErrorString(LastError);
+			u8 const * const ErrorString = gluErrorString(LastError);
+			string Error = (ErrorString ? (c8 const *) ErrorString : to_string(LastError));
 			LastError = GL_NO_ERROR;
 
 			return Error;
