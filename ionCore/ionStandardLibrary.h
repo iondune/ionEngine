@@ -17,6 +17,7 @@
 
 using std::move;
 using std::for_each;
+using std::to_string;
 
 using std::ifstream;
 using std::ofstream;
