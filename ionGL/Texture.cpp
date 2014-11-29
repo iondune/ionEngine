@@ -156,7 +156,7 @@ namespace ion
 
 		u32 const Texture::FormatMatrix[4] = 
 		{
-			GL_R,
+			GL_RED,
 			GL_RG,
 			GL_RGB,
 			GL_RGBA
@@ -182,7 +182,7 @@ namespace ion
 
 		string const Texture::FormatStringMatrix[4] = 
 		{
-			"GL_R",
+			"GL_RED",
 			"GL_RG",
 			"GL_RGB",
 			"GL_RGBA"
