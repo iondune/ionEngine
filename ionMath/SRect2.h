@@ -44,9 +44,9 @@ public:
 	SRect2 GetIntersection(SRect2<T> const & r) const
 	{
 		SVector2<T> Position(std::max(r.Position.X, Position.X), std::max(r.Position.Y, Position.Y));
-		SVector2<T> OtherCorner(std::min(r.OtherCorner().X, OtherCorner().X), std::min(r.OtherCorner().Y, OtherCorner().Y));
+		SVector2<T> Corner(std::min(r.OtherCorner().X, OtherCorner().X), std::min(r.OtherCorner().Y, OtherCorner().Y));
 
-		return SRect2<T>(Position, OtherCorner - Position);
+		return SRect2<T>(Position, Corner - Position);
 	}
 
 	bool IsPointInside(SVector2<T> const & v) const
