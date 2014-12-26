@@ -20,7 +20,9 @@ CTexture * CTextureLibrary::Load(string const & File)
 	string const FileName = MakeFileName(BaseDirectory, File);
 
 	CImage * Image = CImage::Load(FileName);
-	CTexture * Texture = Image->MakeTexture();
+	CTexture * Texture = nullptr;
+	if (Image)
+		Texture = Image->MakeTexture();
 	
 	return Textures[File] = Texture;
 }
