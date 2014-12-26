@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="CContextState.h" />
     <ClInclude Include="CGamePad.h" />
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="ionBootstrap.h" />

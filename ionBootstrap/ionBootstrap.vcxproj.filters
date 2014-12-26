@@ -9,5 +9,6 @@
     <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="ionBootstrap.h" />
     <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="CContextState.h" />
   </ItemGroup>
 </Project>
