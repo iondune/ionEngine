@@ -4,29 +4,25 @@
 #include <ionWindow.h>
 
 
+template <class TContext>
+class CContextObject
+{
+
+public:
+
+	SingletonPointer<TContext> Context;
+
+};
+
+
 struct NullContext : public Singleton<NullContext>
 {};
 
 template <class TImplementation, class TContext = NullContext>
-class CContextState : public IState, public Singleton<TImplementation>
+class CContextState : public IState, public Singleton<TImplementation>, CContextObject<TContext>
 {
 
-protected:
-
-	CContextState()
-		: Context()
-	{
-		LoadContext();
-	}
-
-	TContext * Context;
-
 public:
-
-	virtual void LoadContext()
-	{
-		Context = TContext::GetPtr();
-	}
 
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
