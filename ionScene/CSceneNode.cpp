@@ -117,6 +117,8 @@ static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawCo
 		DrawConfig->OfferVertexBuffer("TexCoord", Buffer->VertexBuffers.TexCoords);
 		DrawConfig->SetIndexBuffer(Buffer->VertexBuffers.Indices);
 		
+		DrawConfig->OfferUniform("uModelMatrix", & SceneNode->GetTransformationUniform());
+		DrawConfig->OfferUniform("uNormalMatrix", & SceneNode->GetTransformationUniform()); // To Do : Do this smarter
 		DrawConfig->OfferUniform("Model", & SceneNode->GetTransformationUniform());
 		DrawConfig->OfferUniform("Local", & Node->AbsoluteTransformation);
 		DrawConfig->OfferUniform("uMaterial.AmbientColor", & Buffer->GetMaterial()->Ambient);
