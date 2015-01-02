@@ -19,7 +19,7 @@ struct NullContext : public Singleton<NullContext>
 {};
 
 template <class TImplementation, class TContext = NullContext>
-class CContextState : public IState, public Singleton<TImplementation>, CContextObject<TContext>
+class CContextState : public IState, public Singleton<TImplementation>, public CContextObject<TContext>
 {
 
 public:
