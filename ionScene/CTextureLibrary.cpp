@@ -15,7 +15,7 @@ static string MakeFileName(string const & BaseDirectory, string const & File)
 		return File;
 }
 
-CTexture * CTextureLibrary::Load(string const & File)
+CTexture * CTextureLibrary::Load(string const & File, string const & Label)
 {
 	string const FileName = MakeFileName(BaseDirectory, File);
 
@@ -24,7 +24,7 @@ CTexture * CTextureLibrary::Load(string const & File)
 	if (Image)
 		Texture = Image->MakeTexture();
 	
-	return Textures[File] = Texture;
+	return Textures[Label.length() ? Label : File] = Texture;
 }
 
 void CTextureLibrary::SetBaseDirectory(string const & BaseDirectory)
