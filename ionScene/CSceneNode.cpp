@@ -264,23 +264,29 @@ vector<ion::GL::UniformValue<int> *> & CSceneNode::GetTextureUniforms()
 
 void CSceneNode::SetTexture(uint const Index, CTexture * Texture)
 {
-	if (Index >= Textures.size())
+	if (Texture)
 	{
-		Textures.resize(Index + 1, nullptr);
-		TextureUniforms.resize(Index + 1, nullptr);
-	}
+		if (Index >= Textures.size())
+		{
+			Textures.resize(Index + 1, nullptr);
+			TextureUniforms.resize(Index + 1, nullptr);
+		}
 
-	Textures[Index] = Texture;
-	if (! TextureUniforms[Index])
-		TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
+		Textures[Index] = Texture;
+		if (! TextureUniforms[Index])
+			TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
 	
-	AllConfigurationsNeedRebuild();
+		AllConfigurationsNeedRebuild();
+	}
 }
 
 void CSceneNode::SetTexture(string const & Label, CTexture * Texture)
 {
-	NamedTextures[Label] = Texture;
-	AllConfigurationsNeedRebuild();
+	if (Texture)
+	{
+		NamedTextures[Label] = Texture;
+		AllConfigurationsNeedRebuild();
+	}
 }
 
 
