@@ -202,6 +202,11 @@ public:
 		TransformationLabels[Name]->TransformationOrder = TransformationOrder;
 	}
 
+	STransformation3 & GetStageTransformation(string const & Name)
+	{
+		return TransformationLabels[Name]->Transformation;
+	}
+
 	glm::mat4 const GetFinalTransformation()
 	{
 		glm::mat4 Result = glm::mat4(1.f);
