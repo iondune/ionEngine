@@ -171,3 +171,50 @@ public:
 	}
 
 };
+
+class CTransformationChain
+{
+
+public:
+
+	class CStage
+	{
+
+	public:
+
+		STransformation3 Transformation;
+		ETransformationOrder TransformationOrder;
+		ERotationOrder RotationOrder;
+
+	};
+
+	CStage * AddStage(string const & Name)
+	{
+		CStage * Stage = new CStage();
+		TransformationOrder.push_back(Stage);
+		TransformationLabels[Name] = Stage;
+	}
+
+	void SetStageTransformationOrder(string const & Name, ETransformationOrder TransformationOrder)
+	{
+		TransformationLabels[Name]->TransformationOrder = TransformationOrder;
+	}
+
+	glm::mat4 const GetFinalTransformation()
+	{
+		glm::mat4 Result = glm::mat4(1.f);
+
+		for (auto Stage : TransformationOrder)
+		{
+			Result = Stage->Transformation.Get() * Result;
+		}
+
+		return Result;
+	}
+	
+protected:
+
+	vector<CStage *> TransformationOrder;
+	map<string, CStage *> TransformationLabels;
+
+};
