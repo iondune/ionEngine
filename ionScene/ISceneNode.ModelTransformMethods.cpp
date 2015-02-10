@@ -21,7 +21,7 @@ STransformation3 & ISceneNode::GetTransformation()
 void ISceneNode::SetTranslation(SVector3f const & translation)
 {
 	Translation = translation;
-	Transformation.setTranslation(translation);
+	Transformation.SetTranslation(translation);
 	TransformationDirty = true;
 }
 
@@ -33,20 +33,20 @@ void ISceneNode::SetPosition(SVector3f const & translation)
 void ISceneNode::SetRotation(SVector3f const & rotation)
 {
 	Rotation = rotation;
-	Transformation.setRotation(rotation);
+	Transformation.SetRotation(rotation);
 	TransformationDirty = true;
 }
 
 void ISceneNode::SetRotation(glm::mat4 const & matrix)
 {
-	Transformation.setRotation(matrix);
+	Transformation.SetRotation(matrix);
 	TransformationDirty = true;
 }
 
 void ISceneNode::SetScale(SVector3f const & scale)
 {
 	Scale = scale;
-	Transformation.setScale(scale);
+	Transformation.SetScale(scale);
 	TransformationDirty = true;
 }
 

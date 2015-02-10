@@ -24,12 +24,12 @@ public:
 		return Translation * Rotation * Scale;
 	}
 
-	glm::mat4 const getGLMMat4() const
+	glm::mat4 const GetGLMMat4() const
 	{
 		return Translation * Rotation * Scale;
 	}
 
-	glm::mat4 const get() const
+	glm::mat4 const Get() const
 	{
 		return Translation * Rotation * Scale;
 	}
@@ -39,39 +39,39 @@ public:
 		return Translation * Rotation * Scale;
 	}
 
-	void setRotation(glm::mat4 const & rotation)
+	void SetRotation(glm::mat4 const & rotation)
 	{
 		Rotation = rotation;
 	}
 
-	void setRotation(glm::vec3 const & rotation)
+	void SetRotation(glm::vec3 const & rotation)
 	{
-		setRotation(SVector3f(rotation));
+		SetRotation(SVector3f(rotation));
 	}
 
-	void setRotation(SVector3f const & rotation)
+	void SetRotation(SVector3f const & rotation)
 	{
 		Rotation = glm::rotate(glm::mat4(1.f), rotation.Z, glm::vec3(0, 0, 1));
 		Rotation = glm::rotate(Rotation, rotation.Y, glm::vec3(0, 1, 0));
 		Rotation = glm::rotate(Rotation, rotation.X, glm::vec3(1, 0, 0));
 	}
 
-	void setScale(glm::vec3 const & scale)
+	void SetScale(glm::vec3 const & scale)
 	{
 		Scale = glm::scale(glm::mat4(1.f), scale);
 	}
 
-	void setScale(SVector3f const & scale)
+	void SetScale(SVector3f const & scale)
 	{
 		Scale = glm::scale(glm::mat4(1.f), scale.GetGLMVector());
 	}
 
-	void setTranslation(glm::vec3 const & translation)
+	void SetTranslation(glm::vec3 const & translation)
 	{
 		Translation = glm::translate(glm::mat4(1.f), translation);
 	}
 
-	void setTranslation(SVector3f const & translation)
+	void SetTranslation(SVector3f const & translation)
 	{
 		Translation = glm::translate(glm::mat4(1.f), translation.GetGLMVector());
 	}
