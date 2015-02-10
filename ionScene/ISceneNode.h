@@ -42,8 +42,9 @@ public:
 	virtual glm::mat4 const & GetAbsoluteTransformation() const;
 	virtual STransformation3 const & GetTransformation() const;
 	virtual STransformation3 & GetTransformation();
-
+	
 	virtual void SetTranslation(SVector3f const & translation);
+	virtual void SetTransformation(glm::mat4 const & transformation);
 	virtual void SetPosition(SVector3f const & translation);
 	virtual void SetRotation(SVector3f const & rotation);
 	virtual void SetRotation(glm::mat4 const & matrix);
@@ -88,6 +89,9 @@ protected:
 
 	//! Whether or not to draw this object and all its children
 	bool Visible;
+
+	bool UseExplicitTransformation = false;
+	glm::mat4 ExplicitTransformation;
 
 	string DebugName = "None";
 

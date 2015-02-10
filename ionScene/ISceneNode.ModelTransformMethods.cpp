@@ -25,6 +25,12 @@ void ISceneNode::SetTranslation(SVector3f const & translation)
 	TransformationDirty = true;
 }
 
+void ISceneNode::SetTransformation(glm::mat4 const & transformation)
+{
+	ExplicitTransformation = transformation;
+	UseExplicitTransformation = true;
+}
+
 void ISceneNode::SetPosition(SVector3f const & translation)
 {
 	SetTranslation(translation);

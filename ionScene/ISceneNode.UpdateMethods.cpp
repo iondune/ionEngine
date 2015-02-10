@@ -15,7 +15,10 @@ void ISceneNode::CheckAbsoluteTransformation()
 
 void ISceneNode::UpdateAbsoluteTransformation()
 {
-	AbsoluteTransformation = Transformation;
+	if (UseExplicitTransformation)
+		AbsoluteTransformation = ExplicitTransformation;
+	else
+		AbsoluteTransformation = Transformation;
 
 	if (Parent)
 		AbsoluteTransformation = Parent->AbsoluteTransformation* AbsoluteTransformation;
