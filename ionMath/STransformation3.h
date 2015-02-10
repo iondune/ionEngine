@@ -193,6 +193,8 @@ public:
 		CStage * Stage = new CStage();
 		TransformationOrder.push_back(Stage);
 		TransformationLabels[Name] = Stage;
+
+		return Stage;
 	}
 
 	void SetStageTransformationOrder(string const & Name, ETransformationOrder TransformationOrder)
