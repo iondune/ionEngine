@@ -8,6 +8,27 @@
 #include "SVector3.h"
 
 
+enum class ETransformationOrder
+{
+	TranslationRotationScale,
+	TranslationScaleRotation,
+	RotationScaleTranslation,
+	RotationTranslationScale,
+	ScaleTranslationRotation,
+	ScaleRotationTranslation
+};
+
+enum class ERotationOrder
+{
+	ZYX,
+	ZXY,
+	YXZ,
+	YZX,
+	XZY,
+	XYZ
+};
+
+
 class STransformation3
 {
 
@@ -34,6 +55,30 @@ public:
 		return Translation * Rotation * Scale;
 	}
 
+	glm::mat4 const Get(ETransformationOrder const transformation) const
+	{
+		switch (transformation)
+		{
+		case ETransformationOrder::TranslationRotationScale:
+			return Translation * Rotation * Scale;
+			
+		case ETransformationOrder::TranslationScaleRotation:
+			return Translation * Scale * Rotation;
+			
+		case ETransformationOrder::RotationScaleTranslation:
+			return Rotation * Scale * Translation;
+			
+		case ETransformationOrder::RotationTranslationScale:
+			return Rotation * Translation * Scale;
+			
+		case ETransformationOrder::ScaleTranslationRotation:
+			return Scale * Translation * Rotation;
+			
+		case ETransformationOrder::ScaleRotationTranslation:
+			return Scale * Rotation * Translation;
+		}
+	}
+
 	glm::mat4 const operator() () const
 	{
 		return Translation * Rotation * Scale;
@@ -54,6 +99,55 @@ public:
 		Rotation = glm::rotate(glm::mat4(1.f), rotation.Z, glm::vec3(0, 0, 1));
 		Rotation = glm::rotate(Rotation, rotation.Y, glm::vec3(0, 1, 0));
 		Rotation = glm::rotate(Rotation, rotation.X, glm::vec3(1, 0, 0));
+	}
+
+	void SetRotation(SVector3f const & rotation, ERotationOrder const order)
+	{
+		static glm::vec3 const X = glm::vec3(1, 0, 0);
+		static glm::vec3 const Y = glm::vec3(0, 1, 0);
+		static glm::vec3 const Z = glm::vec3(0, 0, 1);
+
+		switch (order)
+		{
+		case ERotationOrder::ZYX:
+			SetRotation(rotation);
+			break;
+
+		case ERotationOrder::ZXY:
+			Rotation = glm::mat4(1.f);
+			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			break;
+
+		case ERotationOrder::YXZ:
+			Rotation = glm::mat4(1.f);
+			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			break;
+
+		case ERotationOrder::YZX:
+			Rotation = glm::mat4(1.f);
+			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			Rotation = glm::rotate(Rotation, rotation.X, X);
+			break;
+
+		case ERotationOrder::XZY:
+			Rotation = glm::mat4(1.f);
+			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			break;
+
+		case ERotationOrder::XYZ:
+			Rotation = glm::mat4(1.f);
+			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			break;
+		}
 	}
 
 	void SetScale(glm::vec3 const & scale)
