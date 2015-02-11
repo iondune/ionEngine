@@ -200,12 +200,23 @@ public:
 
 	void SetStageTransformationOrder(string const & Name, ETransformationOrder TransformationOrder)
 	{
-		TransformationLabels[Name]->TransformationOrder = TransformationOrder;
+		auto it = TransformationLabels.find(Name);
+		if (it != TransformationLabels.end())
+			it->second->TransformationOrder = TransformationOrder;
+		else
+			Log::Error("Failed to find transformation with name %s.", Name);
 	}
 
 	STransformation3 & GetStageTransformation(string const & Name)
 	{
-		return TransformationLabels[Name]->Transformation;
+		static STransformation3 DummyValue;
+
+		auto it = TransformationLabels.find(Name);
+		if (it != TransformationLabels.end())
+			return it->second->Transformation;
+		else
+			Log::Error("Failed to find transformation with name %s.", Name);
+		return DummyValue;
 	}
 
 	glm::mat4 const GetFinalTransformation()
