@@ -59,22 +59,23 @@ public:
 	{
 		switch (transformation)
 		{
-		case ETransformationOrder::TranslationRotationScale:
-			return Translation * Rotation * Scale;
-			
-		case ETransformationOrder::TranslationScaleRotation:
-			return Translation * Scale * Rotation;
+		default:
+		case ETransformationOrder::ScaleRotationTranslation:
+			return Get();
 			
 		case ETransformationOrder::RotationScaleTranslation:
+			return Translation * Scale * Rotation;
+			
+		case ETransformationOrder::TranslationScaleRotation:
 			return Rotation * Scale * Translation;
 			
-		case ETransformationOrder::RotationTranslationScale:
+		case ETransformationOrder::ScaleTranslationRotation:
 			return Rotation * Translation * Scale;
 			
-		case ETransformationOrder::ScaleTranslationRotation:
+		case ETransformationOrder::RotationTranslationScale:
 			return Scale * Translation * Rotation;
 			
-		case ETransformationOrder::ScaleRotationTranslation:
+		case ETransformationOrder::TranslationRotationScale:
 			return Scale * Rotation * Translation;
 		}
 	}
@@ -109,6 +110,7 @@ public:
 
 		switch (order)
 		{
+		default:
 		case ERotationOrder::ZYX:
 			SetRotation(rotation);
 			break;
