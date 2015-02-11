@@ -214,7 +214,7 @@ public:
 
 		for (auto Stage : TransformationOrder)
 		{
-			Result = Stage->Transformation.Get() * Result;
+			Result = Stage->Transformation.Get(Stage->TransformationOrder) * Result;
 		}
 
 		return Result;
