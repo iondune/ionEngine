@@ -216,6 +216,7 @@ public:
 			return it->second->Transformation;
 		else
 			Log::Error("Failed to find transformation with name %s.", Name);
+
 		return DummyValue;
 	}
 
