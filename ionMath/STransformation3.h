@@ -185,8 +185,7 @@ public:
 	public:
 
 		STransformation3 Transformation;
-		ETransformationOrder TransformationOrder;
-		ERotationOrder RotationOrder;
+		ETransformationOrder TransformationOrder = ETransformationOrder::ScaleRotationTranslation;
 
 	};
 
