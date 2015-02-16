@@ -22,7 +22,10 @@ int main()
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
-	TileManager->Init();
+	TileManager->Init(Window);
+	CMenu * Menu = TileManager->AddMenu("Background.jpg");
+	Menu->AddTile("StrangeCoin.png", "Hover.png", "Select.png", vec2f(0, 0), vec2f(2));
+	Menu->AddTile("StrangeCoin.png", "Hover.png", "Select.png", vec2f(4, 0), vec2f(2));
 
 	IFont * Font = IFont::init("OpenSans.ttf", 12);
 	
