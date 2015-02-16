@@ -15,7 +15,7 @@ CImage * CImage::Load(std::string const & FileName)
 		return 0;
 	}
 
-	CImage * Image = new CImage(data, x, y);
+	CImage * Image = new CImage(data, x, y, n == 4);
 	Image->FlipY();
 
 	return Image;
