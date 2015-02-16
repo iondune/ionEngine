@@ -66,7 +66,7 @@ namespace ion
 				Uniforms[Handle] = Value;
 		}
 
-		bool DrawConfig::AddTexture(string const & Label, Texture * Texture)
+		bool DrawConfig::AddTexture(string const & Label, Texture const * Texture)
 		{
 			u32 Handle;
 			if (TryMapAccess(BoundProgram->GetActiveUniforms(), Label, Handle))

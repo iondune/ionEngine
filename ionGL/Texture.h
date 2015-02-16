@@ -106,13 +106,13 @@ namespace ion
 			f32 GetAnisotropy();
 
 			virtual u32 GetHandle() const;
-			virtual u32 GetGLBindTextureTarget() = 0;
+			virtual u32 GetGLBindTextureTarget() const = 0;
 
 		protected:
 			
 			Texture();
 			Texture(u32 const Handle);
-			virtual u32 GetGLTextureBindingEnum() = 0;
+			virtual u32 GetGLTextureBindingEnum() const = 0;
 			void ApplyParams();
 			
 			u32 Handle = 0;
@@ -144,11 +144,11 @@ namespace ion
 
 			void SubImage(void const * const data, vec2u const & offset, vec2u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
-			u32 GetGLBindTextureTarget();
+			u32 GetGLBindTextureTarget() const;
 
 		protected:
 
-			u32 GetGLTextureBindingEnum();
+			u32 GetGLTextureBindingEnum() const;
 
 			vec2u Size;
 		};
@@ -169,11 +169,11 @@ namespace ion
 
 			void SubImage(void const * const data, vec3u const & offset, vec3u const & size, EFormatComponents const components = EFormatComponents::RGBA, EFormatType const type = EFormatType::U8);
 
-			u32 GetGLBindTextureTarget();
+			u32 GetGLBindTextureTarget() const;
 
 		protected:
 
-			u32 GetGLTextureBindingEnum();
+			u32 GetGLTextureBindingEnum() const;
 
 			vec3u Size;
 		};

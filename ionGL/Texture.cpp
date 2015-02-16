@@ -257,12 +257,12 @@ namespace ion
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 		}
 
-		u32 Texture2D::GetGLBindTextureTarget()
+		u32 Texture2D::GetGLBindTextureTarget() const
 		{
 			return GL_TEXTURE_2D;
 		}
 
-		u32 Texture2D::GetGLTextureBindingEnum()
+		u32 Texture2D::GetGLTextureBindingEnum() const
 		{
 			return GL_TEXTURE_BINDING_2D;
 		}
@@ -325,12 +325,12 @@ namespace ion
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 		}
 
-		u32 Texture3D::GetGLBindTextureTarget()
+		u32 Texture3D::GetGLBindTextureTarget() const
 		{
 			return GL_TEXTURE_3D;
 		}
 
-		u32 Texture3D::GetGLTextureBindingEnum()
+		u32 Texture3D::GetGLTextureBindingEnum() const
 		{
 			return GL_TEXTURE_BINDING_3D;
 		}
