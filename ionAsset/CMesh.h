@@ -28,6 +28,7 @@ public:
 	void Update();
 	void LoadDataIntoBuffers();
 	void UpdateNodeTransformations();
+	void SwapYAndZ();
 
 	/*
 	uint GetVertexCount() const;

@@ -15,13 +15,14 @@ CMesh * CMesh::Load(std::string const & FileName)
 {
 	Assimp::Importer Importer;
 
-	aiScene const * const Scene = Importer.ReadFile(FileName,
+	unsigned int pFlags = 
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
 		aiProcess_SortByPType |
-		aiProcess_GenNormals
-		);
+		aiProcess_GenNormals;
+
+	aiScene const * const Scene = Importer.ReadFile(FileName, pFlags);
 
 	if (! Scene)
 	{

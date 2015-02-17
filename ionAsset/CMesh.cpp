@@ -36,6 +36,19 @@ void CMesh::UpdateNodeTransformations()
 	Root->CalculateAbsoluteTransformation();
 }
 
+void CMesh::SwapYAndZ()
+{
+	for (auto Buffer : Buffers)
+	{
+		for (auto & Vertex : Buffer->Vertices)
+		{
+			std::swap(Vertex.Position.Y, Vertex.Position.Z);
+		}
+	}
+
+	Update();
+}
+
 /*
 uint CMesh::GetVertexCount() const
 {
