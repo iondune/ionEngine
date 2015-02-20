@@ -90,6 +90,12 @@ void AddAtEnd(vector<T> & A, vector<T> const & B)
 	A.insert(A.end(), B.begin(), B.end());
 }
 
+template <typename T>
+void EraseRemove(vector<T> & A, T B)
+{
+	A.erase(std::remove(std::begin(A), std::end(A), B), std::end(A));
+}
+
 class File
 {
 
