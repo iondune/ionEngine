@@ -5,8 +5,6 @@
 #include <ionConfig.h>
 #include "FreeType.h"
 
-#include "CTileManager.h"
-
 #ifdef _ION_CONFIG_USE_GWEN
 
 	#include "Gwen.h"

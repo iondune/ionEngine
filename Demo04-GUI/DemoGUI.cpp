@@ -17,15 +17,9 @@ int main()
 {
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CGUIManager> GUIManager;
-	SingletonPointer<CTileManager> TileManager;
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
-
-	TileManager->Init(Window);
-	CMenu * Menu = TileManager->AddMenu("Background.jpg");
-	Menu->AddTile("StrangeCoin.png", "Hover.png", "Select.png", vec2f(0, 0), vec2f(2));
-	Menu->AddTile("StrangeCoin.png", "Hover.png", "Select.png", vec2f(4, 0), vec2f(2));
 
 	IFont * Font = IFont::init("OpenSans.ttf", 12);
 	
@@ -49,8 +43,6 @@ int main()
 		WindowManager->PollEvents();
 
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
-
-		TileManager->Draw();
 
 		Font->print(20, 20, "a\nab\nabc\nA\nAB\nABC");
 		

@@ -23,7 +23,6 @@
     <ClCompile Include="CGUIManager.cpp" />
     <ClCompile Include="CGUIProgressBarWidget.cpp" />
     <ClCompile Include="CGUIWidget.cpp" />
-    <ClCompile Include="CTileManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
@@ -39,7 +38,6 @@
     <ClInclude Include="ionGUI.h" />
     <ClInclude Include="OpenGL3.h" />
     <ClInclude Include="OpenGL3Font.h" />
-    <ClInclude Include="CTileManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

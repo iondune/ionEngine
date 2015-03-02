@@ -25,9 +25,6 @@
     <ClCompile Include="CGUIWidget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="CTileManager.cpp">
-      <Filter>Tiles</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
@@ -56,9 +53,6 @@
     <ClInclude Include="CGUIWidget.h">
       <Filter>Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="CTileManager.h">
-      <Filter>Tiles</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utilities">
@@ -72,9 +66,6 @@
     </Filter>
     <Filter Include="Renderers">
       <UniqueIdentifier>{31849a06-2639-4cb3-b3e7-1d8e3a3d69de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tiles">
-      <UniqueIdentifier>{f6913bcd-8113-4b05-a28b-e7e743f1ee15}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
