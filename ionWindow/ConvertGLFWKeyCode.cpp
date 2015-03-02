@@ -65,6 +65,9 @@ EKey const ConvertGLFWKeyCode(int const Code)
 	case GLFW_KEY_RIGHT_ALT:
 		return EKey::RightAlt;
 
+	case GLFW_KEY_TAB:
+		return EKey::Tab;
+
 	case GLFW_KEY_F1:
 		return EKey::F1;
 	case GLFW_KEY_F2:
