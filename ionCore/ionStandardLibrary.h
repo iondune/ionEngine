@@ -96,6 +96,12 @@ void EraseRemove(vector<T> & A, T B)
 	A.erase(std::remove(std::begin(A), std::end(A), B), std::end(A));
 }
 
+template <typename T, typename U>
+void EraseRemove(vector<T> & A, U B)
+{
+	A.erase(std::remove(std::begin(A), std::end(A), B), std::end(A));
+}
+
 class File
 {
 
