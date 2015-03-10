@@ -141,3 +141,12 @@ TEST_CASE("ionStandardLibrary::String::Build")
 	REQUIRE(String::Build("Hello %d", 123) == "Hello 123");
 	REQUIRE(String::Build("%c %d %X %s", 'a', 42, 0xABCD, "foo") == "a 42 ABCD foo");
 }
+
+TEST_CASE("ionStandardLibrary::String::Explode")
+{
+	REQUIRE(String::Explode("", ' ') == vector<string>());
+	REQUIRE(String::Explode("foo", ' ') == vector<string>({"foo"}));
+	REQUIRE(String::Explode("foo bar", ' ') == vector<string>({"foo", "bar"}));
+	REQUIRE(String::Explode("1,2,3", ',') == vector<string>({"1", "2", "3"}));
+	REQUIRE(String::Explode("1,2,", ',') == vector<string>({"1", "2"}));
+}

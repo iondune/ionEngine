@@ -19,9 +19,13 @@ using std::move;
 using std::for_each;
 using std::to_string;
 
+using std::fstream;
 using std::ifstream;
 using std::ofstream;
+
 using std::stringstream;
+using std::istringstream;
+using std::ostringstream;
 
 using std::cout;
 using std::cerr;
@@ -115,16 +119,16 @@ public:
 
 	static string ReadAsString(string const & FileName)
 	{
-		std::ifstream t(FileName);
-		std::string str;
+		std::ifstream FileHandle(FileName);
+		std::string String;
 
-		t.seekg(0, std::ios::end);   
-		str.reserve((uint) t.tellg());
-		t.seekg(0, std::ios::beg);
+		FileHandle.seekg(0, std::ios::end);   
+		String.reserve((uint) FileHandle.tellg());
+		FileHandle.seekg(0, std::ios::beg);
 
-		str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+		String.assign((std::istreambuf_iterator<char>(FileHandle)), std::istreambuf_iterator<char>());
 
-		return str;
+		return String;
 	}
 
 };
@@ -136,19 +140,36 @@ public:
 
 	static vector<string> SeparateLines(string const & str)
 	{
-		vector<string> lines;
-		stringstream stream(str);
-		string line;
+		vector<string> Lines;
+		istringstream Stream(str);
+		string Line;
 
-		while (std::getline(stream, line))
-			lines.push_back(line);
+		while (getline(Stream, Line))
+		{
+			Lines.push_back(move(Line));
+		}
 
-		return lines;
+		return Lines;
 	}
-	
+
+	static vector<string> Explode(string const & str, char delimiter)
+	{
+		vector<string> Words;
+		istringstream Stream(str);
+		string Word;
+
+		while (getline(Stream, Word, delimiter))
+		{
+			Words.push_back(move(Word));
+		}
+
+		return Words;
+	}
+
 	template <typename... Args>
 	static string Build(char const * const Format, Args const &... args)
 	{
 		return tfm::format(Format, args...);
 	}
+
 };
