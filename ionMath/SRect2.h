@@ -30,7 +30,7 @@ public:
 
 	SVector2<T> GetCenter() const
 	{
-		return Position + Size / 2.f;
+		return Position + Size / 2;
 	}
 
 	bool Intersects(SRect2<T> const & r) const
@@ -93,10 +93,10 @@ public:
 		SVector2<T> const otherUpperLeftCorner = r.Position;
 		SVector2<T> const otherLowerRightCorner = r.OtherCorner();
 
-		if (otherLowerRightCorner.X <= LowerRightCorner.X)
-			LowerRightCorner.X = otherLowerRightCorner.X - 1;
-		if (otherLowerRightCorner.Y <= LowerRightCorner.Y)
-			LowerRightCorner.Y = otherLowerRightCorner.Y - 1;
+		if (otherLowerRightCorner.X < LowerRightCorner.X)
+			LowerRightCorner.X = otherLowerRightCorner.X;
+		if (otherLowerRightCorner.Y < LowerRightCorner.Y)
+			LowerRightCorner.Y = otherLowerRightCorner.Y;
 
 		if (otherUpperLeftCorner.X > UpperLeftCorner.X)
 			UpperLeftCorner.X = otherUpperLeftCorner.X;
