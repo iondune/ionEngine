@@ -91,6 +91,11 @@ public:
 		return stream << vec.X << " " << vec.Y;
 	}
 
+	SVector2<T> YX() const
+	{
+		return SVector2<T>(Y, X);
+	}
+
 };
 
 
