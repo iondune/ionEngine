@@ -94,5 +94,5 @@ void CWindow::SetClipboardText(string const & Text)
 
 bool CWindow::IsFocused() const
 {
-	return glfwGetWindowAttrib(WindowHandle, GLFW_FOCUSED);
+	return glfwGetWindowAttrib(WindowHandle, GLFW_FOCUSED) != 0;
 }

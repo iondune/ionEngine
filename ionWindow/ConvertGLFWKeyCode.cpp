@@ -37,6 +37,9 @@ EKey const ConvertGLFWKeyCode(int const Code)
 	case '`':
 		return EKey::Grave;
 
+	case GLFW_KEY_BACKSPACE:
+		return EKey::Backspace;
+
 	case GLFW_KEY_ESCAPE:
 		return EKey::Escape;
 
