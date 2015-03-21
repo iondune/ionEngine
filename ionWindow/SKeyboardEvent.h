@@ -9,11 +9,12 @@ class CWindow;
 
 struct SKeyboardEvent : public IEvent
 {
-    bool Pressed;
-    EKey Key;
-	CWindow * Window;
+	bool Pressed = false;
+	EKey Key = EKey::Unknown;
+	CWindow * Window = nullptr;
+};
 
-	SKeyboardEvent()
-		: Key(EKey::Unknown), Window()
-	{}
+struct SCharacterEvent : public IEvent
+{
+	char C = 0;
 };

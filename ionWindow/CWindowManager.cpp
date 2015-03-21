@@ -48,6 +48,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
 	glfwSetCursorPosCallback(glfwWindow, CWindowManager::MouseCursorCallback);
 	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
+	glfwSetCharCallback(glfwWindow, CWindowManager::CharCallback);
 
 	Window->AddListener(this);
 

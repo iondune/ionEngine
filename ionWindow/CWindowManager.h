@@ -33,6 +33,7 @@ protected:
 	static void MouseButtonCallback(GLFWwindow * window, int button, int action, int mods);
 	static void MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset);
 	static void MouseCursorCallback(GLFWwindow * window, double xpos, double ypos);
+	static void CharCallback(GLFWwindow * window, unsigned int c);
 
 private:
 	

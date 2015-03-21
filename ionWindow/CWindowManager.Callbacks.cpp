@@ -81,3 +81,13 @@ void CWindowManager::MouseCursorCallback(GLFWwindow * window, double xpos, doubl
 
 	Window->TriggerEvent(MouseEvent);
 }
+
+void CWindowManager::CharCallback(GLFWwindow * window, unsigned int c)
+{
+	CWindowManager & WindowManager = Get();
+	CWindow * Window = WindowManager.Windows[window];
+    
+	SCharacterEvent Event;
+	Event.C = c;
+	Window->TriggerEvent(Event);
+}

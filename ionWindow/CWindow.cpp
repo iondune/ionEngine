@@ -81,3 +81,18 @@ GLFWwindow * const CWindow::GetHandle() const
 {
 	return WindowHandle;
 }
+
+string CWindow::GetClipboardText() const
+{
+	return glfwGetClipboardString(WindowHandle);
+}
+
+void CWindow::SetClipboardText(string const & Text)
+{
+	glfwSetClipboardString(WindowHandle, Text.c_str());
+}
+
+bool CWindow::IsFocused() const
+{
+	return glfwGetWindowAttrib(WindowHandle, GLFW_FOCUSED);
+}

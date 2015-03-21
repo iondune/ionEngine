@@ -34,6 +34,11 @@ public:
 
 	GLFWwindow * const GetHandle() const;
 
+	string GetClipboardText() const;
+	void SetClipboardText(string const & Text);
+
+	bool IsFocused() const;
+
 protected:
 
 	GLFWwindow * const WindowHandle;
