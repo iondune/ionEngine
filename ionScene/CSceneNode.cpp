@@ -22,8 +22,6 @@ void CSceneNode::Update()
 	ISceneNode::Update();
 }
 
-static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
-
 map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass)
 {
 	auto Configurations = ISceneNode::PrepareDrawConfigurations(DrawManager, Pass);
@@ -105,7 +103,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 	return Configurations;
 }
 
-static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node)
+void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node)
 {
 	for (auto & Buffer : Node->Buffers)
 	{
@@ -127,6 +125,11 @@ static void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawCo
 		DrawConfig->OfferUniform("uMaterial.DiffuseColor", & Buffer->GetMaterial()->Diffuse);
 		DrawConfig->OfferUniform("uMaterial.SpecularColor", & Buffer->GetMaterial()->Specular);
 		DrawConfig->OfferUniform("uMaterial.Shininess", & Buffer->GetMaterial()->Shininess);
+
+		for (int i = 0; i < SceneNode->Joints.size(); ++ i)
+		{
+			DrawConfig->OfferUniform(String::Build("uSkinningMatrix[%d]", i), & SceneNode->Joints[i]->SkinningMatrix);
+		}
 
 		Definitions.push_back(DrawConfig);
 	}
@@ -163,9 +166,40 @@ CUniformReference<glm::mat4> & CSceneNode::GetTransformationUniform()
 // Mesh //
 //////////
 
+static void RecurseJointsOnMesh(SMeshNode * Node, vector<CMeshJoint *> & Joints)
+{
+	for (auto Buffer : Node->Buffers)
+	{
+		for (int i = 0; i < Buffer->Bones.size(); ++ i)
+		{
+			CMeshJoint * Joint = new CMeshJoint;
+			Joint->Name = Buffer->Bones[i].Name;
+			Joint->BindPose = Buffer->Bones[i].Matrix;
+			Joint->InvBindPose = glm::inverse(Joint->BindPose);
+			Joints.push_back(Joint);
+		}
+	}
+
+	for (auto Child : Node->GetChildren())
+	{
+		RecurseJointsOnMesh(Child, Joints);
+	}
+};
+
 void CSceneNode::SetMesh(CMesh * Mesh)
 {
 	this->Mesh = Mesh;
+
+	Joints.clear();
+	JointNames.clear();
+
+	RecurseJointsOnMesh(Mesh->Root, Joints);
+
+	for (auto Joint : Joints)
+	{
+		JointNames[Joint->Name] = Joint;
+	}
+
 	AllConfigurationsNeedRebuild();
 }
 
@@ -289,6 +323,21 @@ void CSceneNode::SetTexture(string const & Label, CTexture * Texture)
 		NamedTextures[Label] = Texture;
 		AllConfigurationsNeedRebuild();
 	}
+}
+
+
+  ////////////
+ // Joints //
+////////////
+
+CMeshJoint * CSceneNode::GetJoint(uint const Index)
+{
+	return Joints[Index];
+}
+
+CMeshJoint * CSceneNode::GetJoint(string const & Name)
+{
+	return ConditionalMapAccess(JointNames, Name);
 }
 
 

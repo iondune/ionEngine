@@ -8,6 +8,21 @@
 class CScene;
 class CDrawManager;
 
+class CMeshJoint
+{
+
+public:
+
+	string Name;
+
+	STransformation3 Transformation;
+	glm::mat4 BindPose;
+	glm::mat4 InvBindPose;
+
+	CUniformValue<glm::mat4> SkinningMatrix;
+
+};
+
 class CSceneNode : public ISceneNode, public IEntity<ISceneNodeComponent>
 {
 
@@ -69,6 +84,14 @@ public:
 	void SetTexture(string const & Label, CTexture * Texture);
 
 
+	////////////
+	// Joints //
+	////////////
+
+	CMeshJoint * GetJoint(uint const Index);
+	CMeshJoint * GetJoint(string const & Name);
+
+
 	//////////////
 	// Features //
 	//////////////
@@ -97,6 +120,8 @@ protected:
 
 	map<string, CShader *> Shaders;
 	map<string, bool> ConfigurationNeedsRebuild;
+	vector<CMeshJoint *> Joints;
+	map<string, CMeshJoint *> JointNames;
 
 	map<string, IUniform *> Uniforms;
 	map<string, CVertexBuffer *> VertexBuffers;
@@ -111,5 +136,7 @@ protected:
 	bool * GetPassSpecificDrawFeatures(string const & Pass);
 
 	map<IRenderPass *, map<CShader *, vector<CDrawConfig *>>> DrawConfigurations;
+
+	friend void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *> & Definitions, SMeshNode * Node);
 
 };

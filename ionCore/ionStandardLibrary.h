@@ -43,7 +43,7 @@ U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 	if (Iterator != Map.end())
 		return Iterator->second;
 
-	return 0;
+	return nullptr;
 }
 
 template <typename T, typename U>
