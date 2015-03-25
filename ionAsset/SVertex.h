@@ -21,4 +21,7 @@ public:
 
 	color4f Color;
 
+	vec2i BoneIndices = vec2i(-1);
+	vec2f BoneWeights = 0;
+
 };

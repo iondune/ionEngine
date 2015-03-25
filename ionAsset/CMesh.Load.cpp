@@ -60,6 +60,16 @@ SMaterial * LoadMaterial(aiMaterial * Material)
 	return Result;
 }
 
+glm::mat4 AItoGLM(aiMatrix4x4 const & ai)
+{
+	return glm::mat4(
+		ai.a1, ai.b1, ai.c1, ai.d1,
+		ai.a2, ai.b2, ai.c2, ai.d2,
+		ai.a3, ai.b3, ai.c3, ai.d3,
+		ai.a4, ai.b4, ai.c4, ai.d4
+		);
+}
+
 SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials)
 {
 	SMeshBuffer * Buffer = new SMeshBuffer{};
@@ -91,6 +101,34 @@ SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials)
 		Buffer->Triangles.push_back(Triangle);
 	}
 
+	// Bones
+	for (uint j = 0; j < Mesh->mNumBones; ++ j)
+	{
+		SMeshBone Bone;
+		Bone.Name = Mesh->mBones[j]->mName.C_Str();
+		Bone.Matrix = AItoGLM(Mesh->mBones[j]->mOffsetMatrix);
+
+		for (uint k = 0; k < Mesh->mBones[j]->mNumWeights; ++ k)
+		{
+			if (Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneIndices[0] == -1)
+			{
+				Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneIndices[0] = j;
+				Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneWeights[0] = Mesh->mBones[j]->mWeights[k].mWeight;
+			}
+			else if (Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneIndices[1] == -1)
+			{
+				Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneIndices[1] = j;
+				Buffer->Vertices[Mesh->mBones[j]->mWeights[k].mVertexId].BoneWeights[1] = Mesh->mBones[j]->mWeights[k].mWeight;
+			}
+			else
+			{
+				printf("Error! Vertex in mesh has more than two bone weights!\n");
+			}
+		}
+
+		Buffer->Bones.push_back(Bone);
+	}
+
 	// Material
 	Buffer->Material = Materials[Mesh->mMaterialIndex];
 
@@ -101,12 +139,7 @@ SMeshNode * TraverseMesh(aiScene const * Scene, aiNode * Node, vector<SMeshBuffe
 {
 	SMeshNode * Result = new SMeshNode{};
 
-	Result->Transformation = glm::mat4(
-		Node->mTransformation.a1, Node->mTransformation.b1, Node->mTransformation.c1, Node->mTransformation.d1,
-		Node->mTransformation.a2, Node->mTransformation.b2, Node->mTransformation.c2, Node->mTransformation.d2,
-		Node->mTransformation.a3, Node->mTransformation.b3, Node->mTransformation.c3, Node->mTransformation.d3,
-		Node->mTransformation.a4, Node->mTransformation.b4, Node->mTransformation.c4, Node->mTransformation.d4
-		);
+	Result->Transformation = AItoGLM(Node->mTransformation);
 
 	for (uint i = 0; i < Node->mNumMeshes; ++ i)
 		Result->Buffers.push_back(Buffers[Node->mMeshes[i]]);

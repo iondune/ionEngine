@@ -10,6 +10,14 @@
 #include "SMaterial.h"
 
 
+struct SMeshBone
+{
+
+	glm::mat4 Matrix;
+	string Name;
+
+};
+
 struct SMeshBuffer
 {
 
@@ -27,6 +35,7 @@ struct SMeshBuffer
 
 	vector<SVertex> Vertices;
 	vector<SMeshTriangle> Triangles;
+	vector<SMeshBone> Bones;
 
 	//! \brief Pointer to the Material of this buffer.
 	//! Assumed an element of the containing CMesh
@@ -37,7 +46,7 @@ struct SMeshBuffer
 
 	struct SVertexBuffers
 	{
-		ion::GL::VertexBuffer * Positions = 0, * Normals = 0, * Colors = 0, * TexCoords = 0;
+		ion::GL::VertexBuffer * Positions = 0, * Normals = 0, * Colors = 0, * TexCoords = 0, * BoneWeights = 0, * BoneIndices = 0;
 		ion::GL::IndexBuffer * Indices = 0;
 	} VertexBuffers;
 

@@ -47,6 +47,10 @@ void SMeshBuffer::LoadDataIntoBuffers()
 		VertexBuffers.Colors = new ion::GL::VertexBuffer;
 	if (! VertexBuffers.TexCoords)
 		VertexBuffers.TexCoords = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.BoneWeights)
+		VertexBuffers.BoneWeights = new ion::GL::VertexBuffer;
+	if (! VertexBuffers.BoneIndices)
+		VertexBuffers.BoneIndices = new ion::GL::VertexBuffer;
 	if (! VertexBuffers.Indices)
 		VertexBuffers.Indices = new ion::GL::IndexBuffer;
 
@@ -75,6 +79,18 @@ void SMeshBuffer::LoadDataIntoBuffers()
 			for (uint j = 0; j < 2; ++ j)
 				Data.push_back(it->TextureCoordinates[j]);
 		VertexBuffers.TexCoords->Data(Data, 2);
+		Data.clear();
+
+		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
+			for (uint j = 0; j < 2; ++ j)
+				Data.push_back(it->BoneWeights[j]);
+		VertexBuffers.BoneWeights->Data(Data, 2);
+		Data.clear();
+
+		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
+			for (uint j = 0; j < 2; ++ j)
+				Data.push_back(it->BoneIndices[j]);
+		VertexBuffers.BoneIndices->Data(Data, 2);
 		Data.clear();
 	}
 
