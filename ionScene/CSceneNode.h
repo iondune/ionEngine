@@ -17,7 +17,9 @@ public:
 
 	STransformation3 Transformation;
 	glm::mat4 BindPose;
+	glm::mat4 AbsolutePose;
 	glm::mat4 InvBindPose;
+	CMeshJoint * Parent = nullptr;
 
 	CUniformValue<glm::mat4> SkinningMatrix;
 

@@ -15,6 +15,7 @@ struct SMeshBone
 
 	glm::mat4 Matrix;
 	string Name;
+	SMeshBone * Parent = nullptr;
 
 };
 

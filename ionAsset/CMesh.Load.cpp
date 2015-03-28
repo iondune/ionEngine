@@ -7,7 +7,7 @@
 
 
 SMaterial * LoadMaterial(aiMaterial * Material);
-SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials);
+SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> const & Materials);
 SMeshNode * TraverseMesh(aiScene const * Scene, aiNode * Node, vector<SMeshBuffer *> const & Buffers);
 
 
@@ -36,7 +36,7 @@ CMesh * CMesh::Load(std::string const & FileName)
 		Result->Materials.push_back(LoadMaterial(Scene->mMaterials[i]));
 
 	for (uint i = 0; i < Scene->mNumMeshes; ++ i)
-		Result->Buffers.push_back(LoadBuffer(Scene->mMeshes[i], Result->Materials));
+		Result->Buffers.push_back(LoadBuffer(Scene->mRootNode, Scene->mMeshes[i], Result->Materials));
 
 	Result->Root = TraverseMesh(Scene, Scene->mRootNode, Result->Buffers);
 	Result->Update();
@@ -70,7 +70,24 @@ glm::mat4 AItoGLM(aiMatrix4x4 const & ai)
 		);
 }
 
-SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials)
+string FindParentName(string const & ChildName, aiNode * Node)
+{
+	for (int i = 0; i < Node->mNumChildren; ++ i)
+	{
+		if (ChildName == Node->mChildren[i]->mName.C_Str())
+			return Node->mName.C_Str();
+		else
+		{
+			string Name = FindParentName(ChildName, Node->mChildren[i]);
+			if (Name.size())
+				return Name;
+		}
+	}
+
+	return "";
+}
+
+SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> const & Materials)
 {
 	SMeshBuffer * Buffer = new SMeshBuffer{};
 
@@ -127,6 +144,16 @@ SMeshBuffer * LoadBuffer(aiMesh * Mesh, vector<SMaterial *> const & Materials)
 		}
 
 		Buffer->Bones.push_back(Bone);
+	}
+
+	for (auto Bone : Buffer->Bones)
+	{
+		string const ParentName = FindParentName(Bone.Name, RootNode);
+		for (auto & Parent : Buffer->Bones)
+		{
+			if (ParentName == Parent.Name)
+				Bone.Parent = & Parent;
+		}
 	}
 
 	// Material

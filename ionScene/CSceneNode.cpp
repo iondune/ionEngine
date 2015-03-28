@@ -17,7 +17,14 @@ CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 void CSceneNode::Update()
 {
 	for (auto it : Components)
+	{
 		it.second->Update(this);
+	}
+
+	for (auto Joint : Joints)
+	{
+		Joint->SkinningMatrix = glm::mat4(1.f);//Joint->BindPose * Joint->InvBindPose;
+	}
 
 	ISceneNode::Update();
 }
@@ -168,6 +175,8 @@ CUniformReference<glm::mat4> & CSceneNode::GetTransformationUniform()
 
 static void RecurseJointsOnMesh(SMeshNode * Node, vector<CMeshJoint *> & Joints)
 {
+	map<SMeshBone *, CMeshJoint *> JointMap;
+	map<CMeshJoint *, SMeshBone *> BoneMap;
 	for (auto Buffer : Node->Buffers)
 	{
 		for (int i = 0; i < Buffer->Bones.size(); ++ i)
@@ -177,6 +186,18 @@ static void RecurseJointsOnMesh(SMeshNode * Node, vector<CMeshJoint *> & Joints)
 			Joint->BindPose = Buffer->Bones[i].Matrix;
 			Joint->InvBindPose = glm::inverse(Joint->BindPose);
 			Joints.push_back(Joint);
+			JointMap[& Buffer->Bones[i]] = Joint;
+			BoneMap[Joint] = & Buffer->Bones[i];
+		}
+	}
+
+	if (JointMap.size())
+	{
+		for (auto Joint : Joints)
+		{
+			auto Parent = BoneMap[Joint]->Parent;
+			if (Parent)
+				Joint->Parent = JointMap[Parent];
 		}
 	}
 
