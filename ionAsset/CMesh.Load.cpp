@@ -72,7 +72,7 @@ glm::mat4 AItoGLM(aiMatrix4x4 const & ai)
 
 string FindParentName(string const & ChildName, aiNode * Node)
 {
-	for (int i = 0; i < Node->mNumChildren; ++ i)
+	for (uint i = 0; i < Node->mNumChildren; ++ i)
 	{
 		if (ChildName == Node->mChildren[i]->mName.C_Str())
 			return Node->mName.C_Str();
