@@ -118,5 +118,35 @@ namespace ion
 		{
 			CheckedGLCall(glUniform1i(Handle, Value ? 1 : 0));
 		}
+
+		template <>
+		void Uniform::Bind<vector<glm::mat4>>(uint const Handle, vector<glm::mat4> const & Value)
+		{
+			static vector<float> Temp;
+
+			for (auto Mat : Value)
+			{
+				auto ValuePtr = glm::value_ptr(Mat);
+				for (int i = 0; i < 16; ++ i)
+					Temp.push_back(((float *) ValuePtr)[i]);
+			}
+
+			CheckedGLCall(glUniformMatrix4fv(Handle, (int) Value.size(), GL_FALSE, Temp.data()));
+		}
+
+		template <>
+		void Uniform::Bind<vector<glm::mat4 *>>(uint const Handle, vector<glm::mat4 *> const & Value)
+		{
+			static vector<float> Temp;
+
+			for (auto Mat : Value)
+			{
+				auto ValuePtr = glm::value_ptr(* Mat);
+				for (int i = 0; i < 16; ++ i)
+					Temp.push_back(((float *) ValuePtr)[i]);
+			}
+
+			CheckedGLCall(glUniformMatrix4fv(Handle, (int) Value.size(), GL_FALSE, Temp.data()));
+		}
 	}
 }

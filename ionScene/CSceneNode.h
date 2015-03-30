@@ -21,7 +21,7 @@ public:
 	glm::mat4 InvBindPose;
 	CMeshJoint * Parent = nullptr;
 
-	CUniformValue<glm::mat4> SkinningMatrix;
+	glm::mat4 SkinningMatrix;
 
 };
 
@@ -123,6 +123,7 @@ protected:
 	map<string, CShader *> Shaders;
 	map<string, bool> ConfigurationNeedsRebuild;
 	vector<CMeshJoint *> Joints;
+	CUniformValue<vector<glm::mat4 *>> SkinningMatrices;
 	map<string, CMeshJoint *> JointNames;
 
 	map<string, IUniform *> Uniforms;

@@ -23,7 +23,7 @@ void CSceneNode::Update()
 
 	for (auto Joint : Joints)
 	{
-		Joint->SkinningMatrix = glm::mat4(1.f);//Joint->BindPose * Joint->InvBindPose;
+		Joint->SkinningMatrix = Joint->BindPose * Joint->Transformation.Get() * Joint->InvBindPose;
 	}
 
 	ISceneNode::Update();
@@ -132,11 +132,8 @@ void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *>
 		DrawConfig->OfferUniform("uMaterial.DiffuseColor", & Buffer->GetMaterial()->Diffuse);
 		DrawConfig->OfferUniform("uMaterial.SpecularColor", & Buffer->GetMaterial()->Specular);
 		DrawConfig->OfferUniform("uMaterial.Shininess", & Buffer->GetMaterial()->Shininess);
-
-		for (int i = 0; i < SceneNode->Joints.size(); ++ i)
-		{
-			DrawConfig->OfferUniform(String::Build("uSkinningMatrix[%d]", i), & SceneNode->Joints[i]->SkinningMatrix);
-		}
+		
+		DrawConfig->OfferUniform("uSkinningMatrix[0]", & SceneNode->SkinningMatrices);
 
 		Definitions.push_back(DrawConfig);
 	}
@@ -214,11 +211,18 @@ void CSceneNode::SetMesh(CMesh * Mesh)
 	Joints.clear();
 	JointNames.clear();
 
+	// Load Joints
 	RecurseJointsOnMesh(Mesh->Root, Joints);
 
 	for (auto Joint : Joints)
 	{
 		JointNames[Joint->Name] = Joint;
+	}
+	SkinningMatrices.GetValue().resize(Joints.size(), nullptr);
+	
+	for (uint i = 0; i < Joints.size(); ++ i)
+	{
+		SkinningMatrices.GetValue()[i] = & Joints[i]->SkinningMatrix;
 	}
 
 	AllConfigurationsNeedRebuild();

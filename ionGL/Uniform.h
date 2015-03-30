@@ -77,6 +77,11 @@ namespace ion
 				: Value(value)
 			{}
 
+			T & GetValue()
+			{
+				return Value;
+			}
+
 			T const & GetValue() const
 			{
 				return Value;
