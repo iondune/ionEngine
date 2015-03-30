@@ -4,6 +4,7 @@
 
 #include <ionConfig.h>
 #include "FreeType.h"
+#include "CImGUIManager.h"
 
 #ifdef _ION_CONFIG_USE_GWEN
 

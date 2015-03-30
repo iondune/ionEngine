@@ -23,7 +23,9 @@
     <ClCompile Include="CGUIManager.cpp" />
     <ClCompile Include="CGUIProgressBarWidget.cpp" />
     <ClCompile Include="CGUIWidget.cpp" />
+    <ClCompile Include="CImGUIManager.cpp" />
     <ClCompile Include="FreeType.cpp" />
+    <ClCompile Include="imGUI.cpp" />
     <ClCompile Include="OpenGL3.cpp" />
     <ClCompile Include="OpenGL3Font.cpp" />
   </ItemGroup>
@@ -33,6 +35,7 @@
     <ClInclude Include="CGUIManager.h" />
     <ClInclude Include="CGUIProgressBarWidget.h" />
     <ClInclude Include="CGUIWidget.h" />
+    <ClInclude Include="CImGUIManager.h" />
     <ClInclude Include="FreeType.h" />
     <ClInclude Include="Gwen.h" />
     <ClInclude Include="ionGUI.h" />

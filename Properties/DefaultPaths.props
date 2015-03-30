@@ -14,6 +14,7 @@
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\dirent-1.20.1\include;
       ;$(VisualStudioDir)\SDKs\tinyformat;
+      ;$(VisualStudioDir)\SDKs\imGUI;
       ;$(IncludePath);
     </IncludePath>
     <LibraryPath>
