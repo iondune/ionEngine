@@ -132,6 +132,7 @@ namespace ion
 			}
 
 			CheckedGLCall(glUniformMatrix4fv(Handle, (int) Value.size(), GL_FALSE, Temp.data()));
+			Temp.clear();
 		}
 
 		template <>
@@ -147,6 +148,7 @@ namespace ion
 			}
 
 			CheckedGLCall(glUniformMatrix4fv(Handle, (int) Value.size(), GL_FALSE, Temp.data()));
+			Temp.clear();
 		}
 	}
 }
