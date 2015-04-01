@@ -43,7 +43,7 @@ void CSceneNode::Update()
 
 	for (auto Joint : Joints)
 	{
-		Joint->SkinningMatrix = Joint->BindPose * Joint->Transformation.Get() * Joint->InvBindPose;
+		Joint->SkinningMatrix = Joint->GetAbsoluteTransform() * Joint->InvBindPose;
 	}
 
 	ISceneNode::Update();
@@ -201,7 +201,6 @@ static void RecurseJointsOnMesh(SMeshNode * Node, vector<CMeshJoint *> & Joints)
 			CMeshJoint * Joint = new CMeshJoint;
 			Joint->Name = Buffer->Bones[i].Name;
 			Joint->BindPose = Buffer->Bones[i].Matrix;
-			Joint->InvBindPose = glm::inverse(Joint->BindPose);
 			Joints.push_back(Joint);
 			JointMap[& Buffer->Bones[i]] = Joint;
 			BoneMap[Joint] = & Buffer->Bones[i];
@@ -237,6 +236,7 @@ void CSceneNode::SetMesh(CMesh * Mesh)
 	for (auto Joint : Joints)
 	{
 		JointNames[Joint->Name] = Joint;
+		Joint->InvBindPose = glm::inverse(Joint->GetAbsoluteBindPose());
 	}
 	SkinningMatrices.GetValue().resize(Joints.size(), nullptr);
 	
