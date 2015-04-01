@@ -22,6 +22,8 @@ public:
 	CMeshJoint * Parent = nullptr;
 
 	glm::mat4 SkinningMatrix;
+	glm::mat4 GetAbsoluteTransform() const;
+	glm::mat4 GetAbsoluteBindPose() const;
 
 };
 

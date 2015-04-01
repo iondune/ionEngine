@@ -4,6 +4,26 @@
 #include "CScene.h"
 
 
+glm::mat4 CMeshJoint::GetAbsoluteTransform() const
+{
+	glm::mat4 AbsoluteTransform = Transformation.Get();
+
+	if (Parent)
+		AbsoluteTransform = Parent->GetAbsoluteTransform() * AbsoluteTransform;
+
+	return AbsoluteTransform;
+}
+	
+glm::mat4 CMeshJoint::GetAbsoluteBindPose() const
+{
+	glm::mat4 AbsoluteBindPose = BindPose;
+
+	if (Parent)
+		AbsoluteBindPose = Parent->GetAbsoluteBindPose() * AbsoluteBindPose;
+
+	return AbsoluteBindPose;
+}
+
 CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
 : ISceneNode(Parent)
 {
