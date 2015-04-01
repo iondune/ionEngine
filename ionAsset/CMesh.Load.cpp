@@ -146,7 +146,7 @@ SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> c
 		Buffer->Bones.push_back(Bone);
 	}
 
-	for (auto Bone : Buffer->Bones)
+	for (auto & Bone : Buffer->Bones)
 	{
 		string const ParentName = FindParentName(Bone.Name, RootNode);
 		for (auto & Parent : Buffer->Bones)
