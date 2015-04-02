@@ -6,7 +6,7 @@
 
 glm::mat4 CMeshJoint::GetAbsoluteTransform() const
 {
-	glm::mat4 AbsoluteTransform = AnimationTransform.Get() * RelativeTransform;
+	glm::mat4 AbsoluteTransform = RelativeTransform * AnimationTransform.Get();
 
 	if (Parent)
 		AbsoluteTransform = Parent->GetAbsoluteTransform() * AbsoluteTransform;
