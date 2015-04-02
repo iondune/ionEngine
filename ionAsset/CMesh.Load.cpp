@@ -70,21 +70,22 @@ glm::mat4 AItoGLM(aiMatrix4x4 const & ai)
 		);
 }
 
-string FindParentName(string const & ChildName, aiNode * Node)
+void FindParentName(string const & ChildName, aiNode * Node, string & OutString, glm::mat4 & OutMatrix)
 {
 	for (uint i = 0; i < Node->mNumChildren; ++ i)
 	{
 		if (ChildName == Node->mChildren[i]->mName.C_Str())
-			return Node->mName.C_Str();
+		{
+			OutString = Node->mName.C_Str();
+			OutMatrix = AItoGLM(Node->mChildren[i]->mTransformation);
+		}
 		else
 		{
-			string Name = FindParentName(ChildName, Node->mChildren[i]);
-			if (Name.size())
-				return Name;
+			FindParentName(ChildName, Node->mChildren[i], OutString, OutMatrix);
+			if (OutString.size())
+				return;
 		}
 	}
-
-	return "";
 }
 
 SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> const & Materials)
@@ -123,7 +124,7 @@ SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> c
 	{
 		SMeshBone Bone;
 		Bone.Name = Mesh->mBones[j]->mName.C_Str();
-		Bone.Matrix = AItoGLM(Mesh->mBones[j]->mOffsetMatrix);
+		Bone.OffsetMatrix = AItoGLM(Mesh->mBones[j]->mOffsetMatrix);
 
 		for (uint k = 0; k < Mesh->mBones[j]->mNumWeights; ++ k)
 		{
@@ -148,12 +149,16 @@ SMeshBuffer * LoadBuffer(aiNode * RootNode, aiMesh * Mesh, vector<SMaterial *> c
 
 	for (auto & Bone : Buffer->Bones)
 	{
-		string const ParentName = FindParentName(Bone.Name, RootNode);
+		string ParentName;
+		glm::mat4 MyTransform;
+		FindParentName(Bone.Name, RootNode, ParentName, MyTransform);
+
 		for (auto & Parent : Buffer->Bones)
 		{
 			if (ParentName == Parent.Name)
 				Bone.Parent = & Parent;
 		}
+		Bone.RelativeTransform = MyTransform;
 	}
 
 	// Material

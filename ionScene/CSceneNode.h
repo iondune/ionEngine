@@ -15,15 +15,13 @@ public:
 
 	string Name;
 
-	STransformation3 Transformation;
-	glm::mat4 BindPose;
-	glm::mat4 AbsolutePose;
-	glm::mat4 InvBindPose;
+	STransformation3 AnimationTransform;
+	glm::mat4 RelativeTransform;
+	glm::mat4 OffsetTransform;
 	CMeshJoint * Parent = nullptr;
 
 	glm::mat4 SkinningMatrix;
 	glm::mat4 GetAbsoluteTransform() const;
-	glm::mat4 GetAbsoluteBindPose() const;
 
 };
 

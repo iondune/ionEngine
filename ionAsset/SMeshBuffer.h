@@ -13,7 +13,7 @@
 struct SMeshBone
 {
 
-	glm::mat4 Matrix;
+	glm::mat4 OffsetMatrix, RelativeTransform;
 	string Name;
 	SMeshBone * Parent = nullptr;
 

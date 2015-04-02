@@ -6,22 +6,12 @@
 
 glm::mat4 CMeshJoint::GetAbsoluteTransform() const
 {
-	glm::mat4 AbsoluteTransform = Transformation.Get();
+	glm::mat4 AbsoluteTransform = AnimationTransform.Get() * RelativeTransform;
 
 	if (Parent)
 		AbsoluteTransform = Parent->GetAbsoluteTransform() * AbsoluteTransform;
 
 	return AbsoluteTransform;
-}
-	
-glm::mat4 CMeshJoint::GetAbsoluteBindPose() const
-{
-	glm::mat4 AbsoluteBindPose = BindPose;
-
-	if (Parent)
-		AbsoluteBindPose = Parent->GetAbsoluteBindPose() * AbsoluteBindPose;
-
-	return AbsoluteBindPose;
 }
 
 CSceneNode::CSceneNode(CScene * Scene, ISceneNode * Parent)
@@ -43,7 +33,7 @@ void CSceneNode::Update()
 
 	for (auto Joint : Joints)
 	{
-		Joint->SkinningMatrix = Joint->GetAbsoluteTransform() * Joint->InvBindPose;
+		Joint->SkinningMatrix = Joint->GetAbsoluteTransform() * Joint->OffsetTransform;
 	}
 
 	ISceneNode::Update();
@@ -200,7 +190,8 @@ static void RecurseJointsOnMesh(SMeshNode * Node, vector<CMeshJoint *> & Joints)
 		{
 			CMeshJoint * Joint = new CMeshJoint;
 			Joint->Name = Buffer->Bones[i].Name;
-			Joint->BindPose = Buffer->Bones[i].Matrix;
+			Joint->OffsetTransform = Buffer->Bones[i].OffsetMatrix;
+			Joint->RelativeTransform = Buffer->Bones[i].RelativeTransform;
 			Joints.push_back(Joint);
 			JointMap[& Buffer->Bones[i]] = Joint;
 			BoneMap[Joint] = & Buffer->Bones[i];
@@ -236,7 +227,6 @@ void CSceneNode::SetMesh(CMesh * Mesh)
 	for (auto Joint : Joints)
 	{
 		JointNames[Joint->Name] = Joint;
-		Joint->InvBindPose = glm::inverse(Joint->GetAbsoluteBindPose());
 	}
 	SkinningMatrices.GetValue().resize(Joints.size(), nullptr);
 	
