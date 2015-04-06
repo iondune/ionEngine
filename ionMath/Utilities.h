@@ -68,25 +68,25 @@ T Sqrt(T const & value)
 
 
 template <typename T>
-T DegToRad(T const & degrees)
+T DegToRad(T const degrees)
 {
 	return degrees * Constants<T>::Pi() / 180;
 }
 
 template <typename T>
-T DegreesToRadians(T const & degrees)
+T DegreesToRadians(T const degrees)
 {
 	return degrees * Constants<T>::Pi() / 180;
 }
 
 template <typename T>
-T RadToDeg(T const & radians)
+T RadToDeg(T const radians)
 {
 	return radians * 180 / Constants<T>::Pi();
 }
 
 template <typename T>
-T RadiansToDegrees(T const & radians)
+T RadiansToDegrees(T const radians)
 {
 	return radians * 180 / Constants<T>::Pi();
 }
