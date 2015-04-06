@@ -92,6 +92,7 @@ public:
 
 	CMeshJoint * GetJoint(uint const Index);
 	CMeshJoint * GetJoint(string const & Name);
+	uint GetJointCount() const;
 
 
 	//////////////

@@ -375,6 +375,11 @@ CMeshJoint * CSceneNode::GetJoint(string const & Name)
 	return ConditionalMapAccess(JointNames, Name);
 }
 
+uint CSceneNode::GetJointCount() const
+{
+	return Joints.size();
+}
+
 
 //////////////
 // Features //
