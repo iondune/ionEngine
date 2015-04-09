@@ -7,5 +7,6 @@
     <ClInclude Include="IPath.h" />
     <ClInclude Include="SPathNode.h" />
     <ClInclude Include="ionAnimation.h" />
+    <ClInclude Include="CSkinnedAnimation.h" />
   </ItemGroup>
 </Project>

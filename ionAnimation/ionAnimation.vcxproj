@@ -19,6 +19,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="CPath.h" />
+    <ClInclude Include="CSkinnedAnimation.h" />
     <ClInclude Include="IInterpolator.h" />
     <ClInclude Include="Interpolators.h" />
     <ClInclude Include="ionAnimation.h" />
