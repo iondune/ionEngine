@@ -377,7 +377,7 @@ CMeshJoint * CSceneNode::GetJoint(string const & Name)
 
 uint CSceneNode::GetJointCount() const
 {
-	return Joints.size();
+	return (uint) Joints.size();
 }
 
 
