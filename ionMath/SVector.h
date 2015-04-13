@@ -441,8 +441,16 @@ public:
 	}
 
 	bool operator < (Other const & v) const
-	{
-		return Values[0] < v.Values[0] || (Values[0] == v.Values[0] && Values[1] < v.Values[1]);
+	{		
+		for (int i = 0; i < Dimension; ++ i)
+		{
+			if (Values[i] < v.Values[i])
+				return true;
+			else if (Values[i] > v.Values[i])
+				return false;
+		}
+
+		return false;
 	}
 
 	bool operator >= (Other const & v) const

@@ -21,6 +21,7 @@
     <ClCompile Include="ionStandardLibrary.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="SVector2.cpp" />
+    <ClCompile Include="SVector3.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

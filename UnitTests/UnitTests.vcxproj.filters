@@ -32,6 +32,9 @@
     <ClCompile Include="Interpolation.cpp">
       <Filter>ionScience</Filter>
     </ClCompile>
+    <ClCompile Include="SVector3.cpp">
+      <Filter>ionMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
