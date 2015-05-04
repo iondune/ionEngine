@@ -4,27 +4,6 @@
     <ClCompile Include="FreeType.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="CGUIEventManager.cpp">
-      <Filter>Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIManager.cpp">
-      <Filter>Management</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL3.cpp">
-      <Filter>Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL3Font.cpp">
-      <Filter>Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIConsoleWidget.cpp">
-      <Filter>Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIProgressBarWidget.cpp">
-      <Filter>Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIWidget.cpp">
-      <Filter>Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="CImGUIManager.cpp">
       <Filter>imGUI</Filter>
     </ClCompile>
@@ -37,28 +16,6 @@
     <ClInclude Include="FreeType.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Gwen.h" />
-    <ClInclude Include="CGUIEventManager.h">
-      <Filter>Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIManager.h">
-      <Filter>Management</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL3.h">
-      <Filter>Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL3Font.h">
-      <Filter>Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIConsoleWidget.h">
-      <Filter>Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIProgressBarWidget.h">
-      <Filter>Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIWidget.h">
-      <Filter>Widgets</Filter>
-    </ClInclude>
     <ClInclude Include="CImGUIManager.h">
       <Filter>imGUI</Filter>
     </ClInclude>
@@ -66,15 +23,6 @@
   <ItemGroup>
     <Filter Include="Utilities">
       <UniqueIdentifier>{ef1b03f1-7f14-4162-a105-1c73acca6feb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Management">
-      <UniqueIdentifier>{bbc75a1e-ce0a-48d2-b8c8-232bb78b8923}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Widgets">
-      <UniqueIdentifier>{08167a34-9e50-4fc8-98a3-bd9bc824a990}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderers">
-      <UniqueIdentifier>{31849a06-2639-4cb3-b3e7-1d8e3a3d69de}</UniqueIdentifier>
     </Filter>
     <Filter Include="imGUI">
       <UniqueIdentifier>{8bc06503-2450-445c-9c02-e625fb399dcc}</UniqueIdentifier>

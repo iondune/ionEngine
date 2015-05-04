@@ -5,7 +5,6 @@
 // Config Options //
 ////////////////////
 
-#define _ION_CONFIG_USE_GWEN
 #define _ION_CONFIG_GAMEPAD
 //#define _ION_CONFIG_SUPPRESS_LOG
 

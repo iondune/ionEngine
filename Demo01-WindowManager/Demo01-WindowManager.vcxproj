@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,28 +11,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2C29A580-43CE-41B2-BBE9-726F759B9642}</ProjectGuid>
-    <RootNamespace>DemoGUI</RootNamespace>
-    <ProjectName>Demo04-GUI</ProjectName>
+    <ProjectGuid>{03C6DAB6-20CA-4279-A89E-087373B27805}</ProjectGuid>
+    <ProjectName>Demo01-WindowManager</ProjectName>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Application.props" />
+    <Import Project="$(SolutionDir)\Properties\Demo.props" />
   </ImportGroup>
+
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
         ;ionFramework.lib;
         ;ionGL.lib;
         ;ionWindow.lib;
-        ;ionAsset.lib;
-        ;ionGUI.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+
   <ItemGroup>
-    <ClCompile Include="DemoGUI.cpp" />
+    <ClCompile Include="DemoWindowManager.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

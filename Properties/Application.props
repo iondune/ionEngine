@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\DefaultTarget.props" />
+    <Import Project="Include\Build.props" />
+    <Import Project="Include\DependencyLibraries.props" />
+    <Import Project="Include\ionLibraries.props" />
+    <Import Project="Include\Deploy.props" />
   </ImportGroup>
 
 </Project>

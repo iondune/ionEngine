@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A24BACED-451D-4120-A386-136A963C3C72}</ProjectGuid>
     <RootNamespace>ionMath</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Utility.props" />
+    <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="ionMath.h" />
@@ -34,5 +38,6 @@
     <ClInclude Include="SVector4.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

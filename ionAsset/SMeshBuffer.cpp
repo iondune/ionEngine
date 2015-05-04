@@ -89,7 +89,7 @@ void SMeshBuffer::LoadDataIntoBuffers()
 
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 2; ++ j)
-				Data.push_back(it->BoneIndices[j]);
+				Data.push_back((float) it->BoneIndices[j]);
 		VertexBuffers.BoneIndices->Data(Data, 2);
 		Data.clear();
 	}

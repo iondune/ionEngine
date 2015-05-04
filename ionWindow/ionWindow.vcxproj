@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}</ProjectGuid>
     <RootNamespace>ionWindow</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Library.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClCompile Include="ConvertGLFWKeyCode.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
@@ -24,6 +28,7 @@
     <ClCompile Include="CWindowManager.Callbacks.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
   </ItemGroup>
+
   <ItemGroup>
     <ClInclude Include="ConvertGLFWKeyCode.h" />
     <ClInclude Include="CTimeManager.h" />
@@ -35,5 +40,6 @@
     <ClInclude Include="SMouseEvent.h" />
     <ClInclude Include="SWindowResizedEvent.h" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

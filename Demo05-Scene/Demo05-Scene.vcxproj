@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,14 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{791485D8-0C8C-48C2-B943-6E10C34860C0}</ProjectGuid>
-    <RootNamespace>DemoAsset</RootNamespace>
-    <ProjectName>Demo03-Asset</ProjectName>
+    <ProjectGuid>{8C46A561-981F-447F-BD14-B96007179478}</ProjectGuid>
+    <ProjectName>Demo05-Scene</ProjectName>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Application.props" />
+    <Import Project="$(SolutionDir)\Properties\Demo.props" />
   </ImportGroup>
+
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
@@ -25,12 +28,15 @@
         ;ionGL.lib;
         ;ionWindow.lib;
         ;ionAsset.lib;
+        ;ionScene.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+
   <ItemGroup>
-    <ClCompile Include="DemoAsset.cpp" />
+    <ClCompile Include="DemoScene.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

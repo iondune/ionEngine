@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1FDC44C8-0538-4FDD-8F94-531DFC28D166}</ProjectGuid>
     <RootNamespace>ionAsset</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Library.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include="CDrawContext.h" />
     <ClInclude Include="CFrameBuffer.h" />
@@ -33,6 +37,7 @@
     <ClInclude Include="SMeshTriangle.h" />
     <ClInclude Include="SVertex.h" />
   </ItemGroup>
+
   <ItemGroup>
     <ClCompile Include="CFrameBuffer.cpp" />
     <ClCompile Include="CGeometryCreator.cpp" />
@@ -46,7 +51,6 @@
     <ClCompile Include="SMeshTriangle.cpp" />
     <ClCompile Include="SVertex.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>
