@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A629442A-C32C-4949-AA1D-E2118521DBAD}</ProjectGuid>
     <RootNamespace>ionScience</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Library.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include="CColorTable.h" />
     <ClInclude Include="CPrintProgressBar.h" />
@@ -37,6 +41,7 @@
     <ClInclude Include="SVolume.h" />
     <ClInclude Include="SVolumeDatabase.h" />
   </ItemGroup>
+
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp" />
     <ClCompile Include="CKDTree.cpp" />
@@ -46,5 +51,6 @@
     <ClCompile Include="STable.FieldIterator.cpp" />
     <ClCompile Include="STable.Row.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

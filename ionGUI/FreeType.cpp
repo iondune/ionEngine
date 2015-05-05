@@ -275,7 +275,7 @@ struct GlyphInfo
 				ImageData[2 * (i + j * ImageWidth)] = 255;
 
 				// Alpha
-				if (i >= Bitmap.width || j >= Bitmap.rows)
+				if (i >= (int) Bitmap.width || j >= (int) Bitmap.rows)
 					ImageData[2 * (i + j * ImageWidth) + 1] = 0;
 				else
 					ImageData[2 * (i + j * ImageWidth) + 1] = Bitmap.buffer[i + Bitmap.width * j];

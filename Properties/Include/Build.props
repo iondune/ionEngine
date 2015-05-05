@@ -19,7 +19,7 @@
   </ImportGroup>
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="DefaultPaths.props" />
+    <Import Project="Paths.props" />
   </ImportGroup>
 
   <ItemDefinitionGroup>

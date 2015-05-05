@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}</ProjectGuid>
     <RootNamespace>ionCore</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Utility.props" />
+    <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionComponent.h" />
@@ -31,5 +35,6 @@
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionUtils.h" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

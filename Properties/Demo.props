@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\FullTarget.props" />
+    <Import Project="Include\Build.props" />
+    <Import Project="Include\DependencyLibraries.props" />
+    <Import Project="Include\Deploy.props" />
   </ImportGroup>
 
 </Project>

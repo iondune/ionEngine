@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}</ProjectGuid>
     <RootNamespace>ionAnimation</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Library.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include="CPath.h" />
     <ClInclude Include="CSkinnedAnimation.h" />
@@ -26,5 +30,6 @@
     <ClInclude Include="IPath.h" />
     <ClInclude Include="SPathNode.h" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

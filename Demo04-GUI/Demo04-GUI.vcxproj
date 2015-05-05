@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,14 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}</ProjectGuid>
-    <RootNamespace>DemoBootstrap</RootNamespace>
-    <ProjectName>Demo06-Bootstrap</ProjectName>
+    <ProjectGuid>{2C29A580-43CE-41B2-BBE9-726F759B9642}</ProjectGuid>
+    <ProjectName>Demo04-GUI</ProjectName>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Application.props" />
+    <Import Project="$(SolutionDir)\Properties\Demo.props" />
   </ImportGroup>
+
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
@@ -25,14 +28,15 @@
         ;ionGL.lib;
         ;ionWindow.lib;
         ;ionAsset.lib;
-        ;ionScene.lib;
-        ;ionBootstrap.lib;
+        ;ionGUI.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+
   <ItemGroup>
-    <ClCompile Include="DemoBootstrap.cpp" />
+    <ClCompile Include="DemoGUI.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

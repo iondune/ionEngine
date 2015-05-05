@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\DefaultBuild.props" />
+    <Import Project="Include\Build.props" />
   </ImportGroup>
 
 </Project>

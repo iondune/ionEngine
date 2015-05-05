@@ -9,6 +9,7 @@
 #include <map>
 #include <unordered_map>
 #include <list>
+#include <deque>
 #include <string>
 #include <type_traits>
 #include <initializer_list>

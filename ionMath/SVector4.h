@@ -44,7 +44,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	SVector4(glm::detail::tvec4<U, glm::defaultp> const & v)
+	SVector4(glm::tvec4<U, glm::defaultp> const & v)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
 		Values[0] = (T) v.x;
@@ -102,7 +102,7 @@ public:
 
 	//! GLM constructor
 	template <typename U>
-	operator glm::detail::tvec4<U, glm::defaultp> ()
+	operator glm::tvec4<U, glm::defaultp> ()
 	{
 		return glm::detail::tvec4<U, glm::defaultp>(X, Y, Z, W);
 	}

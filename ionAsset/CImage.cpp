@@ -1,7 +1,9 @@
 #include "CImage.h"
 
-#include <stb_image.c>
-#include <stb_image_write.c>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
 
 
 CImage * CImage::Load(std::string const & FileName)

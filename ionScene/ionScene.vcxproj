@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -10,13 +11,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+
   <PropertyGroup Label="Globals">
     <ProjectGuid>{60FDFD9C-F812-4BDE-B62F-F7BC8F2C0792}</ProjectGuid>
     <RootNamespace>ionScene</RootNamespace>
   </PropertyGroup>
+
   <ImportGroup Label="PropertySheets">
-    <Import Project="..\Properties\Library.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
@@ -38,6 +42,7 @@
     <ClInclude Include="ISceneNode.h" />
     <ClInclude Include="ISceneNodeComponent.h" />
   </ItemGroup>
+
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDrawManager.cpp" />
@@ -58,5 +63,6 @@
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />
     <ClCompile Include="ISceneNode.UpdateMethods.cpp" />
   </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

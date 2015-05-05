@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <ImportGroup Label="PropertySheets">
-    <Import Project="DefaultBuild.props" />
-  </ImportGroup>
-
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
         ;assimp.lib;
-        ;freetype253.lib;
         ;OpenGL32.lib;
         ;glu32.lib;
         ;glew32.lib;
         ;glfw3.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-    <Link>
-      <AdditionalDependencies>
-        ;gwen_staticd.lib;
+      <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">
+        ;freetype255d.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
-    </Link>
-  </ItemDefinitionGroup>
-
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
-    <Link>
-      <AdditionalDependencies>
-        ;gwen_static.lib;
+      <AdditionalDependencies Condition="'$(Configuration)'=='Release'">
+        ;freetype255.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
