@@ -144,7 +144,7 @@ void CGamePadCameraController::Update(f64 const TickTime)
 	f32 const ZoomSpeed = 100.f;
 	f32 const ZoomMod = 1.01f;
 	CPerspectiveCamera * PerspectiveCamera = nullptr;
-	if (PerspectiveCamera = As<CPerspectiveCamera>(Camera))
+	if ((PerspectiveCamera = As<CPerspectiveCamera>(Camera)))
 	{
 		f32 FocalLength = PerspectiveCamera->GetFocalLength();
 		if (IsButtonPressed(EGamePadButton::DPadUp))

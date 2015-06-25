@@ -104,7 +104,7 @@ public:
 	template <typename U>
 	operator glm::tvec4<U, glm::defaultp> ()
 	{
-		return glm::detail::tvec4<U, glm::defaultp>(X, Y, Z, W);
+		return glm::tvec4<U, glm::defaultp>(X, Y, Z, W);
 	}
 
 };

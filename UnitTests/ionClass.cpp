@@ -40,6 +40,7 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 class Base
 {
 public:
+	Base() {}
 	virtual ~Base() {}
 };
 
@@ -70,7 +71,7 @@ TEST_CASE("Type", "[ionClass :: Type]")
 	Type TypeA(typeid(A));
 	Type TypeB(typeid(B));
 	Type TypeC(typeid(C));
-	
+
 	REQUIRE((TypeA < TypeB) != (TypeB < TypeA));
 	REQUIRE((TypeA < TypeC) != (TypeC < TypeA));
 	REQUIRE((TypeB < TypeC) != (TypeC < TypeB));
@@ -93,9 +94,9 @@ public:
 TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
 {
 	SingletonPointer<E> e;
-	SingletonPointer<E> const constE;
+	SingletonPointer<E> const constE = SingletonPointer<E>();
 	SingletonPointer<F> f;
-	
+
 	REQUIRE(e->FPtr.Get() == f.Get());
 	REQUIRE(constE->FPtr.Get() == f.Get());
 	REQUIRE(f->EPtr.Get() == e.Get());

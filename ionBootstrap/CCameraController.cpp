@@ -48,7 +48,7 @@ void CCameraController::OnEvent(IEvent & Event)
 		if (MouseEvent.Type == SMouseEvent::EType::Scroll)
 		{
 			CPerspectiveCamera * PerspectiveCamera = nullptr;
-			if (PerspectiveCamera = As<CPerspectiveCamera>(Camera))
+			if ((PerspectiveCamera = As<CPerspectiveCamera>(Camera)))
 			{
 				f32 FocalLength = PerspectiveCamera->GetFocalLength();
 

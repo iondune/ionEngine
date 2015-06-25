@@ -11,7 +11,7 @@ vector<string> Directory::Read(string const & Path)
 	if (dir)
 	{
 		dirent * ent;
-		while (ent = readdir(dir))
+		while ((ent = readdir(dir)))
 		{
 			std::string const FileName = ent->d_name;
 			if (FileName == "." || FileName == "..")

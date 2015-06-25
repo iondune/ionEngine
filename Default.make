@@ -25,7 +25,7 @@ CXXFLAGS_COVERAGE=-g -O0 --coverage -fprofile-arcs -ftest-coverage
 #############
 
 # Configuration-Specific Settings
-CXXFLAGS=$(CXXFLAGS_BASE)
+CXXFLAGS=$(CXXFLAGS_BASE) $(TARGET_PARAMS)
 
 ifeq      "$(CONFIGURATION)" "Debug"
 CXXFLAGS+=$(CXXFLAGS_DEBUG)
@@ -79,7 +79,7 @@ endif
 
 $(CONFIGURATION)/%.o: %.cpp
 	@mkdir -p $(CONFIGURATION)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< $(TARGET_LIBS) -o $@
 
 # Dependencies
 -include .depend.mk
