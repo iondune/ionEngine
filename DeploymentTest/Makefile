@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ian/ionEngine/DeploymentTest
+CMAKE_SOURCE_DIR = /home/ian/ionEngine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ian/ionEngine/DeploymentTest
+CMAKE_BINARY_DIR = /home/ian/ionEngine
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ian/ionEngine/DeploymentTest/CMakeFiles /home/ian/ionEngine/DeploymentTest/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ian/ionEngine/DeploymentTest/CMakeFiles 0
+	cd /home/ian/ionEngine && $(CMAKE_COMMAND) -E cmake_progress_start /home/ian/ionEngine/CMakeFiles /home/ian/ionEngine/DeploymentTest/CMakeFiles/progress.marks
+	cd /home/ian/ionEngine && $(MAKE) -f CMakeFiles/Makefile2 DeploymentTest/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ian/ionEngine/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/ian/ionEngine && $(MAKE) -f CMakeFiles/Makefile2 DeploymentTest/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,30 +85,31 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/ian/ionEngine && $(MAKE) -f CMakeFiles/Makefile2 DeploymentTest/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/ian/ionEngine && $(MAKE) -f CMakeFiles/Makefile2 DeploymentTest/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ian/ionEngine && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named DeploymentTest
+# Convenience name for target.
+DeploymentTest/CMakeFiles/DeploymentTest.dir/rule:
+	cd /home/ian/ionEngine && $(MAKE) -f CMakeFiles/Makefile2 DeploymentTest/CMakeFiles/DeploymentTest.dir/rule
+.PHONY : DeploymentTest/CMakeFiles/DeploymentTest.dir/rule
 
-# Build rule for target.
-DeploymentTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DeploymentTest
+# Convenience name for target.
+DeploymentTest: DeploymentTest/CMakeFiles/DeploymentTest.dir/rule
 .PHONY : DeploymentTest
 
 # fast build rule for target.
 DeploymentTest/fast:
-	$(MAKE) -f CMakeFiles/DeploymentTest.dir/build.make CMakeFiles/DeploymentTest.dir/build
+	cd /home/ian/ionEngine && $(MAKE) -f DeploymentTest/CMakeFiles/DeploymentTest.dir/build.make DeploymentTest/CMakeFiles/DeploymentTest.dir/build
 .PHONY : DeploymentTest/fast
 
 DeploymentTest.o: DeploymentTest.cpp.o
@@ -116,7 +117,7 @@ DeploymentTest.o: DeploymentTest.cpp.o
 
 # target to build an object file
 DeploymentTest.cpp.o:
-	$(MAKE) -f CMakeFiles/DeploymentTest.dir/build.make CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.o
+	cd /home/ian/ionEngine && $(MAKE) -f DeploymentTest/CMakeFiles/DeploymentTest.dir/build.make DeploymentTest/CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.o
 .PHONY : DeploymentTest.cpp.o
 
 DeploymentTest.i: DeploymentTest.cpp.i
@@ -124,7 +125,7 @@ DeploymentTest.i: DeploymentTest.cpp.i
 
 # target to preprocess a source file
 DeploymentTest.cpp.i:
-	$(MAKE) -f CMakeFiles/DeploymentTest.dir/build.make CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.i
+	cd /home/ian/ionEngine && $(MAKE) -f DeploymentTest/CMakeFiles/DeploymentTest.dir/build.make DeploymentTest/CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.i
 .PHONY : DeploymentTest.cpp.i
 
 DeploymentTest.s: DeploymentTest.cpp.s
@@ -132,7 +133,7 @@ DeploymentTest.s: DeploymentTest.cpp.s
 
 # target to generate assembly for a file
 DeploymentTest.cpp.s:
-	$(MAKE) -f CMakeFiles/DeploymentTest.dir/build.make CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.s
+	cd /home/ian/ionEngine && $(MAKE) -f DeploymentTest/CMakeFiles/DeploymentTest.dir/build.make DeploymentTest/CMakeFiles/DeploymentTest.dir/DeploymentTest.cpp.s
 .PHONY : DeploymentTest.cpp.s
 
 # Help Target
@@ -158,6 +159,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ian/ionEngine && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

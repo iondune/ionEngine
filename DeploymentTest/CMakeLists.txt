@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.6)
-project(DeploymentTest)
 add_executable(DeploymentTest DeploymentTest.cpp)
 
 # GLFW
@@ -15,8 +13,3 @@ if (GLEW_FOUND)
     include_directories(${GLEW_INCLUDE_DIRS})
     target_link_libraries(DeploymentTest ${GLEW_LIBRARIES})
 endif()
-
-# ionEngine
-include_directories(../Include/)
-set(CMAKE_CXX_FLAGS "-std=c++11")
-
