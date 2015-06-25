@@ -27,3 +27,6 @@ Analytics/html
 *.info
 *.psd
 Thumbs.db
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
