@@ -124,6 +124,19 @@ DeploymentTest/fast:
 	$(MAKE) -f DeploymentTest/CMakeFiles/DeploymentTest.dir/build.make DeploymentTest/CMakeFiles/DeploymentTest.dir/build
 .PHONY : DeploymentTest/fast
 
+#=============================================================================
+# Target rules for targets named UnitTests
+
+# Build rule for target.
+UnitTests: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 UnitTests
+.PHONY : UnitTests
+
+# fast build rule for target.
+UnitTests/fast:
+	$(MAKE) -f UnitTests/CMakeFiles/UnitTests.dir/build.make UnitTests/CMakeFiles/UnitTests.dir/build
+.PHONY : UnitTests/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -134,6 +147,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... ionFramework"
 	@echo "... DeploymentTest"
+	@echo "... UnitTests"
 .PHONY : help
 
 
