@@ -32,3 +32,4 @@ CMakeCache.txt
 cmake_install.cmake
 bin/
 lib/
+Makefile
