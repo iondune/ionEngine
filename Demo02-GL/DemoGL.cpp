@@ -32,13 +32,13 @@ int main()
 	IndexBuffer * ibo = new IndexBuffer;
 	ibo->Data(Indices);
 
-	
+
 	//////////////////
 	// Shader Setup //
 	//////////////////
 
 	string const VertexShaderSource = R"SHADER(
-		#version 150
+		#version 130
 		in vec2 position;
 		void main()
 		{
@@ -47,8 +47,8 @@ int main()
 	)SHADER";
 
 	string const FragmentShaderSource = R"SHADER(
-		#version 150
-		out vec4 outColor;	
+		#version 130
+		out vec4 outColor;
 		void main()
 		{
 			outColor = vec4(1.0, 1.0, 1.0, 1.0);
