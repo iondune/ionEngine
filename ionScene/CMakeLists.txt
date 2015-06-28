@@ -1,2 +1,2 @@
 file(GLOB SOURCES *.cpp)
-add_library(ionSCene ${SOURCES})
+add_library(ionScene ${SOURCES})
