@@ -1,4 +1,4 @@
-#version 150
+#version 130
 
 in vec2 aPosition;
 out vec2 vTexCoord;

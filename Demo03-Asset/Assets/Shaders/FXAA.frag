@@ -1,6 +1,6 @@
 // Based on http://horde3d.org/wiki/index.php5?title=Shading_Technique_-_FXAA
 
-#version 150
+#version 130
 
 uniform sampler2D uTexColor;
 uniform vec2 uPixelOffset;
