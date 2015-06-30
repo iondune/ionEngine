@@ -433,15 +433,19 @@ public:
 
 	bool operator <= (Other const & v) const
 	{
-		bool result = true;
-		for (u32 i = 0; i < Dimension; ++ i)
-			result = result && (Values[i] <= v[i]);
+		for (int i = 0; i < Dimension; ++ i)
+		{
+			if (Values[i] < v.Values[i])
+				return true;
+			else if (Values[i] > v.Values[i])
+				return false;
+		}
 
-		return result;
+		return true;
 	}
 
 	bool operator < (Other const & v) const
-	{		
+	{
 		for (int i = 0; i < Dimension; ++ i)
 		{
 			if (Values[i] < v.Values[i])
@@ -464,11 +468,15 @@ public:
 
 	bool operator > (Other const & v) const
 	{
-		bool result = true;
-		for (u32 i = 0; i < Dimension; ++ i)
-			result = result && (Values[i] > v[i]);
+		for (int i = 0; i < Dimension; ++ i)
+		{
+			if (Values[i] > v.Values[i])
+				return true;
+			else if (Values[i] < v.Values[i])
+				return false;
+		}
 
-		return result;
+		return false;
 	}
 
 	////////////////////////
