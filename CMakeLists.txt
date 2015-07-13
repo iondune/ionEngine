@@ -2,16 +2,21 @@
 cmake_minimum_required(VERSION 2.6)
 project(ionEngine)
 
+# Output Directories
+set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+
 # Compiler Settings
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/Include")
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
-# Output Directories
-set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+# Libraries
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/stb")
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/tinyformat")
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glm")
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/imgui")
 
-# Function Library
 function(GLFW TargetName)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
@@ -37,6 +42,7 @@ add_subdirectory("ionFramework")
 add_subdirectory("ionGL")
 add_subdirectory("ionAsset")
 add_subdirectory("ionWindow")
+add_subdirectory("ionGUI")
 add_subdirectory("ionScene")
 add_subdirectory("ionScience")
 add_subdirectory("ionBootstrap")
@@ -49,3 +55,4 @@ add_subdirectory("UnitTests")
 add_subdirectory("Demo01-WindowManager")
 add_subdirectory("Demo02-GL")
 add_subdirectory("Demo03-Asset")
+add_subdirectory("Demo04-GUI")

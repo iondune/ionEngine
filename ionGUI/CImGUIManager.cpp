@@ -1,6 +1,6 @@
 
 #include "CImGUIManager.h"
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
