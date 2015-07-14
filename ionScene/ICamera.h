@@ -8,11 +8,11 @@ class ICamera : public ISceneNode
 {
 
 public:
-	
+
 	ICamera(ISceneNode * Parent)
 		: ISceneNode(Parent)
 	{}
-	
+
 	virtual void RecalculateViewMatrix() = 0;
 	virtual void RecalculateProjectionMatrix() = 0;
 
@@ -23,7 +23,7 @@ public:
 	//virtual f32 GetFieldOfView() const = 0;
 	virtual glm::mat4 GetViewMatrix() const = 0;
 	virtual glm::mat4 GetProjectionMatrix() const = 0;
-	
+
 	virtual f32 GetNearPlane() const = 0;
 	virtual f32 GetFarPlane() const = 0;
 	//virtual void SetFieldOfView(f32 const fieldOfView) = 0;

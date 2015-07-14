@@ -6,7 +6,7 @@ CUpdateCallbackComponent::CUpdateCallbackComponent(std::function<void(CSceneNode
 {
 	this->Callback = Callback;
 }
-	
+
 void CUpdateCallbackComponent::Update(CSceneNode * Node)
 {
 	Callback(Node);

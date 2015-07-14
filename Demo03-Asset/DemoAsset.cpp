@@ -10,7 +10,7 @@ int main()
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(800, 600), "TestAsset", EWindowType::Windowed);
-		
+
 	string const VertShaderSource = File::ReadAsString("Assets/Shaders/Normals.vert");
 	string const FragShaderSource = File::ReadAsString("Assets/Shaders/Normals.frag");
 
@@ -49,21 +49,21 @@ int main()
 	FXAAConfig->AddVertexBuffer("aPosition", CFrameBuffer::GetQuadVertexBuffer());
 	FXAAConfig->SetIndexBuffer(CFrameBuffer::GetQuadIndexBuffer());
 	FXAAConfig->AddUniform("uPixelOffset", new CUniformValue<vec2f>(1 / vec2f(ion::GL::Context::GetViewportSize())));
-	
+
 	ion::GL::Context::Init();
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 
 		Model->Value = glm::rotate(Model->Value, 0.0001f, glm::vec3(0, 1, 0.25));
-		
+
 		{
 			FrameBuffer->Clear();
 			CDrawContext DrawContext(FrameBuffer->GetHandle());
 			DrawContext.LoadProgram(Shader);
 			DrawContext.Draw(Config);
 		}
-		
+
 		if (Window->IsKeyDown(EKey::F1))
 			FrameBuffer->DrawColorAttachmentToScreen(0);
 		else if (Window->IsKeyDown(EKey::F2))

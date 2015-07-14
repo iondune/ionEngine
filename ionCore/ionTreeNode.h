@@ -10,7 +10,7 @@
 
 	Note that a static_cast to TreeNode<Implementation> is sometimes needed
 	for compilation in VS2012 where Implementation has 'uses' for Children
-	or Parent since these fields will then have protected access in the 
+	or Parent since these fields will then have protected access in the
 	subclass.
 */
 template <typename Implementation>
@@ -57,7 +57,7 @@ public:
 			Child->Parent = 0;
 		Children.clear();
 	}
-	
+
 	void Remove()
 	{
 		delete this;

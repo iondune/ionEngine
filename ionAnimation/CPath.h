@@ -24,7 +24,7 @@ protected:
 public:
 
 	CPath();
-	
+
 	std::vector<TPathNode> const & getNodes() const;
 	std::vector<TPathNode> & getNodes();
 
@@ -38,7 +38,7 @@ public:
 
 	IInterpolator<TPathNode> * setDefaultInterpolator(IInterpolator<TPathNode> * defaultInterpolator);
 	IInterpolator<TPathNode> const * getDefaultInterpolator() const;
-	
+
 	TPathNode const & getNode(s32 const Index) const;
 	TPathNode const getNodeInterpolated(f32 const Mu, IInterpolator<TPathNode> * Interpolator = 0) const;
 
@@ -81,7 +81,7 @@ template <typename TPathNode>
 CPath<TPathNode>::CPath()
 	: Looping(true), MuIncrement(0.f), DefaultInterpolator(new CLinearInterpolator<TPathNode>())
 {}
-	
+
 template <typename TPathNode>
 std::vector<TPathNode> const & CPath<TPathNode>::getNodes() const
 {

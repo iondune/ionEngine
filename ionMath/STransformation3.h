@@ -62,19 +62,19 @@ public:
 		default:
 		case ETransformationOrder::ScaleRotationTranslation:
 			return Get();
-			
+
 		case ETransformationOrder::RotationScaleTranslation:
 			return Translation * Scale * Rotation;
-			
+
 		case ETransformationOrder::TranslationScaleRotation:
 			return Rotation * Scale * Translation;
-			
+
 		case ETransformationOrder::ScaleTranslationRotation:
 			return Rotation * Translation * Scale;
-			
+
 		case ETransformationOrder::RotationTranslationScale:
 			return Scale * Translation * Rotation;
-			
+
 		case ETransformationOrder::TranslationRotationScale:
 			return Scale * Rotation * Translation;
 		}
@@ -231,7 +231,7 @@ public:
 
 		return Result;
 	}
-	
+
 protected:
 
 	vector<CStage *> TransformationOrder;

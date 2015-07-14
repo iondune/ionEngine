@@ -14,10 +14,10 @@ int main()
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "TestBootstrap", EWindowType::Windowed);
-	
+
 	SceneManager->GetTextureLibrary()->SetBaseDirectory("Assets/Images");
 	SceneManager->GetShaderLibrary()->SetBaseDirectory("Assets/Shaders");
-	
+
 	SceneManager->GetMeshLibrary()->Add("Sphere", CGeometryCreator::CreateSphere());
 	SceneManager->GetMeshLibrary()->Add("Plane", CGeometryCreator::CreatePlane(vec2f(100.f)));
 	SceneManager->GetShaderLibrary()->Load("Diffuse");
@@ -35,7 +35,7 @@ int main()
 	ILightSceneNode * Light1 = SceneManager->GetFactory()->AddLight(vec3f(0, 1, 0));
 	ILightSceneNode * Light2 = SceneManager->GetFactory()->AddLight(vec3f(4, 2, 0));
 	ILightSceneNode * Light3 = SceneManager->GetFactory()->AddLight(vec3f(12, 3, 0));
-	
+
 	Light1->SetColor(Colors::Red);
 	Light2->SetColor(Colors::Green);
 	Light3->SetColor(Colors::Blue);
@@ -47,14 +47,14 @@ int main()
 	CCameraController * Controller = new CCameraController{Camera};
 	Window->AddListener(Controller);
 	TimeManager->MakeUpdateTick(0.02)->AddListener(Controller);
-	
+
 	ion::GL::Context::Init();
 	TimeManager->Init();
 	while (! WindowManager->ShouldClose())
 	{
 		WindowManager->PollEvents();
 		TimeManager->Update();
-		
+
 		float Radius = ((f32) Sin(TimeManager->GetRunTime()) / 2.f + 0.5f) * 10.f;
 		Light1->SetRadius(Radius);
 		Light2->SetRadius(Radius);

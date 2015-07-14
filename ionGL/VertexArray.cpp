@@ -26,7 +26,7 @@ namespace ion
 			BoundIndexBuffer->Bind();
 			CheckedGLCall(glBindVertexArray(0));
 		}
-		
+
 		void VertexArray::SetElementCount(uint count)
 		{
 			this->ElementCount = count;
@@ -64,7 +64,7 @@ namespace ion
 					ElementCount * Util::PrimitiveVertices[(int) PrimitiveType]);
 				CheckedGLCall(glBindVertexArray(0));
 			}
-			
+
 		}
 
 		void VertexArray::Delete()

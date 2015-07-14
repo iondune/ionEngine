@@ -25,7 +25,7 @@ public:
 	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 
 protected:
-	
+
 	CWindow * PrimaryWindow;
 	std::map<GLFWwindow *, CWindow *> Windows;
 
@@ -36,7 +36,7 @@ protected:
 	static void CharCallback(GLFWwindow * window, unsigned int c);
 
 private:
-	
+
 	friend class Singleton<CWindowManager>;
 	CWindowManager();
 

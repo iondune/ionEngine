@@ -65,7 +65,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 					if (! Definition->AddUniform(ActiveUniform.first, Uniform))
 						cerr << "Failed to add uniform " << ActiveUniform.first << " for node with name: " << DebugName << " for pass : " << Pass->GetName() << endl;
 		}
-		
+
 		// Load the uniforms specified by this node
 		for (auto & Uniform : Uniforms)
 			for (auto & Definition : DrawDefinitions)
@@ -84,7 +84,7 @@ map<CShader *, vector<CDrawConfig *>> CSceneNode::PrepareDrawConfigurations(CDra
 		{
 			Definition->SetElementCount(ElementCount);
 			Definition->SetPrimitiveType(PrimitiveType);
-			
+
 			for (int i = 0; i < ion::GL::EDrawFeature::Count; ++ i)
 				Definition->SetFeatureEnabled((ion::GL::EDrawFeature) i,
 					DrawFeatures[i] || GetPassSpecificDrawFeatures(Pass->GetName())[i]);
@@ -133,7 +133,7 @@ void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *>
 		DrawConfig->OfferVertexBuffer("BoneIndices", Buffer->VertexBuffers.BoneIndices);
 		DrawConfig->OfferVertexBuffer("BoneWeights", Buffer->VertexBuffers.BoneWeights);
 		DrawConfig->SetIndexBuffer(Buffer->VertexBuffers.Indices);
-		
+
 		DrawConfig->OfferUniform("uModelMatrix", & SceneNode->GetTransformationUniform());
 		DrawConfig->OfferUniform("uNormalMatrix", & SceneNode->GetTransformationUniform()); // To Do : Do this smarter
 		DrawConfig->OfferUniform("Model", & SceneNode->GetTransformationUniform());
@@ -142,12 +142,12 @@ void RecurseMesh(CSceneNode * SceneNode, CShader * Shader, vector<CDrawConfig *>
 		DrawConfig->OfferUniform("uMaterial.DiffuseColor", & Buffer->GetMaterial()->Diffuse);
 		DrawConfig->OfferUniform("uMaterial.SpecularColor", & Buffer->GetMaterial()->Specular);
 		DrawConfig->OfferUniform("uMaterial.Shininess", & Buffer->GetMaterial()->Shininess);
-		
+
 		DrawConfig->OfferUniform("uSkinningMatrix[0]", & SceneNode->SkinningMatrices);
 
 		Definitions.push_back(DrawConfig);
 	}
-	
+
 	for (auto & Child : Node->GetChildren())
 	{
 		RecurseMesh(SceneNode, Shader, Definitions, Child);
@@ -229,7 +229,7 @@ void CSceneNode::SetMesh(CMesh * Mesh)
 		JointNames[Joint->Name] = Joint;
 	}
 	SkinningMatrices.GetValue().resize(Joints.size(), nullptr);
-	
+
 	for (uint i = 0; i < Joints.size(); ++ i)
 	{
 		SkinningMatrices.GetValue()[i] = & Joints[i]->SkinningMatrix;
@@ -346,7 +346,7 @@ void CSceneNode::SetTexture(uint const Index, CTexture * Texture)
 		Textures[Index] = Texture;
 		if (! TextureUniforms[Index])
 			TextureUniforms[Index] = new ion::GL::UniformValue<int>(Index);
-	
+
 		AllConfigurationsNeedRebuild();
 	}
 }

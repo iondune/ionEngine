@@ -43,7 +43,7 @@ namespace ion
 		class Util
 		{
 		public:
-			
+
 			static u32 const TypeMatrix[7];
 			static u64 const SizeMatrix[7];
 			static u32 const PrimitiveMatrix[4];

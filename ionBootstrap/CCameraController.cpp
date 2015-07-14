@@ -67,7 +67,7 @@ void CCameraController::OnEvent(IEvent & Event)
 	else if (InstanceOf<SKeyboardEvent>(Event))
 	{
 		SKeyboardEvent & KeyboardEvent = As<SKeyboardEvent>(Event);
-		
+
 		if (KeyboardEvent.Key == EKey::W || KeyboardEvent.Key == EKey::Up)
 			Commands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
 		if (KeyboardEvent.Key == EKey::S || KeyboardEvent.Key == EKey::Down)
@@ -122,13 +122,13 @@ void CCameraController::Update(f64 const TickTime)
 
 	if (Commands[(int) ECommand::Forward])
 		Translation += LookDirection * MoveDelta;
-	
+
 	if (Commands[(int) ECommand::Left])
 		Translation += V * MoveDelta;
-	
+
 	if (Commands[(int) ECommand::Right])
 		Translation -= V * MoveDelta;
-	
+
 	if (Commands[(int) ECommand::Back])
 		Translation -= LookDirection * MoveDelta;
 

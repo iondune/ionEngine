@@ -15,7 +15,7 @@ CMesh * CMesh::Load(std::string const & FileName)
 {
 	Assimp::Importer Importer;
 
-	unsigned int pFlags = 
+	unsigned int pFlags =
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |

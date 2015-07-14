@@ -14,7 +14,7 @@ public:
 	{
 
 	public:
-		
+
 		f64 GetTick() const;
 		f64 GetElapsedTime() const;
 		f64 GetMaxDuration() const;

@@ -22,7 +22,7 @@ void ISceneNode::UpdateAbsoluteTransformation()
 
 	if (Parent)
 		AbsoluteTransformation = Parent->AbsoluteTransformation* AbsoluteTransformation;
-	
+
 	RecurseOnChildren(& ISceneNode::UpdateAbsoluteTransformation);
 }
 
@@ -31,7 +31,7 @@ void ISceneNode::Update()
 	UpdateAbsoluteTransformation();
 	RecurseOnChildren(& ISceneNode::Update);
 }
- 
+
 map<CShader *, vector<CDrawConfig *>> ISceneNode::PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass)
 {
 	map<CShader *, vector<CDrawConfig *>> Configurations;

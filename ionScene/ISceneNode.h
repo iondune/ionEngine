@@ -30,7 +30,7 @@ public:
 
 	//! Set visibility
 	virtual void SetVisible(bool const isVisible);
-	
+
 	virtual void SetDebugName(string const & DebugName);
 	virtual string const & GetDebugName() const;
 
@@ -42,7 +42,7 @@ public:
 	virtual glm::mat4 const & GetAbsoluteTransformation() const;
 	virtual STransformation3 const & GetTransformation() const;
 	virtual STransformation3 & GetTransformation();
-	
+
 	virtual void SetTranslation(SVector3f const & translation);
 	virtual void SetTransformation(glm::mat4 const & transformation);
 	virtual void SetPosition(SVector3f const & translation);

@@ -29,7 +29,7 @@ CTexture2D * CFrameBuffer::MakeScreenSizedColorAttachment(u32 const Attachment)
 	CTexture2D * Target = new CTexture2D(ion::GL::Context::GetViewportSize(), false, CTexture2D::EFormatComponents::RGB);
 	Target->SetMagFilter(CTexture2D::EFilter::Nearest);
 	Target->SetMinFilter(CTexture2D::EFilter::Nearest);
-	
+
 	Handle->AttachColorTexture(Target, Attachment);
 	return Target;
 }
@@ -40,7 +40,7 @@ CTexture2D * CFrameBuffer::MakeScreenSizedDepthTextureAttachment()
 	Target->SetMagFilter(CTexture2D::EFilter::Nearest);
 	Target->SetMinFilter(CTexture2D::EFilter::Nearest);
 	Target->SetAnisotropy(1);
-	
+
 	Handle->AttachDepthTexture(Target);
 	return Target;
 }
@@ -91,7 +91,7 @@ ion::GL::Framebuffer * CFrameBuffer::GetHandle()
 void CFrameBuffer::DrawTextureToScreen(CTexture2D * Texture)
 {
 	ion::GL::Context::Clear();
-	
+
 	static CShader * Shader = nullptr;
 	static CDrawConfig * DrawConfig = nullptr;
 

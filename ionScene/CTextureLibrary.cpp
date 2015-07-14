@@ -23,7 +23,7 @@ CTexture * CTextureLibrary::Load(string const & File, string const & Label)
 	CTexture * Texture = nullptr;
 	if (Image)
 		Texture = Image->MakeTexture();
-	
+
 	return Textures[Label.length() ? Label : File] = Texture;
 }
 

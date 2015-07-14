@@ -80,7 +80,7 @@ namespace ion
 				return false;
 			}
 		}
-		
+
 		void DrawConfig::SetIndexBuffer(IndexBuffer * IBO)
 		{
 			this->IBO = IBO;
@@ -90,12 +90,12 @@ namespace ion
 		{
 			this->ElementCount = ElementCount;
 		}
-		
+
 		void DrawConfig::SetPrimitiveType(EPrimitiveType const PrimitiveType)
 		{
 			this->PrimitiveType = PrimitiveType;
 		}
-		
+
 		bool DrawConfig::IsFeatureEnabled(EDrawFeature const Feature)
 		{
 			return DrawFeatures[Feature];
@@ -105,7 +105,7 @@ namespace ion
 		{
 			DrawFeatures[Feature] = Enabled;
 		}
-			
+
 		bool DrawConfig::Loaded() const
 		{
 			return VAO != nullptr;

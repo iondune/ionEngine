@@ -22,7 +22,7 @@ protected:
 	void DrawCallback(ImDrawList** const cmd_lists, int cmd_lists_count);
 	void CreateFontsTexture();
 	bool CreateDeviceObjects();
-	
+
 	size_t const StartVboMaxSize = 20000;
 
 	CWindow * Window = nullptr;

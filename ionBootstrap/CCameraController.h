@@ -38,7 +38,7 @@ protected:
 	};
 
 	bool Commands[(int) ECommand::Count];
-	
+
 	f32 MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
 	bool Tracking;
 	f32 Phi, Theta;

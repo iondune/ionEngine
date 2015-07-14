@@ -108,7 +108,7 @@ protected:
 			this->Write = Write;
 			this->WriteTo = WriteTo;
 		}
-		
+
 		//! \return true if this is a new message, false if not
 		bool WriteMessage(string const & ToWrite)
 		{

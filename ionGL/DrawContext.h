@@ -22,7 +22,7 @@ namespace ion
 
 			DrawContext(Framebuffer * Framebuffer = DefaultFrameBuffer);
 			~DrawContext();
-			
+
 			void LoadProgram(Program * Program);
 			bool Draw(DrawConfig * DrawConfig);
 

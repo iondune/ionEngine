@@ -28,7 +28,7 @@ public:
 		v0 = Vertices[0];
 		v1 = Vertices[1];
 		v2 = Vertices[2];
-		
+
 		SVector3<T> e1, e2, h, s, q;
 		T a, f, u, v;
 		e1 = v1 - v0;

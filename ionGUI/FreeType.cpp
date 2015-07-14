@@ -53,7 +53,7 @@ CFont::~CFont()
 
 void CFont::measure(int * width, int * height, char const * fmt, ...)
 {
-	//Font->CalcTextSizeA(Size, std::numeric_limits<float>::max(), 0.f, 
+	//Font->CalcTextSizeA(Size, std::numeric_limits<float>::max(), 0.f,
 	// BUGBUG todo
 	*width = 0;
 	*height = 0;

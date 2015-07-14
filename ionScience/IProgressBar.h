@@ -15,7 +15,7 @@ public:
 		friend class IProgressBar;
 
 	public:
-		
+
 		void Update(f32 const progress);
 		void Update(f64 const progress);
 
@@ -38,7 +38,7 @@ public:
 protected:
 
 	IProgressBar();
-	
+
 	virtual void Start() = 0;
 	virtual void Render() = 0;
 	virtual void Finish() = 0;

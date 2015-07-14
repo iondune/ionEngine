@@ -19,7 +19,7 @@ namespace ion
 		class Framebuffer
 		{
 		public:
-			
+
 			Framebuffer();
 			Framebuffer(ForceDefaultFramebuffer);
 			~Framebuffer();

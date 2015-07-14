@@ -86,7 +86,7 @@ void CWindowManager::CharCallback(GLFWwindow * window, unsigned int c)
 {
 	CWindowManager & WindowManager = Get();
 	CWindow * Window = WindowManager.Windows[window];
-    
+
 	SCharacterEvent Event;
 	Event.C = c;
 	Window->TriggerEvent(Event);
