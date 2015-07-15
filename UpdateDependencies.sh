@@ -11,11 +11,6 @@ function CMakeBuild {
 	sudo make install
 }
 
-function Build {
-	make
-	sudo make install
-}
-
 function HeaderOnly {
 	name="$1"
 
@@ -59,7 +54,7 @@ function FetchDependency {
 	fi
 }
 
-sudo apt-get install libglew-dev -y
+sudo apt-get install libglew-dev --yes
 FetchDependency 'stb' 'https://github.com/nothings/stb.git' 'HeaderOnly'
 FetchDependency 'tinyformat' 'https://github.com/c42f/tinyformat.git' 'HeaderOnly'
 FetchDependency 'glm' 'https://github.com/g-truc/glm.git' 'HeaderOnly'
