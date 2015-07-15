@@ -59,9 +59,9 @@ function FetchDependency {
 	fi
 }
 
+sudo apt-get install libglew-dev -y
 FetchDependency 'stb' 'https://github.com/nothings/stb.git' 'HeaderOnly'
 FetchDependency 'tinyformat' 'https://github.com/c42f/tinyformat.git' 'HeaderOnly'
 FetchDependency 'glm' 'https://github.com/g-truc/glm.git' 'HeaderOnly'
 FetchDependency 'glfw' 'https://github.com/glfw/glfw.git' 'CMakeBuild'
 FetchDependency 'imgui' 'https://github.com/ocornut/imgui.git' 'HeaderOnly'
-FetchDependency 'glew' 'https://github.com/tamaskenez/glew-with-extensions.git' 'Build'
