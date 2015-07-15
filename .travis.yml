@@ -1,0 +1,3 @@
+language: cpp
+install: ./ContinuousIntegration/Install.sh
+script: ./ContinuousIntegration/Run.sh
