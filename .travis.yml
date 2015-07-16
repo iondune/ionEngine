@@ -1,4 +1,21 @@
 language: cpp
-before_install: ./ContinuousIntegration/TravisCMakeWorkaround.sh
-install: ./ContinuousIntegration/Install.sh
-script: ./ContinuousIntegration/Run.sh
+
+before_install:
+  - sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
+  - sudo apt-get update -qq
+
+install:
+  # Install CMake 2.8.12
+  - sudo apt-get purge cmake -qq
+  - sudo apt-get install cmake -qq
+
+  # Build dependencies
+  - ./UpdateDependencies.sh
+
+before_script:
+  - cmake --version
+
+script:
+  - cmake .
+  - make
+  - ./bin/UnitTests
