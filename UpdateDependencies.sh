@@ -54,7 +54,17 @@ function FetchDependency {
 	fi
 }
 
-sudo apt-get install libglew-dev --yes
+# Install GLEW
+if [ ! -d 'glew-1.12.0' ] ; then
+	echo 'glew: Does not exist - installing'
+	wget http://sourceforge.net/projects/glew/files/glew/1.12.0/glew-1.12.0.tgz
+	tar -xzf glew-1.12.0.tgz
+	cd glew-1.12.0
+	make
+	sudo make install
+	cd ..
+fi
+
 FetchDependency 'stb' 'https://github.com/nothings/stb.git' 'HeaderOnly'
 FetchDependency 'tinyformat' 'https://github.com/c42f/tinyformat.git' 'HeaderOnly'
 FetchDependency 'glm' 'https://github.com/g-truc/glm.git' 'HeaderOnly'
