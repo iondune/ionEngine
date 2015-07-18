@@ -6,90 +6,77 @@
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
 // If text or lines are blurry when integrating ImGui in your engine:
 // - in your Render function, try translating your projection matrix by (0.5f,0.5f) or (0.375f,0.375f)
-void CImGUIManager::DrawCallback(ImDrawList** const cmd_lists, int cmd_lists_count)
+void CImGUIManager::DrawCallback(ImDrawData* draw_data)
 {
-	if (cmd_lists_count == 0)
-		return;
-
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
-	glEnable(GL_BLEND);
-	glBlendEquation(GL_FUNC_ADD);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_SCISSOR_TEST);
-	glActiveTexture(GL_TEXTURE0);
+    GLint last_program, last_texture;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+    glEnable(GL_BLEND);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_SCISSOR_TEST);
+    glActiveTexture(GL_TEXTURE0);
 
-	// Setup orthographic projection matrix
-	const float width = ImGui::GetIO().DisplaySize.x;
-	const float height = ImGui::GetIO().DisplaySize.y;
-	const float ortho_projection[4][4] =
-	{
-		{ 2.0f / width, 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 2.0f / -height, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, -1.0f, 0.0f },
-		{ -1.0f, 1.0f, 0.0f, 1.0f },
-	};
-	glUseProgram(ShaderHandle);
-	glUniform1i(AttribLocationTex, 0);
-	glUniformMatrix4fv(AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
+    // Setup orthographic projection matrix
+    const float width = ImGui::GetIO().DisplaySize.x;
+    const float height = ImGui::GetIO().DisplaySize.y;
+    const float ortho_projection[4][4] =
+    {
+        { 2.0f/width,	0.0f,			0.0f,		0.0f },
+        { 0.0f,			2.0f/-height,	0.0f,		0.0f },
+        { 0.0f,			0.0f,			-1.0f,		0.0f },
+        { -1.0f,		1.0f,			0.0f,		1.0f },
+    };
+    glUseProgram(ShaderHandle);
+    glUniform1i(AttribLocationTex, 0);
+    glUniformMatrix4fv(AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
+    glBindVertexArray(VaoHandle);
 
-	// Grow our buffer according to what we need
-	size_t total_vtx_count = 0;
-	for (int n = 0; n < cmd_lists_count; n++)
-		total_vtx_count += cmd_lists[n]->vtx_buffer.size();
-	glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-	size_t neededBufferSize = total_vtx_count * sizeof(ImDrawVert);
-	if (neededBufferSize > VboMaxSize)
-	{
-		VboMaxSize = neededBufferSize + 5000;  // Grow buffer
-		glBufferData(GL_ARRAY_BUFFER, VboMaxSize, NULL, GL_STREAM_DRAW);
-	}
+    for (int n = 0; n < draw_data->CmdListsCount; n++)
+    {
+        const ImDrawList* cmd_list = draw_data->CmdLists[n];
+        const ImDrawIdx* idx_buffer = &cmd_list->IdxBuffer.front();
 
-	// Copy and convert all vertices into a single contiguous buffer
-	unsigned char* buffer_data = (unsigned char*) glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-	if (!buffer_data)
-		return;
-	for (int n = 0; n < cmd_lists_count; n++)
-	{
-		const ImDrawList* cmd_list = cmd_lists[n];
-		memcpy(buffer_data, &cmd_list->vtx_buffer[0], cmd_list->vtx_buffer.size() * sizeof(ImDrawVert));
-		buffer_data += cmd_list->vtx_buffer.size() * sizeof(ImDrawVert);
-	}
-	glUnmapBuffer(GL_ARRAY_BUFFER);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(VaoHandle);
+        glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
+        int needed_vtx_size = cmd_list->VtxBuffer.size() * sizeof(ImDrawVert);
+        if (VboSize < needed_vtx_size)
+        {
+            // Grow our buffer if needed
+            VboSize = needed_vtx_size + 2000 * sizeof(ImDrawVert);
+            glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)VboSize, NULL, GL_STREAM_DRAW);
+        }
 
-	int cmd_offset = 0;
-	for (int n = 0; n < cmd_lists_count; n++)
-	{
-		const ImDrawList* cmd_list = cmd_lists[n];
-		int vtx_offset = cmd_offset;
-		const ImDrawCmd* pcmd_end = cmd_list->commands.end();
-		for (const ImDrawCmd* pcmd = cmd_list->commands.begin(); pcmd != pcmd_end; pcmd++)
-		{
-			if (pcmd->user_callback)
-			{
-				pcmd->user_callback(cmd_list, pcmd);
-			}
-			else
-			{
-				glBindTexture(GL_TEXTURE_2D, (GLuint) (intptr_t) pcmd->texture_id);
-				glScissor((int) pcmd->clip_rect.x, (int) (height - pcmd->clip_rect.w), (int) (pcmd->clip_rect.z - pcmd->clip_rect.x), (int) (pcmd->clip_rect.w - pcmd->clip_rect.y));
-				glDrawArrays(GL_TRIANGLES, vtx_offset, pcmd->vtx_count);
-			}
-			vtx_offset += pcmd->vtx_count;
-		}
-		cmd_offset = vtx_offset;
-	}
+        unsigned char* vtx_data = (unsigned char*)glMapBufferRange(GL_ARRAY_BUFFER, 0, needed_vtx_size, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+        if (!vtx_data)
+            continue;
+        memcpy(vtx_data, &cmd_list->VtxBuffer[0], cmd_list->VtxBuffer.size() * sizeof(ImDrawVert));
+        glUnmapBuffer(GL_ARRAY_BUFFER);
 
-	// Restore modified state
-	glBindVertexArray(0);
-	glUseProgram(0);
-	glDisable(GL_SCISSOR_TEST);
-	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_BLEND);
-	glBindTexture(GL_TEXTURE_2D, 0);
+        for (const ImDrawCmd* pcmd = cmd_list->CmdBuffer.begin(); pcmd != cmd_list->CmdBuffer.end(); pcmd++)
+        {
+            if (pcmd->UserCallback)
+            {
+                pcmd->UserCallback(cmd_list, pcmd);
+            }
+            else
+            {
+                glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
+                glScissor((int)pcmd->ClipRect.x, (int)(height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
+                glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, GL_UNSIGNED_SHORT, idx_buffer);
+            }
+            idx_buffer += pcmd->ElemCount;
+        }
+    }
+
+    // Restore modified state
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glUseProgram(last_program);
+    glDisable(GL_SCISSOR_TEST);
+    glBindTexture(GL_TEXTURE_2D, last_texture);
 }
 
 void CImGUIManager::OnEvent(IEvent & Event)
@@ -197,33 +184,30 @@ bool CImGUIManager::CreateDeviceObjects()
 	AttribLocationColor = glGetAttribLocation(ShaderHandle, "Color");
 
 	glGenBuffers(1, &VboHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-	glBufferData(GL_ARRAY_BUFFER, VboMaxSize, NULL, GL_DYNAMIC_DRAW);
-
-	glGenVertexArrays(1, &VaoHandle);
-	glBindVertexArray(VaoHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-	glEnableVertexAttribArray(AttribLocationPosition);
-	glEnableVertexAttribArray(AttribLocationUV);
-	glEnableVertexAttribArray(AttribLocationColor);
+    glGenVertexArrays(1, &VaoHandle);
+    glBindVertexArray(VaoHandle);
+    glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
+    glEnableVertexAttribArray(AttribLocationPosition);
+    glEnableVertexAttribArray(AttribLocationUV);
+    glEnableVertexAttribArray(AttribLocationColor);
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-	glVertexAttribPointer(AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, pos));
-	glVertexAttribPointer(AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, uv));
-	glVertexAttribPointer(AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, col));
+    glVertexAttribPointer(AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
+    glVertexAttribPointer(AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
+    glVertexAttribPointer(AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	CreateFontsTexture();
 
 	return true;
 }
 
-void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawList** const cmd_lists, int cmd_lists_count)
+void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data)
 {
 	SingletonPointer<CImGUIManager> ImGUIManager;
-	ImGUIManager->DrawCallback(cmd_lists, cmd_lists_count);
+	ImGUIManager->DrawCallback(draw_data);
 }
 
 char const * ImGui_ImplGlfwGL3_GetClipboardText()

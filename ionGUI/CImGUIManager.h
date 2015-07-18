@@ -19,7 +19,7 @@ public:
 
 protected:
 
-	void DrawCallback(ImDrawList** const cmd_lists, int cmd_lists_count);
+	void DrawCallback(ImDrawData* draw_data);
 	void CreateFontsTexture();
 	bool CreateDeviceObjects();
 	
@@ -33,7 +33,7 @@ protected:
 	int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;
 	int AttribLocationTex = 0, AttribLocationProjMtx = 0;
 	int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
-	size_t VboMaxSize = StartVboMaxSize;
+	size_t VboSize = 0;
 	uint VboHandle = 0, VaoHandle = 0;
 
 private:
@@ -42,7 +42,7 @@ private:
 
 	CImGUIManager();
 
-	friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawList** const cmd_lists, int cmd_lists_count);
+	friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
 	friend char const * ImGui_ImplGlfwGL3_GetClipboardText();
 	friend void ImGui_ImplGlfwGL3_SetClipboardText(const char* text);
 
