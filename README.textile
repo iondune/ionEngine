@@ -4,7 +4,7 @@ h1. ionEngine
 
 h2. Overview
 
-[![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine)
+!https://travis-ci.org/iondune/ionEngine.svg?branch=master!:https://travis-ci.org/iondune/ionEngine
 
 ionEngine is an application framework written in C++ designed primarily for use
 in game development and other graphics-heavy applications.
