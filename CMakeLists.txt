@@ -16,6 +16,7 @@ include_directories("${PROJECT_SOURCE_DIR}/Dependencies/stb")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/tinyformat")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glm")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/imgui")
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies/Catch/include")
 
 function(GLFW TargetName)
 	find_package(PkgConfig REQUIRED)
