@@ -28,7 +28,7 @@ namespace ion
 		{
 			CheckedGLCall(glBindFragDataLocation(Handle, 0, "outColor"));
 			CheckedGLCall(glLinkProgram(Handle));
-			
+
 			int Linked;
 			CheckedGLCall(glGetProgramiv(Handle, GL_LINK_STATUS, & Linked));
 			if (! Linked)
@@ -74,7 +74,7 @@ namespace ion
 			std::string Log;
 			int InfoLogLength = 0;
 			int CharsWritten = 0;
-			
+
 			CheckExistingErrors(Program::InfoLog);
 			glGetProgramiv(Handle, GL_INFO_LOG_LENGTH, & InfoLogLength);
 

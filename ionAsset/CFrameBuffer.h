@@ -13,7 +13,7 @@ class CFrameBuffer
 {
 
 public:
-	
+
 	CFrameBuffer();
 	CFrameBuffer(ion::GL::Framebuffer * Handle);
 
@@ -32,7 +32,7 @@ public:
 	void Clear(std::vector<ion::GL::EBuffer> Buffers = { ion::GL::EBuffer::Color, ion::GL::EBuffer::Depth });
 
 	ion::GL::Framebuffer * GetHandle();
-	
+
 	static void DrawTextureToScreen(CTexture2D * Texture);
 	static ion::GL::IndexBuffer * GetQuadIndexBuffer();
 	static ion::GL::VertexBuffer * GetQuadVertexBuffer();
@@ -42,7 +42,7 @@ public:
 private:
 
 	ion::GL::Framebuffer * Handle = nullptr;
-	
+
 	static ion::GL::IndexBuffer * QuadIndexBuffer;
 	static ion::GL::VertexBuffer * QuadVertexBuffer;
 

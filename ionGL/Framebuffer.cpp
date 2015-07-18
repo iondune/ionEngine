@@ -17,7 +17,7 @@ namespace ion
 		{
 			CheckedGLCall(glGenFramebuffers(1, & Handle));
 		}
-		
+
 		Framebuffer::Framebuffer(ForceDefaultFramebuffer f)
 		{}
 
@@ -78,7 +78,7 @@ namespace ion
 		{
 			return DepthAttachment;
 		}
-		
+
 		void Framebuffer::Clear(std::vector<EBuffer> Buffers)
 		{
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));

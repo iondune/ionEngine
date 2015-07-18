@@ -30,8 +30,8 @@ int main()
 	{
 		int X, Y;
 		glfwGetMonitorPhysicalSize(Monitors[i], & X, & Y);
-		std::cout << "   [" << i << "] " << glfwGetMonitorName(Monitors[i]) << " " 
-			<< X << " x " << Y 
+		std::cout << "   [" << i << "] " << glfwGetMonitorName(Monitors[i]) << " "
+			<< X << " x " << Y
 			<< std::endl;
 	}
 
@@ -41,7 +41,7 @@ int main()
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		std::cerr << "Attempting full screen" << std::endl;
-		
+
 		if (! (window = glfwCreateWindow(640, 480, "Utility Compile Test", glfwGetPrimaryMonitor(), 0)))
 		{
 			std::cerr << "Error opening fullscreen glfw window! " << std::endl;
@@ -58,7 +58,7 @@ int main()
 		WaitForUser();
 		exit(35);
 	}
-	
+
 	std::cerr << std::endl << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	std::cerr << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl << std::endl;
 	std::cerr << "Vender: " << glGetString(GL_VENDOR) << std::endl;

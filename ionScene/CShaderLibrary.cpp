@@ -30,7 +30,7 @@ CShader * CShaderLibrary::Load(string const & Name, string const & VertexFile, s
 	string const VertFileName = (VertexFile.size() ? MakeFileName(BaseDirectory, VertexFile, ".vert") : "");
 	string const GeomFileName = (GeomFile.size() ? MakeFileName(BaseDirectory, GeomFile, ".geom") : "");
 	string const FragFileName = (FragFile.size() ? MakeFileName(BaseDirectory, FragFile, ".frag") : "");
-	
+
 	if (VertFileName.size() == 0)
 		cerr << "Vertex stage required for shader " << Name << endl;
 	if (FragFileName.size() == 0)
@@ -63,7 +63,7 @@ CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & Ver
 	ion::GL::VertexShader * Vert = nullptr;
 	ion::GL::GeometryShader * Geom = nullptr;
 	ion::GL::FragmentShader * Frag = nullptr;
-	
+
 	if (VertShaderSource.length())
 	{
 		Vert = new ion::GL::VertexShader;
@@ -89,7 +89,7 @@ CShader * CShaderLibrary::LoadFromSource(string const & Name, string const & Ver
 			return 0;
 		}
 	}
-	
+
 	if (FragShaderSource.length())
 	{
 		Frag = new ion::GL::FragmentShader;

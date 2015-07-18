@@ -18,7 +18,7 @@ protected:
 	bool ButtonPressed[(int) EGamePadButton::Count];
 
 public:
-	
+
 	vec2f const & GetLeftStick() const;
 	vec2f const & GetRightStick() const;
 	f32 GetLeftTrigger() const;

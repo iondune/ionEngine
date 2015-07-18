@@ -10,7 +10,7 @@ namespace ion
 		DrawContext::DrawContext(Framebuffer * Framebuffer)
 		{
 			Target = Framebuffer;
-			
+
 			if (Target)
 				CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Target->GetHandle()));
 			else
@@ -23,7 +23,7 @@ namespace ion
 
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		}
-		
+
 		void DrawContext::LoadProgram(Program * Program)
 		{
 			BoundProgram = Program;
@@ -70,7 +70,7 @@ namespace ion
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 				CheckedGLCall(glBindTexture(Texture.second->GetGLBindTextureTarget(), Texture.second->GetHandle()));
 			}
-			
+
 			if (DrawConfig->IsFeatureEnabled(EDrawFeature::Wireframe))
 			{
 				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
@@ -94,7 +94,7 @@ namespace ion
 				CheckedGLCall(glEnable(GL_BLEND));
 				CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 			}
-			
+
 
 			DrawConfig->VAO->Draw();
 

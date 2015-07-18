@@ -27,7 +27,7 @@ public:
 		SRow operator = (SRow const & Other);
 
 	protected:
-		
+
 		SRow(STable & table, u64 const index);
 
 		u64 Index;
@@ -80,7 +80,7 @@ public:
 
 	SFieldIterator Begin(std::string const & Field);
 	SFieldIterator End(std::string const & Field);
-	
+
 	vector<SRow>::iterator begin();
 	vector<SRow>::iterator end();
 

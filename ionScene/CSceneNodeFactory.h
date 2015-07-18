@@ -17,7 +17,7 @@ class CSceneNodeFactory
 public:
 
 	CSceneNodeFactory(CSceneManager * SceneManager);
-	
+
 	CSceneNode * AddSceneNode();
 	CSceneNode * AddSceneNode(string const & Shader);
 	CSceneNode * AddMeshNode(string const & Mesh, string const & Shader);

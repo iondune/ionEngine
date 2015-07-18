@@ -19,6 +19,6 @@ CShader * CompileVertFragShader(string const VertexShaderSource, string const Fr
 	Program->AttachShader(FragmentShader);
 	if (! Program->Link())
 		std::cerr << "Failed to link vertex/fragment program!" << std::endl << Program->InfoLog() << std::endl;
-	
+
 	return Program;
 }

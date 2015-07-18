@@ -127,7 +127,7 @@ struct SGrid
 
 	typedef typename std::vector<T>::iterator iterator;
 	typedef typename std::vector<T>::const_iterator const_iterator;
-	
+
 	virtual iterator begin()
 	{
 		return Values.begin();

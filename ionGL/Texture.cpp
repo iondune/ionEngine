@@ -14,19 +14,19 @@ namespace ion
 
 		void Texture::ApplyParams()
 		{
-			static u32 const FilterMatrix[3][2] = 
+			static u32 const FilterMatrix[3][2] =
 			{
 				{GL_NEAREST, GL_LINEAR},
 				{GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST},
 				{GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR},
 			};
 
-			static u32 const FilterLookup[2] = 
+			static u32 const FilterLookup[2] =
 			{
 				GL_NEAREST, GL_LINEAR
 			};
 
-			static u32 const WrapLookup[3] = 
+			static u32 const WrapLookup[3] =
 			{
 				GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT
 			};
@@ -54,7 +54,7 @@ namespace ion
 			CheckedGLCall(glTexParameterf(GetGLBindTextureTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Anisotropy, 0.f, LargestAnisotropy)));
 			CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), PreviouslyBoundTexture));
 		}
-			
+
 		Texture * Texture::SetMinFilter(EFilter const MinFilter)
 		{
 			this->MinFilter = MinFilter;
@@ -145,8 +145,8 @@ namespace ion
 		////////////
 		// Lookup //
 		////////////
-		
-		u32 const Texture::InternalFormatMatrix[4][10] = 
+
+		u32 const Texture::InternalFormatMatrix[4][10] =
 		{
 			{GL_R8, GL_R16, GL_R8UI, GL_R32UI, GL_R32UI, GL_R8I, GL_R16I, GL_R32I, GL_R16F, GL_R32F},
 			{GL_RG8, GL_RG16, GL_RG8UI, GL_RG32UI, GL_RG32UI, GL_RG8I, GL_RG16I, GL_RG32I, GL_RG16F, GL_RG32F},
@@ -154,7 +154,7 @@ namespace ion
 			{GL_RGBA8, GL_RGBA16, GL_RGBA8UI, GL_RGBA32UI, GL_RGBA32UI, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA16F, GL_RGBA32F}
 		};
 
-		u32 const Texture::FormatMatrix[4] = 
+		u32 const Texture::FormatMatrix[4] =
 		{
 			GL_RED,
 			GL_RG,
@@ -162,7 +162,7 @@ namespace ion
 			GL_RGBA
 		};
 
-		u32 const Texture::DepthComponentMatrix[6] = 
+		u32 const Texture::DepthComponentMatrix[6] =
 		{
 			GL_DEPTH_COMPONENT16,
 			GL_DEPTH_COMPONENT24,
@@ -172,7 +172,7 @@ namespace ion
 			GL_STENCIL_INDEX8
 		};
 
-		string const Texture::InternalFormatStringMatrix[4][10] = 
+		string const Texture::InternalFormatStringMatrix[4][10] =
 		{
 			{"GL_R8", "GL_R16", "GL_R8UI", "GL_R32UI", "GL_R32UI", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R16F", "GL_R32F"},
 			{"GL_RG8", "GL_RG16", "GL_RG8UI", "GL_RG32UI", "GL_RG32UI", "GL_RG8I", "GL_RG16I", "GL_RG32I", "GL_RG16F", "GL_RG32F"},
@@ -180,7 +180,7 @@ namespace ion
 			{"GL_RGBA8", "GL_RGBA16", "GL_RGBA8UI", "GL_RGBA32UI", "GL_RGBA32UI", "GL_RGBA8I", "GL_RGBA16I", "GL_RGBA32I", "GL_RGBA16F", "GL_RGBA32F"}
 		};
 
-		string const Texture::FormatStringMatrix[4] = 
+		string const Texture::FormatStringMatrix[4] =
 		{
 			"GL_RED",
 			"GL_RG",
@@ -192,7 +192,7 @@ namespace ion
 		///////////////
 		// Texture2D //
 		///////////////
-		
+
 		Texture2D::Texture2D(vec2u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
 		{
 			this->Size = Size;
@@ -275,7 +275,7 @@ namespace ion
 		Texture3D::Texture3D(u32 const Handle)
 			: Texture(Handle)
 		{}
-		
+
 		Texture3D::Texture3D(vec3u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
 		{
 			this->Size = Size;

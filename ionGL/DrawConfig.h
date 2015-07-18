@@ -30,7 +30,7 @@ namespace ion
 
 			DrawConfig(Program * Program, EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 			~DrawConfig();
-			
+
 			bool AddVertexBuffer(string const & Label, VertexBuffer * VBO);
 			void OfferVertexBuffer(string const & Label, VertexBuffer * VBO);
 			bool AddUniform(string const & Label, Uniform const * Value);
@@ -42,18 +42,18 @@ namespace ion
 
 			bool IsFeatureEnabled(EDrawFeature const Feature);
 			void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
-			
+
 			bool Loaded() const;
 			void Load();
 			void CreateVertexArray();
 			bool CheckUniforms();
 
 		protected:
-			
+
 			map<u32, VertexBuffer *> VertexBuffers;
 			map<u32, Uniform const *> Uniforms;
 			map<u32, Texture const *> Textures;
-			
+
 			Program * BoundProgram = nullptr;
 			VertexArray * VAO = nullptr;
 			IndexBuffer * IBO = nullptr;

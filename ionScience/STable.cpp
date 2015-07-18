@@ -121,7 +121,7 @@ void STable::WriteToFile(std::ofstream & File)
 		File.write((char *) & Dims, sizeof(u32));
 		File.write((char *) & it->second.front(), Dims * sizeof(f64));
 	}
-	
+
 	// Write Values
 	Dims = Rows.size();
 	File.write((char *) & Dims, sizeof(u32));
@@ -158,7 +158,7 @@ void STable::ReadFromFile(std::ifstream & File)
 		delete [] Buffer;
 		delete [] DataBuffer;
 	}
-	
+
 	// Read Values
 	u32 ValueCount;
 	File.read((char *) & ValueCount, sizeof(u32));
@@ -169,7 +169,7 @@ void STable::ReadFromFile(std::ifstream & File)
 		s32 InternalIndex;
 		File.read((char *) & InternalIndex, sizeof(s32));
 		assert(InternalIndex == Rows.size());
-	
+
 		Rows.push_back(SRow(* this, Rows.size()));
 
 		for (auto it = Fields.begin(); it != Fields.end(); ++ it)

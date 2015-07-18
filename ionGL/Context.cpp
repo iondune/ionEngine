@@ -39,7 +39,7 @@ namespace ion
 			int const BytesPerPixel = 4;
 
 			byte * buffer = new byte[Width * Height * BytesPerPixel]();
- 
+
 			CheckedGLCall(glReadPixels(0, 0, Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
 			return buffer;
 		}

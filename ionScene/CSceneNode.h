@@ -61,14 +61,14 @@ public:
 	/////////////
 	// Shaders //
 	/////////////
-	
+
 	void SetShader(CShader * Shader, string const & RenderPass = "Default");
 	void SetUniform(string const & Label, IUniform * Uniform);
 
 	CShader * GetShader(string const & RenderPass = "Default");
 	IUniform * GetUniform(string const & Label);
 	map<string, IUniform *> & GetUniforms();
-	
+
 
 	//////////////
 	// Textures //
@@ -81,7 +81,7 @@ public:
 
 	vector<CTexture *> & GetTextures();
 	vector<ion::GL::UniformValue<int> *> & GetTextureUniforms();
-	
+
 	void SetTexture(uint const Index, CTexture * Texture);
 	void SetTexture(string const & Label, CTexture * Texture);
 
@@ -98,7 +98,7 @@ public:
 	//////////////
 	// Features //
 	//////////////
-	
+
 	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature) const;
 	void SetFeatureEnabled(ion::GL::EDrawFeature const Feature, bool const Enabled = true);
 	bool IsFeatureEnabled(ion::GL::EDrawFeature const Feature, string const & RenderPass);

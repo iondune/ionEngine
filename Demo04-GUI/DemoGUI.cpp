@@ -6,7 +6,7 @@
 using namespace ion::GL;
 
 
-void CheckSize(IFont * Font, char * str)
+void CheckSize(IFont * const Font, char const * const str)
 {
 	int Width, Height;
 	Font->measure(& Width, & Height, str);
@@ -21,7 +21,7 @@ int main()
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
 	IFont * Font = IFont::init("OpenSans.ttf", 12);
-	
+
 	CheckSize(Font, "a");
 	CheckSize(Font, "ab");
 	CheckSize(Font, "abc");
@@ -36,7 +36,7 @@ int main()
 		Context::Clear({ EBuffer::Color, EBuffer::Depth });
 
 		Font->print(20, 20, "a\nab\nabc\nA\nAB\nABC");
-		
+
 		Font->print(0, 0, "Hello from 0, 0");
 		Font->print(320, 0, "Hello from 320, 0");
 		Font->print(0, 240, "Hello from 0, 240");

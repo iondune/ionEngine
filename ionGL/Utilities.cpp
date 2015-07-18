@@ -79,7 +79,7 @@ namespace ion
 			GL_TRIANGLES,
 			GL_QUADS
 		};
-		
+
 		uint const Util::PrimitiveVertices[4] =
 		{
 			1,

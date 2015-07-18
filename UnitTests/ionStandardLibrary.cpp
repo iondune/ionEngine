@@ -68,7 +68,7 @@ TEST_CASE("ionStandardLibrary::TryMapAccess")
 {
 	map<int, int> Map;
 	int X = -1;
-	
+
 	REQUIRE(! TryMapAccess(Map, 0, X));
 	REQUIRE(X == -1);
 	REQUIRE(! TryMapAccess(Map, 1, X));

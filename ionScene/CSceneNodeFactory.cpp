@@ -79,7 +79,7 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 			outColor = texture(Texture0, fTexCoord);
 		}
 	)SHADER";
-	
+
 	CSceneNode * Node = nullptr;
 	CShader * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skybox", VertexShaderSource, "", FragmentShaderSource);
 	CMesh * Mesh = CGeometryCreator::CreateSkySphere();

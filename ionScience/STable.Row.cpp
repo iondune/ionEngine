@@ -6,7 +6,7 @@ f64 STable::SRow::GetField(std::string const & Field) const
 	std::map<std::string, std::vector<double> >::const_iterator it;
 	if ((it = Table.Fields.find(Field)) == Table.Fields.end())
 		return 0;
-	
+
 	return it->second[Index];
 }
 
@@ -16,7 +16,7 @@ f64 & STable::SRow::GetField(std::string const & Field)
 		Table.AddField(Field);
 	std::map<std::string, std::vector<double> >::iterator it;
 	assert((it = Table.Fields.find(Field)) != Table.Fields.end());
-	
+
 	return it->second[Index];
 }
 

@@ -110,7 +110,7 @@ class File
 {
 
 public:
-	
+
 	static bool Exists(string const & FileName)
 	{
 	  ifstream ifile(FileName);
@@ -122,7 +122,7 @@ public:
 		std::ifstream FileHandle(FileName);
 		std::string String;
 
-		FileHandle.seekg(0, std::ios::end);   
+		FileHandle.seekg(0, std::ios::end);
 		String.reserve((uint) FileHandle.tellg());
 		FileHandle.seekg(0, std::ios::beg);
 

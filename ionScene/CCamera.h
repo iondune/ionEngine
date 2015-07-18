@@ -25,7 +25,7 @@ public:
 	virtual void SetUpVector(vec3f const & UpVector);
 	virtual void SetViewMatrix(glm::mat4 const & viewMatrix);
 	virtual void SetProjectionMatrix(glm::mat4 const & projectionMatrix);
-	
+
 	virtual f32 GetNearPlane() const;
 	virtual f32 GetFarPlane() const;
 	virtual void SetNearPlane(f32 const nearPlane);

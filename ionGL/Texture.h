@@ -63,21 +63,21 @@ namespace ion
 				F16 = 8,
 				F32 = 9
 			};
-			
+
 			static u32 const InternalFormatMatrix[4][10];
 			static u32 const FormatMatrix[4];
 			static u32 const DepthComponentMatrix[6];
 
 			static string const InternalFormatStringMatrix[4][10];
 			static string const FormatStringMatrix[4];
-			
+
 
 			///////////////
 			// Interface //
 			///////////////
-			
+
 			virtual ~Texture();
-			
+
 			//! Sets the minimizing filter for this texture
 			//! Default is EFilter::Linear
 			Texture * SetMinFilter(EFilter const MinFilter);
@@ -98,7 +98,7 @@ namespace ion
 			//! A value < 0 indicates that the max anisotrophy value should be used
 			//! Default is -1
 			Texture * SetAnisotropy(f32 const Anisotropy);
-			
+
 			EFilter GetMinFilter();
 			EFilter GetMagFilter();
 			EFilter GetMipMapFilter();
@@ -109,14 +109,14 @@ namespace ion
 			virtual u32 GetGLBindTextureTarget() const = 0;
 
 		protected:
-			
+
 			Texture();
 			Texture(u32 const Handle);
 			virtual u32 GetGLTextureBindingEnum() const = 0;
 			void ApplyParams();
-			
+
 			u32 Handle = 0;
-			
+
 			EFilter MinFilter = EFilter::Linear;
 			EFilter MagFilter = EFilter::Linear;
 			EFilter MipMapFilter = EFilter::Linear;
@@ -133,11 +133,11 @@ namespace ion
 		{
 
 		public:
-			
+
 			Texture2D(vec2u const & Size, bool const MipMaps = true, EFormatComponents const Components = EFormatComponents::RGBA, EInternalFormatType const Type = EInternalFormatType::Fix8);
 			Texture2D(vec2u const & Size, EDepthComponents const Components);
 
-			//! 
+			//!
 			//! Note that this is not a direct corollary to the glTextureImage2D call - you must first call Storage to allocate space for this texture
 			//! This method simply calls SubImage with a zero offset and size = texture size
 			void Image(void const * const data, EFormatComponents const Components = EFormatComponents::RGBA, EFormatType const Type = EFormatType::U8);
@@ -157,12 +157,12 @@ namespace ion
 		{
 
 		public:
-			
+
 			//! Deprecated
 			Texture3D(u32 const Handle);
 			Texture3D(vec3u const & Size, bool const MipMaps = true, EFormatComponents const Components = EFormatComponents::RGBA, EInternalFormatType const Type = EInternalFormatType::Fix8);
 
-			//! 
+			//!
 			//! Note that this is not a direct corollary to the glTextureImage3D call - you must first call Storage to allocate space for this texture
 			//! This method simply calls SubImage with a zero offset and size = texture size
 			void Image(void const * const data, EFormatComponents const Components = EFormatComponents::RGBA, EFormatType const Type = EFormatType::U8);
