@@ -9,74 +9,75 @@
 void CImGUIManager::DrawCallback(ImDrawData* draw_data)
 {
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
-    GLint last_program, last_texture;
-    glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
-    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
-    glEnable(GL_BLEND);
-    glBlendEquation(GL_FUNC_ADD);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_SCISSOR_TEST);
-    glActiveTexture(GL_TEXTURE0);
+	GLint last_program, last_texture;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_SCISSOR_TEST);
+	glActiveTexture(GL_TEXTURE0);
 
-    // Setup orthographic projection matrix
-    const float width = ImGui::GetIO().DisplaySize.x;
-    const float height = ImGui::GetIO().DisplaySize.y;
-    const float ortho_projection[4][4] =
-    {
-        { 2.0f/width,	0.0f,			0.0f,		0.0f },
-        { 0.0f,			2.0f/-height,	0.0f,		0.0f },
-        { 0.0f,			0.0f,			-1.0f,		0.0f },
-        { -1.0f,		1.0f,			0.0f,		1.0f },
-    };
-    glUseProgram(ShaderHandle);
-    glUniform1i(AttribLocationTex, 0);
-    glUniformMatrix4fv(AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
-    glBindVertexArray(VaoHandle);
+	// Setup orthographic projection matrix
+	const float width = ImGui::GetIO().DisplaySize.x;
+	const float height = ImGui::GetIO().DisplaySize.y;
+	const float ortho_projection[4][4] =
+	{
+		{ 2.0f / width, 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 2.0f / -height, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, -1.0f, 0.0f },
+		{ -1.0f, 1.0f, 0.0f, 1.0f },
+	};
+	glUseProgram(ShaderHandle);
+	glUniform1i(AttribLocationTex, 0);
+	glUniformMatrix4fv(AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
+	glBindVertexArray(VaoHandle);
 
-    for (int n = 0; n < draw_data->CmdListsCount; n++)
-    {
-        const ImDrawList* cmd_list = draw_data->CmdLists[n];
-        const ImDrawIdx* idx_buffer = &cmd_list->IdxBuffer.front();
+	for (int n = 0; n < draw_data->CmdListsCount; n++)
+	{
+		const ImDrawList* cmd_list = draw_data->CmdLists[n];
+		const ImDrawIdx* idx_buffer = &cmd_list->IdxBuffer.front();
 
-        glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-        int needed_vtx_size = cmd_list->VtxBuffer.size() * sizeof(ImDrawVert);
-        if (VboSize < needed_vtx_size)
-        {
-            // Grow our buffer if needed
-            VboSize = needed_vtx_size + 2000 * sizeof(ImDrawVert);
-            glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)VboSize, NULL, GL_STREAM_DRAW);
-        }
+		glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
+		int needed_vtx_size = cmd_list->VtxBuffer.size() * sizeof(ImDrawVert);
+		if (VboSize < needed_vtx_size)
+		{
+			// Grow our buffer if needed
+			VboSize = needed_vtx_size + 2000 * sizeof(ImDrawVert);
+			glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr) VboSize, NULL, GL_STREAM_DRAW);
+		}
 
-        unsigned char* vtx_data = (unsigned char*)glMapBufferRange(GL_ARRAY_BUFFER, 0, needed_vtx_size, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-        if (!vtx_data)
-            continue;
-        memcpy(vtx_data, &cmd_list->VtxBuffer[0], cmd_list->VtxBuffer.size() * sizeof(ImDrawVert));
-        glUnmapBuffer(GL_ARRAY_BUFFER);
+		unsigned char* vtx_data = (unsigned char*) glMapBufferRange(GL_ARRAY_BUFFER, 0, needed_vtx_size, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+		if (!vtx_data)
+			continue;
+		memcpy(vtx_data, &cmd_list->VtxBuffer[0], cmd_list->VtxBuffer.size() * sizeof(ImDrawVert));
+		glUnmapBuffer(GL_ARRAY_BUFFER);
 
-        for (const ImDrawCmd* pcmd = cmd_list->CmdBuffer.begin(); pcmd != cmd_list->CmdBuffer.end(); pcmd++)
-        {
-            if (pcmd->UserCallback)
-            {
-                pcmd->UserCallback(cmd_list, pcmd);
-            }
-            else
-            {
-                glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
-                glScissor((int)pcmd->ClipRect.x, (int)(height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
-                glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, GL_UNSIGNED_SHORT, idx_buffer);
-            }
-            idx_buffer += pcmd->ElemCount;
-        }
-    }
+		for (const ImDrawCmd* pcmd = cmd_list->CmdBuffer.begin(); pcmd != cmd_list->CmdBuffer.end(); pcmd++)
+		{
+			if (pcmd->UserCallback)
+			{
+				pcmd->UserCallback(cmd_list, pcmd);
+			}
+			else
+			{
+				glBindTexture(GL_TEXTURE_2D, (GLuint) (intptr_t) pcmd->TextureId);
+				glScissor((int) pcmd->ClipRect.x, (int) (height - pcmd->ClipRect.w), (int) (pcmd->ClipRect.z - pcmd->ClipRect.x), (int) (pcmd->ClipRect.w - pcmd->ClipRect.y));
+				glDrawElements(GL_TRIANGLES, (GLsizei) pcmd->ElemCount, GL_UNSIGNED_SHORT, idx_buffer);
+			}
+			idx_buffer += pcmd->ElemCount;
+		}
+	}
 
-    // Restore modified state
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glUseProgram(last_program);
-    glDisable(GL_SCISSOR_TEST);
-    glBindTexture(GL_TEXTURE_2D, last_texture);
+	// Restore modified state
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glUseProgram(last_program);
+	glDisable(GL_SCISSOR_TEST);
+	glEnable(GL_DEPTH_TEST);
+	glBindTexture(GL_TEXTURE_2D, last_texture);
 }
 
 void CImGUIManager::OnEvent(IEvent & Event)
@@ -184,20 +185,20 @@ bool CImGUIManager::CreateDeviceObjects()
 	AttribLocationColor = glGetAttribLocation(ShaderHandle, "Color");
 
 	glGenBuffers(1, &VboHandle);
-    glGenVertexArrays(1, &VaoHandle);
-    glBindVertexArray(VaoHandle);
-    glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-    glEnableVertexAttribArray(AttribLocationPosition);
-    glEnableVertexAttribArray(AttribLocationUV);
-    glEnableVertexAttribArray(AttribLocationColor);
+	glGenVertexArrays(1, &VaoHandle);
+	glBindVertexArray(VaoHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
+	glEnableVertexAttribArray(AttribLocationPosition);
+	glEnableVertexAttribArray(AttribLocationUV);
+	glEnableVertexAttribArray(AttribLocationColor);
 
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
-    glVertexAttribPointer(AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, pos));
-    glVertexAttribPointer(AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, uv));
-    glVertexAttribPointer(AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)OFFSETOF(ImDrawVert, col));
+	glVertexAttribPointer(AttribLocationPosition, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, pos));
+	glVertexAttribPointer(AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, uv));
+	glVertexAttribPointer(AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	CreateFontsTexture();
 
@@ -313,11 +314,11 @@ void CImGUIManager::NewFrame()
 		io.MousePos = ImVec2(-1, -1);
 	}
 
-    for (int i = 0; i < 3; i++)
-    {
-        io.MouseDown[i] = MousePressed[i] || Window->IsMouseDown((SMouseEvent::EButton) i);    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
-        MousePressed[i] = false;
-    }
+	for (int i = 0; i < 3; i++)
+	{
+		io.MouseDown[i] = MousePressed[i] || Window->IsMouseDown((SMouseEvent::EButton) i);    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
+		MousePressed[i] = false;
+	}
 
 	io.MouseWheel = MouseWheel;
 	MouseWheel = 0;
