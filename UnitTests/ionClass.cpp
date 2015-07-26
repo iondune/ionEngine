@@ -32,9 +32,9 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 	REQUIRE(InstanceOf<C>(c));
 	REQUIRE(! InstanceOf<A>(c));
 	REQUIRE(! InstanceOf<A>(&c));
-	REQUIRE(NULL != As<A>(&a));
-	REQUIRE(NULL != As<A>(&b));
-	REQUIRE(NULL == As<A>(&c));
+	REQUIRE(nullptr != As<A>(&a));
+	REQUIRE(nullptr != As<A>(&b));
+	REQUIRE(nullptr == As<A>(&c));
 }
 
 class Base
