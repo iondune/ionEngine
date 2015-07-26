@@ -4,9 +4,18 @@
 
 \section windows Windows
 
-The easiest way to acquire the dependencies is to clone the [ionEngine SDKs respository](https://bitbucket.org/iondune/sdks)
-which contains pre-built binaries for Windows x64 platforms. Visual Studio 2013 project files are included for Windows builds
-on alternate platforms.
+Create a folder called "SDKs" in your Visual Studio folder and clone the following github repositories into it:
+
+- glfw
+- glm
+- imgui
+- catch
+- tinyformat
+- stb
+
+Additionally download the pre-built binaries for glew 1.12.0 and assimp 3.3.1.
+
+Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder
 
 \section linux Linux
 
