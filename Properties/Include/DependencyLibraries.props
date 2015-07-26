@@ -11,14 +11,6 @@
         ;glfw3.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">
-        ;freetype255d.lib;
-        ;%(AdditionalDependencies);
-      </AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)'=='Release'">
-        ;freetype255.lib;
-        ;%(AdditionalDependencies);
-      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 

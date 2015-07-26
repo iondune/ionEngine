@@ -24,12 +24,12 @@
       ;$(LibraryPath);
     </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Debug'">
-      ;$(VisualStudioDir)\SDKs\glfw\src\Debug;
+      ;$(VisualStudioDir)\SDKs\glfw\x64\Debug;
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Debug;
       ;$(LibraryPath);
     </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Release'">
-      ;$(VisualStudioDir)\SDKs\glfw\src\Release;
+      ;$(VisualStudioDir)\SDKs\glfw\x64\Release;
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Release;
       ;$(LibraryPath);
     </LibraryPath>
