@@ -37,33 +37,33 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 	REQUIRE(nullptr == As<A>(&c));
 }
 
-class Base
+class TestBase
 {
 public:
-	Base() {}
-	virtual ~Base() {}
+	TestBase() {}
+	virtual ~TestBase() {}
 };
 
-class Derived : public Base
+class TestDerived : public TestBase
 {};
 
 TEST_CASE("ionClass::As", "As function converts between objects")
 {
-	Base a;
-	Base const constA;
-	Derived b;
+	TestBase a;
+	TestBase const constA;
+	TestDerived b;
 	C c;
 
-	Base const * const aPtr = &a;
-	Derived const * const bPtr = &b;
+	TestBase const * const aPtr = &a;
+	TestDerived const * const bPtr = &b;
 	C const * const cPtr = &c;
 
-	REQUIRE(As<Derived>((Base*)&b) == &b);
-	REQUIRE(As<Derived>((Base const * const)bPtr) == bPtr);
-	REQUIRE(As<Base>(& a) == & a);
-	REQUIRE(! As<Derived>(& a));
-	REQUIRE(! & As<Derived>(a));
-	REQUIRE(! & As<Derived>(constA));
+	REQUIRE(As<TestDerived>((TestBase*)&b) == &b);
+	REQUIRE(As<TestDerived>((TestBase const * const)bPtr) == bPtr);
+	REQUIRE(As<TestBase>(& a) == & a);
+	REQUIRE(! As<TestDerived>(& a));
+	REQUIRE(! & As<TestDerived>(a));
+	REQUIRE(! & As<TestDerived>(constA));
 }
 
 TEST_CASE("Type", "[ionClass :: Type]")
@@ -104,3 +104,4 @@ TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
 	REQUIRE(f->EPtr == e);
 	REQUIRE(f->EPtr == constE);
 }
+
