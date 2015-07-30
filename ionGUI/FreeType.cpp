@@ -39,8 +39,8 @@ IFont * CFont::init(const char * fname, unsigned int h)
 	ImGuiIO& io = ImGui::GetIO();
 
 	CFont * Font = new CFont();
-	Font->Font = io.Fonts->AddFontFromFileTTF(fname, h);
-	Font->Size = h;
+	Font->Font = io.Fonts->AddFontFromFileTTF(fname, (float) h);
+	Font->Size = (float) h;
 
 	return Font;
 }
