@@ -56,52 +56,55 @@ void SMeshBuffer::LoadDataIntoBuffers()
 
 	{
 		vector<f32> Data;
+		size_t DataIndex = 0;
 
+		Data.resize(Vertices.size() * 3);
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back(it->Position[j]);
+				Data[DataIndex++] = it->Position[j];
 		VertexBuffers.Positions->Data(Data, 3);
-		Data.clear();
 
+		DataIndex = 0;
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back(it->Normal[j]);
+				Data[DataIndex++] = it->Normal[j];
 		VertexBuffers.Normals->Data(Data, 3);
-		Data.clear();
 
+		DataIndex = 0;
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back(it->Color[j]);
+				Data[DataIndex++] = it->Color[j];
 		VertexBuffers.Colors->Data(Data, 3);
-		Data.clear();
 
+		Data.resize(Vertices.size() * 2);
+		DataIndex = 0;
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 2; ++ j)
-				Data.push_back(it->TextureCoordinates[j]);
+				Data[DataIndex++] = it->TextureCoordinates[j];
 		VertexBuffers.TexCoords->Data(Data, 2);
-		Data.clear();
 
+		DataIndex = 0;
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 2; ++ j)
-				Data.push_back(it->BoneWeights[j]);
+				Data[DataIndex++] = it->BoneWeights[j];
 		VertexBuffers.BoneWeights->Data(Data, 2);
-		Data.clear();
 
+		DataIndex = 0;
 		for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
 			for (uint j = 0; j < 2; ++ j)
-				Data.push_back((float) it->BoneIndices[j]);
+				Data[DataIndex++] = (float) it->BoneIndices[j];
 		VertexBuffers.BoneIndices->Data(Data, 2);
-		Data.clear();
 	}
 
 	{
 		vector<u32> Data;
+		size_t DataIndex = 0;
 
+		Data.resize(Triangles.size() * 3);
 		for (std::vector<SMeshTriangle>::iterator it = Triangles.begin(); it != Triangles.end(); ++ it)
 			for (uint j = 0; j < 3; ++ j)
-				Data.push_back((* it).Indices[j]);
+				Data[DataIndex++] = it->Indices[j];
 		VertexBuffers.Indices->Data(Data);
-		Data.clear();
 	}
 }
 
