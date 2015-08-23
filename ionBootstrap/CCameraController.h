@@ -19,6 +19,7 @@ public:
 	virtual vec3f const & GetPosition() const;
 	virtual f32 GetPhi() const;
 	virtual f32 GetTheta() const;
+	virtual f32 GetVelocity() const;
 	virtual ICamera const * GetCamera() const;
 	virtual ICamera * GetCamera();
 

@@ -151,6 +151,11 @@ ICamera * CCameraController::GetCamera()
 	return Camera;
 }
 
+f32 CCameraController::GetVelocity() const
+{
+	return MoveSpeed;
+}
+
 void CCameraController::SetVelocity(float const velocity)
 {
 	MoveSpeed = velocity;
