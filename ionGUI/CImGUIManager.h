@@ -17,6 +17,8 @@ public:
 	void OnEvent(IEvent & Event);
 	void AddFontFromFile(string const & FileName, float const Size);
 
+	ImGuiIO & IO = ImGui::GetIO();
+
 protected:
 
 	void DrawCallback(ImDrawData* draw_data);
