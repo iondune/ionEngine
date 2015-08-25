@@ -16,7 +16,7 @@ void CPerspectiveCamera::RecalculateProjectionMatrix()
 
 f32 CPerspectiveCamera::GetFieldOfView() const
 {
-	return RadiansToDegrees(ArcTan(0.5f / FocalLength));
+	return ArcTan(0.5f / FocalLength);
 }
 
 f32 CPerspectiveCamera::GetFocalLength() const
