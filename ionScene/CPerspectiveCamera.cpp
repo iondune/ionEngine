@@ -36,7 +36,7 @@ void CPerspectiveCamera::SetFocalLength(f32 const focalLength)
 
 void CPerspectiveCamera::SetFieldOfView(f32 const fieldOfView)
 {
-	FocalLength = 0.5f / Tan(DegreesToRadians(fieldOfView));
+	FocalLength = 0.5f / Tan(fieldOfView);
 }
 
 void CPerspectiveCamera::SetAspectRatio(f32 const aspectRatio)
