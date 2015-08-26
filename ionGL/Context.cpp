@@ -35,7 +35,7 @@ namespace ion
 			ClearColor = Color;
 		}
 
-		color4f const & Context::GetClearColor() const
+		color4f const & Context::GetClearColor()
 		{
 			return ClearColor;
 		}
