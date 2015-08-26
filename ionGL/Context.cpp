@@ -9,6 +9,8 @@ namespace ion
 {
 	namespace GL
 	{
+		static color4f ClearColor = Colors::Black;
+
 		void Context::Init()
 		{
 			CheckedGLCall(glEnable(GL_DEPTH_TEST));
@@ -30,6 +32,12 @@ namespace ion
 		void Context::SetClearColor(color4f const & Color)
 		{
 			CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
+			ClearColor = Color;
+		}
+
+		color4f const & Context::GetClearColor() const
+		{
+			return ClearColor;
 		}
 
 		byte * Context::ReadPixels()
