@@ -115,7 +115,7 @@ public:
 	}
 
 	// from http://www.codercorner.com/RayAABB.cpp
-	bool IntersectsWithRay(vec3f const & origin, vec3f const & dir, vec3f & coord)
+	bool IntersectsWithRay(vec3f const & origin, vec3f const & dir, vec3f & coord) const
 	{
 		static T const RAYAABB_EPSILON = RoundingError<T>::Value();
 		bool Inside = true;
@@ -172,7 +172,7 @@ public:
 		return true;	// ray hits box
 	}
 
-	bool IntersectsWithLimitedRay(vec3f const & origin, vec3f const & dir, vec3f & coord)
+	bool IntersectsWithLimitedRay(vec3f const & origin, vec3f const & dir, vec3f & coord) const
 	{
 		if (IntersectsWithRay(origin, dir, coord))
 		{
