@@ -35,6 +35,9 @@
     <ClCompile Include="SVector3.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
+    <ClCompile Include="SBoundingBox3.cpp">
+      <Filter>ionMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">

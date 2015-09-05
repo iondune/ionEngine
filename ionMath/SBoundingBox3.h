@@ -31,6 +31,11 @@ public:
 		return MaxCorner - MinCorner;
 	}
 
+	Vector const GetHalfExtent() const
+	{
+		return (MaxCorner - MinCorner) / 2;
+	}
+
 	Vector const GetCenter() const
 	{
 		return (MaxCorner + MinCorner) / 2;
@@ -107,6 +112,74 @@ public:
 			return false;
 
 		return true;
+	}
+
+	// from http://www.codercorner.com/RayAABB.cpp
+	bool IntersectsWithRay(vec3f const & origin, vec3f const & dir, vec3f & coord)
+	{
+		static T const RAYAABB_EPSILON = RoundingError<T>::Value();
+		bool Inside = true;
+		vec3f const MinB = MinCorner;
+		vec3f const MaxB = MaxCorner;
+		vec3f MaxT;
+		MaxT.X = MaxT.Y = MaxT.Z = -1;
+
+		// Find candidate planes.
+		for (uint i = 0; i<3; i++)
+		{
+			if (origin.Values[i] < MinB.Values[i])
+			{
+				coord.Values[i] = MinB.Values[i];
+				Inside = false;
+
+				// Calculate T distances to candidate planes
+				if (((uint)(dir.Values[i])))	MaxT.Values[i] = (MinB.Values[i] - origin.Values[i]) / dir.Values[i];
+			}
+			else if (origin.Values[i] > MaxB.Values[i])
+			{
+				coord.Values[i] = MaxB.Values[i];
+				Inside = false;
+
+				// Calculate T distances to candidate planes
+				if (((uint)(dir.Values[i])))	MaxT.Values[i] = (MaxB.Values[i] - origin.Values[i]) / dir.Values[i];
+			}
+		}
+
+		// Ray origin inside bounding box
+		if (Inside)
+		{
+			coord = origin;
+			return true;
+		}
+
+		// Get largest of the maxT's for final choice of intersection
+		uint WhichPlane = 0;
+		if (MaxT.Values[1] > MaxT.Values[WhichPlane])	WhichPlane = 1;
+		if (MaxT.Values[2] > MaxT.Values[WhichPlane])	WhichPlane = 2;
+
+		// Check final candidate actually inside box
+		if (((uint)(MaxT.Values[WhichPlane])) & 0x80000000) return false;
+
+		for (uint i = 0; i<3; i++)
+		{
+			if (i != WhichPlane)
+			{
+				coord.Values[i] = origin.Values[i] + MaxT.Values[WhichPlane] * dir.Values[i];
+				if (coord.Values[i] < MinB.Values[i] - RAYAABB_EPSILON || coord.Values[i] > MaxB.Values[i] + RAYAABB_EPSILON)	return false;
+
+			}
+		}
+		return true;	// ray hits box
+	}
+
+	bool IntersectsWithLimitedRay(vec3f const & origin, vec3f const & dir, vec3f & coord)
+	{
+		if (IntersectsWithRay(origin, dir, coord))
+		{
+			return coord.GetDistanceSqFrom(origin) <= dir.LengthSq();
+		}
+
+		return false;
 	}
 
 	T const GetMaximumRadius(Vector const Scale) const
