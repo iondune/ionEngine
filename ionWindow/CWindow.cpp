@@ -35,6 +35,18 @@ void CWindow::SwapBuffers()
 	glfwSwapBuffers(WindowHandle);
 }
 
+vec2i CWindow::GetPosition() const
+{
+	vec2i Position;
+	glfwGetWindowPos(WindowHandle, &Position.X, &Position.Y);
+	return Position;
+}
+
+void CWindow::SetPosition(vec2i const & Position)
+{
+	glfwSetWindowPos(WindowHandle, Position.X, Position.Y);
+}
+
 bool CWindow::IsKeyDown(EKey const Key)
 {
 	return KeyStates[(int) Key];
