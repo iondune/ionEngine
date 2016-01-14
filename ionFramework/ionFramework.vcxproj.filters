@@ -5,6 +5,7 @@
       <Filter>State System</Filter>
     </ClCompile>
     <ClCompile Include="ionDirectory.cpp" />
+    <ClCompile Include="ionSTB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionFramework.h" />

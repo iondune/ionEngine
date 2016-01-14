@@ -23,6 +23,7 @@
   <ItemGroup>
     <ClCompile Include="CStateManager.cpp" />
     <ClCompile Include="ionDirectory.cpp" />
+    <ClCompile Include="ionSTB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IEventListener.h" />

@@ -23,6 +23,9 @@ public:
 	f32 GetAspectRatio() const;
 	void SwapBuffers();
 
+	vec2i GetPosition() const;
+	void SetPosition(vec2i const & Position);
+
 	bool IsKeyDown(EKey const Key);
 	bool IsMouseDown(SMouseEvent::EButton const Button);
 
