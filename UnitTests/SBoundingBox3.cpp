@@ -25,8 +25,8 @@ TEST_CASE("SBoundingBox3i intersection")
 
 	a.MinCorner = vec3i(0, 0, 0);
 	b.MaxCorner = vec3i(4, 6, 8);
-//	REQUIRE(a.Intersects(b));
-	//REQUIRE(bbi.GetExtent() == vec3i(4, 6, 8));
+	REQUIRE(a.Intersects(b));
+	REQUIRE(b.GetExtent() == vec3i(3, 5, 7));
 }
 
 TEST_CASE("SBoundingBox3 ray intersection")

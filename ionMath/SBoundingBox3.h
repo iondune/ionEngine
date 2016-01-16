@@ -51,12 +51,12 @@ public:
 
 	bool const Intersects(Type const & r) const
 	{
-		return (MaxCorner.Y > r.MinCorner.Y &&
-			MinCorner.Y < r.MaxCorner.Y &&
-			MaxCorner.X > r.MinCorner.X &&
-			MinCorner.X < r.MaxCorner.X &&
-			MaxCorner.Z > r.MinCorner.Z &&
-			MinCorner.Z < r.MaxCorner.Z);
+		return (MaxCorner.Y >= r.MinCorner.Y &&
+			MinCorner.Y <= r.MaxCorner.Y &&
+			MaxCorner.X >= r.MinCorner.X &&
+			MinCorner.X <= r.MaxCorner.X &&
+			MaxCorner.Z >= r.MinCorner.Z &&
+			MinCorner.Z <= r.MaxCorner.Z);
 	}
 
 	void AddInternalPoint(Vector const & v)
