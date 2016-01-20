@@ -56,9 +56,9 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 		uniform mat4 View;
 		uniform mat4 Projection;
 
-		out vec2 fTexCoord;
+				out vec2 fTexCoord;
 
-		void main()
+				void main()
 		{
 			vec4 Position = Projection * View * Model * vec4(Position, 1.0);
 			gl_Position = Position.xyww;
@@ -87,15 +87,71 @@ CSceneNode * CSceneNodeFactory::AddSkySphereNode(string const & TextureLabel)
 
 	if (Texture)
 	{
-		Node = new CSceneNode{SceneManager->GetScene(), SceneManager->GetRoot()};
+		Node = new CSceneNode{ SceneManager->GetScene(), SceneManager->GetRoot() };
 		Node->SetShader(Shader);
 		Node->SetMesh(Mesh);
 		Node->SetTexture(0, Texture);
-		Node->AddComponent(new CUpdateCallbackComponent{[](CSceneNode * Node)
+		Node->AddComponent(new CUpdateCallbackComponent{ [](CSceneNode * Node)
 		{
 			Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());
 			Node->SetScale(Max(1.f, Node->GetScene()->GetActiveCamera()->GetNearPlane() + 1.f));
-		}});
+		} });
+	}
+
+	return Node;
+}
+
+CSceneNode * CSceneNodeFactory::AddSkyDomeNode(string const & TextureLabel)
+{
+	string const VertexShaderSource = R"SHADER(
+		#version 150
+		in vec3 Position;
+		in vec3 Normal;
+
+		uniform mat4 Model;
+		uniform mat4 View;
+		uniform mat4 Projection;
+
+		out vec2 fTexCoord;
+
+		void main()
+		{
+			vec4 OutPosition = Projection * View * Model * vec4(Position, 1.0);
+			gl_Position = OutPosition.xyww;
+			fTexCoord = Position.xz + vec2(0.5);
+		}
+	)SHADER";
+
+	string const FragmentShaderSource = R"SHADER(
+		#version 150
+		in vec2 fTexCoord;
+
+		uniform sampler2D Texture0;
+
+		out vec4 outColor;
+
+		void main()
+		{
+			outColor = texture(Texture0, fTexCoord);
+		}
+	)SHADER";
+
+	CSceneNode * Node = nullptr;
+	CShader * Shader = SceneManager->GetShaderLibrary()->LoadFromSource("Skydome", VertexShaderSource, "", FragmentShaderSource);
+	CMesh * Mesh = CGeometryCreator::CreateSkySphere();
+	CTexture * Texture = SceneManager->GetTextureLibrary()->Get(TextureLabel);
+
+	if (Texture)
+	{
+		Node = new CSceneNode{ SceneManager->GetScene(), SceneManager->GetRoot() };
+		Node->SetShader(Shader);
+		Node->SetMesh(Mesh);
+		Node->SetTexture(0, Texture);
+		Node->AddComponent(new CUpdateCallbackComponent{ [](CSceneNode * Node)
+		{
+			Node->SetPosition(Node->GetScene()->GetActiveCamera()->GetPosition());
+			Node->SetScale(Max(1.f, Node->GetScene()->GetActiveCamera()->GetNearPlane() + 1.f));
+		} });
 	}
 
 	return Node;
