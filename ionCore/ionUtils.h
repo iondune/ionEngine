@@ -65,6 +65,12 @@ static T const Average(T const & a, T const & b, T const & c, T const & d)
 }
 
 template <typename T>
+static T const MakeEven(T const i)
+{
+	return (i % 2) ? (i - 1) : (i);
+}
+
+template <typename T>
 s32 Sign(T const & val)
 {
 	return (T(0) < val) - (val < T(0));

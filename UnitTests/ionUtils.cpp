@@ -113,3 +113,17 @@ TEST_CASE("ionUtils::Sign")
 	REQUIRE(Sign<float>(NumericLimits<float>::max()) == 1);
 	REQUIRE(Sign<float>(-NumericLimits<float>::max()) == -1);
 }
+
+TEST_CASE("ionUtils::MakeEven")
+{
+	REQUIRE(MakeEven<int>(0) == 0);
+	REQUIRE(MakeEven<int>(1) == 0);
+	REQUIRE(MakeEven<int>(2) == 2);
+	REQUIRE(MakeEven<int>(3) == 2);
+	REQUIRE(MakeEven<int>(4) == 4);
+
+	REQUIRE(MakeEven<int>(-1) == -2);
+	REQUIRE(MakeEven<int>(-2) == -2);
+	REQUIRE(MakeEven<int>(-3) == -4);
+	REQUIRE(MakeEven<int>(-4) == -4);
+}
