@@ -3,14 +3,18 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 #include "Context.h"
 
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		class Renderbuffer
 		{
 		public:
@@ -23,5 +27,6 @@ namespace ion
 			friend class Framebuffer;
 			u32 Handle;
 		};
+		}
 	}
 }

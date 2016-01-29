@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 #include "VertexArray.h"
 #include "Program.h"
@@ -12,8 +13,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		enum EDrawFeature
 		{
 			Wireframe			= 0,
@@ -28,15 +32,15 @@ namespace ion
 		{
 		public:
 
-			DrawConfig(Program * Program, EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
+			DrawConfig(IShaderProgram * Program, EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 			~DrawConfig();
 
-			bool AddVertexBuffer(string const & Label, VertexBuffer * VBO);
-			void OfferVertexBuffer(string const & Label, VertexBuffer * VBO);
+			bool AddVertexBuffer(string const & Label, IVertexBuffer * VBO);
+			void OfferVertexBuffer(string const & Label, IVertexBuffer * VBO);
 			bool AddUniform(string const & Label, Uniform const * Value);
 			void OfferUniform(string const & Label, Uniform const * Value);
 			bool AddTexture(string const & Label, Texture const * Texture);
-			void SetIndexBuffer(IndexBuffer * IBO);
+			void SetIndexBuffer(IIndexBuffer * IBO);
 			void SetElementCount(uint ElementCount);
 			void SetPrimitiveType(EPrimitiveType const PrimitiveType);
 
@@ -50,13 +54,13 @@ namespace ion
 
 		protected:
 
-			map<u32, VertexBuffer *> VertexBuffers;
+			map<u32, IVertexBuffer *> VertexBuffers;
 			map<u32, Uniform const *> Uniforms;
 			map<u32, Texture const *> Textures;
 
-			Program * BoundProgram = nullptr;
+			IShaderProgram * BoundProgram = nullptr;
 			VertexArray * VAO = nullptr;
-			IndexBuffer * IBO = nullptr;
+			IIndexBuffer * IBO = nullptr;
 			uint ElementCount = 0;
 
 			EPrimitiveType PrimitiveType = EPrimitiveType::Triangles;
@@ -70,5 +74,6 @@ namespace ion
 			DrawConfig(DrawConfig const & other ) = delete;
 			DrawConfig & operator =(DrawConfig const & ) = delete;
 		};
+		}
 	}
 }

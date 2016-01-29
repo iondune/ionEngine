@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 #include "Utilities.h"
 #include "Buffer.h"
@@ -10,17 +11,20 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		class VertexArray
 		{
 		public:
 
 			VertexArray(EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 
-			void SetIndexBuffer(IndexBuffer * ibo);
+			void SetIndexBuffer(IIndexBuffer * ibo);
 			void SetElementCount(uint count);
-			void BindAttribute(u32 const index, VertexBuffer * vbo);
+			void BindAttribute(u32 const index, IVertexBuffer * vbo);
 			void Draw();
 
 			void Delete();
@@ -31,8 +35,9 @@ namespace ion
 			u32 Handle = 0;
 			uint ElementCount = 0;
 			EPrimitiveType PrimitiveType;
-			IndexBuffer * BoundIndexBuffer = nullptr;
+			IIndexBuffer * BoundIndexBuffer = nullptr;
 
 		};
+		}
 	}
 }

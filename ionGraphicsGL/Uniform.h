@@ -6,8 +6,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		class Uniform
 		{
 
@@ -122,5 +125,6 @@ namespace ion
 		{
 			return BindUniformReference(uniform);
 		}
+	}
 	}
 }

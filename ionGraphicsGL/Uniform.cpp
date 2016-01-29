@@ -9,8 +9,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		template <>
 		void Uniform::Bind<float>(uint const Handle, float const & Value)
 		{
@@ -150,5 +153,6 @@ namespace ion
 			CheckedGLCall(glUniformMatrix4fv(Handle, (int) Value.size(), GL_FALSE, Temp.data()));
 			Temp.clear();
 		}
+	}
 	}
 }

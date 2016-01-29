@@ -5,8 +5,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		static GLenum LastError = GL_NO_ERROR;
 
 		bool OpenGLError()
@@ -117,5 +120,6 @@ namespace ion
 			"GL_TRIANGLES",
 			"GL_QUADS"
 		};
+	}
 	}
 }

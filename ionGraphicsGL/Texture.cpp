@@ -6,8 +6,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		////////////
 		// Params //
 		////////////
@@ -334,5 +337,6 @@ namespace ion
 		{
 			return GL_TEXTURE_BINDING_3D;
 		}
+	}
 	}
 }

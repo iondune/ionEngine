@@ -5,8 +5,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		DrawContext::DrawContext(Framebuffer * Framebuffer)
 		{
 			Target = Framebuffer;
@@ -124,6 +127,7 @@ namespace ion
 			}
 
 			return ! Problems;
+		}
 		}
 	}
 }

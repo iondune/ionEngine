@@ -6,16 +6,19 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		bool OpenGLError();
 		string GetOpenGLError();
 		void PrintOpenGLErrors();
 		void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
 
 #ifdef _DEBUG
-		#define CheckedGLCall(x) do { ion::GL::PrintOpenGLErrors(">>BEFORE<< "#x, __FILE__, __LINE__); (x); ion::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__); } while (0)
-		#define CheckExistingErrors(x) ion::GL::PrintOpenGLErrors(">>BEFORE<< "#x, __FILE__, __LINE__);
+		#define CheckedGLCall(x) do { ion::Graphics::GL::PrintOpenGLErrors(">>BEFORE<< "#x, __FILE__, __LINE__); (x); ion::Graphics::GL::PrintOpenGLErrors(#x, __FILE__, __LINE__); } while (0)
+		#define CheckExistingErrors(x) ion::Graphics::GL::PrintOpenGLErrors(">>BEFORE<< "#x, __FILE__, __LINE__);
 #else
 		#define CheckedGLCall(x) (x)
 		#define CheckExistingErrors(x)
@@ -53,5 +56,6 @@ namespace ion
 			static string const SizeStringMatrix[7];
 			static string const PrimitiveStringMatrix[4];
 		};
+	}
 	}
 }

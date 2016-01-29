@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 #include "VertexArray.h"
 #include "Program.h"
@@ -14,8 +15,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		class DrawContext
 		{
 		public:
@@ -23,7 +27,7 @@ namespace ion
 			DrawContext(Framebuffer * Framebuffer = DefaultFrameBuffer);
 			~DrawContext();
 
-			void LoadProgram(Program * Program);
+			void LoadProgram(IShaderProgram * Program);
 			bool Draw(DrawConfig * DrawConfig);
 
 			//! Deprecated.
@@ -32,8 +36,9 @@ namespace ion
 		protected:
 
 			Framebuffer * Target = nullptr;
-			Program * BoundProgram = nullptr;
+			IShaderProgram * BoundProgram = nullptr;
 			VertexArray * BoundArray = nullptr;
 		};
+		}
 	}
 }

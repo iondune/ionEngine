@@ -8,8 +8,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		Framebuffer * DefaultFrameBuffer = new Framebuffer(ForceDefaultFramebuffer{});
 
 
@@ -82,7 +85,7 @@ namespace ion
 		void Framebuffer::Clear(std::vector<EBuffer> Buffers)
 		{
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
-			ion::GL::Context::Clear(Buffers);
+			ion::Graphics::GL::Context::Clear(Buffers);
 			CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 		}
 
@@ -145,6 +148,7 @@ namespace ion
 
 			cerr << "Problem with framebuffer: " << Problem << endl;
 			return false;
+		}
 		}
 	}
 }

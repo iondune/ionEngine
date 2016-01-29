@@ -5,8 +5,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		DrawConfig::DrawConfig(Program * Program, EPrimitiveType const PrimitiveType)
 		{
 			this->BoundProgram = Program;
@@ -149,6 +152,7 @@ namespace ion
 			}
 
 			return ! Errors;
+		}
 		}
 	}
 }

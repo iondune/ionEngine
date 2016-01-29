@@ -7,8 +7,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		static color4f ClearColor = Colors::Black;
 
 		void Context::Init()
@@ -58,6 +61,7 @@ namespace ion
 			CheckedGLCall(glGetIntegerv(GL_VIEWPORT, viewport));
 
 			return vec2i(viewport[2] - viewport[0], viewport[3] - viewport[1]);
+		}
 		}
 	}
 }

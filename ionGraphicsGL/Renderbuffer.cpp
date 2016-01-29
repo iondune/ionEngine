@@ -7,8 +7,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		Renderbuffer::Renderbuffer(vec2i const & Size)
 		{
 			CheckedGLCall(glGenRenderbuffers(1, & Handle));
@@ -20,6 +23,7 @@ namespace ion
 		Renderbuffer::~Renderbuffer()
 		{
 			CheckedGLCall(glDeleteRenderbuffers(1, & Handle));
+		}
 		}
 	}
 }

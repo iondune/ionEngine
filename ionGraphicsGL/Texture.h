@@ -9,8 +9,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		class Texture
 		{
 		public:
@@ -177,5 +180,7 @@ namespace ion
 
 			vec3u Size;
 		};
+
+	}
 	}
 }

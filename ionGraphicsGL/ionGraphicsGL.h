@@ -22,10 +22,15 @@
 
 namespace ion
 {
-	//! \brief Documentation of the ionGL module
-	//!
-	//! Further documentation can be found
-	//! at the \ref moduleGL page.
-	namespace GL
-	{}
+	namespace Graphics
+	{
+		//! \brief Documentation of the ionGraphicsGL module
+		//!
+		//! Further documentation can be found
+		//! at the \ref moduleGL page.
+		namespace GL
+		{
+
+		}
+	}
 }

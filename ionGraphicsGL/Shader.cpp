@@ -6,8 +6,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		////////////
 		// Shader //
 		////////////
@@ -106,5 +109,6 @@ namespace ion
 		FragmentShader::FragmentShader()
 			: Shader(glCreateShader(GL_FRAGMENT_SHADER))
 		{}
+	}
 	}
 }

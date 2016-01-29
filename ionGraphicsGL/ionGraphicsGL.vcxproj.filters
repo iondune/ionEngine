@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ionGL.h" />
     <ClInclude Include="Program.h">
       <Filter>Shader</Filter>
     </ClInclude>
@@ -38,6 +37,8 @@
     <ClInclude Include="DrawConfig.h">
       <Filter>General</Filter>
     </ClInclude>
+    <ClInclude Include="ionGraphicsGL.h" />
+    <ClInclude Include="COpenGLAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -76,6 +77,7 @@
     <ClCompile Include="DrawConfig.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="COpenGLAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

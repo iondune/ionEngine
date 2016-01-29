@@ -7,8 +7,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		VertexArray::VertexArray(EPrimitiveType const PrimitiveType)
 		{
 			this->PrimitiveType = PrimitiveType;
@@ -75,6 +78,7 @@ namespace ion
 		VertexArray::~VertexArray()
 		{
 			CheckedGLCall(glDeleteVertexArrays(1, & Handle));
+		}
 		}
 	}
 }

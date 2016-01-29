@@ -3,12 +3,16 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		enum EBuffer
 		{
 			Color = 0,
@@ -29,5 +33,6 @@ namespace ion
 			static vec2i GetViewportSize();
 
 		};
+		}
 	}
 }

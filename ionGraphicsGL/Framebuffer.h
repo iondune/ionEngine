@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 #include "Texture.h"
 #include "Renderbuffer.h"
@@ -11,8 +12,11 @@
 
 namespace ion
 {
-	namespace GL
+	namespace Graphics
 	{
+		namespace GL
+		{
+
 		struct ForceDefaultFramebuffer
 		{};
 
@@ -46,5 +50,6 @@ namespace ion
 		};
 
 		extern Framebuffer * DefaultFrameBuffer;
+		}
 	}
 }
