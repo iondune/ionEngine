@@ -70,12 +70,19 @@ bool CWindowManager::ShouldClose() const
 {
 	for (auto it = Windows.begin(); it != Windows.end(); ++ it)
 	{
-		it->second->MakeContextCurrent();
+		if (Windows.size() > 1)
+		{
+			it->second->MakeContextCurrent();
+		}
+
 		if (it->second->ShouldClose())
 		{
 			return true;
 		}
 	}
-	PrimaryWindow->MakeContextCurrent();
+	if (Windows.size() > 1)
+	{
+		PrimaryWindow->MakeContextCurrent();
+	}
 	return false;
 }
