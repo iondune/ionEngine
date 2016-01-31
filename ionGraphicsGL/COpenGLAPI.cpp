@@ -32,6 +32,7 @@ namespace ion
 {
 	namespace Graphics
 	{
+
 		COpenGLAPI::COpenGLAPI()
 		{
 			CheckedGLCall(glEnable(GL_DEPTH_TEST));
@@ -164,10 +165,10 @@ namespace ion
 				PipelineState->Load();
 			}
 
+			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
 			CheckedGLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0)); // BUGBUG 3?
 			CheckedGLCall(glBindVertexArray(0));
 		}
-
 	}
 }

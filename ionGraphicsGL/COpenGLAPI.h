@@ -10,6 +10,7 @@ namespace ion
 {
 	namespace Graphics
 	{
+
 		class COpenGLAPI : public IGraphicsAPI
 		{
 
