@@ -2,6 +2,8 @@
 #pragma once
 
 #include <ionCore.h>
+#include <ionMath.h>
+#include <ionGraphics.h>
 
 
 namespace ion
@@ -10,6 +12,8 @@ namespace ion
 	{
 		namespace GL
 		{
+
+			int GetValueTypeOpenGLEnum(EValueType const ValueType);
 
 		bool OpenGLError();
 		string GetOpenGLError();

@@ -10,6 +10,31 @@ namespace ion
 		namespace GL
 		{
 
+			int GetValueTypeOpenGLEnum(EValueType const ValueType)
+			{
+				switch (ValueType)
+				{
+				case EValueType::Float:
+					return GL_FLOAT;
+				case EValueType::Double:
+					return GL_DOUBLE;
+				case EValueType::SignedInt8:
+					return GL_BYTE;
+				case EValueType::SignedInt16:
+					return GL_SHORT;
+				case EValueType::SignedInt32:
+					return GL_INT;
+				case EValueType::UnsignedInt8:
+					return GL_UNSIGNED_BYTE;
+				case EValueType::UnsignedInt16:
+					return GL_UNSIGNED_SHORT;
+				case EValueType::UnsignedInt32:
+					return GL_UNSIGNED_INT;
+				default:
+					return 0;
+				}
+			}
+
 		static GLenum LastError = GL_NO_ERROR;
 
 		bool OpenGLError()
