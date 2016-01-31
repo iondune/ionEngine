@@ -94,6 +94,8 @@ namespace ion
 			virtual void SetVertexBuffer(IVertexBuffer * VertexBuffer) = 0;
 			virtual void SetIndexBuffer(IIndexBuffer * IndexBuffer) = 0;
 
+			virtual void Load() = 0;
+
 		};
 
 		class IRenderTarget
