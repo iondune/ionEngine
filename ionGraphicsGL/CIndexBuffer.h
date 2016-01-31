@@ -21,6 +21,7 @@ namespace ion
 			public:
 
 				uint Handle = 0;
+				size_t Size = 0;
 
 			};
 

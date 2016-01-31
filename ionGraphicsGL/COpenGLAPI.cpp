@@ -142,6 +142,7 @@ namespace ion
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 			CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
+			IndexBuffer->Size = Elements;
 			return IndexBuffer;
 		}
 
@@ -167,7 +168,7 @@ namespace ion
 
 			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
-			CheckedGLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0)); // BUGBUG 3?
+			CheckedGLCall(glDrawElements(GL_TRIANGLES, PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 			CheckedGLCall(glBindVertexArray(0));
 		}
 	}
