@@ -45,15 +45,28 @@ namespace ion
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
 
+
+				size_t TotalStride = 0;
+				for (auto & InputLayoutElement : ShaderProgram->InputLayout)
+				{
+					TotalStride += GetValueTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+				}
+
 				size_t CurrentOffset = 0;
 				for (auto & InputLayoutElement : ShaderProgram->InputLayout)
 				{
 					int AttributeLocation = -1;
 					CheckedGLCall(AttributeLocation = glGetAttribLocation(ShaderProgram->Handle, InputLayoutElement.Name.c_str())); // BUGBUG Get this through reflection?
 					CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
-					CheckedGLCall(glVertexAttribPointer(AttributeLocation, InputLayoutElement.Components, GL_FLOAT, GL_FALSE, 0, (void *) CurrentOffset));
+					CheckedGLCall(glVertexAttribPointer(
+						AttributeLocation,
+						InputLayoutElement.Components,
+						GetValueTypeOpenGLEnum(InputLayoutElement.Type),
+						GL_FALSE,
+						(int) TotalStride,
+						(void *) CurrentOffset));
 
-					CurrentOffset += sizeof(float) * InputLayoutElement.Components;
+					CurrentOffset += GetValueTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
 				}
 
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state
