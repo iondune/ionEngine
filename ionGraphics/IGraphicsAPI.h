@@ -103,6 +103,7 @@ namespace ion
 
 			virtual void ClearColor() = 0;
 			virtual void ClearDepth() = 0;
+			virtual void ClearColorAndDepth() = 0;
 
 		};
 

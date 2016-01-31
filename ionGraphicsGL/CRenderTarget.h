@@ -20,6 +20,7 @@ namespace ion
 
 				void ClearColor();
 				void ClearDepth();
+				void ClearColorAndDepth();
 
 				uint Handle;
 			
