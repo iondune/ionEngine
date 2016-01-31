@@ -1,5 +1,10 @@
 
-#include "Program.h"
+#include "CShaderProgram.h"
+
+#include "Utilities.h"
+#include "CVertexShader.h"
+#include "CPixelShader.h"
+
 #include <GL/glew.h>
 
 

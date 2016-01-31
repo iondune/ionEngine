@@ -5,8 +5,6 @@
 #include <ionMath.h>
 #include <ionGraphics.h>
 
-#include "Utilities.h"
-
 
 namespace ion
 {
@@ -14,23 +12,17 @@ namespace ion
 	{
 		namespace GL
 		{
-
-			class CVertexBuffer : public IVertexBuffer
+			
+			class CRenderTarget : public IRenderTarget
 			{
 
 			public:
 
-				uint Handle = 0;
+				void ClearColor();
+				void ClearDepth();
 
-			};
-
-			class CIndexBuffer : public IIndexBuffer
-			{
-
-			public:
-
-				uint Handle = 0;
-
+				uint Handle;
+			
 			};
 
 		}

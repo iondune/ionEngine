@@ -1,7 +1,15 @@
 
 #include "COpenGLAPI.h"
-#include <GL/glew.h>
 
+#include "CVertexBuffer.h"
+#include "CIndexBuffer.h"
+#include "CVertexShader.h"
+#include "CPixelShader.h"
+#include "CShaderProgram.h"
+#include "CPipelineState.h"
+#include "CRenderTarget.h"
+
+#include <GL/glew.h>
 
 
 static void PrintShaderInfoLog(GLint const Shader)
@@ -24,6 +32,42 @@ namespace ion
 {
 	namespace Graphics
 	{
+		COpenGLAPI::COpenGLAPI()
+		{
+			CheckedGLCall(glEnable(GL_DEPTH_TEST));
+			CheckedGLCall(glDepthFunc(GL_LEQUAL));
+
+			static bool Initialized = false;
+
+			if (! Initialized)
+			{
+				u32 Error = glewInit();
+				if (Error != GLEW_OK)
+				{
+					std::cerr << "Error initializing glew! " << glewGetErrorString(Error) << std::endl;
+					WaitForUser();
+					exit(33);
+				}
+
+				int Major = 0, Minor = 0;
+				char const * VersionString = (char const *) glGetString(GL_VERSION);
+				if (! VersionString)
+					std::cerr << "Unable to get OpenGL version number." << std::endl << std::endl;
+				else if (sscanf(VersionString, "%d.%d", & Major, & Minor) != 2)
+					std::cerr << "OpenGL ersion string in unknown format: " << VersionString << std::endl << std::endl;
+				else if (Major < 2)
+				{
+					std::cerr << "Your OpenGL Version Number (" << VersionString <<
+						") is not high enough for shaders. Please download and install the latest drivers"
+						"for your graphics hardware." <<
+						std::endl << std::endl;
+				}
+
+				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
+
+				Initialized = true;
+			}
+		}
 
 		IVertexShader * ion::Graphics::COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
@@ -76,7 +120,7 @@ namespace ion
 		IShaderProgram * ion::Graphics::COpenGLAPI::CreateShaderProgram()
 		{
 			GL::CShaderProgram * ShaderProgram = new GL::CShaderProgram();
-			ShaderProgram->Handle = glCreateProgram();
+			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;
 		}
@@ -102,11 +146,27 @@ namespace ion
 
 		IPipelineState * ion::Graphics::COpenGLAPI::CreatePipelineState()
 		{
-			return nullptr;
+			GL::CPipelineState * PipelineState = new GL::CPipelineState();
+			CheckedGLCall(glGenVertexArrays(1, & PipelineState->VertexArrayHandle));
+			return PipelineState;
 		}
 
-		void ion::Graphics::COpenGLAPI::Draw(IPipelineState * State)
+		IRenderTarget * COpenGLAPI::GetWindowBackBuffer(CWindow * Window)
 		{
+			return new GL::CRenderTarget();
+		}
+
+		void COpenGLAPI::Draw(IPipelineState * State)
+		{
+			GL::CPipelineState * PipelineState = dynamic_cast<GL::CPipelineState *>(State);
+			if (! PipelineState->Loaded)
+			{
+				PipelineState->Load();
+			}
+
+			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
+			CheckedGLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0)); // BUGBUG 3?
+			CheckedGLCall(glBindVertexArray(0));
 		}
 
 	}

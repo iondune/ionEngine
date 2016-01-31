@@ -14,6 +14,9 @@
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IGraphicsAPI.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21F131D8-D333-4188-A27B-3E75425D6F7F}</ProjectGuid>
     <RootNamespace>ionGraphics</RootNamespace>

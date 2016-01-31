@@ -1,4 +1,6 @@
 
+#if 0
+
 #include "VertexArray.h"
 #include <GL/glew.h>
 
@@ -82,3 +84,5 @@ namespace ion
 		}
 	}
 }
+
+#endif

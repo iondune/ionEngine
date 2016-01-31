@@ -1,6 +1,8 @@
 
 #pragma once
 
+#if 0
+
 #include <ionCore.h>
 #include <ionMath.h>
 #include <ionGraphics.h>
@@ -16,28 +18,31 @@ namespace ion
 		namespace GL
 		{
 
-		class VertexArray
-		{
-		public:
+			class VertexArray
+			{
+			public:
 
-			VertexArray(EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
+				VertexArray(EPrimitiveType const PrimitiveType = EPrimitiveType::Triangles);
 
-			void SetIndexBuffer(IIndexBuffer * ibo);
-			void SetElementCount(uint count);
-			void BindAttribute(u32 const index, IVertexBuffer * vbo);
-			void Draw();
+				void SetIndexBuffer(IIndexBuffer * ibo);
+				void SetElementCount(uint count);
+				void BindAttribute(u32 const index, IVertexBuffer * vbo);
+				void Draw();
 
-			void Delete();
-			~VertexArray();
+				void Delete();
+				~VertexArray();
 
-		protected:
+			protected:
 
-			u32 Handle = 0;
-			uint ElementCount = 0;
-			EPrimitiveType PrimitiveType;
-			IIndexBuffer * BoundIndexBuffer = nullptr;
+				u32 Handle = 0;
+				uint ElementCount = 0;
+				EPrimitiveType PrimitiveType;
+				IIndexBuffer * BoundIndexBuffer = nullptr;
 
-		};
+			};
+
 		}
 	}
 }
+
+#endif

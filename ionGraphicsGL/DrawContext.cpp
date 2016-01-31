@@ -1,4 +1,6 @@
 
+#if 0
+
 #include "DrawContext.h"
 #include <GL/glew.h>
 
@@ -131,3 +133,5 @@ namespace ion
 		}
 	}
 }
+
+#endif

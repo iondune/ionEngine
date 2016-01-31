@@ -2,6 +2,7 @@
 #pragma once
 
 #include <ionCore.h>
+#include <ionWindow.h>
 
 
 namespace ion
@@ -100,8 +101,8 @@ namespace ion
 
 		public:
 
-			virtual void ClearColor();
-			virtual void ClearDepth();
+			virtual void ClearColor() = 0;
+			virtual void ClearDepth() = 0;
 
 		};
 
@@ -120,6 +121,8 @@ namespace ion
 			virtual IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements) = 0;
 			virtual IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType) = 0;
 			virtual IPipelineState * CreatePipelineState() = 0;
+
+			virtual IRenderTarget * GetWindowBackBuffer(CWindow * Window) = 0;
 
 			virtual void Draw(IPipelineState * State) = 0;
 

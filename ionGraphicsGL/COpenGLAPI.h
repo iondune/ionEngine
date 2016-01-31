@@ -5,21 +5,6 @@
 #include <ionMath.h>
 #include <ionGraphics.h>
 
-#include "Utilities.h"
-
-#include "Buffer.h"
-#include "Program.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "VertexArray.h"
-#include "Uniform.h"
-
-#include "Context.h"
-#include "DrawContext.h"
-
-#include "Framebuffer.h"
-#include "Renderbuffer.h"
-
 
 namespace ion
 {
@@ -29,6 +14,8 @@ namespace ion
 		{
 
 		public:
+
+			COpenGLAPI();
 
 			IVertexShader * CreateVertexShaderFromFile(string const & FileName);
 			IPixelShader * CreatePixelShaderFromFile(string const & FileName);
@@ -40,6 +27,8 @@ namespace ion
 			IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements);
 			IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
 			IPipelineState * CreatePipelineState();
+
+			IRenderTarget * GetWindowBackBuffer(CWindow * Window);
 
 			void Draw(IPipelineState * State);
 

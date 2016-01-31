@@ -2,7 +2,7 @@
 #pragma once
 
 #include <ionMath.h>
-#include <ionGL.h>
+#include <ionGraphics.h>
 
 #include "CTexture.h"
 

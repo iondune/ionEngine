@@ -4,7 +4,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
-#include <ionGL.h>
+#include <ionGraphics.h>
 #include <ionAsset.h>
 
 #include "IRenderPass.h"

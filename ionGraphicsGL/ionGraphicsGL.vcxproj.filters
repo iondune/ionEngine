@@ -1,17 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Program.h">
-      <Filter>Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Uniform.h">
       <Filter>Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>Buffer Object</Filter>
     </ClInclude>
     <ClInclude Include="VertexArray.h">
       <Filter>Buffer Object</Filter>
@@ -39,11 +30,29 @@
     </ClInclude>
     <ClInclude Include="ionGraphicsGL.h" />
     <ClInclude Include="COpenGLAPI.h" />
+    <ClInclude Include="CShaderProgram.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CPixelShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndexBuffer.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexBuffer.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CPipelineState.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderTarget.h">
+      <Filter>Framebuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Program.cpp">
-      <Filter>Shader</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -78,6 +87,15 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="COpenGLAPI.cpp" />
+    <ClCompile Include="CShaderProgram.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CPipelineState.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderTarget.cpp">
+      <Filter>Framebuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

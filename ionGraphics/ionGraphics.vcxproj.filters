@@ -4,4 +4,7 @@
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IGraphicsAPI.cpp" />
+  </ItemGroup>
 </Project>

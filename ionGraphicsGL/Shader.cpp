@@ -1,4 +1,6 @@
 
+#if 0
+
 #include "Shader.h"
 #include "Utilities.h"
 #include <GL/glew.h>
@@ -112,3 +114,5 @@ namespace ion
 	}
 	}
 }
+
+#endif
