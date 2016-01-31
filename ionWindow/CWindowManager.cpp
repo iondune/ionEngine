@@ -86,3 +86,10 @@ bool CWindowManager::ShouldClose() const
 	}
 	return false;
 }
+
+bool CWindowManager::Run()
+{
+	bool Done = ShouldClose();
+	PollEvents();
+	return ! Done;
+}
