@@ -32,13 +32,10 @@
     <ClInclude Include="CShaderProgram.h" />
     <ClInclude Include="Renderbuffer.h" />
     <ClInclude Include="CPixelShader.h" />
-    <ClInclude Include="Uniform.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="COpenGLAPI.cpp" />
     <ClCompile Include="CPipelineState.cpp" />
@@ -48,11 +45,8 @@
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="CShaderProgram.cpp" />
     <ClCompile Include="Renderbuffer.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Uniform.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
