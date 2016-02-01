@@ -25,6 +25,7 @@ namespace ion
 				void SetProgram(IShaderProgram * ShaderProgram);
 				void SetVertexBuffer(IVertexBuffer * VertexBuffer);
 				void SetIndexBuffer(IIndexBuffer * IndexBuffer);
+				void SetUniform(string const & Name, IUniform * Uniform);
 
 				void Load();
 
@@ -34,6 +35,9 @@ namespace ion
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
+
+				map<string, IUniform *> Uniforms;
+				map<uint, IUniform *> BoundUniforms;
 
 			};
 

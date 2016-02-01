@@ -26,6 +26,9 @@ namespace ion
 				vector<SInputLayoutElement> InputLayout;
 
 				void Link();
+
+				map<string, uint> Attributes;
+				map<string, uint> Uniforms;
 			
 			};
 		}

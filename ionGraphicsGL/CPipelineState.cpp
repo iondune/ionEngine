@@ -34,6 +34,18 @@ namespace ion
 				Loaded = false;
 			}
 
+			void CPipelineState::SetUniform(string const & Name, IUniform * Uniform)
+			{
+				if (Uniform)
+				{
+					Uniforms[Name] = Uniform;
+				}
+				else
+				{
+					Uniforms.erase(Name);
+				}
+			}
+
 			void CPipelineState::Load()
 			{
 				if (! ShaderProgram->Linked)
@@ -45,7 +57,7 @@ namespace ion
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
 
-
+				// Set up VBOs (attributes)
 				size_t TotalStride = 0;
 				for (auto & InputLayoutElement : ShaderProgram->InputLayout)
 				{
@@ -72,6 +84,17 @@ namespace ion
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state
 				CheckedGLCall(glBindVertexArray(0));
 				CheckedGLCall(glUseProgram(0));
+
+				// Set up Uniforms
+				BoundUniforms.clear();
+				for (auto const & it : Uniforms)
+				{
+					uint Handle = 0;
+					if (TryMapAccess(ShaderProgram->Uniforms, it.first, Handle))
+					{
+						BoundUniforms[Handle] = it.second;
+					}
+				}
 
 				Loaded = true;
 			}

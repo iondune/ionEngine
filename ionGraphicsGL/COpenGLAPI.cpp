@@ -10,6 +10,7 @@
 #include "CRenderTarget.h"
 
 #include <GL/glew.h>
+#include <glm/gtc/type_ptr.hpp>
 
 
 static void PrintShaderInfoLog(GLint const Shader)
@@ -70,17 +71,17 @@ namespace ion
 			}
 		}
 
-		IVertexShader * ion::Graphics::COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
+		IVertexShader * COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
 			return nullptr;
 		}
 
-		IPixelShader * ion::Graphics::COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
+		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
 		{
 			return nullptr;
 		}
 
-		IVertexShader * ion::Graphics::COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
+		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
 		{
 			GL::CVertexShader * VertexShader = new GL::CVertexShader();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
@@ -99,7 +100,7 @@ namespace ion
 			return VertexShader;
 		}
 
-		IPixelShader * ion::Graphics::COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
+		IPixelShader * COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
 		{
 			GL::CPixelShader * PixelShader = new GL::CPixelShader();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
@@ -118,7 +119,7 @@ namespace ion
 			return PixelShader;
 		}
 
-		IShaderProgram * ion::Graphics::COpenGLAPI::CreateShaderProgram()
+		IShaderProgram * COpenGLAPI::CreateShaderProgram()
 		{
 			GL::CShaderProgram * ShaderProgram = new GL::CShaderProgram();
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
@@ -126,7 +127,7 @@ namespace ion
 			return ShaderProgram;
 		}
 
-		IVertexBuffer * ion::Graphics::COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
+		IVertexBuffer * COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
 		{
 			GL::CVertexBuffer * VertexBuffer = new GL::CVertexBuffer();
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
@@ -136,7 +137,7 @@ namespace ion
 			return VertexBuffer;
 		}
 
-		IIndexBuffer * ion::Graphics::COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
+		IIndexBuffer * COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
 		{
 			GL::CIndexBuffer * IndexBuffer = new GL::CIndexBuffer();
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
@@ -146,7 +147,7 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		IPipelineState * ion::Graphics::COpenGLAPI::CreatePipelineState()
+		IPipelineState * COpenGLAPI::CreatePipelineState()
 		{
 			GL::CPipelineState * PipelineState = new GL::CPipelineState();
 			CheckedGLCall(glGenVertexArrays(1, & PipelineState->VertexArrayHandle));
@@ -168,8 +169,43 @@ namespace ion
 
 			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
-			CheckedGLCall(glDrawElements(GL_TRIANGLES, PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+
+			for (auto const & it : PipelineState->BoundUniforms)
+			{
+				switch (it.second->GetType())
+				{
+				case EValueType::Float:
+					CheckedGLCall(glUniform1f(it.first, * static_cast<float const *>(it.second->GetData())));
+					break;
+				case EValueType::Float2:
+					CheckedGLCall(glUniform2f(it.first,
+						static_cast<float const *>(it.second->GetData())[0],
+						static_cast<float const *>(it.second->GetData())[1]));
+					break;
+				case EValueType::Float3:
+					CheckedGLCall(glUniform3f(it.first,
+						static_cast<float const *>(it.second->GetData())[0],
+						static_cast<float const *>(it.second->GetData())[1],
+						static_cast<float const *>(it.second->GetData())[2]));
+					break;
+				case EValueType::Float4:
+					CheckedGLCall(glUniform4f(it.first,
+						static_cast<float const *>(it.second->GetData())[0],
+						static_cast<float const *>(it.second->GetData())[1],
+						static_cast<float const *>(it.second->GetData())[2],
+						static_cast<float const *>(it.second->GetData())[3]));
+					break;
+				case EValueType::Matrix4x4:
+					CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
+					break;
+				default:
+					break;
+				}
+			}
+
+			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 			CheckedGLCall(glBindVertexArray(0));
 		}
+
 	}
 }
