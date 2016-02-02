@@ -36,9 +36,91 @@ namespace ion
 	namespace Graphics
 	{
 
-		void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam)
+		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam)
 		{
-			Log::Info("OpenGL Debug Message: %s", message);
+			string Source = "";
+			string Type = "";
+			string Severity = "";
+
+			switch (source)
+			{
+			default:
+				Source = "???";
+				break;
+			case GL_DEBUG_SOURCE_API:
+				Source = "API";
+				break;
+			case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+				Source = "Window System";
+				break;
+			case GL_DEBUG_SOURCE_SHADER_COMPILER:
+				Source = "Shader Compiler";
+				break;
+			case GL_DEBUG_SOURCE_THIRD_PARTY:
+				Source = "Third Party";
+				break;
+			case GL_DEBUG_SOURCE_APPLICATION:
+				Source = "Application";
+				break;
+			case GL_DEBUG_SOURCE_OTHER:
+				Source = "Other";
+				break;
+			}
+
+			switch (type)
+			{
+			default:
+				Type = "???";
+				break;
+			case GL_DEBUG_TYPE_ERROR:
+				Type = "Error";
+				break;
+			case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+				Type = "Deprecated Behavior";
+				break;
+			case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+				Type = "Undefined Behavior";
+				break;
+			case GL_DEBUG_TYPE_PORTABILITY:
+				Type = "Portability";
+				break;
+			case GL_DEBUG_TYPE_PERFORMANCE:
+				Type = "Performance";
+				break;
+			case GL_DEBUG_TYPE_OTHER:
+				Type = "Other";
+				break;
+			case GL_DEBUG_TYPE_MARKER:
+				Type = "Marker";
+				break;
+			case GL_DEBUG_TYPE_PUSH_GROUP:
+				Type = "Push Group";
+				break;
+			case GL_DEBUG_TYPE_POP_GROUP:
+				Type = "Pop Group";
+				break;
+			}
+
+			switch (severity)
+			{
+			default:
+				Severity = "???";
+				break;
+			case GL_DEBUG_SEVERITY_HIGH:
+				Severity = "High";
+				break;
+			case GL_DEBUG_SEVERITY_MEDIUM:
+				Severity = "Medium";
+				break;
+			case GL_DEBUG_SEVERITY_LOW:
+				Severity = "Low";
+				break;
+			case GL_DEBUG_SEVERITY_NOTIFICATION:
+				Severity = "Notification";
+				break;
+			}
+
+			Log::Info("OpenGL Debug Message [%s/%s/%s]: %s", Source, Type, Severity, message);
 		}
 
 		COpenGLAPI::COpenGLAPI()
@@ -71,10 +153,10 @@ namespace ion
 
 				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
 
+				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
+
 				CheckedGLCall(glEnable(GL_DEPTH_TEST));
 				CheckedGLCall(glDepthFunc(GL_LEQUAL));
-
-				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
 				Initialized = true;
 			}
 		}
