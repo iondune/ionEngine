@@ -32,7 +32,7 @@
     <ClInclude Include="CShaderProgram.h" />
     <ClInclude Include="Renderbuffer.h" />
     <ClInclude Include="CPixelShader.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
@@ -45,7 +45,7 @@
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="CShaderProgram.cpp" />
     <ClCompile Include="Renderbuffer.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

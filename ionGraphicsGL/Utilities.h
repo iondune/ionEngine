@@ -28,17 +28,6 @@ namespace ion
 			#define CheckExistingErrors(x)
 #endif
 
-			enum class EFormatType
-			{
-				U8 = 0,
-				U16 = 1,
-				U32 = 2,
-				S8 = 3,
-				S16 = 4,
-				S32 = 5,
-				F32 = 6
-			};
-
 			enum class EPrimitiveType
 			{
 				Points = 0,
@@ -51,12 +40,12 @@ namespace ion
 			{
 			public:
 
-				static u32 const TypeMatrix[7];
+				static u32 const ScalarTypeMatrix[9];
 				static u64 const SizeMatrix[7];
 				static u32 const PrimitiveMatrix[4];
 				static uint const PrimitiveVertices[4];
 
-				static string const TypeStringMatrix[7];
+				static string const ScalarTypeStringMatrix[9];
 				static string const SizeStringMatrix[7];
 				static string const PrimitiveStringMatrix[4];
 			};

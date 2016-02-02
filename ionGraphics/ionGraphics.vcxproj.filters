@@ -3,8 +3,10 @@
   <ItemGroup>
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
+    <ClInclude Include="CImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IGraphicsAPI.cpp" />
+    <ClCompile Include="CImage.cpp" />
   </ItemGroup>
 </Project>

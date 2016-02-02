@@ -78,15 +78,27 @@ namespace ion
 				}
 			}
 
-			u32 const Util::TypeMatrix[7] =
+			u32 const Util::ScalarTypeMatrix[9] =
 			{
-				GL_UNSIGNED_BYTE,
-				GL_UNSIGNED_SHORT,
-				GL_UNSIGNED_INT,
+				// Error = 0,
+				// Float = 1,
+				// Double = 2,
+				// SignedInt8 = 3,
+				// SignedInt16 = 4,
+				// SignedInt32 = 5,
+				// UnsignedInt8 = 6,
+				// UnsignedInt16 = 7,
+				// UnsignedInt32 = 8,
+
+				GL_FALSE,
+				GL_FLOAT,
+				GL_DOUBLE,
 				GL_BYTE,
 				GL_SHORT,
 				GL_INT,
-				GL_FLOAT
+				GL_UNSIGNED_BYTE,
+				GL_UNSIGNED_SHORT,
+				GL_UNSIGNED_INT,
 			};
 
 			u64 const Util::SizeMatrix[7] =
@@ -116,15 +128,17 @@ namespace ion
 				4
 			};
 
-			string const Util::TypeStringMatrix[7] =
+			string const Util::ScalarTypeStringMatrix[9] =
 			{
-				"GL_UNSIGNED_BYTE",
-				"GL_UNSIGNED_SHORT",
-				"GL_UNSIGNED_INT",
+				"GL_FALSE",
+				"GL_FLOAT",
+				"GL_DOUBLE",
 				"GL_BYTE",
 				"GL_SHORT",
 				"GL_INT",
-				"GL_FLOAT"
+				"GL_UNSIGNED_BYTE",
+				"GL_UNSIGNED_SHORT",
+				"GL_UNSIGNED_INT",
 			};
 
 			string const Util::SizeStringMatrix[7] =

@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CImage.h" />
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CImage.cpp" />
     <ClCompile Include="IGraphicsAPI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

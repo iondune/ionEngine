@@ -26,6 +26,7 @@ namespace ion
 				void SetVertexBuffer(IVertexBuffer * VertexBuffer);
 				void SetIndexBuffer(IIndexBuffer * IndexBuffer);
 				void SetUniform(string const & Name, IUniform * Uniform);
+				void SetTexture(string const & Name, ITexture * Texture);
 
 				void Load();
 
@@ -36,8 +37,11 @@ namespace ion
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
 
-				map<string, IUniform *> Uniforms;
-				map<uint, IUniform *> BoundUniforms;
+				map<string, IUniform const *> Uniforms;
+				map<uint, IUniform const *> BoundUniforms;
+
+				map<string, ITexture const *> Textures;
+				map<u32, ITexture const *> BoundTextures;
 
 			};
 

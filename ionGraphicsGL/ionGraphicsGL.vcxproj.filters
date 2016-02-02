@@ -10,9 +10,6 @@
     <ClInclude Include="Utilities.h">
       <Filter>General</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Framebuffer.h">
       <Filter>Framebuffer</Filter>
     </ClInclude>
@@ -45,6 +42,9 @@
     <ClInclude Include="CRenderTarget.h">
       <Filter>Framebuffer</Filter>
     </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Context.cpp">
@@ -55,9 +55,6 @@
     </ClCompile>
     <ClCompile Include="Utilities.cpp">
       <Filter>General</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Texture</Filter>
     </ClCompile>
     <ClCompile Include="Framebuffer.cpp">
       <Filter>Framebuffer</Filter>
@@ -77,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="CRenderTarget.cpp">
       <Filter>Framebuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

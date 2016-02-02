@@ -46,6 +46,18 @@ namespace ion
 				}
 			}
 
+			void CPipelineState::SetTexture(string const & Name, ITexture * Texture)
+			{
+				if (Texture)
+				{
+					Textures[Name] = Texture;
+				}
+				else
+				{
+					Textures.erase(Name);
+				}
+			}
+
 			void CPipelineState::Load()
 			{
 				if (! ShaderProgram->Linked)
@@ -93,6 +105,14 @@ namespace ion
 					if (TryMapAccess(ShaderProgram->Uniforms, it.first, Handle))
 					{
 						BoundUniforms[Handle] = it.second;
+					}
+				}
+				for (auto const & it : Textures)
+				{
+					uint Handle = 0;
+					if (TryMapAccess(ShaderProgram->Uniforms, it.first, Handle))
+					{
+						BoundTextures[Handle] = it.second;
 					}
 				}
 

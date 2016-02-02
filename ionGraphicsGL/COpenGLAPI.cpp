@@ -1,6 +1,7 @@
 
 #include "COpenGLAPI.h"
 
+#include "Utilities.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CVertexShader.h"
@@ -8,6 +9,7 @@
 #include "CShaderProgram.h"
 #include "CPipelineState.h"
 #include "CRenderTarget.h"
+#include "CTexture.h"
 
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -34,11 +36,13 @@ namespace ion
 	namespace Graphics
 	{
 
+		void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam)
+		{
+			Log::Info("OpenGL Debug Message: %s", message);
+		}
+
 		COpenGLAPI::COpenGLAPI()
 		{
-			CheckedGLCall(glEnable(GL_DEPTH_TEST));
-			CheckedGLCall(glDepthFunc(GL_LEQUAL));
-
 			static bool Initialized = false;
 
 			if (! Initialized)
@@ -67,6 +71,10 @@ namespace ion
 
 				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
 
+				CheckedGLCall(glEnable(GL_DEPTH_TEST));
+				CheckedGLCall(glDepthFunc(GL_LEQUAL));
+
+				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
 				Initialized = true;
 			}
 		}
@@ -147,6 +155,60 @@ namespace ion
 			return IndexBuffer;
 		}
 
+		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		{
+			GL::CTexture2D * Texture2D = new GL::CTexture2D();
+
+			Texture2D->TextureSize = Size;
+			Texture2D->MipMaps = MipMaps;
+
+			int Levels = 1;
+
+			if (MipMaps)
+			{
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+			}
+
+			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Texture2D->Handle));
+			glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			if (GL::OpenGLError())
+			{
+				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
+				cerr << "Handle is " << Texture2D->Handle << endl;
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
+
+			return Texture2D;
+		}
+
+		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		{
+			GL::CTexture3D * Texture3D = new GL::CTexture3D();
+
+			Texture3D->TextureSize = Size;
+			Texture3D->MipMaps = MipMaps;
+
+			int Levels = 1;
+
+			if (MipMaps)
+			{
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+			}
+
+			CheckedGLCall(glGenTextures(1, & Texture3D->Handle));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Texture3D->Handle));
+			glTexStorage3D(GL_TEXTURE_3D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
+			if (GL::OpenGLError())
+			{
+				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
+				cerr << "Handle is " << Texture3D->Handle << endl;
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
+
+			return Texture3D;
+		}
+
 		IPipelineState * COpenGLAPI::CreatePipelineState()
 		{
 			GL::CPipelineState * PipelineState = new GL::CPipelineState();
@@ -203,7 +265,26 @@ namespace ion
 				}
 			}
 
+			int TextureIndex = 0;
+			for (auto const & it : PipelineState->BoundTextures)
+			{
+				CheckedGLCall(glUniform1i(it.first, TextureIndex));
+				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+
+				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
+				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
+			}
+
 			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+
+			TextureIndex = 0;
+			for (auto const & it : PipelineState->BoundTextures)
+			{
+				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
+				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
+			}
+
 			CheckedGLCall(glBindVertexArray(0));
 		}
 
