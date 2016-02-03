@@ -26,4 +26,3 @@ CloneGithubDependency 'tinyformat' 'https://github.com/c42f/tinyformat.git'   'f
 CloneGithubDependency 'glm'        'https://github.com/g-truc/glm.git'        '8f0d85460557dc5fbf4f44dc23a7708d065d7683'
 CloneGithubDependency 'imgui'      'https://github.com/ocornut/imgui.git'     'b329a36d2707a94806f85e6d3af3b10c242f6440'
 CloneGithubDependency 'Catch'      'https://github.com/philsquared/Catch.git' '3bd20bf2cd05cd88e767ec1aeb856bf8032a04c7'
-CloneGithubDependency 'glfw'       'https://github.com/glfw/glfw'             'f22edf13dc28a018bf0fbc0a15b378967d5372ce'
