@@ -11,7 +11,7 @@ before_install:
 
 install:
   # Necessary packages
-  - sudo apt-get install cmake g++ libglew-dev xorg-dev libglu1-mesa-dev -y
+  - sudo apt-get install libglew-dev xorg-dev -y
 
   # Pull github dependencies
   - ./UpdateDependencies.bash
