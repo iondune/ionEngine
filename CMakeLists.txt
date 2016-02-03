@@ -20,20 +20,11 @@ include_directories("${PROJECT_SOURCE_DIR}/Dependencies/Catch/include")
 
 function(GLFW TargetName)
 
-	set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build the GLFW example programs")
-	set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build the GLFW example tests")
-	set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build the GLFW example docs")
-	add_subdirectory("${PROJECT_SOURCE_DIR}/Dependencies/glfw" "${PROJECT_SOURCE_DIR}/Dependencies/glfw/bin")
-
-	include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glfw/include")
-	target_link_libraries(${TargetName} glfw ${GLFW_LIBRARIES})
-	target_link_libraries(${TargetName} glfw ${GLFW_STATIC_LIBRARIES})
-
-	#find_package(PkgConfig REQUIRED)
-	#pkg_search_module(GLFW REQUIRED glfw3)
-	#include_directories(${GLFW_INCLUDE_DIRS})
-	#target_link_libraries(${TargetName} ${GLFW_LIBRARIES})
-	#target_link_libraries(${TargetName} ${GLFW_STATIC_LIBRARIES})
+	find_package(PkgConfig REQUIRED)
+	pkg_search_module(GLFW REQUIRED glfw3)
+	include_directories(${GLFW_INCLUDE_DIRS})
+	target_link_libraries(${TargetName} ${GLFW_LIBRARIES})
+	target_link_libraries(${TargetName} ${GLFW_STATIC_LIBRARIES})
 
 endfunction(GLFW)
 
