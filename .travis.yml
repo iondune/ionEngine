@@ -2,6 +2,7 @@
 # C++
 language: cpp
 
+# Run on both Ubuntu 14.04 and OS X 10.9.5
 os:
   - linux
   - osx
