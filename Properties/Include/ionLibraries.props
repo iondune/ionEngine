@@ -4,15 +4,10 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
-        ;ionAsset.lib;
-        ;ionGUI.lib;
-        ;ionGL.lib;
         ;ionFramework.lib;
-        ;ionScene.lib;
-        ;ionScience.lib;
-        ;ionGUI.lib;
         ;ionWindow.lib;
-        ;ionBootstrap.lib;
+        ;ionGraphics.lib;
+        ;ionGraphicsGL.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
