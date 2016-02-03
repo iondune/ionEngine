@@ -68,4 +68,4 @@ add_subdirectory("ionFramework")
 
 # Tests
 add_subdirectory("DeploymentTest")
-# add_subdirectory("UnitTests")
+add_subdirectory("UnitTests")
