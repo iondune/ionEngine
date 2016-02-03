@@ -73,3 +73,10 @@ TEST_CASE("SRect2::Intersects")
 	REQUIRE(! rect2i(0, 0, 10, 10).Intersects(rect2i(11, 1, 10, 10)));
 }
 
+TEST_CASE("SRect2::GetIntersection")
+{
+	REQUIRE(rect2i(0, 0, 2, 2).GetIntersection(rect2i(1, 1, 1, 1)) == rect2i(1, 1, 1, 1));
+	REQUIRE(rect2i(0, 0, 3, 3).GetIntersection(rect2i(1, 1, 1, 1)) == rect2i(1, 1, 1, 1));
+	REQUIRE(rect2i(0, 0, 2, 2).GetIntersection(rect2i(1, 1, 2, 2)) == rect2i(1, 1, 1, 1));
+	REQUIRE(rect2i(0, 0, 10, 6).GetIntersection(rect2i(5, 0, 8, 6)) == rect2i(5, 0, 5, 6));
+}
