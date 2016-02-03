@@ -3,8 +3,9 @@
 #include "ionStandardLibrary.h"
 
 #include <tinyformat.h>
+#ifdef ION_CONFIG_WINDOWS
 #include <Windows.h>
-
+#endif
 
 enum class ELogChannel
 {
@@ -47,6 +48,7 @@ public:
 
 	};
 
+#ifdef ION_CONFIG_WINDOWS
 	class DebugLogOutput : public Output
 	{
 
@@ -59,6 +61,7 @@ public:
 		}
 
 	};
+#endif
 
 	template <typename... Args>
 	static void Info(char const * const Format, Args const &... args)
@@ -118,7 +121,9 @@ public:
 		AddOutput(ELogChannel::Error, new StandardOutput(cerr));
 		AddOutput(ELogChannel::Warn, new StandardOutput(cerr));
 		AddOutput(ELogChannel::Info, new StandardOutput(cout));
+#ifdef ION_CONFIG_WINDOWS
 		AddOutputToAllChannels(new DebugLogOutput());
+#endif
 	}
 
 	static void Clear()
