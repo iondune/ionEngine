@@ -27,4 +27,4 @@ before_script:
 script:
   - cmake .
   - make
-  - ./bin/UnitTests
+  - ./bin/TestUnits
