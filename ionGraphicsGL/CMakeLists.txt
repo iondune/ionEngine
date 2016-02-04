@@ -1,2 +1,2 @@
 file(GLOB SOURCES *.cpp)
-add_library(ionGL ${SOURCES})
+add_library(ionGraphicsGL ${SOURCES})
