@@ -110,7 +110,7 @@ void CGUIManager::OnEvent(IEvent & Event)
 	else if (InstanceOf<SCharacterEvent>(Event))
 	{
 		SCharacterEvent CharacterEvent = As<SCharacterEvent>(Event);
-		if (CharacterEvent.C > 0 && CharacterEvent.C < 0x10000)
+		if (CharacterEvent.C > 0)
 			io.AddInputCharacter(CharacterEvent.C);
 	}
 }
