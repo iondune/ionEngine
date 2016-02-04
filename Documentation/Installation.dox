@@ -57,7 +57,7 @@ make
 
 These instructions are for OS X 10.9.5 but should hopefully apply pretty universally.
 
-First, make sure that you have both [XCode](https://developer.apple.com/xcode/download/) and [Homebrew](http://brew.sh/) installed.
+First, make sure that you have both [Xcode](https://developer.apple.com/xcode/download/) and [Homebrew](http://brew.sh/) installed.
 
 Next, install CMake, GLEW, and GLFW3 through homebrew:
 
