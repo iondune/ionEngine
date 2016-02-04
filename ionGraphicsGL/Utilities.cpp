@@ -51,6 +51,31 @@ namespace ion
 				return Error;
 			}
 
+			c8 const * glErrorString(GLenum const Error)
+			{
+				switch (Error)
+				{
+				case GL_NO_ERROR:
+					return "GL_NO_ERROR";
+				case GL_INVALID_ENUM:
+					return "GL_INVALID_ENUM";
+				case GL_INVALID_VALUE:
+					return "GL_INVALID_VALUE";
+				case GL_INVALID_OPERATION:
+					return "GL_INVALID_OPERATION";
+				case GL_INVALID_FRAMEBUFFER_OPERATION:
+					return "GL_INVALID_FRAMEBUFFER_OPERATION";
+				case GL_OUT_OF_MEMORY:
+					return "GL_OUT_OF_MEMORY";
+				case GL_STACK_UNDERFLOW:
+					return "GL_STACK_UNDERFLOW";
+				case GL_STACK_OVERFLOW:
+					return "GL_STACK_OVERFLOW";
+				default:
+					return "UNKNOWN";
+				}
+			}
+
 			void PrintOpenGLErrors()
 			{
 				bool Succeeded = true;
@@ -58,8 +83,8 @@ namespace ion
 				GLenum Error = glGetError();
 				if (Error != GL_NO_ERROR)
 				{
-					c8 const * ErrorString = (c8 const *) gluErrorString(Error);
-					Log::Error("OpenGL Error: '%s'", (ErrorString ? ErrorString : ""));
+					c8 const * const ErrorString = (c8 const *) glErrorString(Error);
+					Log::Error("OpenGL Error: '%s'", ErrorString);
 				}
 			}
 
@@ -70,11 +95,8 @@ namespace ion
 				GLenum Error = glGetError();
 				if (Error != GL_NO_ERROR)
 				{
-					c8 const * ErrorString = (c8 const *) gluErrorString(Error);
-					if (ErrorString)
-						Log::Error("OpenGL Error in %s at line %d calling function %s: '%s'", File, Line, Function, ErrorString);
-					else
-						Log::Error("OpenGL Error in %s at line %d calling function %s: '%d 0x%X'", File, Line, Function, Error, Error);
+					c8 const * const ErrorString = (c8 const *) glErrorString(Error);
+					Log::Error("OpenGL Error in %s at line %d calling function %s: '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
 				}
 			}
 
