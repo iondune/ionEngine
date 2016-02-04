@@ -11,11 +11,11 @@ dist: trusty
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:keithw/glfw3 -y; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update; fi
 
 install:
   # Necessary packages
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libglew-dev xorg-dev libglfw3-dev -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libglew-dev xorg-dev libglfw3-dev -y; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glew glfw3; fi
 
   # Pull github dependencies
