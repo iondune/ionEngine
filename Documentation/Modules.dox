@@ -8,7 +8,16 @@
 ionCore is the basis for all other modules, a set of boilerplate functions and templates. See
 module documentation here: \ref moduleCore
 
-\section ionGL
-ionGL is an object oriented C++ interface to OpenGL. See module documentation here: \ref moduleGL.
+\section ionFramework
+ionFramework provides basic application structures including event listeners.
+
+\section ionWindow
+ionWindow wraps GLFW and hooks up to ionFramework interfaces.
+
+\section ionGraphics
+ionGraphics provides a interface to the graphics hardware that can be fulfilled by either DirectX or OpenGL.
+
+\section ionGraphicsGL
+ionGraphicsGL implements the ionGraphics interfaces for OpenGL.
 
 */

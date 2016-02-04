@@ -4,12 +4,9 @@
 
 \section Overview
 
-ionEngine is a C++ application framework geared towards game development and other 3D applications.
+ionEngine is a C++ 3D application engine that aims to provide the utility of a game engine without raising the level of abstraction at which developers work.
 
-The goal of ionEngine is to support all phases of application development from rapid prototyping to production by
-providing the default framework necessary to get started quickly while also allowing a high degree of customization.
-
-ionEngine is divided into a number of modules. Each module is an informal collection of classes, functions, and
+ionEngine is divided into a number of modules. Each module is a collection of classes, functions, and
 types which may be dependant on other modules and is typically contained within a single namespace. For more
 on modules, see the \ref modules page.
 
