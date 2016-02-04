@@ -10,23 +10,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{60FDFD9C-F812-4BDE-B62F-F7BC8F2C0792}</ProjectGuid>
     <RootNamespace>ionScene</RootNamespace>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
-
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CDrawManager.h" />
+    <ClInclude Include="CLight.h" />
     <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="COrthogonalCamera.h" />
+    <ClInclude Include="COrthographicCamera.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
+    <ClInclude Include="CPointLight.h" />
     <ClInclude Include="CRenderPassManager.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneNodeFactory.h" />
@@ -36,18 +36,19 @@
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneNode.h" />
-    <ClInclude Include="ILightSceneNode.h" />
     <ClInclude Include="IRenderPass.h" />
     <ClInclude Include="ISceneNode.h" />
     <ClInclude Include="ISceneNodeComponent.h" />
   </ItemGroup>
-
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDrawManager.cpp" />
+    <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="COrthogonalCamera.cpp" />
+    <ClCompile Include="COrthographicCamera.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
+    <ClCompile Include="CPointLight.cpp" />
     <ClCompile Include="CRenderPassManager.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
@@ -56,12 +57,10 @@
     <ClCompile Include="CShaderLibrary.cpp" />
     <ClCompile Include="CTextureLibrary.cpp" />
     <ClCompile Include="CUpdateCallbackComponent.cpp" />
-    <ClCompile Include="ILightSceneNode.cpp" />
     <ClCompile Include="IRenderPass.cpp" />
     <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="ISceneNode.ModelTransformMethods.cpp" />
     <ClCompile Include="ISceneNode.UpdateMethods.cpp" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

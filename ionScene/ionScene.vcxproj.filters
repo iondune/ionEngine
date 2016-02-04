@@ -23,15 +23,6 @@
     <ClInclude Include="CUpdateCallbackComponent.h">
       <Filter>Node\Component</Filter>
     </ClInclude>
-    <ClInclude Include="CMeshLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="CTextureLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="ISceneNodeComponent.h">
       <Filter>Node</Filter>
     </ClInclude>
@@ -41,19 +32,24 @@
     <ClInclude Include="CDrawManager.h">
       <Filter>SceneManager\Management</Filter>
     </ClInclude>
-    <ClInclude Include="ILightSceneNode.h">
-      <Filter>Node</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>SceneManager\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneNodeFactory.h">
       <Filter>SceneManager\Management</Filter>
     </ClInclude>
     <ClInclude Include="CRenderPassManager.h">
       <Filter>SceneManager\Render Passes</Filter>
     </ClInclude>
-    <ClInclude Include="COrthogonalCamera.h">
+    <ClInclude Include="CMeshLibrary.h" />
+    <ClInclude Include="COrthogonalCamera.h" />
+    <ClInclude Include="CSceneNodeFactory.h" />
+    <ClInclude Include="CShaderLibrary.h" />
+    <ClInclude Include="CTextureLibrary.h" />
+    <ClInclude Include="CLight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="CPointLight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="COrthographicCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
@@ -82,34 +78,30 @@
     <ClCompile Include="CUpdateCallbackComponent.cpp">
       <Filter>Node\Component</Filter>
     </ClCompile>
-    <ClCompile Include="CMeshLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="CTextureLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
     <ClCompile Include="IRenderPass.cpp">
       <Filter>SceneManager\Render Passes</Filter>
     </ClCompile>
     <ClCompile Include="CDrawManager.cpp">
       <Filter>SceneManager\Management</Filter>
     </ClCompile>
-    <ClCompile Include="ILightSceneNode.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
-      <Filter>SceneManager\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneNodeFactory.cpp">
       <Filter>SceneManager\Management</Filter>
     </ClCompile>
     <ClCompile Include="CRenderPassManager.cpp">
       <Filter>SceneManager\Render Passes</Filter>
     </ClCompile>
-    <ClCompile Include="COrthogonalCamera.cpp">
+    <ClCompile Include="CMeshLibrary.cpp" />
+    <ClCompile Include="COrthogonalCamera.cpp" />
+    <ClCompile Include="CSceneNodeFactory.cpp" />
+    <ClCompile Include="CShaderLibrary.cpp" />
+    <ClCompile Include="CTextureLibrary.cpp" />
+    <ClCompile Include="CLight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="CPointLight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="COrthographicCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,14 +118,14 @@
     <Filter Include="Node\Component">
       <UniqueIdentifier>{113513f8-0344-44d6-9863-b55fc0d28ab0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneManager\Libraries">
-      <UniqueIdentifier>{501fbe7b-ef85-4f56-9637-6c23006da74d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneManager\Render Passes">
       <UniqueIdentifier>{410dd937-3448-496d-8ef1-64f09e73841a}</UniqueIdentifier>
     </Filter>
     <Filter Include="SceneManager\Management">
       <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{234bc57a-b8e2-4263-9586-b6174ebe24ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
