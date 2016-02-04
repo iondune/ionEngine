@@ -1,23 +1,10 @@
 digraph graphname {
     node [shape=box];
-    ionGL [URL="moduleGL.html"];
     ionCore [URL="moduleCore.html"];
 
-    ionCore -> ionMath          [dir="back"];
-    ionCore -> ionFramework     [dir="back"];
-
-    ionFramework -> ionWindow   [dir="back"];
-
-    ionMath -> ionGL            [dir="back"];
-
-    ionGL -> ionWindow          [dir="back"];
-    ionGL -> ionAsset           [dir="back"];
-
-    ionWindow -> ionScene       [dir="back"];
-
-    ionAsset -> ionScene        [dir="back"];
-    ionAsset -> ionGUI          [dir="back"];
-
-    ionScene -> ionScience      [dir="back"];
-    ionScene -> ionBootstrap    [dir="back"];
+    ionCore -> ionMath            [dir="back"];
+    ionMath -> ionFramework       [dir="back"];
+    ionFramework -> ionGraphics   [dir="back"];
+    ionGraphics -> ionGraphicsGL  [dir="back"];
+    ionGraphics -> ionGUI         [dir="back"];
 }

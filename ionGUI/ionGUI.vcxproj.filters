@@ -1,29 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="FreeType.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="CImGUIManager.cpp">
+    <ClCompile Include="imGUI.cpp">
       <Filter>imGUI</Filter>
     </ClCompile>
-    <ClCompile Include="imGUI.cpp">
+    <ClCompile Include="CGUIManager.cpp">
       <Filter>imGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
-    <ClInclude Include="FreeType.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="CImGUIManager.h">
+    <ClInclude Include="CGUIManager.h">
       <Filter>imGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Utilities">
-      <UniqueIdentifier>{ef1b03f1-7f14-4162-a105-1c73acca6feb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imGUI">
       <UniqueIdentifier>{8bc06503-2450-445c-9c02-e625fb399dcc}</UniqueIdentifier>
     </Filter>

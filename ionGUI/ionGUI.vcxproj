@@ -18,13 +18,11 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClCompile Include="CImGUIManager.cpp" />
-    <ClCompile Include="FreeType.cpp" />
+    <ClCompile Include="CGUIManager.cpp" />
     <ClCompile Include="imGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CImGUIManager.h" />
-    <ClInclude Include="FreeType.h" />
+    <ClInclude Include="CGUIManager.h" />
     <ClInclude Include="ionGUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

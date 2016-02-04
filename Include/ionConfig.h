@@ -20,3 +20,11 @@
 	#endif
 
 #endif
+
+#ifdef _WIN32
+	#define ION_CONFIG_WINDOWS
+#endif
+
+#ifdef __linux
+	#define ION_CONFIG_LINUX
+#endif

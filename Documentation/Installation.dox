@@ -13,64 +13,69 @@ Create a folder called "SDKs" in your Visual Studio folder and clone the followi
 - tinyformat
 - stb
 
-Additionally download the pre-built binaries for glew 1.12.0 and assimp 3.3.1.
+Additionally download the pre-built binaries for glew 1.12.0.
 
-Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder
+Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder.
+
+Finally, open the ionEngine solution file in Visual Studio 2015.
 
 \section linux Linux
 
-These instructions are tailored for Ubuntu 14.04 but the same principles should apply to most Linux distros and in
-particular to any similar version of Ubuntu.
+These instructions are tailored for Ubuntu 14.04 but the same principles should apply to most Linux distros and in particular to any similar version of Ubuntu.
 
-\subsection packages Packages
+Thankfully all dependencies are available as packages or are header-only.
 
-Thankfully most of the dependencies are available as packages.
+You will need `g++` and 'cmake' for compilation.
 
-You will need `g++` for compilation. `clang++` should work as well, but the code coverage tools for `clang++` will not.
+You'll also need to install both GLEW and GLFW3. Unfortunately, at time of this writing the Ubuntu GLFW package is prohibitively out of date so we need to install a ppa to provide an up-to-date version.
 
 \code{bash}
-sudo apt-get install g++
+sudo add-apt-repository ppa:keithw/glfw3 -y
+sudo apt-get -qq update
 \endcode
 
-You'll also need to install the following dependencies:
-
-- `libglew-dev`
-- `libglm-dev`
-- `libassimp-dev`
-
-For unit testing and code coverage, you'll need to get these dependencies as well:
-
-- `catch`
-
-To install all packages:
+With that done we can now install all of our package-based dependencies.
 
 \code{bash}
-sudo apt-get install libglew-dev libglm-dev libassimp-dev catch
+sudo apt-get -qq install g++ cmake libglew-dev xorg-dev libglfw3-dev -y
 \endcode
 
-Unfortunately, at time of this writing the Ubuntu GLFW and lcov packages are prohibitively out of date. Both
-need to be manually installed.
-
-\subsubsection glfw GLFW
-
-To install glfw, clone the git repository, generate build files with cmake, and install it.
+Finally, install the header-only dependencies by running this script from the ionEngine project root directory:
 
 \code{bash}
-sudo apt-get install xorg-dev libglu1-mesa-dev cmake
-git clone https://github.com/glfw/glfw.git
-cd glfw
+./UpdateDependencies.bash
+\endcode
+
+With that we are ready to build ionEngine. From that same directory, run cmake:
+
+\code{bash}
 cmake .
-sudo make install
+make
 \endcode
 
-\subsubsection lcov LCOV
+\section osx OS X
 
-To install lcov, clone the git repository, build it, and install it:
+These instructions are for OS X 10.9.5 but should hopefully apply pretty universally.
+
+First, make sure that you have both [Xcode](https://developer.apple.com/xcode/download/) and [Homebrew](http://brew.sh/) installed.
+
+Next, install CMake, GLEW, and GLFW3 through homebrew:
 
 \code{bash}
-git clone https://github.com/linux-test-project/lcov.git
-cd lcov
-sudo make install
+brew install cmake glew glfw3
+\endcode
+
+Finally, install the header-only dependencies by running this script from the ionEngine project root directory:
+
+\code{bash}
+./UpdateDependencies.bash
+\endcode
+
+With that we are ready to build ionEngine. From that same directory, run cmake:
+
+\code{bash}
+cmake .
+make
 \endcode
 
 */

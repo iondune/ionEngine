@@ -1,8 +1,6 @@
 
 #include "CWindowManager.h"
 
-#include <ionGL.h>
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 
@@ -30,6 +28,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 {
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
@@ -53,39 +52,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	Window->AddListener(this);
 
 	Window->MakeContextCurrent();
-	ion::GL::Context::Init();
 	glfwSwapInterval(0);
-
-	static bool Initialized = false;
-
-	if (! Initialized)
-	{
-		u32 Error = glewInit();
-		if (Error != GLEW_OK)
-		{
-			std::cerr << "Error initializing glew! " << glewGetErrorString(Error) << std::endl;
-			WaitForUser();
-			exit(33);
-		}
-
-		int Major = 0, Minor = 0;
-		char const * VersionString = (char const *) glGetString(GL_VERSION);
-		if (! VersionString)
-			std::cerr << "Unable to get OpenGL version number." << std::endl << std::endl;
-		else if (sscanf(VersionString, "%d.%d", & Major, & Minor) != 2)
-			std::cerr << "OpenGL ersion string in unknown format: " << VersionString << std::endl << std::endl;
-		else if (Major < 2)
-		{
-			std::cerr << "Your OpenGL Version Number (" << VersionString <<
-				") is not high enough for shaders. Please download and install the latest drivers"
-				"for your graphics hardware." <<
-				std::endl << std::endl;
-		}
-
-		std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
-
-		Initialized = true;
-	}
 
 	return Window;
 }
@@ -103,12 +70,26 @@ bool CWindowManager::ShouldClose() const
 {
 	for (auto it = Windows.begin(); it != Windows.end(); ++ it)
 	{
-		it->second->MakeContextCurrent();
+		if (Windows.size() > 1)
+		{
+			it->second->MakeContextCurrent();
+		}
+
 		if (it->second->ShouldClose())
 		{
 			return true;
 		}
 	}
-	PrimaryWindow->MakeContextCurrent();
+	if (Windows.size() > 1)
+	{
+		PrimaryWindow->MakeContextCurrent();
+	}
 	return false;
+}
+
+bool CWindowManager::Run()
+{
+	bool Done = ShouldClose();
+	PollEvents();
+	return ! Done;
 }

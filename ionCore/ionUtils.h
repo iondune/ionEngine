@@ -15,6 +15,8 @@ static void WaitForUser() // LCOV_EXCL_LINE
 	std::cin.get(); // LCOV_EXCL_LINE
 } // LCOV_EXCL_LINE
 
+#define ION_ARRAYSIZE(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
+
 //! Count the number of digits (including a - for negative numbers) in a decimal integer
 static u32 DigitCount(s32 n)
 {

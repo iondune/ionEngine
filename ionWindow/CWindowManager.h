@@ -21,6 +21,7 @@ public:
 	void Init();
 	void PollEvents();
 	bool ShouldClose() const;
+	bool Run();
 
 	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 
