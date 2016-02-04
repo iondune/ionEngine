@@ -13,7 +13,7 @@
 
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2D08659B-B706-4A3C-95C0-9294710DC5EE}</ProjectGuid>
-    <RootNamespace>DeploymentTest</RootNamespace>
+    <RootNamespace>TestDeployment</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
