@@ -59,8 +59,8 @@ add_subdirectory("ionGUI")
 # add_subdirectory("ionBootstrap")
 
 # Tests
-add_subdirectory("DeploymentTest")
-add_subdirectory("UnitTests")
+add_subdirectory("TestDeployment")
+add_subdirectory("TestUnits")
 
 # Demos
 add_subdirectory("Demo01-WindowManager")

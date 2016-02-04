@@ -1,5 +1,5 @@
-add_executable(DeploymentTest DeploymentTest.cpp)
+add_executable(TestDeployment DeploymentTest.cpp)
 
 # Libraries
-GLFW(DeploymentTest)
-GLEW(DeploymentTest)
+GLFW(TestDeployment)
+GLEW(TestDeployment)
