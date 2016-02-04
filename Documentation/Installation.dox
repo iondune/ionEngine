@@ -15,13 +15,13 @@ Create a folder called "SDKs" in your Visual Studio folder and clone the followi
 
 Additionally download the pre-built binaries for glew 1.12.0.
 
-Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder
+Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder.
+
+Finally, open the ionEngine solution file in Visual Studio 2015.
 
 \section linux Linux
 
 These instructions are tailored for Ubuntu 14.04 but the same principles should apply to most Linux distros and in particular to any similar version of Ubuntu.
-
-\subsection packages Packages
 
 Thankfully all dependencies are available as packages or are header-only.
 
