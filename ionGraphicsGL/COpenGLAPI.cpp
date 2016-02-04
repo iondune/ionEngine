@@ -36,7 +36,11 @@ namespace ion
 	namespace Graphics
 	{
 
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * userParam)
+#ifdef ION_CONFIG_LINUX
+		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
+#else
+		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
+#endif
 		{
 			string Source = "";
 			string Type = "";
@@ -176,7 +180,7 @@ namespace ion
 			GL::CVertexShader * VertexShader = new GL::CVertexShader();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
 
-			char const * const SourcePointer = Source.c_str();
+			char const * SourcePointer = Source.c_str();
 			CheckedGLCall(glShaderSource(VertexShader->Handle, 1, & SourcePointer, NULL));
 			CheckedGLCall(glCompileShader(VertexShader->Handle));
 
@@ -195,7 +199,7 @@ namespace ion
 			GL::CPixelShader * PixelShader = new GL::CPixelShader();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
 
-			char const * const SourcePointer = Source.c_str();
+			char const * SourcePointer = Source.c_str();
 			CheckedGLCall(glShaderSource(PixelShader->Handle, 1, & SourcePointer, NULL));
 			CheckedGLCall(glCompileShader(PixelShader->Handle));
 
