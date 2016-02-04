@@ -114,6 +114,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGraphics", "ionGraphics\
 		{A24BACED-451D-4120-A386-136A963C3C72} = {A24BACED-451D-4120-A386-136A963C3C72}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo01-WindowManager", "Demo01-WindowManager\Demo01-WindowManager.vcxproj", "{03C6DAB6-20CA-4279-A89E-087373B27805}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo02-GL", "Demo02-GL\Demo02-GL.vcxproj", "{6F837E71-5954-4D08-B1BE-598C8FDF021E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo03-GUI", "Demo03-GUI\Demo03-GUI.vcxproj", "{2C29A580-43CE-41B2-BBE9-726F759B9642}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -172,6 +178,18 @@ Global
 		{21F131D8-D333-4188-A27B-3E75425D6F7F}.Debug|x64.Build.0 = Debug|x64
 		{21F131D8-D333-4188-A27B-3E75425D6F7F}.Release|x64.ActiveCfg = Release|x64
 		{21F131D8-D333-4188-A27B-3E75425D6F7F}.Release|x64.Build.0 = Release|x64
+		{03C6DAB6-20CA-4279-A89E-087373B27805}.Debug|x64.ActiveCfg = Debug|x64
+		{03C6DAB6-20CA-4279-A89E-087373B27805}.Debug|x64.Build.0 = Debug|x64
+		{03C6DAB6-20CA-4279-A89E-087373B27805}.Release|x64.ActiveCfg = Release|x64
+		{03C6DAB6-20CA-4279-A89E-087373B27805}.Release|x64.Build.0 = Release|x64
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Debug|x64.ActiveCfg = Debug|x64
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Debug|x64.Build.0 = Debug|x64
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Release|x64.ActiveCfg = Release|x64
+		{6F837E71-5954-4D08-B1BE-598C8FDF021E}.Release|x64.Build.0 = Release|x64
+		{2C29A580-43CE-41B2-BBE9-726F759B9642}.Debug|x64.ActiveCfg = Debug|x64
+		{2C29A580-43CE-41B2-BBE9-726F759B9642}.Debug|x64.Build.0 = Debug|x64
+		{2C29A580-43CE-41B2-BBE9-726F759B9642}.Release|x64.ActiveCfg = Release|x64
+		{2C29A580-43CE-41B2-BBE9-726F759B9642}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
