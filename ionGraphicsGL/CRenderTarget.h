@@ -22,6 +22,9 @@ namespace ion
 				void ClearDepth();
 				void ClearColorAndDepth();
 
+				void SetClearColor(color3f const & Color);
+
+
 				uint Handle;
 			
 			};

@@ -1,11 +1,13 @@
 
 #pragma once
 
-#include <ionEngine.h>
+#include <ionMath.h>
+#include <ionFramework.h>
+#include <ionWindow.h>
 #include <imgui.h>
 
 
-class CImGUIManager : public Singleton<CImGUIManager>, public IEventListener
+class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 {
 
 public:
@@ -40,9 +42,9 @@ protected:
 
 private:
 
-	friend class Singleton<CImGUIManager>;
+	friend class Singleton<CGUIManager>;
 
-	CImGUIManager();
+	CGUIManager();
 
 	friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
 	friend char const * ImGui_ImplGlfwGL3_GetClipboardText();

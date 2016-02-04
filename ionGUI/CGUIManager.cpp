@@ -1,12 +1,12 @@
 
-#include "CImGUIManager.h"
+#include "CGUIManager.h"
 #include <GL/glew.h>
 
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
 // If text or lines are blurry when integrating ImGui in your engine:
 // - in your Render function, try translating your projection matrix by (0.5f,0.5f) or (0.375f,0.375f)
-void CImGUIManager::DrawCallback(ImDrawData* draw_data)
+void CGUIManager::DrawCallback(ImDrawData* draw_data)
 {
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
 	GLint last_program, last_texture;
@@ -80,7 +80,7 @@ void CImGUIManager::DrawCallback(ImDrawData* draw_data)
 	glBindTexture(GL_TEXTURE_2D, last_texture);
 }
 
-void CImGUIManager::OnEvent(IEvent & Event)
+void CGUIManager::OnEvent(IEvent & Event)
 {
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -115,7 +115,7 @@ void CImGUIManager::OnEvent(IEvent & Event)
 	}
 }
 
-void CImGUIManager::CreateFontsTexture()
+void CGUIManager::CreateFontsTexture()
 {
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -133,13 +133,13 @@ void CImGUIManager::CreateFontsTexture()
 	io.Fonts->TexID = (void *) (intptr_t) FontTexture;
 }
 
-void CImGUIManager::AddFontFromFile(string const & FileName, float const Size)
+void CGUIManager::AddFontFromFile(string const & FileName, float const Size)
 {
 	ImGuiIO& io = ImGui::GetIO();
 	ImFont* my_font = io.Fonts->AddFontFromFileTTF(FileName.c_str(), Size);
 }
 
-bool CImGUIManager::CreateDeviceObjects()
+bool CGUIManager::CreateDeviceObjects()
 {
 	const GLchar *vertex_shader =
 		"#version 330\n"
@@ -207,23 +207,23 @@ bool CImGUIManager::CreateDeviceObjects()
 
 void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data)
 {
-	SingletonPointer<CImGUIManager> ImGUIManager;
+	SingletonPointer<CGUIManager> ImGUIManager;
 	ImGUIManager->DrawCallback(draw_data);
 }
 
 char const * ImGui_ImplGlfwGL3_GetClipboardText()
 {
-	SingletonPointer<CImGUIManager> ImGUIManager;
+	SingletonPointer<CGUIManager> ImGUIManager;
 	return ImGUIManager->Window->GetClipboardText().c_str();
 }
 
 void ImGui_ImplGlfwGL3_SetClipboardText(const char* text)
 {
-	SingletonPointer<CImGUIManager> ImGUIManager;
+	SingletonPointer<CGUIManager> ImGUIManager;
 	ImGUIManager->Window->SetClipboardText(text);
 }
 
-bool CImGUIManager::Init(CWindow* window, bool install_callbacks)
+bool CGUIManager::Init(CWindow* window, bool install_callbacks)
 {
 	Window = window;
 
@@ -255,7 +255,7 @@ bool CImGUIManager::Init(CWindow* window, bool install_callbacks)
 	return true;
 }
 
-void CImGUIManager::Shutdown()
+void CGUIManager::Shutdown()
 {
 	if (VaoHandle) glDeleteVertexArrays(1, &VaoHandle);
 	if (VboHandle) glDeleteBuffers(1, &VboHandle);
@@ -282,7 +282,7 @@ void CImGUIManager::Shutdown()
 	ImGui::Shutdown();
 }
 
-void CImGUIManager::NewFrame()
+void CGUIManager::NewFrame()
 {
 	static int frame = 0;
 	SingletonPointer<CTimeManager> TimeManager;
@@ -327,7 +327,7 @@ void CImGUIManager::NewFrame()
 	ImGui::NewFrame();
 }
 
-CImGUIManager::CImGUIManager()
+CGUIManager::CGUIManager()
 {
 	for (int i = 0; i < 3; ++ i)
 		MousePressed[i] = false;
