@@ -42,15 +42,6 @@ namespace ion
 				return (LastError = glGetError()) != GL_NO_ERROR;
 			}
 
-			string GetOpenGLError()
-			{
-				u8 const * const ErrorString = gluErrorString(LastError);
-				string Error = (ErrorString ? (c8 const *) ErrorString : to_string(LastError));
-				LastError = GL_NO_ERROR;
-
-				return Error;
-			}
-
 			c8 const * glErrorString(GLenum const Error)
 			{
 				switch (Error)
@@ -76,6 +67,13 @@ namespace ion
 				}
 			}
 
+			string GetOpenGLError()
+			{
+				string Error = glErrorString(LastError);
+				LastError = GL_NO_ERROR;
+				return Error;
+			}
+
 			void PrintOpenGLErrors()
 			{
 				bool Succeeded = true;
@@ -83,7 +81,7 @@ namespace ion
 				GLenum Error = glGetError();
 				if (Error != GL_NO_ERROR)
 				{
-					c8 const * const ErrorString = (c8 const *) glErrorString(Error);
+					c8 const * const ErrorString = glErrorString(Error);
 					Log::Error("OpenGL Error: '%s'", ErrorString);
 				}
 			}
@@ -95,7 +93,7 @@ namespace ion
 				GLenum Error = glGetError();
 				if (Error != GL_NO_ERROR)
 				{
-					c8 const * const ErrorString = (c8 const *) glErrorString(Error);
+					c8 const * const ErrorString = glErrorString(Error);
 					Log::Error("OpenGL Error in %s at line %d calling function %s: '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
 				}
 			}
