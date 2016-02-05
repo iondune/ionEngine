@@ -46,6 +46,8 @@ namespace ion
 #else
 			#define CheckedGLCall(x) (x)
 			#define CheckExistingErrors(x)
+			#define SafeGLCall(FUNCTION, PARAMS) FUNCTION##PARAMS
+			#define SafeGLAssignment(LHS, FUNCTION, PARAMS) LHS = FUNCTION##PARAMS
 #endif
 
 			enum class EPrimitiveType
