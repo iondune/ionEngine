@@ -28,8 +28,8 @@ namespace ion
 			IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements);
 			IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
 
-			ITexture2D * CreateTexture2D(vec2u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
-			ITexture3D * CreateTexture3D(vec3u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
+			ITexture2D * CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
+			ITexture3D * CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
 			IPipelineState * CreatePipelineState();
 

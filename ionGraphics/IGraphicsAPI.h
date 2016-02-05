@@ -233,6 +233,12 @@ namespace ion
 				F32   = 9,
 			};
 
+			enum class EMipMaps
+			{
+				False = 0,
+				True  = 1,
+			};
+
 			//! Sets the minimizing filter for this texture
 			//! Default is EFilter::Linear
 			virtual ITexture * SetMinFilter(EFilter const MinFilter) = 0;
@@ -325,8 +331,8 @@ namespace ion
 			virtual IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements) = 0;
 			virtual IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType) = 0;
 
-			virtual ITexture2D * CreateTexture2D(vec2u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
-			virtual ITexture3D * CreateTexture3D(vec3u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
+			virtual ITexture2D * CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
+			virtual ITexture3D * CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
 
 			virtual IPipelineState * CreatePipelineState() = 0;
 

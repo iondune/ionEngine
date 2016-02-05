@@ -256,16 +256,16 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			GL::CTexture2D * Texture2D = new GL::CTexture2D();
 
 			Texture2D->TextureSize = Size;
-			Texture2D->MipMaps = MipMaps;
+			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
 			int Levels = 1;
 
-			if (MipMaps)
+			if (Texture2D->MipMaps)
 			{
 				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
 			}
@@ -290,16 +290,16 @@ namespace ion
 			return Texture2D;
 		}
 
-		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			GL::CTexture3D * Texture3D = new GL::CTexture3D();
 
 			Texture3D->TextureSize = Size;
-			Texture3D->MipMaps = MipMaps;
+			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
 			int Levels = 1;
 
-			if (MipMaps)
+			if (Texture3D->MipMaps)
 			{
 				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
 			}

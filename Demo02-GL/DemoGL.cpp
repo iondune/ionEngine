@@ -126,7 +126,7 @@ int main()
 	PipelineState->SetUniform("uCurrentTime", &uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
-	ITexture2D * Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), true, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
+	ITexture2D * Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
 	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
 	PipelineState->SetTexture("uTexture", Texture);
 
