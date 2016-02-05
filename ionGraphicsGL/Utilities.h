@@ -30,7 +30,7 @@ namespace ion
 					ion::Graphics::GL::PrintOpenGLErrors("(somewhere before) "#FUNCTION, __FILE__, __LINE__);\
 					if (ion::Graphics::GL::CheckGLFunctionPointer((FUNCTION), #FUNCTION))\
 					{\
-						FUNCTION##PARAMS;\
+						FUNCTION PARAMS;\
 						ion::Graphics::GL::PrintOpenGLErrors(#FUNCTION, __FILE__, __LINE__);\
 					}\
 				} while (0);
@@ -39,15 +39,15 @@ namespace ion
 					ion::Graphics::GL::PrintOpenGLErrors("(somewhere before) "#FUNCTION, __FILE__, __LINE__);\
 					if (ion::Graphics::GL::CheckGLFunctionPointer((FUNCTION), #FUNCTION))\
 					{\
-						LHS = FUNCTION##PARAMS;\
+						LHS = FUNCTION PARAMS;\
 						ion::Graphics::GL::PrintOpenGLErrors(#FUNCTION, __FILE__, __LINE__);\
 					}\
 				} while (0);
 #else
 			#define CheckedGLCall(x) (x)
 			#define CheckExistingErrors(x)
-			#define SafeGLCall(FUNCTION, PARAMS) FUNCTION##PARAMS
-			#define SafeGLAssignment(LHS, FUNCTION, PARAMS) LHS = FUNCTION##PARAMS
+			#define SafeGLCall(FUNCTION, PARAMS) FUNCTION PARAMS
+			#define SafeGLAssignment(LHS, FUNCTION, PARAMS) LHS = FUNCTION PARAMS
 #endif
 
 			enum class EPrimitiveType
