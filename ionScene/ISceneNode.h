@@ -18,10 +18,7 @@ public:
 	/////////////////////
 	// General Methods //
 	/////////////////////
-
-	//! Constructor
-	ISceneNode(ISceneNode * Parent);
-
+	
 	//! Destructor
 	virtual ~ISceneNode();
 
@@ -31,7 +28,10 @@ public:
 	//! Set visibility
 	virtual void SetVisible(bool const isVisible);
 
+	//! Debug name mutator
 	virtual void SetDebugName(string const & DebugName);
+
+	//! Debug name accessor
 	virtual string const & GetDebugName() const;
 
 
@@ -39,60 +39,64 @@ public:
 	// Model Transform Methods //
 	/////////////////////////////
 
-	virtual glm::mat4 const & GetAbsoluteTransformation() const;
+	//! Transformation accessor
 	virtual STransformation3 const & GetTransformation() const;
-	virtual STransformation3 & GetTransformation();
 
-	virtual void SetTranslation(SVector3f const & translation);
+	//! Transformation mutator
 	virtual void SetTransformation(glm::mat4 const & transformation);
-	virtual void SetPosition(SVector3f const & translation);
-	virtual void SetRotation(SVector3f const & rotation);
+
+	//! Translation mutator
+	virtual void SetTranslation(vec3f const & translation);
+
+	//! See SetTranslation (duplicate method)
+	virtual void SetPosition(vec3f const & translation);
+
+	//! Rotation mutator (euler angles)
+	virtual void SetRotation(vec3f const & rotation);
+
+	//! Rotatiom mutator (rotation matrix)
 	virtual void SetRotation(glm::mat4 const & matrix);
-	virtual void SetScale(SVector3f const & scale);
 
-	virtual SVector3f const & GetRotation() const;
-	virtual SVector3f const & GetTranslation() const;
-	virtual SVector3f const & GetPosition() const;
-	virtual SVector3f const & GetScale() const;
+	//! Scale mutator
+	virtual void SetScale(vec3f const & scale);
+
+	//! Rotation acessor (euler angles)
+	virtual vec3f const & GetRotation() const;
+
+	//! Translation accessor
+	virtual vec3f const & GetTranslation() const;
+
+	//! Position accessor
+	virtual vec3f const & GetPosition() const;
+
+	//! Scale accessor
+	virtual vec3f const & GetScale() const;
 
 
-	////////////////////
-	// Update Methods //
-	////////////////////
+	////////////////////////////
+	// Implementation Methods //
+	////////////////////////////
 
-	virtual void CheckAbsoluteTransformation();
-	virtual void UpdateAbsoluteTransformation();
-
-
-	/////////////////////////////
-	// Component/Entity System //
-	/////////////////////////////
-
-	virtual void Update();
-	virtual map<CShader *, vector<CDrawConfig *>> PrepareDrawConfigurations(CDrawManager * DrawManager, IRenderPass * Pass);
+	virtual void Draw() = 0;
 
 
 protected:
 
 	//! Model Transformation
 	STransformation3 Transformation;
-
-	//! Model Transformation of this object after parent transforms
-	glm::mat4 AbsoluteTransformation;
-
+	
 	//! Keep vector form of transformations for easy access
-	//! To Do : Store or retrieve this from within transformation class
-	vec3f Rotation, Translation, Scale;
-
-	//! Keep track of transformation changes that require updates
-	bool TransformationDirty;
-
-	//! Whether or not to draw this object and all its children
-	bool Visible;
+	//! BUGBUG Store or retrieve this from within transformation class
+	vec3f Rotation = 0;
+	vec3f Translation = 0;
+	vec3f Scale = 1;
+	
+	//! Whether or not to draw this object
+	bool Visible = true;
 
 	bool UseExplicitTransformation = false;
 	glm::mat4 ExplicitTransformation;
 
-	string DebugName = "None";
+	string DebugName = "";
 
 };

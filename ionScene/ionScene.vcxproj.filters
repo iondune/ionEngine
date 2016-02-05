@@ -20,12 +20,6 @@
     <ClInclude Include="CScene.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="CUpdateCallbackComponent.h">
-      <Filter>Node\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ISceneNodeComponent.h">
-      <Filter>Node</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderPass.h">
       <Filter>SceneManager\Render Passes</Filter>
     </ClInclude>
@@ -41,8 +35,6 @@
     <ClInclude Include="CMeshLibrary.h" />
     <ClInclude Include="COrthogonalCamera.h" />
     <ClInclude Include="CSceneNodeFactory.h" />
-    <ClInclude Include="CShaderLibrary.h" />
-    <ClInclude Include="CTextureLibrary.h" />
     <ClInclude Include="CLight.h">
       <Filter>Light</Filter>
     </ClInclude>
@@ -63,20 +55,11 @@
     <ClCompile Include="ISceneNode.cpp">
       <Filter>Node</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneNode.UpdateMethods.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneNode.cpp">
       <Filter>Node</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>SceneManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CUpdateCallbackComponent.cpp">
-      <Filter>Node\Component</Filter>
     </ClCompile>
     <ClCompile Include="IRenderPass.cpp">
       <Filter>SceneManager\Render Passes</Filter>
@@ -93,8 +76,6 @@
     <ClCompile Include="CMeshLibrary.cpp" />
     <ClCompile Include="COrthogonalCamera.cpp" />
     <ClCompile Include="CSceneNodeFactory.cpp" />
-    <ClCompile Include="CShaderLibrary.cpp" />
-    <ClCompile Include="CTextureLibrary.cpp" />
     <ClCompile Include="CLight.cpp">
       <Filter>Light</Filter>
     </ClCompile>
@@ -114,9 +95,6 @@
     </Filter>
     <Filter Include="Node">
       <UniqueIdentifier>{9aa6fbd7-7084-411a-ad0f-ae937c462da1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Node\Component">
-      <UniqueIdentifier>{113513f8-0344-44d6-9863-b55fc0d28ab0}</UniqueIdentifier>
     </Filter>
     <Filter Include="SceneManager\Render Passes">
       <UniqueIdentifier>{410dd937-3448-496d-8ef1-64f09e73841a}</UniqueIdentifier>
