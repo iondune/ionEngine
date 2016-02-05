@@ -17,7 +17,7 @@ namespace ion
 			this->Position = Position;
 		}
 
-		uint CLight::GetAttributeCount() const
+		size_t CLight::GetAttributeCount() const
 		{
 			return Attributes.size();
 		}

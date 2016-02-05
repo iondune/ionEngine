@@ -14,13 +14,13 @@ namespace ion
 
 		public:
 
-			color3f const & GetColor() const;
+			color3f GetColor() const;
 			float GetRadius() const;
 
 			void SetColor(color3f const & Color);
 			void SetRadius(float const Radius);
 
-			string const & GetLightType() const;
+			string GetLightType() const;
 
 		protected:
 

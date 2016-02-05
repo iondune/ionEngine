@@ -7,7 +7,7 @@ namespace ion
 	namespace Scene
 	{
 
-		color3f const & CPointLight::GetColor() const
+		color3f CPointLight::GetColor() const
 		{
 			return Color;
 		}
@@ -27,7 +27,7 @@ namespace ion
 			this->Radius = Radius;
 		}
 
-		string const & CPointLight::GetLightType() const
+		string CPointLight::GetLightType() const
 		{
 			return "PointLight";
 		}

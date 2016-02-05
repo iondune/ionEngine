@@ -18,7 +18,7 @@ namespace ion
 			vec3f const & GetPosition() const;
 			void SetPosition(vec3f const & Position);
 
-			uint GetAttributeCount() const;
+			size_t GetAttributeCount() const;
 			Graphics::IUniform const * GetAttributeByName(string const & Name) const;
 
 			virtual string const & GetLightType() const = 0;
