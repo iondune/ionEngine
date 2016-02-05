@@ -142,7 +142,8 @@ namespace ion
 				}
 
 				int Major = 0, Minor = 0;
-				char const * VersionString = (char const *) glGetString(GL_VERSION);
+				char const * VersionString = nullptr;
+				CheckedGLCall((char const *) glGetString(GL_VERSION));
 				if (! VersionString)
 					std::cerr << "Unable to get OpenGL version number." << std::endl << std::endl;
 				else if (sscanf(VersionString, "%d.%d", & Major, & Minor) != 2)
@@ -158,11 +159,11 @@ namespace ion
 				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
 
 #ifdef ION_CONFIG_WINDOWS
-				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
+				//CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
 #endif
 
-				CheckedGLCall(glEnable(GL_DEPTH_TEST));
-				CheckedGLCall(glDepthFunc(GL_LEQUAL));
+				//CheckedGLCall(glEnable(GL_DEPTH_TEST));
+				//CheckedGLCall(glDepthFunc(GL_LEQUAL));
 				Initialized = true;
 			}
 		}
