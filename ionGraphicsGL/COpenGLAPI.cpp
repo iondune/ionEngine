@@ -157,7 +157,9 @@ namespace ion
 
 				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
 
+#ifdef ION_CONFIG_WINDOWS
 				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
+#endif
 
 				CheckedGLCall(glEnable(GL_DEPTH_TEST));
 				CheckedGLCall(glDepthFunc(GL_LEQUAL));
