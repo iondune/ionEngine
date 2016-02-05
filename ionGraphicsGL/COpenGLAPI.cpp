@@ -133,37 +133,49 @@ namespace ion
 
 			if (! Initialized)
 			{
+				GL::PrintOpenGLErrors("GLEW init");
+
+				// See https://www.opengl.org/wiki/OpenGL_Loading_Library
+				// We have to enable Experimental or else GLEW will fail to load extensions
+				// because it uses glGetString instead of glGetStringi
+				// On CORE contexts, that call will return INVALID_ENUM and apparently fail
+				// to load EVERYTHING. So we use experimental so that functions will actually
+				// be loaded, and we ignore the error.
+				glewExperimental = true;
 				u32 Error = glewInit();
+				GL::IgnoreOpenGLError();
+
 				if (Error != GLEW_OK)
 				{
-					std::cerr << "Error initializing glew! " << glewGetErrorString(Error) << std::endl;
-					WaitForUser();
-					exit(33);
+					Log::Error("Error initializing glew! %s", glewGetErrorString(Error));
 				}
+
+				GL::PrintOpenGLErrors("Version check");
 
 				int Major = 0, Minor = 0;
-				char const * VersionString = nullptr;
-				CheckedGLCall((char const *) glGetString(GL_VERSION));
+				byte const * VersionString = nullptr;
+				SafeGLAssignment(VersionString, glGetString, (GL_VERSION));
 				if (! VersionString)
-					std::cerr << "Unable to get OpenGL version number." << std::endl << std::endl;
-				else if (sscanf(VersionString, "%d.%d", & Major, & Minor) != 2)
-					std::cerr << "OpenGL ersion string in unknown format: " << VersionString << std::endl << std::endl;
+				{
+					Log::Error("Unable to get OpenGL version number.");
+				}
+				else if (sscanf((char const *) VersionString, "%d.%d", & Major, & Minor) != 2)
+				{
+					Log::Error("OpenGL version string in unknown format: %s", VersionString);
+				}
 				else if (Major < 2)
 				{
-					std::cerr << "Your OpenGL Version Number (" << VersionString <<
-						") is not high enough for shaders. Please download and install the latest drivers"
-						"for your graphics hardware." <<
-						std::endl << std::endl;
+					Log::Error("Your OpenGL Version Number (%s) "
+						"is not high enough for shaders. Please download and install the latest drivers "
+						"for your graphics hardware.", VersionString);
 				}
 
-				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
+				Log::Info("Your OpenGL Version Number: %s", VersionString);
 
-#ifdef ION_CONFIG_WINDOWS
-				//CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
-#endif
+				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
 
-				//CheckedGLCall(glEnable(GL_DEPTH_TEST));
-				//CheckedGLCall(glDepthFunc(GL_LEQUAL));
+				CheckedGLCall(glEnable(GL_DEPTH_TEST));
+				CheckedGLCall(glDepthFunc(GL_LEQUAL));
 				Initialized = true;
 			}
 		}
@@ -260,7 +272,14 @@ namespace ion
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Texture2D->Handle));
-			glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			if (glTexStorage2D)
+			{
+				glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			}
+			else
+			{
+				cerr << "Function is not loaded: glTexStorage2D" << endl;
+			}
 			if (GL::OpenGLError())
 			{
 				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
@@ -301,7 +320,7 @@ namespace ion
 		IPipelineState * COpenGLAPI::CreatePipelineState()
 		{
 			GL::CPipelineState * PipelineState = new GL::CPipelineState();
-			CheckedGLCall(glGenVertexArrays(1, & PipelineState->VertexArrayHandle));
+			SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
 			return PipelineState;
 		}
 

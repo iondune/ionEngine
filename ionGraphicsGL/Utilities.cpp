@@ -42,6 +42,11 @@ namespace ion
 				return (LastError = glGetError()) != GL_NO_ERROR;
 			}
 
+			void IgnoreOpenGLError()
+			{
+				glGetError();
+			}
+
 			c8 const * glErrorString(GLenum const Error)
 			{
 				switch (Error)
@@ -74,7 +79,7 @@ namespace ion
 				return Error;
 			}
 
-			void PrintOpenGLErrors()
+			void PrintOpenGLErrors(char const * const Before)
 			{
 				bool Succeeded = true;
 
@@ -82,7 +87,14 @@ namespace ion
 				if (Error != GL_NO_ERROR)
 				{
 					c8 const * const ErrorString = glErrorString(Error);
-					Log::Error("OpenGL Error: '%s'", ErrorString);
+					if (Before)
+					{
+						Log::Error("OpenGL error before '%s': '%s'", Before, ErrorString);
+					}
+					else
+					{
+						Log::Error("OpenGL error: '%s'", ErrorString);
+					}
 				}
 			}
 
@@ -94,8 +106,19 @@ namespace ion
 				if (Error != GL_NO_ERROR)
 				{
 					c8 const * const ErrorString = glErrorString(Error);
-					Log::Error("OpenGL Error in %s at line %d calling function %s: '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
+					Log::Error("OpenGL error in file '%s' at line %d calling function '%s': '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
 				}
+			}
+
+			bool CheckGLFunctionPointer(void * Ptr, char const * const FunctionName)
+			{
+				if (! Ptr)
+				{
+					Log::Error("OpenGL function is not loaded, must not be supported in current context: %s", FunctionName);
+					return false;
+				}
+
+				return true;
 			}
 
 			u32 const Util::ScalarTypeMatrix[9] =

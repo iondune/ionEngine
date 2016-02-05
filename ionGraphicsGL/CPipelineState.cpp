@@ -27,9 +27,9 @@ namespace ion
 			void CPipelineState::SetIndexBuffer(IIndexBuffer * inIndexBuffer)
 			{
 				IndexBuffer = dynamic_cast<CIndexBuffer *>(inIndexBuffer);
-				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
-				CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
-				CheckedGLCall(glBindVertexArray(0));
+				SafeGLCall(glBindVertexArray, (VertexArrayHandle));
+				SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
+				SafeGLCall(glBindVertexArray, (0));
 
 				Loaded = false;
 			}
