@@ -299,6 +299,9 @@ namespace ion
 			virtual void SetUniform(string const & Name, IUniform * Uniform) = 0;
 			virtual void SetTexture(string const & Name, ITexture * Texture) = 0;
 
+			virtual uint GetUnboundUniformCount() const = 0;
+			virtual string GetUnboundUniform(uint const Index) const = 0;
+
 			virtual void Load() = 0;
 
 		};

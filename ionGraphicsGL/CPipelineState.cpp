@@ -14,6 +14,10 @@ namespace ion
 			void CPipelineState::SetProgram(IShaderProgram * inShaderProgram)
 			{
 				ShaderProgram = dynamic_cast<CShaderProgram *>(inShaderProgram);
+
+				set<string> ShaderUniforms = KeySet(ShaderProgram->Uniforms);
+				UnboundUniforms = vector<string>(ShaderUniforms.begin(), ShaderUniforms.end());
+
 				Loaded = false;
 			}
 
@@ -36,26 +40,44 @@ namespace ion
 
 			void CPipelineState::SetUniform(string const & Name, IUniform * Uniform)
 			{
+				// BUGBUG Detect and notify if trying to set a uniform that's not needed
+
 				if (Uniform)
 				{
 					Uniforms[Name] = Uniform;
+					EraseRemove(UnboundUniforms, Name);
 				}
 				else
 				{
 					Uniforms.erase(Name);
+					UnboundUniforms.push_back(Name);
 				}
 			}
 
 			void CPipelineState::SetTexture(string const & Name, ITexture * Texture)
 			{
+				// BUGBUG Detect and notify if trying to set a uniform that's not needed
+
 				if (Texture)
 				{
 					Textures[Name] = Texture;
+					EraseRemove(UnboundUniforms, Name);
 				}
 				else
 				{
 					Textures.erase(Name);
+					UnboundUniforms.push_back(Name);
 				}
+			}
+
+			uint CPipelineState::GetUnboundUniformCount() const
+			{
+				return (uint) UnboundUniforms.size();
+			}
+
+			string CPipelineState::GetUnboundUniform(uint const Index) const
+			{
+				return UnboundUniforms[Index];
 			}
 
 			void CPipelineState::Load()

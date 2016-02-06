@@ -20,38 +20,24 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CDrawManager.h" />
     <ClInclude Include="CLight.h" />
-    <ClInclude Include="CMeshLibrary.h" />
-    <ClInclude Include="COrthogonalCamera.h" />
     <ClInclude Include="COrthographicCamera.h" />
     <ClInclude Include="CPerspectiveCamera.h" />
     <ClInclude Include="CPointLight.h" />
-    <ClInclude Include="CRenderPassManager.h" />
-    <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="CSceneNode.h" />
-    <ClInclude Include="IRenderPass.h" />
-    <ClInclude Include="ISceneNode.h" />
+    <ClInclude Include="CRenderPass.h" />
+    <ClInclude Include="ISceneObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CDrawManager.cpp" />
     <ClCompile Include="CLight.cpp" />
-    <ClCompile Include="CMeshLibrary.cpp" />
-    <ClCompile Include="COrthogonalCamera.cpp" />
     <ClCompile Include="COrthographicCamera.cpp" />
     <ClCompile Include="CPerspectiveCamera.cpp" />
     <ClCompile Include="CPointLight.cpp" />
-    <ClCompile Include="CRenderPassManager.cpp" />
-    <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="CSceneNode.cpp" />
-    <ClCompile Include="CSceneNodeFactory.cpp" />
-    <ClCompile Include="IRenderPass.cpp" />
-    <ClCompile Include="ISceneNode.cpp" />
+    <ClCompile Include="CRenderPass.cpp" />
+    <ClCompile Include="ISceneObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

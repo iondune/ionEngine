@@ -8,33 +8,9 @@
     <ClInclude Include="CPerspectiveCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneNode.h">
-      <Filter>Node</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneNode.h">
-      <Filter>Node</Filter>
-    </ClInclude>
     <ClInclude Include="ICamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderPass.h">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClInclude>
-    <ClInclude Include="CDrawManager.h">
-      <Filter>SceneManager\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneManager.h">
-      <Filter>SceneManager\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="CRenderPassManager.h">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshLibrary.h" />
-    <ClInclude Include="COrthogonalCamera.h" />
-    <ClInclude Include="CSceneNodeFactory.h" />
     <ClInclude Include="CLight.h">
       <Filter>Light</Filter>
     </ClInclude>
@@ -44,6 +20,15 @@
     <ClInclude Include="COrthographicCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneObject.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderPass.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -52,30 +37,6 @@
     <ClCompile Include="CPerspectiveCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneNode.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderPass.cpp">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClCompile>
-    <ClCompile Include="CDrawManager.cpp">
-      <Filter>SceneManager\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneManager.cpp">
-      <Filter>SceneManager\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="CRenderPassManager.cpp">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshLibrary.cpp" />
-    <ClCompile Include="COrthogonalCamera.cpp" />
-    <ClCompile Include="CSceneNodeFactory.cpp" />
     <ClCompile Include="CLight.cpp">
       <Filter>Light</Filter>
     </ClCompile>
@@ -85,6 +46,15 @@
     <ClCompile Include="COrthographicCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ISceneObject.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderPass.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SceneManager">
@@ -92,15 +62,6 @@
     </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{1d505f92-ea19-47bc-be08-29ec50a5e310}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Node">
-      <UniqueIdentifier>{9aa6fbd7-7084-411a-ad0f-ae937c462da1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneManager\Render Passes">
-      <UniqueIdentifier>{410dd937-3448-496d-8ef1-64f09e73841a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneManager\Management">
-      <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Light">
       <UniqueIdentifier>{234bc57a-b8e2-4263-9586-b6174ebe24ad}</UniqueIdentifier>
