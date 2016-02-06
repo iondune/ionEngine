@@ -14,9 +14,12 @@ namespace ion
 			void CPipelineState::SetProgram(IShaderProgram * inShaderProgram)
 			{
 				ShaderProgram = dynamic_cast<CShaderProgram *>(inShaderProgram);
+				if (! ShaderProgram->Linked)
+				{
+					ShaderProgram->Link();
+				}
 
-				set<string> ShaderUniforms = KeySet(ShaderProgram->Uniforms);
-				UnboundUniforms = vector<string>(ShaderUniforms.begin(), ShaderUniforms.end());
+				UnboundUniforms = KeySet(ShaderProgram->Uniforms);
 
 				Loaded = false;
 			}
@@ -40,33 +43,88 @@ namespace ion
 
 			void CPipelineState::SetUniform(string const & Name, IUniform * Uniform)
 			{
-				// BUGBUG Detect and notify if trying to set a uniform that's not needed
+				if (! ShaderProgram)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
 
 				if (Uniform)
 				{
-					Uniforms[Name] = Uniform;
-					EraseRemove(UnboundUniforms, Name);
+					if (UnboundUniforms.count(Name) == 1)
+					{
+						Uniforms[Name] = Uniform;
+						UnboundUniforms.erase(Name);
+					}
+					else
+					{
+						Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
+					}
 				}
 				else
 				{
-					Uniforms.erase(Name);
-					UnboundUniforms.push_back(Name);
+					if (Uniforms.erase(Name) == 1)
+					{
+						UnboundUniforms.insert(Name);
+					}
+					else
+					{
+						Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
+					}
 				}
 			}
 
 			void CPipelineState::SetTexture(string const & Name, ITexture * Texture)
 			{
-				// BUGBUG Detect and notify if trying to set a uniform that's not needed
+				if (! ShaderProgram)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
 
 				if (Texture)
 				{
-					Textures[Name] = Texture;
-					EraseRemove(UnboundUniforms, Name);
+					if (UnboundUniforms.count(Name) == 1)
+					{
+						Textures[Name] = Texture;
+						UnboundUniforms.erase(Name);
+					}
+					else
+					{
+						Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
+					}
 				}
 				else
 				{
-					Textures.erase(Name);
-					UnboundUniforms.push_back(Name);
+					if (Textures.erase(Name) == 1)
+					{
+						UnboundUniforms.insert(Name);
+					}
+					else
+					{
+						Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
+					}
+				}
+			}
+
+			void CPipelineState::OfferUniform(string const & Name, IUniform * Uniform)
+			{
+				if (! ShaderProgram)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				if (! Uniform)
+				{
+					Log::Error("Invalid paramter to CPipelineState::OfferUniform: expected non-null Uniform");
+					return;
+				}
+
+				if (UnboundUniforms.count(Name) == 1)
+				{
+					Uniforms[Name] = Uniform;
+					UnboundUniforms.erase(Name);
 				}
 			}
 
@@ -77,16 +135,16 @@ namespace ion
 
 			string CPipelineState::GetUnboundUniform(uint const Index) const
 			{
-				return UnboundUniforms[Index];
+				if (Index >= UnboundUniforms.size())
+				{
+					Log::Error("Attempting to GetUnboundUniform at index %u in an array of size %u", Index, UnboundUniforms.size());
+				}
+
+				return *std::next(UnboundUniforms.begin(), Index);
 			}
 
 			void CPipelineState::Load()
 			{
-				if (! ShaderProgram->Linked)
-				{
-					ShaderProgram->Link();
-				}
-
 				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
