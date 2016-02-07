@@ -35,6 +35,9 @@
     <ClInclude Include="CSimpleMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="CSimpleMeshSceneObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -67,6 +70,9 @@
     <ClCompile Include="CSimpleMesh.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="CSimpleMeshSceneObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SceneManager">
@@ -80,6 +86,9 @@
     </Filter>
     <Filter Include="Mesh">
       <UniqueIdentifier>{b6886fce-5fdb-403a-92e0-8848305b53ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{56eb5827-4c6e-48c2-a826-f2b91f313522}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
