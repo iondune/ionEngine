@@ -81,8 +81,8 @@ template <class Implementation>
 class Singleton
 {
 
-	Singleton(Singleton const &);
-	Singleton & operator = (Singleton const &);
+	Singleton(Singleton const &) = delete;
+	Singleton & operator = (Singleton const &) = delete;
 
 public:
 
