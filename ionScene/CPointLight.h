@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "CLight.h"
+#include "ILight.h"
 
 
 namespace ion

@@ -7,19 +7,30 @@
 #include "CRenderPass.h"
 
 
-class CSceneManager : public Singleton<CSceneManager>
+namespace ion
 {
+	namespace Scene
+	{
 
-public:
-	
-	virtual void DrawAll();
+		class CSceneManager : public Singleton<CSceneManager>
+		{
 
-protected:
+		public:
 
+			virtual void DrawAll();
 
-private:
+			void AddRenderPass(CRenderPass * RenderPass);
 
-	friend class Singleton<CSceneManager>;
-	CSceneManager();
+		protected:
 
-};
+			set<CRenderPass *> RenderPasses;
+
+		private:
+
+			friend class Singleton<CSceneManager>;
+			CSceneManager();
+
+		};
+
+	}
+}
