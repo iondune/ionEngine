@@ -151,13 +151,13 @@ namespace ion
 
 				// Set up VBOs (attributes)
 				size_t TotalStride = 0;
-				for (auto & InputLayoutElement : ShaderProgram->InputLayout)
+				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
 				{
 					TotalStride += GetValueTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
 				}
 
 				size_t CurrentOffset = 0;
-				for (auto & InputLayoutElement : ShaderProgram->InputLayout)
+				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
 				{
 					int AttributeLocation = -1;
 					CheckedGLCall(AttributeLocation = glGetAttribLocation(ShaderProgram->Handle, InputLayoutElement.Name.c_str())); // BUGBUG Get this through reflection?

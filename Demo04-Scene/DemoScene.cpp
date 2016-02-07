@@ -1,6 +1,7 @@
 
 #include <ionWindow.h>
 #include <ionGraphics.h>
+#include <ionGraphicsGL.h>
 #include <ionScene.h>
 
 using namespace ion;

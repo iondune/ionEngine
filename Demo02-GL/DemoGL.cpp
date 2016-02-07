@@ -44,8 +44,15 @@ int main()
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 
-	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
 	IIndexBuffer * IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
+	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
+	SInputLayoutElement InputLayout[] =
+	{
+		{ "vPosition", 2, EValueType::Float },
+		{ "vTexCoords", 2, EValueType::Float },
+		{ "vColor", 3, EValueType::Float },
+	};
+	VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
 
 	//////////////////
@@ -103,14 +110,6 @@ int main()
 	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
-
-	SInputLayoutElement InputLayout[] =
-	{
-		{ "vPosition", 2, EValueType::Float },
-		{ "vTexCoords", 2, EValueType::Float },
-		{ "vColor", 3, EValueType::Float },
-	};
-	ShaderProgram->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
 
 	///////////////

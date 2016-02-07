@@ -60,6 +60,16 @@ namespace ion
 
 		};
 
+		class IShaderProgram
+		{
+
+		public:
+
+			virtual void SetVertexStage(IVertexShader * VertexShader) = 0;
+			virtual void SetPixelStage(IPixelShader * PixelShader) = 0;
+
+		};
+
 		struct SInputLayoutElement
 		{
 			string Name = "";
@@ -74,23 +84,13 @@ namespace ion
 			}
 		};
 
-		class IShaderProgram
-		{
-
-		public:
-
-			virtual void SetVertexStage(IVertexShader * VertexShader) = 0;
-			virtual void SetPixelStage(IPixelShader * PixelShader) = 0;
-			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
-
-		};
-
 		class IVertexBuffer
 		{
 
 		public:
 
 			virtual ~IVertexBuffer() {}
+			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
 
 		};
 

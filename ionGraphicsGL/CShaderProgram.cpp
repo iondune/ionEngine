@@ -25,16 +25,6 @@ namespace ion
 				CheckedGLCall(glAttachShader(Handle, dynamic_cast<CPixelShader *>(PixelShader)->Handle));
 			}
 
-			void CShaderProgram::SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements)
-			{
-				this->InputLayout.clear();
-
-				for (int i = 0; i < NumElements; ++ i)
-				{
-					this->InputLayout.push_back(InputLayout[i]);
-				}
-			}
-
 			void CShaderProgram::Link()
 			{
 				CheckedGLCall(glBindFragDataLocation(Handle, 0, "outColor"));

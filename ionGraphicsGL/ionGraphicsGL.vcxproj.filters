@@ -78,6 +78,9 @@
     <ClCompile Include="CTexture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="CVertexBuffer.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">
