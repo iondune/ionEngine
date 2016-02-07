@@ -30,13 +30,12 @@ int main()
 
 
 	ICamera * Camera = nullptr;
-	SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera((Window->GetAspectRatio())));
-	Camera->SetPosition(vec3f(0, 0, -3));
+	//SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera((Window->GetAspectRatio())));
+	//Camera->SetPosition(vec3f(0, 0, -3));
 
-	ion::GL::Context::Init();
-	while (! WindowManager->ShouldClose())
+	//ion::GL::Context::Init();
+	while (WindowManager->Run())
 	{
-		WindowManager->PollEvents();
 		SceneManager->DrawAll();
 		Window->SwapBuffers();
 	}
