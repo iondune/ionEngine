@@ -16,7 +16,10 @@ namespace ion
 
 		public:
 
+			CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI);
+
 			virtual string const & GetName() const;
+			Graphics::IGraphicsAPI * GetGraphicsAPI();
 
 			virtual ICamera * GetActiveCamera();
 			virtual ICamera const * GetActiveCamera() const;
@@ -45,6 +48,8 @@ namespace ion
 			Graphics::CUniformValue<glm::mat4> uProjectionMatrix;
 			Graphics::CUniformValue<glm::mat4> uViewMatrix;
 			Graphics::CUniformValue<vec3f> uCameraPosition;
+
+			Graphics::IGraphicsAPI * GraphicsAPI = nulltpr;
 
 		};
 

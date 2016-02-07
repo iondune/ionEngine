@@ -15,6 +15,11 @@ namespace ion
 			return Visible;
 		}
 
+		bool ISceneObject::IsLoaded() const
+		{
+			return Loaded;
+		}
+
 		void ISceneObject::SetVisible(bool const isVisible)
 		{
 			Visible = isVisible;

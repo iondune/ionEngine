@@ -28,6 +28,9 @@ namespace ion
 			//! Check if visible
 			virtual bool IsVisible() const;
 
+			//! Check if loaded
+			virtual bool IsLoaded() const;
+
 			//! Set visibility
 			virtual void SetVisible(bool const isVisible);
 

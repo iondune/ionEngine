@@ -7,9 +7,19 @@ namespace ion
 	namespace Scene
 	{
 
+		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI)
+		{
+			this->GraphicsAPI = GraphicsAPI;
+		}
+
 		string const & CRenderPass::GetName() const
 		{
 			return Name;
+		}
+
+		Graphics::IGraphicsAPI * CRenderPass::GetGraphicsAPI()
+		{
+			return GraphicsAPI;
 		}
 
 		ICamera * CRenderPass::GetActiveCamera()
@@ -51,7 +61,10 @@ namespace ion
 		{
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
-				SceneObject->Load(this);
+				if (! SceneObject->IsLoaded())
+				{
+					SceneObject->Load(this);
+				}
 			});
 		}
 
