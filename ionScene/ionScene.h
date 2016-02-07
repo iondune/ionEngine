@@ -17,6 +17,9 @@
 #include "CRenderPass.h"
 #include "CSceneManager.h"
 
+#include "CSimpleMesh.h"
+#include "CGeometryCreator.h"
+
 
 namespace ion
 {
