@@ -98,6 +98,9 @@ namespace ion
 			//! Whether or not to draw this object
 			bool Visible = true;
 
+			//! Whether this object has been loaded yet
+			bool Loaded = false;
+
 			bool UseExplicitTransformation = false;
 			glm::mat4 ExplicitTransformation;
 

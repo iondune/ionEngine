@@ -11,9 +11,6 @@
     <ClInclude Include="ICamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CLight.h">
-      <Filter>Light</Filter>
-    </ClInclude>
     <ClInclude Include="CPointLight.h">
       <Filter>Light</Filter>
     </ClInclude>
@@ -29,6 +26,9 @@
     <ClInclude Include="CRenderPass.h">
       <Filter>SceneManager</Filter>
     </ClInclude>
+    <ClInclude Include="ILight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -36,9 +36,6 @@
     </ClCompile>
     <ClCompile Include="CPerspectiveCamera.cpp">
       <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CLight.cpp">
-      <Filter>Light</Filter>
     </ClCompile>
     <ClCompile Include="CPointLight.cpp">
       <Filter>Light</Filter>
@@ -54,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="CRenderPass.cpp">
       <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ILight.cpp">
+      <Filter>Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

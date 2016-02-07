@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ICamera.h"
+#include "ILight.h"
 #include "ISceneObject.h"
 
 
@@ -21,6 +22,9 @@ namespace ion
 			virtual ICamera const * GetActiveCamera() const;
 			virtual void SetActiveCamera(ICamera * Camera);
 
+			virtual void AddLight(ILight * Light);
+			virtual void RemoveLight(ILight * Light);
+
 			virtual void AddSceneObject(ISceneObject * SceneObject);
 			virtual void RemoveSceneObject(ISceneObject * SceneObject);
 
@@ -34,8 +38,13 @@ namespace ion
 
 			ICamera * ActiveCamera = nullptr;
 			set<ISceneObject *> SceneObjects;
+			set<ILight *> Lights;
 			map<string, Graphics::IUniform *> Uniforms;
 			string Name;
+
+			Graphics::CUniformValue<glm::mat4> uProjectionMatrix;
+			Graphics::CUniformValue<glm::mat4> uViewMatrix;
+			Graphics::CUniformValue<vec3f> uCameraPosition;
 
 		};
 

@@ -27,6 +27,16 @@ namespace ion
 			ActiveCamera = Camera;
 		}
 
+		void CRenderPass::AddLight(ILight * Light)
+		{
+			Lights.insert(Light);
+		}
+
+		void CRenderPass::RemoveLight(ILight * Light)
+		{
+			Lights.erase(Light);
+		}
+
 		void CRenderPass::AddSceneObject(ISceneObject * SceneObject)
 		{
 			SceneObjects.insert(SceneObject);
@@ -55,6 +65,11 @@ namespace ion
 
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState)
 		{
+			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
+			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
+			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
+
+			PipelineState->Load();
 		}
 
 		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState)
