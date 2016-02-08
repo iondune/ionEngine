@@ -19,6 +19,7 @@
 
 #include "CSimpleMesh.h"
 #include "CGeometryCreator.h"
+#include "CSimpleMeshSceneObject.h"
 
 
 namespace ion
