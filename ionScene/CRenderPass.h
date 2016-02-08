@@ -34,8 +34,8 @@ namespace ion
 			virtual void Load();
 			virtual void Draw();
 
-			virtual void PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState);
-			virtual void SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState);
+			virtual void PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject);
+			virtual void SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject);
 
 		protected:
 
@@ -48,6 +48,7 @@ namespace ion
 			Graphics::CUniformValue<glm::mat4> uProjectionMatrix;
 			Graphics::CUniformValue<glm::mat4> uViewMatrix;
 			Graphics::CUniformValue<vec3f> uCameraPosition;
+			Graphics::CUniformValue<glm::mat4> uModelMatrix;
 
 			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 

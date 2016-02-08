@@ -83,8 +83,11 @@ namespace ion
 			});
 		}
 
-		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState)
+		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
+			uModelMatrix = SceneObject->GetTransformation();
+
+			PipelineState->OfferUniform("uModelMatrx", &uModelMatrix);
 			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
 			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
 			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
@@ -92,8 +95,9 @@ namespace ion
 			PipelineState->Load();
 		}
 
-		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState)
+		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
+			GraphicsAPI->Draw(PipelineState);
 		}
 
 	}
