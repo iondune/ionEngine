@@ -41,4 +41,4 @@ Doxygen-generated documentation can be found "here":http://www.ionengine3d.com/d
 
 h2. License
 
-The ionEngine is licensed under the "ISC license":http://opensource.org/licenses/ISC
+The ionEngine is licensed under the "MIT license":http://opensource.org/licenses/MIT
