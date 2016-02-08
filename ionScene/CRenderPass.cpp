@@ -79,7 +79,10 @@ namespace ion
 		{
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
-				SceneObject->Draw(this);
+				if (SceneObject->IsVisible())
+				{
+					SceneObject->Draw(this);
+				}
 			});
 		}
 
