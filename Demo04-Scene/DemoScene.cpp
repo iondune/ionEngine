@@ -5,8 +5,8 @@
 #include <ionScene.h>
 
 using namespace ion;
-using namespace Scene;
-using namespace Graphics;
+using namespace ion::Scene;
+using namespace ion::Graphics;
 
 
 int main()

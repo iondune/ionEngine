@@ -1,9 +1,11 @@
 
 #include <ionWindow.h>
+#include <ionFramework.h>
 #include <ionGraphics.h>
 #include <ionGraphicsGL.h>
 
 
+using namespace ion;
 using namespace ion::Graphics;
 
 

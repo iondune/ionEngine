@@ -8,3 +8,5 @@
 #include "CStateManager.h"
 
 #include "ionDirectory.h"
+
+#include "CImage.h"
