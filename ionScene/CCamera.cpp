@@ -27,6 +27,11 @@ namespace ion
 			RecalculateViewMatrix();
 		}
 
+		vec3f const & CCamera::GetPosition() const
+		{
+			return Position;
+		}
+
 		vec3f const & CCamera::GetLookDirecton() const
 		{
 			return LookDirection;
@@ -40,6 +45,11 @@ namespace ion
 		vec3f const & CCamera::GetUpVector() const
 		{
 			return UpVector;
+		}
+
+		void CCamera::SetPosition(vec3f const & position)
+		{
+			Position = position;
 		}
 
 		void CCamera::SetLookDirection(vec3f const & lookDirection)

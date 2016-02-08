@@ -16,6 +16,7 @@ namespace ion
 
 			virtual glm::mat4 GetViewMatrix() const = 0;
 			virtual glm::mat4 GetProjectionMatrix() const = 0;
+			virtual vec3f const & GetPosition() const = 0;
 
 			virtual void Update() = 0;
 
