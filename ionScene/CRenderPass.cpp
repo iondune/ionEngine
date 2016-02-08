@@ -85,8 +85,6 @@ namespace ion
 
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
-			uModelMatrix = SceneObject->GetTransformation();
-
 			PipelineState->OfferUniform("uModelMatrx", &uModelMatrix);
 			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
 			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
@@ -97,6 +95,8 @@ namespace ion
 
 		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
+			uModelMatrix = SceneObject->GetTransformation();
+
 			GraphicsAPI->Draw(PipelineState);
 		}
 
