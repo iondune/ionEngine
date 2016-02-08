@@ -4,7 +4,6 @@
 #include <ionMath.h>
 
 #include "CWindow.h"
-#undef CreateWindow
 
 
 enum class EWindowType
@@ -23,6 +22,7 @@ public:
 	bool ShouldClose() const;
 	bool Run();
 
+#undef CreateWindow
 	CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 
 protected:
