@@ -3,7 +3,7 @@
 
   <ItemDefinitionGroup>
     <PostBuildEvent>
-      <Command>copy "$(VisualStudioDir)\SDKs\DLLs\*" "$(TargetDir)"</Command>
+      <Command>xcopy /I /R /Y /D /F "$(VisualStudioDir)\SDKs\DLLs\*" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
 
