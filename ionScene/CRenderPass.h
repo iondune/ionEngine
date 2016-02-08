@@ -49,7 +49,7 @@ namespace ion
 			Graphics::CUniformValue<glm::mat4> uViewMatrix;
 			Graphics::CUniformValue<vec3f> uCameraPosition;
 
-			Graphics::IGraphicsAPI * GraphicsAPI = nulltpr;
+			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
 		};
 
