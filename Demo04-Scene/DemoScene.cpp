@@ -52,8 +52,12 @@ int main()
 	Camera->SetPosition(vec3f(0, 0, -3));
 	RenderPass->SetActiveCamera(Camera);
 
+	IRenderTarget * RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
+	RenderTarget->SetClearColor(color3f(0.3f));
+
 	while (WindowManager->Run())
 	{
+		RenderTarget->ClearColorAndDepth();
 		SceneManager->DrawAll();
 		Window->SwapBuffers();
 	}
