@@ -50,9 +50,9 @@ int main()
 	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
 	SInputLayoutElement InputLayout[] =
 	{
-		{ "vPosition", 2, EValueType::Float },
-		{ "vTexCoords", 2, EValueType::Float },
-		{ "vColor", 3, EValueType::Float },
+		{ "vPosition", 2, EAttributeType::Float },
+		{ "vTexCoords", 2, EAttributeType::Float },
+		{ "vColor", 3, EAttributeType::Float },
 	};
 	VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	

@@ -14,6 +14,7 @@ namespace ion
 		{
 
 			int GetValueTypeOpenGLEnum(EValueType const ValueType);
+			int GetAttributeTypeOpenGLEnum(EAttributeType const AttributeType);
 
 			bool OpenGLError();
 			void IgnoreOpenGLError();

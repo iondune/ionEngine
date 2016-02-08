@@ -49,6 +49,7 @@ namespace ion
 				map<u32, ITexture const *> BoundTextures;
 
 				set<string> UnboundUniforms;
+				set<string> UnboundAttributes;
 
 			};
 

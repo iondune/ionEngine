@@ -35,6 +35,23 @@ namespace ion
 				}
 			}
 
+			int GetAttributeTypeOpenGLEnum(EAttributeType const AttributeType)
+			{
+				switch (AttributeType)
+				{
+				case EAttributeType::Float:
+					return GL_FLOAT;
+				case EAttributeType::Double:
+					return GL_DOUBLE;
+				case EAttributeType::Int:
+					return GL_INT;
+				case EAttributeType::UnsignedInt:
+					return GL_UNSIGNED_INT;
+				default:
+					return 0;
+				}
+			}
+
 			static GLenum LastError = GL_NO_ERROR;
 
 			bool OpenGLError()

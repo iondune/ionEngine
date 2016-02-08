@@ -40,5 +40,22 @@ namespace ion
 			}
 		}
 
+		size_t GetAttributeTypeSize(EAttributeType const AttributeType)
+		{
+			switch (AttributeType)
+			{
+			case EAttributeType::Float:
+				return sizeof(float);
+			case EAttributeType::Double:
+				return sizeof(double);
+			case EAttributeType::Int:
+				return sizeof(s32);
+			case EAttributeType::UnsignedInt:
+				return sizeof(u32);
+			default:
+				return 0;
+			}
+		}
+
 	}
 }

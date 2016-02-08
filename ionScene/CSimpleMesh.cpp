@@ -139,9 +139,9 @@ namespace ion
 			Graphics::IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(VertexData.data(), VertexData.size());
 			Graphics::SInputLayoutElement InputLayout[] =
 			{
-				{ "vPosition",  3, Graphics::EValueType::Float },
-				{ "vNormal",    3, Graphics::EValueType::Float },
-				{ "vTexCoords", 2, Graphics::EValueType::Float },
+				{ "vPosition",  3, Graphics::EAttributeType::Float },
+				{ "vNormal",    3, Graphics::EAttributeType::Float },
+				{ "vTexCoords", 2, Graphics::EAttributeType::Float },
 			};
 			VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 			return VertexBuffer;

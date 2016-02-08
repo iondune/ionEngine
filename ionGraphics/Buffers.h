@@ -15,9 +15,9 @@ namespace ion
 		{
 			string Name = "";
 			int Components = 1;
-			EValueType Type = EValueType::Float;
+			EAttributeType Type = EAttributeType::Float;
 
-			SInputLayoutElement(string const & Name, int const Components, EValueType const Type)
+			SInputLayoutElement(string const & Name, int const Components, EAttributeType const Type)
 			{
 				this->Name = Name;
 				this->Components = Components;

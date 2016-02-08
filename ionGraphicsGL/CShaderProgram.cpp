@@ -88,7 +88,7 @@ namespace ion
 						char * Name = new char[ActiveAttributeMaxLength + 1];
 
 						CheckedGLCall(glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name));
-						Attributes[Name] = glGetAttribLocation(Handle, Name);
+						Attributes[Name] = make_pair(glGetAttribLocation(Handle, Name), DataType);
 						delete Name;
 					}
 				}

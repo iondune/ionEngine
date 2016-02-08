@@ -26,7 +26,7 @@ namespace ion
 				uint Handle = 0;
 				bool Linked = false;
 
-				map<string, uint> Attributes;
+				map<string, pair<uint, uint>> Attributes;
 				map<string, uint> Uniforms;
 			
 			};
