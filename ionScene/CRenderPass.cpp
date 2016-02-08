@@ -85,7 +85,7 @@ namespace ion
 
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
-			PipelineState->OfferUniform("uModelMatrx", &uModelMatrix);
+			PipelineState->OfferUniform("uModelMatrix", &uModelMatrix);
 			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
 			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
 			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
