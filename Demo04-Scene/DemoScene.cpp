@@ -27,13 +27,31 @@ int main()
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 
 	CSimpleMesh * Mesh = CGeometryCreator::CreateSphere();
+	IVertexShader * VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
+	IPixelShader * PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
 
+	if (! VertexShader)
+		std::cerr << "Failed to compile vertex shader!" << std::endl;
 
-	ICamera * Camera = nullptr;
-	//SceneManager->GetScene()->SetActiveCamera(Camera = SceneManager->GetFactory()->AddPerspectiveCamera((Window->GetAspectRatio())));
-	//Camera->SetPosition(vec3f(0, 0, -3));
+	if (! PixelShader)
+		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	//ion::GL::Context::Init();
+	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	ShaderProgram->SetVertexStage(VertexShader);
+	ShaderProgram->SetPixelStage(PixelShader);
+
+	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI);
+	SceneManager->AddRenderPass(RenderPass);
+
+	CSimpleMeshSceneObject * SceneObject = new CSimpleMeshSceneObject();
+	SceneObject->SetMesh(Mesh);
+	SceneObject->SetShader(ShaderProgram);
+	RenderPass->AddSceneObject(SceneObject);
+
+	CPerspectiveCamera * Camera = new CPerspectiveCamera();
+	Camera->SetPosition(vec3f(0, 0, -3));
+	RenderPass->SetActiveCamera(Camera);
+
 	while (WindowManager->Run())
 	{
 		SceneManager->DrawAll();
