@@ -256,6 +256,11 @@ namespace ion
 					}
 				}
 
+				std::for_each(UnboundUniforms.begin(), UnboundUniforms.end(), [](string const & Uniform)
+				{
+					Log::Error("Uniform expected by shader but not provided by PSO: %s", Uniform);
+				});
+
 				Loaded = true;
 			}
 
