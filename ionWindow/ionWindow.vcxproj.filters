@@ -8,6 +8,7 @@
       <Filter>Events</Filter>
     </ClCompile>
     <ClCompile Include="CTimeManager.cpp" />
+    <ClCompile Include="CGamePad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CWindow.h" />
@@ -29,6 +30,10 @@
     </ClInclude>
     <ClInclude Include="ionWindow.h" />
     <ClInclude Include="CTimeManager.h" />
+    <ClInclude Include="CGamePad.h" />
+    <ClInclude Include="EGamePadButton.h">
+      <Filter>Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Events">

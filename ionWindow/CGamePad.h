@@ -2,8 +2,8 @@
 #pragma once
 
 #include <ionMath.h>
+
 #include "EGamePadButton.h"
-#include "CCameraController.h"
 
 
 class CGamePad
@@ -28,19 +28,5 @@ public:
 	void UpdateState();
 
 	CGamePad();
-
-};
-
-class CGamePadCameraController : public CCameraController, public CGamePad
-{
-
-public:
-
-	CGamePadCameraController(ICamera * Camera);
-	virtual void Update(f64 const TickTime);
-
-protected:
-
-	f32 FocalLengthAccumulator = 0;
 
 };

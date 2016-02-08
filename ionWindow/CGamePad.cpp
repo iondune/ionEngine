@@ -1,7 +1,7 @@
 
 #include "CGamePad.h"
 
-#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
+#ifdef ION_CONFIG_WINDOWS
 	#include <windows.h>
 	#include <xinput.h>
 
@@ -58,7 +58,7 @@ static inline f32 GamepadTrigger(u8 in)
 
 void CGamePad::UpdateState()
 {
-#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
+#ifdef ION_CONFIG_WINDOWS
 	if (pXInputGetState)
 	{
 		XINPUT_STATE XInputState;
@@ -94,7 +94,7 @@ void CGamePad::UpdateState()
 CGamePad::CGamePad()
 	: LeftTrigger(0), RightTrigger(0)
 {
-#ifdef _ION_CONFIG_WINDOWS_GAMEPAD
+#ifdef ION_CONFIG_WINDOWS
 	if (! hXInputModule)
 		hXInputModule = ::LoadLibraryA("Xinput9_1_0.dll");
 
@@ -104,71 +104,4 @@ CGamePad::CGamePad()
 
 	for (int i = 0; i < (int) EGamePadButton::Count; ++ i)
 		ButtonPressed[i] = false;
-}
-
-CGamePadCameraController::CGamePadCameraController(ICamera * Camera)
-: CCameraController(Camera)
-{}
-
-void CGamePadCameraController::Update(f64 const TickTime)
-{
-	UpdateState();
-
-	vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
-	vec3f const UpVector = Camera->GetUpVector();
-	vec3f Translation = Camera->GetTranslation();
-
-	vec3f const W = -1 * LookDirection;
-	vec3f const V = UpVector.CrossProduct(LookDirection).GetNormalized();
-	vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
-
-	f32 const RightMod = (1.f + 5.f * GetRightTrigger());
-	f32 const LeftMod = (1.f / (1.f + 10.f * GetLeftTrigger()));
-
-	// Movement - Left Axis
-	f32 const MoveDelta = MoveSpeed * (f32) TickTime * RightMod * LeftMod;
-	Translation += LookDirection * MoveDelta * GetLeftStick().Y;
-	Translation -= V * MoveDelta * GetLeftStick().X;
-	if (IsButtonPressed(EGamePadButton::LeftShoulder))
-		Translation.Y -= MoveDelta;
-	if (IsButtonPressed(EGamePadButton::RightShoulder))
-		Translation.Y += MoveDelta;
-	Camera->SetTranslation(Translation);
-
-	// Look - Right Axis
-	f32 const LookMod = 10.f * LeftMod;
-	Theta += (GetRightStick().X) * LookMod * LookSpeed;
-	Phi += (GetRightStick().Y) * LookMod * LookSpeed;
-
-	// Focal Length - DPad
-	f32 const ZoomSpeed = 100.f;
-	f32 const ZoomMod = 1.01f;
-	CPerspectiveCamera * PerspectiveCamera = nullptr;
-	if ((PerspectiveCamera = As<CPerspectiveCamera>(Camera)))
-	{
-		f32 FocalLength = PerspectiveCamera->GetFocalLength();
-		if (IsButtonPressed(EGamePadButton::DPadUp))
-			FocalLengthAccumulator += ZoomSpeed * (f32) TickTime;
-		if (IsButtonPressed(EGamePadButton::DPadDown))
-			FocalLengthAccumulator -= ZoomSpeed * (f32) TickTime;
-		if (FocalLengthAccumulator > 1)
-		{
-			while (FocalLengthAccumulator > 1)
-			{
-				FocalLengthAccumulator -= 1.f;
-				FocalLength *= ZoomMod;
-			}
-		}
-		else if (FocalLengthAccumulator < -1)
-		{
-			while (FocalLengthAccumulator < -1)
-			{
-				FocalLengthAccumulator += 1.f;
-				FocalLength /= ZoomMod;
-			}
-		}
-		PerspectiveCamera->SetFocalLength(FocalLength);
-	}
-
-	CCameraController::Update(TickTime);
 }
