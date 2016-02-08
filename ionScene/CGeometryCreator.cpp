@@ -421,7 +421,7 @@ namespace ion
 				}
 			}
 
-			return CSimpleMesh::FromAttributes(Indices, Positions, Normals, vector<f32>(), TexCoords);
+			return CSimpleMesh::FromAttributes(Indices, Positions, Normals, TexCoords);
 		}
 
 		CSimpleMesh * CGeometryCreator::CreateSkySphere()

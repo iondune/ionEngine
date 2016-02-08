@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionGraphics.h>
 
 
 namespace ion
@@ -19,16 +20,14 @@ namespace ion
 			{
 
 				SVertex();
-				SVertex(vec3f const & position,
+				SVertex(
+					vec3f const & position,
 					vec3f const & normal = vec3f(),
-					vec2f const & texture = vec2f(),
-					color4f const & color = color4f());
+					vec2f const & texture = vec2f());
 
 				vec3f Position;
 				vec3f Normal;
 				vec2f TextureCoordinates;
-
-				color4f Color;
 
 			};
 
@@ -49,13 +48,15 @@ namespace ion
 			static CSimpleMesh * FromAttributes(vector<uint> Indices,
 				vector<f32> const & Positions,
 				vector<f32> const & Normals = vector<f32>(),
-				vector<f32> const & Colors = vector<f32>(),
 				vector<f32> const & TexCoords = vector<f32>());
 
 			SBoundingBox3f GetBoundingBox() const;
 
 			void ResizeMesh(vec3f const & Scale);
 			void ReverseFaces();
+
+			Graphics::IIndexBuffer * CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+			Graphics::IVertexBuffer * CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 
 		};
 
