@@ -8,6 +8,23 @@
 #include <GL/glew.h>
 
 
+
+static void PrintProgramInfoLog(GLint const Shader)
+{
+	int InfoLogLength = 0;
+	int CharsWritten = 0;
+
+	glGetProgramiv(Shader, GL_INFO_LOG_LENGTH, & InfoLogLength);
+
+	if (InfoLogLength > 0)
+	{
+		GLchar * InfoLog = new GLchar[InfoLogLength];
+		glGetProgramInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
+		Log::Error("Program Info Log: %s", InfoLog);
+		delete[] InfoLog;
+	}
+}
+
 namespace ion
 {
 	namespace Graphics
@@ -17,12 +34,18 @@ namespace ion
 			
 			void CShaderProgram::SetVertexStage(IVertexShader * VertexShader)
 			{
-				CheckedGLCall(glAttachShader(Handle, dynamic_cast<CVertexShader *>(VertexShader)->Handle));
+				if (VertexShader)
+				{
+					CheckedGLCall(glAttachShader(Handle, dynamic_cast<CVertexShader *>(VertexShader)->Handle));
+				}
 			}
 
 			void CShaderProgram::SetPixelStage(IPixelShader * PixelShader)
 			{
-				CheckedGLCall(glAttachShader(Handle, dynamic_cast<CPixelShader *>(PixelShader)->Handle));
+				if (PixelShader)
+				{
+					CheckedGLCall(glAttachShader(Handle, dynamic_cast<CPixelShader *>(PixelShader)->Handle));
+				}
 			}
 
 			void CShaderProgram::Link()
@@ -68,6 +91,11 @@ namespace ion
 						Attributes[Name] = glGetAttribLocation(Handle, Name);
 						delete Name;
 					}
+				}
+				else
+				{
+					Log::Error("Failed to link shader program.");
+					PrintProgramInfoLog(Handle);
 				}
 
 			}

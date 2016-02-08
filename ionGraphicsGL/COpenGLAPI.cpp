@@ -26,7 +26,7 @@ static void PrintShaderInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		std::cout << "Shader Info Log:" << std::endl << InfoLog << std::endl;
+		Log::Error("Shader Info Log: %s", InfoLog);
 		delete[] InfoLog;
 	}
 }
@@ -182,12 +182,20 @@ namespace ion
 
 		IVertexShader * COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
-			return nullptr;
+			if (! File::Exists(FileName))
+			{
+				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
+			}
+			return CreateVertexShaderFromSource(File::ReadAsString(FileName));
 		}
 
 		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
 		{
-			return nullptr;
+			if (! File::Exists(FileName))
+			{
+				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
+			}
+			return CreatePixelShaderFromSource(File::ReadAsString(FileName));
 		}
 
 		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
@@ -203,7 +211,7 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(VertexShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				std::cerr << "Failed to compile vertex shader!" << std::endl;
+				Log::Error("Failed to compile vertex shader!");
 				PrintShaderInfoLog(VertexShader->Handle);
 			}
 			return VertexShader;
@@ -222,7 +230,7 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(PixelShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				std::cerr << "Failed to compile vertex shader!" << std::endl;
+				Log::Error("Failed to compile vertex shader!");
 				PrintShaderInfoLog(PixelShader->Handle);
 			}
 			return PixelShader;
@@ -278,12 +286,12 @@ namespace ion
 			}
 			else
 			{
-				cerr << "Function is not loaded: glTexStorage2D" << endl;
+				Log::Error("Function is not loaded: glTexStorage2D");
 			}
 			if (GL::OpenGLError())
 			{
-				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
-				cerr << "Handle is " << Texture2D->Handle << endl;
+				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture2D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
@@ -309,8 +317,8 @@ namespace ion
 			glTexStorage3D(GL_TEXTURE_3D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
 			if (GL::OpenGLError())
 			{
-				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
-				cerr << "Handle is " << Texture3D->Handle << endl;
+				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture3D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 

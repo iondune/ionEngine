@@ -17,6 +17,13 @@ namespace ion
 				if (! ShaderProgram->Linked)
 				{
 					ShaderProgram->Link();
+
+					if (! ShaderProgram->Linked)
+					{
+						Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
+						ShaderProgram = nullptr;
+						return;
+					}
 				}
 
 				UnboundUniforms = KeySet(ShaderProgram->Uniforms);
@@ -145,6 +152,12 @@ namespace ion
 
 			void CPipelineState::Load()
 			{
+				if (! ShaderProgram || ! VertexBuffer || ! IndexBuffer)
+				{
+					Log::Error("Attempting to load an invalid PipelineState");
+					return;
+				}
+
 				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
