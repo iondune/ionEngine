@@ -11,11 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Buffers.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
+    <ClInclude Include="IPipelineState.h" />
+    <ClInclude Include="IRenderTarget.h" />
+    <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Uniforms.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IGraphicsAPI.cpp" />
+    <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="Uniforms.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21F131D8-D333-4188-A27B-3E75425D6F7F}</ProjectGuid>
