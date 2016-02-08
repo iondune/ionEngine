@@ -10,19 +10,27 @@ namespace ion
 
 		void CSimpleMeshSceneObject::Load(CRenderPass * RenderPass)
 		{
+			if (! Mesh || ! Shader)
+			{
+				return;
+			}
+
 			if (! PipelineState)
 			{
 				PipelineState = RenderPass->GetGraphicsAPI()->CreatePipelineState();
 			}
 
-			if (! Mesh)
-			{
-				
-			}
+			PipelineState->SetIndexBuffer(Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetVertexBuffer(Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetProgram(Shader);
+
+			Loaded = true;
+			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 		}
 
 		void CSimpleMeshSceneObject::Draw(CRenderPass * RenderPass)
 		{
+			RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
 		}
 
 		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
