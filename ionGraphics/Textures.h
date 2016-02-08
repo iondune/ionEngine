@@ -42,15 +42,6 @@ namespace ion
 			enum class EInternalFormatType
 			{
 				Fix8 = 0,
-				Fix16 = 1,
-				U8 = 2,
-				U16 = 3,
-				U32 = 4,
-				S8 = 5,
-				S16 = 6,
-				S32 = 7,
-				F16 = 8,
-				F32 = 9,
 			};
 
 			enum class EMipMaps
