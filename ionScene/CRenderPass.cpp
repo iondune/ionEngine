@@ -59,6 +59,13 @@ namespace ion
 
 		void CRenderPass::Load()
 		{
+			if (ActiveCamera)
+			{
+				uViewMatrix = ActiveCamera->GetViewMatrix();
+				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uCameraPosition = ActiveCamera->GetPosition();
+			}
+
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
 				if (! SceneObject->IsLoaded())
