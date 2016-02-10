@@ -24,6 +24,7 @@ int main()
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoScene", EWindowType::Windowed);
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
+	SceneManager->Init(GraphicsAPI);
 
 
 	///////////////////
@@ -48,7 +49,7 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI);
+	CRenderPass * RenderPass = new CRenderPass();
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());

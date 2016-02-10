@@ -7,10 +7,8 @@ namespace ion
 	namespace Scene
 	{
 
-		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI)
-		{
-			this->GraphicsAPI = GraphicsAPI;
-		}
+		CRenderPass::CRenderPass()
+		{}
 
 		string const & CRenderPass::GetName() const
 		{
@@ -20,6 +18,11 @@ namespace ion
 		Graphics::IGraphicsAPI * CRenderPass::GetGraphicsAPI()
 		{
 			return GraphicsAPI;
+		}
+
+		void CRenderPass::SetGraphicsAPI(Graphics::IGraphicsAPI * GraphicsAPI)
+		{
+			this->GraphicsAPI = GraphicsAPI;
 		}
 
 		ICamera * CRenderPass::GetActiveCamera()

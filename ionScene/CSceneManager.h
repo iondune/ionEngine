@@ -17,13 +17,15 @@ namespace ion
 
 		public:
 
+			virtual void Init(Graphics::IGraphicsAPI * GraphicsAPI);
 			virtual void DrawAll();
 
-			void AddRenderPass(CRenderPass * RenderPass);
+			virtual void AddRenderPass(CRenderPass * RenderPass);
 
 		protected:
 
 			set<CRenderPass *> RenderPasses;
+			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
 		private:
 

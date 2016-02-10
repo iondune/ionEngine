@@ -28,6 +28,7 @@ int main()
 	TimeManager->Init();
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
+	SceneManager->Init(GraphicsAPI);
 	AssetManager->Init(GraphicsAPI);
 	AssetManager->SetAssetPath("Assets/");
 	AssetManager->SetShaderPath("Shaders/");
@@ -55,7 +56,7 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI);
+	CRenderPass * RenderPass = new CRenderPass();
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());

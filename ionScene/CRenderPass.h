@@ -18,10 +18,11 @@ namespace ion
 
 		public:
 
-			CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI);
+			CRenderPass();
 
 			virtual string const & GetName() const;
-			Graphics::IGraphicsAPI * GetGraphicsAPI();
+			virtual Graphics::IGraphicsAPI * GetGraphicsAPI();
+			virtual void SetGraphicsAPI(Graphics::IGraphicsAPI * GraphicsAPI);
 
 			virtual ICamera * GetActiveCamera();
 			virtual ICamera const * GetActiveCamera() const;
