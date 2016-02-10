@@ -48,7 +48,7 @@ int main()
 	SceneObject->SetShader(ShaderProgram);
 	RenderPass->AddSceneObject(SceneObject);
 
-	CPerspectiveCamera * Camera = new CPerspectiveCamera();
+	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());
 	Camera->SetPosition(vec3f(0, 0, -3));
 	RenderPass->SetActiveCamera(Camera);
 

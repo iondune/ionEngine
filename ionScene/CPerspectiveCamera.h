@@ -4,7 +4,6 @@
 #include "CCamera.h"
 
 
-
 namespace ion
 {
 	namespace Scene
@@ -15,7 +14,7 @@ namespace ion
 
 		public:
 
-			CPerspectiveCamera(f32 const aspectRatio = 16.f / 9.f, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 0.13f);
+			CPerspectiveCamera(f32 const aspectRatio, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 0.13f);
 
 			f32 GetFieldOfView() const;
 			f32 GetFocalLength() const;
