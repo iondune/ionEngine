@@ -55,5 +55,11 @@ namespace ion
 			return EValueType::SignedInt32;
 		}
 
+		template <>
+		EValueType IUniformTyped<uint>::GetType() const
+		{
+			return EValueType::UnsignedInt32;
+		}
+
 	}
 }
