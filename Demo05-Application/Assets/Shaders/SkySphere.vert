@@ -15,5 +15,5 @@ void main()
 {
 	vec4 Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(vPosition, 1.0);
 	gl_Position = Position.xyww;
-	fTexCoord = TexCoord;
+	fTexCoord = vTexCoords;
 }

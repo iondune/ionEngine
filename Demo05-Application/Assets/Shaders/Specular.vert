@@ -19,22 +19,22 @@ uniform int uLightCount;
 uniform SLight uLights[LIGHT_MAX];
 uniform vec3 uCameraPosition;
 
-out vec3 fLight[LIGHT_MAX];
+out vec3 fLightVector[LIGHT_MAX];
 out vec3 fEye;
 out vec3 fNormal;
 
 
 void main()
 {
-	vec4 Position = uModelMatrix * vec4(Position, 1.0);
+	vec4 Position = uModelMatrix * vec4(vPosition, 1.0);
 
 	for (int i = 0; i < LIGHT_MAX && i < uLightCount; ++ i)
 	{
-		fLight[i] = uLights[i].Position - vec3(Position);
+		fLightVector[i] = uLights[i].Position - vec3(Position);
 	}
 
 	fEye = normalize(uCameraPosition - Position.xyz);
-	fNormal = Normal;
+	fNormal = vNormal;
 
 	gl_Position = uProjectionMatrix * uViewMatrix * Position;
 }

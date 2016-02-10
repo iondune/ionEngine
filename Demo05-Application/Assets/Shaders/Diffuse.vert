@@ -30,7 +30,7 @@ void main()
 	for (int i = 0; i < LIGHT_MAX && i < uLightCount; ++ i)
 		fLight[i] = uLights[i].Position - vec3(Position);
 
-	fNormal = Normal;
+	fNormal = vNormal;
 
 	gl_Position = uProjectionMatrix * uViewMatrix * Position;
 }

@@ -37,12 +37,12 @@ void main()
 
 	for (int i = 0; i < LIGHT_MAX && i < uLightCount; ++ i)
 	{
-		vec3 nLight = normalize(vLight[i]);
-		vec3 nNormal = normalize(vNormal);
+		vec3 nLight = normalize(fLight[i]);
+		vec3 nNormal = normalize(fNormal);
 		vec3 Reflection = reflect(-nLight, nNormal);
 
 		float Shading = clamp(dot(nNormal, nLight), 0.0, 1.0);
-		float Distance = length(vLight[i]);
+		float Distance = length(fLight[i]);
 		float Attenuation = 1.0 / sq(Distance / uLights[i].Radius + 1);
 		Diffuse += uMaterial.DiffuseColor * Shading * Attenuation * uLights[i].Color;
 	}
