@@ -6,6 +6,7 @@ namespace ion
 {
 	namespace Scene
 	{
+
 		CPointLight::CPointLight()
 		{
 			Attributes["Color"] = &Color;
