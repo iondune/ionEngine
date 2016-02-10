@@ -18,9 +18,12 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="ionApplication.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAssetManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

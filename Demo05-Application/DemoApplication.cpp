@@ -10,33 +10,6 @@ using namespace ion::Scene;
 using namespace ion::Graphics;
 
 
-IShaderProgram * LoadShader(IGraphicsAPI * GraphicsAPI, string const & Name)
-{
-	string const ShaderDirectory = "Assets/Shaders/";
-
-	IVertexShader * VertexShader = GraphicsAPI->CreateVertexShaderFromFile(ShaderDirectory + Name + ".vert");
-	IPixelShader * PixelShader = GraphicsAPI->CreatePixelShaderFromFile(ShaderDirectory + Name + ".frag");
-
-	if (! VertexShader)
-	{
-		Log::Error("Failed to compile vertex shader '%s'", Name);
-		return nullptr;
-	}
-
-	if (! PixelShader)
-	{
-		Log::Error("Failed to compile pixel shader '%s'", Name);
-		return nullptr;
-	}
-
-	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
-	ShaderProgram->SetVertexStage(VertexShader);
-	ShaderProgram->SetPixelStage(PixelShader);
-
-	return ShaderProgram;
-}
-
-
 int main()
 {
 	////////////////////
@@ -48,12 +21,17 @@ int main()
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CTimeManager> TimeManager;
 	SingletonPointer<CSceneManager> SceneManager;
+	SingletonPointer<CAssetManager> AssetManager;
 
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoApplication", EWindowType::Windowed);
 	TimeManager->Init();
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
+	AssetManager->Init(GraphicsAPI);
+	AssetManager->SetAssetPath("Assets/");
+	AssetManager->SetShaderPath("Shaders/");
+	AssetManager->SetTexturePath("Images/");
 
 
 	/////////////////
@@ -64,14 +42,12 @@ int main()
 	CSimpleMesh * SkySphereMesh = CGeometryCreator::CreateSkySphere();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
-	IShaderProgram * DiffuseShader = LoadShader(GraphicsAPI, "Diffuse");
-	IShaderProgram * SimpleShader = LoadShader(GraphicsAPI, "Simple");
-	IShaderProgram * SpecularShader = LoadShader(GraphicsAPI, "Specular");
-	IShaderProgram * SkySphereShader = LoadShader(GraphicsAPI, "SkySphere");
+	IShaderProgram * DiffuseShader = AssetManager->LoadShader("Diffuse");
+	IShaderProgram * SimpleShader = AssetManager->LoadShader("Simple");
+	IShaderProgram * SpecularShader = AssetManager->LoadShader("Specular");
+	IShaderProgram * SkySphereShader = AssetManager->LoadShader("SkySphere");
 
-	CImage * Image = CImage::Load("Assets/Images/SkyMap.jpg");
-	ITexture2D * SkyMap = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
-	SkyMap->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
+	ITexture2D * SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
 	SkyMap->SetMagFilter(ITexture::EFilter::Nearest);
 
 

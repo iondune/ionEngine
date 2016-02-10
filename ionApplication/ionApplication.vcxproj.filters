@@ -2,8 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="CAssetManager.h" />
+    <ClInclude Include="ionApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraController.cpp" />
+    <ClCompile Include="CAssetManager.cpp" />
   </ItemGroup>
 </Project>
