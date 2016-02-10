@@ -26,7 +26,9 @@ static void PrintShaderInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		Log::Error("Shader Info Log: %s", InfoLog);
+		Log::Error("--- Shader Info Log: -------------------------------");
+		Log::Error("%s", InfoLog);
+		Log::Error("----------------------------------------------------");
 		delete[] InfoLog;
 	}
 }
@@ -186,7 +188,12 @@ namespace ion
 			{
 				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
 			}
-			return CreateVertexShaderFromSource(File::ReadAsString(FileName));
+			IVertexShader * VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
+			if (! VertexShader)
+			{
+				Log::Error("Failed to compile vertex shader from file '%s'", FileName);
+			}
+			return VertexShader;
 		}
 
 		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
@@ -195,7 +202,12 @@ namespace ion
 			{
 				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
 			}
-			return CreatePixelShaderFromSource(File::ReadAsString(FileName));
+			IPixelShader * PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
+			if (! PixelShader)
+			{
+				Log::Error("Failed to compile pixel shader from file '%s'", FileName);
+			}
+			return PixelShader;
 		}
 
 		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
@@ -211,8 +223,10 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(VertexShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				Log::Error("Failed to compile vertex shader!");
+				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(VertexShader->Handle);
+				delete VertexShader;
+				return nullptr;
 			}
 			return VertexShader;
 		}
@@ -230,8 +244,10 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(PixelShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				Log::Error("Failed to compile vertex shader!");
+				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(PixelShader->Handle);
+				delete PixelShader;
+				return nullptr;
 			}
 			return PixelShader;
 		}
