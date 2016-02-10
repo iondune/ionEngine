@@ -23,11 +23,11 @@ namespace ion
 			PipelineState->SetIndexBuffer(Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
 			PipelineState->SetVertexBuffer(Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
+			PipelineState->SetProgram(Shader);
 			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, Graphics::ITexture *> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
-			PipelineState->SetProgram(Shader);
 
 			// Offer Material
 
