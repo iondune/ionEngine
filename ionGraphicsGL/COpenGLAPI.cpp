@@ -345,6 +345,12 @@ namespace ion
 				PipelineState->Load();
 			}
 
+			if (! PipelineState->ShaderProgram)
+			{
+				Log::Error("Cannot draw pipeline state with no shader program.");
+				return;
+			}
+
 			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
 
