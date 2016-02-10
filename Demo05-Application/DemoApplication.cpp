@@ -83,8 +83,7 @@ int main()
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());
-	Camera->SetPosition(vec3f(0, 3, -3));
-	Camera->SetLookAtTarget(vec3f(0, 0, 0));
+	Camera->SetPosition(vec3f(0, 3, -5));
 	Camera->SetFocalLength(0.4f);
 	RenderPass->SetActiveCamera(Camera);
 
@@ -92,6 +91,8 @@ int main()
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 	CCameraController * Controller = new CCameraController(Camera);
+	Controller->SetTheta(15.f * Constants32::Pi / 48.f);
+	Controller->SetPhi(-Constants32::Pi / 16.f);
 	Window->AddListener(Controller);
 	TimeManager->MakeUpdateTick(0.02)->AddListener(Controller);
 
@@ -160,10 +161,22 @@ int main()
 	{
 		TimeManager->Update();
 
-		float const Radius = ((f32) Sin(TimeManager->GetRunTime()) / 2.f + 0.5f) * 10.f;
+		float const MinimumBrightness = 0.2f;
+		float const MaximumBrightness = 1.f - MinimumBrightness;
+		float const Brightness = (Sin<float>((float) TimeManager->GetRunTime()) / 2.f + 0.5f) * MaximumBrightness + MinimumBrightness;
+		float const Radius = Brightness * 10.f;
 		Light1->SetRadius(Radius);
 		Light2->SetRadius(Radius);
 		Light3->SetRadius(Radius);
+
+		float const Bright = 1;
+		float const Dim = 0.5f;
+		LightSphere1->GetMaterial().Diffuse.Value = color3f(Bright, Dim, Dim) * Brightness;
+		LightSphere2->GetMaterial().Diffuse.Value = color3f(Dim, Bright, Dim) * Brightness;
+		LightSphere3->GetMaterial().Diffuse.Value = color3f(Dim, Dim, Bright) * Brightness;
+		LightSphere1->SetScale(Brightness);
+		LightSphere2->SetScale(Brightness);
+		LightSphere3->SetScale(Brightness);
 
 		SkySphereObject->SetPosition(Camera->GetPosition());
 
