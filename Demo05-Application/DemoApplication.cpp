@@ -165,6 +165,8 @@ int main()
 		Light2->SetRadius(Radius);
 		Light3->SetRadius(Radius);
 
+		SkySphereObject->SetPosition(Camera->GetPosition());
+
 		RenderTarget->ClearColorAndDepth();
 		SceneManager->DrawAll();
 		Window->SwapBuffers();
