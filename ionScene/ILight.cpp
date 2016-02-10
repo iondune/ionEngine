@@ -12,7 +12,7 @@ namespace ion
 			Attributes["Position"] = &Position;
 		}
 
-		vec3f const & ILight::GetPosition() const
+		vec3f ILight::GetPosition() const
 		{
 			return Position;
 		}

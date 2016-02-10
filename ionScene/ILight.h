@@ -17,7 +17,7 @@ namespace ion
 
 			ILight();
 
-			vec3f const & GetPosition() const;
+			vec3f GetPosition() const;
 			void SetPosition(vec3f const & Position);
 
 			size_t GetAttributeCount() const;
