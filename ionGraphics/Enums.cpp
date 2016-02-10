@@ -40,6 +40,39 @@ namespace ion
 			}
 		}
 
+		string GetValueTypeString(EValueType const ValueType)
+		{
+			switch (ValueType)
+			{
+			case EValueType::Float:
+				return "Float";
+			case EValueType::Float2:
+				return "Float2";
+			case EValueType::Float3:
+				return "Float3";
+			case EValueType::Float4:
+				return "Float4";
+			case EValueType::Matrix4x4:
+				return "Matrix4x4";
+			case EValueType::Double:
+				return "Double";
+			case EValueType::SignedInt8:
+				return "SignedInt8";
+			case EValueType::SignedInt16:
+				return "SignedInt16";
+			case EValueType::SignedInt32:
+				return "SignedInt32";
+			case EValueType::UnsignedInt8:
+				return "UnsignedInt8";
+			case EValueType::UnsignedInt16:
+				return "UnsignedInt16";
+			case EValueType::UnsignedInt32:
+				return "UnsignedInt32";
+			default:
+				return "Unknown";
+			}
+		}
+
 		size_t GetAttributeTypeSize(EAttributeType const AttributeType)
 		{
 			switch (AttributeType)

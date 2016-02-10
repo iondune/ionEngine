@@ -395,10 +395,14 @@ namespace ion
 						static_cast<float const *>(it.second->GetData())[2],
 						static_cast<float const *>(it.second->GetData())[3]));
 					break;
+				case EValueType::UnsignedInt32:
+					CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
+					break;
 				case EValueType::Matrix4x4:
 					CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
 					break;
 				default:
+					Log::Error("Unexpected value type during uniform binding: '%s'", GetValueTypeString(it.second->GetType()));
 					break;
 				}
 			}
