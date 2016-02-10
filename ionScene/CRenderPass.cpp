@@ -91,6 +91,7 @@ namespace ion
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
 			PipelineState->OfferUniform("uModelMatrix", &uModelMatrix);
+			PipelineState->OfferUniform("uNormalMatrix", &uNormalMatrix);
 			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
 			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
 			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
@@ -101,6 +102,7 @@ namespace ion
 		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
 			uModelMatrix = SceneObject->GetTransformation();
+			uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
 
 			GraphicsAPI->Draw(PipelineState);
 		}
