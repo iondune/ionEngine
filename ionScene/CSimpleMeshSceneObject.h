@@ -27,6 +27,8 @@ namespace ion
 			CSimpleMesh * Mesh = nullptr;
 			Graphics::IShaderProgram * Shader = nullptr;
 
+			map<string, Graphics::ITexture *> Textures;
+
 		};
 
 	}

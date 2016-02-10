@@ -43,7 +43,7 @@ int main()
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 
-	
+
 	////////////////////
 	// ionScene Setup //
 	////////////////////
