@@ -382,21 +382,21 @@ namespace ion
 					break;
 				case EValueType::Float2:
 					CheckedGLCall(glUniform2f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1]));
+						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
 					break;
 				case EValueType::Float3:
 					CheckedGLCall(glUniform3f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1],
-						static_cast<float const *>(it.second->GetData())[2]));
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
 					break;
 				case EValueType::Float4:
 					CheckedGLCall(glUniform4f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1],
-						static_cast<float const *>(it.second->GetData())[2],
-						static_cast<float const *>(it.second->GetData())[3]));
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[1],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[2],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[3]));
 					break;
 				case EValueType::UnsignedInt32:
 					CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
