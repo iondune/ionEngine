@@ -37,7 +37,10 @@ namespace ion
 
 		void CSimpleMeshSceneObject::Draw(CRenderPass * RenderPass)
 		{
-			RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
+			if (PipelineState)
+			{
+				RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
+			}
 		}
 
 		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
