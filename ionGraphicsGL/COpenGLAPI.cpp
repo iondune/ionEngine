@@ -126,7 +126,10 @@ namespace ion
 				break;
 			}
 
-			Log::Info("OpenGL Debug Message [%s/%s/%s]: %s", Source, Type, Severity, message);
+			if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+			{
+				Log::Info("OpenGL Debug Message [%s/%s/%s]: %s", Source, Type, Severity, message);
+			}
 		}
 
 		COpenGLAPI::COpenGLAPI()
