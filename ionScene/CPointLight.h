@@ -9,7 +9,7 @@ namespace ion
 	namespace Scene
 	{
 
-		class CPointLight
+		class CPointLight : public ILight
 		{
 
 		public:

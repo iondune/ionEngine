@@ -21,7 +21,7 @@ namespace ion
 			size_t GetAttributeCount() const;
 			Graphics::IUniform const * GetAttributeByName(string const & Name) const;
 
-			virtual string const & GetLightType() const = 0;
+			virtual string GetLightType() const = 0;
 
 		protected:
 
