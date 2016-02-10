@@ -96,6 +96,8 @@ namespace ion
 			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
 			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
 
+			// Offer Lights
+
 			PipelineState->Load();
 		}
 

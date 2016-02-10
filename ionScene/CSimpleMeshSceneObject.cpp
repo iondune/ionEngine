@@ -29,6 +29,8 @@ namespace ion
 			});
 			PipelineState->SetProgram(Shader);
 
+			// Offer Material
+
 			Loaded = true;
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 		}

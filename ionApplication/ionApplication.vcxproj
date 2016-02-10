@@ -11,20 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FAB7E8A3-2842-43ED-A823-A3EE4CD514E9}</ProjectGuid>
+    <ProjectGuid>{7C2914A9-0BCE-4848-939E-8C124D446708}</ProjectGuid>
     <RootNamespace>ionAnimation</RootNamespace>
   </PropertyGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="CPath.h" />
-    <ClInclude Include="CSkinnedAnimation.h" />
-    <ClInclude Include="IInterpolator.h" />
-    <ClInclude Include="Interpolators.h" />
-    <ClInclude Include="ionAnimation.h" />
-    <ClInclude Include="IPath.h" />
-    <ClInclude Include="SPathNode.h" />
+    <ClInclude Include="CCameraController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
