@@ -8,6 +8,19 @@ namespace ion
 	namespace Scene
 	{
 
+		SSimpleMaterial::SSimpleMaterial()
+		{
+			LoadDefaults();
+		}
+
+		void SSimpleMaterial::LoadDefaults()
+		{
+			Shininess = 1000.0f;
+			Ambient = SColorf(0.05f);
+			Diffuse = SColorf(0.9f);
+			Specular = SColorf(1.f);
+		}
+
 		void CSimpleMeshSceneObject::Load(CRenderPass * RenderPass)
 		{
 			if (! Mesh || ! Shader)
@@ -24,12 +37,16 @@ namespace ion
 			PipelineState->SetVertexBuffer(Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
 			PipelineState->SetProgram(Shader);
+
 			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, Graphics::ITexture *> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
 
-			// Offer Material
+			PipelineState->OfferUniform("uMaterial.AmbientColor", &Material.Ambient);
+			PipelineState->OfferUniform("uMaterial.DiffuseColor", &Material.Diffuse);
+			PipelineState->OfferUniform("uMaterial.SpecularColor", &Material.Specular);
+			PipelineState->OfferUniform("uMaterial.Shininess", &Material.Shininess);
 
 			Loaded = true;
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
@@ -63,6 +80,21 @@ namespace ion
 			{
 				Textures.erase(Name);
 			}
+		}
+
+		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()
+		{
+			return Material;
+		}
+
+		SSimpleMaterial const & CSimpleMeshSceneObject::GetMaterial() const
+		{
+			return Material;
+		}
+
+		void CSimpleMeshSceneObject::SetMaterial(SSimpleMaterial const & Material)
+		{
+			this->Material = Material;
 		}
 
 	}
