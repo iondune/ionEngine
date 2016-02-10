@@ -14,6 +14,8 @@ namespace ion
 
 		public:
 
+			CPointLight();
+
 			color3f GetColor() const;
 			float GetRadius() const;
 

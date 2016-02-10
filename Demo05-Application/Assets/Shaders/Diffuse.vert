@@ -15,8 +15,8 @@ in vec3 vNormal;
 uniform mat4 uModelMatrix;
 uniform mat4 uViewMatrix;
 uniform mat4 uProjectionMatrix;
-uniform int uLightCount;
-uniform SLight uLights[LIGHT_MAX];
+uniform int uPointLightsCount;
+uniform SLight uPointLights[LIGHT_MAX];
 uniform vec3 uCameraPosition;
 
 out vec3 fLight[LIGHT_MAX];
@@ -27,8 +27,8 @@ void main()
 {
 	vec4 Position = uModelMatrix * vec4(vPosition, 1.0);
 
-	for (int i = 0; i < LIGHT_MAX && i < uLightCount; ++ i)
-		fLight[i] = uLights[i].Position - vec3(Position);
+	for (int i = 0; i < LIGHT_MAX && i < uPointLightsCount; ++ i)
+		fLight[i] = uPointLights[i].Position - vec3(Position);
 
 	fNormal = vNormal;
 

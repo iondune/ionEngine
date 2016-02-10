@@ -40,12 +40,14 @@ namespace ion
 		void CRenderPass::AddLight(ILight * Light)
 		{
 			Lights.insert(Light);
+			RebuildLightUniformMatrix();
 		}
 
-		void CRenderPass::RemoveLight(ILight * Light)
-		{
-			Lights.erase(Light);
-		}
+		//void CRenderPass::RemoveLight(ILight * Light)
+		//{
+		//	Lights.erase(Light);
+		//	RebuildLightUniformMatrix();
+		//}
 
 		void CRenderPass::AddSceneObject(ISceneObject * SceneObject)
 		{
@@ -88,15 +90,78 @@ namespace ion
 			});
 		}
 
+		bool IsUniformNameArrayElement(string const & Label, int & Index, string & LHS, string & Remaining)
+		{
+			size_t OpenBrace = Label.find('['), CloseBrace = Label.find(']');
+			if (OpenBrace != string::npos && CloseBrace != string::npos && OpenBrace + 1 < CloseBrace)
+			{
+				LHS = Label.substr(0, OpenBrace);
+				Remaining = Label.substr(CloseBrace + 1);
+				string const IndexString = Label.substr(OpenBrace + 1, CloseBrace - OpenBrace - 1);
+				Index = std::stoi(IndexString);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
-			PipelineState->OfferUniform("uModelMatrix", &uModelMatrix);
-			PipelineState->OfferUniform("uNormalMatrix", &uNormalMatrix);
-			PipelineState->OfferUniform("uViewMatrix", &uViewMatrix);
-			PipelineState->OfferUniform("uProjectionMatrix", &uProjectionMatrix);
-			PipelineState->OfferUniform("uCameraPosition", &uCameraPosition);
+			set<string> const UnboundUniforms = PipelineState->GetUnboundUniforms();
 
-			// Offer Lights
+			std::for_each(UnboundUniforms.begin(), UnboundUniforms.end(), [&](string const & Name)
+			{
+				int Index = -1;
+				string LHS, Remaining;
+
+				if (Name == "uModelMatrix")
+				{
+					PipelineState->SetUniform(Name, &uModelMatrix);
+				}
+				else if (Name == "uViewMatrix")
+				{
+					PipelineState->SetUniform(Name, &uViewMatrix);
+				}
+				else if (Name == "uProjectionMatrix")
+				{
+					PipelineState->SetUniform(Name, &uProjectionMatrix);
+				}
+				else if (Name == "uCameraPosition")
+				{
+					PipelineState->SetUniform(Name, &uCameraPosition);
+				}
+				else if (IsUniformNameArrayElement(Name, Index, LHS, Remaining))
+				{
+					if (Remaining.size() && Remaining[0] == '.')
+					{
+						auto const it = LightUniformMatrix.find(LHS);
+						if (it != LightUniformMatrix.end())
+						{
+							if (Index < it->second.Entries.size())
+							{
+								auto const jt = it->second.Entries[Index].find(Remaining.substr(1));
+								if (jt != it->second.Entries[Index].end())
+								{
+									PipelineState->SetUniform(Name, jt->second);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					for (auto & it : LightUniformMatrix)
+					{
+						string const CountName = it.first + "Count";
+						if (Name == CountName)
+						{
+							PipelineState->SetUniform(Name, &it.second.CountUniform);
+						}
+					}
+				}
+			});
 
 			PipelineState->Load();
 		}
@@ -107,6 +172,27 @@ namespace ion
 			uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
 
 			GraphicsAPI->Draw(PipelineState);
+		}
+
+		void CRenderPass::RebuildLightUniformMatrix()
+		{
+			LightUniformMatrix.clear();
+
+			std::for_each(Lights.begin(), Lights.end(), [&](ILight * Light)
+			{
+				string const LightType = string("u") + Light->GetLightType() + string("s");
+				map<string, Graphics::IUniform *> const LightAttributes = Light->GetAttributes();
+
+				SLightUniformMatrixRow & LightUniformMatrixRow = LightUniformMatrix[LightType];
+				LightUniformMatrixRow.Entries.push_back(map<string, Graphics::IUniform *>());
+				LightUniformMatrixRow.CountUniform.Value += 1;
+				map<string, Graphics::IUniform *> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
+				
+				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, Graphics::IUniform *> Iterator)
+				{
+					LightUniformMatrixRowEntry[Iterator.first] = Iterator.second;
+				});
+			});
 		}
 
 	}

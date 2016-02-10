@@ -38,6 +38,9 @@
     <ClCompile Include="SBoundingBox3.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
+    <ClCompile Include="IsUniformNameArrayElement.cpp">
+      <Filter>ionScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
@@ -48,6 +51,9 @@
     </Filter>
     <Filter Include="ionScience">
       <UniqueIdentifier>{c3ea04eb-b2ef-4c61-8688-6159a87f5276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ionScene">
+      <UniqueIdentifier>{d425f992-8535-4078-9940-be294c3c0b11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

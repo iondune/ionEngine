@@ -165,6 +165,7 @@ int main()
 		Light2->SetRadius(Radius);
 		Light3->SetRadius(Radius);
 
+		RenderTarget->ClearColorAndDepth();
 		SceneManager->DrawAll();
 		Window->SwapBuffers();
 	}

@@ -7,6 +7,11 @@ namespace ion
 	namespace Scene
 	{
 
+		ILight::ILight()
+		{
+			Attributes["Position"] = &Position;
+		}
+
 		vec3f const & ILight::GetPosition() const
 		{
 			return Position;
@@ -20,6 +25,11 @@ namespace ion
 		size_t ILight::GetAttributeCount() const
 		{
 			return Attributes.size();
+		}
+
+		map<string, Graphics::IUniform*> const & ILight::GetAttributes() const
+		{
+			return Attributes;
 		}
 
 		Graphics::IUniform const * ILight::GetAttributeByName(string const & Name) const

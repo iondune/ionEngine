@@ -136,19 +136,9 @@ namespace ion
 				}
 			}
 
-			uint CPipelineState::GetUnboundUniformCount() const
+			set<string> CPipelineState::GetUnboundUniforms() const
 			{
-				return (uint) UnboundUniforms.size();
-			}
-
-			string CPipelineState::GetUnboundUniform(uint const Index) const
-			{
-				if (Index >= UnboundUniforms.size())
-				{
-					Log::Error("Attempting to GetUnboundUniform at index %u in an array of size %u", Index, UnboundUniforms.size());
-				}
-
-				return *std::next(UnboundUniforms.begin(), Index);
+				return UnboundUniforms;
 			}
 
 			void CPipelineState::Load()

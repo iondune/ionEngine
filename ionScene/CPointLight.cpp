@@ -6,6 +6,11 @@ namespace ion
 {
 	namespace Scene
 	{
+		CPointLight::CPointLight()
+		{
+			Attributes["Color"] = &Color;
+			Attributes["Radius"] = &Radius;
+		}
 
 		color3f CPointLight::GetColor() const
 		{

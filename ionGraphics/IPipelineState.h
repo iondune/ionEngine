@@ -27,8 +27,7 @@ namespace ion
 
 			virtual void OfferUniform(string const & Name, IUniform * Uniform) = 0;
 
-			virtual uint GetUnboundUniformCount() const = 0;
-			virtual string GetUnboundUniform(uint const Index) const = 0;
+			virtual set<string> GetUnboundUniforms() const = 0;
 
 			virtual void Load() = 0;
 

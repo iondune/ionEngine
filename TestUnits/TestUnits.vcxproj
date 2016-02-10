@@ -10,22 +10,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{56E0477E-8C3D-4FA3-9E44-D2981E61D462}</ProjectGuid>
     <RootNamespace>TestUnits</RootNamespace>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Application.props" />
   </ImportGroup>
-
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(VisualStudioDir)\SDKs\Catch\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="ionClass.cpp" />
@@ -36,11 +32,11 @@
     <ClCompile Include="ionSmartPtr.cpp" />
     <ClCompile Include="ionStandardLibrary.cpp" />
     <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="IsUniformNameArrayElement.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
     <ClCompile Include="SVector2.cpp" />
     <ClCompile Include="SVector3.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

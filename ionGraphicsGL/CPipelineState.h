@@ -29,9 +29,7 @@ namespace ion
 				void SetTexture(string const & Name, ITexture * Texture);
 
 				void OfferUniform(string const & Name, IUniform * Uniform);
-
-				uint GetUnboundUniformCount() const;
-				string GetUnboundUniform(uint const Index) const;
+				set<string> GetUnboundUniforms() const;
 
 				void Load();
 

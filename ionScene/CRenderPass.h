@@ -11,6 +11,8 @@ namespace ion
 	namespace Scene
 	{
 
+		bool IsUniformNameArrayElement(string const & Label, int & Index, string & LHS, string & Remaining);
+
 		class CRenderPass
 		{
 
@@ -26,7 +28,7 @@ namespace ion
 			virtual void SetActiveCamera(ICamera * Camera);
 
 			virtual void AddLight(ILight * Light);
-			virtual void RemoveLight(ILight * Light);
+			//virtual void RemoveLight(ILight * Light);
 
 			virtual void AddSceneObject(ISceneObject * SceneObject);
 			virtual void RemoveSceneObject(ISceneObject * SceneObject);
@@ -50,6 +52,15 @@ namespace ion
 			Graphics::CUniformValue<vec3f> uCameraPosition;
 			Graphics::CUniformValue<glm::mat4> uModelMatrix;
 			Graphics::CUniformValue<glm::mat4> uNormalMatrix;
+
+			struct SLightUniformMatrixRow
+			{
+				vector<map<string, Graphics::IUniform *>> Entries;
+				Graphics::CUniformValue<uint> CountUniform;
+			};
+			map<string, SLightUniformMatrixRow> LightUniformMatrix;
+
+			void RebuildLightUniformMatrix();
 
 			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
