@@ -61,6 +61,8 @@ namespace ion
 		{
 			if (ActiveCamera)
 			{
+				ActiveCamera->Update();
+
 				uViewMatrix = ActiveCamera->GetViewMatrix();
 				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
 				uCameraPosition = ActiveCamera->GetPosition();

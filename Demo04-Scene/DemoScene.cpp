@@ -21,7 +21,7 @@ int main()
 	SingletonPointer<CSceneManager> SceneManager;
 
 	WindowManager->Init();
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "DemoScene", EWindowType::Windowed);
+	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoScene", EWindowType::Windowed);
 
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
