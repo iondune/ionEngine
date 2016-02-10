@@ -20,6 +20,7 @@ namespace ion
 
 			virtual void SetMesh(CSimpleMesh * Mesh);
 			virtual void SetShader(Graphics::IShaderProgram * Shader);
+			virtual void SetTexture(string const & Name, Graphics::ITexture * Texture);
 
 		protected:
 

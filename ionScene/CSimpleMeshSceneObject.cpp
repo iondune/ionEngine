@@ -48,5 +48,17 @@ namespace ion
 			this->Shader = Shader;
 		}
 
+		void CSimpleMeshSceneObject::SetTexture(string const & Name, Graphics::ITexture * Texture)
+		{
+			if (Texture)
+			{
+				Textures[Name] = Texture;
+			}
+			else
+			{
+				Textures.erase(Name);
+			}
+		}
+
 	}
 }
