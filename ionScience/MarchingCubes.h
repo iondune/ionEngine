@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionAsset/CMesh.h>
+#include <ionScene/CSimpleMesh.h>
 #include "SVolume.h"
 
 
@@ -15,4 +15,4 @@ struct SMarchingCubesPoint
 typedef SVolume<SMarchingCubesPoint> SMarchingCubesVolume;
 
 void CalculateGradient(SMarchingCubesVolume & Volume);
-CMesh * MarchingCubes(SMarchingCubesVolume & Volume);
+ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume);
