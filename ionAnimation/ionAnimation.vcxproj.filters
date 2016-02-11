@@ -8,5 +8,9 @@
     <ClInclude Include="SPathNode.h" />
     <ClInclude Include="ionAnimation.h" />
     <ClInclude Include="CSkinnedAnimation.h" />
+    <ClInclude Include="CCameraController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
 </Project>

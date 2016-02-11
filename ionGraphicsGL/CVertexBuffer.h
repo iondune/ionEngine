@@ -20,7 +20,11 @@ namespace ion
 
 			public:
 
+				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
+
+
 				uint Handle = 0;
+				vector<SInputLayoutElement> InputLayout;
 
 			};
 

@@ -2,50 +2,33 @@
 #include "CSceneManager.h"
 
 
-CMeshLibrary * CSceneManager::GetMeshLibrary()
+namespace ion
 {
-	return MeshLibrary;
-}
+	namespace Scene
+	{
 
-CShaderLibrary * CSceneManager::GetShaderLibrary()
-{
-	return ShaderLibrary;
-}
+		void CSceneManager::Init(Graphics::IGraphicsAPI * GraphicsAPI)
+		{
+			this->GraphicsAPI = GraphicsAPI;
+		}
 
-CTextureLibrary * CSceneManager::GetTextureLibrary()
-{
-	return TextureLibrary;
-}
+		void CSceneManager::DrawAll()
+		{
+			std::for_each(RenderPasses.begin(), RenderPasses.end(), [](CRenderPass * RenderPass)
+			{
+				RenderPass->Load();
+				RenderPass->Draw();
+			});
+		}
 
-CSceneNodeFactory * CSceneManager::GetFactory()
-{
-	return Factory;
-}
+		void CSceneManager::AddRenderPass(CRenderPass * RenderPass)
+		{
+			RenderPass->SetGraphicsAPI(GraphicsAPI);
+			RenderPasses.insert(RenderPass);
+		}
 
-CDrawManager * CSceneManager::GetDrawManager()
-{
-	return DrawManager;
-}
+		CSceneManager::CSceneManager()
+		{}
 
-CRenderPassManager * CSceneManager::GetRenderPassManager()
-{
-	return RenderPassManager;
+	}
 }
-
-void CSceneManager::DrawAll()
-{
-	Scene->DrawAll(DrawManager, RenderPassManager);
-}
-
-CScene * CSceneManager::GetScene()
-{
-	return Scene;
-}
-
-ISceneNode * CSceneManager::GetRoot()
-{
-	return Scene->GetRoot();
-}
-
-CSceneManager::CSceneManager()
-{}

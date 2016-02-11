@@ -40,6 +40,7 @@
     <ClCompile Include="COpenGLAPI.cpp" />
     <ClCompile Include="CPipelineState.cpp" />
     <ClCompile Include="CRenderTarget.cpp" />
+    <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="DrawConfig.cpp" />
     <ClCompile Include="DrawContext.cpp" />
     <ClCompile Include="Framebuffer.cpp" />

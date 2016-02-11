@@ -19,15 +19,14 @@ namespace ion
 
 				void SetVertexStage(IVertexShader * VertexShader);
 				void SetPixelStage(IPixelShader * PixelShader);
-				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
-
-				uint Handle = 0;
-				bool Linked = false;
-				vector<SInputLayoutElement> InputLayout;
 
 				void Link();
 
-				map<string, uint> Attributes;
+
+				uint Handle = 0;
+				bool Linked = false;
+
+				map<string, pair<uint, uint>> Attributes;
 				map<string, uint> Uniforms;
 			
 			};

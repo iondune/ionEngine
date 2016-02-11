@@ -28,6 +28,9 @@ namespace ion
 				void SetUniform(string const & Name, IUniform * Uniform);
 				void SetTexture(string const & Name, ITexture * Texture);
 
+				void OfferUniform(string const & Name, IUniform * Uniform);
+				set<string> GetUnboundUniforms() const;
+
 				void Load();
 
 				CShaderProgram * ShaderProgram = nullptr;
@@ -42,6 +45,9 @@ namespace ion
 
 				map<string, ITexture const *> Textures;
 				map<u32, ITexture const *> BoundTextures;
+
+				set<string> UnboundUniforms;
+				set<string> UnboundAttributes;
 
 			};
 

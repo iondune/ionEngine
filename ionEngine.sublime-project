@@ -2,8 +2,14 @@
 	"folders":
 	[
 		{
-			"follow_symlinks": true,
-			"path": "."
+			"path": ".",
+			"folder_exclude_patterns":[
+				".vs",
+				"x64",
+			],
+			"file_exclude_patterns": [
+				"*.VC.opendb",
+			]
 		}
 	]
 }

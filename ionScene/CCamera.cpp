@@ -2,96 +2,110 @@
 #include "CCamera.h"
 
 
-CCamera::CCamera(ISceneNode * Parent)
-: ICamera(Parent)
+namespace ion
 {
-	this->LookDirection = vec3f(0, 0, 1);
-	this->UpVector = vec3f(0, 1, 0);
-	this->NearPlane = 0.1f;
-	this->FarPlane = 100.f;
+	namespace Scene
+	{
 
-    RecalculateViewMatrix();
-}
+		CCamera::CCamera()
+		{
+			this->LookDirection = vec3f(0, 0, 1);
+			this->UpVector = vec3f(0, 1, 0);
+			this->NearPlane = 0.1f;
+			this->FarPlane = 100.f;
 
-void CCamera::RecalculateViewMatrix()
-{
-	ViewMatrix = glm::lookAt(GetPosition().GetGLMVector(), (GetPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
-}
+			RecalculateViewMatrix();
+		}
 
-void CCamera::Update()
-{
-	RecalculateViewMatrix();
-	RecalculateProjectionMatrix();
+		void CCamera::RecalculateViewMatrix()
+		{
+			ViewMatrix = glm::lookAt(GetPosition().GetGLMVector(), (GetPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
+		}
 
-	ISceneNode::Update();
-}
+		void CCamera::Update()
+		{
+			RecalculateViewMatrix();
+		}
 
-vec3f CCamera::GetLookDirecton() const
-{
-    return LookDirection;
-}
+		vec3f const & CCamera::GetPosition() const
+		{
+			return Position;
+		}
 
-vec3f CCamera::GetLookAtTarget() const
-{
-	return GetPosition() + LookDirection;
-}
+		vec3f const & CCamera::GetLookDirecton() const
+		{
+			return LookDirection;
+		}
 
-vec3f CCamera::GetUpVector() const
-{
-	return UpVector;
-}
+		vec3f CCamera::GetLookAtTarget() const
+		{
+			return GetPosition() + LookDirection;
+		}
 
-void CCamera::SetLookDirection(vec3f const & lookDirection)
-{
-    LookDirection = lookDirection;
-}
+		vec3f const & CCamera::GetUpVector() const
+		{
+			return UpVector;
+		}
 
-void CCamera::SetLookAtTarget(vec3f const & lookAtTarget)
-{
-	SetLookDirection(lookAtTarget - GetPosition());
-}
+		void CCamera::SetPosition(vec3f const & position)
+		{
+			Position = position;
+		}
 
-void CCamera::SetUpVector(vec3f const & upVector)
-{
-	UpVector = upVector;
-}
+		void CCamera::SetLookDirection(vec3f const & lookDirection)
+		{
+			LookDirection = lookDirection;
+		}
 
-glm::mat4 CCamera::GetViewMatrix() const
-{
-    return ViewMatrix;
-}
+		void CCamera::SetLookAtTarget(vec3f const & lookAtTarget)
+		{
+			SetLookDirection(lookAtTarget - GetPosition());
+		}
 
-glm::mat4 CCamera::GetProjectionMatrix() const
-{
-    return ProjectionMatrix;
-}
+		void CCamera::SetUpVector(vec3f const & upVector)
+		{
+			UpVector = upVector;
+		}
 
-void CCamera::SetViewMatrix(glm::mat4 const & viewMatrix)
-{
-	ViewMatrix = viewMatrix;
-}
+		glm::mat4 CCamera::GetViewMatrix() const
+		{
+			return ViewMatrix;
+		}
 
-void CCamera::SetProjectionMatrix(glm::mat4 const & projectionMatrix)
-{
-	ProjectionMatrix = projectionMatrix;
-}
+		glm::mat4 CCamera::GetProjectionMatrix() const
+		{
+			return ProjectionMatrix;
+		}
 
-f32 CCamera::GetNearPlane() const
-{
-	return NearPlane;
-}
+		void CCamera::SetViewMatrix(glm::mat4 const & viewMatrix)
+		{
+			ViewMatrix = viewMatrix;
+		}
 
-f32 CCamera::GetFarPlane() const
-{
-	return FarPlane;
-}
+		void CCamera::SetProjectionMatrix(glm::mat4 const & projectionMatrix)
+		{
+			ProjectionMatrix = projectionMatrix;
+		}
 
-void CCamera::SetNearPlane(f32 const nearPlane)
-{
-	NearPlane = nearPlane;
-}
+		f32 CCamera::GetNearPlane() const
+		{
+			return NearPlane;
+		}
 
-void CCamera::SetFarPlane(f32 const farPlane)
-{
-	FarPlane = farPlane;
+		f32 CCamera::GetFarPlane() const
+		{
+			return FarPlane;
+		}
+
+		void CCamera::SetNearPlane(f32 const nearPlane)
+		{
+			NearPlane = nearPlane;
+		}
+
+		void CCamera::SetFarPlane(f32 const farPlane)
+		{
+			FarPlane = farPlane;
+		}
+
+	}
 }

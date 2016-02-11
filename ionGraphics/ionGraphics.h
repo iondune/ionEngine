@@ -3,8 +3,15 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionFramework.h>
 
-#include "CImage.h"
+#include "Enums.h"
+#include "Shaders.h"
+#include "Buffers.h"
+#include "Uniforms.h"
+#include "Textures.h"
+#include "IPipelineState.h"
+#include "IRenderTarget.h"
 #include "IGraphicsAPI.h"
 
 

@@ -135,20 +135,11 @@ namespace ion
 				// Type
 				// ----
 				// Fix8 = 0,
-				// Fix16 = 1,
-				// U8 = 2,
-				// U16 = 3,
-				// U32 = 4,
-				// S8 = 5,
-				// S16 = 6,
-				// S32 = 7,
-				// F16 = 8,
-				// F32 = 9,
 
-				{GL_R8, GL_R16, GL_R8UI, GL_R32UI, GL_R32UI, GL_R8I, GL_R16I, GL_R32I, GL_R16F, GL_R32F},
-				{GL_RG8, GL_RG16, GL_RG8UI, GL_RG32UI, GL_RG32UI, GL_RG8I, GL_RG16I, GL_RG32I, GL_RG16F, GL_RG32F},
-				{GL_RGB8, GL_RGB16, GL_RGB8UI, GL_RGB32UI, GL_RGB32UI, GL_RGB8I, GL_RGB16I, GL_RGB32I, GL_RGB16F, GL_RGB32F},
-				{GL_RGBA8, GL_RGBA16, GL_RGBA8UI, GL_RGBA32UI, GL_RGBA32UI, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA16F, GL_RGBA32F}
+				{GL_R8},
+				{GL_RG8},
+				{GL_RGB8},
+				{GL_RGBA8}
 			};
 
 			u32 const CTexture::FormatMatrix[4] =

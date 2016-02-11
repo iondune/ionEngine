@@ -26,7 +26,9 @@ static void PrintShaderInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		std::cout << "Shader Info Log:" << std::endl << InfoLog << std::endl;
+		Log::Error("--- Shader Info Log: -------------------------------");
+		Log::Error("%s", InfoLog);
+		Log::Error("----------------------------------------------------");
 		delete[] InfoLog;
 	}
 }
@@ -124,7 +126,10 @@ namespace ion
 				break;
 			}
 
-			Log::Info("OpenGL Debug Message [%s/%s/%s]: %s", Source, Type, Severity, message);
+			if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+			{
+				Log::Info("OpenGL Debug Message [%s/%s/%s]: %s", Source, Type, Severity, message);
+			}
 		}
 
 		COpenGLAPI::COpenGLAPI()
@@ -133,31 +138,46 @@ namespace ion
 
 			if (! Initialized)
 			{
+				GL::PrintOpenGLErrors("GLEW init");
+
+				// See https://www.opengl.org/wiki/OpenGL_Loading_Library
+				// We have to enable Experimental or else GLEW will fail to load extensions
+				// because it uses glGetString instead of glGetStringi
+				// On CORE contexts, that call will return INVALID_ENUM and apparently fail
+				// to load EVERYTHING. So we use experimental so that functions will actually
+				// be loaded, and we ignore the error.
+				glewExperimental = true;
 				u32 Error = glewInit();
+				GL::IgnoreOpenGLError();
+
 				if (Error != GLEW_OK)
 				{
-					std::cerr << "Error initializing glew! " << glewGetErrorString(Error) << std::endl;
-					WaitForUser();
-					exit(33);
+					Log::Error("Error initializing glew! %s", glewGetErrorString(Error));
 				}
+
+				GL::PrintOpenGLErrors("Version check");
 
 				int Major = 0, Minor = 0;
-				char const * VersionString = (char const *) glGetString(GL_VERSION);
+				byte const * VersionString = nullptr;
+				SafeGLAssignment(VersionString, glGetString, (GL_VERSION));
 				if (! VersionString)
-					std::cerr << "Unable to get OpenGL version number." << std::endl << std::endl;
-				else if (sscanf(VersionString, "%d.%d", & Major, & Minor) != 2)
-					std::cerr << "OpenGL ersion string in unknown format: " << VersionString << std::endl << std::endl;
+				{
+					Log::Error("Unable to get OpenGL version number.");
+				}
+				else if (sscanf((char const *) VersionString, "%d.%d", & Major, & Minor) != 2)
+				{
+					Log::Error("OpenGL version string in unknown format: %s", VersionString);
+				}
 				else if (Major < 2)
 				{
-					std::cerr << "Your OpenGL Version Number (" << VersionString <<
-						") is not high enough for shaders. Please download and install the latest drivers"
-						"for your graphics hardware." <<
-						std::endl << std::endl;
+					Log::Error("Your OpenGL Version Number (%s) "
+						"is not high enough for shaders. Please download and install the latest drivers "
+						"for your graphics hardware.", VersionString);
 				}
 
-				std::cout << "Your OpenGL Version Number: " << VersionString << std::endl << std::endl;
+				Log::Info("Your OpenGL Version Number: %s", VersionString);
 
-				CheckedGLCall(glDebugMessageCallback(DebugMessageCallback, nullptr));
+				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
 
 				CheckedGLCall(glEnable(GL_DEPTH_TEST));
 				CheckedGLCall(glDepthFunc(GL_LEQUAL));
@@ -167,12 +187,30 @@ namespace ion
 
 		IVertexShader * COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
-			return nullptr;
+			if (! File::Exists(FileName))
+			{
+				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
+			}
+			IVertexShader * VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
+			if (! VertexShader)
+			{
+				Log::Error("Failed to compile vertex shader from file '%s'", FileName);
+			}
+			return VertexShader;
 		}
 
 		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
 		{
-			return nullptr;
+			if (! File::Exists(FileName))
+			{
+				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
+			}
+			IPixelShader * PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
+			if (! PixelShader)
+			{
+				Log::Error("Failed to compile pixel shader from file '%s'", FileName);
+			}
+			return PixelShader;
 		}
 
 		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
@@ -188,8 +226,10 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(VertexShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				std::cerr << "Failed to compile vertex shader!" << std::endl;
+				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(VertexShader->Handle);
+				delete VertexShader;
+				return nullptr;
 			}
 			return VertexShader;
 		}
@@ -207,8 +247,10 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(PixelShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				std::cerr << "Failed to compile vertex shader!" << std::endl;
+				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(PixelShader->Handle);
+				delete PixelShader;
+				return nullptr;
 			}
 			return PixelShader;
 		}
@@ -241,43 +283,50 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			GL::CTexture2D * Texture2D = new GL::CTexture2D();
 
 			Texture2D->TextureSize = Size;
-			Texture2D->MipMaps = MipMaps;
+			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
 			int Levels = 1;
 
-			if (MipMaps)
+			if (Texture2D->MipMaps)
 			{
 				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Texture2D->Handle));
-			glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			if (glTexStorage2D)
+			{
+				glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
+			}
+			else
+			{
+				Log::Error("Function is not loaded: glTexStorage2D");
+			}
 			if (GL::OpenGLError())
 			{
-				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
-				cerr << "Handle is " << Texture2D->Handle << endl;
+				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture2D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
 			return Texture2D;
 		}
 
-		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, bool const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			GL::CTexture3D * Texture3D = new GL::CTexture3D();
 
 			Texture3D->TextureSize = Size;
-			Texture3D->MipMaps = MipMaps;
+			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
 			int Levels = 1;
 
-			if (MipMaps)
+			if (Texture3D->MipMaps)
 			{
 				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
 			}
@@ -287,8 +336,8 @@ namespace ion
 			glTexStorage3D(GL_TEXTURE_3D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
 			if (GL::OpenGLError())
 			{
-				cerr << "Error occured during glTexStorage2D: " << GL::GetOpenGLError() << endl;
-				cerr << "Handle is " << Texture3D->Handle << endl;
+				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture3D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 
@@ -298,7 +347,7 @@ namespace ion
 		IPipelineState * COpenGLAPI::CreatePipelineState()
 		{
 			GL::CPipelineState * PipelineState = new GL::CPipelineState();
-			CheckedGLCall(glGenVertexArrays(1, & PipelineState->VertexArrayHandle));
+			SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
 			return PipelineState;
 		}
 
@@ -315,6 +364,12 @@ namespace ion
 				PipelineState->Load();
 			}
 
+			if (! PipelineState->ShaderProgram)
+			{
+				Log::Error("Cannot draw pipeline state with no shader program.");
+				return;
+			}
+
 			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
 
@@ -327,26 +382,30 @@ namespace ion
 					break;
 				case EValueType::Float2:
 					CheckedGLCall(glUniform2f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1]));
+						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
 					break;
 				case EValueType::Float3:
 					CheckedGLCall(glUniform3f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1],
-						static_cast<float const *>(it.second->GetData())[2]));
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
+						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
 					break;
 				case EValueType::Float4:
 					CheckedGLCall(glUniform4f(it.first,
-						static_cast<float const *>(it.second->GetData())[0],
-						static_cast<float const *>(it.second->GetData())[1],
-						static_cast<float const *>(it.second->GetData())[2],
-						static_cast<float const *>(it.second->GetData())[3]));
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[1],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[2],
+						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[3]));
+					break;
+				case EValueType::UnsignedInt32:
+					CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
 					break;
 				case EValueType::Matrix4x4:
 					CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
 					break;
 				default:
+					Log::Error("Unexpected value type during uniform binding: '%s'", GetValueTypeString(it.second->GetType()));
 					break;
 				}
 			}

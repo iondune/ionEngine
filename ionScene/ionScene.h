@@ -1,7 +1,31 @@
 
 #pragma once
 
-#include "ISceneNode.h"
+#include <ionCore.h>
+#include <ionMath.h>
+#include <ionGraphics.h>
+
+#include "ICamera.h"
+#include "CCamera.h"
+#include "COrthographicCamera.h"
+#include "CPerspectiveCamera.h"
+
+#include "ILight.h"
+#include "CPointLight.h"
+
+#include "ISceneObject.h"
+#include "CRenderPass.h"
 #include "CSceneManager.h"
-#include "CDrawManager.h"
-#include "CUpdateCallbackComponent.h"
+
+#include "CSimpleMesh.h"
+#include "CGeometryCreator.h"
+#include "CSimpleMeshSceneObject.h"
+
+
+namespace ion
+{
+	//! \brief Documentation of the ionScene module
+	namespace Scene
+	{
+	}
+}

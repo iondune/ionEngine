@@ -8,6 +8,8 @@
         ;ionWindow.lib;
         ;ionGraphics.lib;
         ;ionGraphicsGL.lib;
+        ;ionScene.lib;
+        ;ionApplication.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>

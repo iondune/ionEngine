@@ -6,6 +6,7 @@
     </ClCompile>
     <ClCompile Include="ionDirectory.cpp" />
     <ClCompile Include="ionSTB.cpp" />
+    <ClCompile Include="CImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionFramework.h" />
@@ -22,6 +23,7 @@
       <Filter>Event Management</Filter>
     </ClInclude>
     <ClInclude Include="ionDirectory.h" />
+    <ClInclude Include="CImage.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Event Management">

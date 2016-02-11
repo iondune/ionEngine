@@ -1,9 +1,11 @@
 
 #include <ionWindow.h>
+#include <ionFramework.h>
 #include <ionGraphics.h>
 #include <ionGraphicsGL.h>
 
 
+using namespace ion;
 using namespace ion::Graphics;
 
 
@@ -44,8 +46,15 @@ int main()
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 
-	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
 	IIndexBuffer * IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
+	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
+	SInputLayoutElement InputLayout[] =
+	{
+		{ "vPosition", 2, EAttributeType::Float },
+		{ "vTexCoords", 2, EAttributeType::Float },
+		{ "vColor", 3, EAttributeType::Float },
+	};
+	VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
 
 	//////////////////
@@ -103,14 +112,6 @@ int main()
 	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
-
-	SInputLayoutElement InputLayout[] =
-	{
-		{ "vPosition", 2, EValueType::Float },
-		{ "vTexCoords", 2, EValueType::Float },
-		{ "vColor", 3, EValueType::Float },
-	};
-	ShaderProgram->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
 
 	///////////////
@@ -126,7 +127,7 @@ int main()
 	PipelineState->SetUniform("uCurrentTime", &uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
-	ITexture2D * Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), true, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
+	ITexture2D * Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
 	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
 	PipelineState->SetTexture("uTexture", Texture);
 

@@ -8,53 +8,35 @@
     <ClInclude Include="CPerspectiveCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneNode.h">
-      <Filter>Node</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneNode.h">
-      <Filter>Node</Filter>
-    </ClInclude>
     <ClInclude Include="ICamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>SceneManager</Filter>
+    <ClInclude Include="CPointLight.h">
+      <Filter>Light</Filter>
     </ClInclude>
-    <ClInclude Include="CUpdateCallbackComponent.h">
-      <Filter>Node\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="CMeshLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="CShaderLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="CTextureLibrary.h">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="ISceneNodeComponent.h">
-      <Filter>Node</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderPass.h">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClInclude>
-    <ClInclude Include="CDrawManager.h">
-      <Filter>SceneManager\Management</Filter>
-    </ClInclude>
-    <ClInclude Include="ILightSceneNode.h">
-      <Filter>Node</Filter>
+    <ClInclude Include="COrthographicCamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="CSceneManager.h">
-      <Filter>SceneManager\Management</Filter>
+      <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneNodeFactory.h">
-      <Filter>SceneManager\Management</Filter>
+    <ClInclude Include="ISceneObject.h">
+      <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="CRenderPassManager.h">
-      <Filter>SceneManager\Render Passes</Filter>
+    <ClInclude Include="CRenderPass.h">
+      <Filter>SceneManager</Filter>
     </ClInclude>
-    <ClInclude Include="COrthogonalCamera.h">
-      <Filter>Camera</Filter>
+    <ClInclude Include="ILight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="CGeometryCreator.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CSimpleMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CSimpleMeshSceneObject.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,53 +46,32 @@
     <ClCompile Include="CPerspectiveCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.cpp">
-      <Filter>Node</Filter>
+    <ClCompile Include="CPointLight.cpp">
+      <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.ModelTransformMethods.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="ISceneNode.UpdateMethods.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneNode.cpp">
-      <Filter>Node</Filter>
-    </ClCompile>
-    <ClCompile Include="CScene.cpp">
-      <Filter>SceneManager</Filter>
-    </ClCompile>
-    <ClCompile Include="CUpdateCallbackComponent.cpp">
-      <Filter>Node\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CMeshLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="CShaderLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="CTextureLibrary.cpp">
-      <Filter>SceneManager\Libraries</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderPass.cpp">
-      <Filter>SceneManager\Render Passes</Filter>
-    </ClCompile>
-    <ClCompile Include="CDrawManager.cpp">
-      <Filter>SceneManager\Management</Filter>
-    </ClCompile>
-    <ClCompile Include="ILightSceneNode.cpp">
-      <Filter>Node</Filter>
+    <ClCompile Include="COrthographicCamera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
-      <Filter>SceneManager\Management</Filter>
+      <Filter>SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneNodeFactory.cpp">
-      <Filter>SceneManager\Management</Filter>
+    <ClCompile Include="ISceneObject.cpp">
+      <Filter>SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="CRenderPassManager.cpp">
-      <Filter>SceneManager\Render Passes</Filter>
+    <ClCompile Include="CRenderPass.cpp">
+      <Filter>SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="COrthogonalCamera.cpp">
-      <Filter>Camera</Filter>
+    <ClCompile Include="ILight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="CGeometryCreator.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CSimpleMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CSimpleMeshSceneObject.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,20 +81,14 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{1d505f92-ea19-47bc-be08-29ec50a5e310}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Node">
-      <UniqueIdentifier>{9aa6fbd7-7084-411a-ad0f-ae937c462da1}</UniqueIdentifier>
+    <Filter Include="Light">
+      <UniqueIdentifier>{234bc57a-b8e2-4263-9586-b6174ebe24ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Node\Component">
-      <UniqueIdentifier>{113513f8-0344-44d6-9863-b55fc0d28ab0}</UniqueIdentifier>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{b6886fce-5fdb-403a-92e0-8848305b53ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneManager\Libraries">
-      <UniqueIdentifier>{501fbe7b-ef85-4f56-9637-6c23006da74d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneManager\Render Passes">
-      <UniqueIdentifier>{410dd937-3448-496d-8ef1-64f09e73841a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneManager\Management">
-      <UniqueIdentifier>{a97a05b5-d0b1-4db3-974e-138d5f3bcad6}</UniqueIdentifier>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{56eb5827-4c6e-48c2-a826-f2b91f313522}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

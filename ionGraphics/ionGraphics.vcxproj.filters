@@ -3,10 +3,16 @@
   <ItemGroup>
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
-    <ClInclude Include="CImage.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Buffers.h" />
+    <ClInclude Include="Uniforms.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="IPipelineState.h" />
+    <ClInclude Include="IRenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IGraphicsAPI.cpp" />
-    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="Uniforms.cpp" />
   </ItemGroup>
 </Project>

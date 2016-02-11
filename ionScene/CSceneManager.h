@@ -1,44 +1,38 @@
 
 #pragma once
 
-#include "CMeshLibrary.h"
-#include "CShaderLibrary.h"
-#include "CTextureLibrary.h"
-#include "CSceneNodeFactory.h"
-#include "CRenderPassManager.h"
-#include "CScene.h"
+#include "ICamera.h"
+#include "CCamera.h"
+#include "ISceneObject.h"
+#include "CRenderPass.h"
 
 
-class CSceneManager : public Singleton<CSceneManager>
+namespace ion
 {
+	namespace Scene
+	{
 
-public:
+		class CSceneManager : public Singleton<CSceneManager>
+		{
 
-	CMeshLibrary * GetMeshLibrary();
-	CShaderLibrary * GetShaderLibrary();
-	CTextureLibrary * GetTextureLibrary();
-	CSceneNodeFactory * GetFactory();
-	CDrawManager * GetDrawManager();
-	CRenderPassManager * GetRenderPassManager();
+		public:
 
-	virtual void DrawAll();
+			virtual void Init(Graphics::IGraphicsAPI * GraphicsAPI);
+			virtual void DrawAll();
 
-	CScene * GetScene();
-	ISceneNode * GetRoot();
+			virtual void AddRenderPass(CRenderPass * RenderPass);
 
-protected:
+		protected:
 
-	CMeshLibrary * MeshLibrary = new CMeshLibrary{};
-	CShaderLibrary * ShaderLibrary = new CShaderLibrary{};
-	CTextureLibrary * TextureLibrary = new CTextureLibrary{};
-	CSceneNodeFactory * Factory = new CSceneNodeFactory{this};
-	CScene * Scene = new CScene{};
-	CDrawManager * DrawManager = new CDrawManager{};
-	CRenderPassManager * RenderPassManager = new CRenderPassManager{};
+			set<CRenderPass *> RenderPasses;
+			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
-private:
+		private:
 
-	friend class Singleton<CSceneManager>;
-	CSceneManager();
+			friend class Singleton<CSceneManager>;
+			CSceneManager();
 
-};
+		};
+
+	}
+}
