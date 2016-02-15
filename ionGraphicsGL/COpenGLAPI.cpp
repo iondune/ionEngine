@@ -183,6 +183,10 @@ namespace ion
 				{
 					SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
 				}
+				else
+				{
+					Log::Info("Your platform does not support OpenGL Debug Output");
+				}
 
 				SafeGLCall(glEnable, (GL_DEPTH_TEST));
 				SafeGLCall(glDepthFunc, (GL_LEQUAL));
