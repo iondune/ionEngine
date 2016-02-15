@@ -177,7 +177,12 @@ namespace ion
 
 				Log::Info("Your OpenGL Version Number: %s", VersionString);
 
-				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
+				// There is a good chance this method is not supported, and it is not considered
+				// an error if it is absent. So, we check manually.
+				if (glDebugMessageCallback)
+				{
+					SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
+				}
 
 				SafeGLCall(glEnable, (GL_DEPTH_TEST));
 				SafeGLCall(glDepthFunc, (GL_LEQUAL));
