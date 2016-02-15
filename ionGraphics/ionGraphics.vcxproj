@@ -10,6 +10,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{21F131D8-D333-4188-A27B-3E75425D6F7F}</ProjectGuid>
+    <RootNamespace>ionGraphics</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
+  </ImportGroup>
   <ItemGroup>
     <ClInclude Include="Buffers.h" />
     <ClInclude Include="Enums.h" />
@@ -25,12 +32,5 @@
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="Uniforms.cpp" />
   </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{21F131D8-D333-4188-A27B-3E75425D6F7F}</ProjectGuid>
-    <RootNamespace>ionGraphics</RootNamespace>
-  </PropertyGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(SolutionDir)\Properties\Library.props" />
-  </ImportGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
