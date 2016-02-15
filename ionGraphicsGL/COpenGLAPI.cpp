@@ -38,11 +38,7 @@ namespace ion
 	namespace Graphics
 	{
 
-#ifdef ION_CONFIG_LINUX
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
-#else
 		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
-#endif
 		{
 			string Source = "";
 			string Type = "";
