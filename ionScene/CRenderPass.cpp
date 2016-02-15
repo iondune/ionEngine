@@ -123,6 +123,10 @@ namespace ion
 				{
 					PipelineState->SetUniform(Name, &uModelMatrix);
 				}
+				else if (Name == "uNormalMatrix")
+				{
+					PipelineState->SetUniform(Name, &uNormalMatrix);
+				}
 				else if (Name == "uViewMatrix")
 				{
 					PipelineState->SetUniform(Name, &uViewMatrix);
