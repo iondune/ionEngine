@@ -11,13 +11,6 @@ void ErrorCallback(int ErrorCode, char const * Description)
 	std::cerr << "Error description: " << Description << std::endl;
 }
 
-#ifdef ION_CONFIG_LINUX
-void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
-#else
-void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
-#endif
-{}
-
 int main()
 {
 	std::cout <<
@@ -120,12 +113,11 @@ int main()
 		"---------------------------" << std::endl;
 	if (glDebugMessageCallback)
 	{
-		glDebugMessageCallback(DebugMessageCallback, nullptr);
-		std::cout << "Callback installed." << std::endl;
+		std::cout << "Supported." << std::endl;
 	}
 	else
 	{
-		std::cout << "Function is not loaded." << std::endl;
+		std::cout << "Not supported." << std::endl;
 	}
 	std::cout << std::endl;
 
