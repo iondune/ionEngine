@@ -11,10 +11,33 @@ void ErrorCallback(int ErrorCode, char const * Description)
 	std::cerr << "Error description: " << Description << std::endl;
 }
 
+#ifdef ION_CONFIG_LINUX
+void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
+#else
+void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
+#endif
+{}
+
 int main()
 {
+	std::cout <<
+		"Config check..." << std::endl <<
+		"---------------" << std::endl;
+#ifdef ION_CONFIG_WINDOWS
+	std::cout << "This is a Windows build." << std::endl << std::endl;
+#endif
+#ifdef ION_CONFIG_LINUX
+	std::cout << "This is a Linux build." << std::endl << std::endl;
+#endif
+#ifdef ION_CONFIG_OSX
+	std::cout << "This is an OS X build." << std::endl << std::endl;
+#endif
+
 	glfwSetErrorCallback(ErrorCallback);
 
+	std::cout <<
+		"Initializing glfw..." << std::endl <<
+		"--------------------" << std::endl;
 	if (! glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
@@ -34,10 +57,18 @@ int main()
 			<< X << " x " << Y
 			<< std::endl;
 	}
+	std::cout << std::endl;
 
+	std::cout <<
+		"Creating glfw window..." << std::endl <<
+		"-----------------------" << std::endl;
 	GLFWwindow * window = 0;
 	glfwWindowHint(GLFW_VISIBLE, false);
-	if (! (window = glfwCreateWindow(640, 480, "Utility Compile Test", 0, 0)))
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	if (! (window = glfwCreateWindow(640, 480, "Deployment Test", 0, 0)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		std::cerr << "Attempting full screen" << std::endl;
@@ -49,8 +80,17 @@ int main()
 			exit(34);
 		}
 	}
+	else
+	{
+		std::cout << "Window created." << std::endl;
+	}
+	std::cout << std::endl;
 	glfwMakeContextCurrent(window);
 
+	std::cout <<
+		"Initializing glew..." << std::endl <<
+		"--------------------" << std::endl;
+	glewExperimental = true;
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
@@ -59,12 +99,35 @@ int main()
 		exit(35);
 	}
 
-	std::cerr << std::endl << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-	std::cerr << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl << std::endl;
-	std::cerr << "Vender: " << glGetString(GL_VENDOR) << std::endl;
-	std::cerr << "Renderer: " << glGetString(GL_RENDERER) << std::endl << std::endl;
+	std::cerr << "OpenGL Version:   " << std::flush << glGetString(GL_VERSION) << std::endl;
+	std::cerr << "GLSL Version:     " << std::flush << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+	std::cerr << "Vender:           " << std::flush << glGetString(GL_VENDOR) << std::endl;
+	std::cerr << "Renderer:         " << std::flush << glGetString(GL_RENDERER) << std::endl << std::endl;
 	glfwDestroyWindow(window);
 	glfwTerminate();
+
+	std::cout <<
+		"Log test..." << std::endl <<
+		"-----------" << std::endl;
+	Log::AddDefaultOutputs();
+	Log::Info("Info log.");
+	Log::Warn("Warning log.");
+	Log::Error("Error log.");
+	std::cout << std::endl;
+
+	std::cout <<
+		"OpenGL Debug Output test..." << std::endl <<
+		"---------------------------" << std::endl;
+	if (glDebugMessageCallback)
+	{
+		glDebugMessageCallback(DebugMessageCallback, nullptr);
+		std::cout << "Callback installed." << std::endl;
+	}
+	else
+	{
+		std::cout << "Function is not loaded." << std::endl;
+	}
+	std::cout << std::endl;
 
 	WaitForUser();
 
