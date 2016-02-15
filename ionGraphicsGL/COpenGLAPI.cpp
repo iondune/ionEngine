@@ -179,8 +179,8 @@ namespace ion
 
 				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
 
-				CheckedGLCall(glEnable(GL_DEPTH_TEST));
-				CheckedGLCall(glDepthFunc(GL_LEQUAL));
+				SafeGLCall(glEnable, (GL_DEPTH_TEST));
+				SafeGLCall(glDepthFunc, (GL_LEQUAL));
 				Initialized = true;
 			}
 		}

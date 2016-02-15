@@ -1,4 +1,4 @@
-add_executable(Demo05-Application DemoScene.cpp)
+add_executable(Demo05-Application DemoApplication.cpp)
 
 # Libraries
 target_link_libraries(Demo05-Application ionApplication)
