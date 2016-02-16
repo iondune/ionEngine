@@ -3,15 +3,16 @@ cmake_minimum_required(VERSION 2.6)
 project(ionEngine)
 
 # Output Directories
-set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Compiler Settings
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/Include")
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-# Libraries
+# Dependencies
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/stb")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/tinyformat")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glm")
@@ -20,7 +21,6 @@ include_directories("${PROJECT_SOURCE_DIR}/Dependencies/Catch/include")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glad/include")
 
 function(ExecutableDependencies TargetName)
-
 	# OpenGL
 	find_package(OpenGL REQUIRED)
 	if (OPENGL_FOUND)
@@ -33,7 +33,6 @@ function(ExecutableDependencies TargetName)
 	include_directories(${GLFW_INCLUDE_DIRS})
 	target_link_libraries(${TargetName} ${GLFW_LIBRARIES})
 	target_link_libraries(${TargetName} ${GLFW_STATIC_LIBRARIES})
-
 endfunction(ExecutableDependencies)
 
 #########
