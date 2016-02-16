@@ -1,7 +1,7 @@
 
 #include "CTexture.h"
 #include "Utilities.h"
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 namespace ion
@@ -51,7 +51,7 @@ namespace ion
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
 
 				f32 LargestAnisotropy;
-				CheckedGLCall(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
+				CheckedGLCall(glGetFloatv(GL_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
 				if (Anisotropy < 0.f)
 					Anisotropy = LargestAnisotropy;
 				CheckedGLCall(glTexParameterf(GetGLBindTextureTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Anisotropy, 0.f, LargestAnisotropy)));

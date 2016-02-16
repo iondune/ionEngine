@@ -45,6 +45,7 @@
     <ClCompile Include="DrawContext.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="CShaderProgram.cpp" />
+    <ClCompile Include="glad.cpp" />
     <ClCompile Include="Renderbuffer.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="Utilities.cpp" />

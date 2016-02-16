@@ -81,6 +81,7 @@
     <ClCompile Include="CVertexBuffer.cpp">
       <Filter>Buffer Object</Filter>
     </ClCompile>
+    <ClCompile Include="glad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

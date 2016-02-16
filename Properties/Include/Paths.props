@@ -7,21 +7,18 @@
       ;$(VisualStudioDir)\Projects\ionEngine\Include;
       ;$(VisualStudioDir)\SDKs\stb;
       ;$(VisualStudioDir)\SDKs\glm;
-      ;$(VisualStudioDir)\SDKs\glew-1.12.0\include;
+      ;$(VisualStudioDir)\SDKs\glad\include;
       ;$(VisualStudioDir)\SDKs\glfw\include;
       ;$(VisualStudioDir)\SDKs\assimp-3.1.1\include;
-      ;$(VisualStudioDir)\SDKs\freetype-2.5.5\include;
       ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
       ;$(VisualStudioDir)\SDKs\dirent-1.20.1\include;
       ;$(VisualStudioDir)\SDKs\tinyformat;
-      ;$(VisualStudioDir)\SDKs\imGUI;
+      ;$(VisualStudioDir)\SDKs\imgui;
       ;$(VisualStudioDir)\SDKs\Catch\include;
       ;$(IncludePath);
     </IncludePath>
     <LibraryPath>
-      ;$(VisualStudioDir)\SDKs\glew-1.12.0\lib\Release\x64;
       ;$(VisualStudioDir)\SDKs\assimp-3.1.1\lib64;
-      ;$(VisualStudioDir)\SDKs\freetype-2.5.5\objs\vc2010\x64;
       ;$(LibraryPath);
     </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Debug'">

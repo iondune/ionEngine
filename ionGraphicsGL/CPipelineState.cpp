@@ -1,7 +1,7 @@
 
 #include "CPipelineState.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 namespace ion

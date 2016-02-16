@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "SVolume.h"
 #include "IDatabase.h"

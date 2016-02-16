@@ -31,8 +31,6 @@
     <Link>
       <AdditionalDependencies>
         ;OpenGL32.lib;
-        ;glu32.lib;
-        ;glew32.lib;
         ;glfw3.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
@@ -41,6 +39,7 @@
 
   <ItemGroup>
     <ClCompile Include="DeploymentTest.cpp" />
+    <ClCompile Include="glad.cpp" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

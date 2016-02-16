@@ -1,6 +1,6 @@
 
 #include "CGUIManager.h"
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)

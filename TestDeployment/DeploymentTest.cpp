@@ -1,6 +1,6 @@
 
 #include <ionCore.h>
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 
@@ -81,13 +81,11 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	std::cout <<
-		"Initializing glew..." << std::endl <<
+		"Initializing glad..." << std::endl <<
 		"--------------------" << std::endl;
-	glewExperimental = true;
-	GLenum err = glewInit();
-	if (GLEW_OK != err)
+	if (! gladLoadGL())
 	{
-		std::cerr << "Error initializing glew! " << glewGetErrorString(err) << std::endl;
+		std::cerr << "Error initializing glad! " << std::endl;
 		WaitForUser();
 		exit(35);
 	}

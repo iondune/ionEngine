@@ -5,7 +5,7 @@
 #include "CVertexShader.h"
 #include "CPixelShader.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 

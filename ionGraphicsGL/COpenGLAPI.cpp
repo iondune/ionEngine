@@ -11,7 +11,7 @@
 #include "CRenderTarget.h"
 #include "CTexture.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
 
@@ -38,11 +38,7 @@ namespace ion
 	namespace Graphics
 	{
 
-#ifdef ION_CONFIG_LINUX
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
-#else
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
-#endif
+		void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
 		{
 			string Source = "";
 			string Type = "";
@@ -137,25 +133,11 @@ namespace ion
 			static bool Initialized = false;
 
 			if (! Initialized)
-			{
-				GL::PrintOpenGLErrors("GLEW init");
-
-				// See https://www.opengl.org/wiki/OpenGL_Loading_Library
-				// We have to enable Experimental or else GLEW will fail to load extensions
-				// because it uses glGetString instead of glGetStringi
-				// On CORE contexts, that call will return INVALID_ENUM and apparently fail
-				// to load EVERYTHING. So we use experimental so that functions will actually
-				// be loaded, and we ignore the error.
-				glewExperimental = true;
-				u32 Error = glewInit();
-				GL::IgnoreOpenGLError();
-
-				if (Error != GLEW_OK)
+			{				
+				if (! gladLoadGL())
 				{
-					Log::Error("Error initializing glew! %s", glewGetErrorString(Error));
+					Log::Error("Error initializing glad!");
 				}
-
-				GL::PrintOpenGLErrors("Version check");
 
 				int Major = 0, Minor = 0;
 				byte const * VersionString = nullptr;
@@ -308,14 +290,8 @@ namespace ion
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Texture2D->Handle));
-			if (glTexStorage2D)
-			{
-				glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
-			}
-			else
-			{
-				Log::Error("Function is not loaded: glTexStorage2D");
-			}
+			CheckedGLCall(glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y));
+
 			if (GL::OpenGLError())
 			{
 				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());

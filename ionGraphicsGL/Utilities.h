@@ -55,8 +55,7 @@ namespace ion
 			{
 				Points = 0,
 				Lines = 1,
-				Triangles = 2,
-				Quads = 3
+				Triangles = 2
 			};
 
 			class Util
