@@ -1,1 +1,3 @@
 syntax: glob
+Build/*
+Dependencies/*

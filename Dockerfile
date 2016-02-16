@@ -8,7 +8,10 @@ COPY . ionEngine/
 
 CMD \
 	cd ionEngine && \
+	./Clean.bash && \
 	./UpdateDependencies.bash && \
-	cmake . && \
+	mkdir Build && \
+	cd Build && \
+	cmake .. && \
 	make && \
 	./bin/TestUnits
