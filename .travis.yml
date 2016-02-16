@@ -30,4 +30,5 @@ script:
   - mkdir Build && cd Build
   - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
   - make
+  - ./bin/TestConfig
   - ./bin/TestUnits

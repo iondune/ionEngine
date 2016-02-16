@@ -50,6 +50,7 @@ add_subdirectory("ionApplication")
 add_subdirectory("ionScience")
 
 # Tests
+add_subdirectory("TestConfig")
 add_subdirectory("TestDeployment")
 add_subdirectory("TestUnits")
 
