@@ -8,6 +8,7 @@ function CloneGithubDependency {
 	repoName="$1"
 	repoURL="$2"
 	revision="$3"
+	buildStep="$4"
 
 	echo "Cloning Dependency '$repoName'"
 	echo "================================================================================"
@@ -16,6 +17,10 @@ function CloneGithubDependency {
 	git clone "$repoURL" "$repoName"
 	cd "./$repoName"
 	git reset --hard "$revision"
+
+	if [ -z "$4" ] ; then
+		echo "Peforming build step ''"
+	fi
 	cd ..
 
 	echo
