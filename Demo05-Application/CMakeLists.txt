@@ -1,11 +1,9 @@
 add_executable(Demo05-Application DemoApplication.cpp)
 
-# Libraries
 target_link_libraries(Demo05-Application ionApplication)
 target_link_libraries(Demo05-Application ionScene)
 target_link_libraries(Demo05-Application ionGraphicsGL)
 target_link_libraries(Demo05-Application ionGraphics)
 target_link_libraries(Demo05-Application ionWindow)
 target_link_libraries(Demo05-Application ionFramework)
-GLFW(Demo05-Application)
-GLEW(Demo05-Application)
+ExecutableDependencies(Demo05-Application)
