@@ -17,20 +17,26 @@ int main()
 		"Config check..." << std::endl <<
 		"---------------" << std::endl;
 #ifdef ION_CONFIG_WINDOWS
-	std::cout << "This is a Windows build." << std::endl << std::endl;
+	std::cout << "This is a Windows build." << std::endl;
 #endif
 #ifdef ION_CONFIG_LINUX
-	std::cout << "This is a Linux build." << std::endl << std::endl;
+	std::cout << "This is a Linux build." << std::endl;
 #endif
 #ifdef ION_CONFIG_OSX
-	std::cout << "This is an OS X build." << std::endl << std::endl;
+	std::cout << "This is an OS X build." << std::endl;
 #endif
 
-	glfwSetErrorCallback(ErrorCallback);
+#ifdef ION_CONFIG_DEBUG
+	std::cout << "This is a Debug build." << std::endl;
+#else
+	std::cout << "This is a Release build." << std::endl;
+#endif
+	std::cout << std::endl;
 
 	std::cout <<
 		"Initializing glfw..." << std::endl <<
 		"--------------------" << std::endl;
+	glfwSetErrorCallback(ErrorCallback);
 	if (! glfwInit())
 	{
 		std::cerr << "Error initializing glfw! " << std::endl;
