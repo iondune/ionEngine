@@ -1,0 +1,11 @@
+setup:
+  commands:
+  - mkdir Build
+  - cd Build
+  - cmake -DCMAKE_BUILD_TYPE=Debug
+  - make
+
+tests:
+  commands:
+  - ./bin/TestConfig
+  - ./bin/TestUnits
