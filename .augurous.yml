@@ -2,7 +2,7 @@ setup:
   commands:
   - mkdir Build
   - cd Build
-  - cmake -DCMAKE_BUILD_TYPE=Debug
+  - cmake -DCMAKE_BUILD_TYPE=Debug ..
   - make
 
 tests:
