@@ -1,6 +1,8 @@
-github:
-  commands:
-  - easy_install hg-git
-  - echo '[extension]' >> .hg/hgrc
-  - echo 'hggit = ' >> .hg/hgrc
-  - ContinuousIntegration/GitPush.bash
+remote: git+https://github.com/iondune/ionEngine.git
+branches:
+- branch:
+    local: default
+    remote: master
+- branch:
+    local: stable
+    remote: release
