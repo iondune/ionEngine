@@ -1,4 +1,4 @@
-remote: git+https://github.com/iondune/ionEngine.git
+remote: git+ssh://git@github.com:iondune/ionEngine.git
 branches:
 - branch:
     local: default
