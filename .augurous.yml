@@ -1,13 +1,6 @@
-setup:
+github:
   commands:
-  - apt-get install -y xorg-dev libglfw3-dev
-  - ./UpdateDependencies.bash
-  - mkdir Build
-  - cd Build
-  - cmake -DCMAKE_BUILD_TYPE=Debug ..
-  - make
-
-tests:
-  commands:
-  - ./bin/TestConfig
-  - ./bin/TestUnits
+  - easy_install hg-git
+  - echo '[extension]' >> .hg/hgrc
+  - echo 'hggit = ' >> .hg/hgrc
+  - ContinuousIntegration/GitPush.bash
