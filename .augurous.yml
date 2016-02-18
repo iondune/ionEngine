@@ -1,5 +1,7 @@
 setup:
   commands:
+  - apt-get install xorg-dev libglfw3-dev
+  - ./UpdateDependencies.bash
   - mkdir Build
   - cd Build
   - cmake -DCMAKE_BUILD_TYPE=Debug ..
