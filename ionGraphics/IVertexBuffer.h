@@ -34,14 +34,5 @@ namespace ion
 
 		};
 
-		class IIndexBuffer
-		{
-
-		public:
-
-			virtual void UploadData(void const * Data, size_t const Elements, EValueType const ValueType) = 0;
-
-		};
-
 	}
 }

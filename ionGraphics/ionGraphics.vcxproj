@@ -18,19 +18,20 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="Buffers.h" />
+    <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="IGraphicsAPI.h" />
+    <ClInclude Include="IIndexBuffer.h" />
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="IPipelineState.h" />
     <ClInclude Include="IRenderTarget.h" />
-    <ClInclude Include="Shaders.h" />
-    <ClInclude Include="Textures.h" />
-    <ClInclude Include="Uniforms.h" />
+    <ClInclude Include="IShaderProgram.h" />
+    <ClInclude Include="ITexture.h" />
+    <ClInclude Include="IUniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
-    <ClCompile Include="Uniforms.cpp" />
+    <ClCompile Include="IUniform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

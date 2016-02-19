@@ -6,9 +6,10 @@
 #include <ionWindow.h>
 
 #include "Enums.h"
-#include "Shaders.h"
-#include "Buffers.h"
-#include "Textures.h"
+#include "IShaderProgram.h"
+#include "IVertexBuffer.h"
+#include "IIndexBuffer.h"
+#include "ITexture.h"
 #include "IPipelineState.h"
 #include "IRenderTarget.h"
 

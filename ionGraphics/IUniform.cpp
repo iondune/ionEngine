@@ -1,5 +1,5 @@
 
-#include "Uniforms.h"
+#include "IUniform.h"
 
 
 namespace ion
