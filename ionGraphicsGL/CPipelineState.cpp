@@ -13,23 +13,26 @@ namespace ion
 
 			void CPipelineState::SetProgram(IShaderProgram * inShaderProgram)
 			{
-				ShaderProgram = dynamic_cast<CShaderProgram *>(inShaderProgram);
-				if (! ShaderProgram->Linked)
+				if (inShaderProgram)
 				{
-					ShaderProgram->Link();
-
+					ShaderProgram = dynamic_cast<CShaderProgram *>(inShaderProgram);
 					if (! ShaderProgram->Linked)
 					{
-						Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
-						ShaderProgram = nullptr;
-						return;
+						ShaderProgram->Link();
+
+						if (! ShaderProgram->Linked)
+						{
+							Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
+							ShaderProgram = nullptr;
+							return;
+						}
 					}
+
+					UnboundUniforms = KeySet(ShaderProgram->Uniforms);
+					UnboundAttributes = KeySet(ShaderProgram->Attributes);
+
+					Loaded = false;
 				}
-
-				UnboundUniforms = KeySet(ShaderProgram->Uniforms);
-				UnboundAttributes = KeySet(ShaderProgram->Attributes);
-
-				Loaded = false;
 			}
 
 			void CPipelineState::SetVertexBuffer(IVertexBuffer * inVertexBuffer)
