@@ -270,6 +270,7 @@ namespace ion
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 			CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
+			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 			IndexBuffer->Size = Elements;
 			return IndexBuffer;
 		}
