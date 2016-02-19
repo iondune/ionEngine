@@ -36,6 +36,7 @@
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="COpenGLAPI.cpp" />
     <ClCompile Include="CPipelineState.cpp" />

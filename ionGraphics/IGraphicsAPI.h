@@ -32,6 +32,7 @@ namespace ion
 
 			virtual IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements) = 0;
 			virtual IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType) = 0;
+			virtual IIndexBuffer * CreateIndexBuffer() = 0;
 
 			virtual ITexture2D * CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
 			virtual ITexture3D * CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;

@@ -82,6 +82,9 @@
       <Filter>Buffer Object</Filter>
     </ClCompile>
     <ClCompile Include="glad.cpp" />
+    <ClCompile Include="CIndexBuffer.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

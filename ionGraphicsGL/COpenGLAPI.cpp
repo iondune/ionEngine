@@ -275,6 +275,13 @@ namespace ion
 			return IndexBuffer;
 		}
 
+		IIndexBuffer * COpenGLAPI::CreateIndexBuffer()
+		{
+			GL::CIndexBuffer * IndexBuffer = new GL::CIndexBuffer();
+			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
+			return IndexBuffer;
+		}
+
 		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			GL::CTexture2D * Texture2D = new GL::CTexture2D();
