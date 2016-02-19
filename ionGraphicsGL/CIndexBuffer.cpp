@@ -16,6 +16,7 @@ namespace ion
 				CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Handle));
 				CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
 				CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+				Size = Elements;
 			}
 
 		}
