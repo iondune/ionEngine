@@ -14,6 +14,7 @@ namespace ion
 	{
 		if (! GraphicsAPI)
 		{
+			Log::Error("CAssetManager being used without being initialized, Shader '%s' will not be loaded.", Name);
 			return nullptr;
 		}
 
@@ -43,6 +44,7 @@ namespace ion
 	{
 		if (! GraphicsAPI)
 		{
+			Log::Error("CAssetManager being used without being initialized, Texture '%s' will not be loaded.", FileName);
 			return nullptr;
 		}
 
