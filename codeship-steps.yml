@@ -1,9 +1,0 @@
-- name: build
-  service: engine
-  command: cmake .
-- name: compie
-  service: engine
-  command: make
-- name: unit_tests
-  service: engine
-  command: bin/TestUnits

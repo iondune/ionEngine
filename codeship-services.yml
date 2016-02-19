@@ -1,3 +1,0 @@
-engine:
-  build:
-    dockerfile_path: Dockerfile
