@@ -27,6 +27,7 @@ namespace ion
 				void SetIndexBuffer(IIndexBuffer * IndexBuffer);
 				void SetUniform(string const & Name, IUniform * Uniform);
 				void SetTexture(string const & Name, ITexture * Texture);
+				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
 
 				void OfferUniform(string const & Name, IUniform * Uniform);
 				set<string> GetUnboundUniforms() const;
@@ -48,6 +49,12 @@ namespace ion
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;
+
+				bool DrawWireframe = false;
+				bool CullFront = false;
+				bool CullBack = false;
+				bool DisableDepthTest = false;
+				bool DrawBlended = false;
 
 			};
 

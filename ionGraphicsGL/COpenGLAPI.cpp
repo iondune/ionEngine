@@ -366,6 +366,7 @@ namespace ion
 			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
 			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
 
+			// Uniforms
 			for (auto const & it : PipelineState->BoundUniforms)
 			{
 				switch (it.second->GetType())
@@ -406,6 +407,7 @@ namespace ion
 				}
 			}
 
+			// Textures
 			int TextureIndex = 0;
 			for (auto const & it : PipelineState->BoundTextures)
 			{
@@ -416,7 +418,50 @@ namespace ion
 				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
 			}
 
+			// Draw Features
+			if (PipelineState->DrawWireframe)
+			{
+				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+			}
+			if (PipelineState->CullFront || PipelineState->CullBack)
+			{
+				glEnable(GL_CULL_FACE);
+				if (! PipelineState->CullFront)
+					CheckedGLCall(glCullFace(GL_BACK));
+				else if (! PipelineState->CullBack)
+					CheckedGLCall(glCullFace(GL_FRONT));
+				else
+					CheckedGLCall(glCullFace(GL_FRONT_AND_BACK));
+			}
+			if (PipelineState->DisableDepthTest)
+			{
+				CheckedGLCall(glDisable(GL_DEPTH_TEST));
+			}
+			if (PipelineState->DrawBlended)
+			{
+				CheckedGLCall(glEnable(GL_BLEND));
+				CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+			}
+
 			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+
+			if (PipelineState->DrawWireframe)
+			{
+				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+			}
+			if (PipelineState->CullFront || PipelineState->CullBack)
+			{
+				CheckedGLCall(glDisable(GL_CULL_FACE));
+				CheckedGLCall(glCullFace(GL_BACK)); // Default value
+			}
+			if (PipelineState->DisableDepthTest)
+			{
+				CheckedGLCall(glEnable(GL_DEPTH_TEST));
+			}
+			if (PipelineState->DrawBlended)
+			{
+				CheckedGLCall(glDisable(GL_BLEND));
+			}
 
 			TextureIndex = 0;
 			for (auto const & it : PipelineState->BoundTextures)

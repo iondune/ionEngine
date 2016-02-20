@@ -15,6 +15,15 @@ namespace ion
 	namespace Graphics
 	{
 
+		enum class EDrawFeature
+		{
+			Wireframe = 0,
+			CullFront = 1,
+			CullBack = 2,
+			DisableDepthTest = 3,
+			Blend = 4
+		};
+
 		class IPipelineState
 		{
 
@@ -27,6 +36,8 @@ namespace ion
 			virtual void SetTexture(string const & Name, ITexture * Texture) = 0;
 
 			virtual void OfferUniform(string const & Name, IUniform * Uniform) = 0;
+
+			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
 
 			virtual set<string> GetUnboundUniforms() const = 0;
 

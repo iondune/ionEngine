@@ -118,6 +118,28 @@ namespace ion
 				}
 			}
 
+			void CPipelineState::SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled)
+			{
+				switch (Feature)
+				{
+				case EDrawFeature::Wireframe:
+					DrawWireframe = Enabled;
+					break;
+				case EDrawFeature::CullFront:
+					CullFront = Enabled;
+					break;
+				case EDrawFeature::CullBack:
+					CullBack = Enabled;
+					break;
+				case EDrawFeature::DisableDepthTest:
+					DisableDepthTest = Enabled;
+					break;
+				case EDrawFeature::Blend:
+					DrawBlended = Enabled;
+					break;
+				}
+			}
+
 			void CPipelineState::OfferUniform(string const & Name, IUniform * Uniform)
 			{
 				if (! ShaderProgram)
