@@ -10,6 +10,7 @@
         ;ionGraphicsGL.lib;
         ;ionScene.lib;
         ;ionApplication.lib;
+        ;ionScience.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
