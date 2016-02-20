@@ -394,6 +394,9 @@ namespace ion
 				case EValueType::UnsignedInt32:
 					CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
 					break;
+				case EValueType::SignedInt32:
+					CheckedGLCall(glUniform1i(it.first, * static_cast<int const *>(it.second->GetData())));
+					break;
 				case EValueType::Matrix4x4:
 					CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
 					break;
