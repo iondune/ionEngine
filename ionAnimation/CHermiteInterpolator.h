@@ -15,19 +15,19 @@ namespace ion
 
 		protected:
 
-			f32 Tension, Bias;
+			float Tension, Bias;
 
 		public:
 
 			CHermiteInterpolator();
 
-			virtual T const Interpolate(IPath<T> const & Path, s32 const Index, float const Mu);
+			virtual T const Interpolate(IPath<T> const & Path, int const Index, float const Mu);
 
-			void SetBias(f32 const bias) { Bias = bias; }
-			void SetTension(f32 const tension) { Tension = tension; }
+			void SetBias(float const bias) { Bias = bias; }
+			void SetTension(float const tension) { Tension = tension; }
 
-			float GetBias(f32 const bias) const { return Bias; }
-			float GetTension(f32 const tension) const { return Tension; }
+			float GetBias() const { return Bias; }
+			float GetTension() const { return Tension; }
 
 		};
 
