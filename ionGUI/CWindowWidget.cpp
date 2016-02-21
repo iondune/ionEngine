@@ -7,15 +7,15 @@ namespace ion
 	namespace GUI
 	{
 
-		void CWindowWidget::DrawIfVisible()
+		void CWindowWidget::DrawGUIIfVisible()
 		{
 			if (IsVisible)
 			{
-				Draw();
+				DrawGUI();
 			}
 		}
 
-		void CWindowWidget::ToggleVisibility()
+		void CWindowWidget::ToggleGUIVisibility()
 		{
 			IsVisible = ! IsVisible;
 		}

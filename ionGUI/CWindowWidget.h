@@ -14,10 +14,10 @@ namespace ion
 
 		public:
 
-			virtual void Draw() = 0;
+			virtual void DrawGUI() = 0;
 
-			void DrawIfVisible();
-			void ToggleVisibility();
+			void DrawGUIIfVisible();
+			void ToggleGUIVisibility();
 
 		protected:
 
