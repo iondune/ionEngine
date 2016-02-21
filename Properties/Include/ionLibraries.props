@@ -8,6 +8,7 @@
         ;ionWindow.lib;
         ;ionGraphics.lib;
         ;ionGraphicsGL.lib;
+        ;ionGUI.lib;
         ;ionScene.lib;
         ;ionApplication.lib;
         ;ionScience.lib;
