@@ -49,23 +49,30 @@ namespace ion
 		}
 
 		CImage * Image = CImage::Load(AssetPath + TexturePath + FileName);
-		Graphics::ITexture2D * Texture = GraphicsAPI->CreateTexture2D(
-			Image->GetSize(),
-			Graphics::ITexture::EMipMaps::True,
-			(Image->GetChannels() == 4 ?
-				Graphics::ITexture::EFormatComponents::RGBA :
-				(Image->GetChannels() == 3 ?
-				Graphics::ITexture::EFormatComponents::RGB :
-				(Image->GetChannels() == 2 ?
-				Graphics::ITexture::EFormatComponents::RG :
-				Graphics::ITexture::EFormatComponents::R))),
-			Graphics::ITexture::EInternalFormatType::Fix8);
-		Texture->Upload(
-			Image->GetData(),
-			Image->GetSize(),
-			Graphics::ITexture::EFormatComponents::RGB,
-			Graphics::EScalarType::UnsignedInt8);
-		return Texture;
+		if (Image)
+		{
+			Graphics::ITexture2D * Texture = GraphicsAPI->CreateTexture2D(
+				Image->GetSize(),
+				Graphics::ITexture::EMipMaps::True,
+				(Image->GetChannels() == 4 ?
+					Graphics::ITexture::EFormatComponents::RGBA :
+					(Image->GetChannels() == 3 ?
+						Graphics::ITexture::EFormatComponents::RGB :
+						(Image->GetChannels() == 2 ?
+							Graphics::ITexture::EFormatComponents::RG :
+							Graphics::ITexture::EFormatComponents::R))),
+				Graphics::ITexture::EInternalFormatType::Fix8);
+			Texture->Upload(
+				Image->GetData(),
+				Image->GetSize(),
+				Graphics::ITexture::EFormatComponents::RGB,
+				Graphics::EScalarType::UnsignedInt8);
+			return Texture;
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	void CAssetManager::SetAssetPath(string const & Path)
