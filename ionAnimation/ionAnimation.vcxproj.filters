@@ -3,14 +3,14 @@
   <ItemGroup>
     <ClInclude Include="CPath.h" />
     <ClInclude Include="IInterpolator.h" />
-    <ClInclude Include="Interpolators.h" />
-    <ClInclude Include="IPath.h" />
     <ClInclude Include="SPathNode.h" />
     <ClInclude Include="ionAnimation.h" />
-    <ClInclude Include="CSkinnedAnimation.h" />
-    <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="IPath.h" />
+    <ClInclude Include="CLinearInterpolator.h" />
+    <ClInclude Include="CHermiteInterpolator.h" />
+    <ClInclude Include="CCatmullRomInterpolator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCameraController.cpp" />
+    <ClCompile Include="CPath.cpp" />
   </ItemGroup>
 </Project>

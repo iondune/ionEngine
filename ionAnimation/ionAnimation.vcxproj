@@ -18,13 +18,17 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CCatmullRomInterpolator.h" />
+    <ClInclude Include="CHermiteInterpolator.h" />
+    <ClInclude Include="CLinearInterpolator.h" />
     <ClInclude Include="CPath.h" />
-    <ClInclude Include="CSkinnedAnimation.h" />
     <ClInclude Include="IInterpolator.h" />
-    <ClInclude Include="Interpolators.h" />
     <ClInclude Include="ionAnimation.h" />
     <ClInclude Include="IPath.h" />
     <ClInclude Include="SPathNode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CPath.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

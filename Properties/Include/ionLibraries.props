@@ -11,6 +11,7 @@
         ;ionScene.lib;
         ;ionApplication.lib;
         ;ionScience.lib;
+        ;ionAnimation.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>

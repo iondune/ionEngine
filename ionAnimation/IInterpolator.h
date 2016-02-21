@@ -2,16 +2,23 @@
 #pragma once
 
 #include <ionCore.h>
-
 #include "IPath.h"
 
 
-template <typename TPathNode>
-class IInterpolator
+namespace ion
 {
+	namespace Animation
+	{
 
-public:
+		template <typename TPathNode>
+		class IInterpolator
+		{
 
-	virtual TPathNode const interpolate(IPath<TPathNode> const & Path, s32 const Index, float const Mu) = 0;
+		public:
 
-};
+			virtual TPathNode const Interpolate(IPath<TPathNode> const & Path, int const Index, float const Mu) = 0;
+
+		};
+
+	}
+}
