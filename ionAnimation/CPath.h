@@ -57,15 +57,15 @@ s32 const CPath<TPathNode>::sanitizeIndex(s32 Index) const
 	{
 		// Negative indices
 		while (Index < 0)
-			Index += Nodes.size();
+			Index += (int) Nodes.size();
 
 		// Indices > Path size
 		if (Index >= static_cast<s32>(Nodes.size()))
-			Index %= Nodes.size();
+			Index %= (int) Nodes.size();
 	}
 	else
 	{
-		Index = Clamp<s32>(Index, 0, Nodes.size() - 1);
+		Index = Clamp<s32>(Index, 0, (int) Nodes.size() - 1);
 	}
 
 	return Index;
@@ -187,7 +187,7 @@ f32 const CPath<TPathNode>::getMuFromArcLengthDistance(f32 const Distance, IInte
 	if (DistanceTable.size() == 0)
 		return 0.f;
 
-	u32 Max = DistanceTable.size() - 1, Min = 0;
+	uint Max = (uint) DistanceTable.size() - 1, Min = 0;
 
 	f32 const ModulatedDistance = fmodf(Distance, DistanceTable.back());
 
