@@ -7,8 +7,8 @@
     <ClInclude Include="ionAnimation.h" />
     <ClInclude Include="IPath.h" />
     <ClInclude Include="CLinearInterpolator.h" />
-    <ClInclude Include="CHermiteInterpolator.h" />
     <ClInclude Include="CCatmullRomInterpolator.h" />
+    <ClInclude Include="CKochanekBartelsInterpolator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPath.cpp" />

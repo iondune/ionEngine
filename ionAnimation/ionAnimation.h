@@ -8,5 +8,5 @@
 #include "CPath.h"
 
 #include "CLinearInterpolator.h"
-#include "CHermiteInterpolator.h"
 #include "CCatmullRomInterpolator.h"
+#include "CKochanekBartelsInterpolator.h"

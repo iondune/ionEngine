@@ -19,7 +19,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="CCatmullRomInterpolator.h" />
-    <ClInclude Include="CHermiteInterpolator.h" />
+    <ClInclude Include="CKochanekBartelsInterpolator.h" />
     <ClInclude Include="CLinearInterpolator.h" />
     <ClInclude Include="CPath.h" />
     <ClInclude Include="IInterpolator.h" />

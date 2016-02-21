@@ -10,7 +10,7 @@ namespace ion
 	{
 
 		template <typename T>
-		class CHermiteInterpolator : public IInterpolator<T>
+		class CKochanekBartelsInterpolator : public IInterpolator<T>
 		{
 
 		protected:
@@ -19,7 +19,7 @@ namespace ion
 
 		public:
 
-			CHermiteInterpolator();
+			CKochanekBartelsInterpolator();
 
 			virtual T const Interpolate(IPath<T> const & Path, int const Index, float const Mu);
 
@@ -32,12 +32,12 @@ namespace ion
 		};
 
 		template <typename T>
-		CHermiteInterpolator<T>::CHermiteInterpolator()
+		CKochanekBartelsInterpolator<T>::CKochanekBartelsInterpolator()
 			: Tension(0.f), Bias(0.f)
 		{}
 
 		template <typename T>
-		T const CHermiteInterpolator<T>::Interpolate(IPath<T> const & Path, s32 const Index, float const Mu)
+		T const CKochanekBartelsInterpolator<T>::Interpolate(IPath<T> const & Path, s32 const Index, float const Mu)
 		{
 			T const y0 = Path.GetNode(Index - 1);
 			T const y1 = Path.GetNode(Index + 0);
