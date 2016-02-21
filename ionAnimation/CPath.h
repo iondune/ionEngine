@@ -117,8 +117,6 @@ bool const CPath<TPathNode>::isLooping() const
 template <typename TPathNode>
 IInterpolator<TPathNode> * CPath<TPathNode>::setDefaultInterpolator(IInterpolator<TPathNode> * defaultInterpolator)
 {
-	if (DefaultInterpolator)
-		delete DefaultInterpolator;
 	return DefaultInterpolator = defaultInterpolator;
 }
 
