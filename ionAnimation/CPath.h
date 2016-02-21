@@ -48,6 +48,7 @@ namespace ion
 			float BuildDistanceTable(float const Increment = 0.1f, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
 			float GetIntermediateFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
 			TPathNode GetNodeFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
+			float GetTotalPathLength();
 
 		};
 
@@ -206,6 +207,22 @@ namespace ion
 			int const Index = SanitizeIndex(IntermediateToIndex(Mu));
 
 			return Interpolator->Interpolate(* this, Index, fmodf(Mu, 1.f));
+		}
+
+		template <typename TPathNode>
+		float CPath<TPathNode>::GetTotalPathLength()
+		{
+			if (DistanceTable.size() == 0)
+			{
+				BuildDistanceTable(0.1f);
+			}
+
+			if (DistanceTable.size() == 0)
+			{
+				return 0.f;
+			}
+
+			return DistanceTable.back();
 		}
 
 	}
