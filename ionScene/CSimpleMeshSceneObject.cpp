@@ -48,8 +48,8 @@ namespace ion
 			PipelineState->OfferUniform("uMaterial.SpecularColor", &Material.Specular);
 			PipelineState->OfferUniform("uMaterial.Shininess", &Material.Shininess);
 
-			Loaded = true;
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
+			Loaded = true;
 		}
 
 		void CSimpleMeshSceneObject::Draw(CRenderPass * RenderPass)
@@ -63,11 +63,13 @@ namespace ion
 		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
 		{
 			this->Mesh = Mesh;
+			Loaded = false;
 		}
 
 		void CSimpleMeshSceneObject::SetShader(Graphics::IShaderProgram * Shader)
 		{
 			this->Shader = Shader;
+			Loaded = false;
 		}
 
 		void CSimpleMeshSceneObject::SetTexture(string const & Name, Graphics::ITexture * Texture)
@@ -80,6 +82,7 @@ namespace ion
 			{
 				Textures.erase(Name);
 			}
+			Loaded = false;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()
