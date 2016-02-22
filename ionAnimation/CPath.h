@@ -145,6 +145,7 @@ namespace ion
 				return 0.f;
 
 			DistanceTable.clear();
+			// Store the increment at which this table was built
 			MuIncrement = Increment;
 
 			float const Max = static_cast<float>(Looping ? Nodes.size() : Nodes.size() - 1);
@@ -158,7 +159,11 @@ namespace ion
 				Last = Current;
 
 				if (Mu > Max)
+				{
+					TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Max)), fmodf(Max, 1.f));
+					DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 					break;
+				}
 			}
 
 			return DistanceTable.back();
