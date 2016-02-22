@@ -100,6 +100,9 @@ namespace ion
 		template <typename TPathNode>
 		int CPath<TPathNode>::SanitizeIndex(int Index) const
 		{
+			if (! Nodes.size())
+				return -1;
+
 			if (Looping)
 			{
 				while (Index < 0)
@@ -133,6 +136,9 @@ namespace ion
 
 			int const Index = SanitizeIndex(IntermediateToIndex(Mu));
 
+			if (Index < 0)
+				return TPathNode();
+
 			return Interpolator->Interpolate(* this, Index, fmodf(Mu, 1.f));
 		}
 
@@ -143,6 +149,9 @@ namespace ion
 				Interpolator = DefaultInterpolator;
 
 			if (! Interpolator)
+				return 0.f;
+
+			if (! Nodes.size())
 				return 0.f;
 
 			DistanceTable.clear();
@@ -211,6 +220,9 @@ namespace ion
 
 			float const Mu = GetIntermediateFromDistance(Distance);
 			int const Index = SanitizeIndex(IntermediateToIndex(Mu));
+
+			if (Index < 0)
+				return TPathNode();
 
 			return Interpolator->Interpolate(* this, Index, fmodf(Mu, 1.f));
 		}
