@@ -2,9 +2,10 @@
 #pragma once
 
 #include <ionCore.h>
-#include <vector>
 
+#include "IPath.h"
 #include "IInterpolator.h"
+#include "CLinearInterpolator.h"
 
 
 namespace ion
