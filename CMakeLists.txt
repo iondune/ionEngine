@@ -46,6 +46,7 @@ add_subdirectory("ionGraphicsGL")
 add_subdirectory("ionGUI")
 add_subdirectory("ionScene")
 add_subdirectory("ionApplication")
+add_subdirectory("ionAnimation")
 add_subdirectory("ionScience")
 
 # Tests
