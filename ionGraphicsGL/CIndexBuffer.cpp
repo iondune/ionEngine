@@ -11,6 +11,11 @@ namespace ion
 		namespace GL
 		{
 
+			CIndexBuffer::~CIndexBuffer()
+			{
+				CheckedGLCall(glDeleteBuffers(1, &Handle));
+			}
+
 			void CIndexBuffer::UploadData(void const * Data, size_t const Elements, EValueType const ValueType)
 			{
 				CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Handle));

@@ -21,6 +21,27 @@ namespace ion
 			Specular = SColorf(1.f);
 		}
 
+		CSimpleMeshSceneObject::~CSimpleMeshSceneObject()
+		{
+			if (PipelineState)
+			{
+				delete PipelineState;
+				PipelineState = nullptr;
+			}
+
+			if (IndexBuffer)
+			{
+				delete IndexBuffer;
+				IndexBuffer = nullptr;
+			}
+
+			if (VertexBuffer)
+			{
+				delete VertexBuffer;
+				VertexBuffer = nullptr;
+			}
+		}
+
 		void CSimpleMeshSceneObject::Load(CRenderPass * RenderPass)
 		{
 			if (! Mesh || ! Shader)
@@ -33,8 +54,20 @@ namespace ion
 				PipelineState = RenderPass->GetGraphicsAPI()->CreatePipelineState();
 			}
 
-			PipelineState->SetIndexBuffer(Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
-			PipelineState->SetVertexBuffer(Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
+			if (IndexBuffer)
+			{
+				delete IndexBuffer;
+				IndexBuffer = nullptr;
+			}
+
+			if (VertexBuffer)
+			{
+				delete VertexBuffer;
+				VertexBuffer = nullptr;
+			}
+
+			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetVertexBuffer(VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
 			PipelineState->SetProgram(Shader);
 

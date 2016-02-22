@@ -20,6 +20,8 @@ namespace ion
 
 			public:
 
+				~CVertexBuffer();
+
 				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
 
 

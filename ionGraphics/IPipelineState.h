@@ -29,6 +29,9 @@ namespace ion
 
 		public:
 
+			virtual ~IPipelineState()
+			{}
+
 			virtual void SetProgram(IShaderProgram * ShaderProgram) = 0;
 			virtual void SetVertexBuffer(IVertexBuffer * VertexBuffer) = 0;
 			virtual void SetIndexBuffer(IIndexBuffer * IndexBuffer) = 0;

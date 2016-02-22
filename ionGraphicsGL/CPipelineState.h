@@ -22,6 +22,8 @@ namespace ion
 
 			public:
 
+				~CPipelineState();
+
 				void SetProgram(IShaderProgram * ShaderProgram);
 				void SetVertexBuffer(IVertexBuffer * VertexBuffer);
 				void SetIndexBuffer(IIndexBuffer * IndexBuffer);

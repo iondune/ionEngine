@@ -26,6 +26,8 @@ namespace ion
 
 		public:
 
+			~CSimpleMeshSceneObject();
+
 			virtual void Load(CRenderPass * RenderPass);
 			virtual void Draw(CRenderPass * RenderPass);
 
@@ -39,9 +41,12 @@ namespace ion
 
 		protected:
 
-			Graphics::IPipelineState * PipelineState = nullptr;
 			CSimpleMesh * Mesh = nullptr;
+
+			Graphics::IPipelineState * PipelineState = nullptr;
 			Graphics::IShaderProgram * Shader = nullptr;
+			Graphics::IIndexBuffer * IndexBuffer = nullptr;
+			Graphics::IVertexBuffer * VertexBuffer = nullptr;
 			SSimpleMaterial Material;
 
 			map<string, Graphics::ITexture *> Textures;

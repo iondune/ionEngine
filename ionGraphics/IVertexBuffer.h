@@ -30,6 +30,9 @@ namespace ion
 
 		public:
 
+			virtual ~IVertexBuffer()
+			{}
+
 			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
 
 		};

@@ -11,6 +11,10 @@ namespace ion
 		namespace GL
 		{
 
+			CPipelineState::~CPipelineState()
+			{
+			}
+
 			void CPipelineState::SetProgram(IShaderProgram * inShaderProgram)
 			{
 				if (inShaderProgram)
