@@ -53,10 +53,14 @@ namespace ion
 			SBoundingBox3f GetBoundingBox() const;
 
 			void ResizeMesh(vec3f const & Scale);
+			void ApplyScaleFactor(vec3f const & Scale);
+			void ApplyOffset(vec3f const & Offset);
+			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 
 			Graphics::IIndexBuffer * CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 			Graphics::IVertexBuffer * CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+
 
 		};
 

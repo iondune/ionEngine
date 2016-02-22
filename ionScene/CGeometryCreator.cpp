@@ -502,5 +502,37 @@ namespace ion
 			return Mesh;
 		}
 
+		CSimpleMesh * CGeometryCreator::Intersect(CSimpleMesh const * A, CSimpleMesh const * B, vec3f const & AOffset, vec3f const & BOffset)
+		{
+			CSimpleMesh * Intersection = new CSimpleMesh();
+
+			Intersection->Vertices.reserve(A->Vertices.size() + B->Vertices.size());
+			Intersection->Triangles.reserve(A->Triangles.size() + B->Triangles.size());
+			for (auto const & Vertex : A->Vertices)
+			{
+				Intersection->Vertices.push_back(Vertex);
+				Intersection->Vertices.back().Position += AOffset;
+			}
+			for (auto const & Triangle : A->Triangles)
+			{
+				Intersection->Triangles.push_back(Triangle);
+			}
+			uint const BStartIndex = (uint) Intersection->Vertices.size();
+			for (auto const & Vertex : B->Vertices)
+			{
+				Intersection->Vertices.push_back(Vertex);
+				Intersection->Vertices.back().Position += BOffset;
+			}
+			for (auto const & Triangle : B->Triangles)
+			{
+				Intersection->Triangles.push_back(Triangle);
+				Intersection->Triangles.back().Indices[0] += BStartIndex;
+				Intersection->Triangles.back().Indices[1] += BStartIndex;
+				Intersection->Triangles.back().Indices[2] += BStartIndex;
+			}
+
+			return Intersection;
+		}
+
 	}
 }

@@ -90,6 +90,30 @@ namespace ion
 			});
 		}
 
+		void CSimpleMesh::ApplyScaleFactor(vec3f const & Scale)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Scale](SVertex & Vertex)
+			{
+				Vertex.Position *= Scale;
+			});
+		}
+
+		void CSimpleMesh::ApplyOffset(vec3f const & Offset)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Offset](SVertex & Vertex)
+			{
+				Vertex.Position += Offset;
+			});
+		}
+
+		void CSimpleMesh::ApplyTransformation(glm::mat4 const & Transform)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
+			{
+				Vertex.Position = vec3f::FromGLMVector(Transform * glm::vec4(Vertex.Position.GetGLMVector(), 1));
+			});
+		}
+
 		void CSimpleMesh::ReverseFaces()
 		{
 			std::for_each(Triangles.begin(), Triangles.end(), [](STriangle & Triangle)
