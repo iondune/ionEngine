@@ -109,6 +109,16 @@ public:
 		return glm::vec3(X, Y, Z);
 	}
 
+	static SVector3<T> FromGLMVector(glm::vec3 const & Vec)
+	{
+		return SVector3<T>(Vec.x, Vec.y, Vec.z);
+	}
+
+	static SVector3<T> FromGLMVector(glm::vec4 const & Vec)
+	{
+		return SVector3<T>(Vec.x, Vec.y, Vec.z);
+	}
+
 	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
 	{
 		return stream << vec.X << " " << vec.Y << " " << vec.Z;
