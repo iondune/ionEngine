@@ -52,6 +52,7 @@ namespace ion
 
 			SBoundingBox3f GetBoundingBox() const;
 
+			void Clear();
 			void ResizeMesh(vec3f const & Scale);
 			void ApplyScaleFactor(vec3f const & Scale);
 			void ApplyOffset(vec3f const & Offset);

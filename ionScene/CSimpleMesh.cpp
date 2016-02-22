@@ -79,6 +79,12 @@ namespace ion
 			return Box;
 		}
 
+		void CSimpleMesh::Clear()
+		{
+			Vertices.clear();
+			Triangles.clear();
+		}
+
 		void CSimpleMesh::ResizeMesh(vec3f const & Scale)
 		{
 			vec3f const Extent = GetBoundingBox().GetExtent();
