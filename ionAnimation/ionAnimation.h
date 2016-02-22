@@ -9,6 +9,7 @@
 
 #include "CLinearInterpolator.h"
 #include "CCatmullRomInterpolator.h"
+#include "CCatmullRomAdvancedInterpolator.h"
 #include "CKochanekBartelsInterpolator.h"
 
 #include "Move.h"

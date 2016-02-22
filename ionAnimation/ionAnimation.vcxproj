@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CCatmullRomAdvancedInterpolator.h" />
     <ClInclude Include="CCatmullRomInterpolator.h" />
     <ClInclude Include="CKochanekBartelsInterpolator.h" />
     <ClInclude Include="CLinearInterpolator.h" />
