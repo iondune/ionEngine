@@ -154,16 +154,16 @@ namespace ion
 
 			for (float Mu = Increment;; Mu += Increment)
 			{
-				TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Mu)), fmodf(Mu, 1.f));
-				DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
-				Last = Current;
-
 				if (Mu > Max)
 				{
 					TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Max)), fmodf(Max, 1.f));
 					DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 					break;
 				}
+
+				TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Mu)), fmodf(Mu, 1.f));
+				DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
+				Last = Current;
 			}
 
 			return DistanceTable.back();
