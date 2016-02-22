@@ -9,8 +9,10 @@
     <ClInclude Include="CLinearInterpolator.h" />
     <ClInclude Include="CCatmullRomInterpolator.h" />
     <ClInclude Include="CKochanekBartelsInterpolator.h" />
+    <ClInclude Include="Move.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPath.cpp" />
+    <ClCompile Include="Move.cpp" />
   </ItemGroup>
 </Project>

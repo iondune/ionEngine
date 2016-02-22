@@ -25,10 +25,12 @@
     <ClInclude Include="IInterpolator.h" />
     <ClInclude Include="ionAnimation.h" />
     <ClInclude Include="IPath.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="SPathNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPath.cpp" />
+    <ClCompile Include="Move.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
