@@ -11,6 +11,7 @@
     <ClInclude Include="CKochanekBartelsInterpolator.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="CCatmullRomAdvancedInterpolator.h" />
+    <ClInclude Include="CHermiteInterpolator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPath.cpp" />

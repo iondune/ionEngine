@@ -11,5 +11,6 @@
 #include "CCatmullRomInterpolator.h"
 #include "CCatmullRomAdvancedInterpolator.h"
 #include "CKochanekBartelsInterpolator.h"
+#include "CHermiteInterpolator.h"
 
 #include "Move.h"

@@ -14,20 +14,14 @@ namespace ion
 		{
 			vec3f Position;
 			vec3f Normal = vec3f(0, 1, 0);
-
-
-			S3DPathNode()
-			{}
-
-			S3DPathNode(float const x, float const y, float const z, float const i = 0, float const j = 1, float const k = 0)
-				: Position(x, y, z), Normal(i, j, k)
-			{}
+			vec3f Tangent = vec3f(1, 0, 0);
 
 			S3DPathNode operator + (S3DPathNode const & v) const
 			{
 				S3DPathNode copy;
 				copy.Position = Position + v.Position;
 				copy.Normal = Normal + v.Normal;
+				copy.Tangent = Tangent + v.Tangent;
 
 				return copy;
 			}
@@ -37,6 +31,7 @@ namespace ion
 				S3DPathNode copy;
 				copy.Position = Position - v.Position;
 				copy.Normal = Normal - v.Normal;
+				copy.Tangent = Tangent - v.Tangent;
 
 				return copy;
 			}
@@ -46,6 +41,7 @@ namespace ion
 				S3DPathNode copy;
 				copy.Position = Position * s;
 				copy.Normal = Normal * s;
+				copy.Tangent = Tangent * s;
 
 				return copy;
 			}
@@ -55,6 +51,23 @@ namespace ion
 				S3DPathNode copy;
 				copy.Position = Position / s;
 				copy.Normal = Normal / s;
+				copy.Tangent = Tangent / s;
+
+				return copy;
+			}
+
+			S3DPathNode operator + (vec3f const & v) const
+			{
+				S3DPathNode copy = *this;
+				copy.Position = Position + v;
+
+				return copy;
+			}
+
+			S3DPathNode operator - (vec3f const & v) const
+			{
+				S3DPathNode copy = *this;
+				copy.Position = Position - v;
 
 				return copy;
 			}

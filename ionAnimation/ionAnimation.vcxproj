@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClInclude Include="CCatmullRomAdvancedInterpolator.h" />
     <ClInclude Include="CCatmullRomInterpolator.h" />
+    <ClInclude Include="CHermiteInterpolator.h" />
     <ClInclude Include="CKochanekBartelsInterpolator.h" />
     <ClInclude Include="CLinearInterpolator.h" />
     <ClInclude Include="CPath.h" />
