@@ -112,6 +112,11 @@ namespace ion
 
 		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
+			if (! PipelineState)
+			{
+				return;
+			}
+
 			set<string> const UnboundUniforms = PipelineState->GetUnboundUniforms();
 
 			std::for_each(UnboundUniforms.begin(), UnboundUniforms.end(), [&](string const & Name)
@@ -175,6 +180,11 @@ namespace ion
 
 		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
 		{
+			if (! PipelineState)
+			{
+				return;
+			}
+
 			uModelMatrix = SceneObject->GetTransformation();
 			uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
 
