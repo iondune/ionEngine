@@ -38,7 +38,7 @@ namespace ion
 			virtual void Draw();
 
 			virtual void PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject);
-			virtual void SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject);
+			virtual void SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject, uint const RenderCategory = 0);
 
 		protected:
 
@@ -46,6 +46,7 @@ namespace ion
 			set<ISceneObject *> SceneObjects;
 			set<ILight *> Lights;
 			map<string, Graphics::IUniform *> Uniforms;
+			vector<vector<pair<ISceneObject *, Graphics::IPipelineState *>>> RenderQueue;
 			string Name;
 
 			Graphics::CUniformValue<glm::mat4> uProjectionMatrix;

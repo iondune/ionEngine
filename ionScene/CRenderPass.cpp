@@ -91,6 +91,23 @@ namespace ion
 					SceneObject->Draw(this);
 				}
 			});
+
+
+			for (auto & Category : RenderQueue)
+			{
+				for (auto & Element : Category)
+				{
+					ISceneObject * SceneObject = Element.first;
+					Graphics::IPipelineState * PipelineState = Element.second;
+
+					uModelMatrix = SceneObject->GetTransformation();
+					uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
+
+					GraphicsAPI->Draw(PipelineState);
+				}
+
+				Category.clear();
+			}
 		}
 
 		bool IsUniformNameArrayElement(string const & Label, int & Index, string & LHS, string & Remaining)
@@ -178,17 +195,18 @@ namespace ion
 			PipelineState->Load();
 		}
 
-		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
+		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject, uint const RenderCategory)
 		{
 			if (! PipelineState)
 			{
 				return;
 			}
 
-			uModelMatrix = SceneObject->GetTransformation();
-			uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
-
-			GraphicsAPI->Draw(PipelineState);
+			if (RenderCategory >= RenderQueue.size())
+			{
+				RenderQueue.resize(RenderCategory + 1);
+			}
+			RenderQueue[RenderCategory].push_back(make_pair(SceneObject, PipelineState));
 		}
 
 		void CRenderPass::RebuildLightUniformMatrix()
