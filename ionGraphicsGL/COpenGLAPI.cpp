@@ -238,7 +238,7 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(PixelShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				Log::Error("Failed to compile vertex shader! See Info Log:");
+				Log::Error("Failed to compile fragment shader! See Info Log:");
 				PrintShaderInfoLog(PixelShader->Handle);
 				delete PixelShader;
 				return nullptr;
