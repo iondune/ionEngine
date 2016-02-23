@@ -138,6 +138,9 @@ namespace ion
 				case EDrawFeature::DisableDepthTest:
 					DisableDepthTest = Enabled;
 					break;
+				case EDrawFeature::DisableDepthWrite:
+					DisableDepthWrite = Enabled;
+					break;
 				case EDrawFeature::Blend:
 					DrawBlended = Enabled;
 					break;

@@ -56,6 +56,7 @@ namespace ion
 				bool CullFront = false;
 				bool CullBack = false;
 				bool DisableDepthTest = false;
+				bool DisableDepthWrite = false;
 				bool DrawBlended = false;
 
 			};

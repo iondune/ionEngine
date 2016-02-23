@@ -437,6 +437,10 @@ namespace ion
 			{
 				CheckedGLCall(glDisable(GL_DEPTH_TEST));
 			}
+			if (PipelineState->DisableDepthWrite)
+			{
+				CheckedGLCall(glDepthMask(GL_FALSE));
+			}
 			if (PipelineState->DrawBlended)
 			{
 				CheckedGLCall(glEnable(GL_BLEND));
@@ -457,6 +461,10 @@ namespace ion
 			if (PipelineState->DisableDepthTest)
 			{
 				CheckedGLCall(glEnable(GL_DEPTH_TEST));
+			}
+			if (PipelineState->DisableDepthWrite)
+			{
+				CheckedGLCall(glDepthMask(GL_TRUE));
 			}
 			if (PipelineState->DrawBlended)
 			{

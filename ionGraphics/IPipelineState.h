@@ -21,7 +21,8 @@ namespace ion
 			CullFront = 1,
 			CullBack = 2,
 			DisableDepthTest = 3,
-			Blend = 4
+			DisableDepthWrite = 4,
+			Blend = 5
 		};
 
 		class IPipelineState
