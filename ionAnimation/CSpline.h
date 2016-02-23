@@ -22,8 +22,8 @@ namespace ion
 		protected:
 
 			std::vector<TSplineNode> Nodes;
-			std::vector<f32> DistanceTable;
-			f32 MuIncrement = 0;
+			std::vector<float> DistanceTable;
+			float MuIncrement = 0;
 			bool Looping = true;
 
 			mutable SharedPtr<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
