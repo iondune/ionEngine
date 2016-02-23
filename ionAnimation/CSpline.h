@@ -3,9 +3,9 @@
 
 #include <ionCore.h>
 
-#include "IPath.h"
-#include "IInterpolator.h"
-#include "CLinearInterpolator.h"
+#include "ISpline.h"
+#include "ISplineInterpolator.h"
+#include "CLinearSplineInterpolator.h"
 
 
 namespace ion
@@ -15,90 +15,90 @@ namespace ion
 
 		int IntermediateToIndex(float const Mu);
 
-		template <typename TPathNode>
-		class CPath : public IPath<TPathNode>
+		template <typename TSplineNode>
+		class CSpline : public ISpline<TSplineNode>
 		{
 
 		protected:
 
-			std::vector<TPathNode> Nodes;
+			std::vector<TSplineNode> Nodes;
 			std::vector<f32> DistanceTable;
 			f32 MuIncrement = 0;
 			bool Looping = true;
 
-			mutable SharedPtr<IInterpolator<TPathNode>> DefaultInterpolator = SharedFromNew(new CLinearInterpolator<TPathNode>());
+			mutable SharedPtr<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
 
 		public:
 
-			std::vector<TPathNode> const & GetNodes() const;
-			std::vector<TPathNode> & GetNodes();
+			std::vector<TSplineNode> const & GetNodes() const;
+			std::vector<TSplineNode> & GetNodes();
 
-			void AddNode(TPathNode const & Node);
+			void AddNode(TSplineNode const & Node);
 
 			void SetLooping(bool const looping);
 			bool IsLooping() const;
 
-			void SetDefaultInterpolator(SharedPtr<IInterpolator<TPathNode>> defaultInterpolator);
-			SharedPtr<IInterpolator<TPathNode>> GetDefaultInterpolator() const;
+			void SetDefaultInterpolator(SharedPtr<ISplineInterpolator<TSplineNode>> defaultInterpolator);
+			SharedPtr<ISplineInterpolator<TSplineNode>> GetDefaultInterpolator() const;
 
 			int SanitizeIndex(int Index) const;
 
-			TPathNode const & GetNode(int const Index) const;
-			TPathNode GetNodeInterpolated(float const Intermediate, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0) const;
+			TSplineNode const & GetNode(int const Index) const;
+			TSplineNode GetNodeInterpolated(float const Intermediate, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0) const;
 
-			float BuildDistanceTable(float const Increment = 0.1f, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
-			float GetIntermediateFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
-			TPathNode GetNodeFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator = 0);
+			float BuildDistanceTable(float const Increment = 0.1f, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
+			float GetIntermediateFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
+			TSplineNode GetNodeFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
 			float GetTotalPathLength();
 
 		};
 
-		template <typename TPathNode>
-		std::vector<TPathNode> const & CPath<TPathNode>::GetNodes() const
+		template <typename TSplineNode>
+		std::vector<TSplineNode> const & CSpline<TSplineNode>::GetNodes() const
 		{
 			return Nodes;
 		}
 
-		template <typename TPathNode>
-		std::vector<TPathNode> & CPath<TPathNode>::GetNodes()
+		template <typename TSplineNode>
+		std::vector<TSplineNode> & CSpline<TSplineNode>::GetNodes()
 		{
 			return Nodes;
 		}
 
-		template <typename TPathNode>
-		void CPath<TPathNode>::AddNode(TPathNode const & Node)
+		template <typename TSplineNode>
+		void CSpline<TSplineNode>::AddNode(TSplineNode const & Node)
 		{
 			Nodes.push_back(Node);
 			DistanceTable.clear();
 		}
 
-		template <typename TPathNode>
-		void CPath<TPathNode>::SetLooping(bool const looping)
+		template <typename TSplineNode>
+		void CSpline<TSplineNode>::SetLooping(bool const looping)
 		{
 			DistanceTable.clear();
 			Looping = looping;
 		}
 
-		template <typename TPathNode>
-		bool CPath<TPathNode>::IsLooping() const
+		template <typename TSplineNode>
+		bool CSpline<TSplineNode>::IsLooping() const
 		{
 			return Looping;
 		}
 
-		template <typename TPathNode>
-		void CPath<TPathNode>::SetDefaultInterpolator(SharedPtr<IInterpolator<TPathNode>> defaultInterpolator)
+		template <typename TSplineNode>
+		void CSpline<TSplineNode>::SetDefaultInterpolator(SharedPtr<ISplineInterpolator<TSplineNode>> defaultInterpolator)
 		{
 			DefaultInterpolator = defaultInterpolator;
 		}
 
-		template <typename TPathNode>
-		SharedPtr<IInterpolator<TPathNode>> CPath<TPathNode>::GetDefaultInterpolator() const
+		template <typename TSplineNode>
+		SharedPtr<ISplineInterpolator<TSplineNode>> CSpline<TSplineNode>::GetDefaultInterpolator() const
 		{
 			return DefaultInterpolator;
 		}
 
-		template <typename TPathNode>
-		int CPath<TPathNode>::SanitizeIndex(int Index) const
+		template <typename TSplineNode>
+		int CSpline<TSplineNode>::SanitizeIndex(int Index) const
 		{
 			if (! Nodes.size())
 				return -1;
@@ -119,31 +119,31 @@ namespace ion
 			return Index;
 		}
 
-		template <typename TPathNode>
-		TPathNode const & CPath<TPathNode>::GetNode(int const Index) const
+		template <typename TSplineNode>
+		TSplineNode const & CSpline<TSplineNode>::GetNode(int const Index) const
 		{
 			return Nodes[SanitizeIndex(Index)];
 		}
 
-		template <typename TPathNode>
-		TPathNode CPath<TPathNode>::GetNodeInterpolated(float const Mu, SharedPtr<IInterpolator<TPathNode>> Interpolator) const
+		template <typename TSplineNode>
+		TSplineNode CSpline<TSplineNode>::GetNodeInterpolated(float const Mu, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator) const
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;
 
 			if (! Interpolator)
-				return TPathNode();
+				return TSplineNode();
 
 			int const Index = SanitizeIndex(IntermediateToIndex(Mu));
 
 			if (Index < 0)
-				return TPathNode();
+				return TSplineNode();
 
 			return Interpolator->Interpolate(* this, Index, fmodf(Mu, 1.f));
 		}
 
-		template <typename TPathNode>
-		float CPath<TPathNode>::BuildDistanceTable(float const Increment, SharedPtr<IInterpolator<TPathNode>> Interpolator)
+		template <typename TSplineNode>
+		float CSpline<TSplineNode>::BuildDistanceTable(float const Increment, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;
@@ -159,19 +159,19 @@ namespace ion
 			MuIncrement = Increment;
 
 			float const Max = static_cast<float>(Looping ? Nodes.size() : Nodes.size() - 1);
-			TPathNode Last = Interpolator->Interpolate(* this, 0, 0.f);
+			TSplineNode Last = Interpolator->Interpolate(* this, 0, 0.f);
 			DistanceTable.push_back(0.f);
 
 			for (float Mu = Increment;; Mu += Increment)
 			{
 				if (Mu > Max)
 				{
-					TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Max)), fmodf(Max, 1.f));
+					TSplineNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Max)), fmodf(Max, 1.f));
 					DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 					break;
 				}
 
-				TPathNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Mu)), fmodf(Mu, 1.f));
+				TSplineNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Mu)), fmodf(Mu, 1.f));
 				DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 				Last = Current;
 			}
@@ -180,8 +180,8 @@ namespace ion
 		}
 
 
-		template <typename TPathNode>
-		float CPath<TPathNode>::GetIntermediateFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator)
+		template <typename TSplineNode>
+		float CSpline<TSplineNode>::GetIntermediateFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (DistanceTable.size() == 0)
 				BuildDistanceTable(0.1f, Interpolator);
@@ -209,26 +209,26 @@ namespace ion
 			return (Min + (ModulatedDistance - DistanceTable[Min]) / (DistanceTable[Min+1] - DistanceTable[Min])) * MuIncrement;
 		}
 
-		template <typename TPathNode>
-		TPathNode CPath<TPathNode>::GetNodeFromDistance(float const Distance, SharedPtr<IInterpolator<TPathNode>> Interpolator)
+		template <typename TSplineNode>
+		TSplineNode CSpline<TSplineNode>::GetNodeFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;
 
 			if (! Interpolator)
-				return TPathNode();
+				return TSplineNode();
 
 			float const Mu = GetIntermediateFromDistance(Distance);
 			int const Index = SanitizeIndex(IntermediateToIndex(Mu));
 
 			if (Index < 0)
-				return TPathNode();
+				return TSplineNode();
 
 			return Interpolator->Interpolate(* this, Index, fmodf(Mu, 1.f));
 		}
 
-		template <typename TPathNode>
-		float CPath<TPathNode>::GetTotalPathLength()
+		template <typename TSplineNode>
+		float CSpline<TSplineNode>::GetTotalPathLength()
 		{
 			if (DistanceTable.size() == 0)
 			{

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "IInterpolator.h"
+#include "ISplineInterpolator.h"
 
 
 namespace ion
@@ -10,7 +10,7 @@ namespace ion
 	{
 
 		template <typename T>
-		class CCatmullRomAdvancedInterpolator : public IInterpolator<T>
+		class CCatmullRomAdvancedSplineInterpolator : public ISplineInterpolator<T>
 		{
 
 		public:
@@ -24,12 +24,12 @@ namespace ion
 
 			EMode Mode;
 
-			virtual T const Interpolate(IPath<T> const & Path, s32 const Index, float const Mu);
+			virtual T Interpolate(ISpline<T> const & Path, int const Index, float const Mu);
 
 		};
 
 		template <typename T>
-		T const CCatmullRomAdvancedInterpolator<T>::Interpolate(IPath<T> const & Path, s32 const Index, float const Mu)
+		T CCatmullRomAdvancedSplineInterpolator<T>::Interpolate(ISpline<T> const & Path, int const Index, float const Mu)
 		{
 			// Uses notation from the Centripetal Catmull-Rom Spline article on Wikipedia.org:
 			// https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline

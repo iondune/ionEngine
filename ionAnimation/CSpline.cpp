@@ -1,5 +1,5 @@
 
-#include "CPath.h"
+#include "CSpline.h"
 
 
 namespace ion

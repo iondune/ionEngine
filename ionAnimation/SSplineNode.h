@@ -10,15 +10,15 @@ namespace ion
 	namespace Animation
 	{
 
-		struct S3DPathNode
+		struct S3DSplineNode
 		{
 			vec3f Position;
 			vec3f Normal = vec3f(0, 1, 0);
 			vec3f Tangent = vec3f(1, 0, 0);
 
-			S3DPathNode operator + (S3DPathNode const & v) const
+			S3DSplineNode operator + (S3DSplineNode const & v) const
 			{
-				S3DPathNode copy;
+				S3DSplineNode copy;
 				copy.Position = Position + v.Position;
 				copy.Normal = Normal + v.Normal;
 				copy.Tangent = Tangent + v.Tangent;
@@ -26,9 +26,9 @@ namespace ion
 				return copy;
 			}
 
-			S3DPathNode operator - (S3DPathNode const & v) const
+			S3DSplineNode operator - (S3DSplineNode const & v) const
 			{
-				S3DPathNode copy;
+				S3DSplineNode copy;
 				copy.Position = Position - v.Position;
 				copy.Normal = Normal - v.Normal;
 				copy.Tangent = Tangent - v.Tangent;
@@ -36,9 +36,9 @@ namespace ion
 				return copy;
 			}
 
-			S3DPathNode operator * (float const & s) const
+			S3DSplineNode operator * (float const & s) const
 			{
-				S3DPathNode copy;
+				S3DSplineNode copy;
 				copy.Position = Position * s;
 				copy.Normal = Normal * s;
 				copy.Tangent = Tangent * s;
@@ -46,9 +46,9 @@ namespace ion
 				return copy;
 			}
 
-			S3DPathNode operator / (float const & s) const
+			S3DSplineNode operator / (float const & s) const
 			{
-				S3DPathNode copy;
+				S3DSplineNode copy;
 				copy.Position = Position / s;
 				copy.Normal = Normal / s;
 				copy.Tangent = Tangent / s;
@@ -56,23 +56,23 @@ namespace ion
 				return copy;
 			}
 
-			S3DPathNode operator + (vec3f const & v) const
+			S3DSplineNode operator + (vec3f const & v) const
 			{
-				S3DPathNode copy = *this;
+				S3DSplineNode copy = *this;
 				copy.Position = Position + v;
 
 				return copy;
 			}
 
-			S3DPathNode operator - (vec3f const & v) const
+			S3DSplineNode operator - (vec3f const & v) const
 			{
-				S3DPathNode copy = *this;
+				S3DSplineNode copy = *this;
 				copy.Position = Position - v;
 
 				return copy;
 			}
 
-			float const GetLength() const
+			float GetLength() const
 			{
 				return Position.Length();
 			}
