@@ -33,13 +33,13 @@ namespace ion
 			virtual ~IPipelineState()
 			{}
 
-			virtual void SetProgram(IShaderProgram * ShaderProgram) = 0;
-			virtual void SetVertexBuffer(IVertexBuffer * VertexBuffer) = 0;
-			virtual void SetIndexBuffer(IIndexBuffer * IndexBuffer) = 0;
-			virtual void SetUniform(string const & Name, IUniform * Uniform) = 0;
-			virtual void SetTexture(string const & Name, ITexture * Texture) = 0;
+			virtual void SetProgram(SharedPtr<IShaderProgram> ShaderProgram) = 0;
+			virtual void SetVertexBuffer(SharedPtr<IVertexBuffer> VertexBuffer) = 0;
+			virtual void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer) = 0;
+			virtual void SetUniform(string const & Name, SharedPtr<IUniform> Uniform) = 0;
+			virtual void SetTexture(string const & Name, SharedPtr<ITexture> Texture) = 0;
 
-			virtual void OfferUniform(string const & Name, IUniform * Uniform) = 0;
+			virtual void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform) = 0;
 
 			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
 

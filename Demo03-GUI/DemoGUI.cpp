@@ -20,7 +20,7 @@ int main()
 	Window->AddListener(GUIManager);
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	IRenderTarget * RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
+	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 	while (WindowManager->Run())

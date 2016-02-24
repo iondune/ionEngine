@@ -15,11 +15,11 @@ namespace ion
 			{
 			}
 
-			void CPipelineState::SetProgram(IShaderProgram * inShaderProgram)
+			void CPipelineState::SetProgram(SharedPtr<IShaderProgram> inShaderProgram)
 			{
 				if (inShaderProgram)
 				{
-					ShaderProgram = dynamic_cast<CShaderProgram *>(inShaderProgram);
+					ShaderProgram = std::dynamic_pointer_cast<CShaderProgram>(inShaderProgram);
 					if (! ShaderProgram->Linked)
 					{
 						ShaderProgram->Link();
@@ -39,16 +39,16 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::SetVertexBuffer(IVertexBuffer * inVertexBuffer)
+			void CPipelineState::SetVertexBuffer(SharedPtr<IVertexBuffer> inVertexBuffer)
 			{
-				VertexBuffer = dynamic_cast<CVertexBuffer *>(inVertexBuffer);
+				VertexBuffer = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
 				// Bound VBOs are not part of VAO state
 				Loaded = false;
 			}
 
-			void CPipelineState::SetIndexBuffer(IIndexBuffer * inIndexBuffer)
+			void CPipelineState::SetIndexBuffer(SharedPtr<IIndexBuffer> inIndexBuffer)
 			{
-				IndexBuffer = dynamic_cast<CIndexBuffer *>(inIndexBuffer);
+				IndexBuffer = std::dynamic_pointer_cast<CIndexBuffer>(inIndexBuffer);
 				SafeGLCall(glBindVertexArray, (VertexArrayHandle));
 				SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 				SafeGLCall(glBindVertexArray, (0));
@@ -56,7 +56,7 @@ namespace ion
 				Loaded = false;
 			}
 
-			void CPipelineState::SetUniform(string const & Name, IUniform * Uniform)
+			void CPipelineState::SetUniform(string const & Name, SharedPtr<IUniform> Uniform)
 			{
 				if (! ShaderProgram)
 				{
@@ -89,7 +89,7 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::SetTexture(string const & Name, ITexture * Texture)
+			void CPipelineState::SetTexture(string const & Name, SharedPtr<ITexture> Texture)
 			{
 				if (! ShaderProgram)
 				{
@@ -147,7 +147,7 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::OfferUniform(string const & Name, IUniform * Uniform)
+			void CPipelineState::OfferUniform(string const & Name, SharedPtr<IUniform> Uniform)
 			{
 				if (! ShaderProgram)
 				{

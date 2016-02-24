@@ -18,8 +18,8 @@ namespace ion
 
 		void Init(Graphics::IGraphicsAPI * GraphicsAPI);
 
-		Graphics::IShaderProgram * LoadShader(string const & Name);
-		Graphics::ITexture2D * LoadTexture(string const & FileName);
+		SharedPtr<Graphics::IShaderProgram> LoadShader(string const & Name);
+		SharedPtr<Graphics::ITexture2D> LoadTexture(string const & FileName);
 
 		void SetAssetPath(string const & Path);
 		void SetTexturePath(string const & Path);

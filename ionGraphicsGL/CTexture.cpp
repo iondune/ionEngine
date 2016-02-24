@@ -58,39 +58,34 @@ namespace ion
 				CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), PreviouslyBoundTexture));
 			}
 
-			ITexture * CTexture::SetMinFilter(EFilter const MinFilter)
+			void CTexture::SetMinFilter(EFilter const MinFilter)
 			{
 				this->MinFilter = MinFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetMagFilter(EFilter const MagFilter)
+			void CTexture::SetMagFilter(EFilter const MagFilter)
 			{
 				this->MagFilter = MagFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetMipMapFilter(EFilter const MipMapFilter)
+			void CTexture::SetMipMapFilter(EFilter const MipMapFilter)
 			{
 				this->MipMapFilter = MipMapFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetWrapMode(EWrapMode const WrapMode)
+			void CTexture::SetWrapMode(EWrapMode const WrapMode)
 			{
 				this->WrapMode = WrapMode;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetAnisotropy(f32 const Anisotropy)
+			void CTexture::SetAnisotropy(f32 const Anisotropy)
 			{
 				this->Anisotropy = Anisotropy;
 				ApplyParams();
-				return this;
 			}
 
 			ITexture::EFilter CTexture::GetMinFilter()

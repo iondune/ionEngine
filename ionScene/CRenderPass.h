@@ -37,28 +37,28 @@ namespace ion
 			virtual void Load();
 			virtual void Draw();
 
-			virtual void PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject);
-			virtual void SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject, uint const RenderCategory = 0);
+			virtual void PreparePipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject);
+			virtual void SubmitPipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const RenderCategory = 0);
 
 		protected:
 
 			ICamera * ActiveCamera = nullptr;
 			set<ISceneObject *> SceneObjects;
 			set<ILight *> Lights;
-			map<string, Graphics::IUniform *> Uniforms;
-			vector<vector<pair<ISceneObject *, Graphics::IPipelineState *>>> RenderQueue;
+			map<string, SharedPtr<Graphics::IUniform>> Uniforms;
+			vector<vector<pair<ISceneObject *, SharedPtr<Graphics::IPipelineState>>>> RenderQueue;
 			string Name;
 
-			Graphics::CUniformValue<glm::mat4> uProjectionMatrix;
-			Graphics::CUniformValue<glm::mat4> uViewMatrix;
-			Graphics::CUniformValue<vec3f> uCameraPosition;
-			Graphics::CUniformValue<glm::mat4> uModelMatrix;
-			Graphics::CUniformValue<glm::mat4> uNormalMatrix;
+			SharedPtr<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPtr<Graphics::CUniformValue<glm::mat4>> uViewMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPtr<Graphics::CUniformValue<vec3f>> uCameraPosition = std::make_shared<Graphics::CUniformValue<vec3f>>();
+			SharedPtr<Graphics::CUniformValue<glm::mat4>> uModelMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPtr<Graphics::CUniformValue<glm::mat4>> uNormalMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
 
 			struct SLightUniformMatrixRow
 			{
-				vector<map<string, Graphics::IUniform *>> Entries;
-				Graphics::CUniformValue<uint> CountUniform;
+				vector<map<string, SharedPtr<Graphics::IUniform>>> Entries;
+				SharedPtr<Graphics::CUniformValue<uint>> CountUniform = std::make_shared<Graphics::CUniformValue<uint>>(0);
 			};
 			map<string, SLightUniformMatrixRow> LightUniformMatrix;
 

@@ -32,19 +32,19 @@ namespace ion
 		namespace GL
 		{
 			
-			void CShaderProgram::SetVertexStage(IVertexShader * VertexShader)
+			void CShaderProgram::SetVertexStage(SharedPtr<IVertexShader> VertexShader)
 			{
 				if (VertexShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, dynamic_cast<CVertexShader *>(VertexShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexShader>(VertexShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::SetPixelStage(IPixelShader * PixelShader)
+			void CShaderProgram::SetPixelStage(SharedPtr<IPixelShader> PixelShader)
 			{
 				if (PixelShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, dynamic_cast<CPixelShader *>(PixelShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CPixelShader>(PixelShader)->Handle));
 				}
 			}
 

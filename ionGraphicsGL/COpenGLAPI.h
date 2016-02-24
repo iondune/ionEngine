@@ -18,25 +18,25 @@ namespace ion
 
 			COpenGLAPI();
 
-			IVertexShader * CreateVertexShaderFromFile(string const & FileName);
-			IPixelShader * CreatePixelShaderFromFile(string const & FileName);
-			IVertexShader * CreateVertexShaderFromSource(string const & Source);
-			IPixelShader * CreatePixelShaderFromSource(string const & Source);
+			SharedPtr<IVertexShader> CreateVertexShaderFromFile(string const & FileName);
+			SharedPtr<IPixelShader> CreatePixelShaderFromFile(string const & FileName);
+			SharedPtr<IVertexShader> CreateVertexShaderFromSource(string const & Source);
+			SharedPtr<IPixelShader> CreatePixelShaderFromSource(string const & Source);
 
-			IShaderProgram * CreateShaderProgram();
+			SharedPtr<IShaderProgram> CreateShaderProgram();
 
-			IVertexBuffer * CreateVertexBuffer(float const * const Data, size_t const Elements);
-			IIndexBuffer * CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
-			IIndexBuffer * CreateIndexBuffer();
+			SharedPtr<IVertexBuffer> CreateVertexBuffer(float const * const Data, size_t const Elements);
+			SharedPtr<IIndexBuffer> CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
+			SharedPtr<IIndexBuffer> CreateIndexBuffer();
 
-			ITexture2D * CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
-			ITexture3D * CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
+			SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
+			SharedPtr<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
-			IPipelineState * CreatePipelineState();
+			SharedPtr<IPipelineState> CreatePipelineState();
 
-			IRenderTarget * GetWindowBackBuffer(CWindow * Window);
+			SharedPtr<IRenderTarget> GetWindowBackBuffer(CWindow * Window);
 
-			void Draw(IPipelineState * State);
+			void Draw(SharedPtr<IPipelineState> State);
 
 		};
 	}

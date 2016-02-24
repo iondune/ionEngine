@@ -15,32 +15,14 @@ namespace ion
 
 		void SSimpleMaterial::LoadDefaults()
 		{
-			Shininess = 1000.0f;
-			Ambient = SColorf(0.05f);
-			Diffuse = SColorf(0.9f);
-			Specular = SColorf(1.f);
+			*Shininess = 1000.0f;
+			*Ambient = SColorf(0.05f);
+			*Diffuse = SColorf(0.9f);
+			*Specular = SColorf(1.f);
 		}
 
 		CSimpleMeshSceneObject::~CSimpleMeshSceneObject()
-		{
-			if (PipelineState)
-			{
-				delete PipelineState;
-				PipelineState = nullptr;
-			}
-
-			if (IndexBuffer)
-			{
-				delete IndexBuffer;
-				IndexBuffer = nullptr;
-			}
-
-			if (VertexBuffer)
-			{
-				delete VertexBuffer;
-				VertexBuffer = nullptr;
-			}
-		}
+		{}
 
 		void CSimpleMeshSceneObject::Load(CRenderPass * RenderPass)
 		{
@@ -54,32 +36,20 @@ namespace ion
 				PipelineState = RenderPass->GetGraphicsAPI()->CreatePipelineState();
 			}
 
-			if (IndexBuffer)
-			{
-				delete IndexBuffer;
-				IndexBuffer = nullptr;
-			}
-
-			if (VertexBuffer)
-			{
-				delete VertexBuffer;
-				VertexBuffer = nullptr;
-			}
-
 			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
 			PipelineState->SetVertexBuffer(VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
 			PipelineState->SetProgram(Shader);
 
-			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, Graphics::ITexture *> const & Iterator)
+			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPtr<Graphics::ITexture>> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
 
-			PipelineState->OfferUniform("uMaterial.AmbientColor", &Material.Ambient);
-			PipelineState->OfferUniform("uMaterial.DiffuseColor", &Material.Diffuse);
-			PipelineState->OfferUniform("uMaterial.SpecularColor", &Material.Specular);
-			PipelineState->OfferUniform("uMaterial.Shininess", &Material.Shininess);
+			PipelineState->OfferUniform("uMaterial.AmbientColor", Material.Ambient);
+			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
+			PipelineState->OfferUniform("uMaterial.SpecularColor", Material.Specular);
+			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -99,13 +69,13 @@ namespace ion
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetShader(Graphics::IShaderProgram * Shader)
+		void CSimpleMeshSceneObject::SetShader(SharedPtr<Graphics::IShaderProgram> Shader)
 		{
 			this->Shader = Shader;
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetTexture(string const & Name, Graphics::ITexture * Texture)
+		void CSimpleMeshSceneObject::SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture)
 		{
 			if (Texture)
 			{

@@ -26,8 +26,8 @@ namespace ion
 
 		protected:
 
-			Graphics::CUniformValue<color3f> Color;
-			Graphics::CUniformValue<float> Radius;
+			SharedPtr<Graphics::CUniformValue<color3f>> Color = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<float>> Radius = std::make_shared<Graphics::CUniformValue<float>>();
 
 		};
 

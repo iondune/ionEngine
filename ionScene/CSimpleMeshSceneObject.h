@@ -16,8 +16,10 @@ namespace ion
 			SSimpleMaterial();
 			void LoadDefaults();
 
-			Graphics::CUniformValue<color3f> Ambient, Diffuse, Specular;
-			Graphics::CUniformValue<f32> Shininess;
+			SharedPtr<Graphics::CUniformValue<color3f>> Ambient = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<color3f>> Diffuse = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<color3f>> Specular = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<f32>> Shininess = std::make_shared<Graphics::CUniformValue<f32>>();
 
 		};
 
@@ -32,8 +34,8 @@ namespace ion
 			virtual void Draw(CRenderPass * RenderPass);
 
 			virtual void SetMesh(CSimpleMesh * Mesh);
-			virtual void SetShader(Graphics::IShaderProgram * Shader);
-			virtual void SetTexture(string const & Name, Graphics::ITexture * Texture);
+			virtual void SetShader(SharedPtr<Graphics::IShaderProgram> Shader);
+			virtual void SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture);
 
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
@@ -43,13 +45,13 @@ namespace ion
 
 			CSimpleMesh * Mesh = nullptr;
 
-			Graphics::IPipelineState * PipelineState = nullptr;
-			Graphics::IShaderProgram * Shader = nullptr;
-			Graphics::IIndexBuffer * IndexBuffer = nullptr;
-			Graphics::IVertexBuffer * VertexBuffer = nullptr;
+			SharedPtr<Graphics::IPipelineState> PipelineState;
+			SharedPtr<Graphics::IShaderProgram> Shader;
+			SharedPtr<Graphics::IIndexBuffer> IndexBuffer;
+			SharedPtr<Graphics::IVertexBuffer> VertexBuffer;
 			SSimpleMaterial Material;
 
-			map<string, Graphics::ITexture *> Textures;
+			map<string, SharedPtr<Graphics::ITexture>> Textures;
 
 		};
 

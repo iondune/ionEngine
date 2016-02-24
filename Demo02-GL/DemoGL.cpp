@@ -46,8 +46,8 @@ int main()
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 
-	IIndexBuffer * IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
-	IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
+	SharedPtr<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
+	SharedPtr<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
 	SInputLayoutElement InputLayout[] =
 	{
 		{ "vPosition", 2, EAttributeType::Float },
@@ -100,8 +100,8 @@ int main()
 		}
 	)SHADER";
 
-	IVertexShader * VertexShader = GraphicsAPI->CreateVertexShaderFromSource(VertexShaderSource);
-	IPixelShader * PixelShader = GraphicsAPI->CreatePixelShaderFromSource(FragmentShaderSource);
+	SharedPtr<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromSource(VertexShaderSource);
+	SharedPtr<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromSource(FragmentShaderSource);
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
@@ -109,7 +109,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPtr<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 	
@@ -118,27 +118,27 @@ int main()
 	// Draw Loop //
 	///////////////
 
-	IPipelineState * PipelineState = GraphicsAPI->CreatePipelineState();
+	SharedPtr<IPipelineState> PipelineState = GraphicsAPI->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
 	PipelineState->SetVertexBuffer(VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
 
-	CUniformValue<float> uCurrentTime;
-	PipelineState->SetUniform("uCurrentTime", &uCurrentTime);
+	SharedPtr<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();
+	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
-	ITexture2D * Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
+	SharedPtr<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
 	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
 	PipelineState->SetTexture("uTexture", Texture);
 
 	PipelineState->Load();
 
-	IRenderTarget * RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
+	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
 
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
-		uCurrentTime = (float) TimeManager->GetRunTime();
+		*uCurrentTime = (float) TimeManager->GetRunTime();
 
 		RenderTarget->ClearColorAndDepth();
 		GraphicsAPI->Draw(PipelineState);

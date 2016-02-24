@@ -28,11 +28,11 @@ namespace ion
 				static string const FormatStringMatrix[4];
 
 
-				ITexture * SetMinFilter(EFilter const MinFilter);
-				ITexture * SetMagFilter(EFilter const MagFilter);
-				ITexture * SetMipMapFilter(EFilter const MipMapFilter);
-				ITexture * SetWrapMode(EWrapMode const WrapMode);
-				ITexture * SetAnisotropy(f32 const Anisotropy);
+				void SetMinFilter(EFilter const MinFilter);
+				void SetMagFilter(EFilter const MagFilter);
+				void SetMipMapFilter(EFilter const MipMapFilter);
+				void SetWrapMode(EWrapMode const WrapMode);
+				void SetAnisotropy(f32 const Anisotropy);
 
 				EFilter GetMinFilter();
 				EFilter GetMagFilter();

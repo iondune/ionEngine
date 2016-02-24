@@ -176,13 +176,13 @@ namespace ion
 			}
 		}
 
-		IVertexShader * COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
+		SharedPtr<IVertexShader> COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
 			if (! File::Exists(FileName))
 			{
 				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
 			}
-			IVertexShader * VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
+			SharedPtr<IVertexShader> VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
 			if (! VertexShader)
 			{
 				Log::Error("Failed to compile vertex shader from file '%s'", FileName);
@@ -190,13 +190,13 @@ namespace ion
 			return VertexShader;
 		}
 
-		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
+		SharedPtr<IPixelShader> COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
 		{
 			if (! File::Exists(FileName))
 			{
 				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
 			}
-			IPixelShader * PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
+			SharedPtr<IPixelShader> PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
 			if (! PixelShader)
 			{
 				Log::Error("Failed to compile pixel shader from file '%s'", FileName);
@@ -204,9 +204,9 @@ namespace ion
 			return PixelShader;
 		}
 
-		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
+		SharedPtr<IVertexShader> COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
 		{
-			GL::CVertexShader * VertexShader = new GL::CVertexShader();
+			SharedPtr<GL::CVertexShader> VertexShader = std::make_shared<GL::CVertexShader>();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -219,15 +219,14 @@ namespace ion
 			{
 				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(VertexShader->Handle);
-				delete VertexShader;
 				return nullptr;
 			}
 			return VertexShader;
 		}
 
-		IPixelShader * COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
+		SharedPtr<IPixelShader> COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
 		{
-			GL::CPixelShader * PixelShader = new GL::CPixelShader();
+			SharedPtr<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -240,23 +239,22 @@ namespace ion
 			{
 				Log::Error("Failed to compile fragment shader! See Info Log:");
 				PrintShaderInfoLog(PixelShader->Handle);
-				delete PixelShader;
 				return nullptr;
 			}
 			return PixelShader;
 		}
 
-		IShaderProgram * COpenGLAPI::CreateShaderProgram()
+		SharedPtr<IShaderProgram> COpenGLAPI::CreateShaderProgram()
 		{
-			GL::CShaderProgram * ShaderProgram = new GL::CShaderProgram();
+			SharedPtr<GL::CShaderProgram> ShaderProgram = SharedFromNew(new GL::CShaderProgram());
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;
 		}
 
-		IVertexBuffer * COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
+		SharedPtr<IVertexBuffer> COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
 		{
-			GL::CVertexBuffer * VertexBuffer = new GL::CVertexBuffer();
+			SharedPtr<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
 			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
 			CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, Elements * sizeof(float), Data, GL_STATIC_DRAW));
@@ -264,9 +262,9 @@ namespace ion
 			return VertexBuffer;
 		}
 
-		IIndexBuffer * COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
+		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
 		{
-			GL::CIndexBuffer * IndexBuffer = new GL::CIndexBuffer();
+			SharedPtr<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 			CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
@@ -275,16 +273,16 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		IIndexBuffer * COpenGLAPI::CreateIndexBuffer()
+		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer()
 		{
-			GL::CIndexBuffer * IndexBuffer = new GL::CIndexBuffer();
+			SharedPtr<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			return IndexBuffer;
 		}
 
-		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPtr<ITexture2D> COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			GL::CTexture2D * Texture2D = new GL::CTexture2D();
+			SharedPtr<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
 
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -310,9 +308,9 @@ namespace ion
 			return Texture2D;
 		}
 
-		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPtr<ITexture3D> COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			GL::CTexture3D * Texture3D = new GL::CTexture3D();
+			SharedPtr<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
 
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -337,21 +335,21 @@ namespace ion
 			return Texture3D;
 		}
 
-		IPipelineState * COpenGLAPI::CreatePipelineState()
+		SharedPtr<IPipelineState> COpenGLAPI::CreatePipelineState()
 		{
-			GL::CPipelineState * PipelineState = new GL::CPipelineState();
+			SharedPtr<GL::CPipelineState> PipelineState = SharedFromNew(new GL::CPipelineState());
 			SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
 			return PipelineState;
 		}
 
-		IRenderTarget * COpenGLAPI::GetWindowBackBuffer(CWindow * Window)
+		SharedPtr<IRenderTarget> COpenGLAPI::GetWindowBackBuffer(CWindow * Window)
 		{
-			return new GL::CRenderTarget();
+			return SharedFromNew(new GL::CRenderTarget());
 		}
 
-		void COpenGLAPI::Draw(IPipelineState * State)
+		void COpenGLAPI::Draw(SharedPtr<IPipelineState> State)
 		{
-			GL::CPipelineState * PipelineState = dynamic_cast<GL::CPipelineState *>(State);
+			SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 			if (! PipelineState->Loaded)
 			{
 				PipelineState->Load();
@@ -414,7 +412,7 @@ namespace ion
 				CheckedGLCall(glUniform1i(it.first, TextureIndex));
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 
-				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
+				SharedPtr<GL::CTexture const> Texture = std::dynamic_pointer_cast<GL::CTexture const>(it.second);
 				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
 			}
 
@@ -475,7 +473,7 @@ namespace ion
 			for (auto const & it : PipelineState->BoundTextures)
 			{
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
+				SharedPtr<GL::CTexture const> Texture = std::dynamic_pointer_cast<GL::CTexture const>(it.second);
 				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
 			}
 

@@ -24,30 +24,30 @@ namespace ion
 
 				~CPipelineState();
 
-				void SetProgram(IShaderProgram * ShaderProgram);
-				void SetVertexBuffer(IVertexBuffer * VertexBuffer);
-				void SetIndexBuffer(IIndexBuffer * IndexBuffer);
-				void SetUniform(string const & Name, IUniform * Uniform);
-				void SetTexture(string const & Name, ITexture * Texture);
+				void SetProgram(SharedPtr<IShaderProgram> ShaderProgram);
+				void SetVertexBuffer(SharedPtr<IVertexBuffer> VertexBuffer);
+				void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer);
+				void SetUniform(string const & Name, SharedPtr<IUniform> Uniform);
+				void SetTexture(string const & Name, SharedPtr<ITexture> Texture);
 				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
 
-				void OfferUniform(string const & Name, IUniform * Uniform);
+				void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform);
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
 
-				CShaderProgram * ShaderProgram = nullptr;
-				CVertexBuffer * VertexBuffer = nullptr;
-				CIndexBuffer * IndexBuffer = nullptr;
+				SharedPtr<CShaderProgram> ShaderProgram = nullptr;
+				SharedPtr<CVertexBuffer> VertexBuffer = nullptr;
+				SharedPtr<CIndexBuffer> IndexBuffer = nullptr;
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
 
-				map<string, IUniform const *> Uniforms;
-				map<uint, IUniform const *> BoundUniforms;
+				map<string, SharedPtr<IUniform const>> Uniforms;
+				map<uint, SharedPtr<IUniform const>> BoundUniforms;
 
-				map<string, ITexture const *> Textures;
-				map<u32, ITexture const *> BoundTextures;
+				map<string, SharedPtr<ITexture const>> Textures;
+				map<u32, SharedPtr<ITexture const>> BoundTextures;
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;

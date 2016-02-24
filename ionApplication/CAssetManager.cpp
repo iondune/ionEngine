@@ -10,7 +10,7 @@ namespace ion
 		this->GraphicsAPI = GraphicsAPI;
 	}
 
-	Graphics::IShaderProgram * CAssetManager::LoadShader(string const & Name)
+	SharedPtr<Graphics::IShaderProgram> CAssetManager::LoadShader(string const & Name)
 	{
 		if (! GraphicsAPI)
 		{
@@ -18,8 +18,8 @@ namespace ion
 			return nullptr;
 		}
 
-		Graphics::IVertexShader * VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
-		Graphics::IPixelShader * PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
+		SharedPtr<Graphics::IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
+		SharedPtr<Graphics::IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
 
 		if (! VertexShader)
 		{
@@ -33,14 +33,14 @@ namespace ion
 			return nullptr;
 		}
 
-		Graphics::IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
+		SharedPtr<Graphics::IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 		ShaderProgram->SetVertexStage(VertexShader);
 		ShaderProgram->SetPixelStage(PixelShader);
 
 		return ShaderProgram;
 	}
 
-	Graphics::ITexture2D * CAssetManager::LoadTexture(string const & FileName)
+	SharedPtr<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName)
 	{
 		if (! GraphicsAPI)
 		{
@@ -64,7 +64,7 @@ namespace ion
 				Format = Graphics::ITexture::EFormatComponents::RGBA;
 				break;
 			}
-			Graphics::ITexture2D * Texture = GraphicsAPI->CreateTexture2D(
+			SharedPtr<Graphics::ITexture2D> Texture = GraphicsAPI->CreateTexture2D(
 				Image->GetSize(),
 				Graphics::ITexture::EMipMaps::True,
 				Format,

@@ -68,9 +68,9 @@ namespace ion
 			{
 				ActiveCamera->Update();
 
-				uViewMatrix = ActiveCamera->GetViewMatrix();
-				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
-				uCameraPosition = ActiveCamera->GetPosition();
+				*uViewMatrix = ActiveCamera->GetViewMatrix();
+				*uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				*uCameraPosition = ActiveCamera->GetPosition();
 			}
 
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
@@ -98,10 +98,10 @@ namespace ion
 				for (auto & Element : Category)
 				{
 					ISceneObject * SceneObject = Element.first;
-					Graphics::IPipelineState * PipelineState = Element.second;
+					SharedPtr<Graphics::IPipelineState> PipelineState = Element.second;
 
-					uModelMatrix = SceneObject->GetTransformation();
-					uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix.Value));
+					*uModelMatrix = SceneObject->GetTransformation();
+					*uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix->Value));
 
 					GraphicsAPI->Draw(PipelineState);
 				}
@@ -127,7 +127,7 @@ namespace ion
 			}
 		}
 
-		void CRenderPass::PreparePipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject)
+		void CRenderPass::PreparePipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject)
 		{
 			if (! PipelineState)
 			{
@@ -143,23 +143,23 @@ namespace ion
 
 				if (Name == "uModelMatrix")
 				{
-					PipelineState->SetUniform(Name, &uModelMatrix);
+					PipelineState->SetUniform(Name, uModelMatrix);
 				}
 				else if (Name == "uNormalMatrix")
 				{
-					PipelineState->SetUniform(Name, &uNormalMatrix);
+					PipelineState->SetUniform(Name, uNormalMatrix);
 				}
 				else if (Name == "uViewMatrix")
 				{
-					PipelineState->SetUniform(Name, &uViewMatrix);
+					PipelineState->SetUniform(Name, uViewMatrix);
 				}
 				else if (Name == "uProjectionMatrix")
 				{
-					PipelineState->SetUniform(Name, &uProjectionMatrix);
+					PipelineState->SetUniform(Name, uProjectionMatrix);
 				}
 				else if (Name == "uCameraPosition")
 				{
-					PipelineState->SetUniform(Name, &uCameraPosition);
+					PipelineState->SetUniform(Name, uCameraPosition);
 				}
 				else if (IsUniformNameArrayElement(Name, Index, LHS, Remaining))
 				{
@@ -186,7 +186,7 @@ namespace ion
 						string const CountName = it.first + "Count";
 						if (Name == CountName)
 						{
-							PipelineState->SetUniform(Name, &it.second.CountUniform);
+							PipelineState->SetUniform(Name, it.second.CountUniform);
 						}
 					}
 				}
@@ -195,7 +195,7 @@ namespace ion
 			PipelineState->Load();
 		}
 
-		void CRenderPass::SubmitPipelineStateForRendering(Graphics::IPipelineState * PipelineState, ISceneObject * SceneObject, uint const RenderCategory)
+		void CRenderPass::SubmitPipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const RenderCategory)
 		{
 			if (! PipelineState)
 			{
@@ -216,14 +216,14 @@ namespace ion
 			std::for_each(Lights.begin(), Lights.end(), [&](ILight * Light)
 			{
 				string const LightType = string("u") + Light->GetLightType() + string("s");
-				map<string, Graphics::IUniform *> const LightAttributes = Light->GetAttributes();
+				map<string, SharedPtr<Graphics::IUniform>> const LightAttributes = Light->GetAttributes();
 
 				SLightUniformMatrixRow & LightUniformMatrixRow = LightUniformMatrix[LightType];
-				LightUniformMatrixRow.Entries.push_back(map<string, Graphics::IUniform *>());
-				LightUniformMatrixRow.CountUniform.Value += 1;
-				map<string, Graphics::IUniform *> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
+				LightUniformMatrixRow.Entries.push_back(map<string, SharedPtr<Graphics::IUniform>>());
+				LightUniformMatrixRow.CountUniform->Value += 1;
+				map<string, SharedPtr<Graphics::IUniform>> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
 				
-				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, Graphics::IUniform *> Iterator)
+				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, SharedPtr<Graphics::IUniform>> Iterator)
 				{
 					LightUniformMatrixRowEntry[Iterator.first] = Iterator.second;
 				});

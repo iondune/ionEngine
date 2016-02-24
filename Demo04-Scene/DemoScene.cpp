@@ -31,8 +31,8 @@ int main()
 	// Create Shader //
 	///////////////////
 
-	IVertexShader * VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
-	IPixelShader * PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
+	SharedPtr<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
+	SharedPtr<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
@@ -40,7 +40,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	IShaderProgram * ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPtr<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 
@@ -58,7 +58,7 @@ int main()
 	Camera->SetFocalLength(0.4f);
 	RenderPass->SetActiveCamera(Camera);
 
-	IRenderTarget * RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
+	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 
