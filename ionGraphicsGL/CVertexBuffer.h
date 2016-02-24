@@ -22,11 +22,14 @@ namespace ion
 
 				~CVertexBuffer();
 
+				void UploadData(float const * const Data, size_t const Elements);
 				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
+				void SetInstancingEnabled(bool const Enabled);
 
 
 				uint Handle = 0;
 				vector<SInputLayoutElement> InputLayout;
+				bool Instancing = false;
 
 			};
 

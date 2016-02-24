@@ -30,7 +30,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwWindowHint(GLFW_RESIZABLE, false);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))

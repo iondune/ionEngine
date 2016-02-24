@@ -262,6 +262,13 @@ namespace ion
 			return VertexBuffer;
 		}
 
+		SharedPtr<IVertexBuffer> COpenGLAPI::CreateVertexBuffer()
+		{
+			SharedPtr<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
+			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
+			return VertexBuffer;
+		}
+
 		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
 		{
 			SharedPtr<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
@@ -348,6 +355,22 @@ namespace ion
 		}
 
 		void COpenGLAPI::Draw(SharedPtr<IPipelineState> State)
+		{
+			InternalDrawSetup(State);
+			SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+			InternalDrawTeardown(State);
+		}
+
+		void COpenGLAPI::DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount)
+		{
+			InternalDrawSetup(State);
+			SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+			CheckedGLCall(glDrawElementsInstanced(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
+			InternalDrawTeardown(State);
+		}
+
+		void COpenGLAPI::InternalDrawSetup(SharedPtr<IPipelineState> State)
 		{
 			SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 			if (! PipelineState->Loaded)
@@ -445,8 +468,11 @@ namespace ion
 				CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 			}
 
-			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+		}
 
+		void COpenGLAPI::InternalDrawTeardown(SharedPtr<IPipelineState> State)
+		{
+			SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 			if (PipelineState->DrawWireframe)
 			{
 				CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
@@ -469,7 +495,7 @@ namespace ion
 				CheckedGLCall(glDisable(GL_BLEND));
 			}
 
-			TextureIndex = 0;
+			int TextureIndex = 0;
 			for (auto const & it : PipelineState->BoundTextures)
 			{
 				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));

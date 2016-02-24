@@ -33,7 +33,11 @@ namespace ion
 			virtual ~IVertexBuffer()
 			{}
 
+			virtual void UploadData(float const * const Data, size_t const Elements) = 0;
+
 			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
+
+			virtual void SetInstancingEnabled(bool const Enabled) = 0;
 
 		};
 

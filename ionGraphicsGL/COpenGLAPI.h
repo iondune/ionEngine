@@ -26,6 +26,7 @@ namespace ion
 			SharedPtr<IShaderProgram> CreateShaderProgram();
 
 			SharedPtr<IVertexBuffer> CreateVertexBuffer(float const * const Data, size_t const Elements);
+			SharedPtr<IVertexBuffer> CreateVertexBuffer();
 			SharedPtr<IIndexBuffer> CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
 			SharedPtr<IIndexBuffer> CreateIndexBuffer();
 
@@ -37,7 +38,12 @@ namespace ion
 			SharedPtr<IRenderTarget> GetWindowBackBuffer(CWindow * Window);
 
 			void Draw(SharedPtr<IPipelineState> State);
+			void DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount);
 
+		protected:
+
+			void InternalDrawSetup(SharedPtr<IPipelineState> State);
+			void InternalDrawTeardown(SharedPtr<IPipelineState> State);
 		};
 	}
 }

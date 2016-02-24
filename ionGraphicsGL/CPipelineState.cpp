@@ -46,7 +46,7 @@ namespace ion
 					VertexBuffers.resize(Index + 1);
 				}
 
-				VertexBuffers[0] = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
+				VertexBuffers[Index] = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
 				// Bound VBOs are not part of VAO state
 
 				Loaded = false;
@@ -248,6 +248,11 @@ namespace ion
 								GL_FALSE,
 								(int) TotalStride,
 								(void *) CurrentOffset));
+
+							if (VertexBuffer->Instancing)
+							{
+								CheckedGLCall(glVertexAttribDivisor(AttributeLocation, 1));
+							}
 
 							UnboundAttributes.erase(InputLayoutElement.Name);
 						}

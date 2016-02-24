@@ -38,7 +38,7 @@ namespace ion
 			virtual void Draw();
 
 			virtual void PreparePipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject);
-			virtual void SubmitPipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const RenderCategory = 0);
+			virtual void SubmitPipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const InstanceCount = 1, uint const RenderCategory = 0);
 
 		protected:
 
@@ -46,7 +46,7 @@ namespace ion
 			set<ISceneObject *> SceneObjects;
 			set<ILight *> Lights;
 			map<string, SharedPtr<Graphics::IUniform>> Uniforms;
-			vector<vector<pair<ISceneObject *, SharedPtr<Graphics::IPipelineState>>>> RenderQueue;
+			vector<vector<std::tuple<ISceneObject *, SharedPtr<Graphics::IPipelineState>, uint>>> RenderQueue;
 			string Name;
 
 			SharedPtr<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
