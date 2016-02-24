@@ -39,10 +39,16 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::SetVertexBuffer(SharedPtr<IVertexBuffer> inVertexBuffer)
+			void CPipelineState::SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> inVertexBuffer)
 			{
-				VertexBuffer = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
+				if (Index >= VertexBuffers.size())
+				{
+					VertexBuffers.resize(Index + 1);
+				}
+
+				VertexBuffers[0] = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
 				// Bound VBOs are not part of VAO state
+
 				Loaded = false;
 			}
 
@@ -175,7 +181,7 @@ namespace ion
 
 			void CPipelineState::Load()
 			{
-				if (! ShaderProgram || ! VertexBuffer || ! IndexBuffer)
+				if (! ShaderProgram || VertexBuffers.empty() || ! IndexBuffer)
 				{
 					Log::Error("Attempting to load an invalid PipelineState");
 					return;
@@ -183,67 +189,73 @@ namespace ion
 
 				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
-				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
 
-
-				//////////////////////////////
-				// Set up VBOs (attributes) //
-				//////////////////////////////
-
-				// Calculate stride of VBO data
-				size_t TotalStride = 0;
-				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
+				for (auto & VertexBuffer : VertexBuffers)
 				{
-					TotalStride += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
-				}
 
-				size_t CurrentOffset = 0;
-				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
-				{
-					pair<uint, uint> AttributeInfo;
-					if (TryMapAccess(ShaderProgram->Attributes, InputLayoutElement.Name, AttributeInfo))
+					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
+
+					//////////////////////////////
+					// Set up VBOs (attributes) //
+					//////////////////////////////
+
+					// Calculate stride of VBO data
+					size_t TotalStride = 0;
+					for (auto & InputLayoutElement : VertexBuffer->InputLayout)
 					{
-						uint const AttributeLocation = AttributeInfo.first;
-						uint const AttributeType = AttributeInfo.second;
-
-						bool IsAttributeTypeCorrect = false;
-						switch (AttributeType)
-						{
-						default:
-							Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
-							break;
-						case GL_FLOAT:
-							IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
-							break;
-						case GL_FLOAT_VEC2:
-							IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
-							break;
-						case GL_FLOAT_VEC3:
-							IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
-							break;
-						case GL_FLOAT_VEC4:
-							IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
-							break;
-						}
-
-						if (! IsAttributeTypeCorrect)
-						{
-							Log::Error("Mistmatch for attribute type %s %u %d", InputLayoutElement.Name, AttributeType, InputLayoutElement.Components);
-						}
-
-						CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
-						CheckedGLCall(glVertexAttribPointer(
-							AttributeLocation,
-							InputLayoutElement.Components,
-							GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-							GL_FALSE,
-							(int) TotalStride,
-							(void *) CurrentOffset));
-
-						UnboundAttributes.erase(InputLayoutElement.Name);
+						TotalStride += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
 					}
 
-					CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+					size_t CurrentOffset = 0;
+					for (auto & InputLayoutElement : VertexBuffer->InputLayout)
+					{
+						pair<uint, uint> AttributeInfo;
+						if (TryMapAccess(ShaderProgram->Attributes, InputLayoutElement.Name, AttributeInfo))
+						{
+							uint const AttributeLocation = AttributeInfo.first;
+							uint const AttributeType = AttributeInfo.second;
+
+							bool IsAttributeTypeCorrect = false;
+							switch (AttributeType)
+							{
+							default:
+								Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
+								break;
+							case GL_FLOAT:
+								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
+								break;
+							case GL_FLOAT_VEC2:
+								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
+								break;
+							case GL_FLOAT_VEC3:
+								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
+								break;
+							case GL_FLOAT_VEC4:
+								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
+								break;
+							}
+
+							if (! IsAttributeTypeCorrect)
+							{
+								Log::Error("Mistmatch for attribute type %s %u %d", InputLayoutElement.Name, AttributeType, InputLayoutElement.Components);
+							}
+
+							CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
+							CheckedGLCall(glVertexAttribPointer(
+								AttributeLocation,
+								InputLayoutElement.Components,
+								GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
+								GL_FALSE,
+								(int) TotalStride,
+								(void *) CurrentOffset));
+
+							UnboundAttributes.erase(InputLayoutElement.Name);
+						}
+
+						CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+					}
+
+					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's what we never leave them set in the VAO)
 				}
 
 				std::for_each(UnboundAttributes.begin(), UnboundAttributes.end(), [](string const & Attribuite)
@@ -251,7 +263,6 @@ namespace ion
 					Log::Error("Attribute expected by shader but not provided by VBO: %s", Attribuite);
 				});
 
-				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's what we never set them)
 				CheckedGLCall(glBindVertexArray(0));
 				CheckedGLCall(glUseProgram(0));
 

@@ -120,7 +120,7 @@ int main()
 
 	SharedPtr<IPipelineState> PipelineState = GraphicsAPI->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
-	PipelineState->SetVertexBuffer(VertexBuffer);
+	PipelineState->SetVertexBuffer(0, VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
 
 	SharedPtr<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();

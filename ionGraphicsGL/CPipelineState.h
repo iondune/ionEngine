@@ -25,7 +25,7 @@ namespace ion
 				~CPipelineState();
 
 				void SetProgram(SharedPtr<IShaderProgram> ShaderProgram);
-				void SetVertexBuffer(SharedPtr<IVertexBuffer> VertexBuffer);
+				void SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> VertexBuffer);
 				void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer);
 				void SetUniform(string const & Name, SharedPtr<IUniform> Uniform);
 				void SetTexture(string const & Name, SharedPtr<ITexture> Texture);
@@ -36,9 +36,9 @@ namespace ion
 
 				void Load();
 
-				SharedPtr<CShaderProgram> ShaderProgram = nullptr;
-				SharedPtr<CVertexBuffer> VertexBuffer = nullptr;
-				SharedPtr<CIndexBuffer> IndexBuffer = nullptr;
+				SharedPtr<CShaderProgram> ShaderProgram;
+				vector<SharedPtr<CVertexBuffer>> VertexBuffers;
+				SharedPtr<CIndexBuffer> IndexBuffer;
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;

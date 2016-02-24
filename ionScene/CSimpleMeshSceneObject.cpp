@@ -37,7 +37,7 @@ namespace ion
 			}
 
 			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
-			PipelineState->SetVertexBuffer(VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
 			PipelineState->SetProgram(Shader);
 

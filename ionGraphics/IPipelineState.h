@@ -34,7 +34,7 @@ namespace ion
 			{}
 
 			virtual void SetProgram(SharedPtr<IShaderProgram> ShaderProgram) = 0;
-			virtual void SetVertexBuffer(SharedPtr<IVertexBuffer> VertexBuffer) = 0;
+			virtual void SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> VertexBuffer) = 0;
 			virtual void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer) = 0;
 			virtual void SetUniform(string const & Name, SharedPtr<IUniform> Uniform) = 0;
 			virtual void SetTexture(string const & Name, SharedPtr<ITexture> Texture) = 0;
