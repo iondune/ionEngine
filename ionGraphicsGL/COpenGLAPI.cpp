@@ -38,7 +38,7 @@ namespace ion
 	namespace Graphics
 	{
 
-		void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
+		void __stdcall DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
 		{
 			string Source = "";
 			string Type = "";
