@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClInclude Include=".\ionScene.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CDirectionalLight.h" />
     <ClInclude Include="CGeometryCreator.h" />
     <ClInclude Include="CSimpleMesh.h" />
     <ClInclude Include="CSimpleMeshSceneObject.h" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CDirectionalLight.cpp" />
     <ClCompile Include="CGeometryCreator.cpp" />
     <ClCompile Include="CSimpleMesh.cpp" />
     <ClCompile Include="CSimpleMeshSceneObject.cpp" />
