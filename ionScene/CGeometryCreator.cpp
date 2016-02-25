@@ -375,7 +375,7 @@ namespace ion
 			Normals.push_back(0.f); Normals.push_back(-1.f); Normals.push_back(0.f);
 			TexCoords.push_back(0); TexCoords.push_back(0.5);
 
-			for (uint i = 1; i <= Stacks; ++ i)
+			for (uint i = 0; i <= Stacks; ++ i)
 			{
 				f32 const AngleV = (f32) i * 3.14159f / Stacks;
 				for (uint j = 0; j <= Slices; ++ j)
@@ -392,13 +392,13 @@ namespace ion
 					Normals.push_back(Radial.X); Normals.push_back(Radial.Y); Normals.push_back(Radial.Z);
 					TexCoords.push_back(j / (f32) Slices); TexCoords.push_back((Stacks - i + 1) / (f32) (Stacks + 1));
 
-					if (j)
+					if (j && i > 0)
 					{
 						if (i == 1)
 						{
 							Indices.push_back(Start);
 							Indices.push_back(Start - 1);
-							Indices.push_back(0);
+							Indices.push_back(Start - Slices - 1);
 						}
 						else
 						{
