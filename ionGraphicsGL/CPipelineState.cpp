@@ -147,10 +147,12 @@ namespace ion
 				case EDrawFeature::DisableDepthWrite:
 					DisableDepthWrite = Enabled;
 					break;
-				case EDrawFeature::Blend:
-					DrawBlended = Enabled;
-					break;
 				}
+			}
+
+			void CPipelineState::SetBlendMode(EBlendMode const BlendMode)
+			{
+				this->BlendMode = BlendMode;
 			}
 
 			void CPipelineState::OfferUniform(string const & Name, SharedPtr<IUniform> Uniform)

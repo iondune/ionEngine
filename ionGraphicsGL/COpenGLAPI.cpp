@@ -462,12 +462,18 @@ namespace ion
 			{
 				CheckedGLCall(glDepthMask(GL_FALSE));
 			}
-			if (PipelineState->DrawBlended)
+			if (PipelineState->BlendMode != EBlendMode::None)
 			{
 				CheckedGLCall(glEnable(GL_BLEND));
-				CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+				if (PipelineState->BlendMode == EBlendMode::Alpha)
+				{
+					CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+				}
+				else if (PipelineState->BlendMode == EBlendMode::Additive)
+				{
+					CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
+				}
 			}
-
 		}
 
 		void COpenGLAPI::InternalDrawTeardown(SharedPtr<IPipelineState> State)
@@ -490,7 +496,7 @@ namespace ion
 			{
 				CheckedGLCall(glDepthMask(GL_TRUE));
 			}
-			if (PipelineState->DrawBlended)
+			if (PipelineState->BlendMode != EBlendMode::None)
 			{
 				CheckedGLCall(glDisable(GL_BLEND));
 			}

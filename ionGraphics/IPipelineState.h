@@ -21,8 +21,14 @@ namespace ion
 			CullFront = 1,
 			CullBack = 2,
 			DisableDepthTest = 3,
-			DisableDepthWrite = 4,
-			Blend = 5
+			DisableDepthWrite = 4
+		};
+
+		enum class EBlendMode
+		{
+			None = 0,
+			Alpha = 1,
+			Additive = 2
 		};
 
 		class IPipelineState
@@ -42,6 +48,7 @@ namespace ion
 			virtual void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform) = 0;
 
 			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
+			virtual void SetBlendMode(EBlendMode const BlendMode) = 0;
 
 			virtual set<string> GetUnboundUniforms() const = 0;
 

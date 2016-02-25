@@ -30,6 +30,7 @@ namespace ion
 				void SetUniform(string const & Name, SharedPtr<IUniform> Uniform);
 				void SetTexture(string const & Name, SharedPtr<ITexture> Texture);
 				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
+				void SetBlendMode(EBlendMode const BlendMode);
 
 				void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform);
 				set<string> GetUnboundUniforms() const;
@@ -57,7 +58,7 @@ namespace ion
 				bool CullBack = false;
 				bool DisableDepthTest = false;
 				bool DisableDepthWrite = false;
-				bool DrawBlended = false;
+				EBlendMode BlendMode = EBlendMode::None;
 
 			};
 
