@@ -50,6 +50,7 @@ namespace ion
 		size_t GetValueTypeSize(EValueType const ValueType);
 		string GetValueTypeString(EValueType const ValueType);
 		size_t GetAttributeTypeSize(EAttributeType const AttributeType);
+		string GetAttributeTypeString(EAttributeType const AttributeType);
 
 	}
 }
