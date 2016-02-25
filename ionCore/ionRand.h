@@ -17,6 +17,18 @@ static f32 nrand()
 	return (std::rand() / (f32) RAND_MAX) * 2.f - 1.f;
 }
 
+class Random
+{
+
+public:
+
+	static float Between(float const Min, float const Max)
+	{
+		return frand() * (Max - Min) + Min;
+	}
+
+};
+
 class IRandomGenerator
 {
 
