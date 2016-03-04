@@ -45,6 +45,10 @@ namespace ion
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
+			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPtr<Graphics::IUniform>> const & Iterator)
+			{
+				PipelineState->SetUniform(Iterator.first, Iterator.second);
+			});
 
 			PipelineState->OfferUniform("uMaterial.AmbientColor", Material.Ambient);
 			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
@@ -84,6 +88,19 @@ namespace ion
 			else
 			{
 				Textures.erase(Name);
+			}
+			Loaded = false;
+		}
+
+		void CSimpleMeshSceneObject::SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform)
+		{
+			if (Uniform)
+			{
+				Uniforms[Name] = Uniform;
+			}
+			else
+			{
+				Uniforms.erase(Name);
 			}
 			Loaded = false;
 		}

@@ -36,6 +36,7 @@ namespace ion
 			virtual void SetMesh(CSimpleMesh * Mesh);
 			virtual void SetShader(SharedPtr<Graphics::IShaderProgram> Shader);
 			virtual void SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture);
+			virtual void SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform);
 
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
@@ -52,6 +53,7 @@ namespace ion
 			SSimpleMaterial Material;
 
 			map<string, SharedPtr<Graphics::ITexture>> Textures;
+			map<string, SharedPtr<Graphics::IUniform>> Uniforms;
 
 		};
 
