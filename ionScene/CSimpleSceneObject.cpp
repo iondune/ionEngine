@@ -1,5 +1,5 @@
 
-#include "CSimpleMeshSceneObject.h"
+#include "CSimpleSceneObject.h"
 #include "CRenderPass.h"
 
 
@@ -8,12 +8,25 @@ namespace ion
 	namespace Scene
 	{
 
-		CSimpleMeshSceneObject::~CSimpleMeshSceneObject()
+		SSimpleMaterial::SSimpleMaterial()
+		{
+			LoadDefaults();
+		}
+
+		void SSimpleMaterial::LoadDefaults()
+		{
+			*Shininess = 1000.0f;
+			*Ambient = SColorf(0.05f);
+			*Diffuse = SColorf(0.9f);
+			*Specular = SColorf(1.f);
+		}
+
+		CSimpleSceneObject::~CSimpleSceneObject()
 		{}
 
-		void CSimpleMeshSceneObject::Load(CRenderPass * RenderPass)
+		void CSimpleSceneObject::Load(CRenderPass * RenderPass)
 		{
-			if (! Mesh || ! Shader)
+			if (! IndexBuffer || ! VertexBuffer || ! Shader)
 			{
 				return;
 			}
@@ -23,8 +36,8 @@ namespace ion
 				PipelineState = RenderPass->GetGraphicsAPI()->CreatePipelineState();
 			}
 
-			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
-			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetIndexBuffer(IndexBuffer);
+			PipelineState->SetVertexBuffer(0, VertexBuffer);
 
 			PipelineState->SetProgram(Shader);
 
@@ -46,7 +59,7 @@ namespace ion
 			Loaded = true;
 		}
 
-		void CSimpleMeshSceneObject::Draw(CRenderPass * RenderPass)
+		void CSimpleSceneObject::Draw(CRenderPass * RenderPass)
 		{
 			if (PipelineState)
 			{
@@ -54,19 +67,23 @@ namespace ion
 			}
 		}
 
-		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
+		void CSimpleSceneObject::SetIndexBuffer(SharedPtr<Graphics::IIndexBuffer> IndexBuffer)
 		{
-			this->Mesh = Mesh;
-			Loaded = false;
+			this->IndexBuffer = IndexBuffer;
 		}
 
-		void CSimpleMeshSceneObject::SetShader(SharedPtr<Graphics::IShaderProgram> Shader)
+		void CSimpleSceneObject::SetVertexBuffer(SharedPtr<Graphics::IVertexBuffer> VertexBuffer)
+		{
+			this->VertexBuffer = VertexBuffer;
+		}
+
+		void CSimpleSceneObject::SetShader(SharedPtr<Graphics::IShaderProgram> Shader)
 		{
 			this->Shader = Shader;
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture)
+		void CSimpleSceneObject::SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture)
 		{
 			if (Texture)
 			{
@@ -79,7 +96,7 @@ namespace ion
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform)
+		void CSimpleSceneObject::SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform)
 		{
 			if (Uniform)
 			{
@@ -92,17 +109,25 @@ namespace ion
 			Loaded = false;
 		}
 
-		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()
+		void CSimpleSceneObject::SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled)
+		{
+			if (PipelineState)
+			{
+				PipelineState->SetFeatureEnabled(Feature, Enabled);
+			}
+		}
+
+		SSimpleMaterial & CSimpleSceneObject::GetMaterial()
 		{
 			return Material;
 		}
 
-		SSimpleMaterial const & CSimpleMeshSceneObject::GetMaterial() const
+		SSimpleMaterial const & CSimpleSceneObject::GetMaterial() const
 		{
 			return Material;
 		}
 
-		void CSimpleMeshSceneObject::SetMaterial(SSimpleMaterial const & Material)
+		void CSimpleSceneObject::SetMaterial(SSimpleMaterial const & Material)
 		{
 			this->Material = Material;
 		}

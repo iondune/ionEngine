@@ -3,7 +3,6 @@
 
 #include "ISceneObject.h"
 #include "CSimpleMesh.h"
-#include "CSimpleSceneObject.h"
 
 
 namespace ion
@@ -11,28 +10,41 @@ namespace ion
 	namespace Scene
 	{
 
-		class CSimpleMeshSceneObject : public ISceneObject
+		struct SSimpleMaterial
+		{
+
+			SSimpleMaterial();
+			void LoadDefaults();
+
+			SharedPtr<Graphics::CUniformValue<color3f>> Ambient = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<color3f>> Diffuse = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<color3f>> Specular = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPtr<Graphics::CUniformValue<f32>> Shininess = std::make_shared<Graphics::CUniformValue<f32>>();
+
+		};
+
+		class CSimpleSceneObject : public ISceneObject
 		{
 
 		public:
 
-			~CSimpleMeshSceneObject();
+			~CSimpleSceneObject();
 
 			virtual void Load(CRenderPass * RenderPass);
 			virtual void Draw(CRenderPass * RenderPass);
 
-			virtual void SetMesh(CSimpleMesh * Mesh);
+			virtual void SetIndexBuffer(SharedPtr<Graphics::IIndexBuffer> IndexBuffer);
+			virtual void SetVertexBuffer(SharedPtr<Graphics::IVertexBuffer> VertexBuffer);
 			virtual void SetShader(SharedPtr<Graphics::IShaderProgram> Shader);
 			virtual void SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture);
 			virtual void SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform);
+			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
 
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
 			virtual void SetMaterial(SSimpleMaterial const & Material);
 
 		protected:
-
-			CSimpleMesh * Mesh = nullptr;
 
 			SharedPtr<Graphics::IPipelineState> PipelineState;
 			SharedPtr<Graphics::IShaderProgram> Shader;

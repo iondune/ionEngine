@@ -20,6 +20,7 @@
 
 #include "CSimpleMesh.h"
 #include "CGeometryCreator.h"
+#include "CSimpleSceneObject.h"
 #include "CSimpleMeshSceneObject.h"
 
 
