@@ -20,7 +20,7 @@ int main()
 	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 	RenderTarget->SetClearColor(color3f(0.3f));
 
-	GUIManager->Init(Window, true);
+	GUIManager->Init(Window);
 	GUIManager->AddFontFromFile("OpenSans.ttf", 18.f);
 	Window->AddListener(GUIManager);
 
