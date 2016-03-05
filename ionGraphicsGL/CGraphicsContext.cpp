@@ -28,7 +28,7 @@ namespace ion
 
 			SharedPtr<IPipelineState> CGraphicsContext::CreatePipelineState()
 			{
-				SharedPtr<CPipelineState> PipelineState = SharedFromNew(new GL::CPipelineState());
+				SharedPtr<CPipelineState> PipelineState = MakeShared<GL::CPipelineState>(Window);
 				Window->MakeContextCurrent();
 				SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
 				return PipelineState;

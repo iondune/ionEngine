@@ -22,6 +22,7 @@ namespace ion
 
 			public:
 
+				CPipelineState(CWindow * Window);
 				~CPipelineState();
 
 				void SetProgram(SharedPtr<IShaderProgram> ShaderProgram);
@@ -36,6 +37,8 @@ namespace ion
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
+
+				CWindow * Window = nullptr;
 
 				SharedPtr<CShaderProgram> ShaderProgram;
 				vector<SharedPtr<CVertexBuffer>> VertexBuffers;

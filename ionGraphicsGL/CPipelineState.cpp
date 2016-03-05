@@ -10,6 +10,10 @@ namespace ion
 	{
 		namespace GL
 		{
+			CPipelineState::CPipelineState(CWindow * Window)
+			{
+				this->Window = Window;
+			}
 
 			CPipelineState::~CPipelineState()
 			{
@@ -55,6 +59,7 @@ namespace ion
 			void CPipelineState::SetIndexBuffer(SharedPtr<IIndexBuffer> inIndexBuffer)
 			{
 				IndexBuffer = std::dynamic_pointer_cast<CIndexBuffer>(inIndexBuffer);
+				Window->MakeContextCurrent();
 				SafeGLCall(glBindVertexArray, (VertexArrayHandle));
 				SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 				SafeGLCall(glBindVertexArray, (0));
@@ -189,6 +194,7 @@ namespace ion
 					return;
 				}
 
+				Window->MakeContextCurrent();
 				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 
