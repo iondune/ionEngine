@@ -26,6 +26,10 @@ int main()
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 	SceneManager->Init(GraphicsAPI);
 
+	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	RenderTarget->SetClearColor(color3f(0.3f));
+
 
 	///////////////////
 	// Create Shader //
@@ -49,7 +53,8 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass();
+	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI, Context);
+	RenderPass->SetRenderTarget(RenderTarget);
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());
@@ -57,9 +62,6 @@ int main()
 	Camera->SetLookAtTarget(vec3f(0, 0, 0));
 	Camera->SetFocalLength(0.4f);
 	RenderPass->SetActiveCamera(Camera);
-
-	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
-	RenderTarget->SetClearColor(color3f(0.3f));
 
 
 	///////////////////

@@ -11,6 +11,7 @@
     <ClInclude Include="IIndexBuffer.h" />
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="ITexture.h" />
+    <ClInclude Include="IGraphicsContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />

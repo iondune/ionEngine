@@ -33,17 +33,7 @@ namespace ion
 			SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 			SharedPtr<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
-			SharedPtr<IPipelineState> CreatePipelineState();
-
-			SharedPtr<IRenderTarget> GetWindowBackBuffer(CWindow * Window);
-
-			void Draw(SharedPtr<IPipelineState> State);
-			void DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount);
-
-		protected:
-
-			void InternalDrawSetup(SharedPtr<IPipelineState> State);
-			void InternalDrawTeardown(SharedPtr<IPipelineState> State);
+			SharedPtr<IGraphicsContext> GetWindowContext(CWindow * Window);
 		};
 	}
 }

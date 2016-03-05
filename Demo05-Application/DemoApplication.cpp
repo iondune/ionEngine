@@ -34,6 +34,10 @@ int main()
 	AssetManager->SetShaderPath("Shaders/");
 	AssetManager->SetTexturePath("Images/");
 
+	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	RenderTarget->SetClearColor(color3f(0.3f));
+
 
 	/////////////////
 	// Load Assets //
@@ -56,16 +60,14 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass();
+	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI, Context);
+	RenderPass->SetRenderTarget(RenderTarget);
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());
 	Camera->SetPosition(vec3f(0, 3, -5));
 	Camera->SetFocalLength(0.4f);
 	RenderPass->SetActiveCamera(Camera);
-
-	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
-	RenderTarget->SetClearColor(color3f(0.3f));
 
 	CCameraController * Controller = new CCameraController(Camera);
 	Controller->SetTheta(15.f * Constants32::Pi / 48.f);

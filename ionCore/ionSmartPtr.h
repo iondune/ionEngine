@@ -31,3 +31,9 @@ static SharedPtr<T> SharedFromNew(T * const t)
 {
 	return sharedPtr<T>(t);
 }
+
+template <typename T, typename... Args>
+static SharedPtr<T> MakeShared(Args&&... args)
+{
+	return std::make_shared<T, Args...>(args...);
+}

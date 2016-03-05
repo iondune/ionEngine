@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CGraphicsContext.h" />
     <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="CRenderTarget.h" />
     <ClInclude Include="CVertexBuffer.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="COpenGLAPI.cpp" />

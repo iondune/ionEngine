@@ -1,6 +1,8 @@
 
 #pragma once
 
+#if 0
+
 #include <ionCore.h>
 #include <ionMath.h>
 #include <ionGraphics.h>
@@ -77,3 +79,5 @@ namespace ion
 		}
 	}
 }
+
+#endif

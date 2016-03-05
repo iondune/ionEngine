@@ -7,8 +7,16 @@ namespace ion
 	namespace Scene
 	{
 
-		CRenderPass::CRenderPass()
-		{}
+		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPtr<Graphics::IGraphicsContext> GraphicsContext)
+		{
+			this->GraphicsAPI = GraphicsAPI;
+			this->GraphicsContext = GraphicsContext;
+		}
+
+		void CRenderPass::SetRenderTarget(SharedPtr<Graphics::IRenderTarget> RenderTarget)
+		{
+			this->RenderTarget = RenderTarget;
+		}
 
 		string const & CRenderPass::GetName() const
 		{
@@ -20,9 +28,9 @@ namespace ion
 			return GraphicsAPI;
 		}
 
-		void CRenderPass::SetGraphicsAPI(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPtr<Graphics::IGraphicsContext> CRenderPass::GetGraphicsContext()
 		{
-			this->GraphicsAPI = GraphicsAPI;
+			return GraphicsContext;
 		}
 
 		ICamera * CRenderPass::GetActiveCamera()
@@ -92,7 +100,6 @@ namespace ion
 				}
 			});
 
-
 			for (auto & Category : RenderQueue)
 			{
 				for (auto & Element : Category)
@@ -106,11 +113,11 @@ namespace ion
 
 					if (1 == InstanceCount)
 					{
-						GraphicsAPI->Draw(PipelineState);
+						GraphicsContext->Draw(PipelineState);
 					}
 					else
 					{
-						GraphicsAPI->DrawInstanced(PipelineState, InstanceCount);
+						GraphicsContext->DrawInstanced(PipelineState, InstanceCount);
 					}
 				}
 

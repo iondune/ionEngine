@@ -15,13 +15,14 @@ int main()
 	WindowManager->Init();
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1280, 1024), "ionEngine GUI Demo", EWindowType::Windowed);
 
+	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
+	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	RenderTarget->SetClearColor(color3f(0.3f));
+
 	GUIManager->Init(Window, true);
 	GUIManager->AddFontFromFile("OpenSans.ttf", 18.f);
 	Window->AddListener(GUIManager);
-
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
-	RenderTarget->SetClearColor(color3f(0.3f));
 
 	while (WindowManager->Run())
 	{

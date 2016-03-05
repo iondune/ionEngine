@@ -33,7 +33,7 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
@@ -45,7 +45,9 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	Windows[glfwWindow] = Window;
 
 	if (! PrimaryWindow)
+	{
 		PrimaryWindow = Window;
+	}
 
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);

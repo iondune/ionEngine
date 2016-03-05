@@ -18,11 +18,12 @@ namespace ion
 
 		public:
 
-			CRenderPass();
+			CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPtr<Graphics::IGraphicsContext> GraphicsContext);
+			virtual void SetRenderTarget(SharedPtr<Graphics::IRenderTarget> RenderTarget);
 
 			virtual string const & GetName() const;
 			virtual Graphics::IGraphicsAPI * GetGraphicsAPI();
-			virtual void SetGraphicsAPI(Graphics::IGraphicsAPI * GraphicsAPI);
+			virtual SharedPtr<Graphics::IGraphicsContext> GetGraphicsContext();
 
 			virtual ICamera * GetActiveCamera();
 			virtual ICamera const * GetActiveCamera() const;
@@ -49,6 +50,10 @@ namespace ion
 			vector<vector<std::tuple<ISceneObject *, SharedPtr<Graphics::IPipelineState>, uint>>> RenderQueue;
 			string Name;
 
+			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
+			std::shared_ptr<Graphics::IGraphicsContext> GraphicsContext;
+			std::shared_ptr<Graphics::IRenderTarget> RenderTarget;
+
 			SharedPtr<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
 			SharedPtr<Graphics::CUniformValue<glm::mat4>> uViewMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
 			SharedPtr<Graphics::CUniformValue<vec3f>> uCameraPosition = std::make_shared<Graphics::CUniformValue<vec3f>>();
@@ -64,7 +69,6 @@ namespace ion
 
 			void RebuildLightUniformMatrix();
 
-			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
 		};
 

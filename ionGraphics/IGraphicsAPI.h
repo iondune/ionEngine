@@ -10,8 +10,7 @@
 #include "IVertexBuffer.h"
 #include "IIndexBuffer.h"
 #include "ITexture.h"
-#include "IPipelineState.h"
-#include "IRenderTarget.h"
+#include "IGraphicsContext.h"
 
 
 namespace ion
@@ -39,12 +38,7 @@ namespace ion
 			virtual SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
 			virtual SharedPtr<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
 
-			virtual SharedPtr<IPipelineState> CreatePipelineState() = 0;
-
-			virtual SharedPtr<IRenderTarget> GetWindowBackBuffer(CWindow * Window) = 0;
-
-			virtual void Draw(SharedPtr<IPipelineState> State) = 0;
-			virtual void DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount) = 0;
+			virtual SharedPtr<IGraphicsContext> GetWindowContext(CWindow * Window) = 0;
 
 		};
 

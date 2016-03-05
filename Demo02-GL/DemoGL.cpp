@@ -24,6 +24,9 @@ int main()
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
+	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
+	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 
 	//////////////////
 	// Buffer Setup //
@@ -44,7 +47,6 @@ int main()
 		0, 2, 3,
 	};
 
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 
 	SharedPtr<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
 	SharedPtr<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
@@ -118,7 +120,7 @@ int main()
 	// Draw Loop //
 	///////////////
 
-	SharedPtr<IPipelineState> PipelineState = GraphicsAPI->CreatePipelineState();
+	SharedPtr<IPipelineState> PipelineState = Context->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
@@ -133,15 +135,13 @@ int main()
 
 	PipelineState->Load();
 
-	SharedPtr<IRenderTarget> RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
-
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
 		*uCurrentTime = (float) TimeManager->GetRunTime();
 
 		RenderTarget->ClearColorAndDepth();
-		GraphicsAPI->Draw(PipelineState);
+		Context->Draw(PipelineState);
 		Window->SwapBuffers();
 	}
 

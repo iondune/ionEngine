@@ -33,7 +33,7 @@ namespace ion
 
 			if (! PipelineState)
 			{
-				PipelineState = RenderPass->GetGraphicsAPI()->CreatePipelineState();
+				PipelineState = RenderPass->GetGraphicsContext()->CreatePipelineState();
 			}
 
 			PipelineState->SetIndexBuffer(IndexBuffer);
