@@ -16,10 +16,10 @@ namespace ion
 				CheckedGLCall(glDeleteBuffers(1, &Handle));
 			}
 			
-			void CVertexBuffer::UploadData(float const * const Data, size_t const Elements)
+			void CVertexBuffer::UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements)
 			{
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, Handle));
-				CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, Elements * sizeof(float), Data, GL_STATIC_DRAW));
+				CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, NumberOfElements * DataSize, Data, GL_STATIC_DRAW));
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 			}
 

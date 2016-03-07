@@ -141,7 +141,8 @@ namespace ion
 				}
 			});
 
-			SharedPtr<Graphics::IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer(IndexData.data(), IndexData.size(), Graphics::EValueType::UnsignedInt32);
+			SharedPtr<Graphics::IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
+			IndexBuffer->UploadData(IndexData);
 			return IndexBuffer;
 		}
 
@@ -166,7 +167,8 @@ namespace ion
 				}
 			});
 
-			SharedPtr<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer(VertexData.data(), VertexData.size());
+			SharedPtr<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
+			VertexBuffer->UploadData(VertexData);
 			Graphics::SInputLayoutElement InputLayout[] =
 			{
 				{ "vPosition",  3, Graphics::EAttributeType::Float },

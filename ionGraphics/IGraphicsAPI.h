@@ -30,9 +30,7 @@ namespace ion
 
 			virtual SharedPtr<IShaderProgram> CreateShaderProgram() = 0;
 
-			virtual SharedPtr<IVertexBuffer> CreateVertexBuffer(float const * const Data, size_t const Elements) = 0;
 			virtual SharedPtr<IVertexBuffer> CreateVertexBuffer() = 0;
-			virtual SharedPtr<IIndexBuffer> CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType) = 0;
 			virtual SharedPtr<IIndexBuffer> CreateIndexBuffer() = 0;
 
 			virtual SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;

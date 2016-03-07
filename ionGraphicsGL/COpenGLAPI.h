@@ -25,9 +25,7 @@ namespace ion
 
 			SharedPtr<IShaderProgram> CreateShaderProgram();
 
-			SharedPtr<IVertexBuffer> CreateVertexBuffer(float const * const Data, size_t const Elements);
 			SharedPtr<IVertexBuffer> CreateVertexBuffer();
-			SharedPtr<IIndexBuffer> CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType);
 			SharedPtr<IIndexBuffer> CreateIndexBuffer();
 
 			SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);

@@ -63,7 +63,7 @@ namespace ion
 			struct SLightUniformMatrixRow
 			{
 				vector<map<string, SharedPtr<Graphics::IUniform>>> Entries;
-				SharedPtr<Graphics::CUniformValue<uint>> CountUniform = std::make_shared<Graphics::CUniformValue<uint>>(0);
+				SharedPtr<Graphics::CUniformValue<int>> CountUniform = std::make_shared<Graphics::CUniformValue<int>>(0);
 			};
 			map<string, SLightUniformMatrixRow> LightUniformMatrix;
 

@@ -48,8 +48,10 @@ int main()
 	};
 
 
-	SharedPtr<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer(Indices.data(), Indices.size(), EValueType::UnsignedInt32);
-	SharedPtr<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer(Vertices.data(), Vertices.size());
+	SharedPtr<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
+	IndexBuffer->UploadData(Indices);
+	SharedPtr<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
+	VertexBuffer->UploadData(Vertices);
 	SInputLayoutElement InputLayout[] =
 	{
 		{ "vPosition", 2, EAttributeType::Float },

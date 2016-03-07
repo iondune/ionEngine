@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="IIndexBuffer.cpp" />
     <ClCompile Include="IUniform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

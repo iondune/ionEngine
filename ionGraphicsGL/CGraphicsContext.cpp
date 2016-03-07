@@ -74,38 +74,53 @@ namespace ion
 				{
 					switch (it.second->GetType())
 					{
-					case EValueType::Float:
+					case EUniformType::Float:
 						CheckedGLCall(glUniform1f(it.first, * static_cast<float const *>(it.second->GetData())));
 						break;
-					case EValueType::Float2:
+					case EUniformType::Float2:
 						CheckedGLCall(glUniform2f(it.first,
 							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
 							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
 						break;
-					case EValueType::Float3:
+					case EUniformType::Float3:
 						CheckedGLCall(glUniform3f(it.first,
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
 						break;
-					case EValueType::Float4:
+					case EUniformType::Float4:
 						CheckedGLCall(glUniform4f(it.first,
 							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
 							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[1],
 							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[2],
 							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[3]));
 						break;
-					case EValueType::UnsignedInt32:
-						CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
-						break;
-					case EValueType::SignedInt32:
-						CheckedGLCall(glUniform1i(it.first, * static_cast<int const *>(it.second->GetData())));
-						break;
-					case EValueType::Matrix4x4:
+					case EUniformType::Matrix4x4:
 						CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
 						break;
+					case EUniformType::Int:
+						CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
+						break;
+					case EUniformType::Int2:
+						CheckedGLCall(glUniform2i(it.first,
+							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[0],
+							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[1]));
+						break;
+					case EUniformType::Int3:
+						CheckedGLCall(glUniform3i(it.first,
+							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[0],
+							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[1],
+							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[2]));
+						break;
+					case EUniformType::Int4:
+						CheckedGLCall(glUniform4i(it.first,
+							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[0],
+							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[1],
+							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[2],
+							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[3]));
+						break;
 					default:
-						Log::Error("Unexpected value type during uniform binding: '%s'", GetValueTypeString(it.second->GetType()));
+						Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(it.second->GetType()));
 						break;
 					}
 				}

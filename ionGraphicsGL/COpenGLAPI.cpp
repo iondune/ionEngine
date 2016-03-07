@@ -256,32 +256,11 @@ namespace ion
 			return ShaderProgram;
 		}
 
-		SharedPtr<IVertexBuffer> COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
-		{
-			SharedPtr<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
-			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
-			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
-			CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, Elements * sizeof(float), Data, GL_STATIC_DRAW));
-			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-			return VertexBuffer;
-		}
-
 		SharedPtr<IVertexBuffer> COpenGLAPI::CreateVertexBuffer()
 		{
 			SharedPtr<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
 			return VertexBuffer;
-		}
-
-		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
-		{
-			SharedPtr<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
-			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
-			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
-			CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
-			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-			IndexBuffer->Size = Elements;
-			return IndexBuffer;
 		}
 
 		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer()

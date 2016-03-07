@@ -16,5 +16,6 @@
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="IUniform.cpp" />
+    <ClCompile Include="IIndexBuffer.cpp" />
   </ItemGroup>
 </Project>

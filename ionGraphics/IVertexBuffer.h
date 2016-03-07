@@ -33,7 +33,13 @@ namespace ion
 			virtual ~IVertexBuffer()
 			{}
 
-			virtual void UploadData(float const * const Data, size_t const Elements) = 0;
+			template <typename T>
+			void UploadData(vector<T> const & Data)
+			{
+				UploadData(Data.data(), sizeof(T), Data.size());
+			}
+
+			virtual void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements) = 0;
 
 			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
 

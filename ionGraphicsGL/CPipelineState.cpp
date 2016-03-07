@@ -223,48 +223,87 @@ namespace ion
 							uint const AttributeLocation = AttributeInfo.first;
 							uint const AttributeType = AttributeInfo.second;
 
-							bool IsAttributeTypeCorrect = false;
-							string ShaderAttributeTypeString = "Unknown";
-							switch (AttributeType)
+							// Validate Attribute Type (does the VBO layout match what the shader wants?)
 							{
-							default:
-								Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
-								break;
-							case GL_FLOAT:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 1);
-								ShaderAttributeTypeString = "GL_FLOAT";
-								break;
-							case GL_FLOAT_VEC2:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC2";
-								break;
-							case GL_FLOAT_VEC3:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC3";
-								break;
-							case GL_FLOAT_VEC4:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC4";
-								break;
-							}
+								bool IsAttributeTypeCorrect = false;
+								string ShaderAttributeTypeString = "Unknown";
+								switch (AttributeType)
+								{
+								default:
+									Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
+									break;
+								case GL_FLOAT:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 1);
+									ShaderAttributeTypeString = "GL_FLOAT";
+									break;
+								case GL_FLOAT_VEC2:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
+									ShaderAttributeTypeString = "GL_FLOAT_VEC2";
+									break;
+								case GL_FLOAT_VEC3:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
+									ShaderAttributeTypeString = "GL_FLOAT_VEC3";
+									break;
+								case GL_FLOAT_VEC4:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
+									ShaderAttributeTypeString = "GL_FLOAT_VEC4";
+									break;
+								case GL_INT:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 1);
+									ShaderAttributeTypeString = "GL_INT";
+									break;
+								case GL_INT_VEC2:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 2);
+									ShaderAttributeTypeString = "GL_INT_VEC2";
+									break;
+								case GL_INT_VEC3:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 3);
+									ShaderAttributeTypeString = "GL_INT_VEC3";
+									break;
+								case GL_INT_VEC4:
+									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 4);
+									ShaderAttributeTypeString = "GL_INT_VEC4";
+									break;
+								}
 
-							if (! IsAttributeTypeCorrect)
-							{
-								Log::Error("Mistmatch for attribute type '%s': VBO supplied %d components of type %s but shader expected '%s'",
-									InputLayoutElement.Name,
-									InputLayoutElement.Components,
-									GetAttributeTypeString(InputLayoutElement.Type),
-									ShaderAttributeTypeString);
+								if (! IsAttributeTypeCorrect)
+								{
+									Log::Error("Mistmatch for attribute type '%s': VBO supplied %d components of type %s but shader expected '%s'",
+										InputLayoutElement.Name,
+										InputLayoutElement.Components,
+										GetAttributeTypeString(InputLayoutElement.Type),
+										ShaderAttributeTypeString);
+								}
 							}
 
 							CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
-							CheckedGLCall(glVertexAttribPointer(
-								AttributeLocation,
-								InputLayoutElement.Components,
-								GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-								GL_FALSE,
-								(int) TotalStride,
-								(void *) CurrentOffset));
+
+							switch (AttributeType)
+							{
+							case GL_FLOAT:
+							case GL_FLOAT_VEC2:
+							case GL_FLOAT_VEC3:
+							case GL_FLOAT_VEC4:
+								CheckedGLCall(glVertexAttribPointer(
+									AttributeLocation,
+									InputLayoutElement.Components,
+									GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
+									GL_FALSE,
+									(int) TotalStride,
+									(void *) CurrentOffset));
+								break;
+							case GL_INT:
+							case GL_INT_VEC2:
+							case GL_INT_VEC3:
+							case GL_INT_VEC4:
+								CheckedGLCall(glVertexAttribIPointer(
+									AttributeLocation,
+									InputLayoutElement.Components,
+									GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
+									(int) TotalStride,
+									(void *) CurrentOffset));
+								break;
+							}
 
 							if (VertexBuffer->Instancing)
 							{
@@ -277,7 +316,7 @@ namespace ion
 						CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
 					}
 
-					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's what we never leave them set in the VAO)
+					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's why we never leave them set in the VAO)
 				}
 
 				std::for_each(UnboundAttributes.begin(), UnboundAttributes.end(), [](string const & Attribuite)
