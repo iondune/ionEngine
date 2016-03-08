@@ -4,14 +4,6 @@
 
 ionEngine depends on the following external libraries:
 
-- stb - `https://github.com/nothings/stb`
-- tinyformat - `https://github.com/c42f/tinyformat`
-- glm - `https://github.com/g-truc/glm`
-- imgui - `https://github.com/ocornut/imgui`
-- Catch - `https://github.com/philsquared/Catch`
-- glad - `https://github.com/iondune/glad`
-- dirent - `https://github.com/tronkko/dirent`
-
 - **Header Only**
   - [stb](https://github.com/nothings/stb)
     - Image loading/writing, integer divide methods
