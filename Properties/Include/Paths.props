@@ -5,29 +5,26 @@
     <IncludePath>
       ;$(VisualStudioDir)\Projects\ionEngine;
       ;$(VisualStudioDir)\Projects\ionEngine\Include;
-      ;$(VisualStudioDir)\SDKs\stb;
-      ;$(VisualStudioDir)\SDKs\glm;
-      ;$(VisualStudioDir)\SDKs\glad\include;
-      ;$(VisualStudioDir)\SDKs\glfw\include;
-      ;$(VisualStudioDir)\SDKs\assimp-3.1.1\include;
-      ;$(VisualStudioDir)\SDKs\GWEN\gwen\include;
-      ;$(VisualStudioDir)\SDKs\dirent-1.20.1\include;
-      ;$(VisualStudioDir)\SDKs\tinyformat;
-      ;$(VisualStudioDir)\SDKs\imgui;
-      ;$(VisualStudioDir)\SDKs\Catch\include;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\stb;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\tinyformat;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glm;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\imgui;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\Catch\include;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glad\include;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\dirent\include;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glfw-3.1.2.bin.WIN64\include;
       ;$(IncludePath);
     </IncludePath>
     <LibraryPath>
-      ;$(VisualStudioDir)\SDKs\assimp-3.1.1\lib64;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glfw-3.1.2.bin.WIN64\lib-vc2015;
       ;$(LibraryPath);
     </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Debug'">
-      ;$(VisualStudioDir)\SDKs\glfw\src\Debug;
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Debug;
       ;$(LibraryPath);
     </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Release'">
-      ;$(VisualStudioDir)\SDKs\glfw\src\Release;
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Release;
       ;$(LibraryPath);
     </LibraryPath>

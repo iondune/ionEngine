@@ -10,16 +10,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}</ProjectGuid>
     <ProjectName>Demo05-Application</ProjectName>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Demo.props" />
   </ImportGroup>
-
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
@@ -33,10 +30,8 @@
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemGroup>
     <ClCompile Include="DemoApplication.cpp" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
