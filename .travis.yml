@@ -24,7 +24,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glfw3; fi
 
   # Pull github dependencies
-  - .Dependencies/Clone.bash
+  - ./Dependencies/Clone.bash
 
 script:
   - mkdir Build && cd Build
