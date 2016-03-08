@@ -1,5 +1,6 @@
 syntax: glob
 Build
+Documentation/html
 Dependencies/stb
 Dependencies/tinyformat
 Dependencies/glm
