@@ -4,26 +4,33 @@
 
 ionEngine depends on the following external libraries:
 
+- stb - `https://github.com/nothings/stb`
+- tinyformat - `https://github.com/c42f/tinyformat`
+- glm - `https://github.com/g-truc/glm`
+- imgui - `https://github.com/ocornut/imgui`
+- Catch - `https://github.com/philsquared/Catch`
+- glad - `https://github.com/iondune/glad`
+- dirent - `https://github.com/tronkko/dirent`
+
 - **Header Only**
-  - [stb_image](http://www.nothings.org/)
-    - Basic image loading
-  - [GLM](http://glm.g-truc.net/)
-    - Vector and matrix math
+  - [stb](https://github.com/nothings/stb)
+    - Image loading/writing, integer divide methods
   - [tinyformat](https://github.com/c42f/tinyformat)
     - Typesafe C++11 printf-style string formatting
-  - [dirent](http://www.softagalleria.net/dirent.php)
+  - [GLM](https://github.com/g-truc/glm)
+    - Vector and matrix math
+  - [imgui](https://github.com/ocornut/imgui)
+    - GUI components
+  - [Catch](https://github.com/philsquared/Catch)
+    - Unit testing (only necessary to build/run unit tests)
+  - [GLAD](https://github.com/iondune/glad)
+    - OpenGL extension loading
+  - [dirent](https://github.com/tronkko/dirent)
     - Directory navigation
     - Only on windows (UNIX-variants have it by default)
-  - [Catch](https://github.com/philsquared/Catch)
-    - Unit testing (only necessary to build UnitTests)
-  - [imgui](https://github.com/ocornut/imgui)
-    - Fast and easy GUI components
-- **Compiled**
-  - [GLEW](http://glew.sourceforge.net/)
-    - OpenGL extensions wrangling
+- **Binary**
   - [GLFW](http://www.glfw.org/)
     - Windowing and other OS functions
-
 
 For instructions on how to build and install, see the \ref installation page.
 
