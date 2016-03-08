@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 cd "${0%/*}"
-mkdir -p 'Dependencies'
-cd './Dependencies'
 
 function CloneGithubDependency {
 	repoName="$1"
