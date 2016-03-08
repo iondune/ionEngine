@@ -34,6 +34,10 @@ int main()
 	AssetManager->SetShaderPath("Shaders/");
 	AssetManager->SetTexturePath("Images/");
 
+	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	RenderTarget->SetClearColor(color3f(0.3f));
+
 
 	/////////////////
 	// Load Assets //
@@ -43,12 +47,12 @@ int main()
 	CSimpleMesh * SkySphereMesh = CGeometryCreator::CreateSkySphere();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
-	IShaderProgram * DiffuseShader = AssetManager->LoadShader("Diffuse");
-	IShaderProgram * SimpleShader = AssetManager->LoadShader("Simple");
-	IShaderProgram * SpecularShader = AssetManager->LoadShader("Specular");
-	IShaderProgram * SkySphereShader = AssetManager->LoadShader("SkySphere");
+	SharedPtr<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
+	SharedPtr<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
+	SharedPtr<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
+	SharedPtr<IShaderProgram> SkySphereShader = AssetManager->LoadShader("SkySphere");
 
-	ITexture2D * SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
+	SharedPtr<ITexture2D> SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
 	SkyMap->SetMagFilter(ITexture::EFilter::Nearest);
 
 
@@ -56,16 +60,14 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass();
+	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI, Context);
+	RenderPass->SetRenderTarget(RenderTarget);
 	SceneManager->AddRenderPass(RenderPass);
 
 	CPerspectiveCamera * Camera = new CPerspectiveCamera(Window->GetAspectRatio());
 	Camera->SetPosition(vec3f(0, 3, -5));
 	Camera->SetFocalLength(0.4f);
 	RenderPass->SetActiveCamera(Camera);
-
-	IRenderTarget * RenderTarget = GraphicsAPI->GetWindowBackBuffer(Window);
-	RenderTarget->SetClearColor(color3f(0.3f));
 
 	CCameraController * Controller = new CCameraController(Camera);
 	Controller->SetTheta(15.f * Constants32::Pi / 48.f);
@@ -148,9 +150,9 @@ int main()
 
 		float const Bright = 1;
 		float const Dim = 0.5f;
-		LightSphere1->GetMaterial().Diffuse.Value = color3f(Bright, Dim, Dim) * Brightness;
-		LightSphere2->GetMaterial().Diffuse.Value = color3f(Dim, Bright, Dim) * Brightness;
-		LightSphere3->GetMaterial().Diffuse.Value = color3f(Dim, Dim, Bright) * Brightness;
+		LightSphere1->GetMaterial().Diffuse->Value = color3f(Bright, Dim, Dim) * Brightness;
+		LightSphere2->GetMaterial().Diffuse->Value = color3f(Dim, Bright, Dim) * Brightness;
+		LightSphere3->GetMaterial().Diffuse->Value = color3f(Dim, Dim, Bright) * Brightness;
 		LightSphere1->SetScale(Brightness);
 		LightSphere2->SetScale(Brightness);
 		LightSphere3->SetScale(Brightness);

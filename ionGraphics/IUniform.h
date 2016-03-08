@@ -12,13 +12,29 @@ namespace ion
 	namespace Graphics
 	{
 
+		enum class EUniformType
+		{
+			Float = 0,
+			Float2 = 1,
+			Float3 = 2,
+			Float4 = 3,
+			Int = 4,
+			Int2 = 5,
+			Int3 = 6,
+			Int4 = 7,
+			Matrix4x4 = 8,
+		};
+
+		size_t GetUniformTypeSize(EUniformType const UniformType);
+		string GetUniformTypeString(EUniformType const UniformType);
+
 		class IUniform
 		{
 
 		public:
 
 			virtual void const * GetData() const = 0;
-			virtual EValueType GetType() const = 0;
+			virtual EUniformType GetType() const = 0;
 			virtual size_t GetSize() const = 0;
 
 		};
@@ -29,7 +45,7 @@ namespace ion
 
 		public:
 
-			EValueType GetType() const;
+			EUniformType GetType() const;
 
 			size_t GetSize() const
 			{
@@ -92,9 +108,43 @@ namespace ion
 				return * this;
 			}
 
-			operator T() const
+			operator T () const
 			{
 				return Value;
+			}
+
+		};
+
+		template <typename T>
+		class CUniform
+		{
+
+		public:
+
+			SharedPtr<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
+
+			CUniform()
+			{}
+
+			CUniform(T const & value)
+			{
+				*Uniform = value;
+			}
+
+			CUniform & operator = (T const & value)
+			{
+				*Uniform = value;
+				return * this;
+			}
+
+			operator T () const
+			{
+				return *Uniform;
+			}
+
+			operator SharedPtr<IUniform> ()
+			{
+				return Uniform;
 			}
 
 		};

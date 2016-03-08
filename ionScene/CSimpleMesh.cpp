@@ -79,6 +79,12 @@ namespace ion
 			return Box;
 		}
 
+		void CSimpleMesh::Clear()
+		{
+			Vertices.clear();
+			Triangles.clear();
+		}
+
 		void CSimpleMesh::ResizeMesh(vec3f const & Scale)
 		{
 			vec3f const Extent = GetBoundingBox().GetExtent();
@@ -90,6 +96,30 @@ namespace ion
 			});
 		}
 
+		void CSimpleMesh::ApplyScaleFactor(vec3f const & Scale)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Scale](SVertex & Vertex)
+			{
+				Vertex.Position *= Scale;
+			});
+		}
+
+		void CSimpleMesh::ApplyOffset(vec3f const & Offset)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Offset](SVertex & Vertex)
+			{
+				Vertex.Position += Offset;
+			});
+		}
+
+		void CSimpleMesh::ApplyTransformation(glm::mat4 const & Transform)
+		{
+			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
+			{
+				Vertex.Position = vec3f::FromGLMVector(Transform * glm::vec4(Vertex.Position.GetGLMVector(), 1));
+			});
+		}
+
 		void CSimpleMesh::ReverseFaces()
 		{
 			std::for_each(Triangles.begin(), Triangles.end(), [](STriangle & Triangle)
@@ -98,7 +128,7 @@ namespace ion
 			});
 		}
 
-		Graphics::IIndexBuffer * CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPtr<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
 			vector<u32> IndexData;
 			IndexData.reserve(Triangles.size() * 3);
@@ -111,11 +141,12 @@ namespace ion
 				}
 			});
 
-			Graphics::IIndexBuffer * IndexBuffer = GraphicsAPI->CreateIndexBuffer(IndexData.data(), IndexData.size(), Graphics::EValueType::UnsignedInt32);
+			SharedPtr<Graphics::IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
+			IndexBuffer->UploadData(IndexData);
 			return IndexBuffer;
 		}
 
-		Graphics::IVertexBuffer * CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPtr<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
 			vector<float> VertexData;
 			VertexData.reserve(Vertices.size() * 12);
@@ -136,7 +167,8 @@ namespace ion
 				}
 			});
 
-			Graphics::IVertexBuffer * VertexBuffer = GraphicsAPI->CreateVertexBuffer(VertexData.data(), VertexData.size());
+			SharedPtr<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
+			VertexBuffer->UploadData(VertexData);
 			Graphics::SInputLayoutElement InputLayout[] =
 			{
 				{ "vPosition",  3, Graphics::EAttributeType::Float },

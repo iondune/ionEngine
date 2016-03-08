@@ -1,9 +1,16 @@
 
 #pragma once
 
-#include "IPath.h"
-#include "IInterpolator.h"
+#include "ISpline.h"
+#include "ISplineInterpolator.h"
 
-#include "Interpolators.h"
-#include "SPathNode.h"
-#include "CPath.h"
+#include "SSplineNode.h"
+#include "CSpline.h"
+
+#include "CLinearSplineInterpolator.h"
+#include "CCatmullRomSplineInterpolator.h"
+#include "CCatmullRomAdvancedSplineInterpolator.h"
+#include "CKochanekBartelsSplineInterpolator.h"
+#include "CHermiteSplineInterpolator.h"
+
+#include "Move.h"

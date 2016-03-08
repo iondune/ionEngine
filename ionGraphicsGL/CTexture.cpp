@@ -1,7 +1,7 @@
 
 #include "CTexture.h"
 #include "Utilities.h"
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 namespace ion
@@ -50,7 +50,7 @@ namespace ion
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_T, WrapLookup[(int) WrapMode]));
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
 
-				f32 LargestAnisotropy;
+				float LargestAnisotropy = 2.f;
 				CheckedGLCall(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
 				if (Anisotropy < 0.f)
 					Anisotropy = LargestAnisotropy;
@@ -58,39 +58,34 @@ namespace ion
 				CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), PreviouslyBoundTexture));
 			}
 
-			ITexture * CTexture::SetMinFilter(EFilter const MinFilter)
+			void CTexture::SetMinFilter(EFilter const MinFilter)
 			{
 				this->MinFilter = MinFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetMagFilter(EFilter const MagFilter)
+			void CTexture::SetMagFilter(EFilter const MagFilter)
 			{
 				this->MagFilter = MagFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetMipMapFilter(EFilter const MipMapFilter)
+			void CTexture::SetMipMapFilter(EFilter const MipMapFilter)
 			{
 				this->MipMapFilter = MipMapFilter;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetWrapMode(EWrapMode const WrapMode)
+			void CTexture::SetWrapMode(EWrapMode const WrapMode)
 			{
 				this->WrapMode = WrapMode;
 				ApplyParams();
-				return this;
 			}
 
-			ITexture * CTexture::SetAnisotropy(f32 const Anisotropy)
+			void CTexture::SetAnisotropy(f32 const Anisotropy)
 			{
 				this->Anisotropy = Anisotropy;
 				ApplyParams();
-				return this;
 			}
 
 			ITexture::EFilter CTexture::GetMinFilter()
@@ -135,11 +130,12 @@ namespace ion
 				// Type
 				// ----
 				// Fix8 = 0,
+				// Float32 = 1,
 
-				{GL_R8},
-				{GL_RG8},
-				{GL_RGB8},
-				{GL_RGBA8}
+				{GL_R8, GL_R32F},
+				{GL_RG8, GL_RG32F},
+				{GL_RGB8, GL_RGB32F},
+				{GL_RGBA8, GL_RGBA32F}
 			};
 
 			u32 const CTexture::FormatMatrix[4] =

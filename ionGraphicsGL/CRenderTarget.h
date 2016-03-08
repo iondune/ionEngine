@@ -4,6 +4,7 @@
 #include <ionCore.h>
 #include <ionMath.h>
 #include <ionGraphics.h>
+#include <ionWindow.h>
 
 
 namespace ion
@@ -18,14 +19,17 @@ namespace ion
 
 			public:
 
+				CRenderTarget(CWindow * Window);
+
 				void ClearColor();
 				void ClearDepth();
 				void ClearColorAndDepth();
 
 				void SetClearColor(color3f const & Color);
 
-
-				uint Handle;
+				CWindow * Window = nullptr;
+				color3f Color;
+				uint Handle = 0;
 			
 			};
 

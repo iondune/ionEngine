@@ -42,6 +42,7 @@ namespace ion
 			enum class EInternalFormatType
 			{
 				Fix8 = 0,
+				Float32 = 1,
 			};
 
 			enum class EMipMaps
@@ -52,30 +53,30 @@ namespace ion
 
 			//! Sets the minimizing filter for this texture
 			//! Default is EFilter::Linear
-			virtual ITexture * SetMinFilter(EFilter const MinFilter) = 0;
+			virtual void SetMinFilter(EFilter const MinFilter) = 0;
 
 			//! Sets the maximizing filter for this texture
 			//! Default is EFilter::Linear
-			virtual ITexture * SetMagFilter(EFilter const MagFilter) = 0;
+			virtual void SetMagFilter(EFilter const MagFilter) = 0;
 
 			//! Sets the mip map filter for this texture
 			//! Default is EFilter::Linear
-			virtual ITexture * SetMipMapFilter(EFilter const MipMapFilter) = 0;
+			virtual void SetMipMapFilter(EFilter const MipMapFilter) = 0;
 
 			//! Sets the wrap mode for this texture
 			//! Default is EWrapMode::Repeat
-			virtual ITexture * SetWrapMode(EWrapMode const WrapMode) = 0;
+			virtual void SetWrapMode(EWrapMode const WrapMode) = 0;
 
 			//! Sets the anisotropy filtering value for this texture
 			//! A value < 0 indicates that the max anisotrophy value should be used
 			//! Default is -1
-			virtual ITexture * SetAnisotropy(f32 const Anisotropy) = 0;
+			virtual void SetAnisotropy(float const Anisotropy) = 0;
 
 			virtual EFilter GetMinFilter() = 0;
 			virtual EFilter GetMagFilter() = 0;
 			virtual EFilter GetMipMapFilter() = 0;
 			virtual EWrapMode GetWrapMode() = 0;
-			virtual f32 GetAnisotropy() = 0;
+			virtual float GetAnisotropy() = 0;
 
 		};
 

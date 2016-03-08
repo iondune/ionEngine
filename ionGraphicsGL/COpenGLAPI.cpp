@@ -10,9 +10,9 @@
 #include "CPipelineState.h"
 #include "CRenderTarget.h"
 #include "CTexture.h"
+#include "CGraphicsContext.h"
 
-#include <GL/glew.h>
-#include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 
 
 static void PrintShaderInfoLog(GLint const Shader)
@@ -38,10 +38,10 @@ namespace ion
 	namespace Graphics
 	{
 
-#ifdef ION_CONFIG_LINUX
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void * userParam)
+#ifdef ION_CONFIG_WINDOWS
+		void __stdcall DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
 #else
-		void GLAPIENTRY DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
+		void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, void const * userParam)
 #endif
 		{
 			string Source = "";
@@ -137,25 +137,11 @@ namespace ion
 			static bool Initialized = false;
 
 			if (! Initialized)
-			{
-				GL::PrintOpenGLErrors("GLEW init");
-
-				// See https://www.opengl.org/wiki/OpenGL_Loading_Library
-				// We have to enable Experimental or else GLEW will fail to load extensions
-				// because it uses glGetString instead of glGetStringi
-				// On CORE contexts, that call will return INVALID_ENUM and apparently fail
-				// to load EVERYTHING. So we use experimental so that functions will actually
-				// be loaded, and we ignore the error.
-				glewExperimental = true;
-				u32 Error = glewInit();
-				GL::IgnoreOpenGLError();
-
-				if (Error != GLEW_OK)
+			{				
+				if (! gladLoadGL())
 				{
-					Log::Error("Error initializing glew! %s", glewGetErrorString(Error));
+					Log::Error("Error initializing glad!");
 				}
-
-				GL::PrintOpenGLErrors("Version check");
 
 				int Major = 0, Minor = 0;
 				byte const * VersionString = nullptr;
@@ -177,21 +163,30 @@ namespace ion
 
 				Log::Info("Your OpenGL Version Number: %s", VersionString);
 
-				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
+				// There is a good chance this method is not supported, and it is not considered
+				// an error if it is absent. So, we check manually.
+				if (glDebugMessageCallback)
+				{
+					SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
+				}
+				else
+				{
+					Log::Info("Your platform does not support OpenGL Debug Output");
+				}
 
-				CheckedGLCall(glEnable(GL_DEPTH_TEST));
-				CheckedGLCall(glDepthFunc(GL_LEQUAL));
+				SafeGLCall(glEnable, (GL_DEPTH_TEST));
+				SafeGLCall(glDepthFunc, (GL_LEQUAL));
 				Initialized = true;
 			}
 		}
 
-		IVertexShader * COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
+		SharedPtr<IVertexShader> COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
 		{
 			if (! File::Exists(FileName))
 			{
 				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
 			}
-			IVertexShader * VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
+			SharedPtr<IVertexShader> VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
 			if (! VertexShader)
 			{
 				Log::Error("Failed to compile vertex shader from file '%s'", FileName);
@@ -199,13 +194,13 @@ namespace ion
 			return VertexShader;
 		}
 
-		IPixelShader * COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
+		SharedPtr<IPixelShader> COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
 		{
 			if (! File::Exists(FileName))
 			{
 				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
 			}
-			IPixelShader * PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
+			SharedPtr<IPixelShader> PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
 			if (! PixelShader)
 			{
 				Log::Error("Failed to compile pixel shader from file '%s'", FileName);
@@ -213,9 +208,9 @@ namespace ion
 			return PixelShader;
 		}
 
-		IVertexShader * COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
+		SharedPtr<IVertexShader> COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
 		{
-			GL::CVertexShader * VertexShader = new GL::CVertexShader();
+			SharedPtr<GL::CVertexShader> VertexShader = std::make_shared<GL::CVertexShader>();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -228,15 +223,14 @@ namespace ion
 			{
 				Log::Error("Failed to compile vertex shader! See Info Log:");
 				PrintShaderInfoLog(VertexShader->Handle);
-				delete VertexShader;
 				return nullptr;
 			}
 			return VertexShader;
 		}
 
-		IPixelShader * COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
+		SharedPtr<IPixelShader> COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
 		{
-			GL::CPixelShader * PixelShader = new GL::CPixelShader();
+			SharedPtr<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -247,45 +241,38 @@ namespace ion
 			CheckedGLCall(glGetShaderiv(PixelShader->Handle, GL_COMPILE_STATUS, & Compiled));
 			if (! Compiled)
 			{
-				Log::Error("Failed to compile vertex shader! See Info Log:");
+				Log::Error("Failed to compile fragment shader! See Info Log:");
 				PrintShaderInfoLog(PixelShader->Handle);
-				delete PixelShader;
 				return nullptr;
 			}
 			return PixelShader;
 		}
 
-		IShaderProgram * COpenGLAPI::CreateShaderProgram()
+		SharedPtr<IShaderProgram> COpenGLAPI::CreateShaderProgram()
 		{
-			GL::CShaderProgram * ShaderProgram = new GL::CShaderProgram();
+			SharedPtr<GL::CShaderProgram> ShaderProgram = SharedFromNew(new GL::CShaderProgram());
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;
 		}
 
-		IVertexBuffer * COpenGLAPI::CreateVertexBuffer(float const * const Data, size_t const Elements)
+		SharedPtr<IVertexBuffer> COpenGLAPI::CreateVertexBuffer()
 		{
-			GL::CVertexBuffer * VertexBuffer = new GL::CVertexBuffer();
+			SharedPtr<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
-			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
-			CheckedGLCall(glBufferData(GL_ARRAY_BUFFER, Elements * sizeof(float), Data, GL_STATIC_DRAW));
-			CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 			return VertexBuffer;
 		}
 
-		IIndexBuffer * COpenGLAPI::CreateIndexBuffer(void const * Data, size_t const Elements, EValueType const ValueType)
+		SharedPtr<IIndexBuffer> COpenGLAPI::CreateIndexBuffer()
 		{
-			GL::CIndexBuffer * IndexBuffer = new GL::CIndexBuffer();
+			SharedPtr<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
-			CheckedGLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
-			CheckedGLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, Elements * GetValueTypeSize(ValueType), Data, GL_STATIC_DRAW));
-			IndexBuffer->Size = Elements;
 			return IndexBuffer;
 		}
 
-		ITexture2D * COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPtr<ITexture2D> COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			GL::CTexture2D * Texture2D = new GL::CTexture2D();
+			SharedPtr<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
 
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -299,14 +286,8 @@ namespace ion
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
 			CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Texture2D->Handle));
-			if (glTexStorage2D)
-			{
-				glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y);
-			}
-			else
-			{
-				Log::Error("Function is not loaded: glTexStorage2D");
-			}
+			CheckedGLCall(glTexStorage2D(GL_TEXTURE_2D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y));
+
 			if (GL::OpenGLError())
 			{
 				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
@@ -317,9 +298,9 @@ namespace ion
 			return Texture2D;
 		}
 
-		ITexture3D * COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPtr<ITexture3D> COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			GL::CTexture3D * Texture3D = new GL::CTexture3D();
+			SharedPtr<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
 
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -344,93 +325,9 @@ namespace ion
 			return Texture3D;
 		}
 
-		IPipelineState * COpenGLAPI::CreatePipelineState()
+		SharedPtr<IGraphicsContext> COpenGLAPI::GetWindowContext(CWindow * Window)
 		{
-			GL::CPipelineState * PipelineState = new GL::CPipelineState();
-			SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
-			return PipelineState;
-		}
-
-		IRenderTarget * COpenGLAPI::GetWindowBackBuffer(CWindow * Window)
-		{
-			return new GL::CRenderTarget();
-		}
-
-		void COpenGLAPI::Draw(IPipelineState * State)
-		{
-			GL::CPipelineState * PipelineState = dynamic_cast<GL::CPipelineState *>(State);
-			if (! PipelineState->Loaded)
-			{
-				PipelineState->Load();
-			}
-
-			if (! PipelineState->ShaderProgram)
-			{
-				Log::Error("Cannot draw pipeline state with no shader program.");
-				return;
-			}
-
-			CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
-			CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
-
-			for (auto const & it : PipelineState->BoundUniforms)
-			{
-				switch (it.second->GetType())
-				{
-				case EValueType::Float:
-					CheckedGLCall(glUniform1f(it.first, * static_cast<float const *>(it.second->GetData())));
-					break;
-				case EValueType::Float2:
-					CheckedGLCall(glUniform2f(it.first,
-						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
-						static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
-					break;
-				case EValueType::Float3:
-					CheckedGLCall(glUniform3f(it.first,
-						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
-						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
-						static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
-					break;
-				case EValueType::Float4:
-					CheckedGLCall(glUniform4f(it.first,
-						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
-						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[1],
-						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[2],
-						static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[3]));
-					break;
-				case EValueType::UnsignedInt32:
-					CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
-					break;
-				case EValueType::Matrix4x4:
-					CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
-					break;
-				default:
-					Log::Error("Unexpected value type during uniform binding: '%s'", GetValueTypeString(it.second->GetType()));
-					break;
-				}
-			}
-
-			int TextureIndex = 0;
-			for (auto const & it : PipelineState->BoundTextures)
-			{
-				CheckedGLCall(glUniform1i(it.first, TextureIndex));
-				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-
-				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
-				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
-			}
-
-			CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
-
-			TextureIndex = 0;
-			for (auto const & it : PipelineState->BoundTextures)
-			{
-				CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-				GL::CTexture const * Texture = dynamic_cast<GL::CTexture const *>(it.second);
-				CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
-			}
-
-			CheckedGLCall(glBindVertexArray(0));
+			return MakeShared<GL::CGraphicsContext>(Window);
 		}
 
 	}

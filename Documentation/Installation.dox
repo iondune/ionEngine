@@ -4,20 +4,22 @@
 
 \section windows Windows
 
-Create a folder called "SDKs" in your Visual Studio folder and clone the following github repositories into it:
+First you need to get all of the "header only" dependencies, which are:
 
-- glfw
-- glm
-- imgui
-- catch
-- tinyformat
-- stb
+- stb - `https://github.com/nothings/stb`
+- tinyformat - `https://github.com/c42f/tinyformat`
+- glm - `https://github.com/g-truc/glm`
+- imgui - `https://github.com/ocornut/imgui`
+- Catch - `https://github.com/philsquared/Catch`
+- glad - `https://github.com/iondune/glad`
+- dirent - `https://github.com/tronkko/dirent`
 
-Additionally download the pre-built binaries for glew 1.12.0.
+The easiest way to do this is to navigate to the `Dependencies/` folder and run `Clone.bat`. Make sure that you have `git` in your path.
 
-Use CMake to build glfw. Create a folder called "DLLs" in "SDKs" and add the glew and assimp dlls to this folder.
-
-Finally, open the ionEngine solution file in Visual Studio 2015.
+Next we need to get `glfw`, the only binary dependency.
+The engine currently uses version `3.1.2`.
+You can download pre-built binaries at [this link](https://github.com/glfw/glfw/releases/download/3.1.2/glfw-3.1.2.bin.WIN64.zip) or by finding the link on [http://www.glfw.org/download.html](http://www.glfw.org/download.html).
+Extract the `glfw-3.1.2.bin.WIN64` folder to the `Dependencies/` folder alongside the other dependencies.
 
 \section linux Linux
 

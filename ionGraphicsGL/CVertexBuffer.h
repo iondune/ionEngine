@@ -20,11 +20,16 @@ namespace ion
 
 			public:
 
+				~CVertexBuffer();
+
+				void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements);
 				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
+				void SetInstancingEnabled(bool const Enabled);
 
 
 				uint Handle = 0;
 				vector<SInputLayoutElement> InputLayout;
+				bool Instancing = false;
 
 			};
 

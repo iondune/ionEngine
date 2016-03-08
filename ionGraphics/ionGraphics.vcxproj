@@ -10,21 +10,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Buffers.h" />
-    <ClInclude Include="Enums.h" />
-    <ClInclude Include="IGraphicsAPI.h" />
-    <ClInclude Include="ionGraphics.h" />
-    <ClInclude Include="IPipelineState.h" />
-    <ClInclude Include="IRenderTarget.h" />
-    <ClInclude Include="Shaders.h" />
-    <ClInclude Include="Textures.h" />
-    <ClInclude Include="Uniforms.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Enums.cpp" />
-    <ClCompile Include="Uniforms.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21F131D8-D333-4188-A27B-3E75425D6F7F}</ProjectGuid>
     <RootNamespace>ionGraphics</RootNamespace>
@@ -32,5 +17,23 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="IGraphicsContext.h" />
+    <ClInclude Include="IVertexBuffer.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="IGraphicsAPI.h" />
+    <ClInclude Include="IIndexBuffer.h" />
+    <ClInclude Include="ionGraphics.h" />
+    <ClInclude Include="IPipelineState.h" />
+    <ClInclude Include="IRenderTarget.h" />
+    <ClInclude Include="IShaderProgram.h" />
+    <ClInclude Include="ITexture.h" />
+    <ClInclude Include="IUniform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="IIndexBuffer.cpp" />
+    <ClCompile Include="IUniform.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

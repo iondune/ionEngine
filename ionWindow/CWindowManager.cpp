@@ -29,13 +29,11 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	GLFWwindow * glfwWindow = 0;
 	glfwWindowHint(GLFW_RESIZABLE, false);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-#ifdef ION_CONFIG_OSX
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : 0, PrimaryWindow ? PrimaryWindow->GetHandle() : 0)))
+	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr)))
 	{
 		std::cerr << "Error opening glfw window! " << std::endl;
 		WaitForUser();
@@ -47,7 +45,9 @@ CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & T
 	Windows[glfwWindow] = Window;
 
 	if (! PrimaryWindow)
+	{
 		PrimaryWindow = Window;
+	}
 
 	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
 	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);

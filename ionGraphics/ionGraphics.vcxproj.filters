@@ -4,15 +4,18 @@
     <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="Shaders.h" />
-    <ClInclude Include="Buffers.h" />
-    <ClInclude Include="Uniforms.h" />
-    <ClInclude Include="Textures.h" />
     <ClInclude Include="IPipelineState.h" />
     <ClInclude Include="IRenderTarget.h" />
+    <ClInclude Include="IShaderProgram.h" />
+    <ClInclude Include="IUniform.h" />
+    <ClInclude Include="IIndexBuffer.h" />
+    <ClInclude Include="IVertexBuffer.h" />
+    <ClInclude Include="ITexture.h" />
+    <ClInclude Include="IGraphicsContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
-    <ClCompile Include="Uniforms.cpp" />
+    <ClCompile Include="IUniform.cpp" />
+    <ClCompile Include="IIndexBuffer.cpp" />
   </ItemGroup>
 </Project>

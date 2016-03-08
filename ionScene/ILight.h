@@ -21,15 +21,15 @@ namespace ion
 			void SetPosition(vec3f const & Position);
 
 			size_t GetAttributeCount() const;
-			map<string, Graphics::IUniform *> const & GetAttributes() const;
-			Graphics::IUniform const * GetAttributeByName(string const & Name) const;
+			map<string, SharedPtr<Graphics::IUniform>> const & GetAttributes() const;
+			SharedPtr<Graphics::IUniform const> GetAttributeByName(string const & Name) const;
 
 			virtual string GetLightType() const = 0;
 
 		protected:
 
-			Graphics::CUniformValue<vec3f> Position;
-			map<string, Graphics::IUniform *> Attributes;
+			SharedPtr<Graphics::CUniformValue<vec3f>> Position = std::make_shared<Graphics::CUniformValue<vec3f>>();
+			map<string, SharedPtr<Graphics::IUniform>> Attributes;
 
 		};
 

@@ -1,6 +1,6 @@
 
 #include "Utilities.h"
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 namespace ion
@@ -176,8 +176,7 @@ namespace ion
 			{
 				GL_POINTS,
 				GL_LINES,
-				GL_TRIANGLES,
-				GL_QUADS
+				GL_TRIANGLES
 			};
 
 			uint const Util::PrimitiveVertices[4] =

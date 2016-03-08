@@ -43,6 +43,8 @@ namespace ion
 			static CSimpleMesh * CreateWafer(
 				f32 const radius = 0.5f, uint const Slices = 40);
 
+			static CSimpleMesh * Intersect(CSimpleMesh const * A, CSimpleMesh const * B, vec3f const & AOffset = 0, vec3f const & BOffset = 0);
+
 		};
 
 	}

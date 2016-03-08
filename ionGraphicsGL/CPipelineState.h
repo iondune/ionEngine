@@ -22,32 +22,46 @@ namespace ion
 
 			public:
 
-				void SetProgram(IShaderProgram * ShaderProgram);
-				void SetVertexBuffer(IVertexBuffer * VertexBuffer);
-				void SetIndexBuffer(IIndexBuffer * IndexBuffer);
-				void SetUniform(string const & Name, IUniform * Uniform);
-				void SetTexture(string const & Name, ITexture * Texture);
+				CPipelineState(CWindow * Window);
+				~CPipelineState();
 
-				void OfferUniform(string const & Name, IUniform * Uniform);
+				void SetProgram(SharedPtr<IShaderProgram> ShaderProgram);
+				void SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> VertexBuffer);
+				void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer);
+				void SetUniform(string const & Name, SharedPtr<IUniform> Uniform);
+				void SetTexture(string const & Name, SharedPtr<ITexture> Texture);
+				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
+				void SetBlendMode(EBlendMode const BlendMode);
+
+				void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform);
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
 
-				CShaderProgram * ShaderProgram = nullptr;
-				CVertexBuffer * VertexBuffer = nullptr;
-				CIndexBuffer * IndexBuffer = nullptr;
+				CWindow * Window = nullptr;
+
+				SharedPtr<CShaderProgram> ShaderProgram;
+				vector<SharedPtr<CVertexBuffer>> VertexBuffers;
+				SharedPtr<CIndexBuffer> IndexBuffer;
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
 
-				map<string, IUniform const *> Uniforms;
-				map<uint, IUniform const *> BoundUniforms;
+				map<string, SharedPtr<IUniform const>> Uniforms;
+				map<uint, SharedPtr<IUniform const>> BoundUniforms;
 
-				map<string, ITexture const *> Textures;
-				map<u32, ITexture const *> BoundTextures;
+				map<string, SharedPtr<ITexture const>> Textures;
+				map<u32, SharedPtr<ITexture const>> BoundTextures;
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;
+
+				bool DrawWireframe = false;
+				bool CullFront = false;
+				bool CullBack = false;
+				bool DisableDepthTest = false;
+				bool DisableDepthWrite = false;
+				EBlendMode BlendMode = EBlendMode::None;
 
 			};
 

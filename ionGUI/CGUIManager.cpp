@@ -1,6 +1,6 @@
 
 #include "CGUIManager.h"
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
@@ -8,6 +8,8 @@
 // - in your Render function, try translating your projection matrix by (0.5f,0.5f) or (0.375f,0.375f)
 void CGUIManager::DrawCallback(ImDrawData* draw_data)
 {
+	Window->MakeContextCurrent();
+
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
 	GLint last_program, last_texture;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
@@ -141,6 +143,8 @@ void CGUIManager::AddFontFromFile(string const & FileName, float const Size)
 
 bool CGUIManager::CreateDeviceObjects()
 {
+	Window->MakeContextCurrent();
+
 	const GLchar *vertex_shader =
 		"#version 330\n"
 		"uniform mat4 ProjMtx;\n"
@@ -223,7 +227,7 @@ void ImGui_ImplGlfwGL3_SetClipboardText(const char* text)
 	ImGUIManager->Window->SetClipboardText(text);
 }
 
-bool CGUIManager::Init(CWindow* window, bool install_callbacks)
+bool CGUIManager::Init(CWindow* window)
 {
 	Window = window;
 
@@ -257,6 +261,8 @@ bool CGUIManager::Init(CWindow* window, bool install_callbacks)
 
 void CGUIManager::Shutdown()
 {
+	Window->MakeContextCurrent();
+
 	if (VaoHandle) glDeleteVertexArrays(1, &VaoHandle);
 	if (VboHandle) glDeleteBuffers(1, &VboHandle);
 	VaoHandle = 0;

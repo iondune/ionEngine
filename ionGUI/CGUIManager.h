@@ -12,7 +12,7 @@ class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 
 public:
 
-	bool Init(CWindow* window, bool install_callbacks);
+	bool Init(CWindow * Window);
 	void Shutdown();
 	void NewFrame();
 

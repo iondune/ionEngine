@@ -1,0 +1,8 @@
+remote: git+ssh://git@github.com:iondune/ionEngine.git
+branches:
+- branch:
+    local: default
+    remote: master
+- branch:
+    local: stable
+    remote: release

@@ -6,10 +6,11 @@
 #include <ionFramework.h>
 
 #include "Enums.h"
-#include "Shaders.h"
-#include "Buffers.h"
-#include "Uniforms.h"
-#include "Textures.h"
+#include "IShaderProgram.h"
+#include "IVertexBuffer.h"
+#include "IIndexBuffer.h"
+#include "IUniform.h"
+#include "ITexture.h"
 #include "IPipelineState.h"
 #include "IRenderTarget.h"
 #include "IGraphicsAPI.h"

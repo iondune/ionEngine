@@ -23,6 +23,10 @@ namespace ion
 				uint Handle = 0;
 				size_t Size = 0;
 
+				~CIndexBuffer();
+
+				void UploadData(void const * Data, size_t const Elements, EValueType const ValueType);
+
 			};
 
 		}

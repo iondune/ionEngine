@@ -12,6 +12,7 @@
 
 #include "ILight.h"
 #include "CPointLight.h"
+#include "CDirectionalLight.h"
 
 #include "ISceneObject.h"
 #include "CRenderPass.h"
@@ -19,6 +20,7 @@
 
 #include "CSimpleMesh.h"
 #include "CGeometryCreator.h"
+#include "CSimpleSceneObject.h"
 #include "CSimpleMeshSceneObject.h"
 
 

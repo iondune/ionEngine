@@ -1,22 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="imGUI.cpp">
-      <Filter>imGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIManager.cpp">
-      <Filter>imGUI</Filter>
-    </ClCompile>
+    <ClCompile Include="CWindowWidget.cpp" />
+    <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="imGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
-    <ClInclude Include="CGUIManager.h">
-      <Filter>imGUI</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="imGUI">
-      <UniqueIdentifier>{8bc06503-2450-445c-9c02-e625fb399dcc}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="CWindowWidget.h" />
+    <ClInclude Include="CGUIManager.h" />
   </ItemGroup>
 </Project>

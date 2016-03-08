@@ -56,4 +56,6 @@ private:
 
 	CWindow(GLFWwindow * windowHandle);
 
+	static CWindow * CurrentContext;
+
 };

@@ -19,10 +19,12 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="CWindowWidget.cpp" />
     <ClCompile Include="imGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGUIManager.h" />
+    <ClInclude Include="CWindowWidget.h" />
     <ClInclude Include="ionGUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

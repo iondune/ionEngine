@@ -90,5 +90,22 @@ namespace ion
 			}
 		}
 
+		string GetAttributeTypeString(EAttributeType const AttributeType)
+		{
+			switch (AttributeType)
+			{
+			case EAttributeType::Float:
+				return "Float";
+			case EAttributeType::Double:
+				return "Double";
+			case EAttributeType::Int:
+				return "Int";
+			case EAttributeType::UnsignedInt:
+				return "Unsigned Int";
+			default:
+				return "Unknown";
+			}
+		}
+
 	}
 }

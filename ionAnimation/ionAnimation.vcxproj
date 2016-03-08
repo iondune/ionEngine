@@ -18,13 +18,21 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="CPath.h" />
-    <ClInclude Include="CSkinnedAnimation.h" />
-    <ClInclude Include="IInterpolator.h" />
-    <ClInclude Include="Interpolators.h" />
+    <ClInclude Include="CCatmullRomAdvancedSplineInterpolator.h" />
+    <ClInclude Include="CCatmullRomSplineInterpolator.h" />
+    <ClInclude Include="CHermiteSplineInterpolator.h" />
+    <ClInclude Include="CKochanekBartelsSplineInterpolator.h" />
+    <ClInclude Include="CLinearSplineInterpolator.h" />
+    <ClInclude Include="CSpline.h" />
+    <ClInclude Include="ISplineInterpolator.h" />
     <ClInclude Include="ionAnimation.h" />
-    <ClInclude Include="IPath.h" />
-    <ClInclude Include="SPathNode.h" />
+    <ClInclude Include="ISpline.h" />
+    <ClInclude Include="Move.h" />
+    <ClInclude Include="SSplineNode.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CSpline.cpp" />
+    <ClCompile Include="Move.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

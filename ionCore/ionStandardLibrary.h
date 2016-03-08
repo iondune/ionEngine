@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ionTypes.h"
+#include "ionSmartPtr.h"
 
 #include <tinyformat.h>
 
@@ -37,6 +38,17 @@ using NumericLimits = std::numeric_limits<T>;
 
 template <typename T, typename U>
 U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
+{
+	auto Iterator = Map.find(Key);
+
+	if (Iterator != Map.end())
+		return Iterator->second;
+
+	return nullptr;
+}
+
+template <typename T, typename U>
+SharedPtr<U> ConditionalMapAccess(map<T, SharedPtr<U>> const & Map, T const Key)
 {
 	auto Iterator = Map.find(Key);
 

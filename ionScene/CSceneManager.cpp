@@ -23,7 +23,6 @@ namespace ion
 
 		void CSceneManager::AddRenderPass(CRenderPass * RenderPass)
 		{
-			RenderPass->SetGraphicsAPI(GraphicsAPI);
 			RenderPasses.insert(RenderPass);
 		}
 

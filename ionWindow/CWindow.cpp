@@ -1,13 +1,19 @@
 
 #include "CWindow.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 
+CWindow * CWindow::CurrentContext = nullptr;
+
 void CWindow::MakeContextCurrent()
 {
-	glfwMakeContextCurrent(WindowHandle);
+	if (this != CurrentContext)
+	{
+		glfwMakeContextCurrent(WindowHandle);
+		CurrentContext = this;
+	}
 }
 
 void CWindow::Close()

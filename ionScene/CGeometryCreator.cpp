@@ -375,7 +375,7 @@ namespace ion
 			Normals.push_back(0.f); Normals.push_back(-1.f); Normals.push_back(0.f);
 			TexCoords.push_back(0); TexCoords.push_back(0.5);
 
-			for (uint i = 1; i <= Stacks; ++ i)
+			for (uint i = 0; i <= Stacks; ++ i)
 			{
 				f32 const AngleV = (f32) i * 3.14159f / Stacks;
 				for (uint j = 0; j <= Slices; ++ j)
@@ -392,13 +392,13 @@ namespace ion
 					Normals.push_back(Radial.X); Normals.push_back(Radial.Y); Normals.push_back(Radial.Z);
 					TexCoords.push_back(j / (f32) Slices); TexCoords.push_back((Stacks - i + 1) / (f32) (Stacks + 1));
 
-					if (j)
+					if (j && i > 0)
 					{
 						if (i == 1)
 						{
 							Indices.push_back(Start);
 							Indices.push_back(Start - 1);
-							Indices.push_back(0);
+							Indices.push_back(Start - Slices - 1);
 						}
 						else
 						{
@@ -500,6 +500,38 @@ namespace ion
 			}
 
 			return Mesh;
+		}
+
+		CSimpleMesh * CGeometryCreator::Intersect(CSimpleMesh const * A, CSimpleMesh const * B, vec3f const & AOffset, vec3f const & BOffset)
+		{
+			CSimpleMesh * Intersection = new CSimpleMesh();
+
+			Intersection->Vertices.reserve(A->Vertices.size() + B->Vertices.size());
+			Intersection->Triangles.reserve(A->Triangles.size() + B->Triangles.size());
+			for (auto const & Vertex : A->Vertices)
+			{
+				Intersection->Vertices.push_back(Vertex);
+				Intersection->Vertices.back().Position += AOffset;
+			}
+			for (auto const & Triangle : A->Triangles)
+			{
+				Intersection->Triangles.push_back(Triangle);
+			}
+			uint const BStartIndex = (uint) Intersection->Vertices.size();
+			for (auto const & Vertex : B->Vertices)
+			{
+				Intersection->Vertices.push_back(Vertex);
+				Intersection->Vertices.back().Position += BOffset;
+			}
+			for (auto const & Triangle : B->Triangles)
+			{
+				Intersection->Triangles.push_back(Triangle);
+				Intersection->Triangles.back().Indices[0] += BStartIndex;
+				Intersection->Triangles.back().Indices[1] += BStartIndex;
+				Intersection->Triangles.back().Indices[2] += BStartIndex;
+			}
+
+			return Intersection;
 		}
 
 	}

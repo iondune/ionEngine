@@ -38,6 +38,12 @@
     <ClInclude Include="CSimpleMeshSceneObject.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="CDirectionalLight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="CSimpleSceneObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -71,6 +77,12 @@
       <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="CSimpleMeshSceneObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirectionalLight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="CSimpleSceneObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,2 @@
-add_executable(TestDeployment DeploymentTest.cpp)
-
-# Libraries
-GLFW(TestDeployment)
-GLEW(TestDeployment)
+add_executable(TestDeployment DeploymentTest.cpp glad.cpp)
+ExecutableDependencies(TestDeployment)

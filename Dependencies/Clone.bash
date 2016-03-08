@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 cd "${0%/*}"
-mkdir -p 'Dependencies'
-cd './Dependencies'
 
 function CloneGithubDependency {
 	repoName="$1"
@@ -26,3 +24,4 @@ CloneGithubDependency 'tinyformat' 'https://github.com/c42f/tinyformat.git'   'f
 CloneGithubDependency 'glm'        'https://github.com/g-truc/glm.git'        '8f0d85460557dc5fbf4f44dc23a7708d065d7683'
 CloneGithubDependency 'imgui'      'https://github.com/ocornut/imgui.git'     'b329a36d2707a94806f85e6d3af3b10c242f6440'
 CloneGithubDependency 'Catch'      'https://github.com/philsquared/Catch.git' '3bd20bf2cd05cd88e767ec1aeb856bf8032a04c7'
+CloneGithubDependency 'glad'       'https://github.com/iondune/glad.git'      '410adfead3468c13d40120a5259e687b8ef0616e'
