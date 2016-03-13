@@ -5,118 +5,118 @@
 
 TEST_CASE("ionComparison::RoundingError", "rounding error constants")
 {
-	REQUIRE(RoundingError<int>::Value() == 0);
-	REQUIRE(RoundingError<uint>::Value() == 0);
-	REQUIRE(RoundingError<float>::Value() == RoundingError32);
-	REQUIRE(RoundingError<double>::Value() == RoundingError64);
+	CHECK(RoundingError<int>::Value() == 0);
+	CHECK(RoundingError<uint>::Value() == 0);
+	CHECK(RoundingError<float>::Value() == RoundingError32);
+	CHECK(RoundingError<double>::Value() == RoundingError64);
 }
 
 TEST_CASE("ionComparison::Equals<T>", "equality function")
 {
-	REQUIRE(Equals(0, 0));
-	REQUIRE(Equals(1, 1));
-	REQUIRE(Equals(-1, -1));
+	CHECK(Equals(0, 0));
+	CHECK(Equals(1, 1));
+	CHECK(Equals(-1, -1));
 
-	REQUIRE(! Equals(0, 1));
-	REQUIRE(! Equals(-1, 1));
+	CHECK(! Equals(0, 1));
+	CHECK(! Equals(-1, 1));
 
-	REQUIRE(Equals(0u, 0u));
-	REQUIRE(Equals(0.f, RoundingError32));
-	REQUIRE(! Equals(0.f, 1.5f * RoundingError32));
-	REQUIRE(Equals(0.0, RoundingError64));
-	REQUIRE(! Equals(0.0, 1.5 * RoundingError64));
+	CHECK(Equals(0u, 0u));
+	CHECK(Equals(0.f, RoundingError32));
+	CHECK(! Equals(0.f, 1.5f * RoundingError32));
+	CHECK(Equals(0.0, RoundingError64));
+	CHECK(! Equals(0.0, 1.5 * RoundingError64));
 }
 
 TEST_CASE("ionComparsion::Minimum2", "minimum of two operands")
 {
-	REQUIRE(Minimum(4, 3) == 3);
-	REQUIRE(Minimum(3, 3) == 3);
-	REQUIRE(Minimum(3, 4) == 3);
-	REQUIRE(Minimum(3, -4) == -4);
-	REQUIRE(Minimum(-3, -4) == -4);
-	REQUIRE(Minimum(-3, 4) == -3);
-	REQUIRE(Min(4, 3) == 3);
-	REQUIRE(Min(3, 3) == 3);
-	REQUIRE(Min(3, 4) == 3);
-	REQUIRE(Min(3, -4) == -4);
-	REQUIRE(Min(-3, -4) == -4);
-	REQUIRE(Min(-3, 4) == -3);
+	CHECK(Minimum(4, 3) == 3);
+	CHECK(Minimum(3, 3) == 3);
+	CHECK(Minimum(3, 4) == 3);
+	CHECK(Minimum(3, -4) == -4);
+	CHECK(Minimum(-3, -4) == -4);
+	CHECK(Minimum(-3, 4) == -3);
+	CHECK(Min(4, 3) == 3);
+	CHECK(Min(3, 3) == 3);
+	CHECK(Min(3, 4) == 3);
+	CHECK(Min(3, -4) == -4);
+	CHECK(Min(-3, -4) == -4);
+	CHECK(Min(-3, 4) == -3);
 }
 
 TEST_CASE("ionComparsion::Maximum2", "maximum of two operands")
 {
-	REQUIRE(Maximum(4, 3) == 4);
-	REQUIRE(Maximum(3, 3) == 3);
-	REQUIRE(Maximum(3, 4) == 4);
-	REQUIRE(Maximum(3, -4) == 3);
-	REQUIRE(Maximum(-3, -4) == -3);
-	REQUIRE(Maximum(-3, 4) == 4);
-	REQUIRE(Max(4, 3) == 4);
-	REQUIRE(Max(3, 3) == 3);
-	REQUIRE(Max(3, 4) == 4);
-	REQUIRE(Max(3, -4) == 3);
-	REQUIRE(Max(-3, -4) == -3);
-	REQUIRE(Max(-3, 4) == 4);
+	CHECK(Maximum(4, 3) == 4);
+	CHECK(Maximum(3, 3) == 3);
+	CHECK(Maximum(3, 4) == 4);
+	CHECK(Maximum(3, -4) == 3);
+	CHECK(Maximum(-3, -4) == -3);
+	CHECK(Maximum(-3, 4) == 4);
+	CHECK(Max(4, 3) == 4);
+	CHECK(Max(3, 3) == 3);
+	CHECK(Max(3, 4) == 4);
+	CHECK(Max(3, -4) == 3);
+	CHECK(Max(-3, -4) == -3);
+	CHECK(Max(-3, 4) == 4);
 }
 
 TEST_CASE("ionComparsion::MinMax3", "minimum/maximum of three operands")
 {
-	REQUIRE(Maximum(4, 3, 2) == 4);
-	REQUIRE(Maximum(3, 3, 2) == 3);
-	REQUIRE(Maximum(3, 2, 4) == 4);
-	REQUIRE(Maximum(-5, 3, -4) == 3);
-	REQUIRE(Maximum(-2, -3, -4) == -2);
-	REQUIRE(Maximum(-3, 2, 4) == 4);
+	CHECK(Maximum(4, 3, 2) == 4);
+	CHECK(Maximum(3, 3, 2) == 3);
+	CHECK(Maximum(3, 2, 4) == 4);
+	CHECK(Maximum(-5, 3, -4) == 3);
+	CHECK(Maximum(-2, -3, -4) == -2);
+	CHECK(Maximum(-3, 2, 4) == 4);
 
-	REQUIRE(Minimum(4, 3, 2) == 2);
-	REQUIRE(Minimum(3, 3, 2) == 2);
-	REQUIRE(Minimum(3, 2, 4) == 2);
-	REQUIRE(Minimum(-5, 3, -4) == -5);
-	REQUIRE(Minimum(-2, -3, -4) == -4);
-	REQUIRE(Minimum(-3, 2, 4) == -3);
+	CHECK(Minimum(4, 3, 2) == 2);
+	CHECK(Minimum(3, 3, 2) == 2);
+	CHECK(Minimum(3, 2, 4) == 2);
+	CHECK(Minimum(-5, 3, -4) == -5);
+	CHECK(Minimum(-2, -3, -4) == -4);
+	CHECK(Minimum(-3, 2, 4) == -3);
 
-	REQUIRE(Max(4, 3, 2) == 4);
-	REQUIRE(Max(3, 3, 2) == 3);
-	REQUIRE(Max(3, 2, 4) == 4);
-	REQUIRE(Max(-5, 3, -4) == 3);
-	REQUIRE(Max(-2, -3, -4) == -2);
-	REQUIRE(Max(-3, 2, 4) == 4);
+	CHECK(Max(4, 3, 2) == 4);
+	CHECK(Max(3, 3, 2) == 3);
+	CHECK(Max(3, 2, 4) == 4);
+	CHECK(Max(-5, 3, -4) == 3);
+	CHECK(Max(-2, -3, -4) == -2);
+	CHECK(Max(-3, 2, 4) == 4);
 
-	REQUIRE(Min(4, 3, 2) == 2);
-	REQUIRE(Min(3, 3, 2) == 2);
-	REQUIRE(Min(3, 2, 4) == 2);
-	REQUIRE(Min(-5, 3, -4) == -5);
-	REQUIRE(Min(-2, -3, -4) == -4);
-	REQUIRE(Min(-3, 2, 4) == -3);
+	CHECK(Min(4, 3, 2) == 2);
+	CHECK(Min(3, 3, 2) == 2);
+	CHECK(Min(3, 2, 4) == 2);
+	CHECK(Min(-5, 3, -4) == -5);
+	CHECK(Min(-2, -3, -4) == -4);
+	CHECK(Min(-3, 2, 4) == -3);
 }
 
 TEST_CASE("ionComparsion::MinMax4", "minimum/maximum of four operands")
 {
-	REQUIRE(Maximum(4, 3, 2, 1) == 4);
-	REQUIRE(Maximum(3, 3, 2, 1) == 3);
-	REQUIRE(Maximum(3, 2, 4, -1) == 4);
-	REQUIRE(Maximum(-5, 3, -4, -6) == 3);
-	REQUIRE(Maximum(-2, -3, -4, -2) == -2);
-	REQUIRE(Maximum(-3, 2, 4, 5) == 5);
+	CHECK(Maximum(4, 3, 2, 1) == 4);
+	CHECK(Maximum(3, 3, 2, 1) == 3);
+	CHECK(Maximum(3, 2, 4, -1) == 4);
+	CHECK(Maximum(-5, 3, -4, -6) == 3);
+	CHECK(Maximum(-2, -3, -4, -2) == -2);
+	CHECK(Maximum(-3, 2, 4, 5) == 5);
 
-	REQUIRE(Minimum(4, 3, 2, 2) == 2);
-	REQUIRE(Minimum(3, 3, 2, 1) == 1);
-	REQUIRE(Minimum(3, 2, 4, 5) == 2);
-	REQUIRE(Minimum(-5, 3, -4, -3) == -5);
-	REQUIRE(Minimum(-2, -3, -4, -1) == -4);
-	REQUIRE(Minimum(-3, 2, 4, 1) == -3);
+	CHECK(Minimum(4, 3, 2, 2) == 2);
+	CHECK(Minimum(3, 3, 2, 1) == 1);
+	CHECK(Minimum(3, 2, 4, 5) == 2);
+	CHECK(Minimum(-5, 3, -4, -3) == -5);
+	CHECK(Minimum(-2, -3, -4, -1) == -4);
+	CHECK(Minimum(-3, 2, 4, 1) == -3);
 
-	REQUIRE(Max(4, 3, 2, 1) == 4);
-	REQUIRE(Max(3, 3, 2, 1) == 3);
-	REQUIRE(Max(3, 2, 4, -1) == 4);
-	REQUIRE(Max(-5, 3, -4, -6) == 3);
-	REQUIRE(Max(-2, -3, -4, -2) == -2);
-	REQUIRE(Max(-3, 2, 4, 5) == 5);
+	CHECK(Max(4, 3, 2, 1) == 4);
+	CHECK(Max(3, 3, 2, 1) == 3);
+	CHECK(Max(3, 2, 4, -1) == 4);
+	CHECK(Max(-5, 3, -4, -6) == 3);
+	CHECK(Max(-2, -3, -4, -2) == -2);
+	CHECK(Max(-3, 2, 4, 5) == 5);
 
-	REQUIRE(Min(4, 3, 2, 2) == 2);
-	REQUIRE(Min(3, 3, 2, 1) == 1);
-	REQUIRE(Min(3, 2, 4, 5) == 2);
-	REQUIRE(Min(-5, 3, -4, -3) == -5);
-	REQUIRE(Min(-2, -3, -4, -1) == -4);
-	REQUIRE(Min(-3, 2, 4, 1) == -3);
+	CHECK(Min(4, 3, 2, 2) == 2);
+	CHECK(Min(3, 3, 2, 1) == 1);
+	CHECK(Min(3, 2, 4, 5) == 2);
+	CHECK(Min(-5, 3, -4, -3) == -5);
+	CHECK(Min(-2, -3, -4, -1) == -4);
+	CHECK(Min(-3, 2, 4, 1) == -3);
 }

@@ -8,5 +8,5 @@ class A
 
 TEST_CASE("sharedNew", "sharedNew allocates a new object")
 {
-	REQUIRE(sharedNew<A>(new A));
+	CHECK(sharedNew<A>(new A));
 }

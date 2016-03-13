@@ -24,17 +24,17 @@ TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
 
 	A const * const aPtr = &a;
 
-	REQUIRE(InstanceOf<A>(a));
-	REQUIRE(InstanceOf<A>(aPtr));
-	REQUIRE(InstanceOf<A>(&a));
-	REQUIRE(InstanceOf<A>(b));
-	REQUIRE(InstanceOf<A>(&b));
-	REQUIRE(InstanceOf<C>(c));
-	REQUIRE(! InstanceOf<A>(c));
-	REQUIRE(! InstanceOf<A>(&c));
-	REQUIRE(nullptr != As<A>(&a));
-	REQUIRE(nullptr != As<A>(&b));
-	REQUIRE(nullptr == As<A>(&c));
+	CHECK(InstanceOf<A>(a));
+	CHECK(InstanceOf<A>(aPtr));
+	CHECK(InstanceOf<A>(&a));
+	CHECK(InstanceOf<A>(b));
+	CHECK(InstanceOf<A>(&b));
+	CHECK(InstanceOf<C>(c));
+	CHECK(! InstanceOf<A>(c));
+	CHECK(! InstanceOf<A>(&c));
+	CHECK(nullptr != As<A>(&a));
+	CHECK(nullptr != As<A>(&b));
+	CHECK(nullptr == As<A>(&c));
 }
 
 class TestBase
@@ -58,12 +58,12 @@ TEST_CASE("ionClass::As", "As function converts between objects")
 	TestDerived const * const bPtr = &b;
 	C const * const cPtr = &c;
 
-	REQUIRE(As<TestDerived>((TestBase*)&b) == &b);
-	REQUIRE(As<TestDerived>((TestBase const * const)bPtr) == bPtr);
-	REQUIRE(As<TestBase>(& a) == & a);
-	REQUIRE(! As<TestDerived>(& a));
-	REQUIRE(! & As<TestDerived>(a));
-	REQUIRE(! & As<TestDerived>(constA));
+	CHECK(As<TestDerived>((TestBase*)&b) == &b);
+	CHECK(As<TestDerived>((TestBase const * const)bPtr) == bPtr);
+	CHECK(As<TestBase>(& a) == & a);
+	CHECK(! As<TestDerived>(& a));
+	CHECK(! & As<TestDerived>(a));
+	CHECK(! & As<TestDerived>(constA));
 }
 
 TEST_CASE("Type", "[ionClass :: Type]")
@@ -72,9 +72,9 @@ TEST_CASE("Type", "[ionClass :: Type]")
 	Type TypeB(typeid(B));
 	Type TypeC(typeid(C));
 
-	REQUIRE((TypeA < TypeB) != (TypeB < TypeA));
-	REQUIRE((TypeA < TypeC) != (TypeC < TypeA));
-	REQUIRE((TypeB < TypeC) != (TypeC < TypeB));
+	CHECK((TypeA < TypeB) != (TypeB < TypeA));
+	CHECK((TypeA < TypeC) != (TypeC < TypeA));
+	CHECK((TypeB < TypeC) != (TypeC < TypeB));
 }
 
 class F;
@@ -97,11 +97,11 @@ TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
 	SingletonPointer<E> const constE = SingletonPointer<E>();
 	SingletonPointer<F> f;
 
-	REQUIRE(e->FPtr.Get() == f.Get());
-	REQUIRE(constE->FPtr.Get() == f.Get());
-	REQUIRE(f->EPtr.Get() == e.Get());
-	REQUIRE(f->EPtr.Get() == constE.Get());
-	REQUIRE(f->EPtr == e);
-	REQUIRE(f->EPtr == constE);
+	CHECK(e->FPtr.Get() == f.Get());
+	CHECK(constE->FPtr.Get() == f.Get());
+	CHECK(f->EPtr.Get() == e.Get());
+	CHECK(f->EPtr.Get() == constE.Get());
+	CHECK(f->EPtr == e);
+	CHECK(f->EPtr == constE);
 }
 
