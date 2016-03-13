@@ -427,22 +427,9 @@ public:
 		return ret;
 	}
 
-	//////////////////////////
-	// Comparison operators //
-	//////////////////////////
-
-	bool operator <= (Other const & v) const
-	{
-		for (int i = 0; i < Dimension; ++ i)
-		{
-			if (Values[i] < v.Values[i])
-				return true;
-			else if (Values[i] > v.Values[i])
-				return false;
-		}
-
-		return true;
-	}
+	///////////////////////////////////////
+	// Inequality operator (for sorting) //
+	///////////////////////////////////////
 
 	bool operator < (Other const & v) const
 	{
@@ -453,29 +440,6 @@ public:
 			else if (Values[i] > v.Values[i])
 				return false;
 		}
-
-		return false;
-	}
-
-	bool operator >= (Other const & v) const
-	{
-		bool result = true;
-		for (u32 i = 0; i < Dimension; ++ i)
-			result = result && (Values[i] >= v[i]);
-
-		return result;
-	}
-
-	bool operator > (Other const & v) const
-	{
-		for (int i = 0; i < Dimension; ++ i)
-		{
-			if (Values[i] > v.Values[i])
-				return true;
-			else if (Values[i] < v.Values[i])
-				return false;
-		}
-
 		return false;
 	}
 
