@@ -95,7 +95,32 @@ public:
 		return * this;
 	}
 
-	SVector3<T> xyz() const
+	SVector2<T> XY() const
+	{
+		return SVector2<T>(X, Y);
+	}
+
+	SVector2<T> XZ() const
+	{
+		return SVector2<T>(X, Z);
+	}
+
+	SVector2<T> XW() const
+	{
+		return SVector2<T>(X, W);
+	}
+
+	SVector2<T> YZ() const
+	{
+		return SVector2<T>(Y, Z);
+	}
+
+	SVector2<T> ZW() const
+	{
+		return SVector2<T>(Z, W);
+	}
+
+	SVector3<T> XYZ() const
 	{
 		return SVector3<T>(Values[0], Values[1], Values[2]);
 	}
