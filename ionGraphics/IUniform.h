@@ -137,6 +137,11 @@ namespace ion
 				return * this;
 			}
 
+			T * operator ->()
+			{
+				return & Uniform->Value;
+			}
+
 			operator T () const
 			{
 				return *Uniform;
@@ -145,6 +150,11 @@ namespace ion
 			operator SharedPtr<IUniform> ()
 			{
 				return Uniform;
+			}
+
+			T & Get()
+			{
+				return Uniform->Value;
 			}
 
 		};
