@@ -66,7 +66,7 @@ int main()
 	//////////////////
 
 	string const VertexShaderSource = R"SHADER(
-		#version 130
+		#version 330
 
 		in vec2 vPosition;
 		in vec2 vTexCoords;
@@ -84,7 +84,7 @@ int main()
 	)SHADER";
 
 	string const FragmentShaderSource = R"SHADER(
-		#version 130
+		#version 330
 
 		in vec2 fTexCoords;
 		in vec3 fColor;
