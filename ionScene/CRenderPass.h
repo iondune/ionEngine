@@ -51,14 +51,14 @@ namespace ion
 			string Name;
 
 			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
-			std::shared_ptr<Graphics::IGraphicsContext> GraphicsContext;
-			std::shared_ptr<Graphics::IRenderTarget> RenderTarget;
+			SharedPointer<Graphics::IGraphicsContext> GraphicsContext;
+			SharedPointer<Graphics::IRenderTarget> RenderTarget;
 
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uViewMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<vec3f>> uCameraPosition = std::make_shared<Graphics::CUniformValue<vec3f>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uModelMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uNormalMatrix = std::make_shared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPointer<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPointer<Graphics::CUniformValue<glm::mat4>> uViewMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPointer<Graphics::CUniformValue<vec3f>> uCameraPosition = MakeShared<Graphics::CUniformValue<vec3f>>();
+			SharedPointer<Graphics::CUniformValue<glm::mat4>> uModelMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
+			SharedPointer<Graphics::CUniformValue<glm::mat4>> uNormalMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
 
 			struct SLightUniformMatrixRow
 			{
