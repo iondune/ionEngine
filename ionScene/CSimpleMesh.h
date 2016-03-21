@@ -59,8 +59,8 @@ namespace ion
 			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 
-			SharedPtr<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
-			SharedPtr<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 
 
 		};

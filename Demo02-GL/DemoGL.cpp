@@ -25,8 +25,8 @@ int main()
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
-	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 
 	//////////////////
 	// Buffer Setup //
@@ -48,9 +48,9 @@ int main()
 	};
 
 
-	SharedPtr<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
+	SharedPointer<IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
 	IndexBuffer->UploadData(Indices);
-	SharedPtr<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
+	SharedPointer<IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
 	VertexBuffer->UploadData(Vertices);
 	SInputLayoutElement InputLayout[] =
 	{
@@ -104,8 +104,8 @@ int main()
 		}
 	)SHADER";
 
-	SharedPtr<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromSource(VertexShaderSource);
-	SharedPtr<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromSource(FragmentShaderSource);
+	SharedPointer<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromSource(VertexShaderSource);
+	SharedPointer<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromSource(FragmentShaderSource);
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
@@ -113,7 +113,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	SharedPtr<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPointer<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 	
@@ -122,16 +122,16 @@ int main()
 	// Draw Loop //
 	///////////////
 
-	SharedPtr<IPipelineState> PipelineState = Context->CreatePipelineState();
+	SharedPointer<IPipelineState> PipelineState = Context->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
 
-	SharedPtr<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();
+	SharedPointer<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
-	SharedPtr<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
+	SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
 	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
 	PipelineState->SetTexture("uTexture", Texture);
 

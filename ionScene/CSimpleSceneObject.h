@@ -16,10 +16,10 @@ namespace ion
 			SSimpleMaterial();
 			void LoadDefaults();
 
-			SharedPtr<Graphics::CUniformValue<color3f>> Ambient = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPtr<Graphics::CUniformValue<color3f>> Diffuse = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPtr<Graphics::CUniformValue<color3f>> Specular = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPtr<Graphics::CUniformValue<f32>> Shininess = std::make_shared<Graphics::CUniformValue<f32>>();
+			SharedPointer<Graphics::CUniformValue<color3f>> Ambient = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPointer<Graphics::CUniformValue<color3f>> Diffuse = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPointer<Graphics::CUniformValue<color3f>> Specular = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPointer<Graphics::CUniformValue<f32>> Shininess = std::make_shared<Graphics::CUniformValue<f32>>();
 
 		};
 
@@ -33,11 +33,11 @@ namespace ion
 			virtual void Load(CRenderPass * RenderPass);
 			virtual void Draw(CRenderPass * RenderPass);
 
-			virtual void SetIndexBuffer(SharedPtr<Graphics::IIndexBuffer> IndexBuffer);
-			virtual void SetVertexBuffer(SharedPtr<Graphics::IVertexBuffer> VertexBuffer);
-			virtual void SetShader(SharedPtr<Graphics::IShaderProgram> Shader);
-			virtual void SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture);
-			virtual void SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform);
+			virtual void SetIndexBuffer(SharedPointer<Graphics::IIndexBuffer> IndexBuffer);
+			virtual void SetVertexBuffer(SharedPointer<Graphics::IVertexBuffer> VertexBuffer);
+			virtual void SetShader(SharedPointer<Graphics::IShaderProgram> Shader);
+			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
+			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
 			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
 
 			virtual SSimpleMaterial & GetMaterial();
@@ -46,14 +46,14 @@ namespace ion
 
 		protected:
 
-			SharedPtr<Graphics::IPipelineState> PipelineState;
-			SharedPtr<Graphics::IShaderProgram> Shader;
-			SharedPtr<Graphics::IIndexBuffer> IndexBuffer;
-			SharedPtr<Graphics::IVertexBuffer> VertexBuffer;
+			SharedPointer<Graphics::IPipelineState> PipelineState;
+			SharedPointer<Graphics::IShaderProgram> Shader;
+			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
+			SharedPointer<Graphics::IVertexBuffer> VertexBuffer;
 			SSimpleMaterial Material;
 
-			map<string, SharedPtr<Graphics::ITexture>> Textures;
-			map<string, SharedPtr<Graphics::IUniform>> Uniforms;
+			map<string, SharedPointer<Graphics::ITexture>> Textures;
+			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
 
 		};
 

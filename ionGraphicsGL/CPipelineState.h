@@ -25,33 +25,33 @@ namespace ion
 				CPipelineState(CWindow * Window);
 				~CPipelineState();
 
-				void SetProgram(SharedPtr<IShaderProgram> ShaderProgram);
-				void SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> VertexBuffer);
-				void SetIndexBuffer(SharedPtr<IIndexBuffer> IndexBuffer);
-				void SetUniform(string const & Name, SharedPtr<IUniform> Uniform);
-				void SetTexture(string const & Name, SharedPtr<ITexture> Texture);
+				void SetProgram(SharedPointer<IShaderProgram> ShaderProgram);
+				void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer);
+				void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer);
+				void SetUniform(string const & Name, SharedPointer<IUniform> Uniform);
+				void SetTexture(string const & Name, SharedPointer<ITexture> Texture);
 				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
 				void SetBlendMode(EBlendMode const BlendMode);
 
-				void OfferUniform(string const & Name, SharedPtr<IUniform> Uniform);
+				void OfferUniform(string const & Name, SharedPointer<IUniform> Uniform);
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
 
 				CWindow * Window = nullptr;
 
-				SharedPtr<CShaderProgram> ShaderProgram;
-				vector<SharedPtr<CVertexBuffer>> VertexBuffers;
-				SharedPtr<CIndexBuffer> IndexBuffer;
+				SharedPointer<CShaderProgram> ShaderProgram;
+				vector<SharedPointer<CVertexBuffer>> VertexBuffers;
+				SharedPointer<CIndexBuffer> IndexBuffer;
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
 
-				map<string, SharedPtr<IUniform const>> Uniforms;
-				map<uint, SharedPtr<IUniform const>> BoundUniforms;
+				map<string, SharedPointer<IUniform const>> Uniforms;
+				map<uint, SharedPointer<IUniform const>> BoundUniforms;
 
-				map<string, SharedPtr<ITexture const>> Textures;
-				map<u32, SharedPtr<ITexture const>> BoundTextures;
+				map<string, SharedPointer<ITexture const>> Textures;
+				map<u32, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;

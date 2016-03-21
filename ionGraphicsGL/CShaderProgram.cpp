@@ -32,7 +32,7 @@ namespace ion
 		namespace GL
 		{
 			
-			void CShaderProgram::SetVertexStage(SharedPtr<IVertexShader> VertexShader)
+			void CShaderProgram::SetVertexStage(SharedPointer<IVertexShader> VertexShader)
 			{
 				if (VertexShader)
 				{
@@ -40,7 +40,7 @@ namespace ion
 				}
 			}
 
-			void CShaderProgram::SetPixelStage(SharedPtr<IPixelShader> PixelShader)
+			void CShaderProgram::SetPixelStage(SharedPointer<IPixelShader> PixelShader)
 			{
 				if (PixelShader)
 				{

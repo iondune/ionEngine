@@ -307,12 +307,12 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 
 	};
 
-	T DistanceTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
+	T DistanceTo(SLongitudeLatitude const & Other, SharedPointer<IProjectionSystem> Projection = SharedFromNew(new CHaversineProjection())) const
 	{
 		return Projection->DistanceBetween(* this, Other);
 	}
 
-	SVector2<T> OffsetTo(SLongitudeLatitude const & Other, sharedPtr<IProjectionSystem> Projection = sharedNew(new CHaversineProjection())) const
+	SVector2<T> OffsetTo(SLongitudeLatitude const & Other, SharedPointer<IProjectionSystem> Projection = SharedFromNew(new CHaversineProjection())) const
 	{
 		return Projection->OffsetBetween(* this, Other);
 	}

@@ -66,7 +66,7 @@ template Component * IEntity<Component>::RequireSingleComponent();
 
 // ionSmartPtr.h
 
-template sharedPtr<Base> sharedNew(Base * const t);
+template SharedPointer<Base> SharedFromNew(Base * const t);
 
 
 // ionStandardLibrary.h

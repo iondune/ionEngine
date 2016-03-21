@@ -16,8 +16,8 @@ int main()
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1280, 1024), "ionEngine GUI Demo", EWindowType::Windowed);
 
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
-	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 	GUIManager->Init(Window);

@@ -26,7 +26,7 @@ namespace ion
 			float MuIncrement = 0;
 			bool Looping = true;
 
-			mutable SharedPtr<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
+			mutable SharedPointer<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
 
 		public:
 
@@ -38,17 +38,17 @@ namespace ion
 			void SetLooping(bool const looping);
 			bool IsLooping() const;
 
-			void SetDefaultInterpolator(SharedPtr<ISplineInterpolator<TSplineNode>> defaultInterpolator);
-			SharedPtr<ISplineInterpolator<TSplineNode>> GetDefaultInterpolator() const;
+			void SetDefaultInterpolator(SharedPointer<ISplineInterpolator<TSplineNode>> defaultInterpolator);
+			SharedPointer<ISplineInterpolator<TSplineNode>> GetDefaultInterpolator() const;
 
 			int SanitizeIndex(int Index) const;
 
 			TSplineNode const & GetNode(int const Index) const;
-			TSplineNode GetNodeInterpolated(float const Intermediate, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0) const;
+			TSplineNode GetNodeInterpolated(float const Intermediate, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator = 0) const;
 
-			float BuildDistanceTable(float const Increment = 0.1f, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
-			float GetIntermediateFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
-			TSplineNode GetNodeFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator = 0);
+			float BuildDistanceTable(float const Increment = 0.1f, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator = 0);
+			float GetIntermediateFromDistance(float const Distance, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator = 0);
+			TSplineNode GetNodeFromDistance(float const Distance, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator = 0);
 			float GetTotalPathLength();
 
 		};
@@ -86,13 +86,13 @@ namespace ion
 		}
 
 		template <typename TSplineNode>
-		void CSpline<TSplineNode>::SetDefaultInterpolator(SharedPtr<ISplineInterpolator<TSplineNode>> defaultInterpolator)
+		void CSpline<TSplineNode>::SetDefaultInterpolator(SharedPointer<ISplineInterpolator<TSplineNode>> defaultInterpolator)
 		{
 			DefaultInterpolator = defaultInterpolator;
 		}
 
 		template <typename TSplineNode>
-		SharedPtr<ISplineInterpolator<TSplineNode>> CSpline<TSplineNode>::GetDefaultInterpolator() const
+		SharedPointer<ISplineInterpolator<TSplineNode>> CSpline<TSplineNode>::GetDefaultInterpolator() const
 		{
 			return DefaultInterpolator;
 		}
@@ -126,7 +126,7 @@ namespace ion
 		}
 
 		template <typename TSplineNode>
-		TSplineNode CSpline<TSplineNode>::GetNodeInterpolated(float const Mu, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator) const
+		TSplineNode CSpline<TSplineNode>::GetNodeInterpolated(float const Mu, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator) const
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;
@@ -143,7 +143,7 @@ namespace ion
 		}
 
 		template <typename TSplineNode>
-		float CSpline<TSplineNode>::BuildDistanceTable(float const Increment, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
+		float CSpline<TSplineNode>::BuildDistanceTable(float const Increment, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;
@@ -181,7 +181,7 @@ namespace ion
 
 
 		template <typename TSplineNode>
-		float CSpline<TSplineNode>::GetIntermediateFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
+		float CSpline<TSplineNode>::GetIntermediateFromDistance(float const Distance, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (DistanceTable.size() == 0)
 				BuildDistanceTable(0.1f, Interpolator);
@@ -210,7 +210,7 @@ namespace ion
 		}
 
 		template <typename TSplineNode>
-		TSplineNode CSpline<TSplineNode>::GetNodeFromDistance(float const Distance, SharedPtr<ISplineInterpolator<TSplineNode>> Interpolator)
+		TSplineNode CSpline<TSplineNode>::GetNodeFromDistance(float const Distance, SharedPointer<ISplineInterpolator<TSplineNode>> Interpolator)
 		{
 			if (! Interpolator)
 				Interpolator = DefaultInterpolator;

@@ -22,9 +22,9 @@ namespace ion
 			virtual void Draw(CRenderPass * RenderPass);
 
 			virtual void SetMesh(CSimpleMesh * Mesh);
-			virtual void SetShader(SharedPtr<Graphics::IShaderProgram> Shader);
-			virtual void SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture);
-			virtual void SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform);
+			virtual void SetShader(SharedPointer<Graphics::IShaderProgram> Shader);
+			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
+			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
 
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
@@ -34,14 +34,14 @@ namespace ion
 
 			CSimpleMesh * Mesh = nullptr;
 
-			SharedPtr<Graphics::IPipelineState> PipelineState;
-			SharedPtr<Graphics::IShaderProgram> Shader;
-			SharedPtr<Graphics::IIndexBuffer> IndexBuffer;
-			SharedPtr<Graphics::IVertexBuffer> VertexBuffer;
+			SharedPointer<Graphics::IPipelineState> PipelineState;
+			SharedPointer<Graphics::IShaderProgram> Shader;
+			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
+			SharedPointer<Graphics::IVertexBuffer> VertexBuffer;
 			SSimpleMaterial Material;
 
-			map<string, SharedPtr<Graphics::ITexture>> Textures;
-			map<string, SharedPtr<Graphics::IUniform>> Uniforms;
+			map<string, SharedPointer<Graphics::ITexture>> Textures;
+			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
 
 		};
 

@@ -121,7 +121,7 @@ namespace ion
 
 		public:
 
-			SharedPtr<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
+			SharedPointer<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
 
 			CUniform()
 			{}
@@ -147,7 +147,7 @@ namespace ion
 				return *Uniform;
 			}
 
-			operator SharedPtr<IUniform> ()
+			operator SharedPointer<IUniform> ()
 			{
 				return Uniform;
 			}

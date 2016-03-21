@@ -29,7 +29,7 @@ namespace ion
 
 	CImage::CImage(byte * const Data, vec2u const Size, u8 const Channels)
 	{
-		this->Data = uniquePtr<byte[]>(Data);
+		this->Data = UniquePointer<byte[]>(Data);
 		this->Size = Size;
 		this->Channels = Channels;
 	}
@@ -40,7 +40,7 @@ namespace ion
 		this->Channels = (Alpha ? 4 : 3);
 
 		uint Stride = GetStride();
-		Data = uniquePtr<byte[]>(new u8[Size.X * Size.Y * Stride]);
+		Data = UniquePointer<byte[]>(new u8[Size.X * Size.Y * Stride]);
 
 		for (uint i = 0; i < Size.X * Size.Y; ++ i)
 			for (uint j = 0; j < Stride; ++ j)

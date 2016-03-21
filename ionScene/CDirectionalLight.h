@@ -26,8 +26,8 @@ namespace ion
 
 		protected:
 
-			SharedPtr<Graphics::CUniformValue<color3f>> Color = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPtr<Graphics::CUniformValue<vec3f>> Direction = std::make_shared<Graphics::CUniformValue<vec3f>>();
+			SharedPointer<Graphics::CUniformValue<color3f>> Color = std::make_shared<Graphics::CUniformValue<color3f>>();
+			SharedPointer<Graphics::CUniformValue<vec3f>> Direction = std::make_shared<Graphics::CUniformValue<vec3f>>();
 
 		};
 

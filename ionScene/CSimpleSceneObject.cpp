@@ -41,11 +41,11 @@ namespace ion
 
 			PipelineState->SetProgram(Shader);
 
-			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPtr<Graphics::ITexture>> const & Iterator)
+			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
-			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPtr<Graphics::IUniform>> const & Iterator)
+			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPointer<Graphics::IUniform>> const & Iterator)
 			{
 				PipelineState->SetUniform(Iterator.first, Iterator.second);
 			});
@@ -67,23 +67,23 @@ namespace ion
 			}
 		}
 
-		void CSimpleSceneObject::SetIndexBuffer(SharedPtr<Graphics::IIndexBuffer> IndexBuffer)
+		void CSimpleSceneObject::SetIndexBuffer(SharedPointer<Graphics::IIndexBuffer> IndexBuffer)
 		{
 			this->IndexBuffer = IndexBuffer;
 		}
 
-		void CSimpleSceneObject::SetVertexBuffer(SharedPtr<Graphics::IVertexBuffer> VertexBuffer)
+		void CSimpleSceneObject::SetVertexBuffer(SharedPointer<Graphics::IVertexBuffer> VertexBuffer)
 		{
 			this->VertexBuffer = VertexBuffer;
 		}
 
-		void CSimpleSceneObject::SetShader(SharedPtr<Graphics::IShaderProgram> Shader)
+		void CSimpleSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
 		{
 			this->Shader = Shader;
 			Loaded = false;
 		}
 
-		void CSimpleSceneObject::SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture)
+		void CSimpleSceneObject::SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture)
 		{
 			if (Texture)
 			{
@@ -96,7 +96,7 @@ namespace ion
 			Loaded = false;
 		}
 
-		void CSimpleSceneObject::SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform)
+		void CSimpleSceneObject::SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform)
 		{
 			if (Uniform)
 			{

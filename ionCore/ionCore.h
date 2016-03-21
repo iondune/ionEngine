@@ -7,7 +7,7 @@
 #include "ionComparison.h"
 #include "ionComponent.h"
 #include "ionRand.h"
-#include "ionSmartPtr.h"
+#include "ionSmartPointer.h"
 #include "ionThread.h"
 #include "ionTreeNode.h"
 #include "ionTypes.h"

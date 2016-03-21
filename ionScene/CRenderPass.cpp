@@ -7,13 +7,13 @@ namespace ion
 	namespace Scene
 	{
 
-		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPtr<Graphics::IGraphicsContext> GraphicsContext)
+		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
 		{
 			this->GraphicsAPI = GraphicsAPI;
 			this->GraphicsContext = GraphicsContext;
 		}
 
-		void CRenderPass::SetRenderTarget(SharedPtr<Graphics::IRenderTarget> RenderTarget)
+		void CRenderPass::SetRenderTarget(SharedPointer<Graphics::IRenderTarget> RenderTarget)
 		{
 			this->RenderTarget = RenderTarget;
 		}
@@ -28,7 +28,7 @@ namespace ion
 			return GraphicsAPI;
 		}
 
-		SharedPtr<Graphics::IGraphicsContext> CRenderPass::GetGraphicsContext()
+		SharedPointer<Graphics::IGraphicsContext> CRenderPass::GetGraphicsContext()
 		{
 			return GraphicsContext;
 		}
@@ -105,7 +105,7 @@ namespace ion
 				for (auto & Element : Category)
 				{
 					ISceneObject * SceneObject = std::get<0>(Element);
-					SharedPtr<Graphics::IPipelineState> PipelineState = std::get<1>(Element);
+					SharedPointer<Graphics::IPipelineState> PipelineState = std::get<1>(Element);
 					uint const InstanceCount = std::get<2>(Element);
 
 					*uModelMatrix = SceneObject->GetTransformation();
@@ -142,7 +142,7 @@ namespace ion
 			}
 		}
 
-		void CRenderPass::PreparePipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject)
+		void CRenderPass::PreparePipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject)
 		{
 			if (! PipelineState)
 			{
@@ -210,7 +210,7 @@ namespace ion
 			PipelineState->Load();
 		}
 
-		void CRenderPass::SubmitPipelineStateForRendering(SharedPtr<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const InstanceCount, uint const RenderCategory)
+		void CRenderPass::SubmitPipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const InstanceCount, uint const RenderCategory)
 		{
 			if (! PipelineState)
 			{
@@ -231,14 +231,14 @@ namespace ion
 			std::for_each(Lights.begin(), Lights.end(), [&](ILight * Light)
 			{
 				string const LightType = string("u") + Light->GetLightType() + string("s");
-				map<string, SharedPtr<Graphics::IUniform>> const LightAttributes = Light->GetAttributes();
+				map<string, SharedPointer<Graphics::IUniform>> const LightAttributes = Light->GetAttributes();
 
 				SLightUniformMatrixRow & LightUniformMatrixRow = LightUniformMatrix[LightType];
-				LightUniformMatrixRow.Entries.push_back(map<string, SharedPtr<Graphics::IUniform>>());
+				LightUniformMatrixRow.Entries.push_back(map<string, SharedPointer<Graphics::IUniform>>());
 				LightUniformMatrixRow.CountUniform->Value += 1;
-				map<string, SharedPtr<Graphics::IUniform>> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
+				map<string, SharedPointer<Graphics::IUniform>> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
 				
-				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, SharedPtr<Graphics::IUniform>> Iterator)
+				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, SharedPointer<Graphics::IUniform>> Iterator)
 				{
 					LightUniformMatrixRowEntry[Iterator.first] = Iterator.second;
 				});

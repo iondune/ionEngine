@@ -32,8 +32,8 @@ namespace ion
 
 		public:
 
-			virtual void SetVertexStage(SharedPtr<IVertexShader> VertexShader) = 0;
-			virtual void SetPixelStage(SharedPtr<IPixelShader> PixelShader) = 0;
+			virtual void SetVertexStage(SharedPointer<IVertexShader> VertexShader) = 0;
+			virtual void SetPixelStage(SharedPointer<IPixelShader> PixelShader) = 0;
 
 		};
 

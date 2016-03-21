@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClInclude Include="ionRand.h" />
     <ClInclude Include="ionTypes.h" />
-    <ClInclude Include="ionSmartPtr.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionUtils.h" />
     <ClInclude Include="ionThread.h" />
@@ -13,5 +12,6 @@
     <ClInclude Include="ionStandardLibrary.h" />
     <ClInclude Include="ionComponent.h" />
     <ClInclude Include="ionLogger.h" />
+    <ClInclude Include="ionSmartPointer.h" />
   </ItemGroup>
 </Project>
