@@ -45,6 +45,8 @@ namespace ion
 
 			static CSimpleMesh * Intersect(CSimpleMesh const * A, CSimpleMesh const * B, vec3f const & AOffset = 0, vec3f const & BOffset = 0);
 
+			static vector<CSimpleMesh *> LoadOBJFile(string const & FileName, string const & Path = "");
+
 		};
 
 	}

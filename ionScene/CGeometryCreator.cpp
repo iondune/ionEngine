@@ -1,5 +1,7 @@
 
 #include "CGeometryCreator.h"
+#define TINYOBJLOADER_IMPLEMENTATION
+#include <tinyobjloader\tiny_obj_loader.h>
 
 
 namespace ion
@@ -532,6 +534,73 @@ namespace ion
 			}
 
 			return Intersection;
+		}
+
+		vector<CSimpleMesh*> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
+		{
+			vector<CSimpleMesh *> Meshes;
+
+			vector<tinyobj::shape_t> shapes;
+			vector<tinyobj::material_t> materials;
+
+			string ErrorString;
+			bool Success = tinyobj::LoadObj(shapes, materials, ErrorString, FileName.c_str(), Path.c_str());
+
+			if (! ErrorString.empty())
+			{
+				Log::Error("Error while loading obj file '%s': %s", FileName, ErrorString);
+			}
+
+			if (Success)
+			{
+				vector<SSimpleMaterial> Materials;
+
+				for (auto const & material : materials)
+				{
+					Materials.push_back(SSimpleMaterial());
+
+					Materials.back().Diffuse = color3f(material.diffuse[0], material.diffuse[1], material.diffuse[2]);
+					Materials.back().Ambient = color3f(material.ambient[0], material.ambient[1], material.ambient[2]);
+					Materials.back().Specular = color3f(material.specular[0], material.specular[1], material.specular[2]);
+					Materials.back().Shininess = material.shininess;
+
+					Materials.back().DiffuseImage = CImage::Load(Path + material.diffuse_texname);
+					Materials.back().AmbientImage = CImage::Load(Path + material.ambient_texname);
+				}
+
+				for (auto const & shape : shapes)
+				{
+					CSimpleMesh * Mesh = new CSimpleMesh();
+					for (size_t i = 0; i < shape.mesh.positions.size() / 3; ++ i)
+					{
+						CSimpleMesh::SVertex Vertex;
+						Vertex.Position = vec3f(shape.mesh.positions[3 * i + 0], shape.mesh.positions[3 * i + 1], shape.mesh.positions[3 * i + 2]);
+						if (shape.mesh.normals.size() > 3 * i + 2)
+						{
+							Vertex.Normal = vec3f(shape.mesh.normals[3 * i + 0], shape.mesh.normals[3 * i + 1], shape.mesh.normals[3 * i + 2]);
+						}
+						if (shape.mesh.texcoords.size() > 2 * i + 1)
+						{
+							Vertex.TextureCoordinates = vec2f(shape.mesh.texcoords[2 * i + 0], shape.mesh.texcoords[2 * i + 1]);
+						}
+						Mesh->Vertices.push_back(Vertex);
+					}
+
+					for (size_t i = 0; i < shape.mesh.indices.size() / 3; i++)
+					{
+						Mesh->Triangles.push_back(CSimpleMesh::STriangle(shape.mesh.indices[3 * i + 0], shape.mesh.indices[3 * i + 1], shape.mesh.indices[3 * i + 2]));
+					}
+
+					if (shape.mesh.material_ids.size())
+					{
+						Mesh->Material = Materials[shape.mesh.material_ids.front()];
+					}
+
+					Meshes.push_back(Mesh);
+				}
+			}
+
+			return Meshes;
 		}
 
 	}

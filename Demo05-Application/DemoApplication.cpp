@@ -150,9 +150,9 @@ int main()
 
 		float const Bright = 1;
 		float const Dim = 0.5f;
-		LightSphere1->GetMaterial().Diffuse->Value = color3f(Bright, Dim, Dim) * Brightness;
-		LightSphere2->GetMaterial().Diffuse->Value = color3f(Dim, Bright, Dim) * Brightness;
-		LightSphere3->GetMaterial().Diffuse->Value = color3f(Dim, Dim, Bright) * Brightness;
+		LightSphere1->GetMaterial().Diffuse = color3f(Bright, Dim, Dim) * Brightness;
+		LightSphere2->GetMaterial().Diffuse = color3f(Dim, Bright, Dim) * Brightness;
+		LightSphere3->GetMaterial().Diffuse = color3f(Dim, Dim, Bright) * Brightness;
 		LightSphere1->SetScale(Brightness);
 		LightSphere2->SetScale(Brightness);
 		LightSphere3->SetScale(Brightness);

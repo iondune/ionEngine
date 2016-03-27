@@ -10,15 +10,55 @@ namespace ion
 
 		SSimpleMaterial::SSimpleMaterial()
 		{
-			LoadDefaults();
+			Shininess = 1000.0f;
+			Ambient = SColorf(0.05f);
+			Diffuse = SColorf(0.9f);
+			Specular = SColorf(1.f);
 		}
 
-		void SSimpleMaterial::LoadDefaults()
+		void SSimpleMaterial::LoadTextures(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
-			*Shininess = 1000.0f;
-			*Ambient = SColorf(0.05f);
-			*Diffuse = SColorf(0.9f);
-			*Specular = SColorf(1.f);
+			static auto LoadTexture = [](Graphics::IGraphicsAPI * GraphicsAPI, CImage * Image) -> SharedPointer<Graphics::ITexture2D>
+			{
+				SharedPointer<Graphics::ITexture2D> Texture;
+				if (Image)
+				{
+					Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+					switch (Image->GetChannels())
+					{
+					case 2:
+						Format = Graphics::ITexture::EFormatComponents::RG;
+						break;
+					case 3:
+						Format = Graphics::ITexture::EFormatComponents::RGB;
+						break;
+					case 4:
+						Format = Graphics::ITexture::EFormatComponents::RGBA;
+						break;
+					}
+					Texture = GraphicsAPI->CreateTexture2D(
+						Image->GetSize(),
+						Graphics::ITexture::EMipMaps::True,
+						Format,
+						Graphics::ITexture::EInternalFormatType::Fix8);
+					Texture->Upload(
+						Image->GetData(),
+						Image->GetSize(),
+						Format,
+						Graphics::EScalarType::UnsignedInt8);
+				}
+				return Texture;
+			};
+
+			if (! DiffuseTexture)
+			{
+				DiffuseTexture = LoadTexture(GraphicsAPI, DiffuseImage);
+			}
+
+			if (! AmbientTexture)
+			{
+				AmbientTexture = LoadTexture(GraphicsAPI, AmbientImage);
+			}
 		}
 
 		CSimpleSceneObject::~CSimpleSceneObject()
@@ -50,10 +90,13 @@ namespace ion
 				PipelineState->SetUniform(Iterator.first, Iterator.second);
 			});
 
+			Material.LoadTextures(RenderPass->GetGraphicsAPI());
+
 			PipelineState->OfferUniform("uMaterial.AmbientColor", Material.Ambient);
 			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
 			PipelineState->OfferUniform("uMaterial.SpecularColor", Material.Specular);
 			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
+			PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;

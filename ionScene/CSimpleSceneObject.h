@@ -10,19 +10,6 @@ namespace ion
 	namespace Scene
 	{
 
-		struct SSimpleMaterial
-		{
-
-			SSimpleMaterial();
-			void LoadDefaults();
-
-			SharedPointer<Graphics::CUniformValue<color3f>> Ambient = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPointer<Graphics::CUniformValue<color3f>> Diffuse = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPointer<Graphics::CUniformValue<color3f>> Specular = std::make_shared<Graphics::CUniformValue<color3f>>();
-			SharedPointer<Graphics::CUniformValue<f32>> Shininess = std::make_shared<Graphics::CUniformValue<f32>>();
-
-		};
-
 		class CSimpleSceneObject : public ISceneObject
 		{
 

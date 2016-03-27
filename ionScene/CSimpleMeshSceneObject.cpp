@@ -26,6 +26,8 @@ namespace ion
 			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
 			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
+			Material.LoadTextures(RenderPass->GetGraphicsAPI());
+
 			PipelineState->SetProgram(Shader);
 
 			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
@@ -41,6 +43,7 @@ namespace ion
 			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
 			PipelineState->OfferUniform("uMaterial.SpecularColor", Material.Specular);
 			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
+			PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -57,6 +60,7 @@ namespace ion
 		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
 		{
 			this->Mesh = Mesh;
+			this->Material = Mesh->Material;
 			Loaded = false;
 		}
 
