@@ -1,7 +1,7 @@
 
 #include "CGeometryCreator.h"
 #define TINYOBJLOADER_IMPLEMENTATION
-#include <tinyobjloader\tiny_obj_loader.h>
+#include <tinyobjloader/tiny_obj_loader.h>
 
 
 namespace ion
