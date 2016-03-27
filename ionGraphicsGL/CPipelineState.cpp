@@ -191,7 +191,7 @@ namespace ion
 
 				if (! Texture)
 				{
-					Log::Error("Invalid paramter to CPipelineState::OfferUniform: expected non-null Uniform");
+					Log::Error("Invalid paramter to CPipelineState::OfferTexture: expected non-null Texture");
 					return;
 				}
 
