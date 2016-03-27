@@ -43,7 +43,15 @@ namespace ion
 			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
 			PipelineState->OfferUniform("uMaterial.SpecularColor", Material.Specular);
 			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
-			PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
+			if (Material.DiffuseTexture)
+			{
+				PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
+			}
+
+			for (auto Pair : DrawFeatures)
+			{
+				PipelineState->SetFeatureEnabled(Pair.first, Pair.second);
+			}
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -94,6 +102,16 @@ namespace ion
 				Uniforms.erase(Name);
 			}
 			Loaded = false;
+		}
+
+		void CSimpleMeshSceneObject::SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled)
+		{
+			if (PipelineState)
+			{
+				PipelineState->SetFeatureEnabled(Feature, Enabled);
+			}
+
+			DrawFeatures[Feature] = Enabled;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()

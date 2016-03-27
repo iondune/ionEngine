@@ -25,6 +25,7 @@ namespace ion
 			virtual void SetShader(SharedPointer<Graphics::IShaderProgram> Shader);
 			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
 			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
+			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
 
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
@@ -42,6 +43,7 @@ namespace ion
 
 			map<string, SharedPointer<Graphics::ITexture>> Textures;
 			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
+			map<Graphics::EDrawFeature, bool> DrawFeatures;
 
 		};
 
