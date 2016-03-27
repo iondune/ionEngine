@@ -34,6 +34,8 @@ namespace ion
 				void SetBlendMode(EBlendMode const BlendMode);
 
 				void OfferUniform(string const & Name, SharedPointer<IUniform> Uniform);
+				void OfferTexture(string const & Name, SharedPointer<ITexture> Texture);
+
 				set<string> GetUnboundUniforms() const;
 
 				void Load();

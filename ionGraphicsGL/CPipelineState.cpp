@@ -181,6 +181,27 @@ namespace ion
 				}
 			}
 
+			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
+			{
+				if (! ShaderProgram)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				if (! Texture)
+				{
+					Log::Error("Invalid paramter to CPipelineState::OfferUniform: expected non-null Uniform");
+					return;
+				}
+
+				if (UnboundUniforms.count(Name) == 1)
+				{
+					Textures[Name] = Texture;
+					UnboundUniforms.erase(Name);
+				}
+			}
+
 			set<string> CPipelineState::GetUnboundUniforms() const
 			{
 				return UnboundUniforms;
