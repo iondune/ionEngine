@@ -15,22 +15,22 @@ namespace ion
 
 		color3f CPointLight::GetColor() const
 		{
-			return *Color;
+			return Color;
 		}
 
 		float CPointLight::GetRadius() const
 		{
-			return *Radius;
+			return Radius;
 		}
 
 		void CPointLight::SetColor(color3f const & Color)
 		{
-			*(this->Color) = Color;
+			this->Color = Color;
 		}
 
 		void CPointLight::SetRadius(float const Radius)
 		{
-			*(this->Radius) = Radius;
+			this->Radius = Radius;
 		}
 
 		string CPointLight::GetLightType() const
