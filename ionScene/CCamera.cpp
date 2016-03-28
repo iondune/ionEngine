@@ -19,7 +19,7 @@ namespace ion
 
 		void CCamera::RecalculateViewMatrix()
 		{
-			ViewMatrix = glm::lookAt(GetPosition().GetGLMVector(), (GetPosition() + LookDirection).GetGLMVector(), UpVector.GetGLMVector());
+			ViewMatrix = glm::lookAt(GetPosition().ToGLM(), (GetPosition() + LookDirection).ToGLM(), UpVector.ToGLM());
 		}
 
 		void CCamera::Update()

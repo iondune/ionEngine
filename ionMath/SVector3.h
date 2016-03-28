@@ -104,19 +104,26 @@ public:
 		return lhs.Cross(rhs);
 	}
 
-	glm::vec3 const GetGLMVector() const
+	glm::vec3 const ToGLM() const
 	{
 		return glm::vec3(X, Y, Z);
 	}
 
-	static SVector3<T> FromGLMVector(glm::vec3 const & Vec)
+	static SVector3<T> FromGLM(glm::vec3 const & Vec)
 	{
 		return SVector3<T>(Vec.x, Vec.y, Vec.z);
 	}
 
-	static SVector3<T> FromGLMVector(glm::vec4 const & Vec)
+	static SVector3<T> FromGLM(glm::vec4 const & Vec)
 	{
 		return SVector3<T>(Vec.x, Vec.y, Vec.z);
+	}
+
+	SVector3<T> Transform(glm::mat4 const & mat, f32 const TranslateComponent = 1) const
+	{
+		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
+		v = mat * v;
+		return FromGLM(v);
 	}
 
 	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)

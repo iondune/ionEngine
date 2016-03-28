@@ -171,7 +171,7 @@ namespace ion
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
 			{
-				Vertex.Position = vec3f::FromGLMVector(Transform * glm::vec4(Vertex.Position.GetGLMVector(), 1));
+				Vertex.Position.Transform(Transform);
 			});
 		}
 

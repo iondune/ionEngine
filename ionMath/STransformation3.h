@@ -159,7 +159,7 @@ public:
 
 	void SetScale(SVector3f const & scale)
 	{
-		Scale = glm::scale(glm::mat4(1.f), scale.GetGLMVector());
+		Scale = glm::scale(glm::mat4(1.f), scale.ToGLM());
 	}
 
 	void SetTranslation(glm::vec3 const & translation)
@@ -169,7 +169,7 @@ public:
 
 	void SetTranslation(SVector3f const & translation)
 	{
-		Translation = glm::translate(glm::mat4(1.f), translation.GetGLMVector());
+		Translation = glm::translate(glm::mat4(1.f), translation.ToGLM());
 	}
 
 };
