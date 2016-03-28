@@ -26,17 +26,17 @@ public:
 		: MinCorner(v), MaxCorner(v)
 	{}
 
-	Vector const GetExtent() const
+	Vector GetExtent() const
 	{
 		return MaxCorner - MinCorner;
 	}
 
-	Vector const GetHalfExtent() const
+	Vector GetHalfExtent() const
 	{
 		return (MaxCorner - MinCorner) / 2;
 	}
 
-	Vector const GetCenter() const
+	Vector GetCenter() const
 	{
 		return (MaxCorner + MinCorner) / 2;
 	}
@@ -49,7 +49,7 @@ public:
 			p.Z >= MinCorner.Z && p.Z <= MaxCorner.Z;
 	}
 
-	bool const Intersects(Type const & r) const
+	bool Intersects(Type const & r) const
 	{
 		return (MaxCorner.Y >= r.MinCorner.Y &&
 			MinCorner.Y <= r.MaxCorner.Y &&
