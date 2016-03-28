@@ -126,18 +126,9 @@ public:
 		return FromGLM(v);
 	}
 
-	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
-	{
-		return stream << vec.X << " " << vec.Y << " " << vec.Z;
-	}
-
 	SVector3<T> RotateAround(SVector3<T> const & other, f32 const radians) const
 	{
-		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.GetGLMVector());
-		glm::vec4 temp = glm::vec4(GetGLMVector(), 1.f) * matrix;
-
-		SVector3<T> out(temp.x, temp.y, temp.z);
-		return out;
+		return Transform(glm::rotate(glm::mat4(1.f), radians, other.ToGLM()));
 	}
 
 	SVector2<T> XY() const
@@ -153,6 +144,11 @@ public:
 	SVector2<T> XZ() const
 	{
 		return SVector2<T>(X, Z);
+	}
+
+	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y << " " << vec.Z;
 	}
 
 };
