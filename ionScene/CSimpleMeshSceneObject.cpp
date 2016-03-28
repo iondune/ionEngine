@@ -23,10 +23,10 @@ namespace ion
 				PipelineState = RenderPass->GetGraphicsContext()->CreatePipelineState();
 			}
 
-			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
-			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
+			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer());
+			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer());
 
-			Material.LoadTextures(RenderPass->GetGraphicsAPI());
+			Material.LoadTextures();
 
 			PipelineState->SetProgram(Shader);
 

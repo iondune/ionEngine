@@ -7,9 +7,8 @@ namespace ion
 	namespace Scene
 	{
 
-		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
+		CRenderPass::CRenderPass(SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
 		{
-			this->GraphicsAPI = GraphicsAPI;
 			this->GraphicsContext = GraphicsContext;
 		}
 
@@ -23,7 +22,7 @@ namespace ion
 			return Name;
 		}
 
-		Graphics::IGraphicsAPI * CRenderPass::GetGraphicsAPI()
+		CGraphicsAPI * CRenderPass::GetGraphicsAPI()
 		{
 			return GraphicsAPI;
 		}

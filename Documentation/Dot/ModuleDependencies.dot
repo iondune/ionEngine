@@ -5,6 +5,7 @@ digraph graphname {
     ionCore -> ionMath            [dir="back"];
     ionMath -> ionFramework       [dir="back"];
     ionFramework -> ionGraphics   [dir="back"];
-    ionGraphics -> ionGraphicsGL  [dir="back"];
-    ionGraphics -> ionGUI         [dir="back"];
+    ionGraphics -> ionWindow      [dir="back"];
+    ionWindow -> ionGraphicsGL    [dir="back"];
+    ionWindow -> ionGUI           [dir="back"];
 }

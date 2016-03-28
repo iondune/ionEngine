@@ -7,10 +7,8 @@ namespace ion
 	namespace Scene
 	{
 
-		void CSceneManager::Init(Graphics::IGraphicsAPI * GraphicsAPI)
-		{
-			this->GraphicsAPI = GraphicsAPI;
-		}
+		void CSceneManager::Init()
+		{}
 
 		void CSceneManager::DrawAll()
 		{

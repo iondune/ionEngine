@@ -31,9 +31,6 @@
     <ClInclude Include="ionWindow.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CGamePad.h" />
-    <ClInclude Include="EGamePadButton.h">
-      <Filter>Events</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Events">

@@ -100,17 +100,20 @@ namespace ion
 			{
 				bool Succeeded = true;
 
-				GLenum Error = glGetError();
-				if (Error != GL_NO_ERROR)
+				if (glGetError)
 				{
-					c8 const * const ErrorString = glErrorString(Error);
-					if (Before)
+					GLenum Error = glGetError();
+					if (Error != GL_NO_ERROR)
 					{
-						Log::Error("OpenGL error before '%s': '%s'", Before, ErrorString);
-					}
-					else
-					{
-						Log::Error("OpenGL error: '%s'", ErrorString);
+						c8 const * const ErrorString = glErrorString(Error);
+						if (Before)
+						{
+							Log::Error("OpenGL error before '%s': '%s'", Before, ErrorString);
+						}
+						else
+						{
+							Log::Error("OpenGL error: '%s'", ErrorString);
+						}
 					}
 				}
 			}
@@ -119,17 +122,20 @@ namespace ion
 			{
 				bool Succeeded = true;
 
-				GLenum Error = glGetError();
-				if (Error != GL_NO_ERROR)
+				if (glGetError)
 				{
-					c8 const * const ErrorString = glErrorString(Error);
-					Log::Error("OpenGL error in file '%s' at line %d calling function '%s': '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
+					GLenum Error = glGetError();
+					if (Error != GL_NO_ERROR)
+					{
+						c8 const * const ErrorString = glErrorString(Error);
+						Log::Error("OpenGL error in file '%s' at line %d calling function '%s': '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
+					}
 				}
 			}
 
 			bool CheckGLFunctionPointer(void * Ptr, char const * const FunctionName)
 			{
-				if (! Ptr)
+				if (nullptr == Ptr)
 				{
 					Log::Error("OpenGL function is not loaded, must not be supported in current context: %s", FunctionName);
 					return false;

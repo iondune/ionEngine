@@ -31,7 +31,6 @@
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWindowManager.h" />
-    <ClInclude Include="EGamePadButton.h" />
     <ClInclude Include="EKey.h" />
     <ClInclude Include="ionWindow.h" />
     <ClInclude Include="SKeyboardEvent.h" />

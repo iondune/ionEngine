@@ -17,15 +17,15 @@ int main()
 
 	Log::AddDefaultOutputs();
 
+	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CSceneManager> SceneManager;
 
-	WindowManager->Init();
+	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	WindowManager->Init(GraphicsAPI);
+	SceneManager->Init();
+
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoScene", EWindowType::Windowed);
-
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	SceneManager->Init(GraphicsAPI);
-
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 	RenderTarget->SetClearColor(color3f(0.3f));
@@ -53,7 +53,7 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI, Context);
+	CRenderPass * RenderPass = new CRenderPass(Context);
 	RenderPass->SetRenderTarget(RenderTarget);
 	SceneManager->AddRenderPass(RenderPass);
 

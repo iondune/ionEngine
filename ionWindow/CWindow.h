@@ -9,53 +9,58 @@
 
 struct GLFWwindow;
 
-class CWindow : public IEventListener
+namespace ion
 {
 
-	friend class CWindowManager;
+	class CWindow : public IEventListener
+	{
 
-public:
+		friend class CWindowManager;
 
-	void MakeContextCurrent();
-	bool ShouldClose() const;
-	void Close();
-	vec2i const & GetSize() const;
-	f32 GetAspectRatio() const;
-	void SwapBuffers();
+	public:
 
-	vec2i GetPosition() const;
-	void SetPosition(vec2i const & Position);
+		void MakeContextCurrent();
+		bool ShouldClose() const;
+		void Close();
+		vec2i const & GetSize() const;
+		f32 GetAspectRatio() const;
+		void SwapBuffers();
 
-	bool IsKeyDown(EKey const Key);
-	bool IsMouseDown(SMouseEvent::EButton const Button);
+		vec2i GetPosition() const;
+		void SetPosition(vec2i const & Position);
 
-	vec2f const & GetCursorLocation() const;
-	void SetCursorLocation(vec2f const & position);
+		bool IsKeyDown(EKey const Key);
+		bool IsMouseDown(SMouseEvent::EButton const Button);
 
-	vec2f GetRelativeCursorLocation() const;
-	void SetRelativeCursorLocation(vec2f const & position);
+		vec2f const & GetCursorLocation() const;
+		void SetCursorLocation(vec2f const & position);
 
-	GLFWwindow * const GetHandle() const;
+		vec2f GetRelativeCursorLocation() const;
+		void SetRelativeCursorLocation(vec2f const & position);
 
-	string GetClipboardText() const;
-	void SetClipboardText(string const & Text);
+		GLFWwindow * const GetHandle() const;
 
-	bool IsFocused() const;
+		string GetClipboardText() const;
+		void SetClipboardText(string const & Text);
 
-protected:
+		bool IsFocused() const;
 
-	GLFWwindow * const WindowHandle;
+	protected:
 
-	bool KeyStates[(int) EKey::Count];
-	bool MouseStates[(int) SMouseEvent::EButton::Count];
-	vec2f CursorLocation;
+		GLFWwindow * const WindowHandle;
 
-	vec2i Size;
+		bool KeyStates[(int) EKey::Count];
+		bool MouseStates[(int) SMouseEvent::EButton::Count];
+		vec2f CursorLocation;
 
-private:
+		vec2i Size;
 
-	CWindow(GLFWwindow * windowHandle);
+	private:
 
-	static CWindow * CurrentContext;
+		CWindow(GLFWwindow * windowHandle);
 
-};
+		static CWindow * CurrentContext;
+
+	};
+
+}

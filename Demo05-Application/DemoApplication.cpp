@@ -18,18 +18,20 @@ int main()
 
 	Log::AddDefaultOutputs();
 
+	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CTimeManager> TimeManager;
 	SingletonPointer<CSceneManager> SceneManager;
 	SingletonPointer<CAssetManager> AssetManager;
 
-	WindowManager->Init();
+	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	WindowManager->Init(GraphicsAPI);
+	SceneManager->Init();
+	AssetManager->Init();
+
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoApplication", EWindowType::Windowed);
 	TimeManager->Init();
 
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
-	SceneManager->Init(GraphicsAPI);
-	AssetManager->Init(GraphicsAPI);
 	AssetManager->SetAssetPath("Assets/");
 	AssetManager->SetShaderPath("Shaders/");
 	AssetManager->SetTexturePath("Images/");
@@ -60,7 +62,7 @@ int main()
 	// ionScene Setup //
 	////////////////////
 
-	CRenderPass * RenderPass = new CRenderPass(GraphicsAPI, Context);
+	CRenderPass * RenderPass = new CRenderPass(Context);
 	RenderPass->SetRenderTarget(RenderTarget);
 	SceneManager->AddRenderPass(RenderPass);
 

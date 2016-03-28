@@ -4,7 +4,7 @@
 #include <ionCore.h>
 #include <ionMath.h>
 
-#include "COpenGLAPI.h"
+#include "COpenGLImplementation.h"
 
 
 namespace ion

@@ -24,7 +24,9 @@
     <Link>
       <AdditionalDependencies>
         ;ionFramework.lib;
+        ;ionGraphics.lib;
         ;ionWindow.lib;
+        ;ionGraphicsGL.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>

@@ -7,6 +7,61 @@ namespace ion
 	namespace Scene
 	{
 
+		SSimpleMaterial::SSimpleMaterial()
+		{
+			Shininess = 1000.0f;
+			Ambient = SColorf(0.05f);
+			Diffuse = SColorf(0.9f);
+			Specular = SColorf(1.f);
+		}
+
+		void SSimpleMaterial::LoadTextures()
+		{
+			static auto LoadTexture = [](CImage * Image) -> SharedPointer<Graphics::ITexture2D>
+			{
+				static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
+				SharedPointer<Graphics::ITexture2D> Texture;
+				if (Image)
+				{
+					Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+					switch (Image->GetChannels())
+					{
+					case 2:
+						Format = Graphics::ITexture::EFormatComponents::RG;
+						break;
+					case 3:
+						Format = Graphics::ITexture::EFormatComponents::RGB;
+						break;
+					case 4:
+						Format = Graphics::ITexture::EFormatComponents::RGBA;
+						break;
+					}
+					Texture = GraphicsAPI->CreateTexture2D(
+						Image->GetSize(),
+						Graphics::ITexture::EMipMaps::True,
+						Format,
+						Graphics::ITexture::EInternalFormatType::Fix8);
+					Texture->Upload(
+						Image->GetData(),
+						Image->GetSize(),
+						Format,
+						Graphics::EScalarType::UnsignedInt8);
+				}
+				return Texture;
+			};
+
+			if (! DiffuseTexture)
+			{
+				DiffuseTexture = LoadTexture(DiffuseImage);
+			}
+
+			if (! AmbientTexture)
+			{
+				AmbientTexture = LoadTexture(AmbientImage);
+			}
+		}
+
 		CSimpleMesh::SVertex::SVertex()
 		{}
 
@@ -128,8 +183,10 @@ namespace ion
 			});
 		}
 
-		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer()
 		{
+			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
 			vector<u32> IndexData;
 			IndexData.reserve(Triangles.size() * 3);
 
@@ -146,8 +203,10 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		SharedPointer<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer()
 		{
+			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
 			vector<float> VertexData;
 			VertexData.reserve(Vertices.size() * 12);
 

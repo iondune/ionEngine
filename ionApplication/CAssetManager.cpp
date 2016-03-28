@@ -5,10 +5,8 @@
 namespace ion
 {
 
-	void CAssetManager::Init(Graphics::IGraphicsAPI * GraphicsAPI)
-	{
-		this->GraphicsAPI = GraphicsAPI;
-	}
+	void CAssetManager::Init()
+	{}
 
 	SharedPointer<Graphics::IShaderProgram> CAssetManager::LoadShader(string const & Name)
 	{
