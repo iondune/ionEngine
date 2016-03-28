@@ -128,7 +128,7 @@ namespace ion
 			});
 		}
 
-		SharedPtr<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
 			vector<u32> IndexData;
 			IndexData.reserve(Triangles.size() * 3);
@@ -141,12 +141,12 @@ namespace ion
 				}
 			});
 
-			SharedPtr<Graphics::IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
+			SharedPointer<Graphics::IIndexBuffer> IndexBuffer = GraphicsAPI->CreateIndexBuffer();
 			IndexBuffer->UploadData(IndexData);
 			return IndexBuffer;
 		}
 
-		SharedPtr<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
 			vector<float> VertexData;
 			VertexData.reserve(Vertices.size() * 12);
@@ -167,7 +167,7 @@ namespace ion
 				}
 			});
 
-			SharedPtr<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
+			SharedPointer<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
 			VertexBuffer->UploadData(VertexData);
 			Graphics::SInputLayoutElement InputLayout[] =
 			{

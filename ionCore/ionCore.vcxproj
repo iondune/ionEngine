@@ -10,16 +10,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}</ProjectGuid>
     <RootNamespace>ionCore</RootNamespace>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
-
   <ItemGroup>
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionComponent.h" />
@@ -29,11 +26,10 @@
     <ClInclude Include="ionStandardLibrary.h" />
     <ClInclude Include="ionThread.h" />
     <ClInclude Include="ionRand.h" />
-    <ClInclude Include="ionSmartPtr.h" />
+    <ClInclude Include="ionSmartPointer.h" />
     <ClInclude Include="ionTreeNode.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionUtils.h" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

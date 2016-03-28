@@ -26,8 +26,8 @@ int main()
 	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 	SceneManager->Init(GraphicsAPI);
 
-	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
-	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 
@@ -35,8 +35,8 @@ int main()
 	// Create Shader //
 	///////////////////
 
-	SharedPtr<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
-	SharedPtr<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
+	SharedPointer<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
+	SharedPointer<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
@@ -44,7 +44,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	SharedPtr<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPointer<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 

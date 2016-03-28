@@ -19,7 +19,7 @@ namespace ion
 			{
 			}
 
-			void CPipelineState::SetProgram(SharedPtr<IShaderProgram> inShaderProgram)
+			void CPipelineState::SetProgram(SharedPointer<IShaderProgram> inShaderProgram)
 			{
 				if (inShaderProgram)
 				{
@@ -43,7 +43,7 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::SetVertexBuffer(uint const Index, SharedPtr<IVertexBuffer> inVertexBuffer)
+			void CPipelineState::SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> inVertexBuffer)
 			{
 				if (Index >= VertexBuffers.size())
 				{
@@ -56,7 +56,7 @@ namespace ion
 				Loaded = false;
 			}
 
-			void CPipelineState::SetIndexBuffer(SharedPtr<IIndexBuffer> inIndexBuffer)
+			void CPipelineState::SetIndexBuffer(SharedPointer<IIndexBuffer> inIndexBuffer)
 			{
 				IndexBuffer = std::dynamic_pointer_cast<CIndexBuffer>(inIndexBuffer);
 				Window->MakeContextCurrent();
@@ -67,7 +67,7 @@ namespace ion
 				Loaded = false;
 			}
 
-			void CPipelineState::SetUniform(string const & Name, SharedPtr<IUniform> Uniform)
+			void CPipelineState::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
 				if (! ShaderProgram)
 				{
@@ -100,7 +100,7 @@ namespace ion
 				}
 			}
 
-			void CPipelineState::SetTexture(string const & Name, SharedPtr<ITexture> Texture)
+			void CPipelineState::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
 				if (! ShaderProgram)
 				{
@@ -160,7 +160,7 @@ namespace ion
 				this->BlendMode = BlendMode;
 			}
 
-			void CPipelineState::OfferUniform(string const & Name, SharedPtr<IUniform> Uniform)
+			void CPipelineState::OfferUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
 				if (! ShaderProgram)
 				{
@@ -177,6 +177,27 @@ namespace ion
 				if (UnboundUniforms.count(Name) == 1)
 				{
 					Uniforms[Name] = Uniform;
+					UnboundUniforms.erase(Name);
+				}
+			}
+
+			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
+			{
+				if (! ShaderProgram)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				if (! Texture)
+				{
+					Log::Error("Invalid paramter to CPipelineState::OfferTexture: expected non-null Texture");
+					return;
+				}
+
+				if (UnboundUniforms.count(Name) == 1)
+				{
+					Textures[Name] = Texture;
 					UnboundUniforms.erase(Name);
 				}
 			}

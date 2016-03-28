@@ -16,7 +16,7 @@ namespace ion
 		namespace GL
 		{
 
-			SharedPtr<IRenderTarget> CGraphicsContext::GetBackBuffer()
+			SharedPointer<IRenderTarget> CGraphicsContext::GetBackBuffer()
 			{
 				return MakeShared<CRenderTarget>(Window);
 			}
@@ -26,35 +26,35 @@ namespace ion
 				this->Window = Window;
 			}
 
-			SharedPtr<IPipelineState> CGraphicsContext::CreatePipelineState()
+			SharedPointer<IPipelineState> CGraphicsContext::CreatePipelineState()
 			{
-				SharedPtr<CPipelineState> PipelineState = MakeShared<GL::CPipelineState>(Window);
+				SharedPointer<CPipelineState> PipelineState = MakeShared<GL::CPipelineState>(Window);
 				Window->MakeContextCurrent();
 				SafeGLCall(glGenVertexArrays, (1, & PipelineState->VertexArrayHandle));
 				return PipelineState;
 			}
 
-			void CGraphicsContext::Draw(SharedPtr<IPipelineState> State)
+			void CGraphicsContext::Draw(SharedPointer<IPipelineState> State)
 			{
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
-				SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 				InternalDrawTeardown(State);
 			}
 
-			void CGraphicsContext::DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount)
+			void CGraphicsContext::DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount)
 			{
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
-				SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				CheckedGLCall(glDrawElementsInstanced(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
 				InternalDrawTeardown(State);
 			}
 
-			void CGraphicsContext::InternalDrawSetup(SharedPtr<IPipelineState> State)
+			void CGraphicsContext::InternalDrawSetup(SharedPointer<IPipelineState> State)
 			{
-				SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				if (! PipelineState->Loaded)
 				{
 					PipelineState->Load();
@@ -132,7 +132,7 @@ namespace ion
 					CheckedGLCall(glUniform1i(it.first, TextureIndex));
 					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 
-					SharedPtr<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
+					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
 					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
 				}
 
@@ -173,9 +173,9 @@ namespace ion
 				}
 			}
 
-			void CGraphicsContext::InternalDrawTeardown(SharedPtr<IPipelineState> State)
+			void CGraphicsContext::InternalDrawTeardown(SharedPointer<IPipelineState> State)
 			{
-				SharedPtr<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				if (PipelineState->DrawWireframe)
 				{
 					CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
@@ -202,7 +202,7 @@ namespace ion
 				for (auto const & it : PipelineState->BoundTextures)
 				{
 					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-					SharedPtr<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
+					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
 					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
 				}
 

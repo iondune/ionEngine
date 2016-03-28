@@ -27,12 +27,12 @@ namespace ion
 			return Attributes.size();
 		}
 
-		map<string, SharedPtr<Graphics::IUniform>> const & ILight::GetAttributes() const
+		map<string, SharedPointer<Graphics::IUniform>> const & ILight::GetAttributes() const
 		{
 			return Attributes;
 		}
 
-		SharedPtr<Graphics::IUniform const> ILight::GetAttributeByName(string const & Name) const
+		SharedPointer<Graphics::IUniform const> ILight::GetAttributeByName(string const & Name) const
 		{
 			return ConditionalMapAccess(Attributes, Name);
 		}

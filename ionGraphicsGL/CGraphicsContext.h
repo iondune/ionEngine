@@ -24,18 +24,18 @@ namespace ion
 
 				CGraphicsContext(CWindow * Window);
 
-				SharedPtr<IPipelineState> CreatePipelineState();
-				SharedPtr<IRenderTarget> GetBackBuffer();
+				SharedPointer<IPipelineState> CreatePipelineState();
+				SharedPointer<IRenderTarget> GetBackBuffer();
 
-				void Draw(SharedPtr<IPipelineState> State);
-				void DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount);
+				void Draw(SharedPointer<IPipelineState> State);
+				void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount);
 
 				CWindow * Window = nullptr;
 
 			protected:
 
-				void InternalDrawSetup(SharedPtr<IPipelineState> State);
-				void InternalDrawTeardown(SharedPtr<IPipelineState> State);
+				void InternalDrawSetup(SharedPointer<IPipelineState> State);
+				void InternalDrawTeardown(SharedPointer<IPipelineState> State);
 
 			};
 

@@ -36,7 +36,7 @@ namespace ion
 
 	protected:
 
-		uniquePtr<byte[]> Data;
+		UniquePointer<byte[]> Data;
 		vec2u Size;
 		u8 Channels;
 

@@ -17,11 +17,11 @@ namespace ion
 
 		public:
 
-			virtual SharedPtr<IRenderTarget> GetBackBuffer() = 0;
-			virtual SharedPtr<IPipelineState> CreatePipelineState() = 0;
+			virtual SharedPointer<IRenderTarget> GetBackBuffer() = 0;
+			virtual SharedPointer<IPipelineState> CreatePipelineState() = 0;
 
-			virtual void Draw(SharedPtr<IPipelineState> State) = 0;
-			virtual void DrawInstanced(SharedPtr<IPipelineState> State, uint const InstanceCount) = 0;
+			virtual void Draw(SharedPointer<IPipelineState> State) = 0;
+			virtual void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount) = 0;
 
 		};
 

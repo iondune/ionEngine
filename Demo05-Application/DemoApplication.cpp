@@ -34,8 +34,8 @@ int main()
 	AssetManager->SetShaderPath("Shaders/");
 	AssetManager->SetTexturePath("Images/");
 
-	SharedPtr<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
-	SharedPtr<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
+	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 
@@ -47,12 +47,12 @@ int main()
 	CSimpleMesh * SkySphereMesh = CGeometryCreator::CreateSkySphere();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
-	SharedPtr<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
-	SharedPtr<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
-	SharedPtr<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
-	SharedPtr<IShaderProgram> SkySphereShader = AssetManager->LoadShader("SkySphere");
+	SharedPointer<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
+	SharedPointer<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
+	SharedPointer<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
+	SharedPointer<IShaderProgram> SkySphereShader = AssetManager->LoadShader("SkySphere");
 
-	SharedPtr<ITexture2D> SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
+	SharedPointer<ITexture2D> SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
 	SkyMap->SetMagFilter(ITexture::EFilter::Nearest);
 
 
@@ -150,9 +150,9 @@ int main()
 
 		float const Bright = 1;
 		float const Dim = 0.5f;
-		LightSphere1->GetMaterial().Diffuse->Value = color3f(Bright, Dim, Dim) * Brightness;
-		LightSphere2->GetMaterial().Diffuse->Value = color3f(Dim, Bright, Dim) * Brightness;
-		LightSphere3->GetMaterial().Diffuse->Value = color3f(Dim, Dim, Bright) * Brightness;
+		LightSphere1->GetMaterial().Diffuse = color3f(Bright, Dim, Dim) * Brightness;
+		LightSphere2->GetMaterial().Diffuse = color3f(Dim, Bright, Dim) * Brightness;
+		LightSphere3->GetMaterial().Diffuse = color3f(Dim, Dim, Bright) * Brightness;
 		LightSphere1->SetScale(Brightness);
 		LightSphere2->SetScale(Brightness);
 		LightSphere3->SetScale(Brightness);

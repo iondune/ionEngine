@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ionTypes.h"
-#include "ionSmartPtr.h"
+#include "ionSmartPointer.h"
 
 #include <tinyformat.h>
 
@@ -48,7 +48,7 @@ U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 }
 
 template <typename T, typename U>
-SharedPtr<U> ConditionalMapAccess(map<T, SharedPtr<U>> const & Map, T const Key)
+SharedPointer<U> ConditionalMapAccess(map<T, SharedPointer<U>> const & Map, T const Key)
 {
 	auto Iterator = Map.find(Key);
 

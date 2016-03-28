@@ -7,5 +7,6 @@ Dependencies/glm
 Dependencies/imgui
 Dependencies/Catch
 Dependencies/glad
+Dependencies/tinyobjloader
 Dependencies/dirent
 Dependencies/glfw-3.1.2.bin.WIN64

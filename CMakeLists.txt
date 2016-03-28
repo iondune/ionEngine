@@ -12,6 +12,7 @@ include_directories("${PROJECT_SOURCE_DIR}/Include")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # Dependencies
+include_directories("${PROJECT_SOURCE_DIR}/Dependencies")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/stb")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/tinyformat")
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glm")

@@ -121,20 +121,36 @@ namespace ion
 
 		public:
 
-			SharedPtr<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
+			SharedPointer<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
 
 			CUniform()
 			{}
 
+			CUniform(CUniform<T> const & copy)
+			{
+				Uniform->Value = copy.Uniform->Value;
+			}
+
 			CUniform(T const & value)
 			{
-				*Uniform = value;
+				Uniform->Value = value;
+			}
+
+			CUniform & operator = (CUniform<T> const & copy)
+			{
+				Uniform->Value = copy.Uniform->Value;
+				return * this;
 			}
 
 			CUniform & operator = (T const & value)
 			{
-				*Uniform = value;
+				Uniform->Value = value;
 				return * this;
+			}
+
+			T * operator ->()
+			{
+				return & Uniform->Value;
 			}
 
 			operator T () const
@@ -142,9 +158,14 @@ namespace ion
 				return *Uniform;
 			}
 
-			operator SharedPtr<IUniform> ()
+			operator SharedPointer<IUniform> ()
 			{
 				return Uniform;
+			}
+
+			T & Get()
+			{
+				return Uniform->Value;
 			}
 
 		};

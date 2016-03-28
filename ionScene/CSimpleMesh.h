@@ -11,6 +11,25 @@ namespace ion
 	namespace Scene
 	{
 
+		struct SSimpleMaterial
+		{
+
+			SSimpleMaterial();
+			void LoadTextures(Graphics::IGraphicsAPI * GraphicsAPI);
+
+			Graphics::CUniform<color3f> Ambient;
+			Graphics::CUniform<color3f> Diffuse;
+			Graphics::CUniform<color3f> Specular;
+			Graphics::CUniform<f32> Shininess;
+
+			CImage * DiffuseImage = nullptr;
+			CImage * AmbientImage = nullptr;
+
+			SharedPointer<Graphics::ITexture> DiffuseTexture;
+			SharedPointer<Graphics::ITexture> AmbientTexture;
+
+		};
+
 		class CSimpleMesh
 		{
 
@@ -44,6 +63,7 @@ namespace ion
 
 			vector<SVertex> Vertices;
 			vector<STriangle> Triangles;
+			SSimpleMaterial Material;
 
 			static CSimpleMesh * FromAttributes(vector<uint> Indices,
 				vector<f32> const & Positions,
@@ -59,8 +79,8 @@ namespace ion
 			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 
-			SharedPtr<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
-			SharedPtr<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
+			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 
 
 		};

@@ -29,11 +29,11 @@ TEST_CASE("IEntity::AddComponent")
 	CComponent * C = new CComponent();
 	AComponent * A2 = new CComponent();
 
-	REQUIRE(A == Entity->AddComponent(A));
-	REQUIRE(A == Entity->AddComponent(A));
-	REQUIRE(B == Entity->AddComponent(B));
-	REQUIRE(C == Entity->AddComponent(C));
-	REQUIRE(A2 == Entity->AddComponent(A2));
+	CHECK(A == Entity->AddComponent(A));
+	CHECK(A == Entity->AddComponent(A));
+	CHECK(B == Entity->AddComponent(B));
+	CHECK(C == Entity->AddComponent(C));
+	CHECK(A2 == Entity->AddComponent(A2));
 }
 
 TEST_CASE("IEntity::GetComponentCount")
@@ -44,29 +44,29 @@ TEST_CASE("IEntity::GetComponentCount")
 	CComponent * C = new CComponent();
 	AComponent * A2 = new CComponent();
 
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 0);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 0);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 0);
+	CHECK(Entity->GetComponentCount<AComponent>() == 0);
+	CHECK(Entity->GetComponentCount<BComponent>() == 0);
+	CHECK(Entity->GetComponentCount<CComponent>() == 0);
 	Entity->AddComponent(A);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 0);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 0);
+	CHECK(Entity->GetComponentCount<AComponent>() == 1);
+	CHECK(Entity->GetComponentCount<BComponent>() == 0);
+	CHECK(Entity->GetComponentCount<CComponent>() == 0);
 	Entity->AddComponent(A);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 2);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 0);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 0);
+	CHECK(Entity->GetComponentCount<AComponent>() == 2);
+	CHECK(Entity->GetComponentCount<BComponent>() == 0);
+	CHECK(Entity->GetComponentCount<CComponent>() == 0);
 	Entity->AddComponent(B);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 2);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 0);
+	CHECK(Entity->GetComponentCount<AComponent>() == 2);
+	CHECK(Entity->GetComponentCount<BComponent>() == 1);
+	CHECK(Entity->GetComponentCount<CComponent>() == 0);
 	Entity->AddComponent(C);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 2);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 1);
+	CHECK(Entity->GetComponentCount<AComponent>() == 2);
+	CHECK(Entity->GetComponentCount<BComponent>() == 1);
+	CHECK(Entity->GetComponentCount<CComponent>() == 1);
 	Entity->AddComponent(A2);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 3);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<CComponent>() == 1);
+	CHECK(Entity->GetComponentCount<AComponent>() == 3);
+	CHECK(Entity->GetComponentCount<BComponent>() == 1);
+	CHECK(Entity->GetComponentCount<CComponent>() == 1);
 }
 
 template <typename TComponent>
@@ -94,29 +94,29 @@ TEST_CASE("IEntity::GetComponents")
 	CComponent * C = new CComponent();
 	AComponent * A2 = new CComponent();
 
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
 	Entity->AddComponent(A);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
 	Entity->AddComponent(A);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
 	Entity->AddComponent(B);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {}));
 	Entity->AddComponent(C);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {C}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {C}));
 	Entity->AddComponent(A2);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A, A2}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {C}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {A, A, A2}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {B}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<CComponent>(), {C}));
 }
 
 TEST_CASE("IEntity::ExpectSingleComponent")
@@ -127,71 +127,71 @@ TEST_CASE("IEntity::ExpectSingleComponent")
 	CComponent * C = new CComponent(), * CTest = nullptr;
 	AComponent * A2 = new CComponent(), * A2Test = nullptr;
 
-	REQUIRE(Entity->ExpectSingleComponent(ATest) == 0);
-	REQUIRE(! ATest);
-	REQUIRE(Entity->ExpectSingleComponent(BTest) == 0);
-	REQUIRE(! BTest);
-	REQUIRE(Entity->ExpectSingleComponent(CTest) == 0);
-	REQUIRE(! CTest);
+	CHECK(Entity->ExpectSingleComponent(ATest) == 0);
+	CHECK(! ATest);
+	CHECK(Entity->ExpectSingleComponent(BTest) == 0);
+	CHECK(! BTest);
+	CHECK(Entity->ExpectSingleComponent(CTest) == 0);
+	CHECK(! CTest);
 
 	Entity->AddComponent(A);
 
-	REQUIRE(Entity->ExpectSingleComponent(ATest) == 1);
-	REQUIRE(ATest == A);
-	REQUIRE(Entity->ExpectSingleComponent(BTest) == 0);
-	REQUIRE(! BTest);
-	REQUIRE(Entity->ExpectSingleComponent(CTest) == 0);
-	REQUIRE(! CTest);
+	CHECK(Entity->ExpectSingleComponent(ATest) == 1);
+	CHECK(ATest == A);
+	CHECK(Entity->ExpectSingleComponent(BTest) == 0);
+	CHECK(! BTest);
+	CHECK(Entity->ExpectSingleComponent(CTest) == 0);
+	CHECK(! CTest);
 
 	Entity->AddComponent(A);
 	ATest = nullptr;
 
-	REQUIRE(Entity->ExpectSingleComponent(ATest) == 2);
-	REQUIRE(ATest == A);
-	REQUIRE(Entity->ExpectSingleComponent(BTest) == 0);
-	REQUIRE(! BTest);
-	REQUIRE(Entity->ExpectSingleComponent(CTest) == 0);
-	REQUIRE(! CTest);
+	CHECK(Entity->ExpectSingleComponent(ATest) == 2);
+	CHECK(ATest == A);
+	CHECK(Entity->ExpectSingleComponent(BTest) == 0);
+	CHECK(! BTest);
+	CHECK(Entity->ExpectSingleComponent(CTest) == 0);
+	CHECK(! CTest);
 
 	Entity->AddComponent(B);
 	Entity->AddComponent(C);
 	Entity->AddComponent(A2);
 	ATest = nullptr;
 
-	REQUIRE(Entity->ExpectSingleComponent(ATest) == 3);
-	REQUIRE(ATest == A);
-	REQUIRE(Entity->ExpectSingleComponent(BTest) == 1);
-	REQUIRE(BTest == B);
-	REQUIRE(Entity->ExpectSingleComponent(CTest) == 1);
-	REQUIRE(CTest == C);
+	CHECK(Entity->ExpectSingleComponent(ATest) == 3);
+	CHECK(ATest == A);
+	CHECK(Entity->ExpectSingleComponent(BTest) == 1);
+	CHECK(BTest == B);
+	CHECK(Entity->ExpectSingleComponent(CTest) == 1);
+	CHECK(CTest == C);
 }
 
-TEST_CASE("IEntity::RequireSingleComponent")
+TEST_CASE("IEntity::CHECKSingleComponent")
 {
 	IEntity<Component> * Entity = new IEntity<Component>();
 	AComponent * ATest = nullptr;
 	BComponent * BTest = nullptr;
 
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 0);
+	CHECK(Entity->GetComponentCount<AComponent>() == 0);
 	ATest = Entity->RequireSingleComponent<AComponent>();
-	REQUIRE(ATest);
-	REQUIRE(ATest->foo());
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 1);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
-	REQUIRE(ATest == Entity->RequireSingleComponent<AComponent>());
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 1);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
+	CHECK(ATest);
+	CHECK(ATest->foo());
+	CHECK(Entity->GetComponentCount<AComponent>() == 1);
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
+	CHECK(ATest == Entity->RequireSingleComponent<AComponent>());
+	CHECK(Entity->GetComponentCount<AComponent>() == 1);
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
 
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 0);
+	CHECK(Entity->GetComponentCount<BComponent>() == 0);
 	BTest = Entity->RequireSingleComponent<BComponent>();
-	REQUIRE(BTest);
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 1);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {BTest}));
-	REQUIRE(BTest == Entity->RequireSingleComponent<BComponent>());
-	REQUIRE(Entity->GetComponentCount<AComponent>() == 1);
-	REQUIRE(Entity->GetComponentCount<BComponent>() == 1);
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
-	REQUIRE(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {BTest}));
+	CHECK(BTest);
+	CHECK(Entity->GetComponentCount<AComponent>() == 1);
+	CHECK(Entity->GetComponentCount<BComponent>() == 1);
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {BTest}));
+	CHECK(BTest == Entity->RequireSingleComponent<BComponent>());
+	CHECK(Entity->GetComponentCount<AComponent>() == 1);
+	CHECK(Entity->GetComponentCount<BComponent>() == 1);
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<AComponent>(), {ATest}));
+	CHECK(CheckRangeEquals<Component>(Entity->GetComponents<BComponent>(), {BTest}));
 }

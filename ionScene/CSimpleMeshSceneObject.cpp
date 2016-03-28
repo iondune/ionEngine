@@ -26,13 +26,15 @@ namespace ion
 			PipelineState->SetIndexBuffer(IndexBuffer = Mesh->CreateIndexBuffer(RenderPass->GetGraphicsAPI()));
 			PipelineState->SetVertexBuffer(0, VertexBuffer = Mesh->CreateVertexBuffer(RenderPass->GetGraphicsAPI()));
 
+			Material.LoadTextures(RenderPass->GetGraphicsAPI());
+
 			PipelineState->SetProgram(Shader);
 
-			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPtr<Graphics::ITexture>> const & Iterator)
+			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
-			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPtr<Graphics::IUniform>> const & Iterator)
+			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPointer<Graphics::IUniform>> const & Iterator)
 			{
 				PipelineState->SetUniform(Iterator.first, Iterator.second);
 			});
@@ -41,6 +43,15 @@ namespace ion
 			PipelineState->OfferUniform("uMaterial.DiffuseColor", Material.Diffuse);
 			PipelineState->OfferUniform("uMaterial.SpecularColor", Material.Specular);
 			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
+			if (Material.DiffuseTexture)
+			{
+				PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
+			}
+
+			for (auto Pair : DrawFeatures)
+			{
+				PipelineState->SetFeatureEnabled(Pair.first, Pair.second);
+			}
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -57,16 +68,17 @@ namespace ion
 		void CSimpleMeshSceneObject::SetMesh(CSimpleMesh * Mesh)
 		{
 			this->Mesh = Mesh;
+			this->Material = Mesh->Material;
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetShader(SharedPtr<Graphics::IShaderProgram> Shader)
+		void CSimpleMeshSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
 		{
 			this->Shader = Shader;
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetTexture(string const & Name, SharedPtr<Graphics::ITexture> Texture)
+		void CSimpleMeshSceneObject::SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture)
 		{
 			if (Texture)
 			{
@@ -79,7 +91,7 @@ namespace ion
 			Loaded = false;
 		}
 
-		void CSimpleMeshSceneObject::SetUniform(string const & Name, SharedPtr<Graphics::IUniform> Uniform)
+		void CSimpleMeshSceneObject::SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform)
 		{
 			if (Uniform)
 			{
@@ -90,6 +102,16 @@ namespace ion
 				Uniforms.erase(Name);
 			}
 			Loaded = false;
+		}
+
+		void CSimpleMeshSceneObject::SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled)
+		{
+			if (PipelineState)
+			{
+				PipelineState->SetFeatureEnabled(Feature, Enabled);
+			}
+
+			DrawFeatures[Feature] = Enabled;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()

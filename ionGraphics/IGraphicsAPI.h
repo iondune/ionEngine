@@ -23,20 +23,20 @@ namespace ion
 
 		public:
 
-			virtual SharedPtr<IVertexShader> CreateVertexShaderFromFile(string const & FileName) = 0;
-			virtual SharedPtr<IPixelShader> CreatePixelShaderFromFile(string const & FileName) = 0;
-			virtual SharedPtr<IVertexShader> CreateVertexShaderFromSource(string const & Source) = 0;
-			virtual SharedPtr<IPixelShader> CreatePixelShaderFromSource(string const & Source) = 0;
+			virtual SharedPointer<IVertexShader> CreateVertexShaderFromFile(string const & FileName) = 0;
+			virtual SharedPointer<IPixelShader> CreatePixelShaderFromFile(string const & FileName) = 0;
+			virtual SharedPointer<IVertexShader> CreateVertexShaderFromSource(string const & Source) = 0;
+			virtual SharedPointer<IPixelShader> CreatePixelShaderFromSource(string const & Source) = 0;
 
-			virtual SharedPtr<IShaderProgram> CreateShaderProgram() = 0;
+			virtual SharedPointer<IShaderProgram> CreateShaderProgram() = 0;
 
-			virtual SharedPtr<IVertexBuffer> CreateVertexBuffer() = 0;
-			virtual SharedPtr<IIndexBuffer> CreateIndexBuffer() = 0;
+			virtual SharedPointer<IVertexBuffer> CreateVertexBuffer() = 0;
+			virtual SharedPointer<IIndexBuffer> CreateIndexBuffer() = 0;
 
-			virtual SharedPtr<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
-			virtual SharedPtr<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
+			virtual SharedPointer<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
+			virtual SharedPointer<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type) = 0;
 
-			virtual SharedPtr<IGraphicsContext> GetWindowContext(CWindow * Window) = 0;
+			virtual SharedPointer<IGraphicsContext> GetWindowContext(CWindow * Window) = 0;
 
 		};
 
