@@ -4,4 +4,9 @@
 #include "EKey.h"
 
 
-EKey const ConvertGLFWKeyCode(int const Code);
+namespace ion
+{
+
+	EKey const ConvertGLFWKeyCode(int const Code);
+
+}

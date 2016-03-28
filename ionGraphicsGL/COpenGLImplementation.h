@@ -11,15 +11,16 @@ namespace ion
 	namespace Graphics
 	{
 
-		class COpenGLAPI : public IGraphicsAPI
+		class COpenGLImplementation : public IGraphicsImplementation
 		{
 
 		public:
 
-			COpenGLAPI();
+			COpenGLImplementation();
 
-			SharedPointer<IVertexShader> CreateVertexShaderFromFile(string const & FileName);
-			SharedPointer<IPixelShader> CreatePixelShaderFromFile(string const & FileName);
+			void PreWindowCreationSetup();
+			void PostWindowCreationSetup();
+
 			SharedPointer<IVertexShader> CreateVertexShaderFromSource(string const & Source);
 			SharedPointer<IPixelShader> CreatePixelShaderFromSource(string const & Source);
 
@@ -32,6 +33,7 @@ namespace ion
 			SharedPointer<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
 			SharedPointer<IGraphicsContext> GetWindowContext(CWindow * Window);
+
 		};
 	}
 }

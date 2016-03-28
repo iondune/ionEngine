@@ -16,7 +16,7 @@ namespace ion
 
 	public:
 
-		void Init(Graphics::IGraphicsAPI * GraphicsAPI);
+		void Init();
 
 		SharedPointer<Graphics::IShaderProgram> LoadShader(string const & Name);
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName);
@@ -27,7 +27,7 @@ namespace ion
 
 	protected:
 
-		Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
+		SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 		string AssetPath;
 		string TexturePath;

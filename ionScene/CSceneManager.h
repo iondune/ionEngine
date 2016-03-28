@@ -17,7 +17,7 @@ namespace ion
 
 		public:
 
-			virtual void Init(Graphics::IGraphicsAPI * GraphicsAPI);
+			virtual void Init();
 			virtual void DrawAll();
 
 			virtual void AddRenderPass(CRenderPass * RenderPass);
@@ -25,7 +25,6 @@ namespace ion
 		protected:
 
 			set<CRenderPass *> RenderPasses;
-			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
 
 		private:
 

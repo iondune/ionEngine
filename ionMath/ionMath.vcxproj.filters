@@ -13,17 +13,11 @@
     <Filter Include="Vector\Implementations">
       <UniqueIdentifier>{4b3689d5-3e37-4e95-a6d1-65ef7fe87c2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{a0561f46-6721-4922-ad23-0eb06d9a9546}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SBoundingBox3.h">
-      <Filter>Vector\Extensions</Filter>
-    </ClInclude>
-    <ClInclude Include="SLine3.h">
-      <Filter>Vector\Extensions</Filter>
-    </ClInclude>
-    <ClInclude Include="SRect2.h">
-      <Filter>Vector\Extensions</Filter>
-    </ClInclude>
     <ClInclude Include="SVector.h">
       <Filter>Vector\Base</Filter>
     </ClInclude>
@@ -36,23 +30,32 @@
     <ClInclude Include="SVector3.h">
       <Filter>Vector\Implementations</Filter>
     </ClInclude>
-    <ClInclude Include="STransformation3.h">
-      <Filter>Vector\Extensions</Filter>
-    </ClInclude>
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="SVector4.h">
       <Filter>Vector\Implementations</Filter>
     </ClInclude>
-    <ClInclude Include="SPlane3.h">
-      <Filter>Vector\Extensions</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="STriangle3.h">
-      <Filter>Vector\Extensions</Filter>
+    <ClInclude Include="SBoundingBox3.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SLine3.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SPlane3.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SRect2.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="STransformation3.h">
+      <Filter>Geometry</Filter>
     </ClInclude>
     <ClInclude Include="STriangle2.h">
-      <Filter>Vector\Extensions</Filter>
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="STriangle3.h">
+      <Filter>Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@
 #include "ITexture.h"
 #include "IPipelineState.h"
 #include "IRenderTarget.h"
-#include "IGraphicsAPI.h"
+#include "CGraphicsAPI.h"
 
 
 namespace ion

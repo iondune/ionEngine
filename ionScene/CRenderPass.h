@@ -18,11 +18,11 @@ namespace ion
 
 		public:
 
-			CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPointer<Graphics::IGraphicsContext> GraphicsContext);
+			CRenderPass(SharedPointer<Graphics::IGraphicsContext> GraphicsContext);
 			virtual void SetRenderTarget(SharedPointer<Graphics::IRenderTarget> RenderTarget);
 
 			virtual string const & GetName() const;
-			virtual Graphics::IGraphicsAPI * GetGraphicsAPI();
+			virtual CGraphicsAPI * GetGraphicsAPI();
 			virtual SharedPointer<Graphics::IGraphicsContext> GetGraphicsContext();
 
 			virtual ICamera * GetActiveCamera();
@@ -50,7 +50,7 @@ namespace ion
 			vector<vector<std::tuple<ISceneObject *, SharedPointer<Graphics::IPipelineState>, uint>>> RenderQueue;
 			string Name;
 
-			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
+			SingletonPointer<CGraphicsAPI> GraphicsAPI;
 			SharedPointer<Graphics::IGraphicsContext> GraphicsContext;
 			SharedPointer<Graphics::IRenderTarget> RenderTarget;
 

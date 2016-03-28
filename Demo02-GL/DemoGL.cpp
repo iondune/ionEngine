@@ -17,14 +17,16 @@ int main()
 
 	Log::AddDefaultOutputs();
 
+	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CTimeManager> TimeManager;
-	WindowManager->Init();
+
+	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	WindowManager->Init(GraphicsAPI);
 	TimeManager->Init();
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 

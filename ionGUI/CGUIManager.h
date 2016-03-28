@@ -7,47 +7,52 @@
 #include <imgui.h>
 
 
-class CGUIManager : public Singleton<CGUIManager>, public IEventListener
+namespace ion
 {
 
-public:
+	class CGUIManager : public Singleton<CGUIManager>, public IEventListener
+	{
 
-	bool Init(CWindow * Window);
-	void Shutdown();
-	void NewFrame();
+	public:
 
-	void OnEvent(IEvent & Event);
-	void AddFontFromFile(string const & FileName, float const Size);
+		bool Init(CWindow * Window);
+		void Shutdown();
+		void NewFrame();
 
-	ImGuiIO & IO = ImGui::GetIO();
+		void OnEvent(IEvent & Event);
+		void AddFontFromFile(string const & FileName, float const Size);
 
-protected:
+		ImGuiIO & IO = ImGui::GetIO();
 
-	void DrawCallback(ImDrawData* draw_data);
-	void CreateFontsTexture();
-	bool CreateDeviceObjects();
+	protected:
 
-	size_t const StartVboMaxSize = 20000;
+		void DrawCallback(ImDrawData* draw_data);
+		void CreateFontsTexture();
+		bool CreateDeviceObjects();
 
-	CWindow * Window = nullptr;
-	double Time = 0;
-	bool MousePressed[3];
-	float MouseWheel = 0;
-	uint FontTexture = 0;
-	int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;
-	int AttribLocationTex = 0, AttribLocationProjMtx = 0;
-	int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
-	size_t VboSize = 0;
-	uint VboHandle = 0, VaoHandle = 0;
+		size_t const StartVboMaxSize = 20000;
 
-private:
+		CWindow * Window = nullptr;
+		double Time = 0;
+		bool MousePressed[3];
+		float MouseWheel = 0;
+		uint FontTexture = 0;
+		int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;
+		int AttribLocationTex = 0, AttribLocationProjMtx = 0;
+		int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
+		size_t VboSize = 0;
+		uint VboHandle = 0, VaoHandle = 0;
 
-	friend class Singleton<CGUIManager>;
+	private:
 
-	CGUIManager();
+		friend class Singleton<CGUIManager>;
 
-	friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
-	friend char const * ImGui_ImplGlfwGL3_GetClipboardText();
-	friend void ImGui_ImplGlfwGL3_SetClipboardText(const char* text);
+		CGUIManager();
 
-};
+		friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
+		friend char const * ImGui_ImplGlfwGL3_GetClipboardText();
+		friend void ImGui_ImplGlfwGL3_SetClipboardText(const char* text);
+
+	};
+
+}

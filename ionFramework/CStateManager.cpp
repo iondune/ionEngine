@@ -2,42 +2,47 @@
 #include "CStateManager.h"
 
 
-void CStateManager::SetState(IState * State)
+namespace ion
 {
-	NextState = State;
-}
 
-void CStateManager::DoStateChange()
-{
-	if (! NextState)
-		return;
-
-	if (CurrentState)
+	void CStateManager::SetState(IState * State)
 	{
-		RemoveListener(CurrentState);
-		CurrentState->End();
+		NextState = State;
 	}
 
-	CurrentState = NextState;
-	NextState = 0;
+	void CStateManager::DoStateChange()
+	{
+		if (! NextState)
+			return;
 
-	CurrentState->Begin();
-	AddListener(CurrentState);
+		if (CurrentState)
+		{
+			RemoveListener(CurrentState);
+			CurrentState->End();
+		}
+
+		CurrentState = NextState;
+		NextState = 0;
+
+		CurrentState->Begin();
+		AddListener(CurrentState);
+	}
+
+	void CStateManager::Update(f32 const ElapsedTime)
+	{
+		if (CurrentState)
+			CurrentState->Update(ElapsedTime);
+	}
+
+	void CStateManager::ShutDown()
+	{
+		if (CurrentState)
+			CurrentState->End();
+
+		CurrentState = 0;
+	}
+
+	CStateManager::CStateManager()
+	{}
+
 }
-
-void CStateManager::Update(f32 const ElapsedTime)
-{
-	if (CurrentState)
-		CurrentState->Update(ElapsedTime);
-}
-
-void CStateManager::ShutDown()
-{
-	if (CurrentState)
-		CurrentState->End();
-
-	CurrentState = 0;
-}
-
-CStateManager::CStateManager()
-{}

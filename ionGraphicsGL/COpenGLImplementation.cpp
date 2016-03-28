@@ -1,5 +1,5 @@
 
-#include "COpenGLAPI.h"
+#include "COpenGLImplementation.h"
 
 #include "Utilities.h"
 #include "CVertexBuffer.h"
@@ -13,6 +13,7 @@
 #include "CGraphicsContext.h"
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 
 static void PrintShaderInfoLog(GLint const Shader)
@@ -132,83 +133,44 @@ namespace ion
 			}
 		}
 
-		COpenGLAPI::COpenGLAPI()
+		COpenGLImplementation::COpenGLImplementation()
+		{}
+
+		void COpenGLImplementation::PreWindowCreationSetup()
 		{
-			static bool Initialized = false;
-
-			if (! Initialized)
-			{				
-				if (! gladLoadGL())
-				{
-					Log::Error("Error initializing glad!");
-				}
-
-				int Major = 0, Minor = 0;
-				byte const * VersionString = nullptr;
-				SafeGLAssignment(VersionString, glGetString, (GL_VERSION));
-				if (! VersionString)
-				{
-					Log::Error("Unable to get OpenGL version number.");
-				}
-				else if (sscanf((char const *) VersionString, "%d.%d", & Major, & Minor) != 2)
-				{
-					Log::Error("OpenGL version string in unknown format: %s", VersionString);
-				}
-				else if (Major < 2)
-				{
-					Log::Error("Your OpenGL Version Number (%s) "
-						"is not high enough for shaders. Please download and install the latest drivers "
-						"for your graphics hardware.", VersionString);
-				}
-
-				Log::Info("Your OpenGL Version Number: %s", VersionString);
-
-				// There is a good chance this method is not supported, and it is not considered
-				// an error if it is absent. So, we check manually.
-				if (glDebugMessageCallback)
-				{
-					SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
-				}
-				else
-				{
-					Log::Info("Your platform does not support OpenGL Debug Output");
-				}
-
-				SafeGLCall(glEnable, (GL_DEPTH_TEST));
-				SafeGLCall(glDepthFunc, (GL_LEQUAL));
-				Initialized = true;
-			}
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		}
 
-		SharedPointer<IVertexShader> COpenGLAPI::CreateVertexShaderFromFile(string const & FileName)
+		void COpenGLImplementation::PostWindowCreationSetup()
 		{
-			if (! File::Exists(FileName))
+			if (! gladLoadGL())
 			{
-				Log::Error("Vertex shader file does not appear to exist: %s", FileName);
+				Log::Error("Error initializing glad!");
 			}
-			SharedPointer<IVertexShader> VertexShader = CreateVertexShaderFromSource(File::ReadAsString(FileName));
-			if (! VertexShader)
+
+			Log::Info("Your OpenGL Version Number: %d.%d", GLVersion.major, GLVersion.minor);
+
+
+			// There is a good chance this method is not supported, and it is not considered
+			// an error if it is absent. So, we check manually.
+			if (glDebugMessageCallback)
 			{
-				Log::Error("Failed to compile vertex shader from file '%s'", FileName);
+				SafeGLCall(glDebugMessageCallback, (DebugMessageCallback, nullptr));
 			}
-			return VertexShader;
+			else
+			{
+				Log::Info("Your platform does not support OpenGL Debug Output");
+			}
+
+			SafeGLCall(glEnable, (GL_DEPTH_TEST));
+			SafeGLCall(glDepthFunc, (GL_LEQUAL));
 		}
 
-		SharedPointer<IPixelShader> COpenGLAPI::CreatePixelShaderFromFile(string const & FileName)
-		{
-			if (! File::Exists(FileName))
-			{
-				Log::Error("Pixel shader file does not appear to exist: %s", FileName);
-			}
-			SharedPointer<IPixelShader> PixelShader = CreatePixelShaderFromSource(File::ReadAsString(FileName));
-			if (! PixelShader)
-			{
-				Log::Error("Failed to compile pixel shader from file '%s'", FileName);
-			}
-			return PixelShader;
-		}
-
-		SharedPointer<IVertexShader> COpenGLAPI::CreateVertexShaderFromSource(string const & Source)
+		SharedPointer<IVertexShader> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
 		{
 			SharedPointer<GL::CVertexShader> VertexShader = std::make_shared<GL::CVertexShader>();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
@@ -228,7 +190,7 @@ namespace ion
 			return VertexShader;
 		}
 
-		SharedPointer<IPixelShader> COpenGLAPI::CreatePixelShaderFromSource(string const & Source)
+		SharedPointer<IPixelShader> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
 		{
 			SharedPointer<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
@@ -248,7 +210,7 @@ namespace ion
 			return PixelShader;
 		}
 
-		SharedPointer<IShaderProgram> COpenGLAPI::CreateShaderProgram()
+		SharedPointer<IShaderProgram> COpenGLImplementation::CreateShaderProgram()
 		{
 			SharedPointer<GL::CShaderProgram> ShaderProgram = SharedFromNew(new GL::CShaderProgram());
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
@@ -256,21 +218,21 @@ namespace ion
 			return ShaderProgram;
 		}
 
-		SharedPointer<IVertexBuffer> COpenGLAPI::CreateVertexBuffer()
+		SharedPointer<IVertexBuffer> COpenGLImplementation::CreateVertexBuffer()
 		{
 			SharedPointer<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
 			return VertexBuffer;
 		}
 
-		SharedPointer<IIndexBuffer> COpenGLAPI::CreateIndexBuffer()
+		SharedPointer<IIndexBuffer> COpenGLImplementation::CreateIndexBuffer()
 		{
 			SharedPointer<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			return IndexBuffer;
 		}
 
-		SharedPointer<ITexture2D> COpenGLAPI::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
 
@@ -298,7 +260,7 @@ namespace ion
 			return Texture2D;
 		}
 
-		SharedPointer<ITexture3D> COpenGLAPI::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
 
@@ -325,7 +287,7 @@ namespace ion
 			return Texture3D;
 		}
 
-		SharedPointer<IGraphicsContext> COpenGLAPI::GetWindowContext(CWindow * Window)
+		SharedPointer<IGraphicsContext> COpenGLImplementation::GetWindowContext(CWindow * Window)
 		{
 			return MakeShared<GL::CGraphicsContext>(Window);
 		}

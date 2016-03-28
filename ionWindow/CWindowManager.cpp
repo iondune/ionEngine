@@ -4,98 +4,114 @@
 #include <GLFW/glfw3.h>
 
 
-void CWindowManager::Init()
+namespace ion
 {
-	static bool Initialized = false;
 
-	if (Initialized)
-		return;
-
-	if (! glfwInit())
+	void CWindowManager::Init(CGraphicsAPI * GraphicsAPI)
 	{
-		std::cerr << "Error initializing glfw! " << std::endl;
-		WaitForUser();
-		exit(33);
+		this->GraphicsAPI = GraphicsAPI;
+
+		if (! glfwInit())
+		{
+			std::cerr << "Error initializing glfw! " << std::endl;
+		}
+
+		SingletonPointer<CStateManager> StateManager;
+		AddListener(StateManager.Get());
 	}
 
-	SingletonPointer<CStateManager> StateManager;
-	AddListener(StateManager.Get());
-
-	Initialized = true;
-}
-
-CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
-{
-	GLFWwindow * glfwWindow = 0;
-	glfwWindowHint(GLFW_RESIZABLE, false);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	if (! (glfwWindow = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr)))
+	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
 	{
-		std::cerr << "Error opening glfw window! " << std::endl;
-		WaitForUser();
-		exit(34);
+		CWindow * Window = nullptr;
+
+		if (nullptr == GraphicsAPI)
+		{
+			Log::Error("Using WindowManager before initialization!");
+		}
+		else
+		{
+			if (nullptr == PrimaryWindow)
+			{
+				GraphicsAPI->PreWindowCreationSetup();
+			}
+
+			glfwWindowHint(GLFW_RESIZABLE, false);
+			GLFWwindow * WindowHandle = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr);
+
+			if (nullptr == WindowHandle)
+			{
+				std::cerr << "Error opening glfw window! " << std::endl;
+			}
+			else
+			{
+
+				Window = new CWindow(WindowHandle);
+				Window->Size = Size;
+				Windows[WindowHandle] = Window;
+
+				glfwSetKeyCallback(WindowHandle, CWindowManager::KeyCallback);
+				glfwSetMouseButtonCallback(WindowHandle, CWindowManager::MouseButtonCallback);
+				glfwSetCursorPosCallback(WindowHandle, CWindowManager::MouseCursorCallback);
+				glfwSetScrollCallback(WindowHandle, CWindowManager::MouseScrollCallback);
+				glfwSetCharCallback(WindowHandle, CWindowManager::CharCallback);
+
+				Window->AddListener(this);
+				Window->MakeContextCurrent();
+				glfwSwapInterval(0);
+
+				if (nullptr == PrimaryWindow)
+				{
+					GraphicsAPI->PostWindowCreationSetup();
+				}
+
+				if (! PrimaryWindow)
+				{
+					PrimaryWindow = Window;
+				}
+			}
+
+		}
+
+		return Window;
 	}
 
-	CWindow * Window = new CWindow(glfwWindow);
-	Window->Size = Size;
-	Windows[glfwWindow] = Window;
+	CWindowManager::CWindowManager()
+		: PrimaryWindow()
+	{}
 
-	if (! PrimaryWindow)
+	void CWindowManager::PollEvents()
 	{
-		PrimaryWindow = Window;
+		glfwPollEvents();
 	}
 
-	glfwSetKeyCallback(glfwWindow, CWindowManager::KeyCallback);
-	glfwSetMouseButtonCallback(glfwWindow, CWindowManager::MouseButtonCallback);
-	glfwSetCursorPosCallback(glfwWindow, CWindowManager::MouseCursorCallback);
-	glfwSetScrollCallback(glfwWindow, CWindowManager::MouseScrollCallback);
-	glfwSetCharCallback(glfwWindow, CWindowManager::CharCallback);
-
-	Window->AddListener(this);
-
-	Window->MakeContextCurrent();
-	glfwSwapInterval(0);
-
-	return Window;
-}
-
-CWindowManager::CWindowManager()
-	: PrimaryWindow()
-{}
-
-void CWindowManager::PollEvents()
-{
-	glfwPollEvents();
-}
-
-bool CWindowManager::ShouldClose() const
-{
-	for (auto it = Windows.begin(); it != Windows.end(); ++ it)
+	bool CWindowManager::ShouldClose() const
 	{
+		for (auto it = Windows.begin(); it != Windows.end(); ++ it)
+		{
+			if (Windows.size() > 1)
+			{
+				it->second->MakeContextCurrent();
+			}
+
+			if (it->second->ShouldClose())
+			{
+				return true;
+			}
+		}
+
 		if (Windows.size() > 1)
 		{
-			it->second->MakeContextCurrent();
+			PrimaryWindow->MakeContextCurrent();
 		}
 
-		if (it->second->ShouldClose())
-		{
-			return true;
-		}
+		return false;
 	}
-	if (Windows.size() > 1)
+
+	bool CWindowManager::Run()
 	{
-		PrimaryWindow->MakeContextCurrent();
+		bool Done = ShouldClose();
+		PollEvents();
+		return ! Done;
 	}
-	return false;
-}
 
-bool CWindowManager::Run()
-{
-	bool Done = ShouldClose();
-	PollEvents();
-	return ! Done;
 }

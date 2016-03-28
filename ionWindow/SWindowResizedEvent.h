@@ -6,14 +6,19 @@
 #include <ionFramework.h>
 
 
-class CWindow;
-
-struct SWindowResizedEvent : public IEvent
+namespace ion
 {
-	vec2i Size;
-	CWindow * Window;
 
-	SWindowResizedEvent()
-		: Window()
-	{}
-};
+	class CWindow;
+
+	struct SWindowResizedEvent : public IEvent
+	{
+		vec2i Size;
+		CWindow * Window;
+
+		SWindowResizedEvent()
+			: Window()
+		{}
+	};
+
+}
