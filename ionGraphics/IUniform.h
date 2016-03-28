@@ -126,14 +126,25 @@ namespace ion
 			CUniform()
 			{}
 
+			CUniform(CUniform<T> const & copy)
+			{
+				Uniform->Value = copy.Uniform->Value;
+			}
+
 			CUniform(T const & value)
 			{
-				*Uniform = value;
+				Uniform->Value = value;
+			}
+
+			CUniform & operator = (CUniform<T> const & copy)
+			{
+				Uniform->Value = copy.Uniform->Value;
+				return * this;
 			}
 
 			CUniform & operator = (T const & value)
 			{
-				*Uniform = value;
+				Uniform->Value = value;
 				return * this;
 			}
 
