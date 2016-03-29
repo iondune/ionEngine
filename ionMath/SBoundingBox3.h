@@ -190,21 +190,26 @@ public:
 
 	Vector const GetCorner(int const i) const
 	{
-		Vector const Center = GetCenter();
-		Vector const Extent = GetExtent() / 2;
-
 		switch (i)
 		{
 		default:
-		case 0: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
-		case 1: return Vector(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
-		case 2: return Vector(Center.X + Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
-		case 3: return Vector(Center.X + Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
-		case 4: return Vector(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z + Extent.Z);
-		case 5: return Vector(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z + Extent.Z);
-		case 6: return Vector(Center.X - Extent.X, Center.Y + Extent.Y, Center.Z - Extent.Z);
-		case 7: return Vector(Center.X - Extent.X, Center.Y - Extent.Y, Center.Z - Extent.Z);
-		};
+		case 0:
+			return Vector(MinCorner.X, MinCorner.Y, MinCorner.Z);
+		case 1:
+			return Vector(MinCorner.X, MinCorner.Y, MaxCorner.Z);
+		case 2:
+			return Vector(MinCorner.X, MaxCorner.Y, MinCorner.Z);
+		case 3:
+			return Vector(MinCorner.X, MaxCorner.Y, MaxCorner.Z);
+		case 4:
+			return Vector(MaxCorner.X, MinCorner.Y, MinCorner.Z);
+		case 5:
+			return Vector(MaxCorner.X, MinCorner.Y, MaxCorner.Z);
+		case 6:
+			return Vector(MaxCorner.X, MaxCorner.Y, MinCorner.Z);
+		case 7:
+			return Vector(MaxCorner.X, MaxCorner.Y, MaxCorner.Z);
+		}
 	}
 
 	void MoveTo(Vector const & Center)
@@ -225,7 +230,32 @@ public:
 		MaxCorner = Center + Size / 2;
 	}
 
+	void Reset(Vector const & Point)
+	{
+		MinCorner = MaxCorner = Point;
+	}
+
+	void Transform(glm::mat4 const & Transformation)
+	{
+		std::vector<Vector> Vertices;
+		for (int i = 0; i < 8; ++ i)
+			Vertices.push_back(GetCorner(i));
+
+		Reset(Vertices[0].Transform(Transformation));
+		for (int i = 0; i < 8; ++ i)
+			AddInternalPoint(Vertices[i].Transform(Transformation));
+	}
+
 };
+
+template <typename T>
+using boundingbox3 = SBoundingBox3<T>;
+
+template <typename T>
+using bbox3 = SBoundingBox3<T>;
+
+template <typename T>
+using box3 = SBoundingBox3<T>;
 
 typedef SBoundingBox3<f32> SBoundingBox3f;
 typedef SBoundingBox3<f64> SBoundingBox3d;

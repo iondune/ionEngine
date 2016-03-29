@@ -153,6 +153,8 @@ public:
 
 };
 
+template <typename T>
+using vec3 = SVector3<T>;
 
 typedef SVector3<f32> SVector3f;
 typedef SVector3<f64> SVector3d;
