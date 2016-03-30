@@ -135,7 +135,7 @@ public:
 
 	SVector3<T> RotateAround(SVector3<T> const & other, f32 const radians) const
 	{
-		return Transform(glm::rotate(glm::mat4(1.f), radians, other.ToGLM()));
+		return GetTransformed(glm::rotate(glm::mat4(1.f), radians, other.ToGLM()));
 	}
 
 	SVector2<T> XY() const

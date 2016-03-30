@@ -241,9 +241,9 @@ public:
 		for (int i = 0; i < 8; ++ i)
 			Vertices.push_back(GetCorner(i));
 
-		Reset(Vertices[0].Transform(Transformation));
+		Reset(Vertices[0].GetTransformed(Transformation));
 		for (int i = 0; i < 8; ++ i)
-			AddInternalPoint(Vertices[i].Transform(Transformation));
+			AddInternalPoint(Vertices[i].GetTransformed(Transformation));
 	}
 
 };
