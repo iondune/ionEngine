@@ -119,7 +119,14 @@ public:
 		return SVector3<T>(Vec.x, Vec.y, Vec.z);
 	}
 
-	SVector3<T> Transform(glm::mat4 const & mat, f32 const TranslateComponent = 1) const
+	void Transform(glm::mat4 const & mat, f32 const TranslateComponent = 1)
+	{
+		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
+		v = mat * v;
+		*this = FromGLM(v);
+	}
+
+	SVector3<T> GetTransformed(glm::mat4 const & mat, f32 const TranslateComponent = 1) const
 	{
 		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
 		v = mat * v;
