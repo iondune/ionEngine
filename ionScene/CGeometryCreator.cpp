@@ -591,7 +591,7 @@ namespace ion
 						Mesh->Triangles.push_back(CSimpleMesh::STriangle(shape.mesh.indices[3 * i + 0], shape.mesh.indices[3 * i + 1], shape.mesh.indices[3 * i + 2]));
 					}
 
-					if (shape.mesh.material_ids.size())
+					if (shape.mesh.material_ids.size() && shape.mesh.material_ids.front() >= 0 && shape.mesh.material_ids.front() <= (int) Materials.size())
 					{
 						Mesh->Material = Materials[shape.mesh.material_ids.front()];
 					}
