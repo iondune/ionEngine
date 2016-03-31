@@ -184,6 +184,54 @@ namespace ion
 				return Uniform->Value;
 			}
 
+			CUniform<T> & operator ++ ()
+			{
+				Uniform->Value ++;
+				return * this;
+			}
+
+			CUniform<T> & operator ++ (int)
+			{
+				Uniform->Value ++;
+				return * this;
+			}
+
+			CUniform<T> & operator -- ()
+			{
+				Uniform->Value --;
+				return * this;
+			}
+
+			CUniform<T> & operator -- (int)
+			{
+				Uniform->Value --;
+				return * this;
+			}
+
+			CUniform<T> & operator += (T const & value)
+			{
+				Uniform->Value += value;
+				return * this;
+			}
+
+			CUniform<T> & operator -= (T const & value)
+			{
+				Uniform->Value -= value;
+				return * this;
+			}
+
+			CUniform<T> & operator *= (T const & value)
+			{
+				Uniform->Value *= value;
+				return * this;
+			}
+
+			CUniform<T> & operator /= (T const & value)
+			{
+				Uniform->Value /= value;
+				return * this;
+			}
+
 		};
 
 	}
