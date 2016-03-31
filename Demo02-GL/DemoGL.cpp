@@ -129,7 +129,7 @@ int main()
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
 
-	SharedPointer<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();
+	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
@@ -142,7 +142,7 @@ int main()
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
-		*uCurrentTime = (float) TimeManager->GetRunTime();
+		uCurrentTime = (float) TimeManager->GetRunTime();
 
 		RenderTarget->ClearColorAndDepth();
 		Context->Draw(PipelineState);

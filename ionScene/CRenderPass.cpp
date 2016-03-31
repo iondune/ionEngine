@@ -75,9 +75,9 @@ namespace ion
 			{
 				ActiveCamera->Update();
 
-				*uViewMatrix = ActiveCamera->GetViewMatrix();
-				*uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
-				*uCameraPosition = ActiveCamera->GetPosition();
+				uViewMatrix = ActiveCamera->GetViewMatrix();
+				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uCameraPosition = ActiveCamera->GetPosition();
 			}
 
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
@@ -107,8 +107,8 @@ namespace ion
 					SharedPointer<Graphics::IPipelineState> PipelineState = std::get<1>(Element);
 					uint const InstanceCount = std::get<2>(Element);
 
-					*uModelMatrix = SceneObject->GetTransformation();
-					*uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix->Value));
+					uModelMatrix = SceneObject->GetTransformation();
+					uNormalMatrix = glm::inverse(glm::transpose((glm::mat4) uModelMatrix));
 
 					if (1 == InstanceCount)
 					{

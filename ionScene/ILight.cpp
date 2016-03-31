@@ -14,12 +14,12 @@ namespace ion
 
 		vec3f ILight::GetPosition() const
 		{
-			return *Position;
+			return Position;
 		}
 
 		void ILight::SetPosition(vec3f const & Position)
 		{
-			*(this->Position) = Position;
+			this->Position = Position;
 		}
 
 		size_t ILight::GetAttributeCount() const

@@ -54,11 +54,11 @@ namespace ion
 			SharedPointer<Graphics::IGraphicsContext> GraphicsContext;
 			SharedPointer<Graphics::IRenderTarget> RenderTarget;
 
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uProjectionMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uViewMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<vec3f>> uCameraPosition = MakeShared<Graphics::CUniformValue<vec3f>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uModelMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
-			SharedPointer<Graphics::CUniformValue<glm::mat4>> uNormalMatrix = MakeShared<Graphics::CUniformValue<glm::mat4>>();
+			Graphics::CUniform<glm::mat4> uProjectionMatrix;
+			Graphics::CUniform<glm::mat4> uViewMatrix;
+			Graphics::CUniform<vec3f> uCameraPosition;
+			Graphics::CUniform<glm::mat4> uModelMatrix;
+			Graphics::CUniform<glm::mat4> uNormalMatrix;
 
 			struct SLightUniformMatrixRow
 			{

@@ -28,7 +28,7 @@ namespace ion
 
 		protected:
 
-			SharedPointer<Graphics::CUniformValue<vec3f>> Position = std::make_shared<Graphics::CUniformValue<vec3f>>();
+			Graphics::CUniform<vec3f> Position;
 			map<string, SharedPointer<Graphics::IUniform>> Attributes;
 
 		};
