@@ -26,11 +26,11 @@ int main()
 
 	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
 	WindowManager->Init(GraphicsAPI);
-	SceneManager->Init();
-	AssetManager->Init();
+	TimeManager->Init(WindowManager);
+	SceneManager->Init(GraphicsAPI);
+	AssetManager->Init(GraphicsAPI);
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoApplication", EWindowType::Windowed);
-	TimeManager->Init();
 
 	AssetManager->SetAssetPath("Assets/");
 	AssetManager->SetShaderPath("Shaders/");

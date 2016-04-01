@@ -23,7 +23,7 @@ int main()
 
 	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
 	WindowManager->Init(GraphicsAPI);
-	SceneManager->Init();
+	SceneManager->Init(GraphicsAPI);
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoScene", EWindowType::Windowed);
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);

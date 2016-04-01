@@ -5,7 +5,7 @@
 namespace ion
 {
 
-	void CSceneManager::Init()
+	void CSceneManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
 	void CSceneManager::DrawAll()

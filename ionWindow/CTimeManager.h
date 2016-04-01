@@ -4,6 +4,8 @@
 #include <ionCore.h>
 #include <ionFramework.h>
 
+#include "CWindowManager.h"
+
 
 namespace ion
 {
@@ -35,7 +37,7 @@ namespace ion
 
 		};
 
-		void Init();
+		void Init(CWindowManager * WindowManager);
 		void Update();
 
 		void SkipElapsedTime();

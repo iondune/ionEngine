@@ -23,7 +23,7 @@ int main()
 
 	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
 	WindowManager->Init(GraphicsAPI);
-	TimeManager->Init();
+	TimeManager->Init(WindowManager);
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 

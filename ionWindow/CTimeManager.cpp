@@ -44,7 +44,7 @@ namespace ion
 		}
 	}
 
-	void CTimeManager::Init()
+	void CTimeManager::Init(CWindowManager * WindowManager)
 	{
 		LastTime = glfwGetTime();
 		RunTime = ElapsedTime = 0;
