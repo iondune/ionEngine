@@ -22,7 +22,7 @@ namespace ion
 
 			size_t GetAttributeCount() const;
 			map<string, SharedPointer<Graphics::IUniform>> const & GetAttributes() const;
-			SharedPointer<Graphics::IUniform const> GetAttributeByName(string const & Name) const;
+			SharedPointer<Graphics::IUniform> GetAttributeByName(string const & Name);
 
 			virtual string GetLightType() const = 0;
 

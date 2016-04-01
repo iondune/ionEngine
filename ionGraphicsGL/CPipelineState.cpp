@@ -202,6 +202,11 @@ namespace ion
 				}
 			}
 
+			void CPipelineState::IgnoreUniform(string const & Name)
+			{
+				UnboundUniforms.erase(Name);
+			}
+
 			set<string> CPipelineState::GetUnboundUniforms() const
 			{
 				return UnboundUniforms;

@@ -32,7 +32,7 @@ namespace ion
 			return Attributes;
 		}
 
-		SharedPointer<Graphics::IUniform const> ILight::GetAttributeByName(string const & Name) const
+		SharedPointer<Graphics::IUniform> ILight::GetAttributeByName(string const & Name)
 		{
 			return ConditionalMapAccess(Attributes, Name);
 		}

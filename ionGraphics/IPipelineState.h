@@ -48,6 +48,8 @@ namespace ion
 			virtual void OfferUniform(string const & Name, SharedPointer<IUniform> Uniform) = 0;
 			virtual void OfferTexture(string const & Name, SharedPointer<ITexture> Texture) = 0;
 
+			virtual void IgnoreUniform(string const & Name) = 0;
+
 			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
 			virtual void SetBlendMode(EBlendMode const BlendMode) = 0;
 

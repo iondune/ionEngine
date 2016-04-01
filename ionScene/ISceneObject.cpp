@@ -20,6 +20,11 @@ namespace ion
 			return Loaded;
 		}
 
+		void ISceneObject::TriggerReload()
+		{
+			Loaded = false;
+		}
+
 		void ISceneObject::SetVisible(bool const isVisible)
 		{
 			Visible = isVisible;
@@ -46,7 +51,7 @@ namespace ion
 			UseExplicitTransformation = true;
 		}
 
-		void ISceneObject::SetTranslation(SVector3f const & translation)
+		void ISceneObject::SetTranslation(vec3f const & translation)
 		{
 			Translation = translation;
 			Transformation.SetTranslation(translation);

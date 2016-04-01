@@ -36,6 +36,8 @@ namespace ion
 				void OfferUniform(string const & Name, SharedPointer<IUniform> Uniform);
 				void OfferTexture(string const & Name, SharedPointer<ITexture> Texture);
 
+				void IgnoreUniform(string const & Name);
+
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
