@@ -96,7 +96,7 @@ public:
 		return * Instance;
 	}
 
-	static Implementation * GetPtr()
+	static Implementation * GetPointer()
 	{
 		return & Get();
 	}
@@ -151,14 +151,14 @@ private:
 	T * GetReference()
 	{
 		if (! Reference)
-			Reference = T::GetPtr();
+			Reference = T::GetPointer();
 		return Reference;
 	}
 
 	T const * GetReference() const
 	{
 		if (! Reference)
-			Reference = T::GetPtr();
+			Reference = T::GetPointer();
 		return Reference;
 	}
 
