@@ -137,7 +137,7 @@ int main()
 	// Main Loop //
 	///////////////
 
-	TimeManager->Init();
+	TimeManager->Init(WindowManager);
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
