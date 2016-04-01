@@ -2,6 +2,8 @@
 #pragma once
 
 #include <ionFramework.h>
+#include <ionGraphics.h>
+
 #include "SKeyboardEvent.h"
 #include "SMouseEvent.h"
 #include "SWindowResizedEvent.h"
@@ -44,6 +46,8 @@ namespace ion
 		void SetClipboardText(string const & Text);
 
 		bool IsFocused() const;
+
+		SharedPointer<Graphics::IGraphicsContext> GetContext();
 
 	protected:
 

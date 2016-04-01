@@ -118,4 +118,10 @@ namespace ion
 		return glfwGetWindowAttrib(WindowHandle, GLFW_FOCUSED) != 0;
 	}
 
+	SharedPointer<Graphics::IGraphicsContext> CWindow::GetContext()
+	{
+		static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+		return GraphicsAPI->GetWindowContext(this);
+	}
+
 }
