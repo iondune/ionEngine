@@ -49,30 +49,7 @@ namespace ion
 		CImage * Image = CImage::Load(AssetPath + TexturePath + FileName);
 		if (Image)
 		{
-			Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
-			switch (Image->GetChannels())
-			{
-			case 2:
-				Format = Graphics::ITexture::EFormatComponents::RG;
-				break;
-			case 3:
-				Format = Graphics::ITexture::EFormatComponents::RGB;
-				break;
-			case 4:
-				Format = Graphics::ITexture::EFormatComponents::RGBA;
-				break;
-			}
-			SharedPointer<Graphics::ITexture2D> Texture = GraphicsAPI->CreateTexture2D(
-				Image->GetSize(),
-				Graphics::ITexture::EMipMaps::True,
-				Format,
-				Graphics::ITexture::EInternalFormatType::Fix8);
-			Texture->Upload(
-				Image->GetData(),
-				Image->GetSize(),
-				Format,
-				Graphics::EScalarType::UnsignedInt8);
-			return Texture;
+			return GraphicsAPI->CreateTexture2D(Image);
 		}
 		else
 		{

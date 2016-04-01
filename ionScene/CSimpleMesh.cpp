@@ -17,48 +17,16 @@ namespace ion
 
 		void SSimpleMaterial::LoadTextures()
 		{
-			static auto LoadTexture = [](CImage * Image) -> SharedPointer<Graphics::ITexture2D>
+			SingletonPointer<CGraphicsAPI> GraphicsAPI;
+			
+			if (! DiffuseTexture && DiffuseImage)
 			{
-				static SingletonPointer<CGraphicsAPI> GraphicsAPI;
-
-				SharedPointer<Graphics::ITexture2D> Texture;
-				if (Image)
-				{
-					Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
-					switch (Image->GetChannels())
-					{
-					case 2:
-						Format = Graphics::ITexture::EFormatComponents::RG;
-						break;
-					case 3:
-						Format = Graphics::ITexture::EFormatComponents::RGB;
-						break;
-					case 4:
-						Format = Graphics::ITexture::EFormatComponents::RGBA;
-						break;
-					}
-					Texture = GraphicsAPI->CreateTexture2D(
-						Image->GetSize(),
-						Graphics::ITexture::EMipMaps::True,
-						Format,
-						Graphics::ITexture::EInternalFormatType::Fix8);
-					Texture->Upload(
-						Image->GetData(),
-						Image->GetSize(),
-						Format,
-						Graphics::EScalarType::UnsignedInt8);
-				}
-				return Texture;
-			};
-
-			if (! DiffuseTexture)
-			{
-				DiffuseTexture = LoadTexture(DiffuseImage);
+				DiffuseTexture = GraphicsAPI->CreateTexture2D(DiffuseImage);
 			}
 
-			if (! AmbientTexture)
+			if (! AmbientTexture && AmbientImage)
 			{
-				AmbientTexture = LoadTexture(AmbientImage);
+				AmbientTexture = GraphicsAPI->CreateTexture2D(AmbientImage);
 			}
 		}
 

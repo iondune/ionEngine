@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionFramework.h>
 
 #include "Enums.h"
 #include "IShaderProgram.h"
@@ -61,6 +62,7 @@ namespace ion
 		SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type);
+		SharedPointer<Graphics::ITexture2D> CreateTexture2D(CImage * Image);
 		SharedPointer<Graphics::ITexture3D> CreateTexture3D(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type);
 
 		SharedPointer<Graphics::IGraphicsContext> GetWindowContext(CWindow * Window);

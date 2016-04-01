@@ -168,6 +168,40 @@ namespace ion
 		return Texture;
 	}
 
+	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(CImage * Image)
+	{
+		if (! Image)
+		{
+			Log::Error("Attempting to create texture from image that does not exist.");
+			return nullptr;
+		}
+
+		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+		switch (Image->GetChannels())
+		{
+		case 2:
+			Format = Graphics::ITexture::EFormatComponents::RG;
+			break;
+		case 3:
+			Format = Graphics::ITexture::EFormatComponents::RGB;
+			break;
+		case 4:
+			Format = Graphics::ITexture::EFormatComponents::RGBA;
+			break;
+		}
+		SharedPointer<Graphics::ITexture2D> Texture = CreateTexture2D(
+			Image->GetSize(),
+			Graphics::ITexture::EMipMaps::True,
+			Format,
+			Graphics::ITexture::EInternalFormatType::Fix8);
+		Texture->Upload(
+			Image->GetData(),
+			Image->GetSize(),
+			Format,
+			Graphics::EScalarType::UnsignedInt8);
+		return Texture;
+	}
+
 	SharedPointer<Graphics::ITexture3D> CGraphicsAPI::CreateTexture3D(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture3D> Texture;
