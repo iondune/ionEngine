@@ -7,9 +7,8 @@ namespace ion
 	namespace Scene
 	{
 
-		CRenderPass::CRenderPass(Graphics::IGraphicsAPI * GraphicsAPI, SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
+		CRenderPass::CRenderPass(SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
 		{
-			this->GraphicsAPI = GraphicsAPI;
 			this->GraphicsContext = GraphicsContext;
 		}
 
@@ -23,7 +22,7 @@ namespace ion
 			return Name;
 		}
 
-		Graphics::IGraphicsAPI * CRenderPass::GetGraphicsAPI()
+		CGraphicsAPI * CRenderPass::GetGraphicsAPI()
 		{
 			return GraphicsAPI;
 		}
@@ -50,15 +49,15 @@ namespace ion
 
 		void CRenderPass::AddLight(ILight * Light)
 		{
-			Lights.insert(Light);
-			RebuildLightUniformMatrix();
+			Lights["u" + Light->GetLightType() + "s"].push_back(Light);
+			ReloadAll();
 		}
 
-		//void CRenderPass::RemoveLight(ILight * Light)
-		//{
-		//	Lights.erase(Light);
-		//	RebuildLightUniformMatrix();
-		//}
+		void CRenderPass::RemoveLight(ILight * Light)
+		{
+			EraseRemove(Lights["u" + Light->GetLightType() + "s"], Light);
+			ReloadAll();
+		}
 
 		void CRenderPass::AddSceneObject(ISceneObject * SceneObject)
 		{
@@ -76,9 +75,9 @@ namespace ion
 			{
 				ActiveCamera->Update();
 
-				*uViewMatrix = ActiveCamera->GetViewMatrix();
-				*uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
-				*uCameraPosition = ActiveCamera->GetPosition();
+				uViewMatrix = ActiveCamera->GetViewMatrix();
+				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uCameraPosition = ActiveCamera->GetPosition();
 			}
 
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
@@ -108,8 +107,8 @@ namespace ion
 					SharedPointer<Graphics::IPipelineState> PipelineState = std::get<1>(Element);
 					uint const InstanceCount = std::get<2>(Element);
 
-					*uModelMatrix = SceneObject->GetTransformation();
-					*uNormalMatrix = glm::inverse(glm::transpose(uModelMatrix->Value));
+					uModelMatrix = SceneObject->GetTransformation();
+					uNormalMatrix = glm::inverse(glm::transpose((glm::mat4) uModelMatrix));
 
 					if (1 == InstanceCount)
 					{
@@ -123,6 +122,14 @@ namespace ion
 
 				Category.clear();
 			}
+		}
+
+		void CRenderPass::ReloadAll()
+		{
+			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
+			{
+				SceneObject->TriggerReload();
+			});
 		}
 
 		bool IsUniformNameArrayElement(string const & Label, int & Index, string & LHS, string & Remaining)
@@ -180,28 +187,29 @@ namespace ion
 				{
 					if (Remaining.size() && Remaining[0] == '.')
 					{
-						auto const it = LightUniformMatrix.find(LHS);
-						if (it != LightUniformMatrix.end())
+						auto const it = Lights.find(LHS);
+						if (it != Lights.end())
 						{
-							if (Index < it->second.Entries.size())
+							if (Index < it->second.size())
 							{
-								auto const jt = it->second.Entries[Index].find(Remaining.substr(1));
-								if (jt != it->second.Entries[Index].end())
-								{
-									PipelineState->SetUniform(Name, jt->second);
-								}
+								ILight * const Light = it->second[Index];
+								PipelineState->SetUniform(Name, Light->GetAttributeByName(Remaining.substr(1)));
+							}
+							else
+							{
+								PipelineState->IgnoreUniform(Name);
 							}
 						}
 					}
 				}
 				else
 				{
-					for (auto & it : LightUniformMatrix)
+					for (auto const & it : Lights)
 					{
 						string const CountName = it.first + "Count";
 						if (Name == CountName)
 						{
-							PipelineState->SetUniform(Name, it.second.CountUniform);
+							PipelineState->SetUniform(Name, SharedFromNew(new Graphics::CUniformValue<int>((int) it.second.size())));
 						}
 					}
 				}
@@ -222,27 +230,6 @@ namespace ion
 				RenderQueue.resize(RenderCategory + 1);
 			}
 			RenderQueue[RenderCategory].push_back(std::make_tuple(SceneObject, PipelineState, InstanceCount));
-		}
-
-		void CRenderPass::RebuildLightUniformMatrix()
-		{
-			LightUniformMatrix.clear();
-
-			std::for_each(Lights.begin(), Lights.end(), [&](ILight * Light)
-			{
-				string const LightType = string("u") + Light->GetLightType() + string("s");
-				map<string, SharedPointer<Graphics::IUniform>> const LightAttributes = Light->GetAttributes();
-
-				SLightUniformMatrixRow & LightUniformMatrixRow = LightUniformMatrix[LightType];
-				LightUniformMatrixRow.Entries.push_back(map<string, SharedPointer<Graphics::IUniform>>());
-				LightUniformMatrixRow.CountUniform->Value += 1;
-				map<string, SharedPointer<Graphics::IUniform>> & LightUniformMatrixRowEntry = LightUniformMatrixRow.Entries.back();
-				
-				std::for_each(LightAttributes.begin(), LightAttributes.end(), [&](pair<string, SharedPointer<Graphics::IUniform>> Iterator)
-				{
-					LightUniformMatrixRowEntry[Iterator.first] = Iterator.second;
-				});
-			});
 		}
 
 	}

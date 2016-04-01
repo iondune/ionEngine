@@ -104,33 +104,38 @@ public:
 		return lhs.Cross(rhs);
 	}
 
-	glm::vec3 const GetGLMVector() const
+	glm::vec3 const ToGLM() const
 	{
 		return glm::vec3(X, Y, Z);
 	}
 
-	static SVector3<T> FromGLMVector(glm::vec3 const & Vec)
+	static SVector3<T> FromGLM(glm::vec3 const & Vec)
 	{
 		return SVector3<T>(Vec.x, Vec.y, Vec.z);
 	}
 
-	static SVector3<T> FromGLMVector(glm::vec4 const & Vec)
+	static SVector3<T> FromGLM(glm::vec4 const & Vec)
 	{
 		return SVector3<T>(Vec.x, Vec.y, Vec.z);
 	}
 
-	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	void Transform(glm::mat4 const & mat, f32 const TranslateComponent = 1)
 	{
-		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
+		v = mat * v;
+		*this = FromGLM(v);
+	}
+
+	SVector3<T> GetTransformed(glm::mat4 const & mat, f32 const TranslateComponent = 1) const
+	{
+		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
+		v = mat * v;
+		return FromGLM(v);
 	}
 
 	SVector3<T> RotateAround(SVector3<T> const & other, f32 const radians) const
 	{
-		glm::mat4 matrix = glm::rotate(glm::mat4(1.f), radians, other.GetGLMVector());
-		glm::vec4 temp = glm::vec4(GetGLMVector(), 1.f) * matrix;
-
-		SVector3<T> out(temp.x, temp.y, temp.z);
-		return out;
+		return GetTransformed(glm::rotate(glm::mat4(1.f), radians, other.ToGLM()));
 	}
 
 	SVector2<T> XY() const
@@ -148,8 +153,15 @@ public:
 		return SVector2<T>(X, Z);
 	}
 
+	friend std::ostream & operator << (std::ostream & stream, SVector3<T> const & vec)
+	{
+		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+	}
+
 };
 
+template <typename T>
+using vec3 = SVector3<T>;
 
 typedef SVector3<f32> SVector3f;
 typedef SVector3<f64> SVector3d;

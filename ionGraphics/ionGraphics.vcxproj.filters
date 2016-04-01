@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="IGraphicsAPI.h" />
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="IPipelineState.h" />
@@ -12,10 +11,12 @@
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="ITexture.h" />
     <ClInclude Include="IGraphicsContext.h" />
+    <ClInclude Include="CGraphicsAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="IUniform.cpp" />
     <ClCompile Include="IIndexBuffer.cpp" />
+    <ClCompile Include="CGraphicsAPI.cpp" />
   </ItemGroup>
 </Project>

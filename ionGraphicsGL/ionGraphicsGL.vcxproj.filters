@@ -17,7 +17,6 @@
       <Filter>General</Filter>
     </ClInclude>
     <ClInclude Include="ionGraphicsGL.h" />
-    <ClInclude Include="COpenGLAPI.h" />
     <ClInclude Include="CShaderProgram.h">
       <Filter>Shader</Filter>
     </ClInclude>
@@ -42,6 +41,7 @@
     <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="CGraphicsContext.h" />
+    <ClInclude Include="COpenGLImplementation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Context.cpp">
@@ -59,7 +59,6 @@
     <ClCompile Include="DrawConfig.cpp">
       <Filter>General</Filter>
     </ClCompile>
-    <ClCompile Include="COpenGLAPI.cpp" />
     <ClCompile Include="CShaderProgram.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -81,6 +80,7 @@
       <Filter>glad</Filter>
     </ClCompile>
     <ClCompile Include="CGraphicsContext.cpp" />
+    <ClCompile Include="COpenGLImplementation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

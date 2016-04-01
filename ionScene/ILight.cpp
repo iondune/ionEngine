@@ -14,12 +14,12 @@ namespace ion
 
 		vec3f ILight::GetPosition() const
 		{
-			return *Position;
+			return Position;
 		}
 
 		void ILight::SetPosition(vec3f const & Position)
 		{
-			*(this->Position) = Position;
+			this->Position = Position;
 		}
 
 		size_t ILight::GetAttributeCount() const
@@ -32,7 +32,7 @@ namespace ion
 			return Attributes;
 		}
 
-		SharedPointer<Graphics::IUniform const> ILight::GetAttributeByName(string const & Name) const
+		SharedPointer<Graphics::IUniform> ILight::GetAttributeByName(string const & Name)
 		{
 			return ConditionalMapAccess(Attributes, Name);
 		}

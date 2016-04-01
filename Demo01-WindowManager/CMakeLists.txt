@@ -1,5 +1,7 @@
 add_executable(Demo01-WindowManager DemoWindowManager.cpp)
 
+target_link_libraries(Demo01-WindowManager ionGraphicsGL)
+target_link_libraries(Demo01-WindowManager ionGraphics)
 target_link_libraries(Demo01-WindowManager ionWindow)
 target_link_libraries(Demo01-WindowManager ionFramework)
 ExecutableDependencies(Demo01-WindowManager)

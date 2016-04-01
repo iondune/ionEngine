@@ -7,6 +7,29 @@ namespace ion
 	namespace Scene
 	{
 
+		SSimpleMaterial::SSimpleMaterial()
+		{
+			Shininess = 1000.0f;
+			Ambient = SColorf(0.05f);
+			Diffuse = SColorf(0.9f);
+			Specular = SColorf(1.f);
+		}
+
+		void SSimpleMaterial::LoadTextures()
+		{
+			SingletonPointer<CGraphicsAPI> GraphicsAPI;
+			
+			if (! DiffuseTexture && DiffuseImage)
+			{
+				DiffuseTexture = GraphicsAPI->CreateTexture2D(DiffuseImage);
+			}
+
+			if (! AmbientTexture && AmbientImage)
+			{
+				AmbientTexture = GraphicsAPI->CreateTexture2D(AmbientImage);
+			}
+		}
+
 		CSimpleMesh::SVertex::SVertex()
 		{}
 
@@ -116,7 +139,7 @@ namespace ion
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
 			{
-				Vertex.Position = vec3f::FromGLMVector(Transform * glm::vec4(Vertex.Position.GetGLMVector(), 1));
+				Vertex.Position.Transform(Transform);
 			});
 		}
 
@@ -128,8 +151,10 @@ namespace ion
 			});
 		}
 
-		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer()
 		{
+			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
 			vector<u32> IndexData;
 			IndexData.reserve(Triangles.size() * 3);
 
@@ -146,8 +171,10 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		SharedPointer<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
+		SharedPointer<Graphics::IVertexBuffer> CSimpleMesh::CreateVertexBuffer()
 		{
+			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
 			vector<float> VertexData;
 			VertexData.reserve(Vertices.size() * 12);
 

@@ -15,7 +15,7 @@ namespace ion
 		{
 
 			SSimpleMaterial();
-			void LoadTextures(Graphics::IGraphicsAPI * GraphicsAPI);
+			void LoadTextures();
 
 			Graphics::CUniform<color3f> Ambient;
 			Graphics::CUniform<color3f> Diffuse;
@@ -79,9 +79,8 @@ namespace ion
 			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 
-			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
-			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
-
+			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
+			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
 
 		};
 

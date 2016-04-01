@@ -24,7 +24,7 @@
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="CIndexBuffer.h" />
     <ClInclude Include="Context.h" />
-    <ClInclude Include="COpenGLAPI.h" />
+    <ClInclude Include="COpenGLImplementation.h" />
     <ClInclude Include="CVertexShader.h" />
     <ClInclude Include="DrawConfig.h" />
     <ClInclude Include="DrawContext.h" />
@@ -40,7 +40,7 @@
     <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="Context.cpp" />
-    <ClCompile Include="COpenGLAPI.cpp" />
+    <ClCompile Include="COpenGLImplementation.cpp" />
     <ClCompile Include="CPipelineState.cpp" />
     <ClCompile Include="CRenderTarget.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />

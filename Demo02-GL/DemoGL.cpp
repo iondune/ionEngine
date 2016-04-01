@@ -17,14 +17,16 @@ int main()
 
 	Log::AddDefaultOutputs();
 
+	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CTimeManager> TimeManager;
-	WindowManager->Init();
-	TimeManager->Init();
+
+	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	WindowManager->Init(GraphicsAPI);
+	TimeManager->Init(WindowManager);
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
 
-	IGraphicsAPI * GraphicsAPI = new COpenGLAPI();
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
 
@@ -127,7 +129,7 @@ int main()
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
 	PipelineState->SetProgram(ShaderProgram);
 
-	SharedPointer<CUniformValue<float>> uCurrentTime = std::make_shared<CUniformValue<float>>();
+	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
 	CImage * Image = CImage::Load("Image.jpg");
@@ -140,7 +142,7 @@ int main()
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
-		*uCurrentTime = (float) TimeManager->GetRunTime();
+		uCurrentTime = (float) TimeManager->GetRunTime();
 
 		RenderTarget->ClearColorAndDepth();
 		Context->Draw(PipelineState);

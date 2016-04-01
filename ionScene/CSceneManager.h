@@ -9,30 +9,26 @@
 
 namespace ion
 {
-	namespace Scene
+
+	class CSceneManager : public Singleton<CSceneManager>
 	{
 
-		class CSceneManager : public Singleton<CSceneManager>
-		{
+	public:
 
-		public:
+		virtual void Init(CGraphicsAPI * GraphicsAPI);
+		virtual void DrawAll();
 
-			virtual void Init(Graphics::IGraphicsAPI * GraphicsAPI);
-			virtual void DrawAll();
+		virtual void AddRenderPass(Scene::CRenderPass * RenderPass);
 
-			virtual void AddRenderPass(CRenderPass * RenderPass);
+	protected:
 
-		protected:
+		set<Scene::CRenderPass *> RenderPasses;
 
-			set<CRenderPass *> RenderPasses;
-			Graphics::IGraphicsAPI * GraphicsAPI = nullptr;
+	private:
 
-		private:
+		friend class Singleton<CSceneManager>;
+		CSceneManager();
 
-			friend class Singleton<CSceneManager>;
-			CSceneManager();
+	};
 
-		};
-
-	}
 }

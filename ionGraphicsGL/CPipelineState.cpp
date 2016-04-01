@@ -1,6 +1,6 @@
 
 #include "CPipelineState.h"
-
+#include <ionWindow.h>
 #include <glad/glad.h>
 
 
@@ -200,6 +200,11 @@ namespace ion
 					Textures[Name] = Texture;
 					UnboundUniforms.erase(Name);
 				}
+			}
+
+			void CPipelineState::IgnoreUniform(string const & Name)
+			{
+				UnboundUniforms.erase(Name);
 			}
 
 			set<string> CPipelineState::GetUnboundUniforms() const

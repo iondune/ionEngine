@@ -4,30 +4,35 @@
 #include "IState.h"
 
 
-class CWindow;
-
-class CStateManager : public Singleton<CStateManager>, public IEventListener
+namespace ion
 {
 
-    friend class Singleton<CStateManager>;
+	class CWindow;
 
-public:
+	class CStateManager : public Singleton<CStateManager>, public IEventListener
+	{
 
-    void SetState(IState * State);
-    void DoStateChange();
+		friend class Singleton<CStateManager>;
 
-	void Update(f32 const ElapsedTime);
+	public:
 
-	void Connect(CWindow * Window);
-	void ShutDown();
+		void SetState(IState * State);
+		void DoStateChange();
 
-private:
+		void Update(f32 const ElapsedTime);
 
-    CStateManager();
+		void Connect(CWindow * Window);
+		void ShutDown();
 
-protected:
+	private:
 
-    IState * CurrentState = nullptr;
-    IState * NextState = nullptr;
+		CStateManager();
 
-};
+	protected:
+
+		IState * CurrentState = nullptr;
+		IState * NextState = nullptr;
+
+	};
+
+}

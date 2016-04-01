@@ -121,28 +121,44 @@ namespace ion
 
 		public:
 
-			SharedPointer<CUniformValue<T>> Uniform = MakeShared<CUniformValue<T>>();
+			SharedPointer<CUniformValue<T>> Uniform;
 
 			CUniform()
+				: Uniform(MakeShared<CUniformValue<T>>())
 			{}
 
-			CUniform(CUniform<T> const & copy)
+			CUniform(CUniform<T> const & other)
+				: Uniform(MakeShared<CUniformValue<T>>())
 			{
-				Uniform->Value = copy.Uniform->Value;
+				Uniform->Value = other.Uniform->Value;
+			}
+
+			CUniform(CUniform<T> && other)
+				: Uniform(other.Uniform)
+			{
+				other.Uniform = nullptr;
 			}
 
 			CUniform(T const & value)
+				: Uniform(MakeShared<CUniformValue<T>>())
 			{
 				Uniform->Value = value;
 			}
 
-			CUniform & operator = (CUniform<T> const & copy)
+			CUniform<T> & operator = (CUniform<T> const & other)
 			{
-				Uniform->Value = copy.Uniform->Value;
+				Uniform->Value = other.Uniform->Value;
 				return * this;
 			}
 
-			CUniform & operator = (T const & value)
+			CUniform<T> & operator = (CUniform<T> && other)
+			{
+				Uniform = other.Uniform;
+				other.Uniform = nullptr;
+				return * this;
+			}
+
+			CUniform<T> & operator = (T const & value)
 			{
 				Uniform->Value = value;
 				return * this;
@@ -155,7 +171,7 @@ namespace ion
 
 			operator T () const
 			{
-				return *Uniform;
+				return Uniform->Value;
 			}
 
 			operator SharedPointer<IUniform> ()
@@ -166,6 +182,54 @@ namespace ion
 			T & Get()
 			{
 				return Uniform->Value;
+			}
+
+			CUniform<T> & operator ++ ()
+			{
+				Uniform->Value ++;
+				return * this;
+			}
+
+			CUniform<T> & operator ++ (int)
+			{
+				Uniform->Value ++;
+				return * this;
+			}
+
+			CUniform<T> & operator -- ()
+			{
+				Uniform->Value --;
+				return * this;
+			}
+
+			CUniform<T> & operator -- (int)
+			{
+				Uniform->Value --;
+				return * this;
+			}
+
+			CUniform<T> & operator += (T const & value)
+			{
+				Uniform->Value += value;
+				return * this;
+			}
+
+			CUniform<T> & operator -= (T const & value)
+			{
+				Uniform->Value -= value;
+				return * this;
+			}
+
+			CUniform<T> & operator *= (T const & value)
+			{
+				Uniform->Value *= value;
+				return * this;
+			}
+
+			CUniform<T> & operator /= (T const & value)
+			{
+				Uniform->Value /= value;
+				return * this;
 			}
 
 		};

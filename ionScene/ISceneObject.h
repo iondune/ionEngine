@@ -31,6 +31,9 @@ namespace ion
 			//! Check if loaded
 			virtual bool IsLoaded() const;
 
+			//! Trigger a reload at next draw
+			virtual void TriggerReload();
+
 			//! Set visibility
 			virtual void SetVisible(bool const isVisible);
 

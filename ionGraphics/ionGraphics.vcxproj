@@ -21,7 +21,7 @@
     <ClInclude Include="IGraphicsContext.h" />
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="IGraphicsAPI.h" />
+    <ClInclude Include="CGraphicsAPI.h" />
     <ClInclude Include="IIndexBuffer.h" />
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="IPipelineState.h" />
@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />
+    <ClCompile Include="CGraphicsAPI.cpp" />
     <ClCompile Include="IIndexBuffer.cpp" />
     <ClCompile Include="IUniform.cpp" />
   </ItemGroup>

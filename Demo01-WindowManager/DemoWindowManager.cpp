@@ -1,12 +1,19 @@
 
 #include <ionWindow.h>
+#include <ionGraphicsGL.h>
+
+using namespace ion;
 
 
 int main()
 {
-	SingletonPointer<CWindowManager> WindowManager;
+	Log::AddDefaultOutputs();
 
-	WindowManager->Init();
+	SingletonPointer<CWindowManager> WindowManager;
+	SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
+	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	WindowManager->Init(GraphicsAPI);
 	WindowManager->CreateWindow(vec2i(640, 480), "TestWindowManager", EWindowType::Windowed);
 
 	while (! WindowManager->ShouldClose())
