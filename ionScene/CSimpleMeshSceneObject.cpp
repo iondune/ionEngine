@@ -62,7 +62,7 @@ namespace ion
 		{
 			if (PipelineState)
 			{
-				RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
+				RenderPass->SubmitPipelineStateForRendering(PipelineState, this, 1, RenderCategory);
 			}
 		}
 
@@ -123,6 +123,11 @@ namespace ion
 			}
 
 			this->BlendMode = BlendMode;
+		}
+
+		void CSimpleMeshSceneObject::SetRenderCategory(uint const Category)
+		{
+			this->RenderCategory = Category;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()
