@@ -38,6 +38,8 @@ namespace ion
 		};
 
 		void Init(CWindowManager * WindowManager);
+		void Start();
+
 		void Update();
 
 		void SkipElapsedTime();
@@ -57,10 +59,10 @@ namespace ion
 
 	protected:
 
-		f64 ElapsedTime;
-		f64 RunTime;
-		f64 LastTime;
-		f64 TimeMultiplier;
+		f64 ElapsedTime = 0;
+		f64 RunTime = 0;
+		f64 LastTime = 0;
+		f64 TimeMultiplier = 1;
 
 		vector<CUpdateTick *> UpdateTicks;
 
