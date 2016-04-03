@@ -176,23 +176,20 @@ namespace ion
 			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 			vector<float> VertexData;
-			VertexData.reserve(Vertices.size() * 12);
+			VertexData.resize(Vertices.size() * 8);
 
-			std::for_each(Vertices.begin(), Vertices.end(), [&VertexData](SVertex const & Vertex)
+			uint Offset = 0;
+			for (SVertex & Vertex : Vertices)
 			{
-				for (uint i = 0; i < 3; ++ i)
-				{
-					VertexData.push_back(Vertex.Position[i]);
-				}
-				for (uint i = 0; i < 3; ++ i)
-				{
-					VertexData.push_back(Vertex.Normal[i]);
-				}
-				for (uint i = 0; i < 2; ++ i)
-				{
-					VertexData.push_back(Vertex.TextureCoordinates[i]);
-				}
-			});
+				VertexData[Offset++] = Vertex.Position.X;
+				VertexData[Offset++] = Vertex.Position.Y;
+				VertexData[Offset++] = Vertex.Position.Z;
+				VertexData[Offset++] = Vertex.Normal.X;
+				VertexData[Offset++] = Vertex.Normal.Y;
+				VertexData[Offset++] = Vertex.Normal.Z;
+				VertexData[Offset++] = Vertex.TextureCoordinates.X;
+				VertexData[Offset++] = Vertex.TextureCoordinates.Y;
+			}
 
 			SharedPointer<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
 			VertexBuffer->UploadData(VertexData);
