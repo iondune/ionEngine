@@ -20,10 +20,12 @@ namespace ion
 
 		SharedPointer<Graphics::IShaderProgram> LoadShader(string const & Name);
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName);
+		Scene::CSimpleMesh * LoadMesh(string const & FileName);
 
 		void SetAssetPath(string const & Path);
 		void SetTexturePath(string const & Path);
 		void SetShaderPath(string const & Path);
+		void SetMeshPath(string const & Path);
 
 	protected:
 
@@ -32,6 +34,7 @@ namespace ion
 		string AssetPath;
 		string TexturePath;
 		string ShaderPath;
+		string MeshPath;
 
 	private:
 

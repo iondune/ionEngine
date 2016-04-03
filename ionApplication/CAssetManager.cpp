@@ -57,6 +57,29 @@ namespace ion
 		}
 	}
 
+	Scene::CSimpleMesh * CAssetManager::LoadMesh(string const & FileName)
+	{
+		if (! GraphicsAPI)
+		{
+			Log::Error("CAssetManager being used without being initialized, Texture '%s' will not be loaded.", FileName);
+			return nullptr;
+		}
+
+		vector<Scene::CSimpleMesh *> Shapes = Scene::CGeometryCreator::LoadOBJFile(AssetPath + MeshPath + FileName, AssetPath + MeshPath);
+
+		if (Shapes.size() == 0)
+		{
+			Log::Error("Failed to load mesh: %s", FileName);
+			return nullptr;
+		}
+		else if (Shapes.size() > 1)
+		{
+			Log::Error("Mesh contains %d shapes but only one was expected: %s", Shapes.size(), FileName);
+		}
+
+		return Shapes[0];
+	}
+
 	void CAssetManager::SetAssetPath(string const & Path)
 	{
 		AssetPath = Path + "/";
@@ -70,6 +93,11 @@ namespace ion
 	void CAssetManager::SetShaderPath(string const & Path)
 	{
 		ShaderPath = Path + "/";
+	}
+
+	void CAssetManager::SetMeshPath(string const & Path)
+	{
+		MeshPath = Path + "/";
 	}
 
 }
