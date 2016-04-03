@@ -52,6 +52,7 @@ namespace ion
 			{
 				PipelineState->SetFeatureEnabled(Pair.first, Pair.second);
 			}
+			PipelineState->SetBlendMode(BlendMode);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -112,6 +113,16 @@ namespace ion
 			}
 
 			DrawFeatures[Feature] = Enabled;
+		}
+
+		void CSimpleMeshSceneObject::SetBlendMode(Graphics::EBlendMode const BlendMode)
+		{
+			if (PipelineState)
+			{
+				PipelineState->SetBlendMode(BlendMode);
+			}
+
+			this->BlendMode = BlendMode;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()
