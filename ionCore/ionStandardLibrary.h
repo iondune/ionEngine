@@ -145,14 +145,20 @@ public:
 
 	static string StripExtension(string const & Path)
 	{
-		size_t lastindex = Path.find_last_of(".");
-		return Path.substr(0, lastindex);
+		return Path.substr(0, Path.find_last_of("."));
 	}
 
 	static string GetExtension(string const & Path)
 	{
-		size_t lastindex = Path.find_last_of(".");
-		return Path.substr(lastindex);
+		size_t Index = Path.find_last_of(".");
+		if (Index == string::npos)
+		{
+			return "";
+		}
+		else
+		{
+			return Path.substr(Index + 1);
+		}
 	}
 };
 
