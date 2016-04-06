@@ -143,6 +143,17 @@ public:
 		return String;
 	}
 
+	static string StripExtension(string const & Path)
+	{
+		size_t lastindex = Path.find_last_of(".");
+		return Path.substr(0, lastindex);
+	}
+
+	static string GetExtension(string const & Path)
+	{
+		size_t lastindex = Path.find_last_of(".");
+		return Path.substr(lastindex);
+	}
 };
 
 class String
