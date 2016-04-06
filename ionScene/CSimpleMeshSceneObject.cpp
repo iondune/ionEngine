@@ -52,6 +52,7 @@ namespace ion
 			{
 				PipelineState->SetFeatureEnabled(Pair.first, Pair.second);
 			}
+			PipelineState->SetBlendMode(BlendMode);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded = true;
@@ -61,7 +62,7 @@ namespace ion
 		{
 			if (PipelineState)
 			{
-				RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
+				RenderPass->SubmitPipelineStateForRendering(PipelineState, this, 1, RenderCategory);
 			}
 		}
 
@@ -112,6 +113,21 @@ namespace ion
 			}
 
 			DrawFeatures[Feature] = Enabled;
+		}
+
+		void CSimpleMeshSceneObject::SetBlendMode(Graphics::EBlendMode const BlendMode)
+		{
+			if (PipelineState)
+			{
+				PipelineState->SetBlendMode(BlendMode);
+			}
+
+			this->BlendMode = BlendMode;
+		}
+
+		void CSimpleMeshSceneObject::SetRenderCategory(uint const Category)
+		{
+			this->RenderCategory = Category;
 		}
 
 		SSimpleMaterial & CSimpleMeshSceneObject::GetMaterial()

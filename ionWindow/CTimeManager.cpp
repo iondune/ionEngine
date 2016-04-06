@@ -46,9 +46,12 @@ namespace ion
 
 	void CTimeManager::Init(CWindowManager * WindowManager)
 	{
+		Start();
+	}
+
+	void CTimeManager::Start()
+	{
 		LastTime = glfwGetTime();
-		RunTime = ElapsedTime = 0;
-		TimeMultiplier = 1;
 	}
 
 	void CTimeManager::Update()

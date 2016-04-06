@@ -151,6 +151,82 @@ namespace ion
 			});
 		}
 
+		void CSimpleMesh::SeparateTriangles()
+		{
+			std::vector<SVertex> newVertices;
+			std::vector<STriangle> newTriangles;
+
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				for (int i = 0; i < 3; ++ i)
+					newVertices.push_back(Vertices[it->Indices[i]]);
+			}
+
+			for (uint i = 0; i < newVertices.size() / 3; ++ i)
+			{
+				STriangle tri;
+				tri.Indices[0] = i * 3;
+				tri.Indices[1] = i * 3 + 1;
+				tri.Indices[2] = i * 3 + 2;
+				newTriangles.push_back(tri);
+			}
+
+			Vertices = newVertices;
+			Triangles = newTriangles;
+		}
+
+		void CSimpleMesh::CalculateNormalsPerFace()
+		{
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				it->Normal = (Vertices[it->Indices[1]].Position - Vertices[it->Indices[0]].Position).
+					CrossProduct(Vertices[it->Indices[2]].Position - Vertices[it->Indices[0]].Position);
+				Vertices[it->Indices[0]].Normal = Vertices[it->Indices[1]].Normal = Vertices[it->Indices[2]].Normal = it->Normal;
+			}
+
+			for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal.Normalize();
+			}
+		}
+
+		void CSimpleMesh::CalculateNormalsPerVertex(bool CombineNear, f32 const NearTolerance)
+		{
+			CalculateNormalsPerFace();
+
+			for (auto it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal = 0;
+			}
+
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				for (int i = 0; i < 3; ++ i)
+				{
+					Vertices[it->Indices[i]].Normal += it->Normal;
+				}
+			}
+
+			if (CombineNear)
+			{
+				for (uint i = 0; i < Vertices.size(); ++ i)
+				{
+					for (uint j = i + 1; j < Vertices.size(); ++ j)
+					{
+						if (Vertices[i].Position.GetDistanceSqFrom(Vertices[j].Position) < Sq(NearTolerance))
+						{
+							Vertices[i].Normal = Vertices[j].Normal = Vertices[i].Normal + Vertices[j].Normal;
+						}
+					}
+				}
+			}
+
+			for (auto it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal.Normalize();
+			}
+		}
+
 		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer()
 		{
 			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
@@ -176,23 +252,20 @@ namespace ion
 			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 			vector<float> VertexData;
-			VertexData.reserve(Vertices.size() * 12);
+			VertexData.resize(Vertices.size() * 8);
 
-			std::for_each(Vertices.begin(), Vertices.end(), [&VertexData](SVertex const & Vertex)
+			uint Offset = 0;
+			for (SVertex & Vertex : Vertices)
 			{
-				for (uint i = 0; i < 3; ++ i)
-				{
-					VertexData.push_back(Vertex.Position[i]);
-				}
-				for (uint i = 0; i < 3; ++ i)
-				{
-					VertexData.push_back(Vertex.Normal[i]);
-				}
-				for (uint i = 0; i < 2; ++ i)
-				{
-					VertexData.push_back(Vertex.TextureCoordinates[i]);
-				}
-			});
+				VertexData[Offset++] = Vertex.Position.X;
+				VertexData[Offset++] = Vertex.Position.Y;
+				VertexData[Offset++] = Vertex.Position.Z;
+				VertexData[Offset++] = Vertex.Normal.X;
+				VertexData[Offset++] = Vertex.Normal.Y;
+				VertexData[Offset++] = Vertex.Normal.Z;
+				VertexData[Offset++] = Vertex.TextureCoordinates.X;
+				VertexData[Offset++] = Vertex.TextureCoordinates.Y;
+			}
 
 			SharedPointer<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
 			VertexBuffer->UploadData(VertexData);

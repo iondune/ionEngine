@@ -78,9 +78,13 @@ namespace ion
 			void ApplyOffset(vec3f const & Offset);
 			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
+			void SeparateTriangles();
+			void CalculateNormalsPerFace();
+			void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.0001f);
 
 			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
+
 
 		};
 

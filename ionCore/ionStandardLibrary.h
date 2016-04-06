@@ -143,6 +143,23 @@ public:
 		return String;
 	}
 
+	static string StripExtension(string const & Path)
+	{
+		return Path.substr(0, Path.find_last_of("."));
+	}
+
+	static string GetExtension(string const & Path)
+	{
+		size_t Index = Path.find_last_of(".");
+		if (Index == string::npos)
+		{
+			return "";
+		}
+		else
+		{
+			return Path.substr(Index + 1);
+		}
+	}
 };
 
 class String
