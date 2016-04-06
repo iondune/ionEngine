@@ -128,6 +128,82 @@ namespace ion
 			});
 		}
 
+		void CSimpleMesh::SeparateTriangles()
+		{
+			std::vector<SVertex> newVertices;
+			std::vector<STriangle> newTriangles;
+
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				for (int i = 0; i < 3; ++ i)
+					newVertices.push_back(Vertices[it->Indices[i]]);
+			}
+
+			for (uint i = 0; i < newVertices.size() / 3; ++ i)
+			{
+				STriangle tri;
+				tri.Indices[0] = i * 3;
+				tri.Indices[1] = i * 3 + 1;
+				tri.Indices[2] = i * 3 + 2;
+				newTriangles.push_back(tri);
+			}
+
+			Vertices = newVertices;
+			Triangles = newTriangles;
+		}
+
+		void CSimpleMesh::CalculateNormalsPerFace()
+		{
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				it->Normal = (Vertices[it->Indices[1]].Position - Vertices[it->Indices[0]].Position).
+					CrossProduct(Vertices[it->Indices[2]].Position - Vertices[it->Indices[0]].Position);
+				Vertices[it->Indices[0]].Normal = Vertices[it->Indices[1]].Normal = Vertices[it->Indices[2]].Normal = it->Normal;
+			}
+
+			for (std::vector<SVertex>::iterator it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal.Normalize();
+			}
+		}
+
+		void CSimpleMesh::CalculateNormalsPerVertex(bool CombineNear, f32 const NearTolerance)
+		{
+			CalculateNormalsPerFace();
+
+			for (auto it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal = 0;
+			}
+
+			for (auto it = Triangles.begin(); it != Triangles.end(); ++ it)
+			{
+				for (int i = 0; i < 3; ++ i)
+				{
+					Vertices[it->Indices[i]].Normal += it->Normal;
+				}
+			}
+
+			if (CombineNear)
+			{
+				for (uint i = 0; i < Vertices.size(); ++ i)
+				{
+					for (uint j = i + 1; j < Vertices.size(); ++ j)
+					{
+						if (Vertices[i].Position.GetDistanceSqFrom(Vertices[j].Position) < Sq(NearTolerance))
+						{
+							Vertices[i].Normal = Vertices[j].Normal = Vertices[i].Normal + Vertices[j].Normal;
+						}
+					}
+				}
+			}
+
+			for (auto it = Vertices.begin(); it != Vertices.end(); ++ it)
+			{
+				it->Normal.Normalize();
+			}
+		}
+
 		SharedPointer<Graphics::IIndexBuffer> CSimpleMesh::CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI)
 		{
 			vector<u32> IndexData;

@@ -79,6 +79,10 @@ namespace ion
 			void ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 
+			void SeparateTriangles();
+			void CalculateNormalsPerFace();
+			void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.0001f);
+
 			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer(Graphics::IGraphicsAPI * GraphicsAPI);
 
