@@ -14,7 +14,7 @@ namespace ion
 		namespace GL
 		{
 			
-			class CRenderTarget : public IRenderTarget
+			class CRenderTarget : public virtual IRenderTarget
 			{
 
 			public:
@@ -27,9 +27,12 @@ namespace ion
 
 				void SetClearColor(color3f const & Color);
 
+				virtual void Bind();
+
 				CWindow * Window = nullptr;
 				color3f Color;
-				uint Handle = 0;
+
+				static CRenderTarget * CurrentlyBound;
 			
 			};
 

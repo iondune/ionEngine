@@ -29,6 +29,8 @@ namespace ion
 			SharedPointer<IVertexBuffer> CreateVertexBuffer();
 			SharedPointer<IIndexBuffer> CreateIndexBuffer();
 
+			SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2u const & Size);
+
 			SharedPointer<ITexture2D> CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 			SharedPointer<ITexture3D> CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
