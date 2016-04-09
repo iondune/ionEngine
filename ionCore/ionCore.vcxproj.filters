@@ -13,5 +13,6 @@
     <ClInclude Include="ionComponent.h" />
     <ClInclude Include="ionLogger.h" />
     <ClInclude Include="ionSmartPointer.h" />
+    <ClInclude Include="ionBitwise.h" />
   </ItemGroup>
 </Project>

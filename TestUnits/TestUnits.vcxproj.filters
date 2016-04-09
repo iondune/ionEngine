@@ -41,6 +41,9 @@
     <ClCompile Include="IsUniformNameArrayElement.cpp">
       <Filter>ionScene</Filter>
     </ClCompile>
+    <ClCompile Include="ionBitwise.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">

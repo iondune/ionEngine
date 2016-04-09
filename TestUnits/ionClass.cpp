@@ -16,7 +16,7 @@ public:
 	{}
 };
 
-TEST_CASE("InstanceOf", "[ionClass :: InstanceOf]")
+TEST_CASE("InstanceOf", "")
 {
 	A a;
 	B b;
