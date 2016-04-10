@@ -38,6 +38,7 @@ namespace ion
 
 					UnboundUniforms = KeySet(ShaderProgram->Uniforms);
 					UnboundAttributes = KeySet(ShaderProgram->Attributes);
+					UnboundAttributes.erase("gl_VertexID");
 
 					Loaded = false;
 				}
