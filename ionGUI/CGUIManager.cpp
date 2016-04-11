@@ -102,6 +102,10 @@ namespace ion
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
+				if (ImGui::IsMouseHoveringAnyWindow())
+				{
+					Event.Block();
+				}
 				MousePressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
 				break;
 			case SMouseEvent::EType::Move:
