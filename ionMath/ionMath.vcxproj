@@ -10,19 +10,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A24BACED-451D-4120-A386-136A963C3C72}</ProjectGuid>
     <RootNamespace>ionMath</RootNamespace>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
-
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="ionMath.h" />
+    <ClInclude Include="ray3.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />
@@ -37,6 +35,5 @@
     <ClInclude Include="SVector4.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
