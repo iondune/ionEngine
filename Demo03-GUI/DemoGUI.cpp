@@ -31,13 +31,11 @@ int main()
 
 		GUIManager->NewFrame();
 		{
-			ImGui::Text("Hello, world!");
-		}
-		{
 			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
 			ImGui::ShowTestWindow();
 		}
-		ImGui::Render();
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + 100, "Hello, world!");
+		GUIManager->Draw();
 
 		Window->SwapBuffers();
 	}
