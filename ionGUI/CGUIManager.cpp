@@ -333,6 +333,35 @@ void CGUIManager::NewFrame()
 	ImGui::NewFrame();
 }
 
+void CGUIManager::Draw()
+{
+	ImGui::SetNextWindowPos(ImVec2(-1000, -1000));
+	ImGui::SetNextWindowSize(ImVec2(100000, 100000));
+	if (ImGui::Begin("GlobalScreen", nullptr, ImVec2(0, 0), 0.0f,
+		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings))
+	{
+		ImDrawList * DrawList = ImGui::GetWindowDrawList();
+
+		for (auto Text : TextQueue)
+		{
+			DrawList->AddText(ImVec2((float) Text.Position.X, (float) Text.Position.Y), 0xFFFFFFFF, Text.Text.c_str());
+		}
+		TextQueue.clear();
+
+		ImGui::End();
+	}
+	ImGui::Render();
+}
+
+void CGUIManager::TextUnformatted(vec2i const & Position, string const & Text)
+{
+	SDrawText Draw;
+	Draw.Text = Text;
+	Draw.Position = Position;
+
+	TextQueue.push_back(Draw);
+}
+
 CGUIManager::CGUIManager()
 {
 	for (int i = 0; i < 3; ++ i)
