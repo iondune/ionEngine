@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="ionBitwise.h" />
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="ionComponent.h" />
     <ClInclude Include="ionCore.h" />

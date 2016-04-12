@@ -24,6 +24,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
+    <ClCompile Include="ionBitwise.cpp" />
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="ionStandardLibrary.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
+    <ClCompile Include="ray3.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
     <ClCompile Include="SVector2.cpp" />
     <ClCompile Include="SVector3.cpp" />

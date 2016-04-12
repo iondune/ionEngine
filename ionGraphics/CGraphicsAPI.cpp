@@ -152,6 +152,22 @@ namespace ion
 		return IndexBuffer;
 	}
 
+	SharedPointer<Graphics::IDepthBuffer> CGraphicsAPI::CreateDepthBuffer(vec2u const & Size)
+	{
+		SharedPointer<Graphics::IDepthBuffer> DepthBuffer;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			DepthBuffer = Implementation->CreateDepthBuffer(Size);
+		}
+
+		return DepthBuffer;
+	}
+
 	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture2D> Texture;

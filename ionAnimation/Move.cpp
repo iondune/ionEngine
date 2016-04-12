@@ -82,6 +82,30 @@ namespace ion
 			return From;
 		}
 
+		float Move::Quadratic(float From, float const To, float const Elapsed, float const Speed, float const Clamp)
+		{
+			float const DistanceCanGo = Speed * Elapsed * Abs(To - From);
+
+			if (From > To + Clamp)
+			{
+				From -= DistanceCanGo;
+				if (From < To + Clamp)
+				{
+					From = To;
+				}
+			}
+			if (From < To - Clamp)
+			{
+				From += DistanceCanGo;
+				if (From > To - Clamp)
+				{
+					From = To;
+				}
+			}
+
+			return From;
+		}
+
 		vec3f Move::Cubic(vec3f From, vec3f const & To, float const Elapsed, float const Speed, float const Clamp)
 		{
 			vec3f const DirectionVector = To - From;

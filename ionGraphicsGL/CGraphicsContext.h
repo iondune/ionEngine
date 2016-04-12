@@ -24,8 +24,10 @@ namespace ion
 
 				CGraphicsContext(CWindow * Window);
 
-				SharedPointer<IPipelineState> CreatePipelineState();
 				SharedPointer<IRenderTarget> GetBackBuffer();
+
+				SharedPointer<IFrameBuffer> CreateFrameBuffer();
+				SharedPointer<IPipelineState> CreatePipelineState();
 
 				void Draw(SharedPointer<IPipelineState> State);
 				void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount);

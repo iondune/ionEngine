@@ -23,15 +23,12 @@
     <ClInclude Include="CRenderTarget.h" />
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="CIndexBuffer.h" />
-    <ClInclude Include="Context.h" />
     <ClInclude Include="COpenGLImplementation.h" />
     <ClInclude Include="CVertexShader.h" />
-    <ClInclude Include="DrawConfig.h" />
-    <ClInclude Include="DrawContext.h" />
-    <ClInclude Include="Framebuffer.h" />
+    <ClInclude Include="CFrameBuffer.h" />
     <ClInclude Include="ionGraphicsGL.h" />
     <ClInclude Include="CShaderProgram.h" />
-    <ClInclude Include="Renderbuffer.h" />
+    <ClInclude Include="CDepthBuffer.h" />
     <ClInclude Include="CPixelShader.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="Utilities.h" />
@@ -39,17 +36,14 @@
   <ItemGroup>
     <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
-    <ClCompile Include="Context.cpp" />
     <ClCompile Include="COpenGLImplementation.cpp" />
     <ClCompile Include="CPipelineState.cpp" />
     <ClCompile Include="CRenderTarget.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
-    <ClCompile Include="DrawConfig.cpp" />
-    <ClCompile Include="DrawContext.cpp" />
-    <ClCompile Include="Framebuffer.cpp" />
+    <ClCompile Include="CFrameBuffer.cpp" />
     <ClCompile Include="CShaderProgram.cpp" />
     <ClCompile Include="glad.cpp" />
-    <ClCompile Include="Renderbuffer.cpp" />
+    <ClCompile Include="CDepthBuffer.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>

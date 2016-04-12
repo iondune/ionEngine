@@ -26,6 +26,23 @@ namespace ion
 			RecalculateProjectionMatrix();
 		}
 
+		ray3f CPerspectiveCamera::GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize)
+		{
+			ray3f Ray;
+
+			vec2f const Normalized = (vec2f(Pixel)) / (vec2f(WindowSize) * 0.5f) - 1.f;
+
+			glm::mat4 InverseViewProjection = glm::inverse(ProjectionMatrix * ViewMatrix);
+			glm::vec4 ScreenCoordinates = glm::vec4(Normalized.X, -Normalized.Y, 1, 1);
+			glm::vec4 WorldCoordinates = InverseViewProjection * ScreenCoordinates;
+
+			Ray.Origin = Position;
+			//Ray.Direction = Normalize(Right * Normalized.X - Up * Normalized.Y + View * FocalLength);
+			Ray.Direction = vec3f::FromGLM(glm::vec3(WorldCoordinates)).GetNormalized();
+
+			return Ray;
+		}
+
 		f32 CPerspectiveCamera::GetFieldOfView() const
 		{
 			return ArcTan(0.5f / FocalLength);

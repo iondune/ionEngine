@@ -34,6 +34,8 @@ namespace ion
 		virtual SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer() = 0;
 		virtual SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer() = 0;
 
+		virtual SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2u const & Size) = 0;
+
 		virtual SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type) = 0;
 		virtual SharedPointer<Graphics::ITexture3D> CreateTexture3D(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type) = 0;
 
@@ -60,6 +62,8 @@ namespace ion
 
 		SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
 		SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
+
+		SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2u const & Size);
 
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type);
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(CImage * Image);

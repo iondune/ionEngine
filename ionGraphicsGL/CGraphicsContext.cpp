@@ -1,6 +1,7 @@
 
 #include "CGraphicsContext.h"
 
+#include "CFrameBuffer.h"
 #include "CRenderTarget.h"
 #include "CPipelineState.h"
 #include "CTexture.h"
@@ -24,6 +25,11 @@ namespace ion
 			CGraphicsContext::CGraphicsContext(CWindow * Window)
 			{
 				this->Window = Window;
+			}
+
+			SharedPointer<IFrameBuffer> CGraphicsContext::CreateFrameBuffer()
+			{
+				return MakeShared<CFrameBuffer>(Window);
 			}
 
 			SharedPointer<IPipelineState> CGraphicsContext::CreatePipelineState()

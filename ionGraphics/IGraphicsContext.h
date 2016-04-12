@@ -18,6 +18,8 @@ namespace ion
 		public:
 
 			virtual SharedPointer<IRenderTarget> GetBackBuffer() = 0;
+
+			virtual SharedPointer<IFrameBuffer> CreateFrameBuffer() = 0;
 			virtual SharedPointer<IPipelineState> CreatePipelineState() = 0;
 
 			virtual void Draw(SharedPointer<IPipelineState> State) = 0;

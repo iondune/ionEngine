@@ -8,8 +8,14 @@
 struct SMarchingCubesPoint
 {
 	f32 Value;
-	f32 Color;
 	vec3f Gradient;
+
+	SMarchingCubesPoint()
+	{}
+
+	SMarchingCubesPoint(f32 const & value)
+		: Value(value)
+	{}
 };
 
 typedef SVolume<SMarchingCubesPoint> SMarchingCubesVolume;

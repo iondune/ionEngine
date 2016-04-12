@@ -1,21 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Context.h">
-      <Filter>General</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawContext.h">
-      <Filter>General</Filter>
-    </ClInclude>
-    <ClInclude Include="Framebuffer.h">
-      <Filter>Render Target</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderbuffer.h">
-      <Filter>Render Target</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawConfig.h">
-      <Filter>General</Filter>
-    </ClInclude>
     <ClInclude Include="ionGraphicsGL.h" />
     <ClInclude Include="CShaderProgram.h">
       <Filter>Shader</Filter>
@@ -38,27 +23,24 @@
     <ClInclude Include="CTexture.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="CPipelineState.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="CGraphicsContext.h" />
     <ClInclude Include="COpenGLImplementation.h" />
+    <ClInclude Include="CGraphicsContext.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="CPipelineState.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrameBuffer.h">
+      <Filter>Render Target</Filter>
+    </ClInclude>
+    <ClInclude Include="CDepthBuffer.h">
+      <Filter>Render Target</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Context.cpp">
-      <Filter>General</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawContext.cpp">
-      <Filter>General</Filter>
-    </ClCompile>
-    <ClCompile Include="Framebuffer.cpp">
-      <Filter>Render Target</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderbuffer.cpp">
-      <Filter>Render Target</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawConfig.cpp">
-      <Filter>General</Filter>
-    </ClCompile>
     <ClCompile Include="CShaderProgram.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -74,13 +56,25 @@
     <ClCompile Include="CIndexBuffer.cpp">
       <Filter>Buffer Object</Filter>
     </ClCompile>
-    <ClCompile Include="CPipelineState.cpp" />
-    <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="glad.cpp">
       <Filter>glad</Filter>
     </ClCompile>
-    <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="COpenGLImplementation.cpp" />
+    <ClCompile Include="CGraphicsContext.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="CPipelineState.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrameBuffer.cpp">
+      <Filter>Render Target</Filter>
+    </ClCompile>
+    <ClCompile Include="CDepthBuffer.cpp">
+      <Filter>Render Target</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shader">

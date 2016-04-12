@@ -57,5 +57,8 @@
     <ClInclude Include="STriangle3.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="ray3.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

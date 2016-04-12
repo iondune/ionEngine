@@ -14,3 +14,4 @@
 #include "ionUtils.h"
 #include "ionStandardLibrary.h"
 #include "ionLogger.h"
+#include "ionBitwise.h"

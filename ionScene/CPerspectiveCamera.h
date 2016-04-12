@@ -27,6 +27,8 @@ namespace ion
 			void RecalculateProjectionMatrix();
 			void Update();
 
+			ray3f GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize);
+
 		protected:
 
 			f32 FocalLength;
