@@ -46,7 +46,7 @@ namespace ion
 			{
 
 				Window = new CWindow(WindowHandle);
-				Window->Size = Size;
+				glfwGetFramebufferSize(WindowHandle, &Window->Size.X, &Window->Size.Y);
 				Windows[WindowHandle] = Window;
 
 				glfwSetKeyCallback(WindowHandle, CWindowManager::KeyCallback);
