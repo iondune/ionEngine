@@ -82,6 +82,8 @@ namespace ion
 			void CalculateNormalsPerFace();
 			void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.0001f);
 
+			void WriteOBJ(string const & FileName) const;
+
 			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
 
