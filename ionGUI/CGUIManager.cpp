@@ -381,7 +381,7 @@ void CGUIManager::Draw()
 	ImGui::SetNextWindowPos(ImVec2(-1000, -1000));
 	ImGui::SetNextWindowSize(ImVec2(100000, 100000));
 	if (ImGui::Begin("GlobalScreen", nullptr, ImVec2(0, 0), 0.0f,
-		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings))
+		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
 	{
 		ImDrawList * DrawList = ImGui::GetWindowDrawList();
 
