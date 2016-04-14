@@ -49,8 +49,7 @@ namespace ion
 		int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;
 		int AttribLocationTex = 0, AttribLocationProjMtx = 0;
 		int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
-		size_t VboSize = 0;
-		uint VboHandle = 0, VaoHandle = 0;
+		uint VboHandle = 0, VaoHandle = 0, ElementsHandle = 0;
 
 	struct SDrawText
 	{
