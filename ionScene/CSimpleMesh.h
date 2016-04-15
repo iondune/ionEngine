@@ -42,10 +42,12 @@ namespace ion
 				SVertex(
 					vec3f const & position,
 					vec3f const & normal = vec3f(),
-					vec2f const & texture = vec2f());
+					vec2f const & texture = vec2f(),
+					vec3f const & tangent = vec3f());
 
 				vec3f Position;
 				vec3f Normal;
+				vec3f Tangent;
 				vec2f TextureCoordinates;
 
 			};

@@ -10,8 +10,8 @@ namespace ion
 		SSimpleMaterial::SSimpleMaterial()
 		{
 			Shininess = 1000.0f;
-			Ambient = SColorf(0.05f);
-			Diffuse = SColorf(0.9f);
+			Ambient = SColorf(0.4f);
+			Diffuse = SColorf(0.6f);
 			Specular = SColorf(1.f);
 		}
 
@@ -36,10 +36,12 @@ namespace ion
 		CSimpleMesh::SVertex::SVertex(
 			vec3f const & position,
 			vec3f const & normal,
-			vec2f const & texture)
+			vec2f const & texture,
+			vec3f const & tangent)
 		{
 			Position = position;
 			Normal = normal;
+			Tangent = tangent;
 			TextureCoordinates = texture;
 		}
 
@@ -309,7 +311,7 @@ namespace ion
 			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 			vector<float> VertexData;
-			VertexData.resize(Vertices.size() * 8);
+			VertexData.resize(Vertices.size() * 11);
 
 			uint Offset = 0;
 			for (SVertex & Vertex : Vertices)
@@ -322,6 +324,9 @@ namespace ion
 				VertexData[Offset++] = Vertex.Normal.Z;
 				VertexData[Offset++] = Vertex.TextureCoordinates.X;
 				VertexData[Offset++] = Vertex.TextureCoordinates.Y;
+				VertexData[Offset++] = Vertex.Tangent.X;
+				VertexData[Offset++] = Vertex.Tangent.Y;
+				VertexData[Offset++] = Vertex.Tangent.Z;
 			}
 
 			SharedPointer<Graphics::IVertexBuffer> VertexBuffer = GraphicsAPI->CreateVertexBuffer();
@@ -331,6 +336,7 @@ namespace ion
 				{ "vPosition",  3, Graphics::EAttributeType::Float },
 				{ "vNormal",    3, Graphics::EAttributeType::Float },
 				{ "vTexCoords", 2, Graphics::EAttributeType::Float },
+				{ "vTangent",   3, Graphics::EAttributeType::Float },
 			};
 			VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 			return VertexBuffer;
