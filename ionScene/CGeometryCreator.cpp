@@ -22,25 +22,25 @@ namespace ion
 					Position,
 					Normal,
 					vec2f(0, 0),
-					V
+					U
 					));
 				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
 					Position + U,
 					Normal,
 					vec2f(1, 0),
-					V
+					U
 					));
 				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
 					Position + U + V,
 					Normal,
 					vec2f(1, 1),
-					V
+					U
 					));
 				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
 					Position + V,
 					Normal,
 					vec2f(0, 1),
-					V
+					U
 					));
 
 				Mesh->Triangles.push_back(CSimpleMesh::STriangle(
