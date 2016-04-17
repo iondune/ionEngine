@@ -4,9 +4,6 @@
     <Filter Include="Vector">
       <UniqueIdentifier>{b145132d-b249-4a34-b70c-a9e2721e836f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Vector\Extensions">
-      <UniqueIdentifier>{160dfdc6-30ef-48d0-9684-fbaaf5ff1192}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Vector\Base">
       <UniqueIdentifier>{0133fa8b-ba60-4ead-b84a-0630b57a1e63}</UniqueIdentifier>
     </Filter>
