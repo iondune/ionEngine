@@ -280,7 +280,7 @@ namespace ion
 		io.KeyMap[ImGuiKey_End] = (int) EKey::End;
 		io.KeyMap[ImGuiKey_Delete] = (int) EKey::Delete;
 		io.KeyMap[ImGuiKey_Backspace] = (int) EKey::Backspace;
-		io.KeyMap[ImGuiKey_Enter] = (int) EKey::Return;
+		io.KeyMap[ImGuiKey_Enter] = (int) EKey::Enter;
 		io.KeyMap[ImGuiKey_Escape] = (int) EKey::Escape;
 		io.KeyMap[ImGuiKey_A] = (int) EKey::A;
 		io.KeyMap[ImGuiKey_C] = (int) EKey::C;

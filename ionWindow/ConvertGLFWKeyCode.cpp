@@ -73,6 +73,9 @@ namespace ion
 		case GLFW_KEY_TAB:
 			return EKey::Tab;
 
+		case GLFW_KEY_ENTER:
+			return EKey::Enter;
+
 		case GLFW_KEY_F1:
 			return EKey::F1;
 		case GLFW_KEY_F2:
