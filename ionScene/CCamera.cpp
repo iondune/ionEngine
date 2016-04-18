@@ -107,13 +107,19 @@ namespace ion
 			FarPlane = farPlane;
 		}
 
-		vec2i CCamera::GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize)
+		vec2i CCamera::GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize, bool * InFront)
 		{
 			vec4f WorldCoords = vec4f(WorldPosition.X, WorldPosition.Y, WorldPosition.Z, 1);
 			WorldCoords.Transform(ViewMatrix);
 			WorldCoords.Transform(ProjectionMatrix);
 
 			vec2f ScreenCoords = WorldCoords.XY() / WorldCoords.W;
+
+			if (InFront)
+			{
+				float const Z = (WorldCoords.Z / WorldCoords.W);
+				*InFront = (Z > -1 && Z < 1);
+			}
 
 			ScreenCoords.Y *= -1;
 			ScreenCoords += 1;

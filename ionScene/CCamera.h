@@ -38,7 +38,7 @@ namespace ion
 			virtual void SetNearPlane(f32 const nearPlane);
 			virtual void SetFarPlane(f32 const farPlane);
 
-			virtual vec2i GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize);
+			virtual vec2i GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize, bool * InFront = nullptr);
 			virtual ray3f GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize);
 
 		protected:
