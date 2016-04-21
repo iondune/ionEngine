@@ -105,6 +105,7 @@ namespace ion
 				if (CurrentlyBound != this)
 				{
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
+					CurrentlyBound = this;
 				}
 			}
 
