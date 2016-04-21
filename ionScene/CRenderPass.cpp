@@ -91,6 +91,8 @@ namespace ion
 
 		void CRenderPass::Draw()
 		{
+			RenderTarget->Bind();
+
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
 				if (SceneObject->IsVisible())
