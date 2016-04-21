@@ -43,6 +43,7 @@ namespace ion
 			{
 				Fix8 = 0,
 				Float32 = 1,
+				Depth = 2
 			};
 
 			enum class EMipMaps

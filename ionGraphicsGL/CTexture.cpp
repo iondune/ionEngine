@@ -117,7 +117,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			u32 const CTexture::InternalFormatMatrix[4][10] =
+			u32 const CTexture::InternalFormatMatrix[4][3] =
 			{
 
 				// Components
@@ -131,11 +131,12 @@ namespace ion
 				// ----
 				// Fix8 = 0,
 				// Float32 = 1,
+				// Depth = 2
 
-				{GL_R8, GL_R32F},
-				{GL_RG8, GL_RG32F},
-				{GL_RGB8, GL_RGB32F},
-				{GL_RGBA8, GL_RGBA32F}
+				{GL_R8, GL_R32F, GL_DEPTH_COMPONENT24 },
+				{GL_RG8, GL_RG32F, GL_DEPTH_COMPONENT24 },
+				{GL_RGB8, GL_RGB32F, GL_DEPTH_COMPONENT24 },
+				{GL_RGBA8, GL_RGBA32F, GL_DEPTH_COMPONENT24 },
 			};
 
 			u32 const CTexture::FormatMatrix[4] =
@@ -146,15 +147,6 @@ namespace ion
 				GL_RGBA
 			};
 
-			u32 const CTexture::DepthComponentMatrix[6] =
-			{
-				GL_DEPTH_COMPONENT16,
-				GL_DEPTH_COMPONENT24,
-				GL_DEPTH_COMPONENT32,
-				GL_DEPTH24_STENCIL8,
-				GL_DEPTH32F_STENCIL8,
-				GL_STENCIL_INDEX8
-			};
 
 			string const CTexture::InternalFormatStringMatrix[4][10] =
 			{
