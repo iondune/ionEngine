@@ -45,7 +45,7 @@ namespace ion
 				CheckedGLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, std::dynamic_pointer_cast<CDepthBuffer>(DepthBuffer)->Handle));
 			}
 
-			bool CFrameBuffer::Check()
+			bool CFrameBuffer::CheckCorrectness()
 			{
 				Bind();
 				CheckExistingErrors(glCheckFramebufferStatus);
