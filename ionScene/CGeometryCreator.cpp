@@ -428,6 +428,24 @@ namespace ion
 			return Mesh;
 		}
 
+		CSimpleMesh * CGeometryCreator::CreateScreenTriangle()
+		{
+			CSimpleMesh * Mesh = new CSimpleMesh();
+
+			Mesh->Vertices.resize(3);
+			Mesh->Triangles.resize(1);
+
+			Mesh->Vertices[0].Position = vec3f(-1.5f, -1.5f, 0);
+			Mesh->Vertices[1].Position = vec3f(10, -1.5f, 0);
+			Mesh->Vertices[2].Position = vec3f(-1.5f, 10, 0);
+
+			Mesh->Triangles[0].Indices[0] = 0;
+			Mesh->Triangles[0].Indices[1] = 1;
+			Mesh->Triangles[0].Indices[2] = 2;
+
+			return Mesh;
+		}
+
 		CSimpleMesh * CGeometryCreator::Intersect(CSimpleMesh const * A, CSimpleMesh const * B, vec3f const & AOffset, vec3f const & BOffset)
 		{
 			CSimpleMesh * Intersection = new CSimpleMesh();
