@@ -66,6 +66,8 @@ namespace ion
 			Graphics::CUniform<vec3f> uCameraPosition;
 			Graphics::CUniform<glm::mat4> uModelMatrix;
 			Graphics::CUniform<glm::mat4> uNormalMatrix;
+			Graphics::CUniform<glm::mat4> uCameraMatrix;
+			Graphics::CUniform<glm::mat4> uInvCameraMatrix;
 
 		};
 
