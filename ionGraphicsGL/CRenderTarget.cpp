@@ -48,14 +48,10 @@ namespace ion
 
 			void CRenderTarget::Bind()
 			{
-				if (nullptr == CurrentlyBound)
-				{
-					CurrentlyBound = this;
-				}
-
 				if (CurrentlyBound != this)
 				{
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+					CheckedGLCall(glViewport(0, 0, Window->GetSize().X, Window->GetSize().Y));
 					CurrentlyBound = this;
 				}
 			}

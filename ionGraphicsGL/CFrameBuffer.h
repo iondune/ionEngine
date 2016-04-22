@@ -33,6 +33,8 @@ namespace ion
 
 				uint Handle = 0;
 
+				vec2u Size;
+
 #pragma warning(suppress: 4250)
 			};
 
