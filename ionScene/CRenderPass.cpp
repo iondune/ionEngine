@@ -69,6 +69,18 @@ namespace ion
 			SceneObjects.erase(SceneObject);
 		}
 
+		void CRenderPass::SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform)
+		{
+			Uniforms[Name] = Uniform;
+			ReloadAll();
+		}
+
+		void CRenderPass::SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture)
+		{
+			Textures[Name] = Texture;
+			ReloadAll();
+		}
+
 		void CRenderPass::Load()
 		{
 			if (ActiveCamera)
@@ -212,6 +224,22 @@ namespace ion
 						if (Name == CountName)
 						{
 							PipelineState->SetUniform(Name, SharedFromNew(new Graphics::CUniformValue<int>((int) it.second.size())));
+						}
+					}
+
+					for (auto const & it : Uniforms)
+					{
+						if (Name == it.first)
+						{
+							PipelineState->SetUniform(Name, it.second);
+						}
+					}
+
+					for (auto const & it : Textures)
+					{
+						if (Name == it.first)
+						{
+							PipelineState->SetTexture(Name, it.second);
 						}
 					}
 				}

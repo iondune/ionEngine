@@ -35,6 +35,9 @@ namespace ion
 			virtual void AddSceneObject(ISceneObject * SceneObject);
 			virtual void RemoveSceneObject(ISceneObject * SceneObject);
 
+			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
+			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
+
 			virtual void Load();
 			virtual void Draw();
 			virtual void ReloadAll();
@@ -47,7 +50,10 @@ namespace ion
 			ICamera * ActiveCamera = nullptr;
 			set<ISceneObject *> SceneObjects;
 			map<string, vector<ILight *>> Lights;
+
 			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
+			map<string, SharedPointer<Graphics::ITexture>> Textures;
+
 			vector<vector<std::tuple<ISceneObject *, SharedPointer<Graphics::IPipelineState>, uint>>> RenderQueue;
 			string Name;
 
