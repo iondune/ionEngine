@@ -117,7 +117,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			u32 const CTexture::InternalFormatMatrix[4][3] =
+			u32 const CTexture::InternalFormatMatrix[4][4] =
 			{
 
 				// Components
@@ -130,13 +130,14 @@ namespace ion
 				// Type
 				// ----
 				// Fix8 = 0,
-				// Float32 = 1,
-				// Depth = 2
+				// Float16 = 1,
+				// Float32 = 2,
+				// Depth = 3,
 
-				{GL_R8, GL_R32F, GL_DEPTH_COMPONENT24 },
-				{GL_RG8, GL_RG32F, GL_DEPTH_COMPONENT24 },
-				{GL_RGB8, GL_RGB32F, GL_DEPTH_COMPONENT24 },
-				{GL_RGBA8, GL_RGBA32F, GL_DEPTH_COMPONENT24 },
+				{GL_R8, GL_R16F, GL_R32F, GL_DEPTH_COMPONENT24 },
+				{GL_RG8, GL_RG16F, GL_RG32F, GL_DEPTH_COMPONENT24 },
+				{GL_RGB8, GL_RGB16F, GL_RGB32F, GL_DEPTH_COMPONENT24 },
+				{GL_RGBA8, GL_RGBA16F, GL_RGBA32F, GL_DEPTH_COMPONENT24 },
 			};
 
 			u32 const CTexture::FormatMatrix[4] =
@@ -148,12 +149,12 @@ namespace ion
 			};
 
 
-			string const CTexture::InternalFormatStringMatrix[4][10] =
+			string const CTexture::InternalFormatStringMatrix[4][4] =
 			{
-				{"GL_R8", "GL_R16", "GL_R8UI", "GL_R32UI", "GL_R32UI", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R16F", "GL_R32F"},
-				{"GL_RG8", "GL_RG16", "GL_RG8UI", "GL_RG32UI", "GL_RG32UI", "GL_RG8I", "GL_RG16I", "GL_RG32I", "GL_RG16F", "GL_RG32F"},
-				{"GL_RGB8", "GL_RGB16", "GL_RGB8UI", "GL_RGB32UI", "GL_RGB32UI", "GL_RGB8I", "GL_RGB16I", "GL_RGB32I", "GL_RGB16F", "GL_RGB32F"},
-				{"GL_RGBA8", "GL_RGBA16", "GL_RGBA8UI", "GL_RGBA32UI", "GL_RGBA32UI", "GL_RGBA8I", "GL_RGBA16I", "GL_RGBA32I", "GL_RGBA16F", "GL_RGBA32F"}
+				{ "GL_R8", "GL_R16F", "GL_R32F", "GL_DEPTH_COMPONENT24" },
+				{ "GL_RG8", "GL_RG16F", "GL_RG32F", "GL_DEPTH_COMPONENT24" },
+				{ "GL_RGB8", "GL_RGB16F", "GL_RGB32F", "GL_DEPTH_COMPONENT24" },
+				{ "GL_RGBA8", "GL_RGBA16F", "GL_RGBA32F", "GL_DEPTH_COMPONENT24" },
 			};
 
 			string const CTexture::FormatStringMatrix[4] =
