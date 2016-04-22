@@ -7,33 +7,6 @@ namespace ion
 	namespace Graphics
 	{
 
-		size_t GetUniformTypeSize(EUniformType const UniformType)
-		{
-			switch (UniformType)
-			{
-			case EUniformType::Float:
-				return sizeof(float);
-			case EUniformType::Float2:
-				return sizeof(float) * 2;
-			case EUniformType::Float3:
-				return sizeof(float) * 3;
-			case EUniformType::Float4:
-				return sizeof(float) * 4;
-			case EUniformType::Matrix4x4:
-				return sizeof(float) * 4 * 4;
-			case EUniformType::Int:
-				return sizeof(int);
-			case EUniformType::Int2:
-				return sizeof(int) * 2;
-			case EUniformType::Int3:
-				return sizeof(int) * 3;
-			case EUniformType::Int4:
-				return sizeof(int) * 4;
-			default:
-				return 0;
-			}
-		}
-
 		string GetUniformTypeString(EUniformType const UniformType)
 		{
 			switch (UniformType)
@@ -68,15 +41,33 @@ namespace ion
 		}
 
 		template <>
+		EUniformType IUniformTyped<vector<float>>::GetType() const
+		{
+			return EUniformType::FloatArray;
+		}
+
+		template <>
 		EUniformType IUniformTyped<vec2f>::GetType() const
 		{
 			return EUniformType::Float2;
 		}
 
 		template <>
+		EUniformType IUniformTyped<vector<vec2f>>::GetType() const
+		{
+			return EUniformType::Float2Array;
+		}
+
+		template <>
 		EUniformType IUniformTyped<vec3f>::GetType() const
 		{
 			return EUniformType::Float3;
+		}
+
+		template <>
+		EUniformType IUniformTyped<vector<vec3f>>::GetType() const
+		{
+			return EUniformType::Float3Array;
 		}
 
 		template <>

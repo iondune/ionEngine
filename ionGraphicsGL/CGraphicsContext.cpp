@@ -83,17 +83,54 @@ namespace ion
 					case EUniformType::Float:
 						CheckedGLCall(glUniform1f(it.first, * static_cast<float const *>(it.second->GetData())));
 						break;
+					case EUniformType::FloatArray:
+						CheckedGLCall(glUniform1fv(it.first,
+							(GLsizei) static_cast<vector<float> const *>(it.second->GetData())->size(),
+							static_cast<vector<float> const *>(it.second->GetData())->data()
+						));
+						break;
 					case EUniformType::Float2:
 						CheckedGLCall(glUniform2f(it.first,
 							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
 							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
 						break;
+					case EUniformType::Float2Array:
+					{
+						vector<float> CompactedData;
+						for (auto const & Vector : *static_cast<vector<vec2f> const *>(it.second->GetData()))
+						{
+							CompactedData.push_back(Vector.X);
+							CompactedData.push_back(Vector.Y);
+						}
+						CheckedGLCall(glUniform2fv(it.first,
+							(GLsizei) CompactedData.size() / 2,
+							CompactedData.data()
+						));
+
+						break;
+					}
 					case EUniformType::Float3:
 						CheckedGLCall(glUniform3f(it.first,
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
 							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
 						break;
+					case EUniformType::Float3Array:
+					{
+						vector<float> CompactedData;
+						for (auto const & Vector : *static_cast<vector<vec3f> const *>(it.second->GetData()))
+						{
+							CompactedData.push_back(Vector.X);
+							CompactedData.push_back(Vector.Y);
+							CompactedData.push_back(Vector.Z);
+						}
+						CheckedGLCall(glUniform3fv(it.first,
+							(GLsizei) CompactedData.size() / 3,
+							CompactedData.data()
+						));
+
+						break;
+					}
 					case EUniformType::Float4:
 						CheckedGLCall(glUniform4f(it.first,
 							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
