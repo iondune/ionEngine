@@ -15,14 +15,19 @@ namespace ion
 			return Visible;
 		}
 
-		bool ISceneObject::IsLoaded() const
+		bool ISceneObject::IsLoaded(CRenderPass const * RenderPass) const
 		{
-			return Loaded;
+			bool Check = false;
+			TryMapAccess(Loaded, RenderPass, Check);
+			return Check;
 		}
 
 		void ISceneObject::TriggerReload()
 		{
-			Loaded = false;
+			for (auto it : Loaded)
+			{
+				it.second = false;
+			}
 		}
 
 		void ISceneObject::SetVisible(bool const isVisible)

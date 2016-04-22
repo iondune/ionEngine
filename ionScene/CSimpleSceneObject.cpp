@@ -57,7 +57,7 @@ namespace ion
 			PipelineState->SetBlendMode(BlendMode);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
-			Loaded = true;
+			Loaded[RenderPass] = true;
 		}
 
 		void CSimpleSceneObject::Draw(CRenderPass * RenderPass)
@@ -81,7 +81,7 @@ namespace ion
 		void CSimpleSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
 		{
 			this->Shader = Shader;
-			Loaded = false;
+			TriggerReload();
 		}
 
 		void CSimpleSceneObject::SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture)
@@ -94,7 +94,7 @@ namespace ion
 			{
 				Textures.erase(Name);
 			}
-			Loaded = false;
+			TriggerReload();
 		}
 
 		void CSimpleSceneObject::SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform)
@@ -107,7 +107,7 @@ namespace ion
 			{
 				Uniforms.erase(Name);
 			}
-			Loaded = false;
+			TriggerReload();
 		}
 
 		void CSimpleSceneObject::SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled)

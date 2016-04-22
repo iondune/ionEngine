@@ -25,7 +25,7 @@ namespace ion
 		{
 			this->Mesh = Mesh;
 			this->Material = Mesh->Material;
-			Loaded = false;
+			TriggerReload();
 		}
 
 	}
