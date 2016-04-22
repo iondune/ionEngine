@@ -33,6 +33,13 @@ namespace ion
 				SharedPointer<CTexture2D> GLTexture = std::dynamic_pointer_cast<CTexture2D>(Texture);
 				Size = GLTexture->TextureSize;
 				CheckedGLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + Attachment, GL_TEXTURE_2D, GLTexture->Handle, 0));
+
+				vector<uint> Attachments;
+				for (uint i = 0; i <= Attachment; ++ i)
+				{
+					Attachments.push_back(GL_COLOR_ATTACHMENT0 + i);
+				}
+				CheckedGLCall(glDrawBuffers(Attachment + 1, Attachments.data()));
 			}
 
 			void CFrameBuffer::AttachDepthTexture(SharedPointer<ITexture2D> Texture)
