@@ -35,8 +35,9 @@ namespace ion
 
 		protected:
 
-			SharedPointer<Graphics::IPipelineState> PipelineState;
+			map<CRenderPass *, SharedPointer<Graphics::IPipelineState>> PipelineStates;
 			SharedPointer<Graphics::IShaderProgram> Shader;
+
 			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
 			SharedPointer<Graphics::IVertexBuffer> VertexBuffer;
 			SSimpleMaterial Material;

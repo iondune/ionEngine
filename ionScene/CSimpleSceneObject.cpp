@@ -18,9 +18,10 @@ namespace ion
 				return;
 			}
 
-			if (! PipelineState)
+			SharedPointer<Graphics::IPipelineState> PipelineState;
+			if (! TryMapAccess(PipelineStates, RenderPass, PipelineState))
 			{
-				PipelineState = RenderPass->GetGraphicsContext()->CreatePipelineState();
+				PipelineStates[RenderPass] = PipelineState = RenderPass->GetGraphicsContext()->CreatePipelineState();
 			}
 
 			PipelineState->SetIndexBuffer(IndexBuffer);
@@ -30,11 +31,11 @@ namespace ion
 
 			PipelineState->SetProgram(Shader);
 
-			std::for_each(Textures.begin(), Textures.end(), [this](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
+			std::for_each(Textures.begin(), Textures.end(), [this, PipelineState](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
 			{
 				PipelineState->SetTexture(Iterator.first, Iterator.second);
 			});
-			std::for_each(Uniforms.begin(), Uniforms.end(), [this](pair<string, SharedPointer<Graphics::IUniform>> const & Iterator)
+			std::for_each(Uniforms.begin(), Uniforms.end(), [this, PipelineState](pair<string, SharedPointer<Graphics::IUniform>> const & Iterator)
 			{
 				PipelineState->SetUniform(Iterator.first, Iterator.second);
 			});
@@ -62,7 +63,8 @@ namespace ion
 
 		void CSimpleSceneObject::Draw(CRenderPass * RenderPass)
 		{
-			if (PipelineState)
+			SharedPointer<Graphics::IPipelineState> PipelineState;
+			if (TryMapAccess(PipelineStates, RenderPass, PipelineState))
 			{
 				RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
 			}
@@ -112,9 +114,9 @@ namespace ion
 
 		void CSimpleSceneObject::SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled)
 		{
-			if (PipelineState)
+			for (auto Iterator : PipelineStates)
 			{
-				PipelineState->SetFeatureEnabled(Feature, Enabled);
+				Iterator.second->SetFeatureEnabled(Feature, Enabled);
 			}
 
 			DrawFeatures[Feature] = Enabled;
@@ -122,9 +124,9 @@ namespace ion
 
 		void CSimpleSceneObject::SetBlendMode(Graphics::EBlendMode const BlendMode)
 		{
-			if (PipelineState)
+			for (auto Iterator : PipelineStates)
 			{
-				PipelineState->SetBlendMode(BlendMode);
+				Iterator.second->SetBlendMode(BlendMode);
 			}
 
 			this->BlendMode = BlendMode;
