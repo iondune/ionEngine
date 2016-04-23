@@ -22,7 +22,7 @@ namespace ion
 			{
 				Window->MakeContextCurrent();
 				Bind();
-				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, 1.f));
+				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
 				CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT));
 			}
 
@@ -37,11 +37,11 @@ namespace ion
 			{
 				Window->MakeContextCurrent();
 				Bind();
-				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, 1.f));
+				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
 				CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 			}
 
-			void CRenderTarget::SetClearColor(color3f const & Color)
+			void CRenderTarget::SetClearColor(color4f const & Color)
 			{
 				this->Color = Color;
 			}

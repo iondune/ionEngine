@@ -21,7 +21,7 @@ namespace ion
 			virtual void ClearDepth() = 0;
 			virtual void ClearColorAndDepth() = 0;
 
-			virtual void SetClearColor(color3f const & Color) = 0;
+			virtual void SetClearColor(color4f const & Color) = 0;
 
 			virtual void Bind() = 0;
 
