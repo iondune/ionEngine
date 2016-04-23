@@ -86,6 +86,8 @@ namespace ion
 
 			void WriteOBJ(string const & FileName) const;
 
+			box3f CalculateBoundingBox() const;
+
 			SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 			SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
 
