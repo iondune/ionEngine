@@ -16,7 +16,7 @@ namespace ion
 			}
 
 			IndexBuffer = Mesh->CreateIndexBuffer();
-			VertexBuffer = Mesh->CreateVertexBuffer();
+			SetVertexBuffer(0, Mesh->CreateVertexBuffer());
 
 			CSimpleSceneObject::Load(RenderPass);
 		}
