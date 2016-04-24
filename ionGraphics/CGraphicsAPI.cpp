@@ -184,7 +184,7 @@ namespace ion
 		return Texture;
 	}
 
-	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(CImage * Image)
+	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(CImage * Image, Graphics::ITexture::EMipMaps MipMaps)
 	{
 		if (! Image)
 		{
@@ -207,7 +207,7 @@ namespace ion
 		}
 		SharedPointer<Graphics::ITexture2D> Texture = CreateTexture2D(
 			Image->GetSize(),
-			Graphics::ITexture::EMipMaps::True,
+			MipMaps,
 			Format,
 			Graphics::ITexture::EInternalFormatType::Fix8);
 		Texture->Upload(

@@ -38,7 +38,7 @@ namespace ion
 		return ShaderProgram;
 	}
 
-	SharedPointer<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName)
+	SharedPointer<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps)
 	{
 		if (! GraphicsAPI)
 		{
@@ -49,7 +49,7 @@ namespace ion
 		CImage * Image = CImage::Load(AssetPath + TexturePath + FileName);
 		if (Image)
 		{
-			return GraphicsAPI->CreateTexture2D(Image);
+			return GraphicsAPI->CreateTexture2D(Image, MipMaps);
 		}
 		else
 		{
