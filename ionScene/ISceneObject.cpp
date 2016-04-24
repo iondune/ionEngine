@@ -24,7 +24,7 @@ namespace ion
 
 		void ISceneObject::TriggerReload()
 		{
-			for (auto it : Loaded)
+			for (auto & it : Loaded)
 			{
 				it.second = false;
 			}
