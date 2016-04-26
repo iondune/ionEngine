@@ -121,7 +121,7 @@ namespace ion
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
-				if (ImGui::IsMouseHoveringAnyWindow())
+				if (IO.WantCaptureMouse)
 				{
 					Event.Block();
 				}
