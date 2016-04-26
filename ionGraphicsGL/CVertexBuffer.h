@@ -23,7 +23,7 @@ namespace ion
 				~CVertexBuffer();
 
 				void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements);
-				void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements);
+				void SetInputLayout(SInputLayoutElement const * const InputLayout, int const NumElements);
 				void SetInstancingEnabled(bool const Enabled);
 
 

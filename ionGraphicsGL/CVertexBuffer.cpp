@@ -23,7 +23,7 @@ namespace ion
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 			}
 
-			void CVertexBuffer::SetInputLayout(SInputLayoutElement * InputLayoutArray, int const NumElements)
+			void CVertexBuffer::SetInputLayout(SInputLayoutElement const * const InputLayoutArray, int const NumElements)
 			{
 				InputLayout.clear();
 				InputLayout.insert(InputLayout.begin(), InputLayoutArray, InputLayoutArray + NumElements);

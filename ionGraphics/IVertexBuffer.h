@@ -41,7 +41,7 @@ namespace ion
 
 			virtual void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements) = 0;
 
-			virtual void SetInputLayout(SInputLayoutElement * InputLayout, int const NumElements) = 0;
+			virtual void SetInputLayout(SInputLayoutElement const * const InputLayout, int const NumElements) = 0;
 
 			virtual void SetInstancingEnabled(bool const Enabled) = 0;
 
