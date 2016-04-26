@@ -26,6 +26,7 @@ namespace ion
 			FloatArray = 9,
 			Float2Array = 10,
 			Float3Array = 11,
+			Matrix4x4Array = 12,
 		};
 
 		string GetUniformTypeString(EUniformType const UniformType);

@@ -141,6 +141,16 @@ namespace ion
 					case EUniformType::Matrix4x4:
 						CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
 						break;
+					case EUniformType::Matrix4x4Array:
+					{
+						vector<float> CompactedData;
+						for (auto const & Matrix : *static_cast<vector<glm::mat4> const *>(it.second->GetData()))
+						{
+							CompactedData.insert(CompactedData.end(), glm::value_ptr(Matrix), glm::value_ptr(Matrix) + 16);
+						}
+						CheckedGLCall(glUniformMatrix4fv(it.first, (GLsizei) CompactedData.size() / 16, GL_FALSE, CompactedData.data()));
+						break;
+					}
 					case EUniformType::Int:
 						CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
 						break;

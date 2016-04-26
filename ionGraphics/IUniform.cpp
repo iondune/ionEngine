@@ -95,6 +95,12 @@ namespace ion
 		}
 
 		template <>
+		EUniformType IUniformTyped<vector<glm::mat4>>::GetType() const
+		{
+			return EUniformType::Matrix4x4Array;
+		}
+
+		template <>
 		EUniformType IUniformTyped<int>::GetType() const
 		{
 			return EUniformType::Int;
