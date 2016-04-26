@@ -95,6 +95,30 @@ public:
 		return * this;
 	}
 
+	glm::vec4 const ToGLM() const
+	{
+		return glm::vec4(X, Y, Z, W);
+	}
+
+	static SVector4<T> FromGLM(glm::vec4 const & Vec)
+	{
+		return SVector4<T>(Vec.x, Vec.y, Vec.z, Vec.w);
+	}
+
+	void Transform(glm::mat4 const & mat)
+	{
+		glm::vec4 v = ToGLM();
+		v = mat * v;
+		*this = FromGLM(v);
+	}
+
+	SVector4<T> GetTransformed(glm::mat4 const & mat) const
+	{
+		glm::vec4 v = ToGLM();
+		v = mat * v;
+		return FromGLM(v);
+	}
+
 	SVector2<T> XY() const
 	{
 		return SVector2<T>(X, Y);
@@ -123,13 +147,6 @@ public:
 	SVector3<T> XYZ() const
 	{
 		return SVector3<T>(Values[0], Values[1], Values[2]);
-	}
-
-	//! GLM constructor
-	template <typename U>
-	operator glm::tvec4<U, glm::defaultp> ()
-	{
-		return glm::tvec4<U, glm::defaultp>(X, Y, Z, W);
 	}
 
 };

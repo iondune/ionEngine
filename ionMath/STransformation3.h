@@ -34,50 +34,13 @@ class STransformation3
 
 public:
 
-	glm::mat4 Translation, Rotation, Scale;
-
 	STransformation3()
-		: Translation(1.f), Rotation(1.f), Scale(1.f)
+		: Translation(1.f), Rotation(1.f), Scale(1.f), Transformation(1.f)
 	{}
 
 	operator glm::mat4 () const
 	{
-		return Translation * Rotation * Scale;
-	}
-
-	glm::mat4 const GetGLMMat4() const
-	{
-		return Translation * Rotation * Scale;
-	}
-
-	glm::mat4 const Get() const
-	{
-		return Translation * Rotation * Scale;
-	}
-
-	glm::mat4 const Get(ETransformationOrder const transformation) const
-	{
-		switch (transformation)
-		{
-		default:
-		case ETransformationOrder::ScaleRotationTranslation:
-			return Get();
-
-		case ETransformationOrder::RotationScaleTranslation:
-			return Translation * Scale * Rotation;
-
-		case ETransformationOrder::TranslationScaleRotation:
-			return Rotation * Scale * Translation;
-
-		case ETransformationOrder::ScaleTranslationRotation:
-			return Rotation * Translation * Scale;
-
-		case ETransformationOrder::RotationTranslationScale:
-			return Scale * Translation * Rotation;
-
-		case ETransformationOrder::TranslationRotationScale:
-			return Scale * Rotation * Translation;
-		}
+		return Transformation;
 	}
 
 	glm::mat4 const operator() () const
@@ -85,92 +48,185 @@ public:
 		return Translation * Rotation * Scale;
 	}
 
+	glm::mat4 const GetGLMMat4() const
+	{
+		return Transformation;
+	}
+
+	glm::mat4 const Get() const
+	{
+		return Transformation;
+	}
+
+	void Update()
+	{
+		switch (TransformationOrder)
+		{
+		default:
+		case ETransformationOrder::ScaleRotationTranslation:
+			Transformation = Translation * Rotation * Scale;
+			break;
+
+		case ETransformationOrder::RotationScaleTranslation:
+			Transformation = Translation * Scale * Rotation;
+			break;
+
+		case ETransformationOrder::TranslationScaleRotation:
+			Transformation = Rotation * Scale * Translation;
+			break;
+
+		case ETransformationOrder::ScaleTranslationRotation:
+			Transformation = Rotation * Translation * Scale;
+			break;
+
+		case ETransformationOrder::RotationTranslationScale:
+			Transformation = Scale * Translation * Rotation;
+			break;
+
+		case ETransformationOrder::TranslationRotationScale:
+			Transformation = Scale * Rotation * Translation;
+			break;
+		}
+	}
+
 	void SetRotation(glm::mat4 const & rotation)
 	{
+		UseExplicitRotation = true;
+		UseExplicitTransformation = false;
 		Rotation = rotation;
+		Update();
 	}
 
-	void SetRotation(glm::vec3 const & rotation)
-	{
-		SetRotation(SVector3f(rotation));
-	}
-
-	void SetRotation(SVector3f const & rotation)
-	{
-		Rotation = glm::rotate(glm::mat4(1.f), rotation.Z, glm::vec3(0, 0, 1));
-		Rotation = glm::rotate(Rotation, rotation.Y, glm::vec3(0, 1, 0));
-		Rotation = glm::rotate(Rotation, rotation.X, glm::vec3(1, 0, 0));
-	}
-
-	void SetRotation(SVector3f const & rotation, ERotationOrder const order)
+	void SetRotation(vec3f const & rotation)
 	{
 		static glm::vec3 const X = glm::vec3(1, 0, 0);
 		static glm::vec3 const Y = glm::vec3(0, 1, 0);
 		static glm::vec3 const Z = glm::vec3(0, 0, 1);
 
-		switch (order)
+		UseExplicitRotation = false;
+		UseExplicitTransformation = false;
+
+		RotationVector = rotation;
+
+		switch (RotationOrder)
 		{
 		default:
 		case ERotationOrder::ZYX:
-			SetRotation(rotation);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.Z, glm::vec3(0, 0, 1));
+			Rotation = glm::rotate(Rotation, rotation.Y, glm::vec3(0, 1, 0));
+			Rotation = glm::rotate(Rotation, rotation.X, glm::vec3(1, 0, 0));
 			break;
 
 		case ERotationOrder::ZXY:
-			Rotation = glm::mat4(1.f);
-			Rotation = glm::rotate(Rotation, rotation.Z, Z);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.Z, Z);
 			Rotation = glm::rotate(Rotation, rotation.X, X);
 			Rotation = glm::rotate(Rotation, rotation.Y, Y);
 			break;
 
 		case ERotationOrder::YXZ:
-			Rotation = glm::mat4(1.f);
-			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.Y, Y);
 			Rotation = glm::rotate(Rotation, rotation.X, X);
 			Rotation = glm::rotate(Rotation, rotation.Z, Z);
 			break;
 
 		case ERotationOrder::YZX:
-			Rotation = glm::mat4(1.f);
-			Rotation = glm::rotate(Rotation, rotation.Y, Y);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.Y, Y);
 			Rotation = glm::rotate(Rotation, rotation.Z, Z);
 			Rotation = glm::rotate(Rotation, rotation.X, X);
 			break;
 
 		case ERotationOrder::XZY:
-			Rotation = glm::mat4(1.f);
-			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.X, X);
 			Rotation = glm::rotate(Rotation, rotation.Z, Z);
 			Rotation = glm::rotate(Rotation, rotation.Y, Y);
 			break;
 
 		case ERotationOrder::XYZ:
-			Rotation = glm::mat4(1.f);
-			Rotation = glm::rotate(Rotation, rotation.X, X);
+			Rotation = glm::rotate(glm::mat4(1.f), rotation.X, X);
 			Rotation = glm::rotate(Rotation, rotation.Y, Y);
 			Rotation = glm::rotate(Rotation, rotation.Z, Z);
 			break;
 		}
+
+		Update();
 	}
 
-	void SetScale(glm::vec3 const & scale)
+	vec3f GetRotation() const
 	{
-		Scale = glm::scale(glm::mat4(1.f), scale);
+		return RotationVector;
 	}
 
-	void SetScale(SVector3f const & scale)
+	void SetScale(vec3f const & scale)
 	{
-		Scale = glm::scale(glm::mat4(1.f), scale.ToGLM());
+		UseExplicitTransformation = false;
+		Scale = glm::scale(glm::mat4(1.f), (ScaleVector = scale).ToGLM());
+		Update();
 	}
 
-	void SetTranslation(glm::vec3 const & translation)
+	vec3f GetScale() const
 	{
-		Translation = glm::translate(glm::mat4(1.f), translation);
+		return ScaleVector;
 	}
 
-	void SetTranslation(SVector3f const & translation)
+	void SetTranslation(vec3f const & translation)
 	{
-		Translation = glm::translate(glm::mat4(1.f), translation.ToGLM());
+		UseExplicitTransformation = false;
+		Translation = glm::translate(glm::mat4(1.f), (TranslationVector = translation).ToGLM());
+		Update();
 	}
+
+	vec3f GetTranslation() const
+	{
+		return TranslationVector;
+	}
+
+	void Set(glm::mat4 const & Transformation)
+	{
+		UseExplicitTransformation = false;
+		this->Transformation = Transformation;
+	}
+
+	void SetRotationOrder(ERotationOrder const RotationOrder)
+	{
+		this->RotationOrder = RotationOrder;
+
+		if (! UseExplicitRotation)
+		{
+			SetRotation(RotationVector);
+		}
+	}
+
+	ERotationOrder GetRotationOrder() const
+	{
+		return RotationOrder;
+	}
+
+	void SetOrder(ETransformationOrder const TransformationOrder)
+	{
+		this->TransformationOrder = TransformationOrder;
+
+		if (! UseExplicitTransformation)
+		{
+			Update();
+		}
+	}
+
+	ETransformationOrder GetOrder() const
+	{
+		return TransformationOrder;
+	}
+
+protected:
+
+	vec3f TranslationVector, RotationVector, ScaleVector = 1;
+	glm::mat4 Translation, Rotation, Scale;
+
+	glm::mat4 Transformation;
+
+	bool UseExplicitRotation = false;
+	bool UseExplicitTransformation = false;
+	ERotationOrder RotationOrder = ERotationOrder::ZYX;
+	ETransformationOrder TransformationOrder = ETransformationOrder::ScaleRotationTranslation;
 
 };
 
@@ -185,7 +241,6 @@ public:
 	public:
 
 		STransformation3 Transformation;
-		ETransformationOrder TransformationOrder = ETransformationOrder::ScaleRotationTranslation;
 
 	};
 
@@ -202,7 +257,7 @@ public:
 	{
 		auto it = TransformationLabels.find(Name);
 		if (it != TransformationLabels.end())
-			it->second->TransformationOrder = TransformationOrder;
+			it->second->Transformation.SetOrder(TransformationOrder);
 		else
 			Log::Error("Failed to find transformation with name %s.", Name);
 	}
@@ -226,7 +281,7 @@ public:
 
 		for (auto Stage : TransformationOrder)
 		{
-			Result = Stage->Transformation.Get(Stage->TransformationOrder) * Result;
+			Result = Stage->Transformation.Get() * Result;
 		}
 
 		return Result;

@@ -11,138 +11,62 @@ namespace ion
 
 		CSimpleMesh * CGeometryCreator::CreateCube(vec3f const & Size)
 		{
-			static f32 const CubePositions[] =
-			{
-				-0.5, -0.5, -0.5, // back face verts [0-3]
-				-0.5, 0.5, -0.5,
-				0.5, 0.5, -0.5,
-				0.5, -0.5, -0.5,
-
-				-0.5, -0.5, 0.5, // front face verts [4-7]
-				-0.5, 0.5, 0.5,
-				0.5, 0.5, 0.5,
-				0.5, -0.5, 0.5,
-
-				-0.5, -0.5, 0.5, // left face verts [8-11]
-				-0.5, -0.5, -0.5,
-				-0.5, 0.5, -0.5,
-				-0.5, 0.5, 0.5,
-
-				0.5, -0.5, 0.5, // right face verts [12-15]
-				0.5, -0.5, -0.5,
-				0.5, 0.5, -0.5,
-				0.5, 0.5, 0.5,
-
-				-0.5, 0.5, 0.5, // top face verts [16-19]
-				-0.5, 0.5, -0.5,
-				0.5, 0.5, -0.5,
-				0.5, 0.5, 0.5,
-
-				-0.5, -0.5, 0.5, // bottom face verts [20-23]
-				-0.5, -0.5, -0.5,
-				0.5, -0.5, -0.5,
-				0.5, -0.5, 0.5
-			};
-
-			static f32 const CubeTexCoords[] =
-			{
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0,
-
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0,
-
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0,
-
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0,
-
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0,
-
-				0, 0,
-				0, 1,
-				1, 1,
-				1, 0
-			};
-
-			static f32 const CubeNormals[] =
-			{
-				0, 0, -1, // back face verts [0-3]
-				0, 0, -1,
-				0, 0, -1,
-				0, 0, -1,
-
-				0, 0, 1, // front face verts [4-7]
-				0, 0, 1,
-				0, 0, 1,
-				0, 0, 1,
-
-				-1, 0, 0, // left face verts [8-11]
-				-1, 0, 0,
-				-1, 0, 0,
-				-1, 0, 0,
-
-				1, 0, 0, // right face verts [12-15]
-				1, 0, 0,
-				1, 0, 0,
-				1, 0, 0,
-
-				0, 1, 0, // top face verts [16-19]
-				0, 1, 0,
-				0, 1, 0,
-				0, 1, 0,
-
-				0, -1, 0, // bottom face verts [20-23]
-				0, -1, 0,
-				0, -1, 0,
-				0, -1, 0
-			};
-
-			static u16 const CubeIndices[] =
-			{
-				0, 1, 2, // back face verts [0-3]
-				2, 3, 0,
-
-				4, 7, 6, // front face verts [4-7]
-				6, 5, 4,
-
-				8, 11, 10, // left face verts [8-11]
-				10, 9, 8,
-
-				12, 13, 14, // right face verts [12-15]
-				14, 15, 12,
-
-				16, 19, 18, // top face verts [16-19]
-				18, 17, 16,
-
-				20, 21, 22, // bottom face verts [20-23]
-				22, 23, 20
-			};
-
 			CSimpleMesh * Mesh = new CSimpleMesh();
 
-			for (uint i = 0; i < 24; ++ i)
+			auto AddFace = [Mesh](vec3f const & Position, vec3f const & U, vec3f const & V)
+			{
+				uint const Start = (uint) Mesh->Vertices.size();
+				vec3f const Normal = Cross(U, V);
+
 				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
-					vec3f(CubePositions[i * 3 + 0], CubePositions[i * 3 + 1], CubePositions[i * 3 + 2]),
-					vec3f(CubeNormals[i * 3 + 0], CubeNormals[i * 3 + 1], CubeNormals[i * 3 + 2]),
-					vec2f(CubeTexCoords[i * 2 + 0], CubeTexCoords[i * 2 + 1])));
-			for (uint i = 0; i < 12; ++ i)
+					Position,
+					Normal,
+					vec2f(0, 0),
+					U
+					));
+				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
+					Position + U,
+					Normal,
+					vec2f(1, 0),
+					U
+					));
+				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
+					Position + U + V,
+					Normal,
+					vec2f(1, 1),
+					U
+					));
+				Mesh->Vertices.push_back(CSimpleMesh::SVertex(
+					Position + V,
+					Normal,
+					vec2f(0, 1),
+					U
+					));
+
 				Mesh->Triangles.push_back(CSimpleMesh::STriangle(
-					CubeIndices[i * 3 + 0],
-					CubeIndices[i * 3 + 1],
-					CubeIndices[i * 3 + 2]));
+					Start + 0,
+					Start + 1,
+					Start + 2));
+				Mesh->Triangles.push_back(CSimpleMesh::STriangle(
+					Start + 0,
+					Start + 2,
+					Start + 3));
+			};
+
+			float const Half = 0.5f;
+
+			// Front
+			AddFace(vec3f(-Half, -Half, Half), vec3f(1, 0, 0), vec3f(0, 1, 0));
+			// Back
+			AddFace(vec3f(Half, -Half, -Half), vec3f(-1, 0, 0), vec3f(0, 1, 0));
+			// Left
+			AddFace(vec3f(-Half, -Half, -Half), vec3f(0, 0, 1), vec3f(0, 1, 0));
+			// Right
+			AddFace(vec3f(Half, -Half, Half), vec3f(0, 0, -1), vec3f(0, 1, 0));
+			// Top
+			AddFace(vec3f(-Half, Half, Half), vec3f(1, 0, 0), vec3f(0, 0, -1));
+			// Bottoms
+			AddFace(vec3f(-Half, -Half, -Half), vec3f(1, 0, 0), vec3f(0, 0, 1));
 
 			return Mesh;
 		}

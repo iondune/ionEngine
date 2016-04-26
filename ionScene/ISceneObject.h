@@ -16,6 +16,7 @@ namespace ion
 
 		class ISceneObject
 		{
+
 		public:
 
 			/////////////////////
@@ -70,16 +71,24 @@ namespace ion
 			virtual void SetScale(vec3f const & scale);
 
 			//! Rotation acessor (euler angles)
-			virtual vec3f const & GetRotation() const;
+			virtual vec3f GetRotation() const;
 
 			//! Translation accessor
-			virtual vec3f const & GetTranslation() const;
+			virtual vec3f GetTranslation() const;
 
 			//! Position accessor
-			virtual vec3f const & GetPosition() const;
+			virtual vec3f GetPosition() const;
 
 			//! Scale accessor
-			virtual vec3f const & GetScale() const;
+			virtual vec3f GetScale() const;
+
+			void SetRotationOrder(ERotationOrder const RotationOrder);
+
+			ERotationOrder GetRotationOrder() const;
+
+			void SetTransformationOrder(ETransformationOrder const TransformationOrder);
+
+			ETransformationOrder GetTransformationOrder() const;
 
 
 			////////////////////////////
@@ -92,23 +101,13 @@ namespace ion
 
 		protected:
 
-			//! Model Transformation
 			STransformation3 Transformation;
-
-			//! Keep vector form of transformations for easy access
-			//! BUGBUG Store or retrieve this from within transformation class
-			vec3f Rotation = 0;
-			vec3f Translation = 0;
-			vec3f Scale = 1;
 
 			//! Whether or not to draw this object
 			bool Visible = true;
 
 			//! Whether this object has been loaded yet
 			bool Loaded = false;
-
-			bool UseExplicitTransformation = false;
-			glm::mat4 ExplicitTransformation;
 
 			string DebugName = "";
 

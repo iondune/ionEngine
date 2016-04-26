@@ -104,11 +104,13 @@ int main()
 	SpecularSphere->SetMesh(SphereMesh);
 	SpecularSphere->SetShader(SpecularShader);
 	SpecularSphere->SetPosition(vec3f(3, 3, 6));
+	SpecularSphere->GetMaterial().Ambient = vec3f(0.05f);
 	RenderPass->AddSceneObject(SpecularSphere);
 
 	CSimpleMeshSceneObject * PlaneObject = new CSimpleMeshSceneObject();
 	PlaneObject->SetMesh(PlaneMesh);
 	PlaneObject->SetShader(DiffuseShader);
+	PlaneObject->GetMaterial().Ambient = vec3f(0.05f);
 	RenderPass->AddSceneObject(PlaneObject);
 
 	CSimpleMeshSceneObject * SkySphereObject = new CSimpleMeshSceneObject();

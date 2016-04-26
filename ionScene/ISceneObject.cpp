@@ -47,61 +47,72 @@ namespace ion
 
 		void ISceneObject::SetTransformation(glm::mat4 const & transformation)
 		{
-			ExplicitTransformation = transformation;
-			UseExplicitTransformation = true;
+			Transformation.Set(transformation);
 		}
 
 		void ISceneObject::SetTranslation(vec3f const & translation)
 		{
-			Translation = translation;
 			Transformation.SetTranslation(translation);
-			UseExplicitTransformation = false;
 		}
 
 		void ISceneObject::SetPosition(vec3f const & translation)
 		{
-			SetTranslation(translation);
-			UseExplicitTransformation = false;
+			Transformation.SetTranslation(translation);
 		}
 
 		void ISceneObject::SetRotation(vec3f const & rotation)
 		{
-			Rotation = rotation;
 			Transformation.SetRotation(rotation);
-			UseExplicitTransformation = false;
 		}
 
 		void ISceneObject::SetRotation(glm::mat4 const & matrix)
 		{
 			Transformation.SetRotation(matrix);
-			UseExplicitTransformation = false;
 		}
 
 		void ISceneObject::SetScale(vec3f const & scale)
 		{
-			Scale = scale;
 			Transformation.SetScale(scale);
-			UseExplicitTransformation = false;
 		}
 
-		vec3f const & ISceneObject::GetRotation() const
+		vec3f ISceneObject::GetRotation() const
 		{
-			return Rotation;
+			return Transformation.GetRotation();
 		}
 
-		vec3f const & ISceneObject::GetTranslation() const
+		vec3f ISceneObject::GetTranslation() const
 		{
-			return Translation;
+			return Transformation.GetTranslation();
 		}
 
-		vec3f const & ISceneObject::GetPosition() const
+		vec3f ISceneObject::GetPosition() const
 		{
-			return Translation;
+			return Transformation.GetTranslation();
 		}
 
-		vec3f const & ISceneObject::GetScale() const
+		vec3f ISceneObject::GetScale() const
 		{
-			return Scale;
+			return Transformation.GetScale();
+		}
+
+		void ISceneObject::SetRotationOrder(ERotationOrder const RotationOrder)
+		{
+			Transformation.SetRotationOrder(RotationOrder);
+		}
+
+		ERotationOrder ISceneObject::GetRotationOrder() const
+		{
+			return Transformation.GetRotationOrder();
+		}
+
+		void ISceneObject::SetTransformationOrder(ETransformationOrder const TransformationOrder)
+		{
+			Transformation.SetOrder(TransformationOrder);
+		}
+
+		ETransformationOrder ISceneObject::GetTransformationOrder() const
+		{
+			return Transformation.GetOrder();
 		}
 
 	}

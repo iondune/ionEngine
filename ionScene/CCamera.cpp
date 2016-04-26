@@ -107,5 +107,44 @@ namespace ion
 			FarPlane = farPlane;
 		}
 
+		vec2i CCamera::GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize, bool * InFront)
+		{
+			vec4f WorldCoords = vec4f(WorldPosition.X, WorldPosition.Y, WorldPosition.Z, 1);
+			WorldCoords.Transform(ViewMatrix);
+			WorldCoords.Transform(ProjectionMatrix);
+
+			vec2f ScreenCoords = WorldCoords.XY() / WorldCoords.W;
+
+			if (InFront)
+			{
+				float const Z = (WorldCoords.Z / WorldCoords.W);
+				*InFront = (Z > -1 && Z < 1);
+			}
+
+			ScreenCoords.Y *= -1;
+			ScreenCoords += 1;
+			ScreenCoords /= 2;
+			ScreenCoords *= vec2f(WindowSize);
+
+			return vec2i(ScreenCoords);
+		}
+
+		ray3f CCamera::GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize)
+		{
+			ray3f Ray;
+
+			vec2f const Normalized = (vec2f(Pixel)) / (vec2f(WindowSize) * 0.5f) - 1.f;
+
+			glm::mat4 InverseViewProjection = glm::inverse(ProjectionMatrix * ViewMatrix);
+			glm::vec4 ScreenCoordinates = glm::vec4(Normalized.X, -Normalized.Y, 1, 1);
+			glm::vec4 WorldCoordinates = InverseViewProjection * ScreenCoordinates;
+
+			Ray.Origin = Position;
+			//Ray.Direction = Normalize(Right * Normalized.X - Up * Normalized.Y + View * FocalLength);
+			Ray.Direction = vec3f::FromGLM(glm::vec3(WorldCoordinates)).GetNormalized();
+
+			return Ray;
+		}
+
 	}
 }
