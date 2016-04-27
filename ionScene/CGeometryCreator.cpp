@@ -303,8 +303,8 @@ namespace ion
 				{
 					f32 const Phi = (f32) k * 2.f * 3.14159f / slices;
 					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Cos<f32>(Phi));
-					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Sin<f32>(Phi));
 					Positions.push_back(innerRadius * Sin<f32>(Theta));
+					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Sin<f32>(Phi));
 					Normals.push_back(Cos<f32>(Theta) * Cos<f32>(Phi)); Normals.push_back(Cos<f32>(Theta) * Sin<f32>(Phi)); Normals.push_back(Sin<f32>(Theta));
 				}
 
