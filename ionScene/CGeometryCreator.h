@@ -30,6 +30,12 @@ namespace ion
 				uint const slices = 32,
 				uint const stacks = 4);
 
+			static CSimpleMesh * CreateTorus(
+				f32 const centralRadius = 1.f,
+				f32 const innerRadius = 0.25f,
+				uint const slices = 16,
+				uint const stacks = 20);
+
 			static CSimpleMesh * CreateSphere(
 				vec3f const & Radii = vec3f(0.5f),
 				uint const Slices = 32,

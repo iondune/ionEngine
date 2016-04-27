@@ -287,6 +287,46 @@ namespace ion
 			return CSimpleMesh::FromAttributes(Indices, Positions, Normals);
 		}
 
+		CSimpleMesh * CGeometryCreator::CreateTorus(f32 const centralRadius, f32 const innerRadius, uint const slices, uint const stacks)
+		{
+			std::vector<f32> Positions, Normals;
+			std::vector<u32> Indices;
+
+			// Make sides
+			uint SideStart1 = 0, SideStart2 = 0;
+			for (uint j = 0; j <= stacks; ++ j)
+			{
+				f32 const Theta = (f32) j * 2.f * 3.14159f / stacks;
+
+				SideStart2 = (uint) Positions.size() / 3;
+				for (uint k = 0; k <= slices; ++ k)
+				{
+					f32 const Phi = (f32) k * 2.f * 3.14159f / slices;
+					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Cos<f32>(Phi));
+					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Sin<f32>(Phi));
+					Positions.push_back(innerRadius * Sin<f32>(Theta));
+					Normals.push_back(Cos<f32>(Theta) * Cos<f32>(Phi)); Normals.push_back(Cos<f32>(Theta) * Sin<f32>(Phi)); Normals.push_back(Sin<f32>(Theta));
+				}
+
+				if (j)
+				{
+					for (uint k = 0; k < slices; ++ k)
+					{
+						Indices.push_back(SideStart1 + k);
+						Indices.push_back(SideStart1 + k + 1);
+						Indices.push_back(SideStart2 + k + 1);
+
+						Indices.push_back(SideStart1 + k);
+						Indices.push_back(SideStart2 + k + 1);
+						Indices.push_back(SideStart2 + k);
+					}
+				}
+				SideStart1 = SideStart2;
+			}
+
+			return CSimpleMesh::FromAttributes(Indices, Positions, Normals);
+		}
+
 		CSimpleMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
 		{
 			std::vector<f32> Positions, Normals, TexCoords;
