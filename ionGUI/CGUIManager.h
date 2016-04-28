@@ -18,6 +18,15 @@ namespace ion
 		bool Init(CWindow * Window);
 		void Shutdown();
 		void NewFrame();
+	void Draw();
+
+	template <typename... Args>
+	void Text(vec2i const & Position, char const * const Format, Args const &... args)
+	{
+		TextUnformatted(Position, tfm::format(Format, args...));
+	}
+
+	void TextUnformatted(vec2i const & Position, string const & Text);
 
 		void OnEvent(IEvent & Event);
 		void AddFontFromFile(string const & FileName, float const Size);
@@ -40,8 +49,15 @@ namespace ion
 		int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;
 		int AttribLocationTex = 0, AttribLocationProjMtx = 0;
 		int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
-		size_t VboSize = 0;
-		uint VboHandle = 0, VaoHandle = 0;
+		uint VboHandle = 0, VaoHandle = 0, ElementsHandle = 0;
+
+	struct SDrawText
+	{
+		vec2i Position;
+		string Text;
+	};
+
+	vector<SDrawText> TextQueue;
 
 	private:
 

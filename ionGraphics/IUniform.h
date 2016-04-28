@@ -23,9 +23,12 @@ namespace ion
 			Int3 = 6,
 			Int4 = 7,
 			Matrix4x4 = 8,
+			FloatArray = 9,
+			Float2Array = 10,
+			Float3Array = 11,
+			Matrix4x4Array = 12,
 		};
 
-		size_t GetUniformTypeSize(EUniformType const UniformType);
 		string GetUniformTypeString(EUniformType const UniformType);
 
 		class IUniform

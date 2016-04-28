@@ -25,12 +25,12 @@ namespace ion
 				void ClearDepth();
 				void ClearColorAndDepth();
 
-				void SetClearColor(color3f const & Color);
+				void SetClearColor(color4f const & Color);
 
 				virtual void Bind();
 
 				CWindow * Window = nullptr;
-				color3f Color;
+				color4f Color;
 
 				static CRenderTarget * CurrentlyBound;
 			

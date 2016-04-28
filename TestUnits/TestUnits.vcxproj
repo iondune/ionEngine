@@ -34,6 +34,7 @@
     <ClCompile Include="ionStandardLibrary.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
+    <ClCompile Include="ray3.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
     <ClCompile Include="SVector2.cpp" />
     <ClCompile Include="SVector3.cpp" />

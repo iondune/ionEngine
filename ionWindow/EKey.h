@@ -13,7 +13,7 @@ namespace ion
 		Backspace,
 		Tab,
 		Clear,
-		Return,
+		Enter,
 		Pause,
 		Escape,
 		Space,

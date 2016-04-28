@@ -34,6 +34,11 @@ namespace ion
 		return Size;
 	}
 
+	vec2i const & CWindow::GetFrameBufferSize() const
+	{
+		return FrameBufferSize;
+	}
+
 	f32 CWindow::GetAspectRatio() const
 	{
 		return (f32) Size.X / (f32) Size.Y;

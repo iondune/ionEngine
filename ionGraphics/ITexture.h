@@ -42,7 +42,9 @@ namespace ion
 			enum class EInternalFormatType
 			{
 				Fix8 = 0,
-				Float32 = 1,
+				Float16 = 1,
+				Float32 = 2,
+				Depth = 3,
 			};
 
 			enum class EMipMaps

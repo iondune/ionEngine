@@ -2,6 +2,7 @@
 #include "CGUIManager.h"
 #include <glad/glad.h>
 
+
 namespace ion
 {
 
@@ -12,10 +13,32 @@ namespace ion
 	{
 		Window->MakeContextCurrent();
 
+
+		// Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
+		ImGuiIO& io = ImGui::GetIO();
+		int fb_width = (int) (io.DisplaySize.x * io.DisplayFramebufferScale.x);
+		int fb_height = (int) (io.DisplaySize.y * io.DisplayFramebufferScale.y);
+		if (fb_width == 0 || fb_height == 0)
+			return;
+		draw_data->ScaleClipRects(io.DisplayFramebufferScale);
+
+		// Backup GL state
+		GLint last_program; glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
+		GLint last_texture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+		GLint last_array_buffer; glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
+		GLint last_element_array_buffer; glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &last_element_array_buffer);
+		GLint last_vertex_array; glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
+		GLint last_blend_src; glGetIntegerv(GL_BLEND_SRC, &last_blend_src);
+		GLint last_blend_dst; glGetIntegerv(GL_BLEND_DST, &last_blend_dst);
+		GLint last_blend_equation_rgb; glGetIntegerv(GL_BLEND_EQUATION_RGB, &last_blend_equation_rgb);
+		GLint last_blend_equation_alpha; glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &last_blend_equation_alpha);
+		GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
+		GLboolean last_enable_blend = glIsEnabled(GL_BLEND);
+		GLboolean last_enable_cull_face = glIsEnabled(GL_CULL_FACE);
+		GLboolean last_enable_depth_test = glIsEnabled(GL_DEPTH_TEST);
+		GLboolean last_enable_scissor_test = glIsEnabled(GL_SCISSOR_TEST);
+
 		// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
-		GLint last_program, last_texture;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &last_program);
-		glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
 		glEnable(GL_BLEND);
 		glBlendEquation(GL_FUNC_ADD);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -24,15 +47,14 @@ namespace ion
 		glEnable(GL_SCISSOR_TEST);
 		glActiveTexture(GL_TEXTURE0);
 
-		// Setup orthographic projection matrix
-		const float width = ImGui::GetIO().DisplaySize.x;
-		const float height = ImGui::GetIO().DisplaySize.y;
+		// Setup viewport, orthographic projection matrix
+		glViewport(0, 0, (GLsizei) fb_width, (GLsizei) fb_height);
 		const float ortho_projection[4][4] =
 		{
-			{ 2.0f / width, 0.0f, 0.0f, 0.0f },
-			{ 0.0f, 2.0f / -height, 0.0f, 0.0f },
-			{ 0.0f, 0.0f, -1.0f, 0.0f },
-			{ -1.0f, 1.0f, 0.0f, 1.0f },
+			{ 2.0f / io.DisplaySize.x, 0.0f,                   0.0f, 0.0f },
+			{ 0.0f,                  2.0f / -io.DisplaySize.y, 0.0f, 0.0f },
+			{ 0.0f,                  0.0f,                  -1.0f, 0.0f },
+			{ -1.0f,                  1.0f,                   0.0f, 1.0f },
 		};
 		glUseProgram(ShaderHandle);
 		glUniform1i(AttribLocationTex, 0);
@@ -42,22 +64,13 @@ namespace ion
 		for (int n = 0; n < draw_data->CmdListsCount; n++)
 		{
 			const ImDrawList* cmd_list = draw_data->CmdLists[n];
-			const ImDrawIdx* idx_buffer = &cmd_list->IdxBuffer.front();
+			const ImDrawIdx* idx_buffer_offset = 0;
 
 			glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
-			int needed_vtx_size = cmd_list->VtxBuffer.size() * sizeof(ImDrawVert);
-			if (VboSize < needed_vtx_size)
-			{
-				// Grow our buffer if needed
-				VboSize = needed_vtx_size + 2000 * sizeof(ImDrawVert);
-				glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr) VboSize, NULL, GL_STREAM_DRAW);
-			}
+			glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr) cmd_list->VtxBuffer.size() * sizeof(ImDrawVert), (GLvoid*) &cmd_list->VtxBuffer.front(), GL_STREAM_DRAW);
 
-			unsigned char* vtx_data = (unsigned char*) glMapBufferRange(GL_ARRAY_BUFFER, 0, needed_vtx_size, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-			if (!vtx_data)
-				continue;
-			memcpy(vtx_data, &cmd_list->VtxBuffer[0], cmd_list->VtxBuffer.size() * sizeof(ImDrawVert));
-			glUnmapBuffer(GL_ARRAY_BUFFER);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsHandle);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr) cmd_list->IdxBuffer.size() * sizeof(ImDrawIdx), (GLvoid*) &cmd_list->IdxBuffer.front(), GL_STREAM_DRAW);
 
 			for (const ImDrawCmd* pcmd = cmd_list->CmdBuffer.begin(); pcmd != cmd_list->CmdBuffer.end(); pcmd++)
 			{
@@ -68,20 +81,26 @@ namespace ion
 				else
 				{
 					glBindTexture(GL_TEXTURE_2D, (GLuint) (intptr_t) pcmd->TextureId);
-					glScissor((int) pcmd->ClipRect.x, (int) (height - pcmd->ClipRect.w), (int) (pcmd->ClipRect.z - pcmd->ClipRect.x), (int) (pcmd->ClipRect.w - pcmd->ClipRect.y));
-					glDrawElements(GL_TRIANGLES, (GLsizei) pcmd->ElemCount, GL_UNSIGNED_SHORT, idx_buffer);
+					glScissor((int) pcmd->ClipRect.x, (int) (fb_height - pcmd->ClipRect.w), (int) (pcmd->ClipRect.z - pcmd->ClipRect.x), (int) (pcmd->ClipRect.w - pcmd->ClipRect.y));
+					glDrawElements(GL_TRIANGLES, (GLsizei) pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset);
 				}
-				idx_buffer += pcmd->ElemCount;
+				idx_buffer_offset += pcmd->ElemCount;
 			}
 		}
 
-		// Restore modified state
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// Restore modified GL state
 		glUseProgram(last_program);
-		glDisable(GL_SCISSOR_TEST);
-		glEnable(GL_DEPTH_TEST);
 		glBindTexture(GL_TEXTURE_2D, last_texture);
+		glBindVertexArray(last_vertex_array);
+		glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, last_element_array_buffer);
+		glBlendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
+		glBlendFunc(last_blend_src, last_blend_dst);
+		if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
+		if (last_enable_cull_face) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
+		if (last_enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
+		if (last_enable_scissor_test) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
+		glViewport(last_viewport[0], last_viewport[1], (GLsizei) last_viewport[2], (GLsizei) last_viewport[3]);
 	}
 
 	void CGUIManager::OnEvent(IEvent & Event)
@@ -102,6 +121,10 @@ namespace ion
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
+				if (ImGui::IsMouseHoveringAnyWindow())
+				{
+					Event.Block();
+				}
 				MousePressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
 				break;
 			case SMouseEvent::EType::Move:
@@ -125,16 +148,19 @@ namespace ion
 
 		unsigned char* pixels;
 		int width, height;
-		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bits for OpenGL3 demo because it is more likely to be compatible with user's existing shader.
+		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
+		GLint last_texture;
+		glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
 		glGenTextures(1, &FontTexture);
 		glBindTexture(GL_TEXTURE_2D, FontTexture);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
-		// Store our identifier
 		io.Fonts->TexID = (void *) (intptr_t) FontTexture;
+
+		glBindTexture(GL_TEXTURE_2D, last_texture);
 	}
 
 	void CGUIManager::AddFontFromFile(string const & FileName, float const Size)
@@ -146,6 +172,12 @@ namespace ion
 	bool CGUIManager::CreateDeviceObjects()
 	{
 		Window->MakeContextCurrent();
+
+		// Backup GL state
+		GLint last_texture, last_array_buffer, last_vertex_array;
+		glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+		glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &last_array_buffer);
+		glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array);
 
 		const GLchar *vertex_shader =
 			"#version 330\n"
@@ -191,6 +223,8 @@ namespace ion
 		AttribLocationColor = glGetAttribLocation(ShaderHandle, "Color");
 
 		glGenBuffers(1, &VboHandle);
+		glGenBuffers(1, &ElementsHandle);
+
 		glGenVertexArrays(1, &VaoHandle);
 		glBindVertexArray(VaoHandle);
 		glBindBuffer(GL_ARRAY_BUFFER, VboHandle);
@@ -203,10 +237,13 @@ namespace ion
 		glVertexAttribPointer(AttribLocationUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, uv));
 		glVertexAttribPointer(AttribLocationColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*) OFFSETOF(ImDrawVert, col));
 #undef OFFSETOF
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		CreateFontsTexture();
+
+		// Restore modified GL state
+		glBindTexture(GL_TEXTURE_2D, last_texture);
+		glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
+		glBindVertexArray(last_vertex_array);
 
 		return true;
 	}
@@ -243,7 +280,7 @@ namespace ion
 		io.KeyMap[ImGuiKey_End] = (int) EKey::End;
 		io.KeyMap[ImGuiKey_Delete] = (int) EKey::Delete;
 		io.KeyMap[ImGuiKey_Backspace] = (int) EKey::Backspace;
-		io.KeyMap[ImGuiKey_Enter] = (int) EKey::Return;
+		io.KeyMap[ImGuiKey_Enter] = (int) EKey::Enter;
 		io.KeyMap[ImGuiKey_Escape] = (int) EKey::Escape;
 		io.KeyMap[ImGuiKey_A] = (int) EKey::A;
 		io.KeyMap[ImGuiKey_C] = (int) EKey::C;
@@ -267,8 +304,8 @@ namespace ion
 
 		if (VaoHandle) glDeleteVertexArrays(1, &VaoHandle);
 		if (VboHandle) glDeleteBuffers(1, &VboHandle);
-		VaoHandle = 0;
-		VboHandle = 0;
+		if (ElementsHandle) glDeleteBuffers(1, &ElementsHandle);
+		VaoHandle = VboHandle = ElementsHandle = 0;
 
 		glDetachShader(ShaderHandle, VertHandle);
 		glDeleteShader(VertHandle);
@@ -287,6 +324,7 @@ namespace ion
 			ImGui::GetIO().Fonts->TexID = 0;
 			FontTexture = 0;
 		}
+
 		ImGui::Shutdown();
 	}
 
@@ -301,7 +339,10 @@ namespace ion
 		ImGuiIO& io = ImGui::GetIO();
 
 		// Setup display size (every frame to accommodate for window resizing)
-		io.DisplaySize = ImVec2((float) Window->GetSize().X, (float) Window->GetSize().Y);
+		int w = Window->GetSize().X, h = Window->GetSize().Y;
+		int display_w = Window->GetFrameBufferSize().X, display_h = Window->GetFrameBufferSize().Y;
+		io.DisplaySize = ImVec2((float) w, (float) h);
+		io.DisplayFramebufferScale = ImVec2(w > 0 ? ((float) display_w / w) : 0, h > 0 ? ((float) display_h / h) : 0);
 
 		// Setup time step
 		double current_time = TimeManager->GetRunTime();
@@ -334,6 +375,35 @@ namespace ion
 		// Start the frame
 		ImGui::NewFrame();
 	}
+
+void CGUIManager::Draw()
+{
+	ImGui::SetNextWindowPos(ImVec2(-1000, -1000));
+	ImGui::SetNextWindowSize(ImVec2(100000, 100000));
+	if (ImGui::Begin("GlobalScreen", nullptr, ImVec2(0, 0), 0.0f,
+		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
+	{
+		ImDrawList * DrawList = ImGui::GetWindowDrawList();
+
+		for (auto Text : TextQueue)
+		{
+			DrawList->AddText(ImVec2((float) Text.Position.X, (float) Text.Position.Y), 0xFFFFFFFF, Text.Text.c_str());
+		}
+		TextQueue.clear();
+
+		ImGui::End();
+	}
+	ImGui::Render();
+}
+
+void CGUIManager::TextUnformatted(vec2i const & Position, string const & Text)
+{
+	SDrawText Draw;
+	Draw.Text = Text;
+	Draw.Position = Position;
+
+	TextQueue.push_back(Draw);
+}
 
 	CGUIManager::CGUIManager()
 	{

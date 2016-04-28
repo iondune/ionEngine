@@ -19,7 +19,7 @@ namespace ion
 
 	void CSceneManager::AddRenderPass(Scene::CRenderPass * RenderPass)
 	{
-		RenderPasses.insert(RenderPass);
+		RenderPasses.push_back(RenderPass);
 	}
 
 	CSceneManager::CSceneManager()

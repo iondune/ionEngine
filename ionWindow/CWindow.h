@@ -24,7 +24,10 @@ namespace ion
 		void MakeContextCurrent();
 		bool ShouldClose() const;
 		void Close();
+
 		vec2i const & GetSize() const;
+		vec2i const & GetFrameBufferSize() const;
+
 		f32 GetAspectRatio() const;
 		void SwapBuffers();
 
@@ -58,6 +61,7 @@ namespace ion
 		vec2f CursorLocation;
 
 		vec2i Size;
+		vec2i FrameBufferSize;
 
 	private:
 
