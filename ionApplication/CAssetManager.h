@@ -22,7 +22,7 @@ namespace ion
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		Scene::CSimpleMesh * LoadMesh(string const & FileName);
 
-		void SetAssetPath(string const & Path);
+		void AddAssetPath(string const & Path);
 		void SetTexturePath(string const & Path);
 		void SetShaderPath(string const & Path);
 		void SetMeshPath(string const & Path);
@@ -31,10 +31,10 @@ namespace ion
 
 		SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
-		string AssetPath;
-		string TexturePath;
-		string ShaderPath;
-		string MeshPath;
+		vector<string> AssetPaths;
+		string TexturePath = "Textures/";
+		string ShaderPath = "Shaders/";
+		string MeshPath = "Meshes/";
 
 	private:
 
