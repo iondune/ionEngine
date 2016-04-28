@@ -30,6 +30,14 @@ namespace ion
 			Alpha = 1,
 			Additive = 2
 		};
+		enum class EDrawMode
+		{
+
+			Triangle = 0,
+			Lines = 1,
+			LineStrip = 2,
+			Point = 3
+		};
 
 		class IPipelineState
 		{
@@ -41,6 +49,7 @@ namespace ion
 
 			virtual void SetProgram(SharedPointer<IShaderProgram> ShaderProgram) = 0;
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer) = 0;
+			virtual void SetDrawMode(EDrawMode mode) = 0;
 			virtual void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer) = 0;
 			virtual void SetUniform(string const & Name, SharedPointer<IUniform> Uniform) = 0;
 			virtual void SetTexture(string const & Name, SharedPointer<ITexture> Texture) = 0;

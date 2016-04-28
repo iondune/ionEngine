@@ -17,6 +17,22 @@ namespace ion
 		namespace GL
 		{
 
+			GLenum CGraphicsContext::GetDrawType(EDrawMode mode)
+			{
+				switch(mode)
+				{
+					case EDrawMode::Point:
+						return GL_POINTS;
+					case EDrawMode::Triangle:
+						return GL_TRIANGLES;
+					case EDrawMode::Lines:
+						return GL_LINES;
+					case EDrawMode::LineStrip:
+						return GL_LINE_STRIP;
+					default:
+						return GL_TRIANGLES;
+				}
+			}
 			SharedPointer<IRenderTarget> CGraphicsContext::GetBackBuffer()
 			{
 				return MakeShared<CRenderTarget>(Window);
@@ -45,7 +61,8 @@ namespace ion
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
-				CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+				GLenum DrawType = GetDrawType(PipelineState->DrawMode);
+				CheckedGLCall(glDrawElements(DrawType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 				InternalDrawTeardown(State);
 			}
 
@@ -53,8 +70,11 @@ namespace ion
 			{
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
+				
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
-				CheckedGLCall(glDrawElementsInstanced(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
+				GLenum DrawType = GetDrawType(PipelineState->DrawMode);
+				
+				CheckedGLCall(glDrawElementsInstanced(DrawType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
 				InternalDrawTeardown(State);
 			}
 
