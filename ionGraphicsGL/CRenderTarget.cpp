@@ -46,6 +46,21 @@ namespace ion
 				this->Color = Color;
 			}
 
+			CImage * CRenderTarget::ReadImage()
+			{
+				int const Width = Window->GetSize().X;
+				int const Height = Window->GetSize().Y;
+				int const BytesPerPixel = 4;
+
+				byte * buffer = new byte[Width * Height * BytesPerPixel]();
+
+				Bind();
+				CheckedGLCall(glReadPixels(0, 0, Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
+				CImage * Image = new CImage(buffer, Window->GetSize(), BytesPerPixel);
+				Image->FlipY();
+				return Image;
+			}
+
 			void CRenderTarget::Bind()
 			{
 				if (CurrentlyBound != this)

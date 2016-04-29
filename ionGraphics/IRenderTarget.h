@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionFramework.h>
 
 #include "ITexture.h"
 
@@ -24,6 +25,8 @@ namespace ion
 			virtual void SetClearColor(color4f const & Color) = 0;
 
 			virtual void Bind() = 0;
+
+			virtual CImage * ReadImage() = 0;
 
 			virtual ~IRenderTarget()
 			{}

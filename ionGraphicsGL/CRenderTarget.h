@@ -27,6 +27,8 @@ namespace ion
 
 				void SetClearColor(color4f const & Color);
 
+				virtual CImage * ReadImage();
+
 				virtual void Bind();
 
 				CWindow * Window = nullptr;
