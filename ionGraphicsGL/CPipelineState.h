@@ -30,6 +30,8 @@ namespace ion
 				void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer);
 				void SetUniform(string const & Name, SharedPointer<IUniform> Uniform);
 				void SetTexture(string const & Name, SharedPointer<ITexture> Texture);
+
+				void SetPrimitiveType(EPrimitiveType const PrimitiveType);
 				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
 				void SetBlendMode(EBlendMode const BlendMode);
 
@@ -66,6 +68,7 @@ namespace ion
 				bool DisableDepthTest = false;
 				bool DisableDepthWrite = false;
 				EBlendMode BlendMode = EBlendMode::None;
+				uint PrimitiveType;
 
 			};
 

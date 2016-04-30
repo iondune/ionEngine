@@ -31,6 +31,14 @@ namespace ion
 			Additive = 2
 		};
 
+		enum class EPrimitiveType
+		{
+			Triangle = 0,
+			Line = 1,
+			LineStrip = 2,
+			Point = 3
+		};
+
 		class IPipelineState
 		{
 
@@ -50,6 +58,7 @@ namespace ion
 
 			virtual void IgnoreUniform(string const & Name) = 0;
 
+			virtual void SetPrimitiveType(EPrimitiveType const PrimitiveType) = 0;
 			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
 			virtual void SetBlendMode(EBlendMode const BlendMode) = 0;
 

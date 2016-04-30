@@ -13,6 +13,7 @@ namespace ion
 			CPipelineState::CPipelineState(CWindow * Window)
 			{
 				this->Window = Window;
+				this->PrimitiveType = GL_TRIANGLES;
 			}
 
 			CPipelineState::~CPipelineState()
@@ -131,6 +132,26 @@ namespace ion
 					{
 						Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
 					}
+				}
+			}
+
+			void CPipelineState::SetPrimitiveType(EPrimitiveType const PrimitiveType)
+			{
+				switch (PrimitiveType)
+				{
+				default:
+				case EPrimitiveType::Triangle:
+					this->PrimitiveType = GL_TRIANGLES;
+					break;
+				case EPrimitiveType::Point:
+					this->PrimitiveType = GL_POINTS;
+					break;
+				case EPrimitiveType::Line:
+					this->PrimitiveType = GL_LINES;
+					break;
+				case EPrimitiveType::LineStrip:
+					this->PrimitiveType = GL_LINE_STRIP;
+					break;
 				}
 			}
 

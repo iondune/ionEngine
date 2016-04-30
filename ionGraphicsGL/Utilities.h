@@ -51,25 +51,15 @@ namespace ion
 			#define SafeGLAssignment(LHS, FUNCTION, PARAMS) LHS = FUNCTION PARAMS
 #endif
 
-			enum class EPrimitiveType
-			{
-				Points = 0,
-				Lines = 1,
-				Triangles = 2
-			};
-
 			class Util
 			{
 			public:
 
 				static u32 const ScalarTypeMatrix[9];
 				static u64 const SizeMatrix[7];
-				static u32 const PrimitiveMatrix[4];
-				static uint const PrimitiveVertices[4];
 
 				static string const ScalarTypeStringMatrix[9];
 				static string const SizeStringMatrix[7];
-				static string const PrimitiveStringMatrix[4];
 			};
 		}
 	}

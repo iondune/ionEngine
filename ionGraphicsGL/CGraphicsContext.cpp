@@ -45,7 +45,7 @@ namespace ion
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
-				CheckedGLCall(glDrawElements(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
+				CheckedGLCall(glDrawElements(PipelineState->PrimitiveType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 				InternalDrawTeardown(State);
 			}
 
@@ -54,7 +54,7 @@ namespace ion
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
-				CheckedGLCall(glDrawElementsInstanced(GL_TRIANGLES, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
+				CheckedGLCall(glDrawElementsInstanced(PipelineState->PrimitiveType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0, InstanceCount));
 				InternalDrawTeardown(State);
 			}
 
