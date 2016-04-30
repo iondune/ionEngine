@@ -2,6 +2,7 @@
 #include "CPipelineState.h"
 #include <ionWindow.h>
 #include <glad/glad.h>
+#include <ionScene.h>
 
 
 namespace ion
@@ -13,6 +14,7 @@ namespace ion
 			CPipelineState::CPipelineState(CWindow * Window)
 			{
 				this->Window = Window;
+				this->DrawMode = EDrawMode::Triangle;
 			}
 
 			CPipelineState::~CPipelineState()
@@ -55,6 +57,11 @@ namespace ion
 				// Bound VBOs are not part of VAO state
 
 				Loaded = false;
+			}
+
+			void CPipelineState::SetDrawMode(EDrawMode mode)
+			{
+				this->DrawMode = mode;
 			}
 
 			void CPipelineState::SetIndexBuffer(SharedPointer<IIndexBuffer> inIndexBuffer)

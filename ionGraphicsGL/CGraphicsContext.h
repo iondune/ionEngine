@@ -8,7 +8,7 @@
 #include "CShaderProgram.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
-
+#include <glad/glad.h>
 
 namespace ion
 {
@@ -35,7 +35,7 @@ namespace ion
 				CWindow * Window = nullptr;
 
 			protected:
-
+				GLenum GetDrawType(EDrawMode mode);
 				void InternalDrawSetup(SharedPointer<IPipelineState> State);
 				void InternalDrawTeardown(SharedPointer<IPipelineState> State);
 
