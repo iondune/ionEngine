@@ -387,7 +387,10 @@ void CGUIManager::Draw()
 
 		for (auto Text : TextQueue)
 		{
-			DrawList->AddText(ImVec2((float) Text.Position.X, (float) Text.Position.Y), 0xFFFFFFFF, Text.Text.c_str());
+			uint Red = Text.Color.Red;
+			uint Green = Text.Color.Green;
+			uint Blue = Text.Color.Blue;
+			DrawList->AddText(ImVec2((float) Text.Position.X, (float) Text.Position.Y), (0xFF000000) | (Blue << 16) | (Green << 8) | (Red), Text.Text.c_str());
 		}
 		TextQueue.clear();
 
@@ -396,11 +399,12 @@ void CGUIManager::Draw()
 	ImGui::Render();
 }
 
-void CGUIManager::TextUnformatted(vec2i const & Position, string const & Text)
+void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text)
 {
 	SDrawText Draw;
 	Draw.Text = Text;
 	Draw.Position = Position;
+	Draw.Color = Color;
 
 	TextQueue.push_back(Draw);
 }
