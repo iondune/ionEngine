@@ -32,7 +32,7 @@ int main()
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoApplication", EWindowType::Windowed);
 
-	AssetManager->SetAssetPath("Assets/");
+	AssetManager->AddAssetPath("Assets/");
 	AssetManager->SetShaderPath("Shaders/");
 	AssetManager->SetTexturePath("Images/");
 

@@ -69,6 +69,18 @@ namespace ion
 			SceneObjects.erase(SceneObject);
 		}
 
+		void CRenderPass::SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform)
+		{
+			Uniforms[Name] = Uniform;
+			ReloadAll();
+		}
+
+		void CRenderPass::SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture)
+		{
+			Textures[Name] = Texture;
+			ReloadAll();
+		}
+
 		void CRenderPass::Load()
 		{
 			if (ActiveCamera)
@@ -77,12 +89,14 @@ namespace ion
 
 				uViewMatrix = ActiveCamera->GetViewMatrix();
 				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uCameraMatrix = uProjectionMatrix.Get() * uViewMatrix.Get();
+				uInvCameraMatrix = glm::inverse(uCameraMatrix.Get());
 				uCameraPosition = ActiveCamera->GetPosition();
 			}
 
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
-				if (! SceneObject->IsLoaded())
+				if (! SceneObject->IsLoaded(this))
 				{
 					SceneObject->Load(this);
 				}
@@ -91,6 +105,8 @@ namespace ion
 
 		void CRenderPass::Draw()
 		{
+			RenderTarget->Bind();
+
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
 				if (SceneObject->IsVisible())
@@ -179,6 +195,14 @@ namespace ion
 				{
 					PipelineState->SetUniform(Name, uProjectionMatrix);
 				}
+				else if (Name == "uCameraMatrix")
+				{
+					PipelineState->SetUniform(Name, uCameraMatrix);
+				}
+				else if (Name == "uInvCameraMatrix")
+				{
+					PipelineState->SetUniform(Name, uInvCameraMatrix);
+				}
 				else if (Name == "uCameraPosition")
 				{
 					PipelineState->SetUniform(Name, uCameraPosition);
@@ -210,6 +234,22 @@ namespace ion
 						if (Name == CountName)
 						{
 							PipelineState->SetUniform(Name, SharedFromNew(new Graphics::CUniformValue<int>((int) it.second.size())));
+						}
+					}
+
+					for (auto const & it : Uniforms)
+					{
+						if (Name == it.first)
+						{
+							PipelineState->SetUniform(Name, it.second);
+						}
+					}
+
+					for (auto const & it : Textures)
+					{
+						if (Name == it.first)
+						{
+							PipelineState->SetTexture(Name, it.second);
 						}
 					}
 				}

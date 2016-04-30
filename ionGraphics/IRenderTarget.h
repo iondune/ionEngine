@@ -3,6 +3,7 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
+#include <ionFramework.h>
 
 #include "ITexture.h"
 
@@ -21,7 +22,11 @@ namespace ion
 			virtual void ClearDepth() = 0;
 			virtual void ClearColorAndDepth() = 0;
 
-			virtual void SetClearColor(color3f const & Color) = 0;
+			virtual void SetClearColor(color4f const & Color) = 0;
+
+			virtual void Bind() = 0;
+
+			virtual CImage * ReadImage() = 0;
 
 			virtual ~IRenderTarget()
 			{}
@@ -46,6 +51,8 @@ namespace ion
 			virtual void AttachColorTexture(SharedPointer<ITexture2D> Texture, uint const Attachment) = 0;
 			virtual void AttachDepthTexture(SharedPointer<ITexture2D> Texture) = 0;
 			virtual void AttachDepthBuffer(SharedPointer<IDepthBuffer> DepthBuffer) = 0;
+
+			virtual bool CheckCorrectness() = 0;
 
 			virtual ~IFrameBuffer()
 			{}

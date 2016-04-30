@@ -22,7 +22,7 @@ namespace ion
 			{
 				Window->MakeContextCurrent();
 				Bind();
-				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, 1.f));
+				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
 				CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT));
 			}
 
@@ -37,25 +37,37 @@ namespace ion
 			{
 				Window->MakeContextCurrent();
 				Bind();
-				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, 1.f));
+				CheckedGLCall(glClearColor(Color.Red, Color.Green, Color.Blue, Color.Alpha));
 				CheckedGLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 			}
 
-			void CRenderTarget::SetClearColor(color3f const & Color)
+			void CRenderTarget::SetClearColor(color4f const & Color)
 			{
 				this->Color = Color;
 			}
 
+			CImage * CRenderTarget::ReadImage()
+			{
+				int const Width = Window->GetSize().X;
+				int const Height = Window->GetSize().Y;
+				int const BytesPerPixel = 4;
+
+				byte * buffer = new byte[Width * Height * BytesPerPixel]();
+
+				Bind();
+				CheckedGLCall(glReadPixels(0, 0, Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
+				CImage * Image = new CImage(buffer, Window->GetSize(), BytesPerPixel);
+				Image->FlipY();
+				return Image;
+			}
+
 			void CRenderTarget::Bind()
 			{
-				if (nullptr == CurrentlyBound)
-				{
-					CurrentlyBound = this;
-				}
-
 				if (CurrentlyBound != this)
 				{
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+					CheckedGLCall(glViewport(0, 0, Window->GetSize().X, Window->GetSize().Y));
+					CurrentlyBound = this;
 				}
 			}
 

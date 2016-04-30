@@ -7,7 +7,7 @@
 
 struct SMarchingCubesPoint
 {
-	f32 Value;
+	f32 Value = 0;
 	vec3f Gradient;
 
 	SMarchingCubesPoint()

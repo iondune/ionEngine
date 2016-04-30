@@ -94,19 +94,29 @@ public:
 	{
 		vec3<T> const OffsetOrigin = Origin - Center;
 		T const A = Dot(Direction, Direction);
-		T const B = Dot(Direction * 2, OffsetOrigin);
+		T const B = Dot(Direction, OffsetOrigin);
 		T const C = Dot(OffsetOrigin, OffsetOrigin) - Radius*Radius;
 
-		T const Discriminant = B*B - 4 * A*C;
+		T const Discriminant = B * B - A * C;
 
 		if (Discriminant >= 0.f)
 		{
-			T const q = (B < 0.f ? (-B + sqrt(Discriminant)) : (-B - sqrt(Discriminant))) / 2.f;
+			T Dividend;
+			if (B < 0)
+			{
+				Dividend = -B + sqrt(Discriminant);
+			}
+			else
+			{
+				Dividend = -B - sqrt(Discriminant);
+			}
 
-			T Parameter = C / q;
+			T Parameter = C / Dividend;
 
 			if (Parameter <= 0)
-				Parameter = q / A;
+			{
+				Parameter = Dividend / A;
+			}
 
 			if (Parameter >= 0)
 			{

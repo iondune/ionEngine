@@ -27,11 +27,13 @@ namespace ion
 				void AttachDepthTexture(SharedPointer<ITexture2D> Texture);
 				void AttachDepthBuffer(SharedPointer<IDepthBuffer> DepthBuffer);
 
-				bool Check();
+				bool CheckCorrectness();
 
 				virtual void Bind();
 
 				uint Handle = 0;
+
+				vec2u Size;
 
 #pragma warning(suppress: 4250)
 			};

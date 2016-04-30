@@ -20,11 +20,10 @@ namespace ion
 
 			public:
 				
-				static u32 const InternalFormatMatrix[4][10];
+				static u32 const InternalFormatMatrix[4][4];
 				static u32 const FormatMatrix[4];
-				static u32 const DepthComponentMatrix[6];
 
-				static string const InternalFormatStringMatrix[4][10];
+				static string const InternalFormatStringMatrix[4][4];
 				static string const FormatStringMatrix[4];
 
 

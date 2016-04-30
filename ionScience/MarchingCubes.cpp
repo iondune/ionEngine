@@ -41,20 +41,20 @@ ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 		vec3i(0, 1, 1),
 	};
 
-	for (s32 z = 0; z < Volume.Dimensions.Z; ++ z)
-	for (s32 y = 0; y < Volume.Dimensions.Y; ++ y)
-	for (s32 x = 0; x < Volume.Dimensions.X; ++ x)
+	for (s32 z = 0; z < Volume.Dimensions.Z - 1; ++ z)
+	for (s32 y = 0; y < Volume.Dimensions.Y - 1; ++ y)
+	for (s32 x = 0; x < Volume.Dimensions.X - 1; ++ x)
 	{
 		int Lookup = 0;
 
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[0]).Value < 0)) Lookup |=   1;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[1]).Value < 0)) Lookup |=   2;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[2]).Value < 0)) Lookup |=   4;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[3]).Value < 0)) Lookup |=   8;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[4]).Value < 0)) Lookup |=  16;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[5]).Value < 0)) Lookup |=  32;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[6]).Value < 0)) Lookup |=  64;
-		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[7]).Value < 0)) Lookup |= 128;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[0]).Value <= 0)) Lookup |=   1;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[1]).Value <= 0)) Lookup |=   2;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[2]).Value <= 0)) Lookup |=   4;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[3]).Value <= 0)) Lookup |=   8;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[4]).Value <= 0)) Lookup |=  16;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[5]).Value <= 0)) Lookup |=  32;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[6]).Value <= 0)) Lookup |=  64;
+		if ((Volume.Get(vec3i(x, y, z) + VertexIndices[7]).Value <= 0)) Lookup |= 128;
 
 		auto Interpolate = [&](vec3i const & v1, vec3i const & v2) -> ion::Scene::CSimpleMesh::SVertex
 		{
@@ -64,7 +64,7 @@ ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume)
 			f32 const d1 = Volume.Get(v1).Value;
 			f32 const d2 = Volume.Get(v2).Value;
 			f32 ratio = d1 / (d2 - d1);
-			if (ratio < 0.f)
+			if (ratio <= 0.f)
 				ratio += 1.f;
 
 			v.Position =

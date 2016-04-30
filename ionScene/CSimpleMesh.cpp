@@ -229,6 +229,19 @@ namespace ion
 			}
 		}
 
+
+		box3f CSimpleMesh::CalculateBoundingBox() const
+		{
+			SBoundingBox3f Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
+
+			for (SVertex const & Vertex : Vertices)
+			{
+				Box.AddInternalPoint(Vertex.Position);
+			}
+
+			return Box;
+		}
+
 		void CSimpleMesh::WriteOBJ(string const & FileName) const
 		{
 			ofstream File;

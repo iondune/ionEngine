@@ -34,7 +34,15 @@ int main()
 			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
 			ImGui::ShowTestWindow();
 		}
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + 100, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 100), Colors::White, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 120), Colors::Red, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 140), Colors::Orange, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 160), Colors::Yellow, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 180), Colors::Green, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 200), Colors::Cyan, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 220), Colors::Blue, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 240), Colors::Magenta, "Hello, world!");
+		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 260), Colors::Black, "Hello, world!");
 		GUIManager->Draw();
 
 		Window->SwapBuffers();

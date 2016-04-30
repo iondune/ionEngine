@@ -22,7 +22,7 @@ namespace ion
 
 	protected:
 
-		set<Scene::CRenderPass *> RenderPasses;
+		vector<Scene::CRenderPass *> RenderPasses;
 
 	private:
 

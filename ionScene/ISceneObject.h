@@ -30,7 +30,7 @@ namespace ion
 			virtual bool IsVisible() const;
 
 			//! Check if loaded
-			virtual bool IsLoaded() const;
+			virtual bool IsLoaded(CRenderPass const * RenderPass) const;
 
 			//! Trigger a reload at next draw
 			virtual void TriggerReload();
@@ -107,7 +107,7 @@ namespace ion
 			bool Visible = true;
 
 			//! Whether this object has been loaded yet
-			bool Loaded = false;
+			map<CRenderPass const *, bool> Loaded;
 
 			string DebugName = "";
 
