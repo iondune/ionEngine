@@ -58,7 +58,14 @@ namespace ion
 
 				Window->AddListener(this);
 				Window->MakeContextCurrent();
-				glfwSwapInterval(0);
+				if (Type == EWindowType::Fullscreen)
+				{
+					glfwSwapInterval(1);
+				}
+				else
+				{
+					glfwSwapInterval(0);
+				}
 
 				if (nullptr == PrimaryWindow)
 				{
