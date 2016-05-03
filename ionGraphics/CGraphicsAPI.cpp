@@ -234,6 +234,75 @@ namespace ion
 		return Texture;
 	}
 
+	SharedPointer<Graphics::ITextureCubeMap> CGraphicsAPI::CreateTextureCubeMap(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	{
+		SharedPointer<Graphics::ITextureCubeMap> Texture;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			Texture = Implementation->CreateTextureCubeMap(Size, MipMaps, Components, Type);
+		}
+
+		return Texture;
+	}
+
+	SharedPointer<Graphics::ITextureCubeMap> CGraphicsAPI::CreateTextureCubeMap(vector<CImage*> const & Images, Graphics::ITexture::EMipMaps const MipMaps)
+	{
+		if (Images.size() != 6)
+		{
+			Log::Error("Attempting to create cube map texture from not 6 images.");
+			return nullptr;
+		}
+
+		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+		switch (Images[0]->GetChannels())
+		{
+		case 2:
+			Format = Graphics::ITexture::EFormatComponents::RG;
+			break;
+		case 3:
+			Format = Graphics::ITexture::EFormatComponents::RGB;
+			break;
+		case 4:
+			Format = Graphics::ITexture::EFormatComponents::RGBA;
+			break;
+		}
+
+		SharedPointer<Graphics::ITextureCubeMap> Texture = CreateTextureCubeMap(
+			Images[0]->GetSize(),
+			MipMaps,
+			Format,
+			Graphics::ITexture::EInternalFormatType::Fix8);
+
+		for (int i = 0; i < 6; ++ i)
+		{
+			if (Images[0]->GetChannels() != Images[i]->GetChannels())
+			{
+				Log::Error("Attempting to create cube map texture from images with mismatched channel count.");
+				return nullptr;
+			}
+
+			if (Images[0]->GetSize() != Images[i]->GetSize())
+			{
+				Log::Error("Attempting to create cube map texture from images with mismatched size.");
+				return nullptr;
+			}
+
+			Texture->Upload(
+				(Graphics::ITextureCubeMap::EFace) i,
+				Images[i]->GetData(),
+				Images[i]->GetSize(),
+				Format,
+				Graphics::EScalarType::UnsignedInt8);
+		}
+
+		return Texture;
+	}
+
 	SharedPointer<Graphics::IGraphicsContext> CGraphicsAPI::GetWindowContext(CWindow * Window)
 	{
 		SharedPointer<Graphics::IGraphicsContext> GraphicsContext;

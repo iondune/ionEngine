@@ -272,6 +272,51 @@ namespace ion
 			{
 				return GL_TEXTURE_BINDING_3D;
 			}
+
+			void CTextureCubeMap::Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			{
+				if (Size != TextureSize)
+				{
+					cerr << "GL::Texture3D upload size does not match storage size." << endl;
+					cerr << "Handle is " << Handle << endl;
+				}
+
+				UploadSubRegion(Face, Data, vec2u(0, 0), Size, Components, Type);
+			}
+
+			void CTextureCubeMap::UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			{
+				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, Handle));
+				CheckExistingErrors(Texture2D::SubImage);
+				glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + (int) Face, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components], Util::ScalarTypeMatrix[(int) Type], Data);
+				if (OpenGLError())
+				{
+					cerr << "Error occured during glTexSubImage2D for CTextureCubeMap: " << GetOpenGLError() << endl;
+					cerr << "Handle is " << Handle << endl;
+					cerr << "Offset is " << Offset << endl;
+					cerr << "Size is " << Size << endl;
+					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
+					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
+					cerr << endl;
+				}
+				else
+				{
+					if (MipMaps)
+						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
+					ApplyParams();
+				}
+				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
+			}
+
+			uint CTextureCubeMap::GetGLBindTextureTarget() const
+			{
+				return GL_TEXTURE_CUBE_MAP;
+			}
+
+			uint CTextureCubeMap::GetGLTextureBindingEnum() const
+			{
+				return GL_TEXTURE_BINDING_CUBE_MAP;
+			}
 		}
 	}
 }

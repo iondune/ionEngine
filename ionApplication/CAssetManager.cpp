@@ -79,6 +79,58 @@ namespace ion
 		return nullptr;
 	}
 
+	SharedPointer<Graphics::ITextureCubeMap> CAssetManager::LoadCubeMapTexture(string const & FileNameLeft, string const & FileNameRight, string const & FileNameUp, string const & FileNameDown, string const & FileNameFront, string const & FileNameBack, Graphics::ITexture::EMipMaps const MipMaps)
+	{
+		if (! GraphicsAPI)
+		{
+			Log::Error("CAssetManager being used without being initialized, Texture '%s' etc. will not be loaded.", FileNameLeft);
+			return nullptr;
+		}
+
+		vector<string> FileNames;
+		FileNames.push_back(FileNameLeft);
+		FileNames.push_back(FileNameRight);
+		FileNames.push_back(FileNameUp);
+		FileNames.push_back(FileNameDown);
+		FileNames.push_back(FileNameFront);
+		FileNames.push_back(FileNameBack);
+
+		vector<CImage *> Images;
+		Images.resize(6, nullptr);
+
+		for (int i = 0; i < 6; ++ i)
+		{
+			for (string AssetPath : AssetPaths)
+			{
+				if (! File::Exists(AssetPath + TexturePath + FileNames[i]))
+				{
+					continue;
+				}
+
+				CImage * Image = CImage::Load(AssetPath + TexturePath + FileNames[i]);
+				if (Image)
+				{
+					Image->FlipY();
+					Images[i] = Image;
+					break;
+				}
+				else
+				{
+					Log::Error("Failed to open image: '%s'", FileNames[i]);
+					return nullptr;
+				}
+			}
+
+			if (! Images[i])
+			{
+				Log::Error("Cannot find image file in any asset directory: '%s'", FileNames[i]);
+				return nullptr;
+			}
+		}
+
+		return GraphicsAPI->CreateTextureCubeMap(Images, MipMaps);
+	}
+
 	Scene::CSimpleMesh * CAssetManager::LoadMesh(string const & FileName)
 	{
 		if (! GraphicsAPI)

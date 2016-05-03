@@ -32,9 +32,9 @@ int main()
 
 	CWindow * Window = WindowManager->CreateWindow(vec2i(1600, 900), "DemoApplication", EWindowType::Windowed);
 
-	AssetManager->AddAssetPath("Assets/");
-	AssetManager->SetShaderPath("Shaders/");
-	AssetManager->SetTexturePath("Images/");
+	AssetManager->AddAssetPath("Assets");
+	AssetManager->SetShaderPath("Shaders");
+	AssetManager->SetTexturePath("Images");
 
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
@@ -46,16 +46,21 @@ int main()
 	/////////////////
 
 	CSimpleMesh * SphereMesh = CGeometryCreator::CreateSphere();
-	CSimpleMesh * SkySphereMesh = CGeometryCreator::CreateSkySphere();
+	CSimpleMesh * SkyBoxMesh = CGeometryCreator::CreateCube();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
 	SharedPointer<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
 	SharedPointer<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
 	SharedPointer<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
-	SharedPointer<IShaderProgram> SkySphereShader = AssetManager->LoadShader("SkySphere");
+	SharedPointer<IShaderProgram> SkyBoxShader = AssetManager->LoadShader("SkyBox");
 
-	SharedPointer<ITexture2D> SkyMap = AssetManager->LoadTexture("SkyMap.jpg");
-	SkyMap->SetMagFilter(ITexture::EFilter::Nearest);
+	SharedPointer<ITextureCubeMap> SkyBoxTexture = AssetManager->LoadCubeMapTexture(
+		"DarkStormyLeft2048.png",
+		"DarkStormyRight2048.png",
+		"DarkStormyUp2048.png",
+		"DarkStormyDown2048.png",
+		"DarkStormyFront2048.png",
+		"DarkStormyBack2048.png");
 
 
 	////////////////////
@@ -114,9 +119,9 @@ int main()
 	RenderPass->AddSceneObject(PlaneObject);
 
 	CSimpleMeshSceneObject * SkySphereObject = new CSimpleMeshSceneObject();
-	SkySphereObject->SetMesh(SkySphereMesh);
-	SkySphereObject->SetShader(SkySphereShader);
-	SkySphereObject->SetTexture("uTexture", SkyMap);
+	SkySphereObject->SetMesh(SkyBoxMesh);
+	SkySphereObject->SetShader(SkyBoxShader);
+	SkySphereObject->SetTexture("uTexture", SkyBoxTexture);
 	RenderPass->AddSceneObject(SkySphereObject);
 
 	CPointLight * Light1 = new CPointLight();

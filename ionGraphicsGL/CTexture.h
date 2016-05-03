@@ -112,6 +112,33 @@ namespace ion
 #pragma warning(suppress: 4250)
 			};
 
+			class CTextureCubeMap : public ITextureCubeMap, public CTexture
+			{
+
+			public:
+
+				void Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+
+				using CTexture::SetMinFilter;
+				using CTexture::SetMagFilter;
+				using CTexture::SetMipMapFilter;
+				using CTexture::SetWrapMode;
+				using CTexture::SetAnisotropy;
+				using CTexture::GetMinFilter;
+				using CTexture::GetMagFilter;
+				using CTexture::GetMipMapFilter;
+				using CTexture::GetWrapMode;
+				using CTexture::GetAnisotropy;
+
+				uint GetGLBindTextureTarget() const;
+				uint GetGLTextureBindingEnum() const;
+
+				vec2u TextureSize;
+
+#pragma warning(suppress: 4250)
+			};
+
 		}
 	}
 }
