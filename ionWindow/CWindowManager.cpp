@@ -15,9 +15,6 @@ namespace ion
 		{
 			std::cerr << "Error initializing glfw! " << std::endl;
 		}
-
-		SingletonPointer<CStateManager> StateManager;
-		AddListener(StateManager.Get());
 	}
 
 	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
