@@ -83,17 +83,6 @@ namespace ion
 
 		void CRenderPass::Load()
 		{
-			if (ActiveCamera)
-			{
-				ActiveCamera->Update();
-
-				uViewMatrix = ActiveCamera->GetViewMatrix();
-				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
-				uCameraMatrix = uProjectionMatrix.Get() * uViewMatrix.Get();
-				uInvCameraMatrix = glm::inverse(uCameraMatrix.Get());
-				uCameraPosition = ActiveCamera->GetPosition();
-			}
-
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
 			{
 				if (! SceneObject->IsLoaded(this))
@@ -105,6 +94,17 @@ namespace ion
 
 		void CRenderPass::Draw()
 		{
+			if (ActiveCamera)
+			{
+				ActiveCamera->Update();
+
+				uViewMatrix = ActiveCamera->GetViewMatrix();
+				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uCameraMatrix = uProjectionMatrix.Get() * uViewMatrix.Get();
+				uInvCameraMatrix = glm::inverse(uCameraMatrix.Get());
+				uCameraPosition = ActiveCamera->GetPosition();
+			}
+
 			RenderTarget->Bind();
 
 			std::for_each(SceneObjects.begin(), SceneObjects.end(), [this](ISceneObject * SceneObject)
