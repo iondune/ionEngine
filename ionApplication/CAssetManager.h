@@ -20,6 +20,14 @@ namespace ion
 
 		SharedPointer<Graphics::IShaderProgram> LoadShader(string const & Name);
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
+		SharedPointer<Graphics::ITextureCubeMap> LoadCubeMapTexture(
+			string const & FileNameLeft,
+			string const & FileNameRight,
+			string const & FileNameUp,
+			string const & FileNameDown,
+			string const & FileNameFront,
+			string const & FileNameBack,
+			Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		Scene::CSimpleMesh * LoadMesh(string const & FileName);
 
 		void AddAssetPath(string const & Path);

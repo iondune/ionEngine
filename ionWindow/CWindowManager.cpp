@@ -15,9 +15,6 @@ namespace ion
 		{
 			std::cerr << "Error initializing glfw! " << std::endl;
 		}
-
-		SingletonPointer<CStateManager> StateManager;
-		AddListener(StateManager.Get());
 	}
 
 	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
@@ -58,7 +55,14 @@ namespace ion
 
 				Window->AddListener(this);
 				Window->MakeContextCurrent();
-				glfwSwapInterval(0);
+				if (Type == EWindowType::Fullscreen)
+				{
+					glfwSwapInterval(1);
+				}
+				else
+				{
+					glfwSwapInterval(0);
+				}
 
 				if (nullptr == PrimaryWindow)
 				{

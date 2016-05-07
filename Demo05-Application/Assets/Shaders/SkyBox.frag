@@ -1,8 +1,8 @@
 #version 150
 
-in vec2 fTexCoord;
+in vec3 fTexCoord;
 
-uniform sampler2D uTexture;
+uniform samplerCube uTexture;
 
 out vec4 outColor;
 

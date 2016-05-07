@@ -178,21 +178,6 @@ namespace ion
 				sizeof(f32)
 			};
 
-			u32 const Util::PrimitiveMatrix[4] =
-			{
-				GL_POINTS,
-				GL_LINES,
-				GL_TRIANGLES
-			};
-
-			uint const Util::PrimitiveVertices[4] =
-			{
-				1,
-				2,
-				3,
-				4
-			};
-
 			string const Util::ScalarTypeStringMatrix[9] =
 			{
 				"GL_FALSE",
@@ -217,13 +202,6 @@ namespace ion
 				"sizeof(f32)"
 			};
 
-			string const Util::PrimitiveStringMatrix[4] =
-			{
-				"GL_POINTS",
-				"GL_LINES",
-				"GL_TRIANGLES",
-				"GL_QUADS"
-			};
 		}
 	}
 }

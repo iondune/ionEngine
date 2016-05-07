@@ -102,5 +102,25 @@ namespace ion
 
 		};
 
+		class ITextureCubeMap : public virtual ITexture
+		{
+
+		public:
+
+			enum class EFace
+			{
+				PositiveX = 0,
+				NegativeX = 1,
+				PositiveY = 2,
+				NegativeY = 3,
+				PositiveZ = 4,
+				NegativeZ = 5
+			};
+
+			virtual void Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+
+		};
+
 	}
 }

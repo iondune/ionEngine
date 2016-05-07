@@ -169,6 +169,7 @@ namespace ion
 
 			SafeGLCall(glEnable, (GL_DEPTH_TEST));
 			SafeGLCall(glDepthFunc, (GL_LEQUAL));
+			SafeGLCall(glEnable, (GL_TEXTURE_CUBE_MAP_SEAMLESS));
 		}
 
 		SharedPointer<IVertexShader> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
@@ -292,6 +293,34 @@ namespace ion
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 
 			return Texture3D;
+		}
+
+		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		{
+			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = SharedFromNew(new GL::CTextureCubeMap());
+
+			TextureCubeMap->TextureSize = Size;
+			TextureCubeMap->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			int Levels = 1;
+
+			if (TextureCubeMap->MipMaps)
+			{
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+			}
+
+			CheckedGLCall(glGenTextures(1, & TextureCubeMap->Handle));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, TextureCubeMap->Handle));
+			CheckedGLCall(glTexStorage2D(GL_TEXTURE_CUBE_MAP, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y));
+
+			if (GL::OpenGLError())
+			{
+				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", TextureCubeMap->Handle);
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
+
+			return TextureCubeMap;
 		}
 
 		SharedPointer<IGraphicsContext> COpenGLImplementation::GetWindowContext(CWindow * Window)

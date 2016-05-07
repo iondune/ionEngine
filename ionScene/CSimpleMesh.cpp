@@ -324,7 +324,7 @@ namespace ion
 			static SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 			vector<float> VertexData;
-			VertexData.resize(Vertices.size() * 11);
+			VertexData.resize(Vertices.size() * 14);
 
 			uint Offset = 0;
 			for (SVertex & Vertex : Vertices)
@@ -335,6 +335,9 @@ namespace ion
 				VertexData[Offset++] = Vertex.Normal.X;
 				VertexData[Offset++] = Vertex.Normal.Y;
 				VertexData[Offset++] = Vertex.Normal.Z;
+				VertexData[Offset++] = Vertex.Color.Red;
+				VertexData[Offset++] = Vertex.Color.Green;
+				VertexData[Offset++] = Vertex.Color.Blue;
 				VertexData[Offset++] = Vertex.TextureCoordinates.X;
 				VertexData[Offset++] = Vertex.TextureCoordinates.Y;
 				VertexData[Offset++] = Vertex.Tangent.X;
@@ -348,6 +351,7 @@ namespace ion
 			{
 				{ "vPosition",  3, Graphics::EAttributeType::Float },
 				{ "vNormal",    3, Graphics::EAttributeType::Float },
+				{ "vColor",    3, Graphics::EAttributeType::Float },
 				{ "vTexCoords", 2, Graphics::EAttributeType::Float },
 				{ "vTangent",   3, Graphics::EAttributeType::Float },
 			};
