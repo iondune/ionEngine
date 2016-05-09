@@ -131,9 +131,9 @@ struct vec3
 	template <typename U>
 	void set(vec3<U> const & other)
 	{
-		X = other.X;
-		Y = other.Y;
-		Z = other.Z;
+		X = (T) other.X;
+		Y = (T) other.Y;
+		Z = (T) other.Z;
 	}
 
 

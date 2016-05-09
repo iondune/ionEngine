@@ -114,6 +114,7 @@ public:
 		Red = Color::Convert<T, U>::From(Other.Red);
 		Green = Color::Convert<T, U>::From(Other.Green);
 		Blue = Color::Convert<T, U>::From(Other.Blue);
+		return *this;
 	}
 
 };
