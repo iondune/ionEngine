@@ -22,16 +22,7 @@ namespace Constants64
 
 template <typename T>
 struct Constants
-{
-/*	static T const Pi()
-	{
-		return 0;
-	}
-	static T const e()
-	{
-		return 0;
-	}*/
-};
+{};
 
 template <>
 struct Constants<f32>

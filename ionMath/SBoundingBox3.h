@@ -5,7 +5,7 @@
 #include "SLine3.h"
 
 
-template <typename T, typename Vector = SVector3<T> >
+template <typename T, typename Vector = vec3<T> >
 class SBoundingBox3
 {
 
@@ -127,21 +127,21 @@ public:
 		// Find candidate planes.
 		for (uint i = 0; i<3; i++)
 		{
-			if (origin.Values[i] < MinB.Values[i])
+			if (origin[i] < MinB[i])
 			{
-				coord.Values[i] = MinB.Values[i];
+				coord[i] = MinB[i];
 				Inside = false;
 
 				// Calculate T distances to candidate planes
-				if (((uint)(dir.Values[i])))	MaxT.Values[i] = (MinB.Values[i] - origin.Values[i]) / dir.Values[i];
+				if (((uint)(dir[i])))	MaxT[i] = (MinB[i] - origin[i]) / dir[i];
 			}
-			else if (origin.Values[i] > MaxB.Values[i])
+			else if (origin[i] > MaxB[i])
 			{
-				coord.Values[i] = MaxB.Values[i];
+				coord[i] = MaxB[i];
 				Inside = false;
 
 				// Calculate T distances to candidate planes
-				if (((uint)(dir.Values[i])))	MaxT.Values[i] = (MaxB.Values[i] - origin.Values[i]) / dir.Values[i];
+				if (((uint)(dir[i])))	MaxT[i] = (MaxB[i] - origin[i]) / dir[i];
 			}
 		}
 
@@ -154,18 +154,18 @@ public:
 
 		// Get largest of the maxT's for final choice of intersection
 		uint WhichPlane = 0;
-		if (MaxT.Values[1] > MaxT.Values[WhichPlane])	WhichPlane = 1;
-		if (MaxT.Values[2] > MaxT.Values[WhichPlane])	WhichPlane = 2;
+		if (MaxT[1] > MaxT[WhichPlane])	WhichPlane = 1;
+		if (MaxT[2] > MaxT[WhichPlane])	WhichPlane = 2;
 
 		// Check final candidate actually inside box
-		if (((uint)(MaxT.Values[WhichPlane])) & 0x80000000) return false;
+		if (((uint)(MaxT[WhichPlane])) & 0x80000000) return false;
 
 		for (uint i = 0; i<3; i++)
 		{
 			if (i != WhichPlane)
 			{
-				coord.Values[i] = origin.Values[i] + MaxT.Values[WhichPlane] * dir.Values[i];
-				if (coord.Values[i] < MinB.Values[i] - RAYAABB_EPSILON || coord.Values[i] > MaxB.Values[i] + RAYAABB_EPSILON)	return false;
+				coord[i] = origin[i] + MaxT[WhichPlane] * dir[i];
+				if (coord[i] < MinB[i] - RAYAABB_EPSILON || coord[i] > MaxB[i] + RAYAABB_EPSILON)	return false;
 
 			}
 		}

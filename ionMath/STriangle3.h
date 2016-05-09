@@ -10,19 +10,19 @@ class STriangle3
 
 public:
 
-	SVector3<T> Vertices[3];
+	vec3<T> Vertices[3];
 
 	STriangle3()
 	{}
 
-	STriangle3(SVector3<T> const & v1, SVector3<T> const & v2, SVector3<T> const & v3)
+	STriangle3(vec3<T> const & v1, vec3<T> const & v2, vec3<T> const & v3)
 	{
 		Vertices[0] = v1;
 		Vertices[1] = v2;
 		Vertices[2] = v3;
 	}
 
-	bool intersect(SVector3<T> const & p, SVector3<T> const & d)
+	bool intersect(vec3<T> const & p, vec3<T> const & d)
 	{
 		SVector3<T> v0, v1, v2;
 		v0 = Vertices[0];

@@ -144,9 +144,9 @@ public:
 		return SVector2<T>(Z, W);
 	}
 
-	SVector3<T> XYZ() const
+	vec3<T> XYZ() const
 	{
-		return SVector3<T>(Values[0], Values[1], Values[2]);
+		return vec3<T>(Values[0], Values[1], Values[2]);
 	}
 
 };

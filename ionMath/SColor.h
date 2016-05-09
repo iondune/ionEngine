@@ -2,145 +2,121 @@
 #pragma once
 
 #include "SVector.h"
+#include "SVector3.h"
 
+
+namespace Color
+{
+
+	template <typename T>
+	struct Full
+	{};
+
+	template <>
+	struct Full<f32>
+	{
+		static f32 Value()
+		{
+			return 1.f;
+		}
+	};
+
+	template <>
+	struct Full<u8>
+	{
+		static u8 Value()
+		{
+			return 255;
+		}
+	};
+
+	template <typename T, typename U>
+	struct Convert
+	{};
+
+	template <>
+	struct Convert<u8, f32>
+	{
+		static u8 From(f32 const Value)
+		{
+			return Clamp((uint) roundf(Value * 255.f), 0u, 255u);
+		}
+	};
+
+	template <>
+	struct Convert<f32, u8>
+	{
+		static f32 From(u8 const Value)
+		{
+			return Clamp((float) Value / 255.f, 0.f, 1.f);
+		}
+	};
+
+}
 
 template <typename T>
 class SColorA;
 
 template <typename T>
-class SColor : public SVector<T, 3, SColor<T> >
+class color3 : public vec3<T>
 {
 
 public:
 
-	using SVectorBase<T, 3>::set;
-	using SVectorBase<T, 3>::Values;
-
 	T & Red, & Green, & Blue;
-	static T const Full;
 
-	SColor()
-		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	//! Default constructor
+	color3()
+		: Red(X), Green(Y), Blue(Z), vec3()
+	{}
+
+	//! Scalar constructor
+	color3(T const in)
+		: Red(X), Green(Y), Blue(Z), vec3(in)
+	{}
+
+	//! Explicit constructor
+	color3(T const r, T const g, T const b)
+		: Red(X), Green(Y), Blue(Z), vec3(r, g, b)
+	{}
+
+	//! Copy constructor
+	color3(color3<T> const & Other)
+		: Red(X), Green(Y), Blue(Z), vec3(Other)
+	{}
+
+	//! Vector copy constructor
+	color3(vec3<T> const & Other)
+		: Red(X), Green(Y), Blue(Z), vec3(Other)
+	{}
+
+	//! Generic copy constructor
+	template <typename U>
+	color3(color3<U> const & Other)
+		: Red(X), Green(Y), Blue(Z), vec3()
 	{
-		set((T) 0);
+		Red = Color::Convert<T, U>::From(Other.Red);
+		Green = Color::Convert<T, U>::From(Other.Green);
+		Blue = Color::Convert<T, U>::From(Other.Blue);
 	}
 
-	SColor(T const in)
-		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
+	//! Copy assignment operator
+	color3<T> & operator = (color3<T> const & Other)
 	{
-		set(in);
-	}
-
-	SColor(T const r, T const g, T const b)
-		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
-	{
-		Values[0] = r;
-		Values[1] = g;
-		Values[2] = b;
-	}
-
-	SColor(SColor<T> const & vec)
-		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
-	{
-		set(vec);
-	}
-
-	template <typename U, u32 OtherDimension>
-	SColor(SVectorBase<U, OtherDimension> const & vec)
-		: Red(Values[0]), Green(Values[1]), Blue(Values[2])
-	{
-		set(vec);
-	}
-
-	SColor<T> & operator = (SColor<T> const & vec)
-	{
-		set(vec);
-
+		set(Other);
 		return * this;
 	}
 
-	template <typename U, u32 OtherDimension>
-	SColor<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
+	//! Generic copy assignment operator
+	template <typename U>
+	color3<T> & operator = (color3<U> const & Other)
 	{
-		set(vec);
-
-		return * this;
-	}
-
-	virtual T const operator[] (int i) const
-	{
-		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
-	}
-
-	virtual T & operator[] (int i)
-	{
-		return (i >= 0 && i < 3 ? Values[i] : (i == 3 ? SVectorBase<T, 3>::OutOfBounds = Full : SVectorBase<T, 3>::OutOfBounds = 0));
-	}
-
-	template <typename U, u32 OtherDimension>
-	void set(SVectorBase<U, OtherDimension> const & other)
-	{
-		for (int i = 0; i < 3; ++ i)
-			Values[i] = (T) other[i];
-	}
-
-	template <u32 OtherDimension>
-	void set(SVectorBase<u8, OtherDimension> const & other)
-	{
-		for (int i = 0; i < 3; ++ i)
-			Values[i] = (T) other[i];
-	}
-
-	template <u32 OtherDimension>
-	void set(SVectorBase<f32, OtherDimension> const & other)
-	{
-		for (int i = 0; i < 3; ++ i)
-			Values[i] = (T) other[i];
-	}
-
-	template <u32 OtherDimension>
-	void set(SVectorBase<f64, OtherDimension> const & other)
-	{
-		for (int i = 0; i < 3; ++ i)
-			Values[i] = (T) other[i];
+		Red = Color::Convert<T, U>::From(Other.Red);
+		Green = Color::Convert<T, U>::From(Other.Green);
+		Blue = Color::Convert<T, U>::From(Other.Blue);
 	}
 
 };
-
-template <typename T>
-T const SColor<T>::Full = 1;
-
-template <>
-template <u32 OtherDimension>
-void SColor<f32>::set(SVectorBase<u8, OtherDimension> const & other)
-{
-	for (u32 i = 0; i < 3; ++ i)
-		Values[i] = (f32) other[i] / 255.f;
-}
-
-template <>
-template <u32 OtherDimension>
-void SColor<f64>::set(SVectorBase<u8, OtherDimension> const & other)
-{
-	for (u32 i = 0; i < 3; ++ i)
-		Values[i] = (f64) other[i] / 255.0;
-}
-
-template <>
-template <u32 OtherDimension>
-void SColor<u8>::set(SVectorBase<f32, OtherDimension> const & other)
-{
-	for (u32 i = 0; i < 3; ++ i)
-		Values[i] = (u8) (other[i] * 255);
-}
-
-template <>
-template <u32 OtherDimension>
-void SColor<u8>::set(SVectorBase<f64, OtherDimension> const & other)
-{
-	for (u32 i = 0; i < 3; ++ i)
-		Values[i] = (u8) (other[i] * 255);
-}
 
 
 template <typename T>
@@ -187,6 +163,16 @@ public:
 		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
 	{
 		set(vec);
+	}
+
+	//! Scalar constructor
+	SColorA(color3<T> const & Other)
+		: Red(Values[0]), Green(Values[1]), Blue(Values[2]), Alpha(Values[3])
+	{
+		Red = Other.Red;
+		Green = Other.Green;
+		Blue = Other.Blue;
+		Alpha = Color::Full<T>::Value();
 	}
 
 	SColorA<T> & operator = (SColorA<T> const & vec)
@@ -270,21 +256,21 @@ void SColorA<u8>::set(SVectorBase<f64, OtherDimension> const & other)
 }
 
 
-typedef SColor<u8> SColori;
-typedef SColor<u8> SColorc;
+typedef color3<u8> SColori;
+typedef color3<u8> SColorc;
 typedef SColorA<u8> SColorAi;
 typedef SColorA<u8> SColorAc;
-typedef SColor<u8> SColor24;
+typedef color3<u8> SColor24;
 typedef SColorA<u8> SColor32;
 
-typedef SColor<f32> SColorf;
+typedef color3<f32> SColorf;
 typedef SColorA<f32> SColorAf;
-typedef SColor<f32> SColor72;
+typedef color3<f32> SColor72;
 typedef SColorA<f32> SColor96;
 
-typedef SColor<f64> SColord;
+typedef color3<f64> SColord;
 typedef SColorA<f64> SColorAd;
-typedef SColor<f64> SColor192;
+typedef color3<f64> SColor192;
 typedef SColorA<f64> SColor256;
 
 typedef SColori color3i;

@@ -98,6 +98,8 @@ public:
 
 };
 
+template <typename T>
+using vec2 = SVector2<T>;
 
 typedef SVector2<f32> SVector2f;
 typedef SVector2<f64> SVector2d;

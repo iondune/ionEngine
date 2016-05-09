@@ -111,9 +111,9 @@ namespace ion
 					}
 					case EUniformType::Float3:
 						CheckedGLCall(glUniform3f(it.first,
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
+							static_cast<vec3f const *>(it.second->GetData())->X,
+							static_cast<vec3f const *>(it.second->GetData())->Y,
+							static_cast<vec3f const *>(it.second->GetData())->Z));
 						break;
 					case EUniformType::Float3Array:
 					{

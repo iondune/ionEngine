@@ -139,7 +139,7 @@ namespace ion
 		Camera->SetLookDirection(LookDirection);
 	}
 
-	SVector3f const & CCameraController::GetPosition() const
+	vec3f const & CCameraController::GetPosition() const
 	{
 		return Camera->GetPosition();
 	}
