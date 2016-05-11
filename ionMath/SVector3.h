@@ -51,7 +51,7 @@ struct vec3
 	//! Generic vec2 constructor
 	template <typename U>
 	vec3(vec2<U> const & vec)
-		: X(vec.X), Y(vec.Y), Z(0)
+		: X((T) vec.X), Y((T) vec.Y), Z(0)
 	{}
 
 	
