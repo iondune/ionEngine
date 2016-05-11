@@ -67,33 +67,33 @@ public:
 
 	//! Default constructor
 	color3()
-		: Red(X), Green(Y), Blue(Z), vec3()
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>()
 	{}
 
 	//! Scalar constructor
 	color3(T const in)
-		: Red(X), Green(Y), Blue(Z), vec3(in)
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>(in)
 	{}
 
 	//! Explicit constructor
 	color3(T const r, T const g, T const b)
-		: Red(X), Green(Y), Blue(Z), vec3(r, g, b)
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>(r, g, b)
 	{}
 
 	//! Copy constructor
 	color3(color3<T> const & Other)
-		: Red(X), Green(Y), Blue(Z), vec3(Other)
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>(Other)
 	{}
 
 	//! Vector copy constructor
 	color3(vec3<T> const & Other)
-		: Red(X), Green(Y), Blue(Z), vec3(Other)
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>(Other)
 	{}
 
 	//! Generic copy constructor
 	template <typename U>
 	color3(color3<U> const & Other)
-		: Red(X), Green(Y), Blue(Z), vec3()
+		: Red(this->X), Green(this->Y), Blue(this->Z), vec3<T>()
 	{
 		Red = Color::Convert<T, U>::From(Other.Red);
 		Green = Color::Convert<T, U>::From(Other.Green);
@@ -103,7 +103,9 @@ public:
 	//! Copy assignment operator
 	color3<T> & operator = (color3<T> const & Other)
 	{
-		set(Other);
+		Red = Other.Red;
+		Green = Other.Green;
+		Blue = Other.Blue;
 		return * this;
 	}
 

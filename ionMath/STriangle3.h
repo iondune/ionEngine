@@ -24,12 +24,12 @@ public:
 
 	bool intersect(vec3<T> const & p, vec3<T> const & d)
 	{
-		SVector3<T> v0, v1, v2;
+		vec3<T> v0, v1, v2;
 		v0 = Vertices[0];
 		v1 = Vertices[1];
 		v2 = Vertices[2];
 
-		SVector3<T> e1, e2, h, s, q;
+		vec3<T> e1, e2, h, s, q;
 		T a, f, u, v;
 		e1 = v1 - v0;
 		e2 = v2 - v0;
