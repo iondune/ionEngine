@@ -294,3 +294,35 @@ namespace Colors
 	static color3f const Blue = color3f(0, 0, 1);
 	static color3f const Magenta = color3f(1, 0, 1);
 }
+
+namespace Color
+{
+
+	struct Pack
+	{
+
+		static uint Bits24(color3i const & Color)
+		{
+			uint const Red = Color.Red;
+			uint const Green = Color.Green;
+			uint const Blue = Color.Blue;
+			return (Red << 16) | (Green << 8) | (Blue);
+		}
+
+	};
+
+	struct Unpack
+	{
+
+		static color3i Bits24(uint const Value)
+		{
+			color3i Color;
+			Color.Red = (Value >> 16) & 0xFF;
+			Color.Green = (Value >> 8) & 0xFF;
+			Color.Blue = Value & 0xFF;
+			return Color;
+		}
+
+	};
+
+}
