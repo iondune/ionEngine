@@ -452,7 +452,7 @@ namespace ion
 				Mesh->Vertices[i + 1].Position.Y = 0;
 				Mesh->Vertices[i + 1].Position.Z = radius * Cos(float(i) / float(Slices) * 2.f * 3.14159f);
 
-				Mesh->Vertices[i + 1].Normal = SVector3f(0, 0, 1);
+				Mesh->Vertices[i + 1].Normal = vec3f(0, 0, 1);
 
 				Mesh->Triangles[i].Indices[0] = 0;
 				Mesh->Triangles[i].Indices[1] = i + 1;

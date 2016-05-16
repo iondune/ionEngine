@@ -44,6 +44,7 @@ public:
 		return ret;
 	}
 
+#pragma warning(disable: 4723)
 	bool IntersectsBox(box3<T> const & Box, T * Intersection = nullptr) const
 	{
 		T tmin = (Box.MinCorner.X - Origin.X) / Direction.X;
@@ -89,6 +90,7 @@ public:
 		}
 		return true;
 	}
+#pragma warning(default: 4723)
 
 	bool IntersectsSphere(vec3<T> const & Center, T const Radius, T * Intersection = nullptr) const
 	{

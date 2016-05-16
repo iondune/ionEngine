@@ -9,7 +9,7 @@
 template class Constants<f32>;
 template class Constants<f64>;
 
-template class SColor<int>;
-template class SColorA<int>;
+template class color3<u8>;
+template class SColorA<u8>;
 
 template class SRect2<int>;

@@ -115,8 +115,16 @@ int main()
 	CSimpleMeshSceneObject * PlaneObject = new CSimpleMeshSceneObject();
 	PlaneObject->SetMesh(PlaneMesh);
 	PlaneObject->SetShader(DiffuseShader);
-	PlaneObject->GetMaterial().Ambient = vec3f(0.05f);
+	PlaneObject->GetMaterial().Ambient = vec3f(0.05f, 0.05f, 0.1f);
 	RenderPass->AddSceneObject(PlaneObject);
+
+	CSimpleMeshSceneObject * PlaneObject2 = new CSimpleMeshSceneObject();
+	PlaneObject2->SetMesh(PlaneMesh);
+	PlaneObject2->SetShader(DiffuseShader);
+	PlaneObject2->SetScale(0.5f);
+	PlaneObject2->GetMaterial().Ambient = vec3f(0.05f);
+	PlaneObject2->SetFeatureEnabled(Graphics::EDrawFeature::PolygonOffsetForward, true);
+	RenderPass->AddSceneObject(PlaneObject2);
 
 	CSimpleMeshSceneObject * SkySphereObject = new CSimpleMeshSceneObject();
 	SkySphereObject->SetMesh(SkyBoxMesh);

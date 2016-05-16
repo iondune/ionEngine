@@ -111,9 +111,9 @@ namespace ion
 					}
 					case EUniformType::Float3:
 						CheckedGLCall(glUniform3f(it.first,
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<float, 3> const *>(it.second->GetData())->Values[2]));
+							static_cast<vec3f const *>(it.second->GetData())->X,
+							static_cast<vec3f const *>(it.second->GetData())->Y,
+							static_cast<vec3f const *>(it.second->GetData())->Z));
 						break;
 					case EUniformType::Float3Array:
 					{
@@ -212,6 +212,20 @@ namespace ion
 				{
 					CheckedGLCall(glDepthMask(GL_FALSE));
 				}
+				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				{
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_FILL));
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_LINE));
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_POINT));
+					if (PipelineState->PolygonOffsetForward)
+					{
+						CheckedGLCall(glPolygonOffset(-1.f, -1.f));
+					}
+					else
+					{
+						CheckedGLCall(glPolygonOffset(1.f, 1.f));
+					}
+				}
 				if (PipelineState->BlendMode != EBlendMode::None)
 				{
 					CheckedGLCall(glEnable(GL_BLEND));
@@ -245,6 +259,12 @@ namespace ion
 				if (PipelineState->DisableDepthWrite)
 				{
 					CheckedGLCall(glDepthMask(GL_TRUE));
+				}
+				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				{
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_FILL));
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_LINE));
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_POINT));
 				}
 				if (PipelineState->BlendMode != EBlendMode::None)
 				{

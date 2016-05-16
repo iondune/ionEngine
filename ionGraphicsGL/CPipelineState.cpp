@@ -174,6 +174,12 @@ namespace ion
 				case EDrawFeature::DisableDepthWrite:
 					DisableDepthWrite = Enabled;
 					break;
+				case EDrawFeature::PolygonOffsetForward:
+					PolygonOffsetForward = Enabled;
+					break;
+				case EDrawFeature::PolygonOffsetBackward:
+					PolygonOffsetBackward = Enabled;
+					break;
 				}
 			}
 

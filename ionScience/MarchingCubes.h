@@ -22,3 +22,6 @@ typedef SVolume<SMarchingCubesPoint> SMarchingCubesVolume;
 
 void CalculateGradient(SMarchingCubesVolume & Volume);
 ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume);
+
+extern s32 const TriTable[256][16];
+extern u32 const EdgeTable[256];

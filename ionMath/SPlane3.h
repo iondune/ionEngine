@@ -4,7 +4,7 @@
 #include "SVector3.h"
 
 
-template <typename T, typename Vector = SVector3<T> >
+template <typename T, typename Vector = vec3<T> >
 class SPlane3
 {
 

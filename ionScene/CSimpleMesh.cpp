@@ -232,7 +232,7 @@ namespace ion
 
 		box3f CSimpleMesh::CalculateBoundingBox() const
 		{
-			SBoundingBox3f Box(SVector3f(std::numeric_limits<float>().max()), SVector3f(-std::numeric_limits<float>().max()));
+			SBoundingBox3f Box(vec3f(std::numeric_limits<float>().max()), vec3f(-std::numeric_limits<float>().max()));
 
 			for (SVertex const & Vertex : Vertices)
 			{
