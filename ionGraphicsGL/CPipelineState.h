@@ -67,6 +67,8 @@ namespace ion
 				bool CullBack = false;
 				bool DisableDepthTest = false;
 				bool DisableDepthWrite = false;
+				bool PolygonOffsetForward = false;
+				bool PolygonOffsetBackward = false;
 				EBlendMode BlendMode = EBlendMode::None;
 				uint PrimitiveType;
 

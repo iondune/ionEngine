@@ -212,6 +212,20 @@ namespace ion
 				{
 					CheckedGLCall(glDepthMask(GL_FALSE));
 				}
+				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				{
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_FILL));
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_LINE));
+					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_POINT));
+					if (PipelineState->PolygonOffsetForward)
+					{
+						CheckedGLCall(glPolygonOffset(-1.f, -1.f));
+					}
+					else
+					{
+						CheckedGLCall(glPolygonOffset(1.f, 1.f));
+					}
+				}
 				if (PipelineState->BlendMode != EBlendMode::None)
 				{
 					CheckedGLCall(glEnable(GL_BLEND));
@@ -245,6 +259,12 @@ namespace ion
 				if (PipelineState->DisableDepthWrite)
 				{
 					CheckedGLCall(glDepthMask(GL_TRUE));
+				}
+				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				{
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_FILL));
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_LINE));
+					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_POINT));
 				}
 				if (PipelineState->BlendMode != EBlendMode::None)
 				{

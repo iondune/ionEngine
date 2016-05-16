@@ -21,7 +21,9 @@ namespace ion
 			CullFront = 1,
 			CullBack = 2,
 			DisableDepthTest = 3,
-			DisableDepthWrite = 4
+			DisableDepthWrite = 4,
+			PolygonOffsetForward = 5,
+			PolygonOffsetBackward = 6
 		};
 
 		enum class EBlendMode
