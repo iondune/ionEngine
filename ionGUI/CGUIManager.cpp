@@ -248,6 +248,16 @@ namespace ion
 		return true;
 	}
 
+	ImVec2 ToImGui(vec2f const & v)
+	{
+		return ImVec2(v.X, v.Y);
+	}
+
+	vec2f ToIon(ImVec2 const & v)
+	{
+		return vec2f(v.x, v.y);
+	}
+
 	void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data)
 	{
 		SingletonPointer<CGUIManager> ImGUIManager;

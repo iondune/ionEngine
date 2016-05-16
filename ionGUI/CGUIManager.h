@@ -10,6 +10,9 @@
 namespace ion
 {
 
+	ImVec2 ToImGui(vec2f const & v);
+	vec2f ToIon(ImVec2 const & v);
+
 	class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 	{
 
