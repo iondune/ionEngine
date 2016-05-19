@@ -33,6 +33,7 @@ namespace ion
 
 				void SetPrimitiveType(EPrimitiveType const PrimitiveType);
 				void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled);
+				void SetPolygonOffsetAmount(float const Amount);
 				void SetBlendMode(EBlendMode const BlendMode);
 
 				void OfferUniform(string const & Name, SharedPointer<IUniform> Uniform);
@@ -67,8 +68,8 @@ namespace ion
 				bool CullBack = false;
 				bool DisableDepthTest = false;
 				bool DisableDepthWrite = false;
-				bool PolygonOffsetForward = false;
-				bool PolygonOffsetBackward = false;
+				bool PolygonOffset = false;
+				float PolygonOffsetAmount = 1.f;
 				EBlendMode BlendMode = EBlendMode::None;
 				uint PrimitiveType;
 

@@ -22,8 +22,7 @@ namespace ion
 			CullBack = 2,
 			DisableDepthTest = 3,
 			DisableDepthWrite = 4,
-			PolygonOffsetForward = 5,
-			PolygonOffsetBackward = 6
+			PolygonOffset = 5
 		};
 
 		enum class EBlendMode
@@ -62,6 +61,7 @@ namespace ion
 
 			virtual void SetPrimitiveType(EPrimitiveType const PrimitiveType) = 0;
 			virtual void SetFeatureEnabled(EDrawFeature const Feature, bool const Enabled) = 0;
+			virtual void SetPolygonOffsetAmount(float const Amount) = 0;
 			virtual void SetBlendMode(EBlendMode const BlendMode) = 0;
 
 			virtual set<string> GetUnboundUniforms() const = 0;

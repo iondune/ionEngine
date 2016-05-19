@@ -174,13 +174,15 @@ namespace ion
 				case EDrawFeature::DisableDepthWrite:
 					DisableDepthWrite = Enabled;
 					break;
-				case EDrawFeature::PolygonOffsetForward:
-					PolygonOffsetForward = Enabled;
-					break;
-				case EDrawFeature::PolygonOffsetBackward:
-					PolygonOffsetBackward = Enabled;
+				case EDrawFeature::PolygonOffset:
+					PolygonOffset = Enabled;
 					break;
 				}
+			}
+
+			void CPipelineState::SetPolygonOffsetAmount(float const Amount)
+			{
+				PolygonOffsetAmount = Amount;
 			}
 
 			void CPipelineState::SetBlendMode(EBlendMode const BlendMode)

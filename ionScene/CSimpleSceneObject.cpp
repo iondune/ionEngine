@@ -58,6 +58,7 @@ namespace ion
 			{
 				PipelineState->SetFeatureEnabled(Pair.first, Pair.second);
 			}
+			PipelineState->SetPolygonOffsetAmount(PolygonOffsetAmount);
 			PipelineState->SetBlendMode(BlendMode);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
@@ -127,6 +128,16 @@ namespace ion
 			}
 
 			DrawFeatures[Feature] = Enabled;
+		}
+
+		void CSimpleSceneObject::SetPolygonOffsetAmount(float const Amount)
+		{
+			for (auto Iterator : PipelineStates)
+			{
+				Iterator.second->SetPolygonOffsetAmount(Amount);
+			}
+
+			PolygonOffsetAmount = Amount;
 		}
 
 		void CSimpleSceneObject::SetBlendMode(Graphics::EBlendMode const BlendMode)
