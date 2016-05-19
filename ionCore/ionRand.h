@@ -27,6 +27,11 @@ public:
 		return frand() * (Max - Min) + Min;
 	}
 
+	static int Between(int const Min, int const Max)
+	{
+		return std::rand() % (Max - Min) + Min;
+	}
+
 };
 
 class IRandomGenerator
