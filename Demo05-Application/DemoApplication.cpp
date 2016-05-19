@@ -123,7 +123,8 @@ int main()
 	PlaneObject2->SetShader(DiffuseShader);
 	PlaneObject2->SetScale(0.5f);
 	PlaneObject2->GetMaterial().Ambient = vec3f(0.05f);
-	PlaneObject2->SetFeatureEnabled(Graphics::EDrawFeature::PolygonOffsetForward, true);
+	PlaneObject2->SetFeatureEnabled(Graphics::EDrawFeature::PolygonOffset, true);
+	PlaneObject2->SetPolygonOffsetAmount(-1.f);
 	RenderPass->AddSceneObject(PlaneObject2);
 
 	CSimpleMeshSceneObject * SkySphereObject = new CSimpleMeshSceneObject();

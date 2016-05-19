@@ -212,19 +212,12 @@ namespace ion
 				{
 					CheckedGLCall(glDepthMask(GL_FALSE));
 				}
-				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				if (PipelineState->PolygonOffset)
 				{
 					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_FILL));
 					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_LINE));
 					CheckedGLCall(glEnable(GL_POLYGON_OFFSET_POINT));
-					if (PipelineState->PolygonOffsetForward)
-					{
-						CheckedGLCall(glPolygonOffset(-1.f, -1.f));
-					}
-					else
-					{
-						CheckedGLCall(glPolygonOffset(1.f, 1.f));
-					}
+					CheckedGLCall(glPolygonOffset(PipelineState->PolygonOffsetAmount, PipelineState->PolygonOffsetAmount));
 				}
 				if (PipelineState->BlendMode != EBlendMode::None)
 				{
@@ -260,7 +253,7 @@ namespace ion
 				{
 					CheckedGLCall(glDepthMask(GL_TRUE));
 				}
-				if (PipelineState->PolygonOffsetForward || PipelineState->PolygonOffsetBackward)
+				if (PipelineState->PolygonOffset)
 				{
 					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_FILL));
 					CheckedGLCall(glDisable(GL_POLYGON_OFFSET_LINE));

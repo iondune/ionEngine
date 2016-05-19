@@ -26,6 +26,7 @@ namespace ion
 			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
 			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
 			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
+			virtual void SetPolygonOffsetAmount(float const Amount);
 			virtual void SetBlendMode(Graphics::EBlendMode const BlendMode);
 			virtual void SetRenderCategory(uint const Category);
 			virtual void SetInstanceCount(uint const InstanceCount);
@@ -46,6 +47,7 @@ namespace ion
 			map<string, SharedPointer<Graphics::ITexture>> Textures;
 			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
 			map<Graphics::EDrawFeature, bool> DrawFeatures;
+			float PolygonOffsetAmount = 1.f;
 			Graphics::EBlendMode BlendMode = Graphics::EBlendMode::None;
 			uint RenderCategory = 0;
 			uint InstanceCount = 1;
