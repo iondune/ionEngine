@@ -65,8 +65,6 @@ namespace ion
 				SafeGLCall(glBindVertexArray, (VertexArrayHandle));
 				SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
 				SafeGLCall(glBindVertexArray, (0));
-
-				Loaded = false;
 			}
 
 			void CPipelineState::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
