@@ -108,6 +108,11 @@ namespace ion
 
 	void CCameraController::Update(f64 const TickTime)
 	{
+		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
+			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
+		if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
+			Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
+
 		vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 		vec3f const UpVector = Camera->GetUpVector();
 		vec3f Translation = Camera->GetPosition();
