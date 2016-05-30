@@ -40,11 +40,6 @@ namespace ion
 				{
 					Theta += (MouseEvent.Movement.X) * LookSpeed;
 					Phi -= (MouseEvent.Movement.Y) * LookSpeed;
-
-					if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
-						Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
-					if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
-						Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
 				}
 			}
 
@@ -197,6 +192,19 @@ namespace ion
 	{
 		GamePad->UpdateState();
 
+		f32 const RightMod = (1.f + 5.f * GamePad->GetRightTrigger());
+		f32 const LeftMod = (1.f / (1.f + 10.f * GamePad->GetLeftTrigger()));
+
+		// Look - Right Axis
+		f32 const LookMod = 512.f * LeftMod;
+		Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
+		Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
+
+		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
+			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
+		if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
+			Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
+
 		vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 		vec3f const UpVector = Camera->GetUpVector();
 		vec3f Translation = Camera->GetPosition();
@@ -204,9 +212,6 @@ namespace ion
 		vec3f const W = -1 * LookDirection;
 		vec3f const V = UpVector.CrossProduct(LookDirection).GetNormalized();
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
-
-		f32 const RightMod = (1.f + 5.f * GamePad->GetRightTrigger());
-		f32 const LeftMod = (1.f / (1.f + 10.f * GamePad->GetLeftTrigger()));
 
 		// Movement - Left Axis
 		f32 const MoveDelta = MoveSpeed * (f32) TickTime * RightMod * LeftMod;
@@ -217,11 +222,6 @@ namespace ion
 		if (GamePad->IsButtonPressed(EGamePadButton::RightShoulder))
 			Translation.Y += MoveDelta;
 		Camera->SetPosition(Translation);
-
-		// Look - Right Axis
-		f32 const LookMod = 512.f * LeftMod;
-		Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
-		Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
 
 		// Focal Length - DPad
 		f32 const ZoomSpeed = 100.f;
