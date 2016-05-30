@@ -4,6 +4,7 @@
     <ClCompile Include="CWindowWidget.cpp" />
     <ClCompile Include="CGUIManager.cpp" />
     <ClCompile Include="imGUI.cpp" />
+    <ClCompile Include="ionGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ionGUI.h" />
