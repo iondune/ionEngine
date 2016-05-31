@@ -197,8 +197,8 @@ namespace ion
 	{
 		GamePad->UpdateState();
 
-		f32 const RightMod = (1.f + 5.f * GamePad->GetRightTrigger());
-		f32 const LeftMod = (1.f / (1.f + 10.f * GamePad->GetLeftTrigger()));
+		f32 const RightMod = (1.f + 5.f * (GamePad->IsButtonPressed(EGamePadButton::RightShoulder) ? 1.f : 0.f));
+		f32 const LeftMod = (1.f / (1.f + 10.f * (GamePad->IsButtonPressed(EGamePadButton::LeftShoulder) ? 1.f : 0.f)));
 
 		// Look - Right Axis
 		f32 const LookMod = 512.f * LeftMod;
@@ -222,10 +222,8 @@ namespace ion
 		f32 const MoveDelta = MoveSpeed * (f32) TickTime * RightMod * LeftMod;
 		Translation += LookDirection * MoveDelta * GamePad->GetLeftStick().Y;
 		Translation -= V * MoveDelta * GamePad->GetLeftStick().X;
-		if (GamePad->IsButtonPressed(EGamePadButton::LeftShoulder))
-			Translation.Y -= MoveDelta;
-		if (GamePad->IsButtonPressed(EGamePadButton::RightShoulder))
-			Translation.Y += MoveDelta;
+		Translation.Y -= MoveDelta * GamePad->GetLeftTrigger();
+		Translation.Y += MoveDelta * GamePad->GetRightTrigger();
 		Camera->SetPosition(Translation);
 
 		// Camera Speed
