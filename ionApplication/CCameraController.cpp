@@ -228,6 +228,13 @@ namespace ion
 			Translation.Y += MoveDelta;
 		Camera->SetPosition(Translation);
 
+		// Camera Speed
+		f32 const AccelerateSpeed = 32.f;
+		if (GamePad->IsButtonPressed(EGamePadButton::DPadRight))
+			MoveSpeed += AccelerateSpeed * (f32) TickTime;
+		if (GamePad->IsButtonPressed(EGamePadButton::DPadLeft))
+			MoveSpeed -= AccelerateSpeed * (f32) TickTime;
+
 		// Focal Length - DPad
 		f32 const ZoomSpeed = 100.f;
 		f32 const ZoomMod = 1.01f;
