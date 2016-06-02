@@ -184,6 +184,51 @@ public:
 		return false;
 	}
 
+	bool IntersectsTriangle(vec3f const & v0, vec3f const & v1, vec3f const & v2, T * Intersection) const
+	{
+		vec3f const p = Origin;
+		vec3f const d = Direction;
+
+		vec3f e1, e2, h, s, q;
+
+		float a, f, u, v;
+		e1 = v1 - v0;
+		e2 = v2 - v0;
+
+		h = Cross(d, e2);
+		a = Dot(e1, h);
+
+		if (a > -RoundingError32 && a < RoundingError32)
+			return false;
+
+		f = 1 / a;
+		s = p - v0;
+		u = f * (Dot(s, h));
+
+		if ((u < 0.f || u > 1.f) && ! Equals(u, 0.f) && ! Equals(u, 1.f))
+			return false;
+
+		q = Cross(s, e1);
+		v = f * Dot(d, q);
+
+		if ((v < 0.f || u + v > 1.f) && ! Equals(v, 0.f) && ! Equals(u + v, 1.f))
+			return false;
+
+		f32 const t = f * Dot(e2, q);
+
+		if (t >= 0.f || Equals(t, 0.f))
+		{
+			if (Intersection)
+			{
+				*Intersection = t;
+			}
+
+			return true;
+		}
+		else
+			return false;
+	}
+
 	bool operator == (ray3<T> const & other)
 	{
 		return Origin == other.Origin && Direction == other.Direction;
