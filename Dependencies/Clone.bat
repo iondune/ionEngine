@@ -9,6 +9,7 @@ CALL :Clone Catch           https://github.com/philsquared/Catch.git     f666f5f
 CALL :Clone glad            https://github.com/iondune/glad.git          410adfead3468c13d40120a5259e687b8ef0616e
 CALL :Clone tinyobjloader   https://github.com/syoyo/tinyobjloader.git   ad9911ef1b124c628581c0f75adb3178f9d03c3c
 CALL :Clone dirent          https://github.com/tronkko/dirent.git        57535c8c159052a9871f58dc6fb43278d19102b3
+CALL :Clone simpleini       https://github.com/brofield/simpleini        e850d4e1cae65ee10f60992c5a576dce7fe35220
 
 EXIT /B 0
 

@@ -18,11 +18,13 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CDefaultApplication.h" />
     <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="CCameraController.h" />
     <ClInclude Include="ionApplication.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDefaultApplication.cpp" />
     <ClCompile Include="CAssetManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />
   </ItemGroup>
