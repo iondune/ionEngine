@@ -100,6 +100,7 @@ namespace ion
 
 				uViewMatrix = ActiveCamera->GetViewMatrix();
 				uProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+				uProjectionViewMatrix = ActiveCamera->GetProjectionMatrix() * ActiveCamera->GetViewMatrix();
 				uCameraMatrix = uProjectionMatrix.Get() * uViewMatrix.Get();
 				uInvCameraMatrix = glm::inverse(uCameraMatrix.Get());
 				uCameraPosition = ActiveCamera->GetPosition();
@@ -194,6 +195,10 @@ namespace ion
 				else if (Name == "uProjectionMatrix")
 				{
 					PipelineState->SetUniform(Name, uProjectionMatrix);
+				}
+				else if (Name == "uProjectionViewMatrix")
+				{
+					PipelineState->SetUniform(Name, uProjectionViewMatrix);
 				}
 				else if (Name == "uCameraMatrix")
 				{
