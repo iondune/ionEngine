@@ -1,4 +1,6 @@
+
 #include "ionGUI.h"
+
 
 bool ImGui::SliderDouble(const char * label, double * v, double v_min, double v_max, const char * display_format, double power)
 {
@@ -12,4 +14,15 @@ bool ImGui::SliderDouble(const char * label, double * v, double v_min, double v_
 	{
 		return false;
 	}
+}
+
+bool ImGui::ColorEdit3(const char * label, color3f & Color)
+{
+	float c[3] = { Color.Red, Color.Green, Color.Blue };
+	if (ImGui::ColorEdit3(label, c))
+	{
+		Color = color3f(c[0], c[1], c[2]);
+		return true;
+	}
+	return false;
 }
