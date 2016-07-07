@@ -77,6 +77,7 @@ namespace ion
 		void CSimpleSceneObject::SetIndexBuffer(SharedPointer<Graphics::IIndexBuffer> IndexBuffer)
 		{
 			this->IndexBuffer = IndexBuffer;
+			TriggerReload();
 		}
 
 		void CSimpleSceneObject::SetVertexBuffer(uint const Index, SharedPointer<Graphics::IVertexBuffer> VertexBuffer)
@@ -86,6 +87,7 @@ namespace ion
 				VertexBuffers.resize(Index + 1);
 			}
 			VertexBuffers[Index] = VertexBuffer;
+			TriggerReload();
 		}
 
 		void CSimpleSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
