@@ -19,6 +19,7 @@ namespace ion
 		struct SSettings
 		{
 			vec2i WindowSize = vec2i(1980, 1080);
+			vec2i WindowPosition = vec2i(20, 50);
 			EWindowType WindowType = EWindowType::Windowed;
 		};
 

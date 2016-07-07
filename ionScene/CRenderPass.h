@@ -63,6 +63,8 @@ namespace ion
 
 			Graphics::CUniform<glm::mat4> uProjectionMatrix;
 			Graphics::CUniform<glm::mat4> uViewMatrix;
+			Graphics::CUniform<glm::mat4> uProjectionViewMatrix;
+			Graphics::CUniform<glm::mat4> uInvProjectionViewMatrix;
 			Graphics::CUniform<vec3f> uCameraPosition;
 			Graphics::CUniform<glm::mat4> uModelMatrix;
 			Graphics::CUniform<glm::mat4> uNormalMatrix;

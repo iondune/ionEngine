@@ -154,6 +154,9 @@ namespace ion
 					case EUniformType::Int:
 						CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
 						break;
+					case EUniformType::Bool:
+						CheckedGLCall(glUniform1i(it.first, (*static_cast<bool const *>(it.second->GetData())) ? 1 : 0));
+						break;
 					case EUniformType::Int2:
 						CheckedGLCall(glUniform2i(it.first,
 							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[0],
