@@ -2,6 +2,7 @@
 #pragma once
 
 #include <ionMath.h>
+#include <ionFramework.h>
 
 
 namespace ion
@@ -26,7 +27,7 @@ namespace ion
 		Count
 	};
 
-	class CGamePad
+	class CGamePad : public IEventListener, public Singleton<CGamePad>
 	{
 
 	protected:
@@ -47,8 +48,19 @@ namespace ion
 
 		void UpdateState();
 
+
+	private:
+
+		friend class Singleton<CGamePad>;
 		CGamePad();
 
+	};
+
+	struct SGamePadButtonEvent : public IEvent
+	{
+		bool Pressed = false;
+		EGamePadButton Button;
+		CGamePad * GamePad = nullptr;
 	};
 
 }

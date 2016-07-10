@@ -23,6 +23,8 @@ namespace ion
 				return "Matrix4x4";
 			case EUniformType::Int:
 				return "Int";
+			case EUniformType::Bool:
+				return "Bool";
 			case EUniformType::Int2:
 				return "Int2";
 			case EUniformType::Int3:
@@ -104,6 +106,12 @@ namespace ion
 		EUniformType IUniformTyped<int>::GetType() const
 		{
 			return EUniformType::Int;
+		}
+
+		template <>
+		EUniformType IUniformTyped<bool>::GetType() const
+		{
+			return EUniformType::Bool;
 		}
 
 		template <>

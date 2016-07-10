@@ -40,11 +40,6 @@ namespace ion
 				{
 					Theta += (MouseEvent.Movement.X) * LookSpeed;
 					Phi -= (MouseEvent.Movement.Y) * LookSpeed;
-
-					if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
-						Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
-					if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
-						Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
 				}
 			}
 
@@ -113,6 +108,11 @@ namespace ion
 
 	void CCameraController::Update(f64 const TickTime)
 	{
+		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
+			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
+		if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
+			Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
+
 		vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 		vec3f const UpVector = Camera->GetUpVector();
 		vec3f Translation = Camera->GetPosition();
@@ -195,7 +195,20 @@ namespace ion
 
 	void CGamePadCameraController::Update(f64 const TickTime)
 	{
-		UpdateState();
+		GamePad->UpdateState();
+
+		f32 const RightMod = (1.f + 5.f * (GamePad->IsButtonPressed(EGamePadButton::RightShoulder) ? 1.f : 0.f));
+		f32 const LeftMod = (1.f / (1.f + 10.f * (GamePad->IsButtonPressed(EGamePadButton::LeftShoulder) ? 1.f : 0.f)));
+
+		// Look - Right Axis
+		f32 const LookMod = 512.f * LeftMod;
+		Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
+		Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
+
+		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
+			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
+		if (Phi < -Constants32::Pi / 2 + MaxAngleEpsilon)
+			Phi = -Constants32::Pi / 2 + MaxAngleEpsilon;
 
 		vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 		vec3f const UpVector = Camera->GetUpVector();
@@ -205,23 +218,20 @@ namespace ion
 		vec3f const V = UpVector.CrossProduct(LookDirection).GetNormalized();
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
-		f32 const RightMod = (1.f + 5.f * GetRightTrigger());
-		f32 const LeftMod = (1.f / (1.f + 10.f * GetLeftTrigger()));
-
 		// Movement - Left Axis
 		f32 const MoveDelta = MoveSpeed * (f32) TickTime * RightMod * LeftMod;
-		Translation += LookDirection * MoveDelta * GetLeftStick().Y;
-		Translation -= V * MoveDelta * GetLeftStick().X;
-		if (IsButtonPressed(EGamePadButton::LeftShoulder))
-			Translation.Y -= MoveDelta;
-		if (IsButtonPressed(EGamePadButton::RightShoulder))
-			Translation.Y += MoveDelta;
+		Translation += LookDirection * MoveDelta * GamePad->GetLeftStick().Y;
+		Translation -= V * MoveDelta * GamePad->GetLeftStick().X;
+		Translation.Y -= MoveDelta * GamePad->GetLeftTrigger();
+		Translation.Y += MoveDelta * GamePad->GetRightTrigger();
 		Camera->SetPosition(Translation);
 
-		// Look - Right Axis
-		f32 const LookMod = 10.f * LeftMod;
-		Theta += (GetRightStick().X) * LookMod * LookSpeed;
-		Phi += (GetRightStick().Y) * LookMod * LookSpeed;
+		// Camera Speed
+		f32 const AccelerateSpeed = 32.f;
+		if (GamePad->IsButtonPressed(EGamePadButton::DPadRight))
+			MoveSpeed += AccelerateSpeed * (f32) TickTime;
+		if (GamePad->IsButtonPressed(EGamePadButton::DPadLeft))
+			MoveSpeed = Max(0.f, MoveSpeed - AccelerateSpeed * (f32) TickTime);
 
 		// Focal Length - DPad
 		f32 const ZoomSpeed = 100.f;
@@ -230,9 +240,9 @@ namespace ion
 		if ((PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
 		{
 			f32 FocalLength = PerspectiveCamera->GetFocalLength();
-			if (IsButtonPressed(EGamePadButton::DPadUp))
+			if (GamePad->IsButtonPressed(EGamePadButton::DPadUp))
 				FocalLengthAccumulator += ZoomSpeed * (f32) TickTime;
-			if (IsButtonPressed(EGamePadButton::DPadDown))
+			if (GamePad->IsButtonPressed(EGamePadButton::DPadDown))
 				FocalLengthAccumulator -= ZoomSpeed * (f32) TickTime;
 			if (FocalLengthAccumulator > 1)
 			{

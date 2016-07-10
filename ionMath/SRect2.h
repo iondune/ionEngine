@@ -113,6 +113,17 @@ public:
 		Size = LowerRightCorner - UpperLeftCorner;
 	}
 
+	///////////////////////////////////////
+	// Inequality operator (for sorting) //
+	///////////////////////////////////////
+
+	bool operator < (SRect2<T> const & other) const
+	{
+		return
+			(Position < other.Position) ||
+			(Position == other.Position && Size < other.Size);
+	}
+
 	bool operator ==(SRect2<T> const & other)
 	{
 		return other.Position == Position && other.Size == Size;

@@ -45,7 +45,7 @@ public:
 	}
 
 #pragma warning(disable: 4723)
-	bool IntersectsBox(box3<T> const & Box, T * Intersection = nullptr) const
+	bool IntersectsBox(box3<T> const & Box, T * Intersection) const
 	{
 		T tmin = (Box.MinCorner.X - Origin.X) / Direction.X;
 		T tmax = (Box.MaxCorner.X - Origin.X) / Direction.X;
@@ -86,8 +86,59 @@ public:
 
 		if (Intersection)
 		{
-			*Intersection = tmin;
+			if (tmin > 0)
+			{
+				*Intersection = tmin;
+			}
+			else
+			{
+				*Intersection = tmax;
+			}
 		}
+		return true;
+	}
+#pragma warning(default: 4723)
+
+#pragma warning(disable: 4723)
+	bool IntersectsBox(box3<T> const & Box) const
+	{
+		T tmin = (Box.MinCorner.X - Origin.X) / Direction.X;
+		T tmax = (Box.MaxCorner.X - Origin.X) / Direction.X;
+
+		if (tmin > tmax)
+			std::swap(tmin, tmax);
+
+		T tymin = (Box.MinCorner.Y - Origin.Y) / Direction.Y;
+		T tymax = (Box.MaxCorner.Y - Origin.Y) / Direction.Y;
+
+		if (tymin > tymax)
+			std::swap(tymin, tymax);
+
+		if ((tmin > tymax) || (tymin > tmax))
+			return false;
+
+		if (tymin > tmin)
+			tmin = tymin;
+		if (tymax < tmax)
+			tmax = tymax;
+
+		T tzmin = (Box.MinCorner.Z - Origin.Z) / Direction.Z;
+		T tzmax = (Box.MaxCorner.Z - Origin.Z) / Direction.Z;
+
+		if (tzmin > tzmax)
+			std::swap(tzmin, tzmax);
+
+		if ((tmin > tzmax) || (tzmin > tmax))
+			return false;
+
+		if (tzmin > tmin)
+			tmin = tzmin;
+		if (tzmax < tmax)
+			tmax = tzmax;
+
+		if ((tmin > std::numeric_limits<T>::max()) || (tmax < 0))
+			return false;
+
 		return true;
 	}
 #pragma warning(default: 4723)
@@ -131,6 +182,51 @@ public:
 		}
 
 		return false;
+	}
+
+	bool IntersectsTriangle(vec3f const & v0, vec3f const & v1, vec3f const & v2, T * Intersection) const
+	{
+		vec3f const p = Origin;
+		vec3f const d = Direction;
+
+		vec3f e1, e2, h, s, q;
+
+		float a, f, u, v;
+		e1 = v1 - v0;
+		e2 = v2 - v0;
+
+		h = Cross(d, e2);
+		a = Dot(e1, h);
+
+		if (a > -RoundingError32 && a < RoundingError32)
+			return false;
+
+		f = 1 / a;
+		s = p - v0;
+		u = f * (Dot(s, h));
+
+		if ((u < 0.f || u > 1.f) && ! Equals(u, 0.f) && ! Equals(u, 1.f))
+			return false;
+
+		q = Cross(s, e1);
+		v = f * Dot(d, q);
+
+		if ((v < 0.f || u + v > 1.f) && ! Equals(v, 0.f) && ! Equals(u + v, 1.f))
+			return false;
+
+		f32 const t = f * Dot(e2, q);
+
+		if (t >= 0.f || Equals(t, 0.f))
+		{
+			if (Intersection)
+			{
+				*Intersection = t;
+			}
+
+			return true;
+		}
+		else
+			return false;
 	}
 
 	bool operator == (ray3<T> const & other)

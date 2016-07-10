@@ -29,6 +29,7 @@ namespace ion
 			string const & FileNameBack,
 			Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		Scene::CSimpleMesh * LoadMesh(string const & FileName);
+		vector<Scene::CSimpleMesh *> LoadMeshes(string const & FileName);
 
 		void AddAssetPath(string const & Path);
 		void SetTexturePath(string const & Path);

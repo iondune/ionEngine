@@ -52,7 +52,7 @@ namespace ion
 
 	};
 
-	class CGamePadCameraController : public CCameraController, public CGamePad
+	class CGamePadCameraController : public CCameraController
 	{
 
 	public:
@@ -61,6 +61,8 @@ namespace ion
 		virtual void Update(f64 const TickTime);
 
 	protected:
+
+		SingletonPointer<CGamePad> GamePad;
 
 		f32 FocalLengthAccumulator = 0;
 

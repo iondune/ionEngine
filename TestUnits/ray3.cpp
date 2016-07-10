@@ -54,8 +54,10 @@ TEST_CASE("ray-box intersection", "")
 
 	CHECK(ray3d(vec3d(0, 0, -2), vec3d(0, 0, 1)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));
 	CHECK(Equals(Intersection, 1.0));
-	CHECK(ray3d(vec3d(0, 0, -1), vec3d(0, 0, 1)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));
-	CHECK(Equals(Intersection, 0.0));
+	CHECK(ray3d(vec3d(0, 0, 0), vec3d(0, 0, 1)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));
+	CHECK(Equals(Intersection, 1.0));
+	CHECK(ray3d(vec3d(0, 0, -1.5), vec3d(0, 0, 1)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));
+	CHECK(Equals(Intersection, 0.5));
 
 	CHECK(ray3d(vec3d(0, -10, 0), vec3d(0, 1, 0)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));
 	CHECK(Equals(Intersection, 9.0));

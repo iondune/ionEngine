@@ -4,9 +4,11 @@
     <ClInclude Include="CCameraController.h" />
     <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="ionApplication.h" />
+    <ClInclude Include="CDefaultApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraController.cpp" />
     <ClCompile Include="CAssetManager.cpp" />
+    <ClCompile Include="CDefaultApplication.cpp" />
   </ItemGroup>
 </Project>

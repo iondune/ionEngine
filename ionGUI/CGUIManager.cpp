@@ -131,6 +131,10 @@ namespace ion
 				break;
 			case SMouseEvent::EType::Scroll:
 				MouseWheel += MouseEvent.Movement.Y;
+				if (IO.WantCaptureMouse)
+				{
+					Event.Block();
+				}
 				break;
 			}
 		}

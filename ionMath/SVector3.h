@@ -211,7 +211,7 @@ struct vec3
 	///////////////////
 
 	template <typename Real>
-	vec3<T> GetInterpolated(vec3<T> const & v, Real const d)
+	vec3<T> GetInterpolated(vec3<T> const & v, Real const d) const
 	{
 		vec3<T> ret;
 		Real inv = (Real) 1 - d;
