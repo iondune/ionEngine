@@ -22,7 +22,7 @@ namespace ion
 			{
 				continue;
 			}
-			
+
 			SharedPointer<Graphics::IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
 			SharedPointer<Graphics::IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
 
@@ -77,6 +77,79 @@ namespace ion
 
 		Log::Error("Cannot find image file in any asset directory: '%s'", FileName);
 		return nullptr;
+	}
+
+	SharedPointer<Graphics::ITexture3D> CAssetManager::Load3DTexture(const std::vector<string> & FileNames, Graphics::ITexture::EMipMaps const MipMaps)
+	{
+		if (! GraphicsAPI)
+		{
+			Log::Error("CAssetManager being used without being initialized, Textures will not be loaded");
+			return nullptr;
+		}
+		std::vector<CImage *> ImgArr;
+		vec2u setSize(0,0);
+		
+
+		for(string FileName : FileNames)
+		{
+			for (string AssetPath : AssetPaths)
+			{
+				if (! File::Exists(AssetPath + TexturePath + FileName))
+				{
+					continue;
+				}
+
+				CImage * Image = CImage::Load(AssetPath + TexturePath + FileName);
+
+				if (Image)
+				{
+					if(setSize[0] == 0)
+					{
+						setSize = Image->GetSize();
+					}
+					else
+					{
+						assert(Image->GetSize() == setSize);
+					}
+					ImgArr.push_back(Image);
+				}
+				else
+				{
+					return nullptr;
+					Log::Error("Cannot find image file in any asset directory: '%s'", FileName);
+
+				}
+			}
+		}
+		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+
+		switch (ImgArr[0]->GetChannels())
+		{
+		case 2:
+			Format = Graphics::ITexture::EFormatComponents::RG;
+			break;
+		case 3:
+			Format = Graphics::ITexture::EFormatComponents::RGB;
+			break;
+		case 4:
+			Format = Graphics::ITexture::EFormatComponents::RGBA;
+			break;
+		}
+		vec3u size3D(setSize[0],setSize[1],ImgArr.size());
+		//Load and combine data
+		
+		SharedPointer<Graphics::ITexture3D> Texture3D = GraphicsAPI->CreateTexture3D(size3D,MipMaps,Format,Graphics::ITexture::EInternalFormatType::Fix8);
+		for(int i = 0; i < ImgArr.size(); i++)
+		{
+			CImage * ImagePtr  = ImgArr[i];
+			Texture3D->UploadSubRegion(
+				ImagePtr->GetData(),
+				vec3u(0,0,i),
+				vec3u(setSize[0],setSize[1],1),
+				Format,
+				Graphics::EScalarType::UnsignedInt8);
+		}
+		return Texture3D;
 	}
 
 	SharedPointer<Graphics::ITextureCubeMap> CAssetManager::LoadCubeMapTexture(string const & FileNameLeft, string const & FileNameRight, string const & FileNameUp, string const & FileNameDown, string const & FileNameFront, string const & FileNameBack, Graphics::ITexture::EMipMaps const MipMaps)
