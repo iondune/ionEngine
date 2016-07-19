@@ -135,7 +135,7 @@ namespace ion
 			Format = Graphics::ITexture::EFormatComponents::RGBA;
 			break;
 		}
-		vec3u size3D(setSize[0],setSize[1],ImgArr.size());
+		vec3u size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 		
 		SharedPointer<Graphics::ITexture3D> Texture3D = GraphicsAPI->CreateTexture3D(size3D,MipMaps,Format,Graphics::ITexture::EInternalFormatType::Fix8);
