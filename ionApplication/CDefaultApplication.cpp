@@ -18,6 +18,8 @@ namespace ion
 		ApplicationSettings.WindowPosition.X = ConfigFile.GetLongValue("window", "x", ApplicationSettings.WindowPosition.X);
 		ApplicationSettings.WindowPosition.Y = ConfigFile.GetLongValue("window", "y", ApplicationSettings.WindowPosition.Y);
 
+		ApplicationSettings.FontSize = (float) ConfigFile.GetDoubleValue("window", "fontsize", ApplicationSettings.FontSize);
+
 		bool Fullscreen = ConfigFile.GetBoolValue("window", "fullscreen", false);
 		ApplicationSettings.WindowType = (Fullscreen ? EWindowType::Fullscreen : EWindowType::Windowed);
 	}

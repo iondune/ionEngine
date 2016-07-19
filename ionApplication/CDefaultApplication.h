@@ -21,6 +21,7 @@ namespace ion
 			vec2i WindowSize = vec2i(1980, 1080);
 			vec2i WindowPosition = vec2i(20, 50);
 			EWindowType WindowType = EWindowType::Windowed;
+			float FontSize = 18.f;
 		};
 
 		void LoadSettings();
