@@ -21,3 +21,5 @@
 
 #include "Interpolation.h"
 #include "SLongitudeLatitude.h"
+
+#include "EarClipping.h"
