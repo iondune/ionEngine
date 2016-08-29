@@ -12,14 +12,12 @@ namespace ion
 
 	bool IsPointInTriangle(vec2f const & a, vec2f const & b, vec2f const & c, vec2f const & point)
 	{
-		if (Determinant(b - a, point - a) > 0 && Determinant(c - b, point - b) > 0 && Determinant(a - c, point - c) > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return Determinant(b - a, point - a) > 0 && Determinant(c - b, point - b) > 0 && Determinant(a - c, point - c) > 0;
+	}
+
+	bool IsPointInOrOnTriangle(vec2f const & a, vec2f const & b, vec2f const & c, vec2f const & point)
+	{
+		return Determinant(b - a, point - a) >= 0 && Determinant(c - b, point - b) >= 0 && Determinant(a - c, point - c) >= 0;
 	}
 
 	vector<STriangle2D> TriangulateEarClipping(vector<vec2f> const & OriginalPoints)
