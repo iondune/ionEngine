@@ -5,7 +5,7 @@
 namespace ion
 {
 
-	float Determinant(vec2f const & u, vec3f const & v)
+	float Determinant(vec2f const & u, vec2f const & v)
 	{
 		return u.X*v.Y - u.Y*v.X;
 	}
@@ -20,10 +20,28 @@ namespace ion
 		return Determinant(b - a, point - a) >= 0 && Determinant(c - b, point - b) >= 0 && Determinant(a - c, point - c) >= 0;
 	}
 
-	vector<STriangle2D> TriangulateEarClipping(vector<vec2f> const & OriginalPoints)
+
+	double Determinant(vec2d const & u, vec2d const & v)
 	{
-		vector<STriangle2D> Return;
-		vector<vec2f> Points = OriginalPoints;
+		return u.X*v.Y - u.Y*v.X;
+	}
+
+	bool IsPointInTriangle(vec2d const & a, vec2d const & b, vec2d const & c, vec2d const & point)
+	{
+		return Determinant(b - a, point - a) > 0 && Determinant(c - b, point - b) > 0 && Determinant(a - c, point - c) > 0;
+	}
+
+	bool IsPointInOrOnTriangle(vec2d const & a, vec2d const & b, vec2d const & c, vec2d const & point)
+	{
+		return Determinant(b - a, point - a) >= 0 && Determinant(c - b, point - b) >= 0 && Determinant(a - c, point - c) >= 0;
+	}
+
+
+	template <typename T>
+	vector<STriangle2D<T>> TriangulateEarClipping_Implementation(vector<vec2<T>> const & OriginalPoints)
+	{
+		vector<STriangle2D<T>> Return;
+		vector<vec2<T>> Points = OriginalPoints;
 
 		if (Points.size() >= 3)
 		{
@@ -57,7 +75,7 @@ namespace ion
 						{
 							TriangleFound = true;
 
-							STriangle2D tri;
+							STriangle2D<T> tri;
 							tri.A = Points[i];
 							tri.B = Points[i + 1];
 							tri.C = Points[i + 2];
@@ -71,6 +89,16 @@ namespace ion
 		}
 
 		return Return;
+	}
+
+	vector<STriangle2D<float>> TriangulateEarClipping(vector<vec2f> const & OriginalPoints)
+	{
+		return TriangulateEarClipping_Implementation(OriginalPoints);
+	}
+
+	vector<STriangle2D<double>> TriangulateEarClipping(vector<vec2d> const & OriginalPoints)
+	{
+		return TriangulateEarClipping_Implementation(OriginalPoints);
 	}
 
 }
