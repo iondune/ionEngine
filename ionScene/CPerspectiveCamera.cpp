@@ -17,7 +17,22 @@ namespace ion
 
 		void CPerspectiveCamera::RecalculateProjectionMatrix()
 		{
-			ProjectionMatrix = glm::perspective<f32>(GetFieldOfView(), AspectRatio, NearPlane, FarPlane);
+#ifdef _ION_CONFIG_REVERSE_DEPTH
+			const float zNear = NearPlane;
+			const float viewAngleVertical = GetFieldOfView();
+			const float f = 1.0f / tan(viewAngleVertical / 2.0f); // 1.0 / tan(X) == cotangent(X)
+
+			glm::mat4 projectionMatrix = {
+				f / AspectRatio, 0.0f,  0.0f,  0.0f,
+				0.0f,    f,  0.0f,  0.0f,
+				0.0f, 0.0f,  0.0f, -1.0f,
+				0.0f, 0.0f, zNear,  0.0f
+			};
+
+			ProjectionMatrix = projectionMatrix;
+#else
+			ProjectionMatrix = glm::perspective<f32>(, AspectRatio, NearPlane, FarPlane);
+#endif
 		}
 
 		void CPerspectiveCamera::Update()
