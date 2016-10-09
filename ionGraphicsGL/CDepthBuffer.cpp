@@ -15,7 +15,7 @@ namespace ion
 			{
 				CheckedGLCall(glGenRenderbuffers(1, & Handle));
 				CheckedGLCall(glBindRenderbuffer(GL_RENDERBUFFER, Handle));
-				CheckedGLCall(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, Size.X, Size.Y));
+				CheckedGLCall(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT32, Size.X, Size.Y));
 				CheckedGLCall(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 			}
 
