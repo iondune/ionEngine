@@ -10,7 +10,7 @@
 template <typename T>
 T Abs(T const value)
 {
-	return abs(value);
+	return std::abs(value);
 }
 
 //! \brief Template function for selecting from two values the one with larger magnitude
