@@ -170,6 +170,7 @@ namespace ion
 			SafeGLCall(glEnable, (GL_DEPTH_TEST));
 			SafeGLCall(glDepthFunc, (GL_LEQUAL));
 			SafeGLCall(glEnable, (GL_TEXTURE_CUBE_MAP_SEAMLESS));
+			SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_ZERO_TO_ONE));
 		}
 
 		SharedPointer<IVertexShader> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
