@@ -6,7 +6,6 @@
 ////////////////////
 
 //#define _ION_CONFIG_SUPPRESS_LOG
-#define _ION_CONFIG_REVERSE_DEPTH
 
 
 ////////////////////////

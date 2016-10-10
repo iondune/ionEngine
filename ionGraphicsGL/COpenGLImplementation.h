@@ -18,6 +18,8 @@ namespace ion
 
 			COpenGLImplementation();
 
+			void UseReverseDepth();
+
 			void PreWindowCreationSetup();
 			void PostWindowCreationSetup();
 

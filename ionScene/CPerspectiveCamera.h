@@ -9,6 +9,13 @@ namespace ion
 	namespace Scene
 	{
 
+		enum class EProjectionType
+		{
+			Standard,
+			ReverseZeroToOne,
+			ReverseZeroToOneInfiniteFar
+		};
+
 		class CPerspectiveCamera : public CCamera
 		{
 
@@ -27,7 +34,12 @@ namespace ion
 			void RecalculateProjectionMatrix();
 			void Update();
 
+			EProjectionType GetProjectionType() const;
+			void SetProjectionType(EProjectionType const Type);
+
 		protected:
+
+			EProjectionType ProjectionType = EProjectionType::Standard;
 
 			f32 FocalLength;
 			f32 AspectRatio;
