@@ -25,6 +25,8 @@ namespace ion
 			virtual void SetClearColor(color4f const & Color) = 0;
 
 			virtual void Bind() = 0;
+			virtual void SetViewport(vec2i const & Min, vec2i const & Max) = 0;
+			virtual void ClearViewport() = 0;
 
 			virtual CImage * ReadImage() = 0;
 
