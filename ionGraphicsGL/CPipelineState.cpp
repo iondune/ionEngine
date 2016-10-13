@@ -115,6 +115,10 @@ namespace ion
 						Textures[Name] = Texture;
 						UnboundUniforms.erase(Name);
 					}
+					else if (Textures.find(Name) != Textures.end())
+					{
+						Textures[Name] = Texture;
+					}
 					else
 					{
 						Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
