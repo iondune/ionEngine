@@ -116,11 +116,11 @@ namespace ion
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
 					if (SpecifiedViewport)
 					{
-						CheckedGLCall(glViewport(0, 0, Size.X, Size.Y));
+						CheckedGLCall(glViewport(ViewportMin.X, ViewportMin.Y, ViewportMax.X, ViewportMax.Y));
 					}
 					else
 					{
-						CheckedGLCall(glViewport(ViewportMin.X, ViewportMin.Y, ViewportMax.X, ViewportMax.Y));
+						CheckedGLCall(glViewport(0, 0, Size.X, Size.Y));
 					}
 					CurrentlyBound = this;
 				}
