@@ -139,11 +139,9 @@ namespace ion
 
 		void COpenGLImplementation::UseReverseDepth()
 		{
-			printf("a\n");
 			SafeGLCall(glDepthFunc, (GL_GEQUAL));
 			SafeGLCall(glClearDepth, (0.f));
 			SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_ZERO_TO_ONE));
-			printf("b\n");
 		}
 
 		void COpenGLImplementation::PreWindowCreationSetup()
