@@ -164,9 +164,9 @@ namespace ion
 						break;
 					case EUniformType::Int3:
 						CheckedGLCall(glUniform3i(it.first,
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[2]));
+							static_cast<vec3i const *>(it.second->GetData())->X,
+							static_cast<vec3i const *>(it.second->GetData())->Y,
+							static_cast<vec3i const *>(it.second->GetData())->Z));
 						break;
 					case EUniformType::Int4:
 						CheckedGLCall(glUniform4i(it.first,
