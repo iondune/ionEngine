@@ -91,8 +91,8 @@ namespace ion
 						break;
 					case EUniformType::Float2:
 						CheckedGLCall(glUniform2f(it.first,
-							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
+							static_cast<vec2f const *>(it.second->GetData())->X,
+							static_cast<vec2f const *>(it.second->GetData())->Y));
 						break;
 					case EUniformType::Float2Array:
 					{
@@ -159,8 +159,8 @@ namespace ion
 						break;
 					case EUniformType::Int2:
 						CheckedGLCall(glUniform2i(it.first,
-							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[1]));
+							static_cast<vec2i const *>(it.second->GetData())->X,
+							static_cast<vec2i const *>(it.second->GetData())->Y));
 						break;
 					case EUniformType::Int3:
 						CheckedGLCall(glUniform3i(it.first,

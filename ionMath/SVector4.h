@@ -119,29 +119,29 @@ public:
 		return FromGLM(v);
 	}
 
-	SVector2<T> XY() const
+	vec2<T> XY() const
 	{
-		return SVector2<T>(X, Y);
+		return vec2<T>(X, Y);
 	}
 
-	SVector2<T> XZ() const
+	vec2<T> XZ() const
 	{
-		return SVector2<T>(X, Z);
+		return vec2<T>(X, Z);
 	}
 
-	SVector2<T> XW() const
+	vec2<T> XW() const
 	{
-		return SVector2<T>(X, W);
+		return vec2<T>(X, W);
 	}
 
-	SVector2<T> YZ() const
+	vec2<T> YZ() const
 	{
-		return SVector2<T>(Y, Z);
+		return vec2<T>(Y, Z);
 	}
 
-	SVector2<T> ZW() const
+	vec2<T> ZW() const
 	{
-		return SVector2<T>(Z, W);
+		return vec2<T>(Z, W);
 	}
 
 	vec3<T> XYZ() const

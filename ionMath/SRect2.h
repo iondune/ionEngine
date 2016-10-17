@@ -10,12 +10,12 @@ class SRect2
 
 public:
 
-	SVector2<T> Position, Size;
+	vec2<T> Position, Size;
 
 	SRect2()
 	{}
 
-	SRect2(SVector2<T> const & position, SVector2<T> const & size)
+	SRect2(vec2<T> const & position, vec2<T> const & size)
 		: Position(position), Size(size)
 	{}
 
@@ -23,12 +23,12 @@ public:
 		: Position(x, y), Size(w, h)
 	{}
 
-	SVector2<T> OtherCorner() const
+	vec2<T> OtherCorner() const
 	{
 		return Position + Size;
 	}
 
-	SVector2<T> GetCenter() const
+	vec2<T> GetCenter() const
 	{
 		return Position + Size / 2;
 	}
@@ -43,13 +43,13 @@ public:
 
 	SRect2 GetIntersection(SRect2<T> const & r) const
 	{
-		SVector2<T> Pos(std::max(r.Position.X, Position.X), std::max(r.Position.Y, Position.Y));
-		SVector2<T> Corner(std::min(r.OtherCorner().X, OtherCorner().X), std::min(r.OtherCorner().Y, OtherCorner().Y));
+		vec2<T> Pos(std::max(r.Position.X, Position.X), std::max(r.Position.Y, Position.Y));
+		vec2<T> Corner(std::min(r.OtherCorner().X, OtherCorner().X), std::min(r.OtherCorner().Y, OtherCorner().Y));
 
 		return SRect2<T>(Pos, Corner - Pos);
 	}
 
-	bool IsPointInside(SVector2<T> const & v) const
+	bool IsPointInside(vec2<T> const & v) const
 	{
 		return (OtherCorner().Y > v.Y &&
 			Position.Y < v.Y &&
@@ -57,7 +57,7 @@ public:
 			Position.X < v.X);
 	}
 
-	bool IsPointInsideOrOn(SVector2<T> const & v) const
+	bool IsPointInsideOrOn(vec2<T> const & v) const
 	{
 		return (OtherCorner().Y >= v.Y &&
 			Position.Y <= v.Y &&
@@ -70,7 +70,7 @@ public:
 		return Size.X * Size.Y;
 	}
 
-	void Bounds(SVector2<T> const & pos1, SVector2<T> const & pos2)
+	void Bounds(vec2<T> const & pos1, vec2<T> const & pos2)
 	{
 		Position = pos1;
 		Size = pos2 - Position;
@@ -88,10 +88,10 @@ public:
 
 	void ClipTo(SRect2 const & r)
 	{
-		SVector2<T> UpperLeftCorner = Position;
-		SVector2<T> LowerRightCorner = OtherCorner();
-		SVector2<T> const otherUpperLeftCorner = r.Position;
-		SVector2<T> const otherLowerRightCorner = r.OtherCorner();
+		vec2<T> UpperLeftCorner = Position;
+		vec2<T> LowerRightCorner = OtherCorner();
+		vec2<T> const otherUpperLeftCorner = r.Position;
+		vec2<T> const otherLowerRightCorner = r.OtherCorner();
 
 		if (otherLowerRightCorner.X < LowerRightCorner.X)
 			LowerRightCorner.X = otherLowerRightCorner.X;

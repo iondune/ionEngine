@@ -462,7 +462,7 @@ namespace ion
 			for (uint i = 0; i < Mesh->Vertices.size(); ++ i)
 			{
 				Mesh->Vertices[i].TextureCoordinates =
-					vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + SVector2f(0.5f);
+					vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + vec2f(0.5f);
 			}
 
 			return Mesh;

@@ -10,24 +10,24 @@ class STriangle2
 
 public:
 
-	SVector2<T> Vertices[3];
+	vec2<T> Vertices[3];
 
 	STriangle2()
 	{}
 
-	STriangle2(SVector2<T> const & v1, SVector2<T> const & v2, SVector2<T> const & v3)
+	STriangle2(vec2<T> const & v1, vec2<T> const & v2, vec2<T> const & v3)
 	{
 		Vertices[0] = v1;
 		Vertices[1] = v2;
 		Vertices[2] = v3;
 	}
 
-	static T Sign(SVector2<T> const & p1, SVector2<T> const & p2, SVector2<T> const & p3)
+	static T Sign(vec2<T> const & p1, vec2<T> const & p2, vec2<T> const & p3)
 	{
 		return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y);
 	}
 
-	bool PointInside(SVector2<T> const & pt) const
+	bool PointInside(vec2<T> const & pt) const
 	{
 		bool b1, b2, b3;
 
