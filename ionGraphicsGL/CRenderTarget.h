@@ -33,6 +33,12 @@ namespace ion
 
 				CWindow * Window = nullptr;
 				color4f Color;
+				vec2i ViewportMin;
+				vec2i ViewportMax;
+				bool SpecifiedViewport = false;
+
+				virtual void SetViewport(vec2i const & Min, vec2i const & Max);
+				virtual void ClearViewport();
 
 				static CRenderTarget * CurrentlyBound;
 			
