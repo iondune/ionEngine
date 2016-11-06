@@ -27,6 +27,7 @@ namespace ion
 		virtual void PostWindowCreationSetup() = 0;
 
 		virtual SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromSource(string const & Source) = 0;
+		virtual SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromSource(string const & Source) = 0;
 		virtual SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromSource(string const & Source) = 0;
 
 		virtual SharedPointer<Graphics::IShaderProgram> CreateShaderProgram() = 0;
@@ -55,8 +56,11 @@ namespace ion
 		void PostWindowCreationSetup();
 
 		SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromFile(string const & FileName);
+		SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromFile(string const & FileName);
 		SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromFile(string const & FileName);
+
 		SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromSource(string const & Source);
+		SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromSource(string const & Source);
 		SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromSource(string const & Source);
 
 		SharedPointer<Graphics::IShaderProgram> CreateShaderProgram();

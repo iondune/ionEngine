@@ -53,6 +53,25 @@ namespace ion
 		return VertexShader;
 	}
 
+	SharedPointer<Graphics::IGeometryShader> CGraphicsAPI::CreateGeometryShaderFromFile(string const & FileName)
+	{
+		SharedPointer<Graphics::IGeometryShader> GeometryShader;
+		if (! File::Exists(FileName))
+		{
+			Log::Error("Geometry shader file does not appear to exist: %s", FileName);
+		}
+		else
+		{
+			GeometryShader = CreateGeometryShaderFromSource(File::ReadAsString(FileName));
+
+			if (! GeometryShader)
+			{
+				Log::Error("Failed to compile geometry shader from file '%s'", FileName);
+			}
+		}
+		return GeometryShader;
+	}
+
 	SharedPointer<Graphics::IPixelShader> CGraphicsAPI::CreatePixelShaderFromFile(string const & FileName)
 	{
 		SharedPointer<Graphics::IPixelShader> PixelShader;
@@ -86,6 +105,22 @@ namespace ion
 		}
 
 		return VertexShader;
+	}
+
+	SharedPointer<Graphics::IGeometryShader> CGraphicsAPI::CreateGeometryShaderFromSource(string const & Source)
+	{
+		SharedPointer<Graphics::IGeometryShader> GeometryShader;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			GeometryShader = Implementation->CreateGeometryShaderFromSource(Source);
+		}
+
+		return GeometryShader;
 	}
 
 	SharedPointer<Graphics::IPixelShader> CGraphicsAPI::CreatePixelShaderFromSource(string const & Source)

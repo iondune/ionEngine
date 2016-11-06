@@ -18,6 +18,15 @@ namespace ion
 
 		};
 
+		class IGeometryShader
+		{
+
+		public:
+
+			virtual ~IGeometryShader() {}
+
+		};
+
 		class IPixelShader
 		{
 
@@ -33,6 +42,7 @@ namespace ion
 		public:
 
 			virtual void SetVertexStage(SharedPointer<IVertexShader> VertexShader) = 0;
+			virtual void SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader) = 0;
 			virtual void SetPixelStage(SharedPointer<IPixelShader> PixelShader) = 0;
 
 		};

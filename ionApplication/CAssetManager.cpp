@@ -23,15 +23,29 @@ namespace ion
 				continue;
 			}
 
-			SharedPointer<Graphics::IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
-			SharedPointer<Graphics::IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
+			SharedPointer<Graphics::IVertexShader> VertexShader;
+			SharedPointer<Graphics::IGeometryShader> GeometryShader;
+			SharedPointer<Graphics::IPixelShader> PixelShader;
 
+			VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
 			if (! VertexShader)
 			{
 				Log::Error("Failed to compile vertex shader '%s'", Name);
 				return nullptr;
 			}
 
+			if (File::Exists(AssetPath + ShaderPath + Name + ".geom"))
+			{
+				GeometryShader = GraphicsAPI->CreateGeometryShaderFromFile(AssetPath + ShaderPath + Name + ".geom");;
+
+				if (! GeometryShader)
+				{
+					Log::Error("Failed to compile geometry shader '%s'", Name);
+					return nullptr;
+				}
+			}
+
+			PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
 			if (! PixelShader)
 			{
 				Log::Error("Failed to compile pixel shader '%s'", Name);
@@ -41,6 +55,11 @@ namespace ion
 			SharedPointer<Graphics::IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 			ShaderProgram->SetVertexStage(VertexShader);
 			ShaderProgram->SetPixelStage(PixelShader);
+
+			if (GeometryShader)
+			{
+				ShaderProgram->SetGeometryStage(GeometryShader);
+			}
 
 			return ShaderProgram;
 		}

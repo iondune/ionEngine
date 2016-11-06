@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CGeometryShader.h" />
     <ClInclude Include="CGraphicsContext.h" />
     <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="CRenderTarget.h" />

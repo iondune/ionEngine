@@ -5,6 +5,7 @@
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CVertexShader.h"
+#include "CGeometryShader.h"
 #include "CPixelShader.h"
 #include "CShaderProgram.h"
 #include "CPipelineState.h"
@@ -197,6 +198,26 @@ namespace ion
 				return nullptr;
 			}
 			return VertexShader;
+		}
+
+		SharedPointer<IGeometryShader> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
+		{
+			SharedPointer<GL::CGeometryShader> GeometryShader = std::make_shared<GL::CGeometryShader>();
+			GeometryShader->Handle = glCreateShader(GL_GEOMETRY_SHADER);
+
+			char const * SourcePointer = Source.c_str();
+			CheckedGLCall(glShaderSource(GeometryShader->Handle, 1, & SourcePointer, NULL));
+			CheckedGLCall(glCompileShader(GeometryShader->Handle));
+
+			int Compiled = 0;
+			CheckedGLCall(glGetShaderiv(GeometryShader->Handle, GL_COMPILE_STATUS, & Compiled));
+			if (! Compiled)
+			{
+				Log::Error("Failed to compile geometry shader! See Info Log:");
+				PrintShaderInfoLog(GeometryShader->Handle);
+				return nullptr;
+			}
+			return GeometryShader;
 		}
 
 		SharedPointer<IPixelShader> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)

@@ -18,6 +18,7 @@ namespace ion
 			public:
 
 				void SetVertexStage(SharedPointer<IVertexShader> VertexShader);
+				void SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader);
 				void SetPixelStage(SharedPointer<IPixelShader> PixelShader);
 
 				void Link();

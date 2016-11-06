@@ -39,6 +39,9 @@
     <ClInclude Include="CDepthBuffer.h">
       <Filter>Render Target</Filter>
     </ClInclude>
+    <ClInclude Include="CGeometryShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CShaderProgram.cpp">
