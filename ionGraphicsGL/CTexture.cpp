@@ -215,6 +215,29 @@ namespace ion
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
+			void CTexture2D::GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			{
+				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
+				CheckExistingErrors(Texture2D::GetData);
+				glGetTexImage(GL_TEXTURE_2D, 0, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
+				if (OpenGLError())
+				{
+					cerr << "Error occured during glGetTexImage: " << GetOpenGLError() << endl;
+					cerr << "Handle is " << Handle << endl;
+					cerr << "Size is " << Size << endl;
+					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
+					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
+					cerr << endl;
+				}
+				else
+				{
+					if (MipMaps)
+						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D));
+					ApplyParams();
+				}
+				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
+			}
+
 			u32 CTexture2D::GetGLBindTextureTarget() const
 			{
 				return GL_TEXTURE_2D;

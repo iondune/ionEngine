@@ -67,6 +67,8 @@ namespace ion
 				void Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
 				void UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
 
+				void GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+
 				using CTexture::SetMinFilter;
 				using CTexture::SetMagFilter;
 				using CTexture::SetMipMapFilter;
