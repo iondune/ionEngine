@@ -44,7 +44,13 @@ namespace ion
 				Fix8 = 0,
 				Float16 = 1,
 				Float32 = 2,
-				Depth = 3,
+				SignedInt8 = 3,
+				SignedInt16 = 4,
+				SignedInt32 = 5,
+				UnsignedInt8 = 6,
+				UnsignedInt16 = 7,
+				UnsignedInt32 = 8,
+				Depth = 9,
 			};
 
 			enum class EMipMaps

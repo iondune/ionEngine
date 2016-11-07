@@ -20,10 +20,10 @@ namespace ion
 
 			public:
 				
-				static u32 const InternalFormatMatrix[4][4];
-				static u32 const FormatMatrix[4];
+				static u32 const InternalFormatMatrix[4][10];
+				static u32 const FormatMatrix[4][2];
 
-				static string const InternalFormatStringMatrix[4][4];
+				static string const InternalFormatStringMatrix[4][10];
 				static string const FormatStringMatrix[4];
 
 
@@ -55,6 +55,7 @@ namespace ion
 				f32 Anisotropy = -1;
 
 				bool MipMaps = true;
+				bool IsInteger = false;
 
 			};
 

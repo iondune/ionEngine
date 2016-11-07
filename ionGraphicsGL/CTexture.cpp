@@ -117,7 +117,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			u32 const CTexture::InternalFormatMatrix[4][4] =
+			u32 const CTexture::InternalFormatMatrix[4][10] =
 			{
 
 				// Components
@@ -132,29 +132,35 @@ namespace ion
 				// Fix8 = 0,
 				// Float16 = 1,
 				// Float32 = 2,
-				// Depth = 3,
+				// SignedInt8 = 3,
+				// SignedInt16 = 4,
+				// SignedInt24 = 5,
+				// UnsignedInt8 = 6,
+				// UnsignedInt16 = 7,
+				// UnsignedInt24 = 8,
+				// Depth = 9,
 
-				{GL_R8, GL_R16F, GL_R32F, GL_DEPTH_COMPONENT32 },
-				{GL_RG8, GL_RG16F, GL_RG32F, GL_DEPTH_COMPONENT32 },
-				{GL_RGB8, GL_RGB16F, GL_RGB32F, GL_DEPTH_COMPONENT32 },
-				{GL_RGBA8, GL_RGBA16F, GL_RGBA32F, GL_DEPTH_COMPONENT32 },
+				{ GL_R8,    GL_R16F,    GL_R32F,    GL_R8I,    GL_R16I,    GL_R32I,    GL_R8UI,    GL_R16UI,    GL_R32UI,    GL_DEPTH_COMPONENT32 },
+				{ GL_RG8,   GL_RG16F,   GL_RG32F,   GL_RG8I,   GL_RG16I,   GL_RG32I,   GL_RG8UI,   GL_RG16UI,   GL_RG32UI,   GL_DEPTH_COMPONENT32 },
+				{ GL_RGB8,  GL_RGB16F,  GL_RGB32F,  GL_RGB8I,  GL_RGB16I,  GL_RGB32I,  GL_RGB8UI,  GL_RGB16UI,  GL_RGB32UI,  GL_DEPTH_COMPONENT32 },
+				{ GL_RGBA8, GL_RGBA16F, GL_RGBA32F, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA8UI, GL_RGBA16UI, GL_RGBA32UI, GL_DEPTH_COMPONENT32 },
 			};
 
-			u32 const CTexture::FormatMatrix[4] =
+			u32 const CTexture::FormatMatrix[4][2] =
 			{
-				GL_RED,
-				GL_RG,
-				GL_RGB,
-				GL_RGBA
+				GL_RED,  GL_RED_INTEGER,
+				GL_RG,   GL_RG_INTEGER,
+				GL_RGB,  GL_RGB_INTEGER,
+				GL_RGBA, GL_RGBA_INTEGER,
 			};
 
 
-			string const CTexture::InternalFormatStringMatrix[4][4] =
+			string const CTexture::InternalFormatStringMatrix[4][10] =
 			{
-				{ "GL_R8", "GL_R16F", "GL_R32F", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RG8", "GL_RG16F", "GL_RG32F", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RGB8", "GL_RGB16F", "GL_RGB32F", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RGBA8", "GL_RGBA16F", "GL_RGBA32F", "GL_DEPTH_COMPONENT32" },
+				{ "GL_R8", "GL_R16F", "GL_R32F", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R8UI", "GL_R16UI", "GL_R32UI", "GL_DEPTH_COMPONENT32" },
+				{ "GL_RG8", "GL_RG16F", "GL_RG32F", "GL_RG8I", "GL_RG16I", "GL_RG32I", "GL_RG8UI", "GL_RG16UI", "GL_RG32UI", "GL_DEPTH_COMPONENT32" },
+				{ "GL_RGB8", "GL_RGB16F", "GL_RGB32F", "GL_RGB8I", "GL_RGB16I", "GL_RGB32I", "GL_RGB8UI", "GL_RGB16UI", "GL_RGB32UI", "GL_DEPTH_COMPONENT32" },
+				{ "GL_RGBA8", "GL_RGBA16F", "GL_RGBA32F", "GL_RGBA8I", "GL_RGBA16I", "GL_RGBA32I", "GL_RGBA8UI", "GL_RGBA16UI", "GL_RGBA32UI", "GL_DEPTH_COMPONENT32" },
 			};
 
 			string const CTexture::FormatStringMatrix[4] =
@@ -189,7 +195,7 @@ namespace ion
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
 				CheckExistingErrors(Texture2D::SubImage);
-				glTexSubImage2D(GL_TEXTURE_2D, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components], Util::ScalarTypeMatrix[(int) Type], Data);
+				glTexSubImage2D(GL_TEXTURE_2D, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
 					cerr << "Error occured during glTexSubImage2D: " << GetOpenGLError() << endl;
@@ -243,7 +249,7 @@ namespace ion
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
 				CheckExistingErrors(Texture2D::SubImage);
-				glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components], Util::ScalarTypeMatrix[(int) Type], Data);
+				glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
 					cerr << "Error occured during glTexSubImage3D: " << GetOpenGLError() << endl;
@@ -288,7 +294,7 @@ namespace ion
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, Handle));
 				CheckExistingErrors(Texture2D::SubImage);
-				glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + (int) Face, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components], Util::ScalarTypeMatrix[(int) Type], Data);
+				glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + (int) Face, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
 					cerr << "Error occured during glTexSubImage2D for CTextureCubeMap: " << GetOpenGLError() << endl;

@@ -275,6 +275,25 @@ namespace ion
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture2D->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture2D->IsInteger = true;
+				break;
+			}
+
 			int Levels = 1;
 
 			if (Texture2D->MipMaps)
@@ -303,6 +322,25 @@ namespace ion
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture3D->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture3D->IsInteger = true;
+				break;
+			}
+
 			int Levels = 1;
 
 			if (Texture3D->MipMaps)
@@ -329,6 +367,25 @@ namespace ion
 
 			TextureCubeMap->TextureSize = Size;
 			TextureCubeMap->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				TextureCubeMap->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				TextureCubeMap->IsInteger = true;
+				break;
+			}
 
 			int Levels = 1;
 
