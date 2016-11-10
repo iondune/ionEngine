@@ -28,6 +28,7 @@ namespace ion
 			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
 			virtual void SetPolygonOffsetAmount(float const Amount);
 			virtual void SetBlendMode(Graphics::EBlendMode const BlendMode);
+			virtual void SetPrimitiveType(Graphics::EPrimitiveType const PrimitiveType);
 			virtual void SetRenderCategory(uint const Category);
 			virtual void SetInstanceCount(uint const InstanceCount);
 
@@ -49,6 +50,7 @@ namespace ion
 			map<Graphics::EDrawFeature, bool> DrawFeatures;
 			float PolygonOffsetAmount = 1.f;
 			Graphics::EBlendMode BlendMode = Graphics::EBlendMode::None;
+			Graphics::EPrimitiveType PrimitiveType = Graphics::EPrimitiveType::Triangle;
 			uint RenderCategory = 0;
 			uint InstanceCount = 1;
 
