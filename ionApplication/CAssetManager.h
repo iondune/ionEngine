@@ -37,6 +37,8 @@ namespace ion
 		void SetShaderPath(string const & Path);
 		void SetMeshPath(string const & Path);
 
+		string ParseShaderSource(string const & FileName, string const & RelativeDirectory);
+
 	protected:
 
 		SingletonPointer<CGraphicsAPI> GraphicsAPI;

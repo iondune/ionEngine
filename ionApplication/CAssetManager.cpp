@@ -5,6 +5,76 @@
 namespace ion
 {
 
+
+	string CAssetManager::ParseShaderSource(string const & FileName, string const & RelativeDirectory)
+	{
+		// To Do : Prevent infinite recursion
+
+		std::string FileSource = File::ReadAsString(FileName);
+
+		std::istringstream Stream(FileSource);
+		std::ostringstream Output;
+
+		int LineNumber = 0;
+		while (Stream.good() && ! Stream.eof())
+		{
+			std::string Line;
+			std::getline(Stream, Line);
+
+			if (Line.substr(0, 10) == std::string("#include \""))
+			{
+				std::string IncludeFile = Line.substr(10);
+				size_t EndPath = IncludeFile.find_last_of('"');
+				IncludeFile = IncludeFile.substr(0, EndPath);
+
+				bool FoundFile = false;
+
+				if (File::Exists(RelativeDirectory + IncludeFile))
+				{
+					Output << ParseShaderSource(RelativeDirectory + IncludeFile, RelativeDirectory) << std::endl;
+					FoundFile = true;
+				}
+				else
+				{
+					for (string AssetPath : AssetPaths)
+					{
+						string const IncludePath = AssetPath + ShaderPath + IncludeFile;
+
+						if (File::Exists(IncludePath))
+						{
+							Output << ParseShaderSource(IncludePath, AssetPath + ShaderPath) << std::endl;
+							FoundFile = true;
+							break;
+						}
+					}
+				}
+
+				if (! FoundFile)
+				{
+					Log::Error("Could not find file to include at line %d in '%s: '%s'", LineNumber, FileName, IncludeFile);
+				}
+			}
+			else
+			{
+				Output << Line << std::endl;
+			}
+
+			LineNumber ++;
+		}
+
+		static bool const WriteDebugIntermediate = false;
+		if (WriteDebugIntermediate)
+		{
+			string const IntermediateFileName = FileName + ".intermediate";
+
+			std::ofstream IntermediateFile(IntermediateFileName);
+			IntermediateFile << Output.str();
+			IntermediateFile.close();
+		}
+
+		return Output.str();
+	}
+
 	void CAssetManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
@@ -18,8 +88,13 @@ namespace ion
 
 		for (string AssetPath : AssetPaths)
 		{
-			if (! File::Exists(AssetPath + ShaderPath + Name + ".vert"))
+			string const VertexPath = AssetPath + ShaderPath + Name + ".vert";
+			string const GeometryPath = AssetPath + ShaderPath + Name + ".geom";
+			string const PixelPath = AssetPath + ShaderPath + Name + ".frag";
+
+			if (! File::Exists(VertexPath))
 			{
+				// Check other asset paths
 				continue;
 			}
 
@@ -27,28 +102,36 @@ namespace ion
 			SharedPointer<Graphics::IGeometryShader> GeometryShader;
 			SharedPointer<Graphics::IPixelShader> PixelShader;
 
-			VertexShader = GraphicsAPI->CreateVertexShaderFromFile(AssetPath + ShaderPath + Name + ".vert");
+			VertexShader = GraphicsAPI->CreateVertexShaderFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
 			if (! VertexShader)
 			{
-				Log::Error("Failed to compile vertex shader '%s'", Name);
+				Log::Error("Failed to compile vertex shader '%s': '%s'", Name);
 				return nullptr;
 			}
 
-			if (File::Exists(AssetPath + ShaderPath + Name + ".geom"))
+			if (File::Exists(GeometryPath))
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryShaderFromFile(AssetPath + ShaderPath + Name + ".geom");;
+				GeometryShader = GraphicsAPI->CreateGeometryShaderFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
 
 				if (! GeometryShader)
 				{
-					Log::Error("Failed to compile geometry shader '%s'", Name);
+					Log::Error("Failed to compile geometry shader '%s': '%s'", Name, GeometryPath);
 					return nullptr;
 				}
 			}
 
-			PixelShader = GraphicsAPI->CreatePixelShaderFromFile(AssetPath + ShaderPath + Name + ".frag");
-			if (! PixelShader)
+			if (File::Exists(PixelPath))
 			{
-				Log::Error("Failed to compile pixel shader '%s'", Name);
+				PixelShader = GraphicsAPI->CreatePixelShaderFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
+				if (! PixelShader)
+				{
+					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, PixelPath);
+					return nullptr;
+				}
+			}
+			else
+			{
+				Log::Error("Could not find pixel shader (*.frag) for '%s'", Name);
 				return nullptr;
 			}
 
