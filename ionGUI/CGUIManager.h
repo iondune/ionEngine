@@ -4,6 +4,7 @@
 #include <ionMath.h>
 #include <ionFramework.h>
 #include <ionWindow.h>
+#include <ionGraphics.h>
 #include <imgui.h>
 
 
@@ -33,6 +34,7 @@ namespace ion
 
 		void OnEvent(IEvent & Event);
 		void AddFontFromFile(string const & FileName, float const Size);
+		static ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		ImGuiIO & IO = ImGui::GetIO();
 
