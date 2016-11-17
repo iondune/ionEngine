@@ -138,11 +138,27 @@ namespace ion
 		COpenGLImplementation::COpenGLImplementation()
 		{}
 
-		void COpenGLImplementation::UseReverseDepth()
+		void COpenGLImplementation::UseReverseDepth(bool const ReverseDepth)
 		{
-			SafeGLCall(glDepthFunc, (GL_GEQUAL));
-			SafeGLCall(glClearDepth, (0.f));
-			SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_ZERO_TO_ONE));
+			this->ReverseDepth = ReverseDepth;
+
+			if (ReverseDepth)
+			{
+				SafeGLCall(glDepthFunc, (GL_GEQUAL));
+				SafeGLCall(glClearDepth, (0.f));
+				SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_ZERO_TO_ONE));
+			}
+			else
+			{
+				SafeGLCall(glDepthFunc, (GL_LEQUAL));
+				SafeGLCall(glClearDepth, (1.f));
+				SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_NEGATIVE_ONE_TO_ONE));
+			}
+		}
+
+		bool COpenGLImplementation::IsReverseDepth()
+		{
+			return ReverseDepth;
 		}
 
 		void COpenGLImplementation::PreWindowCreationSetup()

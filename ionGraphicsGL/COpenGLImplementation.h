@@ -18,7 +18,8 @@ namespace ion
 
 			COpenGLImplementation();
 
-			void UseReverseDepth();
+			void UseReverseDepth(bool const ReverseDepth = true);
+			bool IsReverseDepth();
 
 			void PreWindowCreationSetup();
 			void PostWindowCreationSetup();
@@ -39,6 +40,10 @@ namespace ion
 			SharedPointer<ITextureCubeMap> CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
 			SharedPointer<IGraphicsContext> GetWindowContext(CWindow * Window);
+
+		protected:
+
+			bool ReverseDepth = false;
 
 		};
 	}
