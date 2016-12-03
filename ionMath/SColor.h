@@ -193,6 +193,16 @@ public:
 		return * this;
 	}
 
+	SColorA<T> & operator = (color3<T> const & col)
+	{
+		Red = col.Red;
+		Green = col.Green;
+		Blue = col.Blue;
+		Alpha = Color::Full<T>::Value();
+
+		return * this;
+	}
+
 	template <typename U>
 	SColorA<T> & operator = (color3<U> const & col)
 	{
