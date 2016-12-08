@@ -16,6 +16,7 @@ namespace ion
 
 		CImage(byte * const Data, vec2u const Size, u8 const Channels);
 		CImage(color4f const & Color, bool const Alpha = false);
+		~CImage();
 
 		uint GetWidth() const;
 		uint GetHeight() const;
@@ -34,9 +35,11 @@ namespace ion
 		void Write(std::string const & fileName);
 		void FlipY();
 
+		void Crop(vec2i const & Position, vec2i const & Size);
+
 	protected:
 
-		UniquePointer<byte[]> Data;
+		byte * Data;
 		vec2u Size;
 		u8 Channels;
 

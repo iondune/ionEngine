@@ -29,7 +29,7 @@ namespace ion
 
 	CImage::CImage(byte * const Data, vec2u const Size, u8 const Channels)
 	{
-		this->Data = UniquePointer<byte[]>(Data);
+		this->Data = Data;
 		this->Size = Size;
 		this->Channels = Channels;
 	}
@@ -40,11 +40,16 @@ namespace ion
 		this->Channels = (Alpha ? 4 : 3);
 
 		uint Stride = GetStride();
-		Data = UniquePointer<byte[]>(new u8[Size.X * Size.Y * Stride]);
+		Data = new u8[Size.X * Size.Y * Stride];
 
 		for (uint i = 0; i < Size.X * Size.Y; ++ i)
 			for (uint j = 0; j < Stride; ++ j)
 				Data[i*Stride + j] = (u8) (255.f * Color[j]);
+	}
+
+	CImage::~CImage()
+	{
+		delete[] Data;
 	}
 
 	uint CImage::GetWidth() const
@@ -93,12 +98,12 @@ namespace ion
 
 	u8 const * CImage::GetData() const
 	{
-		return Data.get();
+		return Data;
 	}
 
 	u8 * CImage::GetData()
 	{
-		return Data.get();
+		return Data;
 	}
 
 	bool CImage::HasAlpha() const
@@ -109,7 +114,7 @@ namespace ion
 	void CImage::Write(std::string const & FileName)
 	{
 		uint Stride = GetStride();
-		stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data.get(), Size.X * Stride);
+		stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data, Size.X * Stride);
 	}
 
 	void CImage::FlipY()
@@ -124,6 +129,30 @@ namespace ion
 					std::swap(Data[x * Stride + y * Size.X * Stride + j], Data[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
 			}
 		}
+	}
+
+	void CImage::Crop(vec2i const & Position, vec2i const & NewSize)
+	{
+		uint const Stride = GetStride();
+
+		byte * NewData = new u8[NewSize.X * NewSize.Y * Stride];
+
+		for (int x = Position.X; x < Position.X + NewSize.X; ++ x)
+		{
+			for (int y = Position.Y; y < Position.Y + NewSize.Y; ++ y)
+			{
+				int const newX = x - Position.X;
+				int const newY = y - Position.Y;
+
+				for (uint j = 0; j < Stride; ++ j)
+				{
+					NewData[newX * Stride + newY * NewSize.X * Stride + j] = Data[x * Stride + y * Size.X * Stride + j];
+				}
+			}
+		}
+
+		Data = NewData;
+		Size = NewSize;
 	}
 
 }
