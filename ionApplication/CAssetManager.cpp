@@ -105,7 +105,7 @@ namespace ion
 			VertexShader = GraphicsAPI->CreateVertexShaderFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
 			if (! VertexShader)
 			{
-				Log::Error("Failed to compile vertex shader '%s': '%s'", Name);
+				Log::Error("Failed to compile vertex shader '%s': '%s'", Name, VertexPath);
 				return nullptr;
 			}
 
