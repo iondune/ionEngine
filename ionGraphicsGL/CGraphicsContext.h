@@ -36,6 +36,8 @@ namespace ion
 
 			protected:
 
+				void InternalBindUniform(uint const Handle, SharedPointer<IUniform const> const Uniform);
+
 				void InternalDrawSetup(SharedPointer<IPipelineState> State);
 				void InternalDrawTeardown(SharedPointer<IPipelineState> State);
 
