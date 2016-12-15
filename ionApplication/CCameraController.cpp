@@ -115,27 +115,27 @@ namespace ion
 
 		vec3f const LookDirection = vec3f(Cos(Theta)*Cos(Phi), Sin(Phi), Sin(Theta)*Cos(Phi));
 		vec3f const UpVector = Camera->GetUpVector();
-		vec3f Translation = Camera->GetPosition();
 
 		vec3f const W = -1 * LookDirection;
 		vec3f const V = UpVector.CrossProduct(LookDirection).GetNormalized();
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
-		f32 const MoveDelta = MoveSpeed * (f32) TickTime;
-
+		vec3f Translation;
 		if (Commands[(int) ECommand::Forward])
-			Translation += LookDirection * MoveDelta;
+			Translation += LookDirection * MoveSpeed;
 
 		if (Commands[(int) ECommand::Left])
-			Translation += V * MoveDelta;
+			Translation += V * MoveSpeed;
 
 		if (Commands[(int) ECommand::Right])
-			Translation -= V * MoveDelta;
+			Translation -= V * MoveSpeed;
 
 		if (Commands[(int) ECommand::Back])
-			Translation -= LookDirection * MoveDelta;
+			Translation -= LookDirection * MoveSpeed;
 
-		Camera->SetPosition(Translation);
+		CurrentSpeed = Translation;
+
+		Camera->SetPosition(Camera->GetPosition() + Translation * (f32) TickTime);
 		Camera->SetLookDirection(LookDirection);
 	}
 
@@ -152,6 +152,11 @@ namespace ion
 	Scene::ICamera * CCameraController::GetCamera()
 	{
 		return Camera;
+	}
+
+	vec3f CCameraController::GetCurrentSpeed() const
+	{
+		return CurrentSpeed;
 	}
 
 	f32 CCameraController::GetVelocity() const

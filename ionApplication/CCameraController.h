@@ -27,7 +27,9 @@ namespace ion
 		virtual Scene::ICamera const * GetCamera() const;
 		virtual Scene::ICamera * GetCamera();
 
-		virtual void SetVelocity(f32 const Velocity);
+		virtual vec3f GetCurrentSpeed() const;
+
+		virtual void SetVelocity(float const Velocity);
 		virtual void SetPhi(f32 const Phi);
 		virtual void SetTheta(f32 const Theta);
 
@@ -47,6 +49,8 @@ namespace ion
 		f32 MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
 		bool Tracking;
 		f32 Phi, Theta;
+
+		vec3f CurrentSpeed;
 
 		Scene::ICamera * Camera;
 
