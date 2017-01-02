@@ -75,10 +75,6 @@ namespace ion
 				: Value(value)
 			{}
 
-			CUniformReference(T const & value)
-				: Value(& value)
-			{}
-
 			void const * GetData() const
 			{
 				return Value;
