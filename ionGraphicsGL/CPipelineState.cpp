@@ -37,6 +37,9 @@ namespace ion
 						}
 					}
 
+					Textures.clear();
+					Uniforms.clear();
+
 					UnboundUniforms = KeySet(ShaderProgram->Uniforms);
 					UnboundAttributes = KeySet(ShaderProgram->Attributes);
 					UnboundAttributes.erase("gl_VertexID");
@@ -399,6 +402,7 @@ namespace ion
 						BoundUniforms[Handle] = it.second;
 					}
 				}
+				BoundTextures.clear();
 				for (auto const & it : Textures)
 				{
 					uint Handle = 0;
