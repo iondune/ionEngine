@@ -82,6 +82,31 @@ namespace ion
 
 		};
 
+
+		template <typename T>
+		class CUniformCallback : public IUniformTyped<T>
+		{
+
+		public:
+
+			std::function<T()> Callback;
+
+			CUniformCallback(std::function<T()> const callback)
+				: Callback(callback)
+			{}
+
+			void const * GetData() const
+			{
+				Temporary = Callback();
+				return &Temporary;
+			}
+
+		protected:
+
+			mutable T Temporary;
+
+		};
+
 		template <typename T>
 		class CUniformValue : public IUniformTyped<T>
 		{
