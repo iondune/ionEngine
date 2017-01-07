@@ -56,7 +56,7 @@ T ArcTan(T const y, T const x)
 template <typename T>
 T Sqrt(T const value)
 {
-	return sqrt(value);
+	return (T) sqrt(value);
 }
 
 template <typename T>
