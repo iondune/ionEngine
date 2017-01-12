@@ -9,3 +9,4 @@
 using std::thread;
 using std::mutex;
 typedef std::lock_guard<std::mutex> scopedLock;
+typedef std::lock_guard<std::mutex> LockGuard;

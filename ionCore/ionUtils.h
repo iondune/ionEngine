@@ -18,7 +18,7 @@ static void WaitForUser() // LCOV_EXCL_LINE
 #define ION_ARRAYSIZE(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
 
 //! Count the number of digits (including a - for negative numbers) in a decimal integer
-static u32 DigitCount(s32 n)
+static inline int DigitCount(int n)
 {
 	u32 count = 1;
 	if (n < 0)
@@ -37,37 +37,37 @@ static u32 DigitCount(s32 n)
 }
 
 template <typename T>
-static T const Clamp(T const & v, T const & min, T const & max)
+T Clamp(T const & v, T const & min, T const & max)
 {
 	return ((v > max) ? max : ((v < min) ? min : v));
 }
 
 template <typename T>
-static T const Sq(T const & a)
+T Sq(T const & a)
 {
 	return a * a;
 }
 
 template <typename T>
-static T const Average(T const & a, T const & b)
+T Average(T const & a, T const & b)
 {
 	return (a + b) / 2;
 }
 
 template <typename T>
-static T const Average(T const & a, T const & b, T const & c)
+T Average(T const & a, T const & b, T const & c)
 {
 	return (a + b + c) / 3;
 }
 
 template <typename T>
-static T const Average(T const & a, T const & b, T const & c, T const & d)
+T Average(T const & a, T const & b, T const & c, T const & d)
 {
 	return (a + b + c + d) / 4;
 }
 
 template <typename T>
-static T const MakeEven(T const i)
+T MakeEven(T const i)
 {
 	return (i % 2) ? (i - 1) : (i);
 }
