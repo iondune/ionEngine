@@ -26,3 +26,8 @@ bool ImGui::ColorEdit3(const char * label, color3f & Color)
 	}
 	return false;
 }
+
+char const * ion::BoolToString(bool const B)
+{
+	return B ? "yes" : "no";
+}

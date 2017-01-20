@@ -15,3 +15,10 @@ namespace ImGui
 	bool ColorPicker3(float col[3]);
 	bool ColorPicker3(color3f & col);
 }
+
+namespace ion
+{
+
+	char const * BoolToString(bool const B);
+
+}
