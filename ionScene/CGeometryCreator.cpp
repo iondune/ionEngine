@@ -546,8 +546,14 @@ namespace ion
 					Materials.back().Specular = color3f(material.specular[0], material.specular[1], material.specular[2]);
 					Materials.back().Shininess = material.shininess;
 
-					Materials.back().DiffuseImage = CImage::Load(Path + material.diffuse_texname);
-					Materials.back().AmbientImage = CImage::Load(Path + material.ambient_texname);
+					if (material.diffuse_texname.length())
+					{
+						Materials.back().DiffuseImage = CImage::Load(Path + material.diffuse_texname);
+					}
+					if (material.ambient_texname.length())
+					{
+						Materials.back().AmbientImage = CImage::Load(Path + material.ambient_texname);
+					}
 				}
 
 				for (auto const & shape : shapes)
