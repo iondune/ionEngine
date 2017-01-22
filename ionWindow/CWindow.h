@@ -39,6 +39,7 @@ namespace ion
 
 		vec2f const & GetCursorLocation() const;
 		void SetCursorLocation(vec2f const & position);
+		void SetCursorVisible(bool const Visible);
 
 		vec2f GetRelativeCursorLocation() const;
 		void SetRelativeCursorLocation(vec2f const & position);
