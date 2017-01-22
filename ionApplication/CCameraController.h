@@ -33,6 +33,8 @@ namespace ion
 		virtual void SetPhi(f32 const Phi);
 		virtual void SetTheta(f32 const Theta);
 
+		virtual void SetActive(bool const Active);
+
 	protected:
 
 		enum class ECommand
@@ -53,6 +55,7 @@ namespace ion
 		vec3f CurrentSpeed;
 
 		Scene::ICamera * Camera;
+		bool Active = true;
 
 	};
 

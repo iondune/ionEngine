@@ -36,14 +36,14 @@ namespace ion
 
 			if (MouseEvent.Type == SMouseEvent::EType::Move)
 			{
-				if (Tracking)
+				if (Tracking && Active)
 				{
 					Theta += (MouseEvent.Movement.X) * LookSpeed;
 					Phi -= (MouseEvent.Movement.Y) * LookSpeed;
 				}
 			}
 
-			if (MouseEvent.Type == SMouseEvent::EType::Scroll)
+			if (MouseEvent.Type == SMouseEvent::EType::Scroll && Active)
 			{
 				Scene::CPerspectiveCamera * PerspectiveCamera = nullptr;
 				if ((PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
@@ -135,7 +135,10 @@ namespace ion
 
 		CurrentSpeed = Translation;
 
-		Camera->SetPosition(Camera->GetPosition() + Translation * (f32) TickTime);
+		if (Active)
+		{
+			Camera->SetPosition(Camera->GetPosition() + Translation * (f32) TickTime);
+		}
 		Camera->SetLookDirection(LookDirection);
 	}
 
@@ -189,6 +192,11 @@ namespace ion
 		this->Theta = Theta;
 	}
 
+	void CCameraController::SetActive(bool const Active)
+	{
+		this->Active = Active;
+	}
+
 
 	//////////////////////////////
 	// CGamePadCameraController //
@@ -207,8 +215,11 @@ namespace ion
 
 		// Look - Right Axis
 		f32 const LookMod = 512.f * LeftMod;
-		Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
-		Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
+		if (Active)
+		{
+			Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
+			Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
+		}
 
 		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
 			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
@@ -229,7 +240,10 @@ namespace ion
 		Translation -= V * MoveDelta * GamePad->GetLeftStick().X;
 		Translation.Y -= MoveDelta * GamePad->GetLeftTrigger();
 		Translation.Y += MoveDelta * GamePad->GetRightTrigger();
-		Camera->SetPosition(Translation);
+		if (Active)
+		{
+			Camera->SetPosition(Translation);
+		}
 
 		// Camera Speed
 		f32 const AccelerateSpeed = 32.f;
