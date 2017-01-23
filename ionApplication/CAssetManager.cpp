@@ -340,6 +340,43 @@ namespace ion
 		return nullptr;
 	}
 
+	Scene::CSimpleMesh * CAssetManager::LoadMeshMerged(string const & FileName)
+	{
+		if (! GraphicsAPI)
+		{
+			Log::Error("CAssetManager being used without being initialized, Texture '%s' will not be loaded.", FileName);
+			return nullptr;
+		}
+
+		for (string AssetPath : AssetPaths)
+		{
+			if (! File::Exists(AssetPath + MeshPath + FileName))
+			{
+				continue;
+			}
+
+			vector<Scene::CSimpleMesh *> Shapes = Scene::CGeometryCreator::LoadOBJFile(AssetPath + MeshPath + FileName, AssetPath + MeshPath);
+
+			if (Shapes.size() == 0)
+			{
+				Log::Error("Failed to load mesh: %s", FileName);
+				return nullptr;
+			}
+			else if (Shapes.size() > 1)
+			{
+				for (int i = 1; i < Shapes.size(); ++ i)
+				{
+					Shapes[0] = Scene::CGeometryCreator::Intersect(Shapes[0], Shapes[i]);
+				}
+			}
+
+			return Shapes[0];
+		}
+
+		Log::Error("Cannot find mesh file in any asset directory: '%s'", FileName);
+		return nullptr;
+	}
+
 	vector<Scene::CSimpleMesh *> CAssetManager::LoadMeshes(string const & FileName)
 	{
 		vector<Scene::CSimpleMesh *> Meshes;
