@@ -515,6 +515,8 @@ namespace ion
 				Intersection->Triangles.back().Indices[2] += BStartIndex;
 			}
 
+			Intersection->Material = A->Material;
+
 			return Intersection;
 		}
 
