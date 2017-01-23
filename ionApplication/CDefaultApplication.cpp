@@ -1,8 +1,6 @@
 
 #include "CDefaultApplication.h"
 
-#include <simpleini/SimpleIni.h>
-
 
 namespace ion
 {
@@ -23,6 +21,13 @@ namespace ion
 
 		bool Fullscreen = ConfigFile.GetBoolValue("window", "fullscreen", false);
 		ApplicationSettings.WindowType = (Fullscreen ? EWindowType::Fullscreen : EWindowType::Windowed);
+
+		LoadAdditionalSettings(&ConfigFile);
+	}
+
+	void CDefaultApplication::LoadAdditionalSettings(CSimpleIniA * ConfigFile)
+	{
+
 	}
 
 }

@@ -6,6 +6,8 @@
 #include <ionFramework.h>
 #include <ionWindow.h>
 
+#include <simpleini/SimpleIni.h>
+
 
 namespace ion
 {
@@ -30,6 +32,8 @@ namespace ion
 	protected:
 
 		SSettings ApplicationSettings;
+
+		virtual void LoadAdditionalSettings(CSimpleIniA * ConfigFile);
 
 	};
 
