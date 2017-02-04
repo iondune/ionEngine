@@ -110,7 +110,7 @@ namespace ion
 			Triangles.clear();
 		}
 
-		void CSimpleMesh::ResizeMesh(vec3f const & Scale)
+		CSimpleMesh * CSimpleMesh::ResizeMesh(vec3f const & Scale)
 		{
 			vec3f const Extent = GetBoundingBox().GetExtent();
 			vec3f const Resize = Scale / std::max(Extent.X, std::max(Extent.Y, Extent.Z));
@@ -119,30 +119,38 @@ namespace ion
 			{
 				Vertex.Position *= Resize;
 			});
+
+			return this;
 		}
 
-		void CSimpleMesh::ApplyScaleFactor(vec3f const & Scale)
+		CSimpleMesh * CSimpleMesh::ApplyScaleFactor(vec3f const & Scale)
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Scale](SVertex & Vertex)
 			{
 				Vertex.Position *= Scale;
 			});
+
+			return this;
 		}
 
-		void CSimpleMesh::ApplyOffset(vec3f const & Offset)
+		CSimpleMesh * CSimpleMesh::ApplyOffset(vec3f const & Offset)
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Offset](SVertex & Vertex)
 			{
 				Vertex.Position += Offset;
 			});
+
+			return this;
 		}
 
-		void CSimpleMesh::ApplyTransformation(glm::mat4 const & Transform)
+		CSimpleMesh * CSimpleMesh::ApplyTransformation(glm::mat4 const & Transform)
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
 			{
 				Vertex.Position.Transform(Transform);
 			});
+
+			return this;
 		}
 
 		void CSimpleMesh::ReverseFaces()
