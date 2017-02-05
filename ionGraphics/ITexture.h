@@ -100,6 +100,16 @@ namespace ion
 
 		};
 
+		class ITexture2DArray : public virtual ITexture
+		{
+
+		public:
+
+			virtual void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+
+		};
+
 		class ITexture3D : public virtual ITexture
 		{
 

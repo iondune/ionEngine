@@ -175,11 +175,7 @@ namespace ion
 			///////////////
 			// Texture2D //
 			///////////////
-	#if 0
-			Texture2D::Texture2D(vec2u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
-			{
-			}
-	#endif
+
 			void CTexture2D::Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
@@ -194,7 +190,7 @@ namespace ion
 			void CTexture2D::UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
-				CheckExistingErrors(Texture2D::SubImage);
+				CheckExistingErrors(CTexture2D::SubImage);
 				glTexSubImage2D(GL_TEXTURE_2D, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
@@ -218,7 +214,7 @@ namespace ion
 			void CTexture2D::GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
-				CheckExistingErrors(Texture2D::GetData);
+				CheckExistingErrors(CTexture2D::GetData);
 				glGetTexImage(GL_TEXTURE_2D, 0, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
@@ -249,14 +245,60 @@ namespace ion
 			}
 
 
+			////////////////////
+			// Texture2DArray //
+			////////////////////
+
+			void CTexture2DArray::Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			{
+				if (Size != TextureSize)
+				{
+					cerr << "GL::Texture3D upload size does not match storage size." << endl;
+					cerr << "Handle is " << Handle << endl;
+				}
+
+				UploadSubRegion(Data, vec3u(0, 0, 0), Size, Components, Type);
+			}
+
+			void CTexture2DArray::UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			{
+				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, Handle));
+				CheckExistingErrors(CTexture2DArray::SubImage);
+				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
+				if (OpenGLError())
+				{
+					cerr << "Error occured during glTexSubImage3D: " << GetOpenGLError() << endl;
+					cerr << "Handle is " << Handle << endl;
+					cerr << "Offset is " << Offset << endl;
+					cerr << "Size is " << Size << endl;
+					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
+					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
+					cerr << endl;
+				}
+				else
+				{
+					if (MipMaps)
+						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D_ARRAY));
+					ApplyParams();
+				}
+				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, 0));
+			}
+
+			u32 CTexture2DArray::GetGLBindTextureTarget() const
+			{
+				return GL_TEXTURE_2D_ARRAY;
+			}
+
+			u32 CTexture2DArray::GetGLTextureBindingEnum() const
+			{
+				return GL_TEXTURE_BINDING_2D_ARRAY;
+			}
+
+
 			///////////////
 			// Texture3D //
 			///////////////
-	#if 0
-			Texture3D::Texture3D(vec3u const & Size, bool const MipMaps, EFormatComponents const Components, EInternalFormatType const Type)
-			{
-			}
-	#endif
+
 			void CTexture3D::Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
@@ -271,7 +313,7 @@ namespace ion
 			void CTexture3D::UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
-				CheckExistingErrors(Texture2D::SubImage);
+				CheckExistingErrors(CTexture3D::SubImage);
 				glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
@@ -301,6 +343,11 @@ namespace ion
 			{
 				return GL_TEXTURE_BINDING_3D;
 			}
+
+
+			////////////////////
+			// TextureCubeMap //
+			////////////////////
 
 			void CTextureCubeMap::Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
 			{

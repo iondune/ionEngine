@@ -21,6 +21,7 @@ namespace ion
 		SharedPointer<Graphics::IShaderProgram> LoadShader(string const & Name);
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		SharedPointer<Graphics::ITexture3D> Load3DTexture(const std::vector<std::string> & fileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
+		SharedPointer<Graphics::ITexture2DArray> Load2DTextureArray(const std::vector<std::string> & fileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		SharedPointer<Graphics::ITextureCubeMap> LoadCubeMapTexture(
 			string const & FileNameLeft,
 			string const & FileNameRight,

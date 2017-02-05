@@ -269,6 +269,22 @@ namespace ion
 		return Texture;
 	}
 
+	SharedPointer<Graphics::ITexture2DArray> CGraphicsAPI::CreateTexture2DArray(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	{
+		SharedPointer<Graphics::ITexture2DArray> Texture;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			Texture = Implementation->CreateTexture2DArray(Size, MipMaps, Components, Type);
+		}
+
+		return Texture;
+	}
+
 	SharedPointer<Graphics::ITextureCubeMap> CGraphicsAPI::CreateTextureCubeMap(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITextureCubeMap> Texture;

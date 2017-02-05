@@ -88,11 +88,38 @@ namespace ion
 #pragma warning(suppress: 4250)
 			};
 
+			class CTexture2DArray : public ITexture2DArray, public CTexture
+			{
+
+			public:
+
+				void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
+
+				using CTexture::SetMinFilter;
+				using CTexture::SetMagFilter;
+				using CTexture::SetMipMapFilter;
+				using CTexture::SetWrapMode;
+				using CTexture::SetAnisotropy;
+				using CTexture::GetMinFilter;
+				using CTexture::GetMagFilter;
+				using CTexture::GetMipMapFilter;
+				using CTexture::GetWrapMode;
+				using CTexture::GetAnisotropy;
+
+				uint GetGLBindTextureTarget() const;
+				uint GetGLTextureBindingEnum() const;
+
+				vec3u TextureSize;
+
+#pragma warning(suppress: 4250)
+			};
+
 			class CTexture3D : public ITexture3D, public CTexture
 			{
 
 			public:
-				
+
 				void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
 				void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
 

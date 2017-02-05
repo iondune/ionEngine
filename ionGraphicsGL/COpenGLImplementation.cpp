@@ -369,12 +369,58 @@ namespace ion
 			glTexStorage3D(GL_TEXTURE_3D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
 			if (GL::OpenGLError())
 			{
-				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Error occured during glTexStorage3D: %s", GL::GetOpenGLError());
 				Log::Error("Handle is %u", Texture3D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 
 			return Texture3D;
+		}
+
+		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		{
+			SharedPointer<GL::CTexture2DArray> Texture2DArray = SharedFromNew(new GL::CTexture2DArray());
+
+			Texture2DArray->TextureSize = Size;
+			Texture2DArray->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture2DArray->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture2DArray->IsInteger = true;
+				break;
+			}
+
+			int Levels = 1;
+
+			if (Texture2DArray->MipMaps)
+			{
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+			}
+
+			CheckedGLCall(glGenTextures(1, & Texture2DArray->Handle));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, Texture2DArray->Handle));
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
+			if (GL::OpenGLError())
+			{
+				Log::Error("Error occured during glTexStorage3D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture2DArray->Handle);
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, 0));
+
+			return Texture2DArray;
 		}
 
 		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
