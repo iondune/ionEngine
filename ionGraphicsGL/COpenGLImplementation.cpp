@@ -13,6 +13,7 @@
 #include "CTexture.h"
 #include "CGraphicsContext.h"
 #include "CDepthBuffer.h"
+#include "CDrawContext.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -282,6 +283,11 @@ namespace ion
 		{
 			SharedPointer<GL::CDepthBuffer> DepthBuffer = SharedFromNew(new GL::CDepthBuffer(Size));
 			return DepthBuffer;
+		}
+
+		Graphics::IDrawContext * COpenGLImplementation::CreateDrawContext()
+		{
+			return new Graphics::GL::CDrawContext();
 		}
 
 		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)

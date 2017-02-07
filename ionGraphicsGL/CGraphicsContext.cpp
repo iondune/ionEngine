@@ -5,6 +5,7 @@
 #include "CRenderTarget.h"
 #include "CPipelineState.h"
 #include "CTexture.h"
+#include "CDrawContext.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -165,6 +166,8 @@ namespace ion
 
 			void CGraphicsContext::InternalDrawSetup(SharedPointer<IPipelineState> State)
 			{
+				CDrawContext::Invalidate();
+
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				if (! PipelineState->Loaded)
 				{

@@ -11,6 +11,7 @@
 #include "IIndexBuffer.h"
 #include "ITexture.h"
 #include "IGraphicsContext.h"
+#include "IDrawContext.h"
 
 
 namespace ion
@@ -36,6 +37,8 @@ namespace ion
 		virtual SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer() = 0;
 
 		virtual SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2u const & Size) = 0;
+
+		virtual Graphics::IDrawContext * CreateDrawContext() = 0;
 
 		virtual SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type) = 0;
 		virtual SharedPointer<Graphics::ITexture3D> CreateTexture3D(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type) = 0;
@@ -70,6 +73,8 @@ namespace ion
 		SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 
 		SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2u const & Size);
+
+		Graphics::IDrawContext * CreateDrawContext();
 
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type);
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(CImage * Image, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);

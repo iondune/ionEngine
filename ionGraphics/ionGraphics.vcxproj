@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="IDrawContext.h" />
     <ClInclude Include="IGraphicsContext.h" />
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="Enums.h" />
