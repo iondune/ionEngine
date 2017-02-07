@@ -258,6 +258,8 @@ namespace ion
 							SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
 							CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
 						}
+
+						CheckedGLCall(glBindVertexArray(0));
 					}
 				}
 			}
