@@ -17,6 +17,8 @@ namespace ion
 		namespace GL
 		{
 
+			class CDrawContext;
+
 			class CDrawConfig : public IDrawConfig
 			{
 
