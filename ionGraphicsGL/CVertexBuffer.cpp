@@ -23,6 +23,13 @@ namespace ion
 				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 			}
 
+			void CVertexBuffer::UploadSubData(void const * const Data, size_t const DataSize, size_t const Offset, size_t const NumberOfElements)
+			{
+				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, Handle));
+				CheckedGLCall(glBufferSubData(GL_ARRAY_BUFFER, Offset * DataSize, NumberOfElements * DataSize, Data));
+				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+			}
+
 			void CVertexBuffer::SetInputLayout(SInputLayoutElement const * const InputLayoutArray, int const NumElements)
 			{
 				InputLayout.clear();
