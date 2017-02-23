@@ -27,6 +27,17 @@ bool ImGui::ColorEdit3(const char * label, color3f & Color)
 	return false;
 }
 
+bool ImGui::DragVec3(const char * label, vec3f & v, float v_speed, float v_min, float v_max, const char * display_format, float power)
+{
+	float vals[3] = { v.X, v.Y, v.Z };
+	if (ImGui::DragFloat3(label, vals, v_speed, v_min, v_max, display_format, power))
+	{
+		v = vec3f(vals[0], vals[1], vals[2]);
+		return true;
+	}
+	return false;
+}
+
 char const * ion::BoolToString(bool const B)
 {
 	return B ? "yes" : "no";

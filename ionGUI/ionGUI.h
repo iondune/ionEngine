@@ -14,6 +14,8 @@ namespace ImGui
 	bool ColorPicker4(float* col, bool show_alpha);
 	bool ColorPicker3(float col[3]);
 	bool ColorPicker3(color3f & col);
+
+	bool DragVec3(const char* label, vec3f & v, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* display_format = "%.3f", float power = 1.0f);
 }
 
 namespace ion
