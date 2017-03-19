@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include <ionConfig.h>
+#include <ionMath.h>
+#include "imGUI.h"
 #include "CGUIManager.h"
 #include "CWindowWidget.h"
 

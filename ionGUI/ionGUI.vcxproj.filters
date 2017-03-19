@@ -11,5 +11,6 @@
     <ClInclude Include="ionGUI.h" />
     <ClInclude Include="CWindowWidget.h" />
     <ClInclude Include="CGUIManager.h" />
+    <ClInclude Include="imGUI.h" />
   </ItemGroup>
 </Project>
