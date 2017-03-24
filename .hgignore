@@ -9,5 +9,5 @@ Dependencies/Catch
 Dependencies/glad
 Dependencies/tinyobjloader
 Dependencies/dirent
-Dependencies/glfw-3.1.2.bin.WIN64
+Dependencies/glfw-3.2.1.bin.WIN64
 Dependencies/simpleini
