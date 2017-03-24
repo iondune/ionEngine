@@ -43,9 +43,16 @@ namespace ion
 
 			void CGraphicsContext::Draw(SharedPointer<IPipelineState> State)
 			{
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+
+				if (! PipelineState->IndexBuffer)
+				{
+					Log::Error("Trying to draw pipeline state with no index buffer.");
+					return;
+				}
+
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
-				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				CheckedGLCall(glDrawElements(PipelineState->PrimitiveType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 				InternalDrawTeardown(State);
 			}
