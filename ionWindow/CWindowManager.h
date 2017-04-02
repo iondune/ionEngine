@@ -28,6 +28,7 @@ namespace ion
 
 #undef CreateWindow
 		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
+		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title);
 
 	protected:
 
