@@ -11,3 +11,4 @@ Dependencies/tinyobjloader
 Dependencies/dirent
 Dependencies/glfw-3.2.1.bin.WIN64
 Dependencies/simpleini
+ionEngine.ini

@@ -8,7 +8,14 @@ namespace ion
 	void CDefaultApplication::LoadSettings()
 	{
 		CSimpleIniA ConfigFile;
-		ConfigFile.LoadFile("ionEngine.ini");
+		if (File::Exists("ionEngine.ini"))
+		{
+			ConfigFile.LoadFile("ionEngine.ini");
+		}
+		else
+		{
+			ConfigFile.LoadFile((string(ION_PROJECT_BASE_DIRECTORY) + "ionEngine.ini").c_str());
+		}
 
 		ApplicationSettings.WindowSize.X = ConfigFile.GetLongValue("window", "width", ApplicationSettings.WindowSize.X);
 		ApplicationSettings.WindowSize.Y = ConfigFile.GetLongValue("window", "height", ApplicationSettings.WindowSize.Y);
