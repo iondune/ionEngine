@@ -49,6 +49,12 @@ bool ImGui::DragVec3(const char * label, vec3f & v, float v_speed, float v_min, 
 	return false;
 }
 
+bool ImGui::Combo(const char * label, int * current_item, std::initializer_list<char const *> const & items, int height_in_items)
+{
+	vector<char const *> items_vec = items;
+	return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
+}
+
 char const * ion::BoolToString(bool const B)
 {
 	return B ? "yes" : "no";
