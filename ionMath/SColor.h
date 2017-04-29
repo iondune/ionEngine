@@ -242,6 +242,15 @@ public:
 			Values[i] = (T) other[i];
 	}
 
+	operator color3<T>()
+	{
+		color3<T> ret;
+		ret.Red = Red;
+		ret.Green = Green;
+		ret.Blue = Blue;
+		return ret;
+	}
+
 };
 
 template <typename T>
