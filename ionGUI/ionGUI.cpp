@@ -63,6 +63,11 @@ namespace ImGui
 		ImGui::PushID(str_id);
 	}
 
+	scoped_id::scoped_id(int const int_id)
+	{
+		ImGui::PushID(int_id);
+	}
+
 	scoped_id::~scoped_id()
 	{
 		ImGui::PopID();

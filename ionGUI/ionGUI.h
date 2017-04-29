@@ -34,6 +34,7 @@ namespace ImGui
 	public:
 
 		scoped_id(char const * const str_id);
+		scoped_id(int const int_id);
 		~scoped_id();
 	};
 }
