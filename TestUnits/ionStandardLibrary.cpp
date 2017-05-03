@@ -165,8 +165,21 @@ TEST_CASE("ionStandardLibrary::String::Build")
 TEST_CASE("ionStandardLibrary::String::Explode")
 {
 	CHECK(String::Explode("", ' ') == vector<string>());
-	CHECK(String::Explode("foo", ' ') == vector<string>({"foo"}));
-	CHECK(String::Explode("foo bar", ' ') == vector<string>({"foo", "bar"}));
-	CHECK(String::Explode("1,2,3", ',') == vector<string>({"1", "2", "3"}));
-	CHECK(String::Explode("1,2,", ',') == vector<string>({"1", "2"}));
+	CHECK(String::Explode("foo", ' ') == vector<string>({ "foo" }));
+	CHECK(String::Explode("foo bar", ' ') == vector<string>({ "foo", "bar" }));
+	CHECK(String::Explode("1,2,3", ',') == vector<string>({ "1", "2", "3" }));
+	CHECK(String::Explode("1,2,", ',') == vector<string>({ "1", "2" }));
+}
+
+TEST_CASE("ionStandardLibrary::String::BeginsWith")
+{
+	string remainder;
+	CHECK(String::BeginsWith("abc123", "abc", remainder));
+	CHECK(remainder == "123");
+	CHECK(String::BeginsWith("abc", "abc", remainder));
+	CHECK(! String::BeginsWith("ab", "abc", remainder));
+	CHECK(! String::BeginsWith("", "abc", remainder));
+	CHECK(String::BeginsWith("abc", "", remainder));
+	CHECK(remainder == "abc");
+
 }

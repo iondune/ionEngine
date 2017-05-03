@@ -195,6 +195,22 @@ public:
 		return Words;
 	}
 
+	static bool BeginsWith(string const & s, string const & prefix, string & remainder)
+	{
+		if (s.size() < prefix.size())
+		{
+			return false;
+		}
+
+		if (s.substr(0, prefix.size()) == prefix)
+		{
+			remainder = s.substr(prefix.size());
+			return true;
+		}
+
+		return false;
+	}
+
 	template <typename... Args>
 	static string Build(char const * const Format, Args const &... args)
 	{
