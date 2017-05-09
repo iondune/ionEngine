@@ -1,4 +1,4 @@
-![Logo](http://i.imgur.com/AMFY7t6.png)!
+![Logo](http://i.imgur.com/AMFY7t6.png)
 
 ionEngine
 =========
@@ -35,8 +35,8 @@ Features included in ionEngine or additional modules are:
 * Forward and deferred lighting systems implemented using OpenGL
 * Bloom, SSAO, depth-of-field, and other post-processing effects
 * Volumetric utilities such as a shader-based raycast volume renderer and marching cubes implementation
-* GUI elements provided through dear imgui
-* Windowing and input provided through GLFW
+* GUI elements provided through [dear imgui](https://github.com/ocornut/imgui)
+* Windowing and input provided through [GLFW](http://www.glfw.org/)
 
 
 Distribution
