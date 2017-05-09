@@ -1,6 +1,8 @@
 syntax: glob
 Build
-Documentation/html
+Documentation/xml
+Documentation/doxy
+Documentation/_build
 Dependencies/stb
 Dependencies/tinyformat
 Dependencies/glm

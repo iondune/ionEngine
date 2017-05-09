@@ -1,21 +1,15 @@
-/*!
 
-\page moduleCore Module ionCore
+ionCore
+=======
 
-\section ionCore
-
-\subsection Overview
+Overview
+--------
 
 ionCore is the basis for all other modules, a set of boilerplate functions and templates.
 
-\subsection Documentation
+
+Documentation
+-------------
 
 The ionCore module is contained in the ion::Core namespace. The ionCore types, classes, and templates
 are used by all other modules, so most other module examples serve as example usage of ionCore.
-
-\subsubsection Files
-
-The elements of the ionCore module are sorted by file, so the best place to learn specifics is the
-by navigating to the ionCore directory in the Files tab.
-
-*/
