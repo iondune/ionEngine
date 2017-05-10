@@ -3,7 +3,6 @@ ionCore
 =======
 
 ionCore is the basis for all other modules, a set of boilerplate functions, classes, and templates.
-
 Everything is organized by file.
 
 
