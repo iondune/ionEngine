@@ -2,6 +2,10 @@
 Dependencies
 ============
 
+.. toctree::
+   :maxdepth: 2
+
+
 ionEngine depends on the following external libraries:
 
 - **Header Only**

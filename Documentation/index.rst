@@ -25,9 +25,15 @@ ionEngine relies on a number of `dependencies <dependencies.html>`_.
 For instructions on how to build and install, see the `installation page <installation.html>`_.
 
 
+Overview
+--------
 
-Indices and tables
-==================
+
+.. toctree::
+   :maxdepth: 2
+
+   dependencies
+   installation
+   modules
 
 * :ref:`genindex`
-* :ref:`search`
