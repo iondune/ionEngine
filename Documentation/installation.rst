@@ -69,7 +69,7 @@ The Ubuntu GLFW package is prohibitively out of date so we need to install a ppa
    > sudo add-apt-repository ppa:keithw/glfw3 -y
    > sudo apt-get update
 
-With that done we can now install all of our package-based dependencies::
+With that done we can now install all of our package-based dependencies.
 
 ::
 
