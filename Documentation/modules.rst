@@ -22,7 +22,7 @@ Modules
 Overview
 --------
 
-`ionCore <moduleCore.html>`_ is the basis for all other modules, a set of boilerplate functions and templates.
+`ionCore <moduleCore.html>`_ is the basis for all other modules, a set of boilerplate functions, classes, and templates.
 
 ionFramework provides basic application structures including event listeners.
 

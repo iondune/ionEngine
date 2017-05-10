@@ -1,7 +1,6 @@
 
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "ionEngine"
-PROJECT_NUMBER         = 0.4.1
+EXTRACT_ALL            = YES
 
 INPUT                  = ../
 INPUT_ENCODING         = UTF-8
