@@ -13,13 +13,8 @@
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\Catch\include;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glad\include;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\dirent\include;
-      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glfw-3.2.1.bin.WIN64\include;
       ;$(IncludePath);
     </IncludePath>
-    <LibraryPath>
-      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glfw-3.2.1.bin.WIN64\lib-vc2015;
-      ;$(LibraryPath);
-    </LibraryPath>
     <LibraryPath Condition="'$(Configuration)'=='Debug'">
       ;$(VisualStudioDir)\Projects\ionEngine\x64\Debug;
       ;$(LibraryPath);

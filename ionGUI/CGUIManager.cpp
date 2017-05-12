@@ -269,19 +269,19 @@ namespace ion
 		return vec2f(v.x, v.y);
 	}
 
-	void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data)
+	void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData * draw_data)
 	{
 		SingletonPointer<CGUIManager> ImGUIManager;
 		ImGUIManager->DrawCallback(draw_data);
 	}
 
-	char const * ImGui_ImplGlfwGL3_GetClipboardText()
+	char const * ImGui_ImplGlfwGL3_GetClipboardText(void * user_data)
 	{
 		SingletonPointer<CGUIManager> ImGUIManager;
 		return ImGUIManager->Window->GetClipboardText().c_str();
 	}
 
-	void ImGui_ImplGlfwGL3_SetClipboardText(const char* text)
+	void ImGui_ImplGlfwGL3_SetClipboardText(void * user_data, char const * text)
 	{
 		SingletonPointer<CGUIManager> ImGUIManager;
 		ImGUIManager->Window->SetClipboardText(text);

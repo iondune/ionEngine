@@ -73,8 +73,8 @@ namespace ion
 		CGUIManager();
 
 		friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
-		friend char const * ImGui_ImplGlfwGL3_GetClipboardText();
-		friend void ImGui_ImplGlfwGL3_SetClipboardText(const char* text);
+		friend char const * ImGui_ImplGlfwGL3_GetClipboardText(void * user_data);
+		friend void ImGui_ImplGlfwGL3_SetClipboardText(void * user_data, char const * text);
 
 	};
 
