@@ -153,14 +153,14 @@ public:
 		}
 
 		// Get largest of the maxT's for final choice of intersection
-		uint WhichPlane = 0;
+		int WhichPlane = 0;
 		if (MaxT[1] > MaxT[WhichPlane])	WhichPlane = 1;
 		if (MaxT[2] > MaxT[WhichPlane])	WhichPlane = 2;
 
 		// Check final candidate actually inside box
-		if (((uint)(MaxT[WhichPlane])) & 0x80000000) return false;
+		if (((u32)(MaxT[WhichPlane])) & 0x80000000) return false;
 
-		for (uint i = 0; i<3; i++)
+		for (int i = 0; i<3; i++)
 		{
 			if (i != WhichPlane)
 			{
