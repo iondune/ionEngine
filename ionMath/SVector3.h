@@ -624,7 +624,7 @@ struct vec3
 
 	friend std::ostream & operator << (std::ostream & stream, vec3<T> const & vec)
 	{
-		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+		return stream << +vec.X << " " << +vec.Y << " " << +vec.Z;
 	}
 
 };
