@@ -12,7 +12,7 @@ dist: trusty
 # Run both Debug and Releas
 env:
   - BUILD_TYPE=Debug
-  - BUILD_TYPE=Release
+#  - BUILD_TYPE=Release
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:keithw/glfw3 -y; fi
