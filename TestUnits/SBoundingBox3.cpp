@@ -55,7 +55,7 @@ TEST_CASE("SBoundingBox3 ray intersection")
 
 	CHECK(! aabb.IntersectsWithLimitedRay(vec3f(2, 2, 10), vec3f(0, 0, 1), out));
 	CHECK(! aabb.IntersectsWithLimitedRay(vec3f(2, 2, 10), vec3f(0, 0, -1), out));
-	CHECK(aabb.IntersectsWithLimitedRay(vec3f(2, 2, 10), vec3f(0, 0, -2), out));
+	CHECK(aabb.IntersectsWithLimitedRay(vec3f(2, 2, 10), vec3f(0, 0, -2.1f), out));
 	CHECK(out == vec3f(2, 2, 8));
 	CHECK(aabb.IntersectsWithLimitedRay(vec3f(2, 2, 10), vec3f(0, 0, -3), out));
 	CHECK(out == vec3f(2, 2, 8));
