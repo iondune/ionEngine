@@ -229,7 +229,7 @@ public:
 			return false;
 	}
 
-	bool operator == (ray3<T> const & other)
+	bool operator == (ray3<T> const & other) const
 	{
 		return Origin == other.Origin && Direction == other.Direction;
 	}
