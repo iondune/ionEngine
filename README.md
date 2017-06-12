@@ -10,9 +10,9 @@ Overview
 
 ionEngine is a C++ application framework designed to aid in the creation of high-performance rendering applications.
 It is modular and generic, designed for use in both game engines and scientific data visualization.
-The primary goal of ionEngine is to improve the DX (Developer Experience) of writing graphics programs, from small education examples to full production game engines.
+The primary goal of ionEngine is to improve the DX (Developer Experience) of writing graphics programs, from small educational examples to full production game engines.
 
-ionEngine includes many modular components, for example:
+ionEngine includes many modular components, including:
 
 * ionCore: basic typedefs and boilerplate, some string and file helpers, standard library helpers
 * ionMath: vector classes for 2, 3, and 4 dimensions. A custom “color” class that encapsulates a vec3 or vec4 with implicit conversions between float and byte colors.
