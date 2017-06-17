@@ -122,7 +122,7 @@ void EraseRemove(vector<T> & A, U B)
 template <typename T>
 void DeleteAndClear(vector<T> & A)
 {
-	std::for_each(A.begin(), A.end(), [](auto ptr) { delete ptr; });
+	std::for_each(A.begin(), A.end(), [](T ptr) { delete ptr; });
 	A.clear();
 }
 
