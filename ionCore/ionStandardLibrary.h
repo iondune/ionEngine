@@ -118,6 +118,14 @@ void EraseRemove(vector<T> & A, U B)
 	A.erase(std::remove(std::begin(A), std::end(A), B), std::end(A));
 }
 
+//! \brief Deletes every pointer element of a vector and then clears the vector
+template <typename T>
+void DeleteAndClear(vector<T> & A)
+{
+	std::for_each(A.begin(), A.end(), [](auto ptr) { delete ptr; });
+	A.clear();
+}
+
 class File
 {
 
