@@ -11,6 +11,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		struct SInputLayoutElement
 		{
 			string Name = "";
@@ -25,6 +26,7 @@ namespace ion
 			}
 		};
 
+		//! \ingroup ionGraphics
 		class IVertexBuffer
 		{
 

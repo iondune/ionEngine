@@ -12,6 +12,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		class IGraphicsContext
 		{
 

@@ -11,6 +11,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		class IIndexBuffer
 		{
 

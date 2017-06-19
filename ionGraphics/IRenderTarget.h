@@ -13,6 +13,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		class IRenderTarget
 		{
 
@@ -36,6 +37,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class IDepthBuffer
 		{
 
@@ -46,6 +48,7 @@ namespace ion
 
 		};
 		
+		//! \ingroup ionGraphics
 		class IFrameBuffer : public virtual IRenderTarget
 		{
 

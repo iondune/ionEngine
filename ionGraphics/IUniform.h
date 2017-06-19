@@ -12,6 +12,8 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \brief Possible types for uniforms
+		//! \ingroup ionGraphics
 		enum class EUniformType
 		{
 			Float = 0,
@@ -30,8 +32,12 @@ namespace ion
 			Bool = 13,
 		};
 
+		//! \brief Converts uniform enum to equivalent string form
+		//! \ingroup ionGraphics
 		string GetUniformTypeString(EUniformType const UniformType);
 
+		//! \brief Abstract interface for anything which can be uploaded as a shader uniform
+		//! \ingroup ionGraphics
 		class IUniform
 		{
 
@@ -43,6 +49,8 @@ namespace ion
 
 		};
 
+		//! \brief Abstract interface for IUniform with known type
+		//! \ingroup ionGraphics
 		template <typename T>
 		class IUniformTyped : public IUniform
 		{
@@ -58,7 +66,8 @@ namespace ion
 
 		};
 
-
+		//! \brief Implementation of IUniformTyped that stores a (non-owning) reference to value
+		//! \ingroup ionGraphics
 		template <typename T>
 		class CUniformReference : public IUniformTyped<T>
 		{
@@ -82,7 +91,8 @@ namespace ion
 
 		};
 
-
+		//! \brief Implementation of IUniformTyped that uses a given lambda callback to provide uniform value
+		//! \ingroup ionGraphics
 		template <typename T>
 		class CUniformCallback : public IUniformTyped<T>
 		{
@@ -107,6 +117,8 @@ namespace ion
 
 		};
 
+		//! \brief Implementation of IUniformTyped that stores a copy of a given value for uniform upload
+		//! \ingroup ionGraphics
 		template <typename T>
 		class CUniformValue : public IUniformTyped<T>
 		{
@@ -140,6 +152,8 @@ namespace ion
 
 		};
 
+		//! \brief Helper class to easily add a uniform as a member or local variable
+		//! \ingroup ionGraphics
 		template <typename T>
 		class CUniform
 		{
