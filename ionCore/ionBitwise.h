@@ -8,6 +8,7 @@ namespace ion
 {
 
 	//! \ingroup ionCore
+	//! \brief Tools for bitwise operations.
 	class Bitwise
 	{
 

@@ -1,4 +1,13 @@
 
+/*!
+\file ionStandardLibrary.h
+\ingroup ionCore
+\brief Brings a lot of elements from ``std`` namespace into the global namespace.
+
+Includes some helper functions for general tasks.
+*/
+
+
 #pragma once
 
 #include "ionTypes.h"
@@ -32,10 +41,12 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+//! \ingroup ionCore
 template <typename T>
 using NumericLimits = std::numeric_limits<T>;
 
 
+//! \ingroup ionCore
 template <typename T, typename U>
 U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 {
@@ -47,6 +58,7 @@ U * ConditionalMapAccess(map<T, U *> const & Map, T const Key)
 	return nullptr;
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 SharedPointer<U> ConditionalMapAccess(map<T, SharedPointer<U>> const & Map, T const Key)
 {
@@ -58,6 +70,7 @@ SharedPointer<U> ConditionalMapAccess(map<T, SharedPointer<U>> const & Map, T co
 	return nullptr;
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 U * ConditionalMapAccess(unordered_map<T, U *> const & Map, T const Key)
 {
@@ -69,12 +82,14 @@ U * ConditionalMapAccess(unordered_map<T, U *> const & Map, T const Key)
 	return 0;
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 bool CheckMapAccess(map<T, U> const & Map, T const Key)
 {
 	return Map.find(Key) != Map.end();
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 bool TryMapAccess(map<T, U> const & Map, T const Key, U & Value)
 {
@@ -89,6 +104,7 @@ bool TryMapAccess(map<T, U> const & Map, T const Key, U & Value)
 	return false;
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 set<T> KeySet(map<T, U> const & Map)
 {
@@ -100,18 +116,21 @@ set<T> KeySet(map<T, U> const & Map)
 	return Return;
 }
 
+//! \ingroup ionCore
 template <typename T>
 void AddAtEnd(vector<T> & A, vector<T> const & B)
 {
 	A.insert(A.end(), B.begin(), B.end());
 }
 
+//! \ingroup ionCore
 template <typename T>
 void EraseRemove(vector<T> & A, T B)
 {
 	A.erase(std::remove(std::begin(A), std::end(A), B), std::end(A));
 }
 
+//! \ingroup ionCore
 template <typename T, typename U>
 void EraseRemove(vector<T> & A, U B)
 {
@@ -126,6 +145,8 @@ void DeleteAndClear(vector<T> & A)
 	A.clear();
 }
 
+//! \brief Helper methods for dealing with files
+//! \ingroup ionCore
 class File
 {
 
@@ -133,8 +154,8 @@ public:
 
 	static bool Exists(string const & FileName)
 	{
-	  ifstream ifile(FileName);
-	  return ifile.good();
+		ifstream ifile(FileName);
+		return ifile.good();
 	}
 
 	static string ReadAsString(string const & FileName)
@@ -170,6 +191,8 @@ public:
 	}
 };
 
+//! \brief Helper methods for dealing with strings
+//! \ingroup ionCore
 class String
 {
 

@@ -1,6 +1,7 @@
 
 /*!
 \file ionComponent.h
+\ingroup ionCore
 \brief Basic component-entity system driven by types
 
 Basic Usage:
@@ -15,6 +16,8 @@ Entity class.
 #include "ionClass.h"
 
 
+//! \brief Base class for Component-Entity design pattern implementation
+//! \ingroup ionCore
 template <typename TComponent>
 class IEntity
 {

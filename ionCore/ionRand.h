@@ -1,4 +1,11 @@
 
+/*!
+\file ionRand.h
+\ingroup ionCore
+\brief Random number generators and helpers.
+*/
+
+
 #pragma once
 
 #include <ionConfig.h>
@@ -7,16 +14,22 @@
 #include <cstdlib>
 
 
+//! \brief Generates a random number in the range [0, 1) using std::rand
+//! \ingroup ionCore
 static inline float frand()
 {
 	return std::rand() / (float) RAND_MAX;
 }
 
+//! \brief Generates a random number in the range [-1, 1) using std::rand
+//! \ingroup ionCore
 static inline float nrand()
 {
 	return (std::rand() / (float) RAND_MAX) * 2.f - 1.f;
 }
 
+//! \brief Helper methods for generating random numbers
+//! \ingroup ionCore
 class Random
 {
 
@@ -34,6 +47,8 @@ public:
 
 };
 
+//! \brief Interface for random number generation
+//! \ingroup ionCore
 class IRandomGenerator
 {
 
@@ -84,6 +99,8 @@ public:
 
 };
 
+//! \brief Basic LCG implementation
+//! \ingroup ionCore
 class CLinearCongruentialGenerator : public IRandomGenerator
 {
 

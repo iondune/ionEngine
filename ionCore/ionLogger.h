@@ -1,3 +1,11 @@
+
+/*!
+\file ionLogger.h
+\ingroup ionCore
+\brief Logging class
+*/
+
+
 #pragma once
 
 #include "ionStandardLibrary.h"
@@ -7,6 +15,8 @@
 #include <Windows.h>
 #endif
 
+//! \brief Channels used by Log
+//! \ingroup ionCore
 enum class ELogChannel
 {
 	Error = 0,
@@ -14,6 +24,8 @@ enum class ELogChannel
 	Info = 2
 };
 
+//! \brief Logging class
+//! \ingroup ionCore
 class Log
 {
 

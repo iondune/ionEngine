@@ -1,6 +1,7 @@
 
 /*!
 \file ionClass.h
+\ingroup ionCore
 \brief Methods and classes for rudimentary reflection and other class related functionality.
 */
 
@@ -12,6 +13,7 @@
 
 
 //! \brief Check whether an object is an instance of a type
+//! \ingroup ionCore
 //! \param Object Object to check the type of
 //! \tparam T Type to check Object against
 //! \tparam U Actual type of Object (best left inferred)
@@ -25,6 +27,7 @@ bool InstanceOf(U * Object)
 }
 
 //! \brief Check whether an object is an instance of a type
+//! \ingroup ionCore
 //! \param Object Object to check the type of
 //! \tparam T Type to check Object against
 //! \tparam U Actual type of Object (best left inferred)
@@ -38,6 +41,7 @@ bool InstanceOf(U & Object)
 }
 
 //! \brief Casts an object as a different type, performing a validity check
+//! \ingroup ionCore
 //! \param Object Pointer to object to cast
 //! \tparam T Type to cast to
 //! \tparam U Type to cast from, type of Object
@@ -48,6 +52,7 @@ T * As(U * Object)
 }
 
 //! \brief Casts a constant object as a different type, performing a validity check
+//! \ingroup ionCore
 //! \param Object Pointer to object to cast
 //! \tparam T Type to cast to
 //! \tparam U Type to cast from, type of Object
@@ -58,6 +63,7 @@ T const * As(U const * Object)
 }
 
 //! \brief Casts an object as a different type, performing a validity check
+//! \ingroup ionCore
 //! \param Object Reference to object to cast
 //! \tparam T Type to cast to
 //! \tparam U Type to cast from, type of Object
@@ -68,6 +74,7 @@ T & As(U & Object)
 }
 
 //! \brief Casts a constant object as a different type, performing a validity check
+//! \ingroup ionCore
 //! \param Object Reference to object to cast
 //! \tparam T Type to cast to
 //! \tparam U Type to cast from, type of Objec
@@ -77,6 +84,8 @@ T const & As(U const & Object)
 	return * dynamic_cast<T const *>(& Object);
 }
 
+//! \brief Base class for Singleton design pattern implementation
+//! \ingroup ionCore
 template <class Implementation>
 class Singleton
 {
@@ -108,6 +117,8 @@ protected:
 
 };
 
+//! \brief Wraps a pointer to a singleton object
+//! \ingroup ionCore
 template <class T>
 class SingletonPointer
 {
@@ -164,6 +175,8 @@ private:
 
 };
 
+//! \brief Lightweight wrapper for std::type_info that enables sorting (e.g. for use in a std::map)
+//! \ingroup ionCore
 struct Type
 {
 	Type(std::type_info const & value)
