@@ -1,6 +1,6 @@
 
-Modules                        {#modules_overview}
-=======
+Modules Overview               {#modules_overview}
+================
 
 Hierarchy
 ---------
@@ -11,8 +11,8 @@ The following graph shows the dependency hierarchy for ionEngine's default modul
 digraph deps {
    bgcolor=transparent;
    node [shape=box];
-   ionCore [URL="moduleCore.html"];
-   ionGraphicsGL [URL="moduleGL.html"];
+   ionCore [URL="\ref ionCore"];
+   ionGraphicsGL [URL="\ref ionGraphicsGL"];
 
    ionCore -> ionMath            [dir="back"];
    ionMath -> ionFramework       [dir="back"];

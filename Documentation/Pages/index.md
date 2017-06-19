@@ -11,7 +11,7 @@ ionEngine is a C++ 3D application engine that aims to provide the utility of a g
 
 ionEngine is divided into a number of modules. Each module is a collection of classes, functions, and
 types which may be dependant on other modules and is typically contained within a single namespace. For more
-on modules, see the [modules page](@ref modules_overview).
+on modules, see the [modules overview page](@ref modules_overview) or [the modules reference list](modules.html).
 
 
 Getting Started
