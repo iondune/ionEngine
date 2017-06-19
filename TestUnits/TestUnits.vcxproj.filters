@@ -8,9 +8,6 @@
     <ClCompile Include="ionComparison.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
-    <ClCompile Include="ionCore.cpp">
-      <Filter>ionCore</Filter>
-    </ClCompile>
     <ClCompile Include="SVector2.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
