@@ -7,6 +7,7 @@
 namespace ion
 {
 
+	//! \ingroup ionCore
 	class Bitwise
 	{
 
