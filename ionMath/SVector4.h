@@ -7,6 +7,8 @@
 #include "SVector3.h"
 
 
+//! \brief 4D vector
+//! \ingroup ionMath
 template <typename T>
 class SVector4 : public SVector<T, 4, SVector4<T> >
 {

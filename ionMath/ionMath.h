@@ -23,3 +23,10 @@
 
 #include "Constants.h"
 #include "Utilities.h"
+
+
+//! \defgroup ionMath ionMath
+//!
+//! ionMath provides vector classes and various geometric primitives.
+//!
+

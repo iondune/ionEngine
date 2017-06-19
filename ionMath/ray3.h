@@ -4,6 +4,8 @@
 #include "SVector3.h"
 
 
+//! \brief 3D ray
+//! \ingroup ionMath
 template <typename T>
 class ray3
 {

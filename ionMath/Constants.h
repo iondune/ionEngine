@@ -4,6 +4,7 @@
 #include <ionCore/ionTypes.h>
 
 
+//! \ingroup ionMath
 namespace Constants32
 {
 
@@ -12,6 +13,7 @@ namespace Constants32
 
 };
 
+//! \ingroup ionMath
 namespace Constants64
 {
 
@@ -20,6 +22,8 @@ namespace Constants64
 
 };
 
+//! \brief Template-friendly access to Constants32 or Constants64
+//! \ingroup ionMath
 template <typename T>
 struct Constants
 {};

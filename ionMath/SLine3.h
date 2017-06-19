@@ -4,6 +4,8 @@
 #include "SVector3.h"
 
 
+//! \brief 3D line segment
+//! \ingroup ionMath
 template <typename T, typename Vector = vec3<T> >
 class SLine3
 {

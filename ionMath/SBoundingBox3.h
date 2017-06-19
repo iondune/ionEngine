@@ -5,6 +5,8 @@
 #include "SLine3.h"
 
 
+//! \brief 3D axis-aligned bounding box
+//! \ingroup ionMath
 template <typename T, typename Vector = vec3<T> >
 class SBoundingBox3
 {

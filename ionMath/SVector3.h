@@ -9,6 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
+//! \brief 3D vector
+//! \ingroup ionMath
 template <typename T>
 struct vec3
 {

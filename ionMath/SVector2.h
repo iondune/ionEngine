@@ -5,6 +5,8 @@
 #include "Utilities.h"
 
 
+//! \brief 2D vector
+//! \ingroup ionMath
 template <typename T>
 struct vec2
 {

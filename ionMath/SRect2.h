@@ -4,6 +4,8 @@
 #include "SVector2.h"
 
 
+//! \brief 2D rectangle
+//! \ingroup ionMath
 template <typename T>
 class SRect2
 {
