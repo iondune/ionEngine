@@ -23,7 +23,7 @@ ionEngine includes many modular components, including:
 * ionScience: algorithm implementations useful for various scientific applications, including long/lat classes, marching cubes, ear clipping, volumetric data rendering
 
 
-Features
+:pencil: Features
 --------
 
 ionEngine provides features through a large number of optional modules so
@@ -39,7 +39,7 @@ Features included in ionEngine or additional modules are:
 * Windowing and input provided through [GLFW](http://www.glfw.org/)
 
 
-Distribution
+:package: Distribution
 ------------
 
 Source code distributions are available at [Bitbucket](https://bitbucket.org/iondune/ionengine) and [GitHub](https://github.com/iondune/ionEngine)
@@ -49,7 +49,7 @@ Further information can be found at [ionengine.io](http://ionengine.io/).
 Documentation can be found at [docs.ionengine.io](http://docs.ionengine.io/).
 
 
-License
+:hammer: License
 -------
 
 The ionEngine is licensed under the [MIT license](http://opensource.org/licenses/MIT)
