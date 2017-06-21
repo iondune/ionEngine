@@ -8,6 +8,8 @@
 namespace Color
 {
 
+	//! \brief Determines the maximum color value for a given type
+	//! \ingroup ionMath
 	template <typename T>
 	struct Full
 	{};
@@ -30,6 +32,8 @@ namespace Color
 		}
 	};
 
+	//! \brief Implements a conversion between two color types
+	//! \ingroup ionMath
 	template <typename T, typename U>
 	struct Convert
 	{};
@@ -57,6 +61,8 @@ namespace Color
 template <typename T>
 class SColorA;
 
+//! \brief Customized variant of vec3 that intelligently handles conversion between floating point and integer colors
+//! \ingroup ionMath
 template <typename T>
 class color3 : public vec3<T>
 {
@@ -122,6 +128,8 @@ public:
 };
 
 
+//! \brief Customized variant of vec4 that intelligently handles conversion between floating point and integer colors
+//! \ingroup ionMath
 template <typename T>
 class SColorA : public SVector<T, 4, SColorA<T> >
 {
@@ -242,6 +250,15 @@ public:
 			Values[i] = (T) other[i];
 	}
 
+	operator color3<T>()
+	{
+		color3<T> ret;
+		ret.Red = Red;
+		ret.Green = Green;
+		ret.Blue = Blue;
+		return ret;
+	}
+
 };
 
 template <typename T>
@@ -303,6 +320,8 @@ typedef SColorAi color4i;
 typedef SColorAf color4f;
 
 
+//! \brief Some very basic colors
+//! \ingroup ionMath
 namespace Colors
 {
 	static color3f const White = color3f(1, 1, 1);
@@ -319,6 +338,8 @@ namespace Colors
 namespace Color
 {
 
+	//! \brief Packs a color into 24 bits
+	//! \ingroup ionMath
 	struct Pack
 	{
 
@@ -332,6 +353,8 @@ namespace Color
 
 	};
 
+	//! \brief Unacks a color from 24 bits
+	//! \ingroup ionMath
 	struct Unpack
 	{
 

@@ -78,6 +78,11 @@ namespace ion
 				}
 			}
 
+			IRenderTarget * CRenderTarget::GetCurrentlyBound()
+			{
+				return CurrentlyBound;
+			}
+
 			void CRenderTarget::SetViewport(vec2i const & Min, vec2i const & Max)
 			{
 				ViewportMin = Min;

@@ -15,6 +15,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		enum class EDrawFeature
 		{
 			Wireframe = 0,
@@ -25,6 +26,7 @@ namespace ion
 			PolygonOffset = 5
 		};
 
+		//! \ingroup ionGraphics
 		enum class EBlendMode
 		{
 			None = 0,
@@ -32,6 +34,7 @@ namespace ion
 			Additive = 2
 		};
 
+		//! \ingroup ionGraphics
 		enum class EPrimitiveType
 		{
 			Triangle = 0,
@@ -40,6 +43,7 @@ namespace ion
 			Point = 3
 		};
 
+		//! \ingroup ionGraphics
 		class IPipelineState
 		{
 

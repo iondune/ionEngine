@@ -19,6 +19,7 @@ namespace ion
 
 	class CWindow;
 
+	//! \ingroup ionGraphics
 	class IGraphicsImplementation
 	{
 
@@ -49,6 +50,7 @@ namespace ion
 
 	};
 
+	//! \ingroup ionGraphics
 	class CGraphicsAPI : public Singleton<CGraphicsAPI>
 	{
 

@@ -1,6 +1,9 @@
 syntax: glob
-Build
+
+Build/
 Documentation/html
+Documentation/extra.css
+
 Dependencies/stb
 Dependencies/tinyformat
 Dependencies/glm
@@ -11,3 +14,5 @@ Dependencies/tinyobjloader
 Dependencies/dirent
 Dependencies/glfw-3.2.1.bin.WIN64
 Dependencies/simpleini
+
+ionEngine.ini

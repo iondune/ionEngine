@@ -7,6 +7,7 @@
 #include "Constants.h"
 
 
+//! \ingroup ionMath
 template <typename T>
 T Abs(T const value)
 {
@@ -14,6 +15,7 @@ T Abs(T const value)
 }
 
 //! \brief Template function for selecting from two values the one with larger magnitude
+//! \ingroup ionMath
 //! The absolute values of a and b are compared, but the original values of a or b
 //! are returned.
 template <typename T>
@@ -23,60 +25,72 @@ static T const MaxAbs(T const a, T const b)
 }
 
 
+//! \ingroup ionMath
 template <typename T>
 T Sin(T const value)
 {
 	return sin(value);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T Cos(T const value)
 {
 	return cos(value);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T Tan(T const value)
 {
 	return tan(value);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T ArcTan(T const value)
 {
 	return atan(value);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T ArcTan(T const y, T const x)
 {
 	return atan2(y, x);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T Sqrt(T const value)
 {
 	return (T) sqrt(value);
 }
 
+//! \ingroup ionMath
 template <typename T>
 T DegToRad(T const degrees)
 {
 	return degrees * Constants<T>::Pi() / 180;
 }
 
+//! \ingroup ionMath
 template <typename T>
 T RadToDeg(T const radians)
 {
 	return radians * 180 / Constants<T>::Pi();
 }
 
+//! \ingroup ionMath
 template <typename T>
 bool IsNaN(T const value)
 {
 	return value != value;
 }
 
+//! \brief Clamps a value between 0 and 1
+//! \ingroup ionMath
+//! \return value clamped between 0 and 1
 template <typename T>
 T Saturate(T const value)
 {

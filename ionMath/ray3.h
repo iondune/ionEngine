@@ -4,6 +4,8 @@
 #include "SVector3.h"
 
 
+//! \brief 3D ray
+//! \ingroup ionMath
 template <typename T>
 class ray3
 {
@@ -229,9 +231,14 @@ public:
 			return false;
 	}
 
-	bool operator == (ray3<T> const & other)
+	bool operator == (ray3<T> const & other) const
 	{
 		return Origin == other.Origin && Direction == other.Direction;
+	}
+
+	bool operator != (ray3<T> const & other) const
+	{
+		return Origin != other.Origin && Direction != other.Direction;
 	}
 
 	friend std::ostream & operator << (std::ostream & stream, ray3<T> const & ray)

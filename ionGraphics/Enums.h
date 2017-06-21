@@ -9,6 +9,8 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \brief Standard type enum used through module
+		//! \ingroup ionGraphics
 		enum class EValueType
 		{
 			Error         = 0,
@@ -26,6 +28,8 @@ namespace ion
 			UnsignedInt32 = 12,
 		};
 
+		//! \brief Value types that exclude vector types
+		//! \ingroup ionGraphics
 		enum class EScalarType
 		{
 			Error         = 0,
@@ -39,6 +43,8 @@ namespace ion
 			UnsignedInt32 = 8,
 		};
 
+		//! \brief Possible types for attributes i.e. vertex buffer contents
+		//! \ingroup ionGraphics
 		enum EAttributeType
 		{
 			Float       = 0,
@@ -47,9 +53,20 @@ namespace ion
 			Double      = 3,
 		};
 
+		//! \brief Gets the sizeof() for a given type
+		//! \ingroup ionGraphics
 		size_t GetValueTypeSize(EValueType const ValueType);
+
+		//! \brief Gets the string equivalent of the given enum
+		//! \ingroup ionGraphics
 		string GetValueTypeString(EValueType const ValueType);
+
+		//! \brief Gets the sizeof() for a given attribute type
+		//! \ingroup ionGraphics
 		size_t GetAttributeTypeSize(EAttributeType const AttributeType);
+
+		//! \brief Gets the string equivalent of the given enum
+		//! \ingroup ionGraphics
 		string GetAttributeTypeString(EAttributeType const AttributeType);
 
 	}

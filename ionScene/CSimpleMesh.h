@@ -47,7 +47,7 @@ namespace ion
 
 				vec3f Position;
 				vec3f Normal;
-				color3f Color;
+				color3f Color = 1.f;
 				vec3f Tangent;
 				vec2f TextureCoordinates;
 

@@ -19,11 +19,11 @@ function CloneGithubDependency {
 	echo
 }
 
-CloneGithubDependency 'stb'            'https://github.com/nothings/stb.git'         'c9ead07188b342350530e92e14542222c3ad9abe'
+CloneGithubDependency 'stb'            'https://github.com/nothings/stb.git'         'c7110588a4d24c4bb5155c184fbb77dd90b3116e'
 CloneGithubDependency 'tinyformat'     'https://github.com/c42f/tinyformat.git'      '3a33bbf65442432277eee079e83d3e8fac51730c'
-CloneGithubDependency 'glm'            'https://github.com/g-truc/glm.git'           '8f0d85460557dc5fbf4f44dc23a7708d065d7683'
-CloneGithubDependency 'imgui'          'https://github.com/ocornut/imgui.git'        '8291d7dc7c3d17425462e7aaf8593a4465405968'
-CloneGithubDependency 'Catch'          'https://github.com/philsquared/Catch.git'    'f666f5f0aef121c357a3705b0187e77920a3e0b5'
+CloneGithubDependency 'glm'            'https://github.com/g-truc/glm.git'           '5dcc56489e1b66dfd5bca751fa9b8dc68059e008'
+CloneGithubDependency 'imgui'          'https://github.com/ocornut/imgui.git'        'df52f46b13891acf6298a6a783d7f024ccd9ab21'
+CloneGithubDependency 'Catch'          'https://github.com/philsquared/Catch.git'    'a0ada2e935324db5c951571c52c9b07307ea422f'
 CloneGithubDependency 'glad'           'https://github.com/iondune/glad.git'         '11f33ab7625ada108f836a83cd8abc405bd870e9'
-CloneGithubDependency 'tinyobjloader'  'https://github.com/syoyo/tinyobjloader.git'  'ad9911ef1b124c628581c0f75adb3178f9d03c3c'
-CloneGithubDependency 'simpleini'      'https://github.com/brofield/simpleini.git'   'e850d4e1cae65ee10f60992c5a576dce7fe35220'
+CloneGithubDependency 'tinyobjloader'  'https://github.com/syoyo/tinyobjloader.git'  '51d13700d880d2d5fdaf5bd3547100bafcae7932'
+CloneGithubDependency 'simpleini'      'https://github.com/brofield/simpleini.git'   '03e27b27901c8e12fef6daeddc18a9a3e217dea4'

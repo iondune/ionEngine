@@ -6,7 +6,8 @@
 
 
 /*!
-	Abstract Node in a generic tree structure.
+	\brief Interface for a Node in a generic tree structure.
+	\ingroup ionCore
 
 	Note that a static_cast to TreeNode<Implementation> is sometimes needed
 	for compilation in VS2012 where Implementation has 'uses' for Children
@@ -102,7 +103,8 @@ protected:
 
 
 /*!
-	Variant of ITreeNode that doesn't require a single parent relationship.
+	\brief Variant of ITreeNode that doesn't require a single parent relationship.
+	\ingroup ionCode
 */
 template <typename Implementation>
 class IMultiTreeNode

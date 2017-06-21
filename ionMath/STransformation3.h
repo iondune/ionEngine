@@ -8,6 +8,8 @@
 #include "SVector3.h"
 
 
+//! \brief Order of transformations used by STransformation3
+//! \ingroup ionMath
 enum class ETransformationOrder
 {
 	TranslationRotationScale,
@@ -18,6 +20,8 @@ enum class ETransformationOrder
 	ScaleRotationTranslation
 };
 
+//! \brief Order of rotations, i.e. Euler angles, used by STransformation3
+//! \ingroup ionMath
 enum class ERotationOrder
 {
 	ZYX,
@@ -29,6 +33,8 @@ enum class ERotationOrder
 };
 
 
+//! \brief Describes a 3D transformation as a composed translation, rotation, and scale
+//! \ingroup ionMath
 class STransformation3
 {
 

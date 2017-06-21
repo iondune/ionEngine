@@ -5,6 +5,8 @@
 #include "SLine3.h"
 
 
+//! \brief 3D axis-aligned bounding box
+//! \ingroup ionMath
 template <typename T, typename Vector = vec3<T> >
 class SBoundingBox3
 {
@@ -82,104 +84,58 @@ public:
 		AddInternalPoint(bb.MinCorner);
 	}
 
-	// These intersect methods direct copies from irrlicht engine
-	bool IntersectsWithLine(SLine3<T, Vector> const & line) const
+	bool IntersectsWithRay(vec3f const & Origin, vec3f const & Direction, vec3f & coord) const
 	{
-		return IntersectsWithLine(line.GetMiddle(), line.GetVector().GetNormalized(), line.Length() * 0.5f);
-	}
+		T tmin = -std::numeric_limits<T>::max();
+		T tmax = std::numeric_limits<T>::max();
 
-	// These intersect methods direct copies from irrlicht engine
-	bool IntersectsWithLine(Vector const & linemiddle, Vector const & linevect, T halflength) const
-	{
-		const Vector e = GetExtent() * (T) 0.5;
-		const Vector t = GetCenter() - linemiddle;
+		for (int i = 0; i < 3; ++ i)
+		{
+			if (Direction[i] == 0)
+			{
+				if (Origin[i] <= MinCorner[i] || Origin[i] >= MaxCorner[i])
+				{
+					return false;
+				}
+			}
+			else
+			{
+				T t1 = (MinCorner[i] - Origin[i]) / Direction[i];
+				T t2 = (MaxCorner[i] - Origin[i]) / Direction[i];
 
-		if ((fabs(t.X) > e.X + halflength * fabs(linevect.X)) ||
-			(fabs(t.Y) > e.Y + halflength * fabs(linevect.Y)) ||
-			(fabs(t.Z) > e.Z + halflength * fabs(linevect.Z)))
+				if (t1 > t2)
+				{
+					std::swap(t1, t2);
+				}
+
+				tmin = Max(t1, tmin);
+				tmax = Min(t2, tmax);
+
+				if (tmin > tmax)
+				{
+					return false;
+				}
+				if (tmax < 0)
+				{
+					return false;
+				}
+			}
+		}
+
+		if ((tmin > std::numeric_limits<T>::max()) || (tmax < 0))
+		{
 			return false;
+		}
 
-		T r = e.Y * abs(linevect.Z) + e.Z * abs(linevect.Y);
-		if (abs(t.Y*linevect.Z - t.Z*linevect.Y) > r)
-			return false;
-
-		r = e.X * abs(linevect.Z) + e.Z * abs(linevect.X);
-		if (abs(t.Z*linevect.X - t.X*linevect.Z) > r)
-			return false;
-
-		r = e.X * abs(linevect.Y) + e.Y * abs(linevect.X);
-		if (abs(t.X*linevect.Y - t.Y*linevect.X) > r)
-			return false;
-
+		if (tmin > 0)
+		{
+			coord = Origin + Direction * tmin;
+		}
+		else
+		{
+			coord = Origin + Direction * tmax;
+		}
 		return true;
-	}
-
-	// from http://www.codercorner.com/RayAABB.cpp
-	bool IntersectsWithRay(vec3f const & origin, vec3f const & dir, vec3f & coord) const
-	{
-		static T const RAYAABB_EPSILON = RoundingError<T>::Value();
-		bool Inside = true;
-		vec3f const MinB = MinCorner;
-		vec3f const MaxB = MaxCorner;
-		vec3f MaxT;
-		MaxT.X = MaxT.Y = MaxT.Z = -1;
-
-		// Find candidate planes.
-		for (uint i = 0; i<3; i++)
-		{
-			if (origin[i] < MinB[i])
-			{
-				coord[i] = MinB[i];
-				Inside = false;
-
-				// Calculate T distances to candidate planes
-				if (((uint)(dir[i])))	MaxT[i] = (MinB[i] - origin[i]) / dir[i];
-			}
-			else if (origin[i] > MaxB[i])
-			{
-				coord[i] = MaxB[i];
-				Inside = false;
-
-				// Calculate T distances to candidate planes
-				if (((uint)(dir[i])))	MaxT[i] = (MaxB[i] - origin[i]) / dir[i];
-			}
-		}
-
-		// Ray origin inside bounding box
-		if (Inside)
-		{
-			coord = origin;
-			return true;
-		}
-
-		// Get largest of the maxT's for final choice of intersection
-		uint WhichPlane = 0;
-		if (MaxT[1] > MaxT[WhichPlane])	WhichPlane = 1;
-		if (MaxT[2] > MaxT[WhichPlane])	WhichPlane = 2;
-
-		// Check final candidate actually inside box
-		if (((uint)(MaxT[WhichPlane])) & 0x80000000) return false;
-
-		for (uint i = 0; i<3; i++)
-		{
-			if (i != WhichPlane)
-			{
-				coord[i] = origin[i] + MaxT[WhichPlane] * dir[i];
-				if (coord[i] < MinB[i] - RAYAABB_EPSILON || coord[i] > MaxB[i] + RAYAABB_EPSILON)	return false;
-
-			}
-		}
-		return true;	// ray hits box
-	}
-
-	bool IntersectsWithLimitedRay(vec3f const & origin, vec3f const & dir, vec3f & coord) const
-	{
-		if (IntersectsWithRay(origin, dir, coord))
-		{
-			return coord.GetDistanceSqFrom(origin) <= dir.LengthSq();
-		}
-
-		return false;
 	}
 
 	T const GetMaximumRadius(Vector const Scale) const

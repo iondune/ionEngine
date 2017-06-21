@@ -10,6 +10,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		class ITexture
 		{
 		public:
@@ -88,6 +89,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class ITexture2D : public virtual ITexture
 		{
 
@@ -100,6 +102,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class ITexture2DArray : public virtual ITexture
 		{
 
@@ -110,6 +113,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class ITexture3D : public virtual ITexture
 		{
 
@@ -120,6 +124,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class ITextureCubeMap : public virtual ITexture
 		{
 

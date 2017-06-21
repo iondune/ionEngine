@@ -151,6 +151,28 @@ namespace ion
 		return nullptr;
 	}
 
+	CImage * CAssetManager::LoadImage(string const & FileName)
+	{
+		if (! GraphicsAPI)
+		{
+			Log::Error("CAssetManager being used without being initialized, Texture '%s' will not be loaded.", FileName);
+			return nullptr;
+		}
+
+		for (string AssetPath : AssetPaths)
+		{
+			if (! File::Exists(AssetPath + TexturePath + FileName))
+			{
+				continue;
+			}
+
+			return CImage::Load(AssetPath + TexturePath + FileName);
+		}
+
+		Log::Error("Cannot find image file in any asset directory: '%s'", FileName);
+		return nullptr;
+	}
+
 	SharedPointer<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps)
 	{
 		if (! GraphicsAPI)

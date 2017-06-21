@@ -5,7 +5,6 @@
     <Link>
       <AdditionalDependencies>
         ;OpenGL32.lib;
-        ;glfw3.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>

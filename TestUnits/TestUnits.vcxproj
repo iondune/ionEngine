@@ -28,7 +28,6 @@
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
-    <ClCompile Include="ionCore.cpp" />
     <ClCompile Include="ionLogger.cpp" />
     <ClCompile Include="ionSmartPtr.cpp" />
     <ClCompile Include="ionStandardLibrary.cpp" />

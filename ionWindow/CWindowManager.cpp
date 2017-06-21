@@ -80,6 +80,50 @@ namespace ion
 		return Window;
 	}
 
+	CWindow * CWindowManager::CreateWindowOnMonitor(int const Monitor, std::string const & Title)
+	{
+		CWindow * Window = nullptr;
+
+		if (nullptr == GraphicsAPI)
+		{
+			Log::Error("Using WindowManager before initialization!");
+			return nullptr;
+		}
+
+
+		int count;
+		GLFWmonitor ** monitors = glfwGetMonitors(&count);
+
+		if (count == 0)
+		{
+			Log::Error("No monitors found, cannot create window");
+			return nullptr;
+		}
+
+		int monitor = Monitor;
+		if (monitor >= count)
+		{
+			Log::Error("Monitor index is out of bounds: %d. Using monitor 0", monitor);
+			monitor = 0;
+		}
+
+		int mode_count;
+		GLFWvidmode const * modes = glfwGetVideoModes(monitors[monitor], &mode_count);
+			
+		vec2i const MonitorSize = vec2i(modes[mode_count - 1].width, modes[mode_count - 1].height);
+		Window = CreateWindow(MonitorSize - vec2i(100), Title, EWindowType::Windowed);
+
+		int xpos, ypos;
+		glfwGetMonitorPos(monitors[monitor], &xpos, &ypos);
+
+		if (Window)
+		{
+			Window->SetPosition(vec2i(xpos, ypos) + vec2i(50));
+		}
+
+		return Window;
+	}
+
 	CWindowManager::CWindowManager()
 		: PrimaryWindow()
 	{}

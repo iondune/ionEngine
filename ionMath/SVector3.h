@@ -9,6 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
+//! \brief 3D vector
+//! \ingroup ionMath
 template <typename T>
 struct vec3
 {
@@ -624,7 +626,7 @@ struct vec3
 
 	friend std::ostream & operator << (std::ostream & stream, vec3<T> const & vec)
 	{
-		return stream << vec.X << " " << vec.Y << " " << vec.Z;
+		return stream << +vec.X << " " << +vec.Y << " " << +vec.Z;
 	}
 
 };

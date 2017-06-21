@@ -15,3 +15,9 @@
 #include "ionStandardLibrary.h"
 #include "ionLogger.h"
 #include "ionBitwise.h"
+
+
+//! \defgroup ionCore ionCore
+//!
+//! ionCore is the basis for all other modules, a set of boilerplate functions, classes, and templates.
+//!

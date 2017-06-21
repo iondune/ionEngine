@@ -11,6 +11,8 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \brief Alternative to Pipeline State rendering. Represents a single draw call.
+		//! \ingroup ionGraphics
 		class IDrawConfig
 		{
 
@@ -27,6 +29,8 @@ namespace ion
 
 		};
 
+		//! \brief Alternative to Pipeline State rendering. Represents the context for one or many draw calls.
+		//! \ingroup ionGraphics
 		class IDrawContext
 		{
 

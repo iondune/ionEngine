@@ -9,6 +9,7 @@ namespace ion
 	namespace Graphics
 	{
 
+		//! \ingroup ionGraphics
 		class IVertexShader
 		{
 
@@ -18,6 +19,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class IGeometryShader
 		{
 
@@ -27,6 +29,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class IPixelShader
 		{
 
@@ -36,6 +39,7 @@ namespace ion
 
 		};
 
+		//! \ingroup ionGraphics
 		class IShaderProgram
 		{
 

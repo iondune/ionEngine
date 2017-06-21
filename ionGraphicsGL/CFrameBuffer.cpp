@@ -64,10 +64,14 @@ namespace ion
 				CheckExistingErrors(glCheckFramebufferStatus);
 				uint Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 				if (OpenGLError())
+				{
 					cerr << "Error occured during glCheckFramebufferStatus: " << GetOpenGLError() << endl;
+				}
 
 				if (Status == GL_FRAMEBUFFER_COMPLETE)
+				{
 					return true;
+				}
 
 				string Problem;
 				switch (Status)

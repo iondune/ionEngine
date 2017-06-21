@@ -30,6 +30,7 @@ namespace ion
 				virtual CImage * ReadImage();
 
 				virtual void Bind();
+				virtual IRenderTarget * GetCurrentlyBound();
 
 				CWindow * Window = nullptr;
 				color4f Color;

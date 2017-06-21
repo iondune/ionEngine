@@ -4,6 +4,8 @@
 #include "SVector3.h"
 
 
+//! \brief 3D triangle
+//! \ingroup ionMath
 template <typename T>
 class STriangle3
 {

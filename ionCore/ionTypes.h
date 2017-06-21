@@ -1,4 +1,11 @@
 
+/*!
+\file ionTypes.h
+\ingroup ionCore
+\brief Defines typedefs for integer and floating point types
+*/
+
+
 #pragma once
 
 #include "ionConfig.h"
