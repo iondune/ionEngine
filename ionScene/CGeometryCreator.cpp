@@ -82,42 +82,48 @@ namespace ion
 			std::vector<u32> Indices;
 
 			// Make bottom disc
-			Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(0.f);
-			Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
-
-			Positions.push_back(baseRadius); Positions.push_back(0.f); Positions.push_back(0.f);
-			Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
-
-			for (uint i = 1; i <= slices; ++ i)
+			if (baseRadius > 0.f)
 			{
-				f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
-				Positions.push_back(Cos<f32>(Angle)*baseRadius);
-				Positions.push_back(Sin<f32>(Angle)*baseRadius);
-				Positions.push_back(0.f);
+				Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(0.f);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
-				Indices.push_back(0);
-				Indices.push_back(i + 1);
-				Indices.push_back(i + 0);
+
+				Positions.push_back(baseRadius); Positions.push_back(0.f); Positions.push_back(0.f);
+				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
+
+				for (uint i = 1; i <= slices; ++ i)
+				{
+					f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
+					Positions.push_back(Cos<f32>(Angle)*baseRadius);
+					Positions.push_back(Sin<f32>(Angle)*baseRadius);
+					Positions.push_back(0.f);
+					Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
+					Indices.push_back(0);
+					Indices.push_back(i + 1);
+					Indices.push_back(i + 0);
+				}
 			}
 
 			// Make top disc
-			uint const TopStart = (uint) Positions.size() / 3;
-			Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(height);
-			Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
-
-			Positions.push_back(topRadius); Positions.push_back(0.f); Positions.push_back(height);
-			Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
-
-			for (uint i = 1; i <= slices; ++ i)
+			if (topRadius > 0.f)
 			{
-				f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
-				Positions.push_back(Cos<f32>(Angle)*topRadius);
-				Positions.push_back(Sin<f32>(Angle)*topRadius);
-				Positions.push_back(height);
+				uint const TopStart = (uint) Positions.size() / 3;
+				Positions.push_back(0.f); Positions.push_back(0.f); Positions.push_back(height);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
-				Indices.push_back(TopStart);
-				Indices.push_back(TopStart + i + 0);
-				Indices.push_back(TopStart + i + 1);
+
+				Positions.push_back(topRadius); Positions.push_back(0.f); Positions.push_back(height);
+				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
+
+				for (uint i = 1; i <= slices; ++ i)
+				{
+					f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
+					Positions.push_back(Cos<f32>(Angle)*topRadius);
+					Positions.push_back(Sin<f32>(Angle)*topRadius);
+					Positions.push_back(height);
+					Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
+					Indices.push_back(TopStart);
+					Indices.push_back(TopStart + i + 0);
+					Indices.push_back(TopStart + i + 1);
+				}
 			}
 
 			// Make sides
@@ -462,7 +468,7 @@ namespace ion
 			for (uint i = 0; i < Mesh->Vertices.size(); ++ i)
 			{
 				Mesh->Vertices[i].TextureCoordinates =
-					vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + SVector2f(0.5f);
+					vec2f(Mesh->Vertices[i].Position.X, Mesh->Vertices[i].Position.Y) / radius / 2 + vec2f(0.5f);
 			}
 
 			return Mesh;
@@ -515,7 +521,30 @@ namespace ion
 				Intersection->Triangles.back().Indices[2] += BStartIndex;
 			}
 
+			Intersection->Material = A->Material;
+
 			return Intersection;
+		}
+
+		void CGeometryCreator::IntersectAndDelete(CSimpleMesh * A, CSimpleMesh const * B, vec3f const & BOffset)
+		{
+			A->Vertices.reserve(A->Vertices.size() + B->Vertices.size());
+			A->Triangles.reserve(A->Triangles.size() + B->Triangles.size());
+			uint const BStartIndex = (uint) A->Vertices.size();
+			for (auto const & Vertex : B->Vertices)
+			{
+				A->Vertices.push_back(Vertex);
+				A->Vertices.back().Position += BOffset;
+			}
+			for (auto const & Triangle : B->Triangles)
+			{
+				A->Triangles.push_back(Triangle);
+				A->Triangles.back().Indices[0] += BStartIndex;
+				A->Triangles.back().Indices[1] += BStartIndex;
+				A->Triangles.back().Indices[2] += BStartIndex;
+			}
+
+			delete B;
 		}
 
 		vector<CSimpleMesh*> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
@@ -546,8 +575,14 @@ namespace ion
 					Materials.back().Specular = color3f(material.specular[0], material.specular[1], material.specular[2]);
 					Materials.back().Shininess = material.shininess;
 
-					Materials.back().DiffuseImage = CImage::Load(Path + material.diffuse_texname);
-					Materials.back().AmbientImage = CImage::Load(Path + material.ambient_texname);
+					if (material.diffuse_texname.length())
+					{
+						Materials.back().DiffuseImage = CImage::Load(Path + material.diffuse_texname);
+					}
+					if (material.ambient_texname.length())
+					{
+						Materials.back().AmbientImage = CImage::Load(Path + material.ambient_texname);
+					}
 				}
 
 				for (auto const & shape : shapes)

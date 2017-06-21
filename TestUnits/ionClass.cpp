@@ -61,9 +61,8 @@ TEST_CASE("ionClass::As", "As function converts between objects")
 	CHECK(As<TestDerived>((TestBase*)&b) == &b);
 	CHECK(As<TestDerived>((TestBase const * const)bPtr) == bPtr);
 	CHECK(As<TestBase>(& a) == & a);
-	CHECK(! As<TestDerived>(& a));
-	CHECK(! & As<TestDerived>(a));
-	CHECK(! & As<TestDerived>(constA));
+	CHECK(nullptr == As<TestDerived>(& a));
+	CHECK(nullptr == As<TestDerived>(& constA));
 }
 
 TEST_CASE("Type", "[ionClass :: Type]")

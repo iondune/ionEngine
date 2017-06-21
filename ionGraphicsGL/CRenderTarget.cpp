@@ -66,9 +66,28 @@ namespace ion
 				if (CurrentlyBound != this)
 				{
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-					CheckedGLCall(glViewport(0, 0, Window->GetSize().X, Window->GetSize().Y));
+					if (SpecifiedViewport)
+					{
+						CheckedGLCall(glViewport(ViewportMin.X, ViewportMin.Y, ViewportMax.X, ViewportMax.Y));
+					}
+					else
+					{
+						CheckedGLCall(glViewport(0, 0, Window->GetSize().X, Window->GetSize().Y));
+					}
 					CurrentlyBound = this;
 				}
+			}
+
+			void CRenderTarget::SetViewport(vec2i const & Min, vec2i const & Max)
+			{
+				ViewportMin = Min;
+				ViewportMax = Max;
+				SpecifiedViewport = true;
+			}
+
+			void CRenderTarget::ClearViewport()
+			{
+				SpecifiedViewport = false;
 			}
 
 			CRenderTarget * CRenderTarget::CurrentlyBound = nullptr;;

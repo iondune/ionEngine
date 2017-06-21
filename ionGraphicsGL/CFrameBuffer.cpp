@@ -32,6 +32,10 @@ namespace ion
 				Bind();
 				SharedPointer<CTexture2D> GLTexture = std::dynamic_pointer_cast<CTexture2D>(Texture);
 				Size = GLTexture->TextureSize;
+				if (!SpecifiedViewport)
+				{
+					CheckedGLCall(glViewport(0, 0, Size.X, Size.Y));
+				}
 				CheckedGLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + Attachment, GL_TEXTURE_2D, GLTexture->Handle, 0));
 
 				vector<uint> Attachments;
@@ -114,7 +118,14 @@ namespace ion
 				if (CurrentlyBound != this)
 				{
 					CheckedGLCall(glBindFramebuffer(GL_FRAMEBUFFER, Handle));
-					CheckedGLCall(glViewport(0, 0, Size.X, Size.Y));
+					if (SpecifiedViewport)
+					{
+						CheckedGLCall(glViewport(ViewportMin.X, ViewportMin.Y, ViewportMax.X, ViewportMax.Y));
+					}
+					else
+					{
+						CheckedGLCall(glViewport(0, 0, Size.X, Size.Y));
+					}
 					CurrentlyBound = this;
 				}
 			}

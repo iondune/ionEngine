@@ -5,6 +5,7 @@
 #include "CRenderTarget.h"
 #include "CPipelineState.h"
 #include "CTexture.h"
+#include "CDrawContext.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -42,9 +43,16 @@ namespace ion
 
 			void CGraphicsContext::Draw(SharedPointer<IPipelineState> State)
 			{
+				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
+
+				if (! PipelineState->IndexBuffer)
+				{
+					Log::Error("Trying to draw pipeline state with no index buffer.");
+					return;
+				}
+
 				Window->MakeContextCurrent();
 				InternalDrawSetup(State);
-				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				CheckedGLCall(glDrawElements(PipelineState->PrimitiveType, (int) PipelineState->IndexBuffer->Size, GL_UNSIGNED_INT, 0));
 				InternalDrawTeardown(State);
 			}
@@ -58,8 +66,115 @@ namespace ion
 				InternalDrawTeardown(State);
 			}
 
+			void CGraphicsContext::InternalBindUniform(uint const Handle, SharedPointer<IUniform const> const Uniform)
+			{
+				switch (Uniform->GetType())
+				{
+				case EUniformType::Float:
+					CheckedGLCall(glUniform1f(Handle, * static_cast<float const *>(Uniform->GetData())));
+					break;
+				case EUniformType::FloatArray:
+					CheckedGLCall(glUniform1fv(Handle,
+						(GLsizei) static_cast<vector<float> const *>(Uniform->GetData())->size(),
+						static_cast<vector<float> const *>(Uniform->GetData())->data()
+					));
+					break;
+				case EUniformType::Float2:
+					CheckedGLCall(glUniform2f(Handle,
+						static_cast<vec2f const *>(Uniform->GetData())->X,
+						static_cast<vec2f const *>(Uniform->GetData())->Y));
+					break;
+				case EUniformType::Float2Array:
+				{
+					vector<float> CompactedData;
+					for (auto const & Vector : *static_cast<vector<vec2f> const *>(Uniform->GetData()))
+					{
+						CompactedData.push_back(Vector.X);
+						CompactedData.push_back(Vector.Y);
+					}
+					CheckedGLCall(glUniform2fv(Handle,
+						(GLsizei) CompactedData.size() / 2,
+						CompactedData.data()
+					));
+
+					break;
+				}
+				case EUniformType::Float3:
+					CheckedGLCall(glUniform3f(Handle,
+						static_cast<vec3f const *>(Uniform->GetData())->X,
+						static_cast<vec3f const *>(Uniform->GetData())->Y,
+						static_cast<vec3f const *>(Uniform->GetData())->Z));
+					break;
+				case EUniformType::Float3Array:
+				{
+					vector<float> CompactedData;
+					for (auto const & Vector : *static_cast<vector<vec3f> const *>(Uniform->GetData()))
+					{
+						CompactedData.push_back(Vector.X);
+						CompactedData.push_back(Vector.Y);
+						CompactedData.push_back(Vector.Z);
+					}
+					CheckedGLCall(glUniform3fv(Handle,
+						(GLsizei) CompactedData.size() / 3,
+						CompactedData.data()
+					));
+
+					break;
+				}
+				case EUniformType::Float4:
+					CheckedGLCall(glUniform4f(Handle,
+						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[0],
+						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[1],
+						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[2],
+						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[3]));
+					break;
+				case EUniformType::Matrix4x4:
+					CheckedGLCall(glUniformMatrix4fv(Handle, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData()))));
+					break;
+				case EUniformType::Matrix4x4Array:
+				{
+					vector<float> CompactedData;
+					for (auto const & Matrix : *static_cast<vector<glm::mat4> const *>(Uniform->GetData()))
+					{
+						CompactedData.insert(CompactedData.end(), glm::value_ptr(Matrix), glm::value_ptr(Matrix) + 16);
+					}
+					CheckedGLCall(glUniformMatrix4fv(Handle, (GLsizei) CompactedData.size() / 16, GL_FALSE, CompactedData.data()));
+					break;
+				}
+				case EUniformType::Int:
+					CheckedGLCall(glUniform1i(Handle, * static_cast<uint const *>(Uniform->GetData())));
+					break;
+				case EUniformType::Bool:
+					CheckedGLCall(glUniform1i(Handle, (*static_cast<bool const *>(Uniform->GetData())) ? 1 : 0));
+					break;
+				case EUniformType::Int2:
+					CheckedGLCall(glUniform2i(Handle,
+						static_cast<vec2i const *>(Uniform->GetData())->X,
+						static_cast<vec2i const *>(Uniform->GetData())->Y));
+					break;
+				case EUniformType::Int3:
+					CheckedGLCall(glUniform3i(Handle,
+						static_cast<vec3i const *>(Uniform->GetData())->X,
+						static_cast<vec3i const *>(Uniform->GetData())->Y,
+						static_cast<vec3i const *>(Uniform->GetData())->Z));
+					break;
+				case EUniformType::Int4:
+					CheckedGLCall(glUniform4i(Handle,
+						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[0],
+						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[1],
+						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[2],
+						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[3]));
+					break;
+				default:
+					Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
+					break;
+				}
+			}
+
 			void CGraphicsContext::InternalDrawSetup(SharedPointer<IPipelineState> State)
 			{
+				CDrawContext::Invalidate();
+
 				SharedPointer<GL::CPipelineState> PipelineState = std::dynamic_pointer_cast<GL::CPipelineState>(State);
 				if (! PipelineState->Loaded)
 				{
@@ -78,107 +193,7 @@ namespace ion
 				// Uniforms
 				for (auto const & it : PipelineState->BoundUniforms)
 				{
-					switch (it.second->GetType())
-					{
-					case EUniformType::Float:
-						CheckedGLCall(glUniform1f(it.first, * static_cast<float const *>(it.second->GetData())));
-						break;
-					case EUniformType::FloatArray:
-						CheckedGLCall(glUniform1fv(it.first,
-							(GLsizei) static_cast<vector<float> const *>(it.second->GetData())->size(),
-							static_cast<vector<float> const *>(it.second->GetData())->data()
-						));
-						break;
-					case EUniformType::Float2:
-						CheckedGLCall(glUniform2f(it.first,
-							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<float, 2> const *>(it.second->GetData())->Values[1]));
-						break;
-					case EUniformType::Float2Array:
-					{
-						vector<float> CompactedData;
-						for (auto const & Vector : *static_cast<vector<vec2f> const *>(it.second->GetData()))
-						{
-							CompactedData.push_back(Vector.X);
-							CompactedData.push_back(Vector.Y);
-						}
-						CheckedGLCall(glUniform2fv(it.first,
-							(GLsizei) CompactedData.size() / 2,
-							CompactedData.data()
-						));
-
-						break;
-					}
-					case EUniformType::Float3:
-						CheckedGLCall(glUniform3f(it.first,
-							static_cast<vec3f const *>(it.second->GetData())->X,
-							static_cast<vec3f const *>(it.second->GetData())->Y,
-							static_cast<vec3f const *>(it.second->GetData())->Z));
-						break;
-					case EUniformType::Float3Array:
-					{
-						vector<float> CompactedData;
-						for (auto const & Vector : *static_cast<vector<vec3f> const *>(it.second->GetData()))
-						{
-							CompactedData.push_back(Vector.X);
-							CompactedData.push_back(Vector.Y);
-							CompactedData.push_back(Vector.Z);
-						}
-						CheckedGLCall(glUniform3fv(it.first,
-							(GLsizei) CompactedData.size() / 3,
-							CompactedData.data()
-						));
-
-						break;
-					}
-					case EUniformType::Float4:
-						CheckedGLCall(glUniform4f(it.first,
-							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[2],
-							static_cast<SVectorBase<float, 4> const *>(it.second->GetData())->Values[3]));
-						break;
-					case EUniformType::Matrix4x4:
-						CheckedGLCall(glUniformMatrix4fv(it.first, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(it.second->GetData()))));
-						break;
-					case EUniformType::Matrix4x4Array:
-					{
-						vector<float> CompactedData;
-						for (auto const & Matrix : *static_cast<vector<glm::mat4> const *>(it.second->GetData()))
-						{
-							CompactedData.insert(CompactedData.end(), glm::value_ptr(Matrix), glm::value_ptr(Matrix) + 16);
-						}
-						CheckedGLCall(glUniformMatrix4fv(it.first, (GLsizei) CompactedData.size() / 16, GL_FALSE, CompactedData.data()));
-						break;
-					}
-					case EUniformType::Int:
-						CheckedGLCall(glUniform1i(it.first, * static_cast<uint const *>(it.second->GetData())));
-						break;
-					case EUniformType::Bool:
-						CheckedGLCall(glUniform1i(it.first, (*static_cast<bool const *>(it.second->GetData())) ? 1 : 0));
-						break;
-					case EUniformType::Int2:
-						CheckedGLCall(glUniform2i(it.first,
-							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<int, 2> const *>(it.second->GetData())->Values[1]));
-						break;
-					case EUniformType::Int3:
-						CheckedGLCall(glUniform3i(it.first,
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<int, 3> const *>(it.second->GetData())->Values[2]));
-						break;
-					case EUniformType::Int4:
-						CheckedGLCall(glUniform4i(it.first,
-							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[0],
-							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[1],
-							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[2],
-							static_cast<SVectorBase<int, 4> const *>(it.second->GetData())->Values[3]));
-						break;
-					default:
-						Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(it.second->GetType()));
-						break;
-					}
+					InternalBindUniform(it.first, it.second);
 				}
 
 				// Textures

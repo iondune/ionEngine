@@ -44,7 +44,13 @@ namespace ion
 				Fix8 = 0,
 				Float16 = 1,
 				Float32 = 2,
-				Depth = 3,
+				SignedInt8 = 3,
+				SignedInt16 = 4,
+				SignedInt32 = 5,
+				UnsignedInt8 = 6,
+				UnsignedInt16 = 7,
+				UnsignedInt32 = 8,
+				Depth = 9,
 			};
 
 			enum class EMipMaps
@@ -89,6 +95,18 @@ namespace ion
 
 			virtual void Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 			virtual void UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+
+			virtual void GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+
+		};
+
+		class ITexture2DArray : public virtual ITexture
+		{
+
+		public:
+
+			virtual void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
 		};
 

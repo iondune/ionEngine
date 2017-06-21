@@ -39,6 +39,12 @@
     <ClInclude Include="CDepthBuffer.h">
       <Filter>Render Target</Filter>
     </ClInclude>
+    <ClInclude Include="CGeometryShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CDrawContext.h">
+      <Filter>General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CShaderProgram.cpp">
@@ -74,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="CDepthBuffer.cpp">
       <Filter>Render Target</Filter>
+    </ClCompile>
+    <ClCompile Include="CDrawContext.cpp">
+      <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

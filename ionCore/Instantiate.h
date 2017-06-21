@@ -97,9 +97,9 @@ template void IMultiTreeNode<ITreeNodeInstantiate>::RecurseOnChildren<int, int, 
 
 // ionUtils.h
 
-template int const Clamp<int>(int const & v, int const & min, int const & max);
-template int const Sq<int>(int const & a);
-template int const Average<int>(int const & a, int const & b);
-template int const Average<int>(int const & a, int const & b, int const & c);
-template int const Average<int>(int const & a, int const & b, int const & c, int const & d);
+template int Clamp<int>(int const & v, int const & min, int const & max);
+template int Sq<int>(int const & a);
+template int Average<int>(int const & a, int const & b);
+template int Average<int>(int const & a, int const & b, int const & c);
+template int Average<int>(int const & a, int const & b, int const & c, int const & d);
 template s32 Sign<int>(int const & val);

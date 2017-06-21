@@ -4,7 +4,9 @@
 #include <ionMath.h>
 #include <ionFramework.h>
 #include <ionWindow.h>
-#include <imgui.h>
+#include <ionGraphics.h>
+
+#include "imGUI.h"
 
 
 namespace ion
@@ -21,18 +23,19 @@ namespace ion
 		bool Init(CWindow * Window);
 		void Shutdown();
 		void NewFrame();
-	void Draw();
+		void Draw();
 
-	template <typename... Args>
-	void Text(vec2i const & Position, color3i const & Color, char const * const Format, Args const &... args)
-	{
-		TextUnformatted(Position, Color, tfm::format(Format, args...));
-	}
+		template <typename... Args>
+		void Text(vec2i const & Position, color3i const & Color, char const * const Format, Args const &... args)
+		{
+			TextUnformatted(Position, Color, tfm::format(Format, args...));
+		}
 
-	void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
+		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
 
 		void OnEvent(IEvent & Event);
 		void AddFontFromFile(string const & FileName, float const Size);
+		static ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		ImGuiIO & IO = ImGui::GetIO();
 
@@ -54,14 +57,14 @@ namespace ion
 		int AttribLocationPosition = 0, AttribLocationUV = 0, AttribLocationColor = 0;
 		uint VboHandle = 0, VaoHandle = 0, ElementsHandle = 0;
 
-	struct SDrawText
-	{
-		vec2i Position;
-		color3i Color;
-		string Text;
-	};
+		struct SDrawText
+		{
+			vec2i Position;
+			color3i Color;
+			string Text;
+		};
 
-	vector<SDrawText> TextQueue;
+		vector<SDrawText> TextQueue;
 
 	private:
 

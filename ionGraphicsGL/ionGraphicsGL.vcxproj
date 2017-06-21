@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -18,6 +18,8 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CDrawContext.h" />
+    <ClInclude Include="CGeometryShader.h" />
     <ClInclude Include="CGraphicsContext.h" />
     <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="CRenderTarget.h" />
@@ -34,6 +36,7 @@
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDrawContext.cpp" />
     <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="COpenGLImplementation.cpp" />

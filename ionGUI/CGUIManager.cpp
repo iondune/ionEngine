@@ -1,5 +1,6 @@
 
 #include "CGUIManager.h"
+#include <ionGraphicsGL/CTexture.h>
 #include <glad/glad.h>
 
 
@@ -171,6 +172,12 @@ namespace ion
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		ImFont* my_font = io.Fonts->AddFontFromFileTTF(FileName.c_str(), Size);
+	}
+
+	ImTextureID CGUIManager::GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture)
+	{
+		SharedPointer<Graphics::GL::CTexture const> TextureImplementation = std::dynamic_pointer_cast<Graphics::GL::CTexture const>(Texture);
+		return  (void *) (intptr_t) TextureImplementation->Handle;
 	}
 
 	bool CGUIManager::CreateDeviceObjects()

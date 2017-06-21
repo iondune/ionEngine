@@ -7,14 +7,14 @@
 #include <cstdlib>
 
 
-static f32 frand()
+static inline float frand()
 {
-	return std::rand() / (f32) RAND_MAX;
+	return std::rand() / (float) RAND_MAX;
 }
 
-static f32 nrand()
+static inline float nrand()
 {
-	return (std::rand() / (f32) RAND_MAX) * 2.f - 1.f;
+	return (std::rand() / (float) RAND_MAX) * 2.f - 1.f;
 }
 
 class Random

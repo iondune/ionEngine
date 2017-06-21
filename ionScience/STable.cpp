@@ -52,7 +52,7 @@ SRange<f64> STable::GetFieldRange(std::string const & Field, double const Outlie
 	{
 		double const v = it->GetField(Field);
 		if (acceptedValues.Contains(v) && v == v)
-			StdDeviation += abs(v - Mean);
+			StdDeviation += Abs(v - Mean);
 	}
 	StdDeviation /= (double) (Count - 1);
 

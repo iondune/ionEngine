@@ -53,6 +53,25 @@ namespace ion
 		return VertexShader;
 	}
 
+	SharedPointer<Graphics::IGeometryShader> CGraphicsAPI::CreateGeometryShaderFromFile(string const & FileName)
+	{
+		SharedPointer<Graphics::IGeometryShader> GeometryShader;
+		if (! File::Exists(FileName))
+		{
+			Log::Error("Geometry shader file does not appear to exist: %s", FileName);
+		}
+		else
+		{
+			GeometryShader = CreateGeometryShaderFromSource(File::ReadAsString(FileName));
+
+			if (! GeometryShader)
+			{
+				Log::Error("Failed to compile geometry shader from file '%s'", FileName);
+			}
+		}
+		return GeometryShader;
+	}
+
 	SharedPointer<Graphics::IPixelShader> CGraphicsAPI::CreatePixelShaderFromFile(string const & FileName)
 	{
 		SharedPointer<Graphics::IPixelShader> PixelShader;
@@ -86,6 +105,22 @@ namespace ion
 		}
 
 		return VertexShader;
+	}
+
+	SharedPointer<Graphics::IGeometryShader> CGraphicsAPI::CreateGeometryShaderFromSource(string const & Source)
+	{
+		SharedPointer<Graphics::IGeometryShader> GeometryShader;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			GeometryShader = Implementation->CreateGeometryShaderFromSource(Source);
+		}
+
+		return GeometryShader;
 	}
 
 	SharedPointer<Graphics::IPixelShader> CGraphicsAPI::CreatePixelShaderFromSource(string const & Source)
@@ -168,6 +203,22 @@ namespace ion
 		return DepthBuffer;
 	}
 
+	Graphics::IDrawContext * CGraphicsAPI::CreateDrawContext()
+	{
+		Graphics::IDrawContext * DrawContext = nullptr;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			DrawContext = Implementation->CreateDrawContext();
+		}
+
+		return DrawContext;
+	}
+
 	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture2D> Texture;
@@ -229,6 +280,22 @@ namespace ion
 		else
 		{
 			Texture = Implementation->CreateTexture3D(Size, MipMaps, Components, Type);
+		}
+
+		return Texture;
+	}
+
+	SharedPointer<Graphics::ITexture2DArray> CGraphicsAPI::CreateTexture2DArray(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	{
+		SharedPointer<Graphics::ITexture2DArray> Texture;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			Texture = Implementation->CreateTexture2DArray(Size, MipMaps, Components, Type);
 		}
 
 		return Texture;

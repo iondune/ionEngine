@@ -5,6 +5,7 @@
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CVertexShader.h"
+#include "CGeometryShader.h"
 #include "CPixelShader.h"
 #include "CShaderProgram.h"
 #include "CPipelineState.h"
@@ -12,6 +13,7 @@
 #include "CTexture.h"
 #include "CGraphicsContext.h"
 #include "CDepthBuffer.h"
+#include "CDrawContext.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -137,6 +139,29 @@ namespace ion
 		COpenGLImplementation::COpenGLImplementation()
 		{}
 
+		void COpenGLImplementation::UseReverseDepth(bool const ReverseDepth)
+		{
+			this->ReverseDepth = ReverseDepth;
+
+			if (ReverseDepth)
+			{
+				SafeGLCall(glDepthFunc, (GL_GEQUAL));
+				SafeGLCall(glClearDepth, (0.f));
+				SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_ZERO_TO_ONE));
+			}
+			else
+			{
+				SafeGLCall(glDepthFunc, (GL_LEQUAL));
+				SafeGLCall(glClearDepth, (1.f));
+				SafeGLCall(glClipControl, (GL_LOWER_LEFT, GL_NEGATIVE_ONE_TO_ONE));
+			}
+		}
+
+		bool COpenGLImplementation::IsReverseDepth()
+		{
+			return ReverseDepth;
+		}
+
 		void COpenGLImplementation::PreWindowCreationSetup()
 		{
 			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
@@ -192,6 +217,26 @@ namespace ion
 			return VertexShader;
 		}
 
+		SharedPointer<IGeometryShader> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
+		{
+			SharedPointer<GL::CGeometryShader> GeometryShader = std::make_shared<GL::CGeometryShader>();
+			GeometryShader->Handle = glCreateShader(GL_GEOMETRY_SHADER);
+
+			char const * SourcePointer = Source.c_str();
+			CheckedGLCall(glShaderSource(GeometryShader->Handle, 1, & SourcePointer, NULL));
+			CheckedGLCall(glCompileShader(GeometryShader->Handle));
+
+			int Compiled = 0;
+			CheckedGLCall(glGetShaderiv(GeometryShader->Handle, GL_COMPILE_STATUS, & Compiled));
+			if (! Compiled)
+			{
+				Log::Error("Failed to compile geometry shader! See Info Log:");
+				PrintShaderInfoLog(GeometryShader->Handle);
+				return nullptr;
+			}
+			return GeometryShader;
+		}
+
 		SharedPointer<IPixelShader> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
 		{
 			SharedPointer<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
@@ -240,12 +285,36 @@ namespace ion
 			return DepthBuffer;
 		}
 
+		Graphics::IDrawContext * COpenGLImplementation::CreateDrawContext()
+		{
+			return new Graphics::GL::CDrawContext();
+		}
+
 		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
 
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture2D->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture2D->IsInteger = true;
+				break;
+			}
 
 			int Levels = 1;
 
@@ -275,6 +344,25 @@ namespace ion
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
 
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture3D->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture3D->IsInteger = true;
+				break;
+			}
+
 			int Levels = 1;
 
 			if (Texture3D->MipMaps)
@@ -287,12 +375,58 @@ namespace ion
 			glTexStorage3D(GL_TEXTURE_3D, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
 			if (GL::OpenGLError())
 			{
-				Log::Error("Error occured during glTexStorage2D: %s", GL::GetOpenGLError());
+				Log::Error("Error occured during glTexStorage3D: %s", GL::GetOpenGLError());
 				Log::Error("Handle is %u", Texture3D->Handle);
 			}
 			CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 
 			return Texture3D;
+		}
+
+		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		{
+			SharedPointer<GL::CTexture2DArray> Texture2DArray = SharedFromNew(new GL::CTexture2DArray());
+
+			Texture2DArray->TextureSize = Size;
+			Texture2DArray->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				Texture2DArray->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				Texture2DArray->IsInteger = true;
+				break;
+			}
+
+			int Levels = 1;
+
+			if (Texture2DArray->MipMaps)
+			{
+				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+			}
+
+			CheckedGLCall(glGenTextures(1, & Texture2DArray->Handle));
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, Texture2DArray->Handle));
+			glTexStorage3D(GL_TEXTURE_2D_ARRAY, Levels, GL::CTexture::InternalFormatMatrix[(int) Components][(int) Type], Size.X, Size.Y, Size.Z);
+			if (GL::OpenGLError())
+			{
+				Log::Error("Error occured during glTexStorage3D: %s", GL::GetOpenGLError());
+				Log::Error("Handle is %u", Texture2DArray->Handle);
+			}
+			CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, 0));
+
+			return Texture2DArray;
 		}
 
 		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
@@ -301,6 +435,25 @@ namespace ion
 
 			TextureCubeMap->TextureSize = Size;
 			TextureCubeMap->MipMaps = (MipMaps == ITexture::EMipMaps::True);
+
+			switch (Type)
+			{
+			case ITexture::EInternalFormatType::Fix8:
+			case ITexture::EInternalFormatType::Float16:
+			case ITexture::EInternalFormatType::Float32:
+			case ITexture::EInternalFormatType::Depth:
+				TextureCubeMap->IsInteger = false;
+				break;
+
+			case ITexture::EInternalFormatType::SignedInt8:
+			case ITexture::EInternalFormatType::SignedInt16:
+			case ITexture::EInternalFormatType::SignedInt32:
+			case ITexture::EInternalFormatType::UnsignedInt8:
+			case ITexture::EInternalFormatType::UnsignedInt16:
+			case ITexture::EInternalFormatType::UnsignedInt32:
+				TextureCubeMap->IsInteger = true;
+				break;
+			}
 
 			int Levels = 1;
 

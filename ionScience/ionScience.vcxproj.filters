@@ -49,6 +49,9 @@
     <ClInclude Include="SGrid.h">
       <Filter>Data Structures</Filter>
     </ClInclude>
+    <ClInclude Include="EarClipping.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CColorTable.cpp">
@@ -72,6 +75,9 @@
     <ClCompile Include="STable.Row.cpp">
       <Filter>Data\STable</Filter>
     </ClCompile>
+    <ClCompile Include="EarClipping.cpp">
+      <Filter>Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Coloring">
@@ -91,6 +97,9 @@
     </Filter>
     <Filter Include="Data\STable">
       <UniqueIdentifier>{f5a3db2f-0bf6-41ba-89b1-39321fad4605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms">
+      <UniqueIdentifier>{eb9f252c-559d-4588-a55d-8eef078d4242}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

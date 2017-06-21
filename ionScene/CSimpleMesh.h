@@ -76,10 +76,10 @@ namespace ion
 			SBoundingBox3f GetBoundingBox() const;
 
 			void Clear();
-			void ResizeMesh(vec3f const & Scale);
-			void ApplyScaleFactor(vec3f const & Scale);
-			void ApplyOffset(vec3f const & Offset);
-			void ApplyTransformation(glm::mat4 const & Transform);
+			CSimpleMesh * ResizeMesh(vec3f const & Scale);
+			CSimpleMesh * ApplyScaleFactor(vec3f const & Scale);
+			CSimpleMesh * ApplyOffset(vec3f const & Offset);
+			CSimpleMesh * ApplyTransformation(glm::mat4 const & Transform);
 			void ReverseFaces();
 			void SeparateTriangles();
 			void CalculateNormalsPerFace();

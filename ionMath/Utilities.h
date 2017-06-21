@@ -10,7 +10,7 @@
 template <typename T>
 T Abs(T const value)
 {
-	return abs(value);
+	return std::abs(value);
 }
 
 //! \brief Template function for selecting from two values the one with larger magnitude
@@ -56,7 +56,7 @@ T ArcTan(T const y, T const x)
 template <typename T>
 T Sqrt(T const value)
 {
-	return sqrt(value);
+	return (T) sqrt(value);
 }
 
 template <typename T>

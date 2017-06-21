@@ -3,6 +3,7 @@
 
 #include "Utilities.h"
 #include "CVertexShader.h"
+#include "CGeometryShader.h"
 #include "CPixelShader.h"
 
 #include <glad/glad.h>
@@ -37,6 +38,14 @@ namespace ion
 				if (VertexShader)
 				{
 					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexShader>(VertexShader)->Handle));
+				}
+			}
+
+			void CShaderProgram::SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader)
+			{
+				if (GeometryShader)
+				{
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CGeometryShader>(GeometryShader)->Handle));
 				}
 			}
 

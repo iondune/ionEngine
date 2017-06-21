@@ -17,12 +17,60 @@ namespace ion
 
 		void CPerspectiveCamera::RecalculateProjectionMatrix()
 		{
-			ProjectionMatrix = glm::perspective<f32>(GetFieldOfView(), AspectRatio, NearPlane, FarPlane);
+			float const zNear = NearPlane;
+			float const zFar = FarPlane;
+			float const viewAngleVertical = GetFieldOfView();
+			float const f = 1.0f / tan(viewAngleVertical / 2.0f); // 1.0 / tan(X) == cotangent(X)
+
+			switch (ProjectionType)
+			{
+			case EProjectionType::Standard:
+			{
+				ProjectionMatrix = glm::perspective<f32>(viewAngleVertical, AspectRatio, NearPlane, FarPlane);
+				break;
+			}
+			case EProjectionType::ReverseZeroToOne:
+			{
+				glm::mat4 projectionMatrix =
+				{
+					glm::vec4(f / AspectRatio, 0.0f,  0.0f,  0.0f),
+					glm::vec4(0.0f,    f,  0.0f,  0.0f),
+					glm::vec4(0.0f, 0.0f,  -zFar / (zNear - zFar) - 1, -1.0f),
+					glm::vec4(0.0f, 0.0f, -(zNear * zFar) / (zNear - zFar),  0.0f)
+				};
+				ProjectionMatrix = projectionMatrix;
+
+				break;
+			}
+			case EProjectionType::ReverseZeroToOneInfiniteFar:
+			{
+				glm::mat4 projectionMatrix = {
+					f / AspectRatio, 0.0f,  0.0f,  0.0f,
+					0.0f,    f,  0.0f,  0.0f,
+					0.0f, 0.0f,  0.0f, -1.0f,
+					0.0f, 0.0f, zNear,  0.0f
+				};
+
+				ProjectionMatrix = projectionMatrix;
+				break;
+			}
+			}
 		}
 
 		void CPerspectiveCamera::Update()
 		{
 			CCamera::Update();
+			RecalculateProjectionMatrix();
+		}
+
+		EProjectionType CPerspectiveCamera::GetProjectionType() const
+		{
+			return ProjectionType;
+		}
+
+		void CPerspectiveCamera::SetProjectionType(EProjectionType const Type)
+		{
+			ProjectionType = Type;
 			RecalculateProjectionMatrix();
 		}
 

@@ -117,7 +117,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 	public:
 
 		virtual T DistanceBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
-		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
+		virtual vec2<T> OffsetBetween(SLongitudeLatitude const &, SLongitudeLatitude const &) = 0;
 
 	};
 
@@ -147,9 +147,9 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return Distance * 1000;
 		}
 
-		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
+		virtual vec2<T> OffsetBetween(SLongitudeLatitude const & A, SLongitudeLatitude const & B)
 		{
-			SVector2<T> Offset;
+			vec2<T> Offset;
 			SLongitudeLatitude Left, Right;
 
 			Left.Longitude = A.Longitude;
@@ -273,10 +273,10 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		{
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
-			SVector2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
+			vec2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
 
-			SVector2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
-			SVector2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
+			vec2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
+			vec2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
 
 			LeftProjected *= UnitLength;
 			RightProjected *= UnitLength;
@@ -284,14 +284,14 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 			return LeftProjected.GetDistanceFrom(RightProjected);
 		}
 
-		virtual SVector2<T> OffsetBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
+		virtual vec2<T> OffsetBetween(SLongitudeLatitude const & Left, SLongitudeLatitude const & Right)
 		{
 			CHaversineProjection Haversine;
 			SLongitudeLatitude const Center((Left.Longitude + Right.Longitude) / 2, PhiStandard);
-			SVector2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
+			vec2<T> const UnitLength = Haversine.OffsetBetween(Center - 0.5, Center + 0.5);
 
-			SVector2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
-			SVector2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
+			vec2<T> LeftProjected(Left.Longitude * Cos(PhiStandard), Left.Latitude);
+			vec2<T> RightProjected(Right.Longitude * Cos(PhiStandard), Right.Latitude);
 
 			LeftProjected *= UnitLength;
 			RightProjected *= UnitLength;
@@ -312,7 +312,7 @@ struct SLongitudeLatitude : public SVector<T, 2, SLongitudeLatitude<T> >
 		return Projection->DistanceBetween(* this, Other);
 	}
 
-	SVector2<T> OffsetTo(SLongitudeLatitude const & Other, SharedPointer<IProjectionSystem> Projection = SharedFromNew(new CHaversineProjection())) const
+	vec2<T> OffsetTo(SLongitudeLatitude const & Other, SharedPointer<IProjectionSystem> Projection = SharedFromNew(new CHaversineProjection())) const
 	{
 		return Projection->OffsetBetween(* this, Other);
 	}

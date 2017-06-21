@@ -82,6 +82,18 @@ namespace ion
 		glfwSetCursorPos(WindowHandle, CursorLocation.X, CursorLocation.Y);
 	}
 
+	void CWindow::SetCursorVisible(bool const Visible)
+	{
+		if (Visible)
+		{
+			glfwSetInputMode(WindowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else
+		{
+			glfwSetInputMode(WindowHandle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+	}
+
 	vec2f CWindow::GetRelativeCursorLocation() const
 	{
 		return CursorLocation / vec2f(Size);

@@ -39,7 +39,14 @@ namespace ion
 				UploadData(Data.data(), sizeof(T), Data.size());
 			}
 
+			template <typename T>
+			void UploadSubData(vector<T> const & Data, size_t const Offset)
+			{
+				UploadSubData(Data.data(), sizeof(T), Offset, Data.size());
+			}
+
 			virtual void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements) = 0;
+			virtual void UploadSubData(void const * const Data, size_t const DataSize, size_t const Offset, size_t const NumberOfElements) = 0;
 
 			virtual void SetInputLayout(SInputLayoutElement const * const InputLayout, int const NumElements) = 0;
 

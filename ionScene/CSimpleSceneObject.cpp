@@ -60,6 +60,7 @@ namespace ion
 			}
 			PipelineState->SetPolygonOffsetAmount(PolygonOffsetAmount);
 			PipelineState->SetBlendMode(BlendMode);
+			PipelineState->SetPrimitiveType(PrimitiveType);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded[RenderPass] = true;
@@ -150,6 +151,16 @@ namespace ion
 			}
 
 			this->BlendMode = BlendMode;
+		}
+
+		void CSimpleSceneObject::SetPrimitiveType(Graphics::EPrimitiveType const PrimitiveType)
+		{
+			for (auto Iterator : PipelineStates)
+			{
+				Iterator.second->SetPrimitiveType(PrimitiveType);
+			}
+
+			this->PrimitiveType = PrimitiveType;
 		}
 
 		void CSimpleSceneObject::SetRenderCategory(uint const Category)

@@ -193,6 +193,27 @@ public:
 		return * this;
 	}
 
+	SColorA<T> & operator = (color3<T> const & col)
+	{
+		Red = col.Red;
+		Green = col.Green;
+		Blue = col.Blue;
+		Alpha = Color::Full<T>::Value();
+
+		return * this;
+	}
+
+	template <typename U>
+	SColorA<T> & operator = (color3<U> const & col)
+	{
+		Red = Color::Convert<T, U>::From(col.Red);
+		Green = Color::Convert<T, U>::From(col.Green);
+		Blue = Color::Convert<T, U>::From(col.Blue);
+		Alpha = Color::Full<T>::Value();
+
+		return * this;
+	}
+
 	template <typename U, u32 OtherDimension>
 	void set(SVectorBase<U, OtherDimension> const & other)
 	{
