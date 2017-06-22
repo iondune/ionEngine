@@ -21,15 +21,15 @@ namespace ion
 
 		public:
 
-			CPerspectiveCamera(f32 const aspectRatio, f32 const nearPlane = 0.1f, f32 const farPlane = 100.f, f32 const focalLength = 0.13f);
+			CPerspectiveCamera(float const aspectRatio, float const nearPlane = 0.1f, float const farPlane = 100.f, float const focalLength = 0.13f);
 
-			f32 GetFieldOfView() const;
-			f32 GetFocalLength() const;
-			f32 GetAspectRatio() const;
+			float GetFieldOfView() const;
+			float GetFocalLength() const;
+			float GetAspectRatio() const;
 
-			void SetFieldOfView(f32 const fieldOfView);
-			void SetFocalLength(f32 const focalLength);
-			void SetAspectRatio(f32 const aspectRatio);
+			void SetFieldOfView(float const fieldOfView);
+			void SetFocalLength(float const focalLength);
+			void SetAspectRatio(float const aspectRatio);
 
 			void RecalculateProjectionMatrix();
 			void Update();
@@ -41,8 +41,8 @@ namespace ion
 
 			EProjectionType ProjectionType = EProjectionType::Standard;
 
-			f32 FocalLength;
-			f32 AspectRatio;
+			float FocalLength;
+			float AspectRatio;
 
 		};
 

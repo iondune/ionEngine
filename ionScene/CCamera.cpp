@@ -87,22 +87,22 @@ namespace ion
 			ProjectionMatrix = projectionMatrix;
 		}
 
-		f32 CCamera::GetNearPlane() const
+		float CCamera::GetNearPlane() const
 		{
 			return NearPlane;
 		}
 
-		f32 CCamera::GetFarPlane() const
+		float CCamera::GetFarPlane() const
 		{
 			return FarPlane;
 		}
 
-		void CCamera::SetNearPlane(f32 const nearPlane)
+		void CCamera::SetNearPlane(float const nearPlane)
 		{
 			NearPlane = nearPlane;
 		}
 
-		void CCamera::SetFarPlane(f32 const farPlane)
+		void CCamera::SetFarPlane(float const farPlane)
 		{
 			FarPlane = farPlane;
 		}

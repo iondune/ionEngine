@@ -580,7 +580,7 @@ namespace ion
 
 		glm::tvec4<T> const ToGLM() const
 		{
-			return glm::vec4<T>(X, Y, Z, W);
+			return glm::tvec4<T>(X, Y, Z, W);
 		}
 
 		static vec4<T> FromGLM(glm::tvec4<T> const & Vec)

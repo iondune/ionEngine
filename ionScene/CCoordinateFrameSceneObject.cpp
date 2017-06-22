@@ -11,20 +11,16 @@ namespace ion
 	{
 		
 		CCoordinateFrameSceneObject::CCoordinateFrameSceneObject()
-		{
-
-		}
+		{}
 
 		CCoordinateFrameSceneObject::~CCoordinateFrameSceneObject()
-		{
-
-		}
+		{}
 
 		void CCoordinateFrameSceneObject::Load(CRenderPass * RenderPass)
 		{
 			SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
-			vector<f32> const Vertices
+			vector<float> const Vertices
 			{
 				0, 0, 0,  1, 0, 0,
 				1, 0, 0,  1, 0, 0,
@@ -34,7 +30,7 @@ namespace ion
 				0, 0, 1,  0, 0, 1,
 			};
 
-			vector<u32> const Indices
+			vector<uint> const Indices
 			{
 				0, 1,
 				2, 3,
@@ -60,7 +56,6 @@ namespace ion
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded[RenderPass] = true;
-
 		}
 
 		void CCoordinateFrameSceneObject::Draw(CRenderPass * RenderPass)

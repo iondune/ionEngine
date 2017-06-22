@@ -7,13 +7,13 @@ namespace ion
 	namespace Scene
 	{
 
-		COrthographicCamera::COrthographicCamera(f32 const left, f32 const right, f32 const bottom, f32 const top)
+		COrthographicCamera::COrthographicCamera(float const left, float const right, float const bottom, float const top)
 			: Left(left), Right(right), Bottom(bottom), Top(top)
 		{}
 
 		void COrthographicCamera::RecalculateProjectionMatrix()
 		{
-			ProjectionMatrix = glm::ortho<f32>(Left, Right, Bottom, Top, NearPlane, FarPlane);
+			ProjectionMatrix = glm::ortho<float>(Left, Right, Bottom, Top, NearPlane, FarPlane);
 		}
 
 		void COrthographicCamera::Update()
@@ -22,42 +22,42 @@ namespace ion
 			RecalculateProjectionMatrix();
 		}
 
-		f32 COrthographicCamera::GetLeft() const
+		float COrthographicCamera::GetLeft() const
 		{
 			return Left;
 		}
 
-		f32 COrthographicCamera::GetRight() const
+		float COrthographicCamera::GetRight() const
 		{
 			return Right;
 		}
 
-		f32 COrthographicCamera::GetBottom() const
+		float COrthographicCamera::GetBottom() const
 		{
 			return Bottom;
 		}
 
-		f32 COrthographicCamera::GetTop() const
+		float COrthographicCamera::GetTop() const
 		{
 			return Top;
 		}
 
-		void COrthographicCamera::SetRight(f32 const right)
+		void COrthographicCamera::SetRight(float const right)
 		{
 			Right = right;
 		}
 
-		void COrthographicCamera::SetLeft(f32 const left)
+		void COrthographicCamera::SetLeft(float const left)
 		{
 			Left = left;
 		}
 
-		void COrthographicCamera::SetTop(f32 const top)
+		void COrthographicCamera::SetTop(float const top)
 		{
 			Top = top;
 		}
 
-		void COrthographicCamera::SetBottom(f32 const bottom)
+		void COrthographicCamera::SetBottom(float const bottom)
 		{
 			Bottom = bottom;
 		}

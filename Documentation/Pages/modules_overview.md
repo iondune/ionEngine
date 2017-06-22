@@ -22,6 +22,7 @@ digraph deps {
    ionGraphics -> ionWindow      [dir="back"];
    ionWindow -> ionGraphicsGL    [dir="back"];
    ionWindow -> ionGUI           [dir="back"];
+   ionGraphicsGL -> ionScene     [dir="back"];
 }
 @enddot
 
