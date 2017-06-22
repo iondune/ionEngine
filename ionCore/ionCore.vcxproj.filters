@@ -1,28 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ionComparison.h" />
-    <ClInclude Include="ionUtils.h" />
     <ClInclude Include="ionCore.h" />
-    <ClInclude Include="ionClass.h" />
-    <ClInclude Include="ionLogger.h" />
-    <ClInclude Include="ionSmartPointer.h" />
-    <ClInclude Include="Bitwise.h" />
-    <ClInclude Include="ionTypes.h" />
-    <ClInclude Include="ITreeNode.h" />
-    <ClInclude Include="IMultiTreeNode.h" />
-    <ClInclude Include="String.h" />
-    <ClInclude Include="File.h" />
-    <ClInclude Include="ionContainer.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="IEntity.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="SingletonPointer.h" />
+    <ClInclude Include="ionClass.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionComparison.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionLogger.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionSmartPointer.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionContainer.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionTypes.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionUtils.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="IMultiTreeNode.h">
+      <Filter>Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ITreeNode.h">
+      <Filter>Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonPointer.h">
+      <Filter>Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Helper Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Helper Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>Helper Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitwise.h">
+      <Filter>Helper Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bitwise.cpp" />
-    <ClCompile Include="ionUtils.cpp" />
-    <ClCompile Include="String.cpp" />
-    <ClCompile Include="File.cpp" />
+    <ClCompile Include="ionUtils.cpp">
+      <Filter>Core Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Helper Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Helper Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitwise.cpp">
+      <Filter>Helper Classes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core Utilities">
+      <UniqueIdentifier>{7955db46-d067-4594-a7d8-0bb47d8fcdc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Classes">
+      <UniqueIdentifier>{258dbc45-38c5-4fc0-bbc3-93c831b5182b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper Classes">
+      <UniqueIdentifier>{101d5ca4-4bf2-458f-b597-6f832a20be45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
