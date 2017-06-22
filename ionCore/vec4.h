@@ -9,7 +9,7 @@ namespace ion
 {
 
 	//! \brief 4D vector
-	//! \ingroup ionMath
+	//! \ingroup ionCore
 	template <typename T>
 	class vec4
 	{

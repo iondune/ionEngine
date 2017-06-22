@@ -9,7 +9,7 @@ namespace ion
 {
 
 	//! \brief Customized variant of vec4 that intelligently handles conversion between floating point and integer colors
-	//! \ingroup ionMath
+	//! \ingroup ionCore
 	template <typename T>
 	class color4 : public vec4<T>
 	{

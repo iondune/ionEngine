@@ -10,7 +10,7 @@ namespace ion
 {
 
 	//! \brief 3D vector
-	//! \ingroup ionMath
+	//! \ingroup ionCore
 	template <typename T>
 	struct vec3
 	{

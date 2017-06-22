@@ -21,6 +21,6 @@
 
 //! \defgroup ionMath ionMath
 //!
-//! ionMath provides vector classes and various geometric primitives.
+//! ionMath provides various geometric primitives.
 //!
 

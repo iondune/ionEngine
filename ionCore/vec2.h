@@ -11,7 +11,7 @@ namespace ion
 {
 
 	//! \brief 2D vector
-	//! \ingroup ionMath
+	//! \ingroup ionCore
 	template <typename T>
 	struct vec2
 	{

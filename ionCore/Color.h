@@ -12,7 +12,7 @@ namespace ion
 	{
 
 		//! \brief Some very basic colors
-		//! \ingroup ionMath
+		//! \ingroup ionCore
 		struct Basic
 		{
 			static color3f const White;
@@ -27,7 +27,7 @@ namespace ion
 		};
 
 		//! \brief Packs a color into 24 bits
-		//! \ingroup ionMath
+		//! \ingroup ionCore
 		static uint PackBits24(color3i const & Color)
 		{
 			uint const Red = Color.Red;
@@ -37,7 +37,7 @@ namespace ion
 		}
 
 		//! \brief Unacks a color from 24 bits
-		//! \ingroup ionMath
+		//! \ingroup ionCore
 		static color3i UnpackBits24(uint const Value)
 		{
 			color3i Color;

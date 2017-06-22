@@ -12,7 +12,7 @@ namespace ion
 	{
 
 		//! \brief Determines the maximum color value for a given type
-		//! \ingroup ionMath
+		//! \ingroup ionCore
 		template <typename T>
 		struct Full
 		{};
@@ -36,7 +36,7 @@ namespace ion
 		};
 
 		//! \brief Implements a conversion between two color types
-		//! \ingroup ionMath
+		//! \ingroup ionCore
 		template <typename T, typename U>
 		struct Convert
 		{};
@@ -62,7 +62,7 @@ namespace ion
 	}
 
 	//! \brief Customized variant of vec3 that intelligently handles conversion between floating point and integer colors
-	//! \ingroup ionMath
+	//! \ingroup ionCore
 	template <typename T>
 	class color3 : public vec3<T>
 	{
