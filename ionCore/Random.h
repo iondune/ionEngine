@@ -1,11 +1,4 @@
 
-/*!
-\file ionRand.h
-\ingroup ionCore
-\brief Random number generators and helpers.
-*/
-
-
 #pragma once
 
 #include <ionConfig.h>

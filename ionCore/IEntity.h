@@ -1,15 +1,4 @@
 
-/*!
-\file ionComponent.h
-\ingroup ionCore
-\brief Basic component-entity system driven by types
-
-Basic Usage:
-
-Derive your entity class from IEntity<T> where T is the base class of your
-Entity class.
-*/
-
 #pragma once
 
 #include "ionTypes.h"
@@ -19,8 +8,10 @@ Entity class.
 namespace ion
 {
 
-	//! \brief Base class for Component-Entity design pattern implementation
+	//! \brief Base class for Component-Entity design pattern implementation driven by types
 	//! \ingroup ionCore
+	//! Basic Usage:
+	//! Derive your entity class from IEntity<T> where T is the base class of your Entity class.
 	template <typename TComponent>
 	class IEntity
 	{
