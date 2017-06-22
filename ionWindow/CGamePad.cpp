@@ -25,12 +25,12 @@ namespace ion
 		return RightStick;
 	}
 
-	f32 CGamePad::GetLeftTrigger() const
+	float CGamePad::GetLeftTrigger() const
 	{
 		return LeftTrigger;
 	}
 
-	f32 CGamePad::GetRightTrigger() const
+	float CGamePad::GetRightTrigger() const
 	{
 		return RightTrigger;
 	}
@@ -40,11 +40,11 @@ namespace ion
 		return ButtonPressed[(int) Button];
 	}
 
-	static inline f32 GamepadStick(s16 in)
+	static inline float GamepadStick(short const in)
 	{
-		f32 v;
+		float v = 0;
 		if (abs(in) < 9000)
-			return 0;
+			v = 0;
 		else if (in > 9000)
 			v = in - 9000.f;
 		else
@@ -52,7 +52,7 @@ namespace ion
 		return v / (32767 - 9000);
 	}
 
-	static inline f32 GamepadTrigger(u8 in)
+	static inline float GamepadTrigger(short const in)
 	{
 		if (in < 30)
 			return 0;

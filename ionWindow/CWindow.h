@@ -28,7 +28,7 @@ namespace ion
 		vec2i const & GetSize() const;
 		vec2i const & GetFrameBufferSize() const;
 
-		f32 GetAspectRatio() const;
+		float GetAspectRatio() const;
 		void SwapBuffers();
 
 		vec2i GetPosition() const;

@@ -34,16 +34,16 @@ namespace ion
 
 		vec2f LeftStick;
 		vec2f RightStick;
-		f32 LeftTrigger;
-		f32 RightTrigger;
+		float LeftTrigger;
+		float RightTrigger;
 		bool ButtonPressed[(int) EGamePadButton::Count];
 
 	public:
 
 		vec2f const & GetLeftStick() const;
 		vec2f const & GetRightStick() const;
-		f32 GetLeftTrigger() const;
-		f32 GetRightTrigger() const;
+		float GetLeftTrigger() const;
+		float GetRightTrigger() const;
 		bool IsButtonPressed(EGamePadButton const Button);
 
 		void UpdateState();

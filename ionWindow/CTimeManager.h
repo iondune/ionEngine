@@ -20,20 +20,20 @@ namespace ion
 
 		public:
 
-			f64 GetTick() const;
-			f64 GetElapsedTime() const;
-			f64 GetMaxDuration() const;
-			f64 GetAccumulator() const;
+			double GetTick() const;
+			double GetElapsedTime() const;
+			double GetMaxDuration() const;
+			double GetAccumulator() const;
 
 		protected:
 
 			friend class CTimeManager;
-			CUpdateTick(f64 const Tick, f64 const MaxDuration);
-			void Update(f64 const Elapsed);
+			CUpdateTick(double const Tick, double const MaxDuration);
+			void Update(double const Elapsed);
 
-			f64 Tick;
-			f64 MaxDuration;
-			f64 Accumulator;
+			double Tick;
+			double MaxDuration;
+			double Accumulator;
 
 		};
 
@@ -45,24 +45,24 @@ namespace ion
 		void SkipElapsedTime();
 
 		//! Get the time elapsed between this frame and the last frame in seconds
-		f64 GetElapsedTime() const;
+		double GetElapsedTime() const;
 
 		//! Same as ElapsedTime, except before TimeMultiplier is applied
-		f64 GetActualElapsedTime() const;
+		double GetActualElapsedTime() const;
 
-		f64 GetRunTime() const;
-		f64 GetTimeMultiplier() const;
+		double GetRunTime() const;
+		double GetTimeMultiplier() const;
 
-		void SetTimeMultiplier(f64 const TimeMultiplier);
+		void SetTimeMultiplier(double const TimeMultiplier);
 
-		CUpdateTick * MakeUpdateTick(f64 const Tick, f32 const MaxDuration = 1.0);
+		CUpdateTick * MakeUpdateTick(double const Tick, double const MaxDuration = 1.0);
 
 	protected:
 
-		f64 ElapsedTime = 0;
-		f64 RunTime = 0;
-		f64 LastTime = 0;
-		f64 TimeMultiplier = 1;
+		double ElapsedTime = 0;
+		double RunTime = 0;
+		double LastTime = 0;
+		double TimeMultiplier = 1;
 
 		vector<CUpdateTick *> UpdateTicks;
 
@@ -79,12 +79,12 @@ namespace ion
 	public:
 
 		CStopWatch();
-		f64 Start();
-		f64 Stop();
+		double Start();
+		double Stop();
 
 	private:
 
-		f64 t0;
+		double t0;
 
 	};
 
