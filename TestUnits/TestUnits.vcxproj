@@ -20,7 +20,6 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(VisualStudioDir)\SDKs\Catch\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>PAUSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
