@@ -34,7 +34,7 @@ int main()
 	// Buffer Setup //
 	//////////////////
 
-	vector<f32> const Vertices
+	vector<float> const Vertices
 	{
 		// Position    // Tex  // Color
 		 0.5f,  0.5f,   1, 1,   1, 0, 0,
@@ -43,7 +43,7 @@ int main()
 		-0.5f,  0.5f,   0, 1,   0, 1, 1,
 	};
 
-	vector<u32> const Indices
+	vector<uint> const Indices
 	{
 		0, 1, 2,
 		0, 2, 3,

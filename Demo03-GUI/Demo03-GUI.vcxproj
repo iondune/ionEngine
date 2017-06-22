@@ -20,6 +20,7 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
+        ;ionCore.lib;
         ;ionFramework.lib;
         ;ionWindow.lib;
         ;ionGraphics.lib;
