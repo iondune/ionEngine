@@ -5,15 +5,20 @@
 #include <vector>
 
 
-class CColorTable
+namespace ion
 {
 
-	std::vector<color3i> Colors;
+	class CColorTable
+	{
 
-public:
+		vector<color3i> Colors;
 
-	CColorTable();
+	public:
 
-	color3i const & Get(f32 const Value);
+		CColorTable();
 
-};
+		color3i const & Get(float const Value);
+
+	};
+
+}

@@ -2,6 +2,8 @@
 #include <ionMath.h>
 #include <catch.hpp>
 
+using namespace ion;
+
 
 TEST_CASE("vec3::vec3")
 {

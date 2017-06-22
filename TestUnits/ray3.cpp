@@ -2,6 +2,8 @@
 #include <catch.hpp>
 #include <ionMath.h>
 
+using namespace ion;
+
 
 TEST_CASE("ray-sphere intersection", "")
 {

@@ -11,19 +11,10 @@
     <ClCompile Include="SVector2.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
-    <ClCompile Include="ionSmartPtr.cpp">
-      <Filter>ionCore</Filter>
-    </ClCompile>
-    <ClCompile Include="ionUtils.cpp">
-      <Filter>ionCore</Filter>
-    </ClCompile>
     <ClCompile Include="ionComponent.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
     <ClCompile Include="ionLogger.cpp">
-      <Filter>ionCore</Filter>
-    </ClCompile>
-    <ClCompile Include="ionStandardLibrary.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
     <ClCompile Include="Interpolation.cpp">
@@ -38,11 +29,23 @@
     <ClCompile Include="IsUniformNameArrayElement.cpp">
       <Filter>ionScene</Filter>
     </ClCompile>
-    <ClCompile Include="ionBitwise.cpp">
-      <Filter>ionCore</Filter>
-    </ClCompile>
     <ClCompile Include="ray3.cpp">
       <Filter>ionMath</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBitwise.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ionContainer.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFile.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="TestString.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="TestionUtils.cpp">
+      <Filter>ionCore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

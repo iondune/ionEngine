@@ -24,19 +24,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
-    <ClCompile Include="ionBitwise.cpp" />
+    <ClCompile Include="TestBitwise.cpp" />
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
     <ClCompile Include="ionLogger.cpp" />
-    <ClCompile Include="ionSmartPtr.cpp" />
-    <ClCompile Include="ionStandardLibrary.cpp" />
-    <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="ionContainer.cpp" />
+    <ClCompile Include="TestionUtils.cpp" />
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
     <ClCompile Include="ray3.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
     <ClCompile Include="SVector2.cpp" />
     <ClCompile Include="SVector3.cpp" />
+    <ClCompile Include="TestFile.cpp" />
+    <ClCompile Include="TestString.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

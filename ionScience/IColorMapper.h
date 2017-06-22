@@ -8,12 +8,17 @@
 #include "IDatabase.h"
 
 
-class IColorMapper
+namespace ion
 {
 
-public:
+	class IColorMapper
+	{
 
-	virtual SColorAf const GetColor(IDataRecord<f64> const & DataRecord) = 0;
-	virtual void PreProcessValues(IDatabase<f64> & Database) = 0;
+	public:
 
-};
+		virtual color4f const GetColor(IDataRecord<double> const & DataRecord) = 0;
+		virtual void PreProcessValues(IDatabase<double> & Database) = 0;
+
+	};
+
+}

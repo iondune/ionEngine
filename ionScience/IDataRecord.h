@@ -2,13 +2,18 @@
 #pragma once
 
 
-template <typename T>
-class IDataRecord
+namespace ion
 {
 
-public:
+	template <typename T>
+	class IDataRecord
+	{
 
-	virtual T GetField(std::string const & Field) const = 0;
-	virtual T & GetField(std::string const & Field) = 0;
+	public:
 
-};
+		virtual T GetField(std::string const & Field) const = 0;
+		virtual T & GetField(std::string const & Field) = 0;
+
+	};
+
+}

@@ -2,6 +2,8 @@
 #include <ionCore.h>
 #include <catch.hpp>
 
+using namespace ion;
+
 
 TEST_CASE("ionUtils::DigitCount", "")
 {
@@ -110,20 +112,20 @@ TEST_CASE("ionUtils::Sign")
 	CHECK(Sign<float>(-0.1f) == -1);
 	CHECK(Sign<float>(RoundingError32) == 1);
 	CHECK(Sign<float>(-RoundingError32) == -1);
-	CHECK(Sign<float>(NumericLimits<float>::max()) == 1);
-	CHECK(Sign<float>(-NumericLimits<float>::max()) == -1);
+	CHECK(Sign<float>(std::numeric_limits<float>::max()) == 1);
+	CHECK(Sign<float>(-std::numeric_limits<float>::max()) == -1);
 }
 
 TEST_CASE("ionUtils::MakeEven")
 {
-	CHECK(MakeEven<int>(0) == 0);
-	CHECK(MakeEven<int>(1) == 0);
-	CHECK(MakeEven<int>(2) == 2);
-	CHECK(MakeEven<int>(3) == 2);
-	CHECK(MakeEven<int>(4) == 4);
+	CHECK(MakeEven(0) == 0);
+	CHECK(MakeEven(1) == 0);
+	CHECK(MakeEven(2) == 2);
+	CHECK(MakeEven(3) == 2);
+	CHECK(MakeEven(4) == 4);
 
-	CHECK(MakeEven<int>(-1) == -2);
-	CHECK(MakeEven<int>(-2) == -2);
-	CHECK(MakeEven<int>(-3) == -4);
-	CHECK(MakeEven<int>(-4) == -4);
+	CHECK(MakeEven(-1) == -2);
+	CHECK(MakeEven(-2) == -2);
+	CHECK(MakeEven(-3) == -4);
+	CHECK(MakeEven(-4) == -4);
 }

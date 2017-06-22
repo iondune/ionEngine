@@ -2,65 +2,70 @@
 #include "IProgressBar.h"
 
 
-void IProgressBar::CTask::Update(f64 const progress)
+namespace ion
 {
-	Update((f32) progress);
-}
 
-void IProgressBar::CTask::Update(f32 const progress)
-{
-	if (Progress < progress)
+	void IProgressBar::CTask::Update(double const progress)
 	{
-		Progress = progress;
-		ProgressBar->SetProgress(Start + Value * Progress);
+		Update((float) progress);
 	}
-}
 
-IProgressBar::CTask::CTask(IProgressBar * ProgressBar, f32 const value, f32 const start)
-	: Value(value), Start(start), Progress()
-{
-	this->ProgressBar = ProgressBar;
-}
-
-IProgressBar::IProgressBar()
-	: Progress(), Started(false)
-{}
-
-void IProgressBar::BeginProgress()
-{
-	Progress = 0;
-	Started = true;
-	Start();
-	Render();
-}
-
-void IProgressBar::SetProgress(f64 const progress)
-{
-	SetProgress((f32) progress);
-}
-
-void IProgressBar::SetProgress(f32 const progress)
-{
-	if (! Started)
-		BeginProgress();
-
-	if (Progress < progress)
+	void IProgressBar::CTask::Update(float const progress)
 	{
-		Progress = progress;
+		if (Progress < progress)
+		{
+			Progress = progress;
+			ProgressBar->SetProgress(Start + Value * Progress);
+		}
+	}
+
+	IProgressBar::CTask::CTask(IProgressBar * ProgressBar, float const value, float const start)
+		: Value(value), Start(start), Progress()
+	{
+		this->ProgressBar = ProgressBar;
+	}
+
+	IProgressBar::IProgressBar()
+		: Progress(), Started(false)
+	{}
+
+	void IProgressBar::BeginProgress()
+	{
+		Progress = 0;
+		Started = true;
+		Start();
 		Render();
 	}
-}
 
-void IProgressBar::EndProgress()
-{
-	Progress = 1;
-	Render();
-	Finish();
+	void IProgressBar::SetProgress(double const progress)
+	{
+		SetProgress((float) progress);
+	}
 
-	Started = false;
-}
+	void IProgressBar::SetProgress(float const progress)
+	{
+		if (! Started)
+			BeginProgress();
 
-IProgressBar::CTask * IProgressBar::NewTask(f32 const value)
-{
-	return new CTask(this, value, Progress);
+		if (Progress < progress)
+		{
+			Progress = progress;
+			Render();
+		}
+	}
+
+	void IProgressBar::EndProgress()
+	{
+		Progress = 1;
+		Render();
+		Finish();
+
+		Started = false;
+	}
+
+	IProgressBar::CTask * IProgressBar::NewTask(float const value)
+	{
+		return new CTask(this, value, Progress);
+	}
+
 }

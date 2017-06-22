@@ -2,8 +2,9 @@
 #include <ionScene.h>
 #include <catch.hpp>
 
-
+using namespace ion;
 using namespace ion::Scene;
+
 
 TEST_CASE("IsUniformNameArrayElement")
 {
