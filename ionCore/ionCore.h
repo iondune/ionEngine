@@ -22,6 +22,9 @@
 #include "ITreeNode.h"
 #include "IMultiTreeNode.h"
 
+#include "vec2.h"
+#include "vec3.h"
+
 
 //! \defgroup ionCore ionCore
 //!

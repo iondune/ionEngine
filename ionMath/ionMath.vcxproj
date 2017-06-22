@@ -30,8 +30,6 @@
     <ClInclude Include="STriangle2.h" />
     <ClInclude Include="STriangle3.h" />
     <ClInclude Include="SVector.h" />
-    <ClInclude Include="SVector2.h" />
-    <ClInclude Include="SVector3.h" />
     <ClInclude Include="SVector4.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>

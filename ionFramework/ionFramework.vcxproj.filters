@@ -4,7 +4,6 @@
     <ClCompile Include="CStateManager.cpp">
       <Filter>State System</Filter>
     </ClCompile>
-    <ClCompile Include="ionDirectory.cpp" />
     <ClCompile Include="ionSTB.cpp" />
     <ClCompile Include="CImage.cpp" />
   </ItemGroup>
@@ -22,7 +21,6 @@
     <ClInclude Include="IEvent.h">
       <Filter>Event Management</Filter>
     </ClInclude>
-    <ClInclude Include="ionDirectory.h" />
     <ClInclude Include="CImage.h" />
   </ItemGroup>
   <ItemGroup>

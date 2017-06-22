@@ -21,12 +21,6 @@
     <ClInclude Include="SColor.h">
       <Filter>Vector\Implementations</Filter>
     </ClInclude>
-    <ClInclude Include="SVector2.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
-    <ClInclude Include="SVector3.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="SVector4.h">
       <Filter>Vector\Implementations</Filter>

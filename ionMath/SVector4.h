@@ -1,10 +1,9 @@
 
 #pragma once
 
-#include <ionConfig.h>
+#include <ionCore.h>
 
 #include "SVector.h"
-#include "SVector3.h"
 
 
 //! \brief 4D vector
@@ -121,34 +120,34 @@ public:
 		return FromGLM(v);
 	}
 
-	vec2<T> XY() const
+	ion::vec2<T> XY() const
 	{
-		return vec2<T>(X, Y);
+		return ion::vec2<T>(X, Y);
 	}
 
-	vec2<T> XZ() const
+	ion::vec2<T> XZ() const
 	{
-		return vec2<T>(X, Z);
+		return ion::vec2<T>(X, Z);
 	}
 
-	vec2<T> XW() const
+	ion::vec2<T> XW() const
 	{
-		return vec2<T>(X, W);
+		return ion::vec2<T>(X, W);
 	}
 
-	vec2<T> YZ() const
+	ion::vec2<T> YZ() const
 	{
-		return vec2<T>(Y, Z);
+		return ion::vec2<T>(Y, Z);
 	}
 
-	vec2<T> ZW() const
+	ion::vec2<T> ZW() const
 	{
-		return vec2<T>(Z, W);
+		return ion::vec2<T>(Z, W);
 	}
 
-	vec3<T> XYZ() const
+	ion::vec3<T> XYZ() const
 	{
-		return vec3<T>(Values[0], Values[1], Values[2]);
+		return ion::vec3<T>(Values[0], Values[1], Values[2]);
 	}
 
 };

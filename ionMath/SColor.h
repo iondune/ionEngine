@@ -1,8 +1,8 @@
 
 #pragma once
 
+#include <ionCore.h>
 #include "SVector.h"
-#include "SVector3.h"
 
 
 namespace Color
@@ -64,7 +64,7 @@ class SColorA;
 //! \brief Customized variant of vec3 that intelligently handles conversion between floating point and integer colors
 //! \ingroup ionMath
 template <typename T>
-class color3 : public vec3<T>
+class color3 : public ion::vec3<T>
 {
 
 public:

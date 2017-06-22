@@ -25,6 +25,7 @@
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
+    <ClInclude Include="Directory.h" />
     <ClInclude Include="ionLogger.h" />
     <ClInclude Include="ionContainer.h" />
     <ClInclude Include="Random.h" />
@@ -35,10 +36,13 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SingletonPointer.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="vec2.h" />
+    <ClInclude Include="vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitwise.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="Directory.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="String.cpp" />
   </ItemGroup>

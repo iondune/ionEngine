@@ -50,6 +50,15 @@
     <ClInclude Include="Bitwise.h">
       <Filter>Helper Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Directory.h">
+      <Filter>Helper Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="vec3.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vec2.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp">
@@ -64,6 +73,9 @@
     <ClCompile Include="Bitwise.cpp">
       <Filter>Helper Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Directory.cpp">
+      <Filter>Helper Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core Utilities">
@@ -74,6 +86,9 @@
     </Filter>
     <Filter Include="Helper Classes">
       <UniqueIdentifier>{101d5ca4-4bf2-458f-b597-6f832a20be45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{66f568ba-eb1b-4ea7-9788-8c59efbbf4c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
