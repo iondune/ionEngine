@@ -13,6 +13,7 @@
 #include "ionUtils.h"
 #include "ionLogger.h"
 
+#include "Directory.h"
 #include "String.h"
 #include "File.h"
 #include "Bitwise.h"
