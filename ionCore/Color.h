@@ -11,11 +11,15 @@ namespace ion
 	namespace Color
 	{
 
+		extern color3f const White;
+		extern color3f const Black;
+
 		//! \brief Some very basic colors
 		//! \ingroup ionCore
 		struct Basic
 		{
 			static color3f const White;
+			static color3f const Grey;
 			static color3f const Black;
 			static color3f const Red;
 			static color3f const Orange;
