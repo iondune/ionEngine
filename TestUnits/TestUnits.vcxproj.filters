@@ -47,6 +47,9 @@
     <ClCompile Include="TestionUtils.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="SRect2.cpp">
+      <Filter>ionMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
