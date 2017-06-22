@@ -1,6 +1,8 @@
 
 #include "ionGUI.h"
 
+using namespace ion;
+
 
 namespace ImGui
 {

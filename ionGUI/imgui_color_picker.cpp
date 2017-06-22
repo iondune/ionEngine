@@ -10,6 +10,8 @@
 #include <imgui_internal.h> // ImSaturate
 #include "ionGUI.h"
 
+using namespace ion;
+
 
 namespace ImGui
 {
