@@ -46,7 +46,7 @@ namespace ion
 		//! Generic copy constructor
 		template <typename U>
 		color4(color4<U> const & Other)
-			: Red(this->X), Green(this->Y), Blue(this->Z), Alpha(this->W), vec3<T>()
+			: Red(this->X), Green(this->Y), Blue(this->Z), Alpha(this->W), vec4<T>()
 		{
 			Red = Color::Convert<T, U>::From(Other.Red);
 			Green = Color::Convert<T, U>::From(Other.Green);
