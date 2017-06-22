@@ -41,6 +41,7 @@ endfunction(ExecutableDependencies)
 #########
 
 # Libraries
+add_subdirectory("ionCore")
 add_subdirectory("ionFramework")
 add_subdirectory("ionWindow")
 add_subdirectory("ionGraphics")

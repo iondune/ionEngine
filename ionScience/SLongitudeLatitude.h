@@ -66,7 +66,7 @@ namespace ion
 
 		static T DMStoDecimal(std::string const & String)
 		{
-			f64 Deg, Min, Sec;
+			double Deg, Min, Sec;
 			char Dir;
 			ECompassDirection Direction;
 

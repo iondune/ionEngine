@@ -26,7 +26,7 @@ namespace ion
 
 		protected:
 
-			Graphics::CUniform<color3f> Color = 1.f;
+			Graphics::CUniform<color3f> Color = color3f(1.f);
 			Graphics::CUniform<vec3f> Direction = vec3f(0, -1, 0);
 
 		};

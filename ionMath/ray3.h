@@ -219,7 +219,7 @@ namespace ion
 			if ((v < 0.f || u + v > 1.f) && ! Equals(v, 0.f) && ! Equals(u + v, 1.f))
 				return false;
 
-			f32 const t = f * Dot(e2, q);
+			float const t = f * Dot(e2, q);
 
 			if (t >= 0.f || Equals(t, 0.f))
 			{

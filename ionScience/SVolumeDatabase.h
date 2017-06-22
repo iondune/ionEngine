@@ -110,16 +110,16 @@ namespace ion
 		{
 			ColorMapper->PreProcessValues(* this);
 
-			u8 * const VolumeData = new u8[Dimensions.X * Dimensions.Y * Dimensions.Z * 4];
+			byte * const VolumeData = new byte[Dimensions.X * Dimensions.Y * Dimensions.Z * 4];
 
-			for (s32 k = 0; k < Dimensions.Z; ++ k)
-				for (s32 j = 0; j < Dimensions.Y; ++ j)
-					for (s32 i = 0; i < Dimensions.X; ++ i)
+			for (int k = 0; k < Dimensions.Z; ++ k)
+				for (int j = 0; j < Dimensions.Y; ++ j)
+					for (int i = 0; i < Dimensions.X; ++ i)
 					{
-						u32 const Index = i + j * Dimensions.X + k * Dimensions.X * Dimensions.Y;
+						int const Index = i + j * Dimensions.X + k * Dimensions.X * Dimensions.Y;
 						color4i const Color = ColorMapper->GetColor(Get(i, j, k));
 
-						for (u32 t = 0; t < 4; ++ t)
+						for (int t = 0; t < 4; ++ t)
 							VolumeData[Index * 4 + t] = Color[t];
 					}
 
@@ -136,23 +136,23 @@ namespace ion
 		void WriteToFile(std::ofstream & File)
 		{
 			// Write Dimensions
-			File.write((char *) & Dimensions.X, sizeof(u32));
-			File.write((char *) & Dimensions.Y, sizeof(u32));
-			File.write((char *) & Dimensions.Z, sizeof(u32));
+			File.write((char *) & Dimensions.X, sizeof(uint));
+			File.write((char *) & Dimensions.Y, sizeof(uint));
+			File.write((char *) & Dimensions.Z, sizeof(uint));
 
 			// Write Fields
-			u32 const FieldCount = Fields.size();
-			File.write((char *) & FieldCount, sizeof(u32));
+			size_t const FieldCount = Fields.size();
+			File.write((char *) & FieldCount, sizeof(size_t));
 			for (auto it = Fields.begin(); it != Fields.end(); ++ it)
 			{
-				u32 const Length = it->size();
-				File.write((char *) & Length, sizeof(u32));
+				size_t const Length = it->size();
+				File.write((char *) & Length, sizeof(size_t));
 				File.write(it->c_str(), Length);
 			}
 
 			// Write Records
-			u32 const RecordCount = Values.size();
-			File.write((char *) & RecordCount, sizeof(u32));
+			size_t const RecordCount = Values.size();
+			File.write((char *) & RecordCount, sizeof(size_t));
 
 			for (auto it = Values.begin(); it != Values.end(); ++ it)
 				File.write((char *) & it->Values.begin(), sizeof(T));
@@ -164,18 +164,18 @@ namespace ion
 			Fields.clear();
 
 			// Read Dimensions
-			File.read((char *) & Dimensions.X, sizeof(u32));
-			File.read((char *) & Dimensions.Y, sizeof(u32));
-			File.read((char *) & Dimensions.Z, sizeof(u32));
+			File.read((char *) & Dimensions.X, sizeof(uint));
+			File.read((char *) & Dimensions.Y, sizeof(uint));
+			File.read((char *) & Dimensions.Z, sizeof(uint));
 
 			// Read Fields
-			u32 FieldCount;
-			File.read((char *) & FieldCount, sizeof(u32));
+			size_t FieldCount;
+			File.read((char *) & FieldCount, sizeof(size_t));
 
-			for (u32 i = 0; i < FieldCount; ++ i)
+			for (size_t i = 0; i < FieldCount; ++ i)
 			{
-				u32 Length;
-				File.read((char *) & Length, sizeof(u32));
+				size_t Length;
+				File.read((char *) & Length, sizeof(size_t));
 
 				char * Buffer = new char[Length + 1];
 				File.read(Buffer, Length);
@@ -186,14 +186,14 @@ namespace ion
 			}
 
 			// Read Records
-			u32 RecordCount;
-			File.read((char *) & RecordCount, sizeof(u32));
+			size_t RecordCount;
+			File.read((char *) & RecordCount, sizeof(size_t));
 			Values.reserve(RecordCount);
 
-			for (u32 i = 0; i < RecordCount; ++ i)
+			for (size_t i = 0; i < RecordCount; ++ i)
 			{
 				SVolumeDataRecord<T> Record(* this);
-				for (u32 t = 0; t < FieldCount; ++ t)
+				for (size_t t = 0; t < FieldCount; ++ t)
 				{
 					T Value;
 					File.read((char *) & Value, sizeof(T));

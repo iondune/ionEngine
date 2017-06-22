@@ -59,7 +59,7 @@ namespace ion
 
 			// at this stage we can compute t to find out where
 			// the intersection point is on the line
-			f32 t = f * Dot(e2, q);
+			float t = f * Dot(e2, q);
 
 			if (t > 0.00001) // ray intersection
 				return true;

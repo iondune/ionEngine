@@ -4,6 +4,7 @@ target_link_libraries(Demo02-GL ionGraphicsGL)
 target_link_libraries(Demo02-GL ionGraphics)
 target_link_libraries(Demo02-GL ionWindow)
 target_link_libraries(Demo02-GL ionFramework)
+target_link_libraries(Demo02-GL ionCore)
 ExecutableDependencies(Demo02-GL)
 add_custom_command(
 	TARGET Demo02-GL POST_BUILD

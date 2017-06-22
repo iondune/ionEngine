@@ -3,6 +3,7 @@
 
 #include "ionTypes.h"
 #include "ionComparison.h"
+#include "ionMathFunctions.h"
 
 #include <glm/glm.hpp>
 
