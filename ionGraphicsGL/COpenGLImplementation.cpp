@@ -30,9 +30,9 @@ static void PrintShaderInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		Log::Error("--- Shader Info Log: -------------------------------");
-		Log::Error("%s", InfoLog);
-		Log::Error("----------------------------------------------------");
+		ion::Log::Error("--- Shader Info Log: -------------------------------");
+		ion::Log::Error("%s", InfoLog);
+		ion::Log::Error("----------------------------------------------------");
 		delete[] InfoLog;
 	}
 }
@@ -320,7 +320,7 @@ namespace ion
 
 			if (Texture2D->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
@@ -367,7 +367,7 @@ namespace ion
 
 			if (Texture3D->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y, Size.Z)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture3D->Handle));
@@ -413,7 +413,7 @@ namespace ion
 
 			if (Texture2DArray->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y, Size.Z)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture2DArray->Handle));
@@ -459,7 +459,7 @@ namespace ion
 
 			if (TextureCubeMap->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & TextureCubeMap->Handle));

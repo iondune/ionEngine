@@ -21,7 +21,7 @@ static void PrintProgramInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetProgramInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		Log::Error("Program Info Log: %s", InfoLog);
+		ion::Log::Error("Program Info Log: %s", InfoLog);
 		delete[] InfoLog;
 	}
 }
@@ -97,7 +97,7 @@ namespace ion
 						char * Name = new char[ActiveAttributeMaxLength + 1];
 
 						CheckedGLCall(glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name));
-						Attributes[Name] = make_pair(glGetAttribLocation(Handle, Name), DataType);
+						Attributes[Name] = std::make_pair(glGetAttribLocation(Handle, Name), DataType);
 						delete Name;
 					}
 				}

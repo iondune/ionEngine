@@ -17,19 +17,19 @@ namespace ion
 
 			void CTexture::ApplyParams()
 			{
-				static u32 const FilterMatrix[3][2] =
+				static uint const FilterMatrix[3][2] =
 				{
 					{GL_NEAREST, GL_LINEAR},
 					{GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST},
 					{GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR},
 				};
 
-				static u32 const FilterLookup[2] =
+				static uint const FilterLookup[2] =
 				{
 					GL_NEAREST, GL_LINEAR
 				};
 
-				static u32 const WrapLookup[3] =
+				static uint const WrapLookup[3] =
 				{
 					GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT
 				};
@@ -82,7 +82,7 @@ namespace ion
 				ApplyParams();
 			}
 
-			void CTexture::SetAnisotropy(f32 const Anisotropy)
+			void CTexture::SetAnisotropy(float const Anisotropy)
 			{
 				this->Anisotropy = Anisotropy;
 				ApplyParams();
@@ -108,7 +108,7 @@ namespace ion
 				return WrapMode;
 			}
 
-			f32 CTexture::GetAnisotropy()
+			float CTexture::GetAnisotropy()
 			{
 				return Anisotropy;
 			}
@@ -117,7 +117,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			u32 const CTexture::InternalFormatMatrix[4][10] =
+			uint const CTexture::InternalFormatMatrix[4][10] =
 			{
 
 				// Components
@@ -146,7 +146,7 @@ namespace ion
 				{ GL_RGBA8, GL_RGBA16F, GL_RGBA32F, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA8UI, GL_RGBA16UI, GL_RGBA32UI, GL_DEPTH_COMPONENT32 },
 			};
 
-			u32 const CTexture::FormatMatrix[4][2] =
+			uint const CTexture::FormatMatrix[4][2] =
 			{
 				GL_RED,  GL_RED_INTEGER,
 				GL_RG,   GL_RG_INTEGER,
@@ -180,8 +180,8 @@ namespace ion
 			{
 				if (Size != TextureSize)
 				{
-					cerr << "GL::Texture2D upload size does not match storage size." << endl;
-					cerr << "Handle is " << Handle << endl;
+					Log::Error("GL::Texture2D upload size does not match storage size.");
+					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Data, vec2u(0, 0), Size, Components, Type);
@@ -194,13 +194,12 @@ namespace ion
 				glTexSubImage2D(GL_TEXTURE_2D, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glTexSubImage2D: " << GetOpenGLError() << endl;
-					cerr << "Handle is " << Handle << endl;
-					cerr << "Offset is " << Offset << endl;
-					cerr << "Size is " << Size << endl;
-					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
-					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
-					cerr << endl;
+					Log::Error("Error occured during glTexSubImage2D: %s", GetOpenGLError());
+					Log::Error("Handle is %u", Handle);
+					Log::Error("Offset is %s", Offset);
+					Log::Error("Size is %s", Size);
+					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
+					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
 				}
 				else
 				{
@@ -218,12 +217,11 @@ namespace ion
 				glGetTexImage(GL_TEXTURE_2D, 0, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glGetTexImage: " << GetOpenGLError() << endl;
-					cerr << "Handle is " << Handle << endl;
-					cerr << "Size is " << Size << endl;
-					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
-					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
-					cerr << endl;
+					Log::Error("Error occured during glGetTexImage: %s", GetOpenGLError());
+					Log::Error("Handle is %u", Handle);
+					Log::Error("Size is %s", Size);
+					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
+					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
 				}
 				else
 				{
@@ -234,12 +232,12 @@ namespace ion
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
-			u32 CTexture2D::GetGLBindTextureTarget() const
+			uint CTexture2D::GetGLBindTextureTarget() const
 			{
 				return GL_TEXTURE_2D;
 			}
 
-			u32 CTexture2D::GetGLTextureBindingEnum() const
+			uint CTexture2D::GetGLTextureBindingEnum() const
 			{
 				return GL_TEXTURE_BINDING_2D;
 			}
@@ -253,8 +251,8 @@ namespace ion
 			{
 				if (Size != TextureSize)
 				{
-					cerr << "GL::Texture3D upload size does not match storage size." << endl;
-					cerr << "Handle is " << Handle << endl;
+					Log::Error("GL::Texture3D upload size does not match storage size.");
+					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Data, vec3u(0, 0, 0), Size, Components, Type);
@@ -267,13 +265,12 @@ namespace ion
 				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glTexSubImage3D: " << GetOpenGLError() << endl;
-					cerr << "Handle is " << Handle << endl;
-					cerr << "Offset is " << Offset << endl;
-					cerr << "Size is " << Size << endl;
-					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
-					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
-					cerr << endl;
+					Log::Error("Error occured during glTexSubImage3D: %s", GetOpenGLError());
+					Log::Error("Handle is %u", Handle);
+					Log::Error("Offset is %s", Offset);
+					Log::Error("Size is %s", Size);
+					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
+					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
 				}
 				else
 				{
@@ -284,12 +281,12 @@ namespace ion
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, 0));
 			}
 
-			u32 CTexture2DArray::GetGLBindTextureTarget() const
+			uint CTexture2DArray::GetGLBindTextureTarget() const
 			{
 				return GL_TEXTURE_2D_ARRAY;
 			}
 
-			u32 CTexture2DArray::GetGLTextureBindingEnum() const
+			uint CTexture2DArray::GetGLTextureBindingEnum() const
 			{
 				return GL_TEXTURE_BINDING_2D_ARRAY;
 			}
@@ -303,8 +300,8 @@ namespace ion
 			{
 				if (Size != TextureSize)
 				{
-					cerr << "GL::Texture3D upload size does not match storage size." << endl;
-					cerr << "Handle is " << Handle << endl;
+					Log::Error("GL::Texture3D upload size does not match storage size.");
+					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Data, vec3u(0, 0, 0), Size, Components, Type);
@@ -317,13 +314,12 @@ namespace ion
 				glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glTexSubImage3D: " << GetOpenGLError() << endl;
-					cerr << "Handle is " << Handle << endl;
-					cerr << "Offset is " << Offset << endl;
-					cerr << "Size is " << Size << endl;
-					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
-					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
-					cerr << endl;
+					Log::Error("Error occured during glTexSubImage3D: %s", GetOpenGLError());
+					Log::Error("Handle is %u", Handle);
+					Log::Error("Offset is %s", Offset);
+					Log::Error("Size is %s", Size);
+					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
+					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
 				}
 				else
 				{
@@ -334,12 +330,12 @@ namespace ion
 				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 			}
 
-			u32 CTexture3D::GetGLBindTextureTarget() const
+			uint CTexture3D::GetGLBindTextureTarget() const
 			{
 				return GL_TEXTURE_3D;
 			}
 
-			u32 CTexture3D::GetGLTextureBindingEnum() const
+			uint CTexture3D::GetGLTextureBindingEnum() const
 			{
 				return GL_TEXTURE_BINDING_3D;
 			}
@@ -353,8 +349,8 @@ namespace ion
 			{
 				if (Size != TextureSize)
 				{
-					cerr << "GL::Texture3D upload size does not match storage size." << endl;
-					cerr << "Handle is " << Handle << endl;
+					Log::Error("GL::Texture3D upload size does not match storage size.");
+					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Face, Data, vec2u(0, 0), Size, Components, Type);
@@ -367,13 +363,12 @@ namespace ion
 				glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + (int) Face, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glTexSubImage2D for CTextureCubeMap: " << GetOpenGLError() << endl;
-					cerr << "Handle is " << Handle << endl;
-					cerr << "Offset is " << Offset << endl;
-					cerr << "Size is " << Size << endl;
-					cerr << "Format is " << FormatStringMatrix[(int) Components] << endl;
-					cerr << "Type is " << Util::ScalarTypeStringMatrix[(int) Type] << endl;
-					cerr << endl;
+					Log::Error("Error occured during glTexSubImage2D for CTextureCubeMap: %s", GetOpenGLError());
+					Log::Error("Handle is %u", Handle);
+					Log::Error("Offset is %s", Offset);
+					Log::Error("Size is %s", Size);
+					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
+					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
 				}
 				else
 				{

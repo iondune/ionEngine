@@ -20,8 +20,8 @@ namespace ion
 
 			public:
 				
-				static u32 const InternalFormatMatrix[4][10];
-				static u32 const FormatMatrix[4][2];
+				static uint const InternalFormatMatrix[4][10];
+				static uint const FormatMatrix[4][2];
 
 				static string const InternalFormatStringMatrix[4][10];
 				static string const FormatStringMatrix[4];
@@ -31,13 +31,13 @@ namespace ion
 				void SetMagFilter(EFilter const MagFilter);
 				void SetMipMapFilter(EFilter const MipMapFilter);
 				void SetWrapMode(EWrapMode const WrapMode);
-				void SetAnisotropy(f32 const Anisotropy);
+				void SetAnisotropy(float const Anisotropy);
 
 				EFilter GetMinFilter();
 				EFilter GetMagFilter();
 				EFilter GetMipMapFilter();
 				EWrapMode GetWrapMode();
-				f32 GetAnisotropy();
+				float GetAnisotropy();
 				
 				void ApplyParams();
 				virtual uint GetGLBindTextureTarget() const = 0;
@@ -52,7 +52,7 @@ namespace ion
 
 				//! Anisotrophic filtering value
 				//! A value < 0 indicates that the max anisotrophy value should be used
-				f32 Anisotropy = -1;
+				float Anisotropy = -1;
 
 				bool MipMaps = true;
 				bool IsInteger = false;

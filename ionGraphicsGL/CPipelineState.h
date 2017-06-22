@@ -58,7 +58,7 @@ namespace ion
 				map<uint, SharedPointer<IUniform const>> BoundUniforms;
 
 				map<string, SharedPointer<ITexture const>> Textures;
-				map<u32, SharedPointer<ITexture const>> BoundTextures;
+				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;

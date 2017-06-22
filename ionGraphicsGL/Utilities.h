@@ -20,7 +20,7 @@ namespace ion
 			void IgnoreOpenGLError();
 			string GetOpenGLError();
 			void PrintOpenGLErrors(char const * const Before = nullptr);
-			void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line);
+			void PrintOpenGLErrors(char const * const Function, char const * const File, int const Line);
 			bool CheckGLFunctionPointer(void * Ptr, char const * const FunctionName);
 
 #ifdef _DEBUG
@@ -55,11 +55,9 @@ namespace ion
 			{
 			public:
 
-				static u32 const ScalarTypeMatrix[9];
-				static u64 const SizeMatrix[7];
-
+				static uint const ScalarTypeMatrix[9];
 				static string const ScalarTypeStringMatrix[9];
-				static string const SizeStringMatrix[7];
+
 			};
 		}
 	}
