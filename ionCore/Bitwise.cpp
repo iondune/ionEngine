@@ -15,7 +15,7 @@ namespace ion
 		return Byte;
 	}
 
-	vector<uint> ByteToBits(uint const Byte)
+	vector<uint> Bitwise::ByteToBits(uint const Byte)
 	{
 		vector<uint> Bits;
 
@@ -30,7 +30,7 @@ namespace ion
 		return Bits;
 	}
 
-	uint BitCount(uint i)
+	uint Bitwise::BitCount(uint i)
 	{
 		i = i - ((i >> 1) & 0x55555555);
 		i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
