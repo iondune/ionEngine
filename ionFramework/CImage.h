@@ -14,21 +14,21 @@ namespace ion
 
 		static CImage * Load(std::string const & FileName);
 
-		CImage(byte * const Data, vec2u const Size, u8 const Channels);
+		CImage(ion::byte * const Data, vec2u const Size, int const Channels);
 		CImage(color4f const & Color, bool const Alpha = false);
 		~CImage();
 
-		uint GetWidth() const;
-		uint GetHeight() const;
+		int GetWidth() const;
+		int GetHeight() const;
 		vec2u GetSize() const;
-		uint GetStride() const;
-		uint GetChannels() const;
+		int GetStride() const;
+		int GetChannels() const;
 
-		color4i GetPixel(uint const x, uint const y) const;
-		void SetPixel(uint const x, uint const y, color4i const color);
+		color4i GetPixel(int const x, int const y) const;
+		void SetPixel(int const x, int const y, color4i const color);
 
-		u8 const * GetData() const;
-		u8 * GetData();
+		ion::byte const * GetData() const;
+		ion::byte * GetData();
 
 		bool HasAlpha() const;
 
@@ -41,7 +41,7 @@ namespace ion
 
 		byte * Data;
 		vec2u Size;
-		u8 Channels;
+		int Channels;
 
 	};
 

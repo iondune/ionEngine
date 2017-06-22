@@ -12,181 +12,95 @@
 #include <typeinfo>
 
 
-//! \brief Check whether an object is an instance of a type
-//! \ingroup ionCore
-//! \param Object Object to check the type of
-//! \tparam T Type to check Object against
-//! \tparam U Actual type of Object (best left inferred)
-//!
-//! Implemented by checking the return value of dynamic_cast.
-//! Relies on RTTI.
-template <typename T, typename U>
-bool InstanceOf(U * Object)
+namespace ion
 {
-	return dynamic_cast<T const *>(Object) != 0;
+
+	//! \brief Lightweight wrapper for std::type_info that enables sorting (e.g. for use in a std::map)
+	//! \ingroup ionCore
+	struct Type
+	{
+		Type(std::type_info const & value)
+			: Value(value)
+		{}
+
+		bool operator <(Type const & other) const
+		{
+			return Value.before(other.Value);
+		}
+
+		std::type_info const & Value;
+	};
+
+	//! \brief Check whether an object is an instance of a type
+	//! \ingroup ionCore
+	//! \param Object Object to check the type of
+	//! \tparam T Type to check Object against
+	//! \tparam U Actual type of Object (best left inferred)
+	//!
+	//! Implemented by checking the return value of dynamic_cast.
+	//! Relies on RTTI.
+	template <typename T, typename U>
+	bool InstanceOf(U * Object)
+	{
+		return dynamic_cast<T const *>(Object) != 0;
+	}
+
+	//! \brief Check whether an object is an instance of a type
+	//! \ingroup ionCore
+	//! \param Object Object to check the type of
+	//! \tparam T Type to check Object against
+	//! \tparam U Actual type of Object (best left inferred)
+	//!
+	//! Implemented by checking the return value of dynamic_cast.
+	//! Relies on RTTI.
+	template <typename T, typename U>
+	bool InstanceOf(U & Object)
+	{
+		return dynamic_cast<T const *>(& Object) != 0;
+	}
+
+	//! \brief Casts an object as a different type, performing a validity check
+	//! \ingroup ionCore
+	//! \param Object Pointer to object to cast
+	//! \tparam T Type to cast to
+	//! \tparam U Type to cast from, type of Object
+	template <typename T, typename U>
+	T * As(U * Object)
+	{
+		return dynamic_cast<T *>(Object);
+	}
+
+	//! \brief Casts a constant object as a different type, performing a validity check
+	//! \ingroup ionCore
+	//! \param Object Pointer to object to cast
+	//! \tparam T Type to cast to
+	//! \tparam U Type to cast from, type of Object
+	template <typename T, typename U>
+	T const * As(U const * Object)
+	{
+		return dynamic_cast<T const *>(Object);
+	}
+
+	//! \brief Casts an object as a different type, performing a validity check
+	//! \ingroup ionCore
+	//! \param Object Reference to object to cast
+	//! \tparam T Type to cast to
+	//! \tparam U Type to cast from, type of Object
+	template <typename T, typename U>
+	T & As(U & Object)
+	{
+		return * dynamic_cast<T *>(& Object);
+	}
+
+	//! \brief Casts a constant object as a different type, performing a validity check
+	//! \ingroup ionCore
+	//! \param Object Reference to object to cast
+	//! \tparam T Type to cast to
+	//! \tparam U Type to cast from, type of Objec
+	template <typename T, typename U>
+	T const & As(U const & Object)
+	{
+		return * dynamic_cast<T const *>(& Object);
+	}
+
 }
-
-//! \brief Check whether an object is an instance of a type
-//! \ingroup ionCore
-//! \param Object Object to check the type of
-//! \tparam T Type to check Object against
-//! \tparam U Actual type of Object (best left inferred)
-//!
-//! Implemented by checking the return value of dynamic_cast.
-//! Relies on RTTI.
-template <typename T, typename U>
-bool InstanceOf(U & Object)
-{
-	return dynamic_cast<T const *>(& Object) != 0;
-}
-
-//! \brief Casts an object as a different type, performing a validity check
-//! \ingroup ionCore
-//! \param Object Pointer to object to cast
-//! \tparam T Type to cast to
-//! \tparam U Type to cast from, type of Object
-template <typename T, typename U>
-T * As(U * Object)
-{
-	return dynamic_cast<T *>(Object);
-}
-
-//! \brief Casts a constant object as a different type, performing a validity check
-//! \ingroup ionCore
-//! \param Object Pointer to object to cast
-//! \tparam T Type to cast to
-//! \tparam U Type to cast from, type of Object
-template <typename T, typename U>
-T const * As(U const * Object)
-{
-	return dynamic_cast<T const *>(Object);
-}
-
-//! \brief Casts an object as a different type, performing a validity check
-//! \ingroup ionCore
-//! \param Object Reference to object to cast
-//! \tparam T Type to cast to
-//! \tparam U Type to cast from, type of Object
-template <typename T, typename U>
-T & As(U & Object)
-{
-	return * dynamic_cast<T *>(& Object);
-}
-
-//! \brief Casts a constant object as a different type, performing a validity check
-//! \ingroup ionCore
-//! \param Object Reference to object to cast
-//! \tparam T Type to cast to
-//! \tparam U Type to cast from, type of Objec
-template <typename T, typename U>
-T const & As(U const & Object)
-{
-	return * dynamic_cast<T const *>(& Object);
-}
-
-//! \brief Base class for Singleton design pattern implementation
-//! \ingroup ionCore
-template <class Implementation>
-class Singleton
-{
-
-	Singleton(Singleton const &) = delete;
-	Singleton & operator = (Singleton const &) = delete;
-
-public:
-
-	static Implementation & Get()
-	{
-		static Implementation * Instance = 0;
-
-		if (! Instance)
-			Instance = new Implementation();
-
-		return * Instance;
-	}
-
-	static Implementation * GetPointer()
-	{
-		return & Get();
-	}
-
-protected:
-
-	Singleton()
-	{}
-
-};
-
-//! \brief Wraps a pointer to a singleton object
-//! \ingroup ionCore
-template <class T>
-class SingletonPointer
-{
-
-public:
-
-	T * operator ->()
-	{
-		return GetReference();
-	}
-
-	T * Get()
-	{
-		return GetReference();
-	}
-
-	operator T*()
-	{
-		return GetReference();
-	}
-
-	T const * operator ->() const
-	{
-		return GetReference();
-	}
-
-	T const * Get() const
-	{
-		return GetReference();
-	}
-
-	operator T const *() const
-	{
-		return GetReference();
-	}
-
-private:
-
-	mutable T * Reference = 0;
-
-	T * GetReference()
-	{
-		if (! Reference)
-			Reference = T::GetPointer();
-		return Reference;
-	}
-
-	T const * GetReference() const
-	{
-		if (! Reference)
-			Reference = T::GetPointer();
-		return Reference;
-	}
-
-};
-
-//! \brief Lightweight wrapper for std::type_info that enables sorting (e.g. for use in a std::map)
-//! \ingroup ionCore
-struct Type
-{
-	Type(std::type_info const & value)
-		: Value(value)
-	{}
-
-	bool operator <(Type const & other) const
-	{
-		return Value.before(other.Value);
-	}
-
-	std::type_info const & Value;
-};

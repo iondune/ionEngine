@@ -138,10 +138,10 @@ public:
 
 };
 
-typedef SRect2<f32> SRect2f;
-typedef SRect2<f64> SRect2d;
-typedef SRect2<s32> SRect2i;
-typedef SRect2<u32> SRect2u;
+typedef SRect2<float> SRect2f;
+typedef SRect2<double> SRect2d;
+typedef SRect2<int> SRect2i;
+typedef SRect2<ion::uint> SRect2u;
 
 typedef SRect2f rect2f;
 typedef SRect2d rect2d;

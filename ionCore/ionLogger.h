@@ -8,239 +8,245 @@
 
 #pragma once
 
-#include "ionStandardLibrary.h"
+#include "ionTypes.h"
+#include "String.h"
 
-#include <tinyformat.h>
 #ifdef ION_CONFIG_WINDOWS
 #include <Windows.h>
 #endif
 
-//! \brief Channels used by Log
-//! \ingroup ionCore
-enum class ELogChannel
-{
-	Error = 0,
-	Warn = 1,
-	Info = 2
-};
 
-//! \brief Logging class
-//! \ingroup ionCore
-class Log
+namespace ion
 {
 
-public:
-
-	class Output
+	//! \brief Channels used by Log
+	//! \ingroup ionCore
+	enum class ELogChannel
 	{
-
-	public:
-
-		virtual void Write(string const & Message) = 0;
-
+		Error = 0,
+		Warn = 1,
+		Info = 2
 	};
 
-	class StandardOutput : public Output
+	//! \brief Logging class
+	//! \ingroup ionCore
+	class Log
 	{
 
 	public:
 
-		StandardOutput(std::ostream & Stream)
-			: Stream(Stream)
-		{}
-
-		virtual void Write(string const & Message)
+		class Output
 		{
-			Stream << Message << endl;
-		}
 
-	private:
+		public:
 
-		std::ostream & Stream;
+			virtual void Write(string const & Message) = 0;
 
-	};
+		};
+
+		class StandardOutput : public Output
+		{
+
+		public:
+
+			StandardOutput(std::ostream & Stream)
+				: Stream(Stream)
+			{}
+
+			virtual void Write(string const & Message)
+			{
+				Stream << Message << std::endl;
+			}
+
+		private:
+
+			std::ostream & Stream;
+
+		};
 
 #ifdef ION_CONFIG_WINDOWS
-	class DebugLogOutput : public Output
-	{
-
-	public:
-
-		virtual void Write(string const & Message)
+		class DebugLogOutput : public Output
 		{
-			OutputDebugString(Message.c_str());
-			OutputDebugString("\n");
-		}
 
-	};
+		public:
+
+			virtual void Write(string const & Message)
+			{
+				OutputDebugString(Message.c_str());
+				OutputDebugString("\n");
+			}
+
+		};
 #endif
 
-	template <typename... Args>
-	static void Info(char const * const Format, Args const &... args)
-	{
-		Write(ELogChannel::Info, Format, args...);
-	}
+		template <typename... Args>
+		static void Info(char const * const Format, Args const &... args)
+		{
+			Write(ELogChannel::Info, Format, args...);
+		}
 
-	template <typename... Args>
-	static void Warn(char const * const Format, Args const &... args)
-	{
-		Write(ELogChannel::Warn, Format, args...);
-	}
+		template <typename... Args>
+		static void Warn(char const * const Format, Args const &... args)
+		{
+			Write(ELogChannel::Warn, Format, args...);
+		}
 
-	template <typename... Args>
-	static void Error(char const * const Format, Args const &... args)
-	{
-		Write(ELogChannel::Error, Format, args...);
-	}
+		template <typename... Args>
+		static void Error(char const * const Format, Args const &... args)
+		{
+			Write(ELogChannel::Error, Format, args...);
+		}
 
-	template <typename... Args>
-	static void Write(ELogChannel const Channel, char const * const Format, Args const &... args)
-	{
+		template <typename... Args>
+		static void Write(ELogChannel const Channel, char const * const Format, Args const &... args)
+		{
 #ifndef _ION_CONFIG_SUPPRESS_LOG
-		WriteInternal(Channel, tfm::format(Format, args...));
+			WriteInternal(Channel, tfm::format(Format, args...));
 #endif
-	}
+		}
 
-	static vector<string> const & GetMessages()
-	{
-		return AllLoggedMessages();
-	}
+		static vector<string> const & GetMessages()
+		{
+			return AllLoggedMessages();
+		}
 
-	static vector<string> const & GetMessages(ELogChannel const Which)
-	{
-		return GetChannel(Which).Messages;
-	}
+		static vector<string> const & GetMessages(ELogChannel const Which)
+		{
+			return GetChannel(Which).Messages;
+		}
 
-	static vector<pair<string, int>> const & GetMessagesDetail(ELogChannel const Which)
-	{
-		return GetChannel(Which).GetMessagesDetail();
-	}
+		static vector<pair<string, int>> const & GetMessagesDetail(ELogChannel const Which)
+		{
+			return GetChannel(Which).GetMessagesDetail();
+		}
 
-	static void AddOutput(ELogChannel const Which, Output * Out)
-	{
-		GetChannel(Which).WriteTo.push_back(Out);
-	}
+		static void AddOutput(ELogChannel const Which, Output * Out)
+		{
+			GetChannel(Which).WriteTo.push_back(Out);
+		}
 
-	static void AddOutputToAllChannels(Output * Out)
-	{
-		GetChannel(ELogChannel::Error).WriteTo.push_back(Out);
-		GetChannel(ELogChannel::Warn).WriteTo.push_back(Out);
-		GetChannel(ELogChannel::Info).WriteTo.push_back(Out);
-	}
+		static void AddOutputToAllChannels(Output * Out)
+		{
+			GetChannel(ELogChannel::Error).WriteTo.push_back(Out);
+			GetChannel(ELogChannel::Warn).WriteTo.push_back(Out);
+			GetChannel(ELogChannel::Info).WriteTo.push_back(Out);
+		}
 
-	static void AddDefaultOutputs()
-	{
-		AddOutput(ELogChannel::Error, new StandardOutput(cerr));
-		AddOutput(ELogChannel::Warn, new StandardOutput(cerr));
-		AddOutput(ELogChannel::Info, new StandardOutput(cout));
+		static void AddDefaultOutputs()
+		{
+			AddOutput(ELogChannel::Error, new StandardOutput(std::cerr));
+			AddOutput(ELogChannel::Warn, new StandardOutput(std::cerr));
+			AddOutput(ELogChannel::Info, new StandardOutput(std::cout));
 #ifdef ION_CONFIG_WINDOWS
-		AddOutputToAllChannels(new DebugLogOutput());
+			AddOutputToAllChannels(new DebugLogOutput());
 #endif
-	}
-
-	static void Clear()
-	{
-		AllLoggedMessages().clear();
-		GetChannel(ELogChannel::Info).Messages.clear();
-		GetChannel(ELogChannel::Info).MessageMap.clear();
-		GetChannel(ELogChannel::Warn).Messages.clear();
-		GetChannel(ELogChannel::Warn).MessageMap.clear();
-		GetChannel(ELogChannel::Error).Messages.clear();
-		GetChannel(ELogChannel::Error).MessageMap.clear();
-	}
-
-protected:
-
-	class Channel
-	{
-
-	public:
-
-		string Label;
-		vector<Output *> WriteTo;
-		vector<string> Messages;
-		vector<pair<string, int>> MessagesDetail;
-		unordered_map<string, int> MessageMap;
-
-		Channel(string const & Label)
-		{
-			this->Label = Label;
 		}
 
-		//! \return true if this is a new message, false if not
-		bool WriteMessage(string const & ToWrite)
+		static void Clear()
 		{
-			auto LookUp = MessageMap.find(ToWrite);
+			AllLoggedMessages().clear();
+			GetChannel(ELogChannel::Info).Messages.clear();
+			GetChannel(ELogChannel::Info).MessageMap.clear();
+			GetChannel(ELogChannel::Warn).Messages.clear();
+			GetChannel(ELogChannel::Warn).MessageMap.clear();
+			GetChannel(ELogChannel::Error).Messages.clear();
+			GetChannel(ELogChannel::Error).MessageMap.clear();
+		}
 
-			for (Output * Out : WriteTo)
+	protected:
+
+		class Channel
+		{
+
+		public:
+
+			string Label;
+			vector<Output *> WriteTo;
+			vector<string> Messages;
+			vector<pair<string, int>> MessagesDetail;
+			unordered_map<string, int> MessageMap;
+
+			Channel(string const & Label)
 			{
-				Out->Write(ToWrite);
+				this->Label = Label;
 			}
 
-			if (LookUp != MessageMap.end())
+			//! \return true if this is a new message, false if not
+			bool WriteMessage(string const & ToWrite)
 			{
-				LookUp->second ++;
+				auto LookUp = MessageMap.find(ToWrite);
 
-				return false;
+				for (Output * Out : WriteTo)
+				{
+					Out->Write(ToWrite);
+				}
+
+				if (LookUp != MessageMap.end())
+				{
+					LookUp->second ++;
+
+					return false;
+				}
+				else
+				{
+					MessageMap[ToWrite] = 1;
+					Messages.push_back(ToWrite);
+
+					return true;
+				}
 			}
-			else
-			{
-				MessageMap[ToWrite] = 1;
-				Messages.push_back(ToWrite);
 
-				return true;
+			vector<pair<string, int>> const & GetMessagesDetail()
+			{
+				MessagesDetail.clear();
+
+				for (auto const & Message : Messages)
+				{
+					MessagesDetail.push_back(make_pair(Message, MessageMap[Message]));
+				}
+
+				return MessagesDetail;
+			}
+
+		};
+
+		static Channel & GetChannel(ELogChannel const Which)
+		{
+			static Channel Info("Info");
+			static Channel Warn("Warn");
+			static Channel Error("Error");
+
+			switch (Which)
+			{
+			default:
+			case ELogChannel::Info:
+				return Info;
+			case ELogChannel::Warn:
+				return Warn;
+			case ELogChannel::Error:
+				return Error;
 			}
 		}
 
-		vector<pair<string, int>> const & GetMessagesDetail()
+		static string GetChannelLabel(ELogChannel const Which)
 		{
-			MessagesDetail.clear();
+			return GetChannel(Which).Label;
+		}
 
-			for (auto const & Message : Messages)
+		static void WriteInternal(ELogChannel const Which, std::string const & Message)
+		{
+			if (GetChannel(Which).WriteMessage(Message))
 			{
-				MessagesDetail.push_back(make_pair(Message, MessageMap[Message]));
+				AllLoggedMessages().push_back(GetChannelLabel(Which) + ": " + Message);
 			}
+		}
 
-			return MessagesDetail;
+		static vector<string> & AllLoggedMessages()
+		{
+			static vector<string> AllLoggedMessages;
+			return AllLoggedMessages;
 		}
 
 	};
 
-	static Channel & GetChannel(ELogChannel const Which)
-	{
-		static Channel Info("Info");
-		static Channel Warn("Warn");
-		static Channel Error("Error");
-
-		switch (Which)
-		{
-		default:
-		case ELogChannel::Info:
-			return Info;
-		case ELogChannel::Warn:
-			return Warn;
-		case ELogChannel::Error:
-			return Error;
-		}
-	}
-
-	static string GetChannelLabel(ELogChannel const Which)
-	{
-		return GetChannel(Which).Label;
-	}
-
-	static void WriteInternal(ELogChannel const Which, std::string const & Message)
-	{
-		if (GetChannel(Which).WriteMessage(Message))
-		{
-			AllLoggedMessages().push_back(GetChannelLabel(Which) + ": " + Message);
-		}
-	}
-
-	static vector<string> & AllLoggedMessages()
-	{
-		static vector<string> AllLoggedMessages;
-		return AllLoggedMessages;
-	}
-
-};
+}

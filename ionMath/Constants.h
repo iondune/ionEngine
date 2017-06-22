@@ -8,8 +8,8 @@
 namespace Constants32
 {
 
-	f32 const Pi = 3.14159265359f;
-	f32 const e =  2.71828182845f;
+	float const Pi = 3.14159265359f;
+	float const e =  2.71828182845f;
 
 };
 
@@ -17,8 +17,8 @@ namespace Constants32
 namespace Constants64
 {
 
-	f64 const Pi = 3.141592653589793238462643383279;
-	f64 const e =  2.718281828459045235360287471352;
+	double const Pi = 3.141592653589793238462643383279;
+	double const e =  2.718281828459045235360287471352;
 
 };
 
@@ -29,26 +29,26 @@ struct Constants
 {};
 
 template <>
-struct Constants<f32>
+struct Constants<float>
 {
-	static f32 Pi()
+	static float Pi()
 	{
 		return Constants32::Pi;
 	}
-	static f32 e()
+	static float e()
 	{
 		return Constants32::e;
 	}
 };
 
 template <>
-struct Constants<f64>
+struct Constants<double>
 {
-	static f64 Pi()
+	static double Pi()
 	{
 		return Constants64::Pi;
 	}
-	static f64 e()
+	static double e()
 	{
 		return Constants64::e;
 	}

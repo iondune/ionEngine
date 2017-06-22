@@ -1,18 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ionRand.h" />
-    <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionUtils.h" />
-    <ClInclude Include="ionThread.h" />
-    <ClInclude Include="ionTreeNode.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionClass.h" />
-    <ClInclude Include="ionStandardLibrary.h" />
-    <ClInclude Include="ionComponent.h" />
     <ClInclude Include="ionLogger.h" />
     <ClInclude Include="ionSmartPointer.h" />
-    <ClInclude Include="ionBitwise.h" />
+    <ClInclude Include="Bitwise.h" />
+    <ClInclude Include="ionTypes.h" />
+    <ClInclude Include="ITreeNode.h" />
+    <ClInclude Include="IMultiTreeNode.h" />
+    <ClInclude Include="String.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="ionContainer.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="IEntity.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SingletonPointer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bitwise.cpp" />
+    <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="String.cpp" />
+    <ClCompile Include="File.cpp" />
   </ItemGroup>
 </Project>

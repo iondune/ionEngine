@@ -5,7 +5,7 @@
 #include "IEvent.h"
 
 
-class IEventListener : public IMultiTreeNode<IEventListener>
+class IEventListener : public ion::IMultiTreeNode<IEventListener>
 {
 
 public:

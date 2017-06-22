@@ -27,7 +27,7 @@ namespace ion
 		return Image;
 	}
 
-	CImage::CImage(byte * const Data, vec2u const Size, u8 const Channels)
+	CImage::CImage(byte * const Data, vec2u const Size, int const Channels)
 	{
 		this->Data = Data;
 		this->Size = Size;
@@ -40,11 +40,11 @@ namespace ion
 		this->Channels = (Alpha ? 4 : 3);
 
 		uint Stride = GetStride();
-		Data = new u8[Size.X * Size.Y * Stride];
+		Data = new ion::byte[Size.X * Size.Y * Stride];
 
 		for (uint i = 0; i < Size.X * Size.Y; ++ i)
 			for (uint j = 0; j < Stride; ++ j)
-				Data[i*Stride + j] = (u8) (255.f * Color[j]);
+				Data[i*Stride + j] = (ion::byte) (255.f * Color[j]);
 	}
 
 	CImage::~CImage()
@@ -52,12 +52,12 @@ namespace ion
 		delete[] Data;
 	}
 
-	uint CImage::GetWidth() const
+	int CImage::GetWidth() const
 	{
 		return Size.X;
 	}
 
-	uint CImage::GetHeight() const
+	int CImage::GetHeight() const
 	{
 		return Size.Y;
 	}
@@ -67,19 +67,19 @@ namespace ion
 		return Size;
 	}
 
-	uint CImage::GetStride() const
+	int CImage::GetStride() const
 	{
 		return Channels;
 	}
 
-	uint CImage::GetChannels() const
+	int CImage::GetChannels() const
 	{
 		return Channels;
 	}
 
-	color4i CImage::GetPixel(uint const x, uint const y) const
+	color4i CImage::GetPixel(int const x, int const y) const
 	{
-		uint Stride = GetStride();
+		int const Stride = GetStride();
 
 		return color4i(
 			Data[x * Stride + y * Size.X * Stride + 0],
@@ -88,20 +88,20 @@ namespace ion
 			Data[x * Stride + y * Size.X * Stride + 3]);
 	}
 
-	void CImage::SetPixel(uint const x, uint const y, color4i const color)
+	void CImage::SetPixel(int const x, int const y, color4i const color)
 	{
-		uint Stride = GetStride();
+		int const Stride = GetStride();
 
-		for (uint i = 0; i < Stride; ++ i)
+		for (int i = 0; i < Stride; ++ i)
 			Data[x * Stride + y * Size.X * Stride + i] = color[i];
 	}
 
-	u8 const * CImage::GetData() const
+	ion::byte const * CImage::GetData() const
 	{
 		return Data;
 	}
 
-	u8 * CImage::GetData()
+	ion::byte * CImage::GetData()
 	{
 		return Data;
 	}
@@ -126,7 +126,9 @@ namespace ion
 			for (uint y = 0; y < Size.Y / 2; ++ y)
 			{
 				for (uint j = 0; j < Stride; ++ j)
+				{
 					std::swap(Data[x * Stride + y * Size.X * Stride + j], Data[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
+				}
 			}
 		}
 	}
@@ -135,7 +137,7 @@ namespace ion
 	{
 		uint const Stride = GetStride();
 
-		byte * NewData = new u8[NewSize.X * NewSize.Y * Stride];
+		byte * NewData = new ion::byte[NewSize.X * NewSize.Y * Stride];
 
 		for (int x = Position.X; x < Position.X + NewSize.X; ++ x)
 		{

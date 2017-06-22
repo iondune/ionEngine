@@ -28,7 +28,7 @@ namespace ion
 		AddListener(CurrentState);
 	}
 
-	void CStateManager::Update(f32 const ElapsedTime)
+	void CStateManager::Update(float const ElapsedTime)
 	{
 		if (CurrentState)
 			CurrentState->Update(ElapsedTime);

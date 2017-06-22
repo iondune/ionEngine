@@ -501,7 +501,7 @@ struct vec3
 		return ! Equals(v);
 	}
 
-	bool Equals(vec3<T> const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool Equals(vec3<T> const & v, T const Epsilon = ion::RoundingError<T>::Value()) const
 	{
 		return
 			::Equals(X, v.X, Epsilon) &&
@@ -580,21 +580,21 @@ struct vec3
 	// Matrix Transform //
 	//////////////////////
 
-	void Transform(glm::mat4 const & mat, f32 const TranslateComponent = 1)
+	void Transform(glm::mat4 const & mat, float const TranslateComponent = 1)
 	{
 		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
 		v = mat * v;
 		*this = FromGLM(v);
 	}
 
-	vec3<T> GetTransformed(glm::mat4 const & mat, f32 const TranslateComponent = 1) const
+	vec3<T> GetTransformed(glm::mat4 const & mat, float const TranslateComponent = 1) const
 	{
 		glm::vec4 v = glm::vec4(ToGLM(), TranslateComponent);
 		v = mat * v;
 		return FromGLM(v);
 	}
 
-	vec3<T> RotateAround(vec3<T> const & other, f32 const radians) const
+	vec3<T> RotateAround(vec3<T> const & other, float const radians) const
 	{
 		return GetTransformed(glm::rotate(glm::mat4(1.f), radians, other.ToGLM()));
 	}
@@ -631,7 +631,7 @@ struct vec3
 
 };
 
-typedef vec3<f32> vec3f;
-typedef vec3<f64> vec3d;
-typedef vec3<s32> vec3i;
-typedef vec3<u32> vec3u;
+typedef vec3<float> vec3f;
+typedef vec3<double> vec3d;
+typedef vec3<int> vec3i;
+typedef vec3<ion::uint> vec3u;

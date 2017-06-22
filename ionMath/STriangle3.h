@@ -68,10 +68,10 @@ public:
 
 };
 
-typedef STriangle3<f32> STriangle3f;
-typedef STriangle3<f64> STriangle3d;
-typedef STriangle3<s32> STriangle3i;
-typedef STriangle3<u32> STriangle3u;
+typedef STriangle3<float> STriangle3f;
+typedef STriangle3<double> STriangle3d;
+typedef STriangle3<int> STriangle3i;
+typedef STriangle3<ion::uint> STriangle3u;
 
 typedef STriangle3f tri3f;
 typedef STriangle3d tri3d;

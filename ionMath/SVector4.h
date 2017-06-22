@@ -63,7 +63,7 @@ public:
 	}
 
 	//! Generic vector constructor
-	template <typename U, u32 OtherDimension>
+	template <typename U, int OtherDimension>
 	SVector4(SVectorBase<U, OtherDimension> const & vec)
 		: X(Values[0]), Y(Values[1]), Z(Values[2]), W(Values[3])
 	{
@@ -89,7 +89,7 @@ public:
 	}
 
 	//! Generic vector assignment operator
-	template <typename U, u32 OtherDimension>
+	template <typename U, int OtherDimension>
 	SVector4<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
 		set(vec);
@@ -154,13 +154,12 @@ public:
 };
 
 
-typedef SVector4<f32> SVector4f;
-typedef SVector4<f64> SVector4d;
-typedef SVector4<s32> SVector4i;
-typedef SVector4<u32> SVector4u;
+typedef SVector4<float> SVector4f;
+typedef SVector4<double> SVector4d;
+typedef SVector4<int> SVector4i;
+typedef SVector4<ion::uint> SVector4u;
 
 typedef SVector4f vec4f;
 typedef SVector4d vec4d;
 typedef SVector4i vec4i;
 typedef SVector4u vec4u;
-

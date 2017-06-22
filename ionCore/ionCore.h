@@ -5,16 +5,22 @@
 
 #include "ionClass.h"
 #include "ionComparison.h"
-#include "ionComponent.h"
-#include "ionRand.h"
 #include "ionSmartPointer.h"
-#include "ionThread.h"
-#include "ionTreeNode.h"
 #include "ionTypes.h"
 #include "ionUtils.h"
-#include "ionStandardLibrary.h"
 #include "ionLogger.h"
-#include "ionBitwise.h"
+
+#include "String.h"
+#include "File.h"
+#include "Bitwise.h"
+#include "Random.h"
+
+#include "Singleton.h"
+#include "SingletonPointer.h"
+
+#include "IEntity.h"
+#include "ITreeNode.h"
+#include "IMultiTreeNode.h"
 
 
 //! \defgroup ionCore ionCore

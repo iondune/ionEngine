@@ -16,7 +16,7 @@ public:
 	virtual void End()
 	{}
 
-	virtual void Update(f32 const ElapsedTime)
+	virtual void Update(float const ElapsedTime)
 	{}
 
 };

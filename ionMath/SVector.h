@@ -4,7 +4,7 @@
 #include <ionCore.h>
 
 
-template <typename T, u32 Size>
+template <typename T, int Size>
 class SVectorBase
 {
 
@@ -19,7 +19,7 @@ protected:
 
 public:
 
-	static u32 const Dimension = Size;
+	static int const Dimension = Size;
 	T Values[Dimension];
 	mutable T OutOfBounds;
 
@@ -40,29 +40,29 @@ public:
 	//! Sets all values to 0
 	void reset()
 	{
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = 0;
 	}
 
 	//! Sets all values to a single scalar
 	void set(T const in)
 	{
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in;
 	}
 
 	//! Sets all values by an input C-style array
 	void set(T const in[])
 	{
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = in[i];
 	}
 
 	//! Sets all values by an input vector
-	template <typename U, u32 otherDimension>
+	template <typename U, int otherDimension>
 	void set(SVectorBase<U, otherDimension> const & other)
 	{
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (int i = 0; i < Dimension; ++ i)
 			Values[i] = (T) other[i];
 	}
 
@@ -70,7 +70,7 @@ public:
 	T const Length() const
 	{
 		T sum = 0;
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (int i = 0; i < Dimension; ++ i)
 			sum += Sq(Values[i]);
 		return (T) sqrt(sum);
 	}
@@ -85,7 +85,7 @@ public:
 	T const LengthSq() const
 	{
 		T sum = 0;
-		for (u32 i = 0; i < Dimension; ++ i)
+		for (uint i = 0; i < Dimension; ++ i)
 			sum += Sq(Values[i]);
 		return sum;
 	}
@@ -457,7 +457,7 @@ public:
 		return ! Equals(v);
 	}
 
-	bool Equals(Other const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool Equals(Other const & v, T const Epsilon = ion::RoundingError<T>::Value()) const
 	{
 		bool result = true;
 		for (u32 i = 0; i < Dimension; ++ i)

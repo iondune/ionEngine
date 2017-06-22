@@ -250,7 +250,7 @@ public:
 
 	};
 
-	CStage * AddStage(string const & Name)
+	CStage * AddStage(ion::string const & Name)
 	{
 		CStage * Stage = new CStage();
 		TransformationOrder.push_back(Stage);
@@ -259,16 +259,16 @@ public:
 		return Stage;
 	}
 
-	void SetStageTransformationOrder(string const & Name, ETransformationOrder TransformationOrder)
+	void SetStageTransformationOrder(ion::string const & Name, ETransformationOrder TransformationOrder)
 	{
 		auto it = TransformationLabels.find(Name);
 		if (it != TransformationLabels.end())
 			it->second->Transformation.SetOrder(TransformationOrder);
 		else
-			Log::Error("Failed to find transformation with name %s.", Name);
+			ion::Log::Error("Failed to find transformation with name %s.", Name);
 	}
 
-	STransformation3 & GetStageTransformation(string const & Name)
+	STransformation3 & GetStageTransformation(ion::string const & Name)
 	{
 		static STransformation3 DummyValue;
 
@@ -276,7 +276,7 @@ public:
 		if (it != TransformationLabels.end())
 			return it->second->Transformation;
 		else
-			Log::Error("Failed to find transformation with name %s.", Name);
+			ion::Log::Error("Failed to find transformation with name %s.", Name);
 
 		return DummyValue;
 	}
@@ -295,7 +295,7 @@ public:
 
 protected:
 
-	vector<CStage *> TransformationOrder;
-	map<string, CStage *> TransformationLabels;
+	ion::vector<CStage *> TransformationOrder;
+	ion::map<ion::string, CStage *> TransformationLabels;
 
 };

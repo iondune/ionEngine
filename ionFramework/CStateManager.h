@@ -19,7 +19,7 @@ namespace ion
 		void SetState(IState * State);
 		void DoStateChange();
 
-		void Update(f32 const ElapsedTime);
+		void Update(float const ElapsedTime);
 
 		void Connect(CWindow * Window);
 		void ShutDown();

@@ -1,4 +1,33 @@
 
+/* irrlicht.h -- interface of the 'Irrlicht Engine'
+
+Copyright Original Work (C) 2002-2012 Nikolaus Gebhardt
+Copyright Modified Work (C) 2017 Ian Dunn
+
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software
+in a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+Please note that the Irrlicht Engine is based in part on the work of the
+Independent JPEG Group, the zlib and the libPng. This means that if you use
+the Irrlicht Engine in your product, you must acknowledge somewhere in your
+documentation that you've used the IJG code. It would also be nice to mention
+that you use the Irrlicht Engine, the zlib and libPng. See the README files
+in the jpeglib, the zlib and libPng for further informations.
+*/
+
 #pragma once
 
 #include "SVector3.h"
@@ -37,28 +66,28 @@ public:
 		RecalculateD(Vector(px, py, pz));
 	}
 
-	SPlane3(const Vector& point1, const Vector& point2, const Vector& point3)
+	SPlane3(Vector const & point1, Vector const & point2, Vector const & point3)
 	{
 		SetPlane(point1, point2, point3);
 	}
 
-	SPlane3(const Vector & normal, const T d)
+	SPlane3(Vector const & normal, const T d)
 		: Normal(normal), D(d)
 	{}
 
-	void SetPlane(const Vector& point, const Vector& nvector)
+	void SetPlane(Vector const & point, Vector const & nvector)
 	{
 		Normal = nvector;
 		RecalculateD(point);
 	}
 
-	void SetPlane(const Vector& nvect, T d)
+	void SetPlane(Vector const & nvect, T d)
 	{
 		Normal = nvect;
 		D = d;
 	}
 
-	void SetPlane(const Vector& point1, const Vector& point2, const Vector& point3)
+	void SetPlane(Vector const & point1, Vector const & point2, Vector const & point3)
 	{
 		// creates the plane from 3 memberpoints
 		Normal = (point2 - point1).crossProduct(point3 - point1);
@@ -74,9 +103,7 @@ public:
 	\param outIntersection Place to store the intersection point, if there is one.
 	\return True if there was an intersection, false if there was not.
 	*/
-	bool GetIntersectionWithLine(const Vector& linePoint,
-		const Vector& lineVect,
-		Vector& outIntersection) const
+	bool GetIntersectionWithLine(Vector const & linePoint, Vector const & lineVect, Vector & outIntersection) const
 	{
 		T t2 = Normal.DotProduct(lineVect);
 
@@ -95,12 +122,11 @@ public:
 	\return Where on a line between two points an intersection with this plane happened.
 	For example, 0.5 is returned if the intersection happened exactly in the middle of the two points.
 	*/
-	f32 GetKnownIntersectionWithLine(const Vector& linePoint1,
-		const Vector& linePoint2) const
+	T GetKnownIntersectionWithLine(Vector const & linePoint1, Vector const & linePoint2) const
 	{
 		Vector vect = linePoint2 - linePoint1;
-		T t2 = (f32)Normal.DotProduct(vect);
-		return (f32)-((Normal.DotProduct(linePoint1) + D) / t2);
+		T t2 = (T) Normal.DotProduct(vect);
+		return (T) -((Normal.DotProduct(linePoint1) + D) / t2);
 	}
 
 	//! Get an intersection with a 3d line, limited between two 3d points.
@@ -109,10 +135,7 @@ public:
 	\param outIntersection Place to store the intersection point, if there is one.
 	\return True if there was an intersection, false if there was not.
 	*/
-	bool GetIntersectionWithLimitedLine(
-		const Vector& linePoint1,
-		const Vector& linePoint2,
-		Vector& outIntersection) const
+	bool GetIntersectionWithLimitedLine(Vector const & linePoint1, Vector const & linePoint2, Vector & outIntersection) const
 	{
 		return (GetIntersectionWithLine(linePoint1, linePoint2 - linePoint1, outIntersection) &&
 			outIntersection.IsBetweenPoints(linePoint1, linePoint2));
@@ -123,7 +146,7 @@ public:
 	\return ISREL3D_FRONT if the point is in front of the plane,
 	ISREL3D_BACK if the point is behind of the plane, and
 	ISREL3D_PLANAR if the point is within the plane. */
-	EIntersectionRelation ClassifyPointRelation(const Vector& point) const
+	EIntersectionRelation ClassifyPointRelation(Vector const & point) const
 	{
 		const T d = Normal.DotProduct(point) + D;
 
@@ -168,14 +191,14 @@ public:
 		const T fn00 = Normal.getLength();
 		const T fn01 = Normal.DotProduct(other.Normal);
 		const T fn11 = other.Normal.getLength();
-		const f64 det = fn00*fn11 - fn01*fn01;
+		const T det = fn00*fn11 - fn01*fn01;
 
 		if (fabs(det) < RoundingError<T>::Value())
 			return false;
 
-		const f64 invdet = 1.0 / det;
-		const f64 fc0 = (fn11*-D + fn01*other.D) * invdet;
-		const f64 fc1 = (fn00*-other.D + fn01*D) * invdet;
+		const T invdet = 1 / det;
+		const T fc0 = (fn11*-D + fn01*other.D) * invdet;
+		const T fc1 = (fn00*-other.D + fn01*D) * invdet;
 
 		outLineVect = Normal.CrossProduct(other.Normal);
 		outLinePoint = Normal*(T)fc0 + other.Normal*(T)fc1;
@@ -204,7 +227,7 @@ public:
 	false if it is backfacing. */
 	bool IsFrontFacing(const Vector& lookDirection) const
 	{
-		const f32 d = Normal.DotProduct(lookDirection);
+		const T d = Normal.DotProduct(lookDirection);
 		return d <= 0 || Equals((T) 0, d);
 	}
 
@@ -222,5 +245,5 @@ public:
 	T D;
 };
 
-typedef SPlane3<f32> plane3f;
-typedef SPlane3<s32> plane3i;
+typedef SPlane3<float> plane3f;
+typedef SPlane3<int> plane3i;

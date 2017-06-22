@@ -460,11 +460,11 @@ struct vec2
 		return ! Equals(v);
 	}
 
-	bool Equals(vec2<T> const & v, T const Epsilon = RoundingError<T>::Value()) const
+	bool Equals(vec2<T> const & v, T const Epsilon = ion::RoundingError<T>::Value()) const
 	{
 		return
-			::Equals(X, v.X, Epsilon) &&
-			::Equals(Y, v.Y, Epsilon);
+			ion::Equals(X, v.X, Epsilon) &&
+			ion::Equals(Y, v.Y, Epsilon);
 	}
 
 
@@ -475,16 +475,16 @@ struct vec2
 	friend vec2<T> ComponentMinimum(vec2<T> const & lhs, vec2<T> const & rhs)
 	{
 		vec2<T> ret;
-		ret.X = Minimum(lhs.X, rhs.X);
-		ret.Y = Minimum(lhs.Y, rhs.Y);
+		ret.X = ion::Minimum(lhs.X, rhs.X);
+		ret.Y = ion::Minimum(lhs.Y, rhs.Y);
 		return ret;
 	}
 
 	friend vec2<T> ComponentMaximum(vec2<T> const & lhs, vec2<T> const & rhs)
 	{
 		vec2<T> ret;
-		ret.X = Maximum(lhs.X, rhs.X);
-		ret.Y = Maximum(lhs.Y, rhs.Y);
+		ret.X = ion::Maximum(lhs.X, rhs.X);
+		ret.Y = ion::Maximum(lhs.Y, rhs.Y);
 		return ret;
 	}
 
@@ -555,7 +555,7 @@ struct vec2
 
 };
 
-typedef vec2<f32> vec2f;
-typedef vec2<f64> vec2d;
-typedef vec2<s32> vec2i;
-typedef vec2<u32> vec2u;
+typedef vec2<float> vec2f;
+typedef vec2<double> vec2d;
+typedef vec2<int> vec2i;
+typedef vec2<ion::uint> vec2u;

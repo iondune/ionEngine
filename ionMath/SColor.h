@@ -15,18 +15,18 @@ namespace Color
 	{};
 
 	template <>
-	struct Full<f32>
+	struct Full<float>
 	{
-		static f32 Value()
+		static float Value()
 		{
 			return 1.f;
 		}
 	};
 
 	template <>
-	struct Full<u8>
+	struct Full<ion::byte>
 	{
-		static u8 Value()
+		static byte Value()
 		{
 			return 255;
 		}
@@ -39,20 +39,20 @@ namespace Color
 	{};
 
 	template <>
-	struct Convert<u8, f32>
+	struct Convert<ion::byte, float>
 	{
-		static u8 From(f32 const Value)
+		static byte From(float const Value)
 		{
-			return Clamp((uint) roundf(Value * 255.f), 0u, 255u);
+			return ion::Clamp((ion::uint) roundf(Value * 255.f), 0u, 255u);
 		}
 	};
 
 	template <>
-	struct Convert<f32, u8>
+	struct Convert<float, byte>
 	{
-		static f32 From(u8 const Value)
+		static float From(byte const Value)
 		{
-			return Clamp((float) Value / 255.f, 0.f, 1.f);
+			return ion::Clamp((float) Value / 255.f, 0.f, 1.f);
 		}
 	};
 
@@ -193,7 +193,7 @@ public:
 		return * this;
 	}
 
-	template <typename U, u32 OtherDimension>
+	template <typename U, int OtherDimension>
 	SColorA<T> & operator = (SVectorBase<U, OtherDimension> const & vec)
 	{
 		set(vec);
@@ -222,29 +222,29 @@ public:
 		return * this;
 	}
 
-	template <typename U, u32 OtherDimension>
+	template <typename U, int OtherDimension>
 	void set(SVectorBase<U, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
-	template <u32 OtherDimension>
-	void set(SVectorBase<u8, OtherDimension> const & other)
+	template <int OtherDimension>
+	void set(SVectorBase<ion::byte, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
-	template <u32 OtherDimension>
-	void set(SVectorBase<f32, OtherDimension> const & other)
+	template <int OtherDimension>
+	void set(SVectorBase<float, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
 	}
 
-	template <u32 OtherDimension>
-	void set(SVectorBase<f64, OtherDimension> const & other)
+	template <int OtherDimension>
+	void set(SVectorBase<double, OtherDimension> const & other)
 	{
 		for (int i = 0; i < 4; ++ i)
 			Values[i] = (T) other[i];
@@ -265,54 +265,54 @@ template <typename T>
 T const SColorA<T>::Full = 1;
 
 template <>
-template <u32 OtherDimension>
-void SColorA<f32>::set(SVectorBase<u8, OtherDimension> const & other)
+template <int OtherDimension>
+void SColorA<float>::set(SVectorBase<ion::byte, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (f32) other[i] / 255.f;
+		Values[i] = (float) other[i] / 255.f;
 }
 
 template <>
-template <u32 OtherDimension>
-void SColorA<f64>::set(SVectorBase<u8, OtherDimension> const & other)
+template <int OtherDimension>
+void SColorA<double>::set(SVectorBase<ion::byte, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (f64) other[i] / 255.0;
+		Values[i] = (double) other[i] / 255.0;
 }
 
 template <>
-template <u32 OtherDimension>
-void SColorA<u8>::set(SVectorBase<f32, OtherDimension> const & other)
+template <int OtherDimension>
+void SColorA<ion::byte>::set(SVectorBase<float, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (u8) (other[i] * 255);
+		Values[i] = (ion::byte) (other[i] * 255);
 }
 
 template <>
-template <u32 OtherDimension>
-void SColorA<u8>::set(SVectorBase<f64, OtherDimension> const & other)
+template <int OtherDimension>
+void SColorA<ion::byte>::set(SVectorBase<double, OtherDimension> const & other)
 {
 	for (int i = 0; i < 4; ++ i)
-		Values[i] = (u8) (other[i] * 255);
+		Values[i] = (ion::byte) (other[i] * 255);
 }
 
 
-typedef color3<u8> SColori;
-typedef color3<u8> SColorc;
-typedef SColorA<u8> SColorAi;
-typedef SColorA<u8> SColorAc;
-typedef color3<u8> SColor24;
-typedef SColorA<u8> SColor32;
+typedef color3<ion::byte> SColori;
+typedef color3<ion::byte> SColorc;
+typedef SColorA<ion::byte> SColorAi;
+typedef SColorA<ion::byte> SColorAc;
+typedef color3<ion::byte> SColor24;
+typedef SColorA<ion::byte> SColor32;
 
-typedef color3<f32> SColorf;
-typedef SColorA<f32> SColorAf;
-typedef color3<f32> SColor72;
-typedef SColorA<f32> SColor96;
+typedef color3<float> SColorf;
+typedef SColorA<float> SColorAf;
+typedef color3<float> SColor72;
+typedef SColorA<float> SColor96;
 
-typedef color3<f64> SColord;
-typedef SColorA<f64> SColorAd;
-typedef color3<f64> SColor192;
-typedef SColorA<f64> SColor256;
+typedef color3<double> SColord;
+typedef SColorA<double> SColorAd;
+typedef color3<double> SColor192;
+typedef SColorA<double> SColor256;
 
 typedef SColori color3i;
 typedef SColorf color3f;
@@ -343,11 +343,11 @@ namespace Color
 	struct Pack
 	{
 
-		static uint Bits24(color3i const & Color)
+		static ion::uint Bits24(color3i const & Color)
 		{
-			uint const Red = Color.Red;
-			uint const Green = Color.Green;
-			uint const Blue = Color.Blue;
+			ion::uint const Red = Color.Red;
+			ion::uint const Green = Color.Green;
+			ion::uint const Blue = Color.Blue;
 			return (Red << 16) | (Green << 8) | (Blue);
 		}
 
@@ -358,7 +358,7 @@ namespace Color
 	struct Unpack
 	{
 
-		static color3i Bits24(uint const Value)
+		static color3i Bits24(ion::uint const Value)
 		{
 			color3i Color;
 			Color.Red = (Value >> 16) & 0xFF;

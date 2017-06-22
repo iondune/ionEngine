@@ -213,10 +213,10 @@ using bbox3 = SBoundingBox3<T>;
 template <typename T>
 using box3 = SBoundingBox3<T>;
 
-typedef SBoundingBox3<f32> SBoundingBox3f;
-typedef SBoundingBox3<f64> SBoundingBox3d;
-typedef SBoundingBox3<s32> SBoundingBox3i;
+typedef SBoundingBox3<float> SBoundingBox3f;
+typedef SBoundingBox3<double> SBoundingBox3d;
+typedef SBoundingBox3<int> SBoundingBox3i;
 
-typedef SBoundingBox3<f32> box3f;
-typedef SBoundingBox3<f64> box3d;
-typedef SBoundingBox3<s32> box3i;
+typedef SBoundingBox3<float> box3f;
+typedef SBoundingBox3<double> box3d;
+typedef SBoundingBox3<int> box3i;

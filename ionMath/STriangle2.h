@@ -42,10 +42,10 @@ public:
 
 };
 
-typedef STriangle2<f32> STriangle2f;
-typedef STriangle2<f64> STriangle2d;
-typedef STriangle2<s32> STriangle2i;
-typedef STriangle2<u32> STriangle2u;
+typedef STriangle2<float> STriangle2f;
+typedef STriangle2<double> STriangle2d;
+typedef STriangle2<int> STriangle2i;
+typedef STriangle2<ion::uint> STriangle2u;
 
 typedef STriangle2f tri2f;
 typedef STriangle2d tri2d;

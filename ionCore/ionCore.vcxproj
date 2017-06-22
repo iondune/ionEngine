@@ -15,22 +15,32 @@
     <RootNamespace>ionCore</RootNamespace>
   </PropertyGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(SolutionDir)\Properties\Utility.props" />
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="ionBitwise.h" />
+    <ClInclude Include="Bitwise.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="IMultiTreeNode.h" />
     <ClInclude Include="ionClass.h" />
-    <ClInclude Include="ionComponent.h" />
+    <ClInclude Include="IEntity.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="ionLogger.h" />
-    <ClInclude Include="ionStandardLibrary.h" />
-    <ClInclude Include="ionThread.h" />
-    <ClInclude Include="ionRand.h" />
+    <ClInclude Include="ionContainer.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="ionSmartPointer.h" />
-    <ClInclude Include="ionTreeNode.h" />
+    <ClInclude Include="ITreeNode.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionUtils.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SingletonPointer.h" />
+    <ClInclude Include="String.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bitwise.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
