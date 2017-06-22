@@ -71,6 +71,12 @@
     <ClInclude Include="color4.h">
       <Filter>Vector</Filter>
     </ClInclude>
+    <ClInclude Include="ionConstants.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ionMathFunctions.h">
+      <Filter>Core Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp">

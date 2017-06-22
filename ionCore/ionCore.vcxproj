@@ -25,6 +25,7 @@
     <ClInclude Include="IMultiTreeNode.h" />
     <ClInclude Include="ionClass.h" />
     <ClInclude Include="IEntity.h" />
+    <ClInclude Include="ionConstants.h" />
     <ClInclude Include="ionCore.h" />
     <ClInclude Include="ionComparison.h" />
     <ClInclude Include="Directory.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SingletonPointer.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="ionMathFunctions.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="vec4.h" />

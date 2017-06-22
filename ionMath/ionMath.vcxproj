@@ -18,7 +18,6 @@
     <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
   <ItemGroup>
-    <ClInclude Include="Constants.h" />
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="ray3.h" />
     <ClInclude Include="SBoundingBox3.h" />
@@ -28,7 +27,6 @@
     <ClInclude Include="STransformation3.h" />
     <ClInclude Include="STriangle2.h" />
     <ClInclude Include="STriangle3.h" />
-    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

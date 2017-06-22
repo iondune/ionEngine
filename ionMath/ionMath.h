@@ -15,9 +15,6 @@
 #include "STransformation3.h"
 #include "ray3.h"
 
-#include "Constants.h"
-#include "Utilities.h"
-
 
 //! \defgroup ionMath ionMath
 //!

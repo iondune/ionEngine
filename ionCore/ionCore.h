@@ -5,7 +5,9 @@
 
 #include "ionClass.h"
 #include "ionComparison.h"
+#include "ionConstants.h"
 #include "ionContainer.h"
+#include "ionMathFunctions.h"
 #include "ionSmartPointer.h"
 #include "ionTypes.h"
 #include "ionUtils.h"
