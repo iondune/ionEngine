@@ -8,19 +8,19 @@ namespace ion
 	{
 
 		template <>
-		void IIndexBuffer::UploadData<u8>(vector<u8> const & Data)
+		void IIndexBuffer::UploadData<byte>(vector<byte> const & Data)
 		{
 			UploadData(Data.data(), Data.size(), EValueType::UnsignedInt8);
 		}
 
 		template <>
-		void IIndexBuffer::UploadData<u16>(vector<u16> const & Data)
+		void IIndexBuffer::UploadData<Uint16>(vector<Uint16> const & Data)
 		{
 			UploadData(Data.data(), Data.size(), EValueType::UnsignedInt16);
 		}
 
 		template <>
-		void IIndexBuffer::UploadData<u32>(vector<u32> const & Data)
+		void IIndexBuffer::UploadData<Uint32>(vector<Uint32> const & Data)
 		{
 			UploadData(Data.data(), Data.size(), EValueType::UnsignedInt32);
 		}

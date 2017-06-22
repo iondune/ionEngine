@@ -12,6 +12,7 @@
 #include "ionSmartPointer.h"
 
 #include <algorithm>
+#include <functional>
 
 
 namespace ion
