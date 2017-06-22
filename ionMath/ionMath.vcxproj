@@ -22,15 +22,12 @@
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="ray3.h" />
     <ClInclude Include="SBoundingBox3.h" />
-    <ClInclude Include="SColor.h" />
     <ClInclude Include="SLine3.h" />
     <ClInclude Include="SPlane3.h" />
     <ClInclude Include="SRect2.h" />
     <ClInclude Include="STransformation3.h" />
     <ClInclude Include="STriangle2.h" />
     <ClInclude Include="STriangle3.h" />
-    <ClInclude Include="SVector.h" />
-    <ClInclude Include="SVector4.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

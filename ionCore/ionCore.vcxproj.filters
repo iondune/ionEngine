@@ -59,6 +59,18 @@
     <ClInclude Include="vec2.h">
       <Filter>Vector</Filter>
     </ClInclude>
+    <ClInclude Include="vec4.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="color3.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="color4.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp">
@@ -75,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="Directory.cpp">
       <Filter>Helper Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Vector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,11 @@
 
 #include "vec2.h"
 #include "vec3.h"
+#include "vec4.h"
+
+#include "color3.h"
+#include "color4.h"
+#include "Color.h"
 
 
 //! \defgroup ionCore ionCore

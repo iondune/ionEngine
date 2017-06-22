@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ionTypes.h"
+#include "ionComparison.h"
 
 #include <glm/glm.hpp>
 
@@ -464,7 +465,7 @@ namespace ion
 			return ! Equals(v);
 		}
 
-		bool Equals(vec2<T> const & v, T const Epsilon = ion::RoundingError<T>::Value()) const
+		bool Equals(vec2<T> const & v, T const Epsilon = RoundingError<T>::Value()) const
 		{
 			return
 				ion::Equals(X, v.X, Epsilon) &&
@@ -479,16 +480,16 @@ namespace ion
 		friend vec2<T> ComponentMinimum(vec2<T> const & lhs, vec2<T> const & rhs)
 		{
 			vec2<T> ret;
-			ret.X = ion::Minimum(lhs.X, rhs.X);
-			ret.Y = ion::Minimum(lhs.Y, rhs.Y);
+			ret.X = Minimum(lhs.X, rhs.X);
+			ret.Y = Minimum(lhs.Y, rhs.Y);
 			return ret;
 		}
 
 		friend vec2<T> ComponentMaximum(vec2<T> const & lhs, vec2<T> const & rhs)
 		{
 			vec2<T> ret;
-			ret.X = ion::Maximum(lhs.X, rhs.X);
-			ret.Y = ion::Maximum(lhs.Y, rhs.Y);
+			ret.X = Maximum(lhs.X, rhs.X);
+			ret.Y = Maximum(lhs.Y, rhs.Y);
 			return ret;
 		}
 

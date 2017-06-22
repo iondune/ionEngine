@@ -6,10 +6,6 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "SVector.h"
-#include "SColor.h"
-#include "SVector4.h"
-
 #include "SBoundingBox3.h"
 #include "SPlane3.h"
 #include "SLine3.h"

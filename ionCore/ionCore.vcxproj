@@ -19,6 +19,8 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="Bitwise.h" />
+    <ClInclude Include="color3.h" />
+    <ClInclude Include="color4.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="IMultiTreeNode.h" />
     <ClInclude Include="ionClass.h" />
@@ -33,14 +35,17 @@
     <ClInclude Include="ITreeNode.h" />
     <ClInclude Include="ionTypes.h" />
     <ClInclude Include="ionUtils.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SingletonPointer.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
+    <ClInclude Include="vec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitwise.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="ionUtils.cpp" />
