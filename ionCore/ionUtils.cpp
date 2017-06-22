@@ -37,11 +37,6 @@ namespace ion
 		return (i % 2) ? (i - 1) : (i);
 	}
 
-	int Sign(int const val)
-	{
-		return (0 < val) - (val < 0);
-	}
-
 	bool ToggleBool(bool & Condition)
 	{
 		return Condition = ! Condition;

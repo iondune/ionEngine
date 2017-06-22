@@ -32,9 +32,6 @@ namespace ion
 	int MakeEven(int const i);
 
 	//! \ingroup ionCore
-	int Sign(int const val);
-
-	//! \ingroup ionCore
 	bool ToggleBool(bool & Condition);
 
 	//! \ingroup ionCore
@@ -76,6 +73,13 @@ namespace ion
 	T Average(T const a, T const b, T const c, T const d)
 	{
 		return (a + b + c + d) / 4;
+	}
+
+	//! \ingroup ionCore
+	template <typename T>
+	T Sign(T const val)
+	{
+		return (T) ((0 < val) - (val < 0));
 	}
 
 }
