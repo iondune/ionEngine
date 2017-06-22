@@ -135,17 +135,17 @@ int main()
 
 	CPointLight * Light1 = new CPointLight();
 	Light1->SetPosition(vec3f(0, 1, 0));
-	Light1->SetColor(Colors::Red);
+	Light1->SetColor(Color::Basic::Red);
 	RenderPass->AddLight(Light1);
 
 	CPointLight * Light2 = new CPointLight();
 	Light2->SetPosition(vec3f(4, 2, 0));
-	Light2->SetColor(Colors::Green);
+	Light2->SetColor(Color::Basic::Green);
 	RenderPass->AddLight(Light2);
 
 	CPointLight * Light3 = new CPointLight();
 	Light3->SetPosition(vec3f(12, 3, 0));
-	Light3->SetColor(Colors::Blue);
+	Light3->SetColor(Color::Basic::Blue);
 	RenderPass->AddLight(Light3);
 
 
