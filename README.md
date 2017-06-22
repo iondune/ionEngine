@@ -1,12 +1,12 @@
 ![Logo](http://i.imgur.com/AMFY7t6.png)
 
+[![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x?svg=true)](https://ci.appveyor.com/project/iondune/ionengine) [![GitHub release](https://img.shields.io/github/release/iondune/ionEngine/all.svg)](https://github.com/iondune/ionEngine/releases) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/iondune/ionEngine/master/LICENSE.txt)
+
 ionEngine
 =========
 
 Overview
 --------
-
-[![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine)
 
 ionEngine is a C++ application framework designed to aid in the creation of high-performance rendering applications.
 It is modular and generic, designed for use in both game engines and scientific data visualization.
