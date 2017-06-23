@@ -3,9 +3,9 @@
 ionEngine
 =========
 
-![release](https://img.shields.io/badge/branch-release-38C7B6.svg) [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=release)](https://travis-ci.org/iondune/ionEngine) [![GitHub release](https://img.shields.io/github/release/iondune/ionEngine.svg)](https://github.com/iondune/ionEngine/releases)
+[![release](https://img.shields.io/badge/branch-release-38C7B6.svg)](https://github.com/iondune/ionEngine/releases) [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=release)](https://travis-ci.org/iondune/ionEngine) [![GitHub release](https://img.shields.io/github/release/iondune/ionEngine.svg)](https://github.com/iondune/ionEngine/releases)
 
-![master](https://img.shields.io/badge/branch-master-B2A0EB.svg) [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x?svg=true)](https://ci.appveyor.com/project/iondune/ionengine) [![GitHub](https://img.shields.io/badge/pre--release-v0.4.4-blue.svg)](https://github.com/iondune/ionEngine/commits/master)
+[![master](https://img.shields.io/badge/branch-master-B2A0EB.svg)](https://github.com/iondune/ionEngine) [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x?svg=true)](https://ci.appveyor.com/project/iondune/ionengine) [![GitHub](https://img.shields.io/badge/pre--release-v0.4.4-blue.svg)](https://github.com/iondune/ionEngine/commits/master)
 
 Overview
 --------
