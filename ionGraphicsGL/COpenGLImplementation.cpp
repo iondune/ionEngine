@@ -259,7 +259,7 @@ namespace ion
 
 		SharedPointer<IShaderProgram> COpenGLImplementation::CreateShaderProgram()
 		{
-			SharedPointer<GL::CShaderProgram> ShaderProgram = SharedFromNew(new GL::CShaderProgram());
+			SharedPointer<GL::CShaderProgram> ShaderProgram = std::make_shared<GL::CShaderProgram>();
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;
@@ -267,21 +267,21 @@ namespace ion
 
 		SharedPointer<IVertexBuffer> COpenGLImplementation::CreateVertexBuffer()
 		{
-			SharedPointer<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
+			SharedPointer<GL::CVertexBuffer> VertexBuffer = std::make_shared<GL::CVertexBuffer>();
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
 			return VertexBuffer;
 		}
 
 		SharedPointer<IIndexBuffer> COpenGLImplementation::CreateIndexBuffer()
 		{
-			SharedPointer<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
+			SharedPointer<GL::CIndexBuffer> IndexBuffer = std::make_shared<GL::CIndexBuffer>();
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			return IndexBuffer;
 		}
 
 		SharedPointer<Graphics::IDepthBuffer> COpenGLImplementation::CreateDepthBuffer(vec2i const & Size)
 		{
-			SharedPointer<GL::CDepthBuffer> DepthBuffer = SharedFromNew(new GL::CDepthBuffer(Size));
+			SharedPointer<GL::CDepthBuffer> DepthBuffer = std::make_shared<GL::CDepthBuffer>(Size);
 			return DepthBuffer;
 		}
 
@@ -292,7 +292,7 @@ namespace ion
 
 		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
+			SharedPointer<GL::CTexture2D> Texture2D = std::make_shared<GL::CTexture2D>();
 
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -339,7 +339,7 @@ namespace ion
 
 		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
+			SharedPointer<GL::CTexture3D> Texture3D = std::make_shared<GL::CTexture3D>();
 
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -385,7 +385,7 @@ namespace ion
 
 		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture2DArray> Texture2DArray = SharedFromNew(new GL::CTexture2DArray());
+			SharedPointer<GL::CTexture2DArray> Texture2DArray = std::make_shared<GL::CTexture2DArray>();
 
 			Texture2DArray->TextureSize = Size;
 			Texture2DArray->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -431,7 +431,7 @@ namespace ion
 
 		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = SharedFromNew(new GL::CTextureCubeMap());
+			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = std::make_shared<GL::CTextureCubeMap>();
 
 			TextureCubeMap->TextureSize = Size;
 			TextureCubeMap->MipMaps = (MipMaps == ITexture::EMipMaps::True);

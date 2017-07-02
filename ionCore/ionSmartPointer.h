@@ -29,13 +29,6 @@ namespace ion
 	using WeakPointer = std::weak_ptr<T>;
 
 	//! \ingroup ionCore
-	template <typename T>
-	static SharedPointer<T> SharedFromNew(T * const t)
-	{
-		return SharedPointer<T>(t);
-	}
-
-	//! \ingroup ionCore
 	template <typename T, typename... Args>
 	static SharedPointer<T> MakeShared(Args&&... args)
 	{
