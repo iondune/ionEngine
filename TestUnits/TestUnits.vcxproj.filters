@@ -50,6 +50,9 @@
     <ClCompile Include="vec3.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="line2.cpp">
+      <Filter>ionMath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">

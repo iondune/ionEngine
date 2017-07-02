@@ -19,6 +19,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClInclude Include="ionMath.h" />
+    <ClInclude Include="line2.h" />
     <ClInclude Include="ray3.h" />
     <ClInclude Include="SBoundingBox3.h" />
     <ClInclude Include="SLine3.h" />

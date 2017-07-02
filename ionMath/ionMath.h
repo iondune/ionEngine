@@ -8,12 +8,16 @@
 
 #include "SBoundingBox3.h"
 #include "SPlane3.h"
+
+#include "line2.h"
 #include "SLine3.h"
+#include "ray3.h"
+
 #include "SRect2.h"
 #include "STriangle2.h"
+
 #include "STriangle3.h"
 #include "STransformation3.h"
-#include "ray3.h"
 
 
 //! \defgroup ionMath ionMath

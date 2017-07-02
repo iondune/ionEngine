@@ -31,5 +31,8 @@
     <ClInclude Include="ray3.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="line2.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

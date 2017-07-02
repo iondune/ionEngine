@@ -24,6 +24,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
+    <ClCompile Include="line2.cpp" />
     <ClCompile Include="SRect2.cpp" />
     <ClCompile Include="TestBitwise.cpp" />
     <ClCompile Include="ionClass.cpp" />
