@@ -34,12 +34,12 @@ namespace ion
 
 		T Length() const
 		{
-			return Length(End - Start);
+			return ion::Length(End - Start);
 		}
 
 		friend T Length(line2<T> const & Line)
 		{
-			return Length(Line.End - Line.Start);
+			return ion::Length(Line.End - Line.Start);
 		}
 
 		vec2<T> const ClosestPointTo(vec2<T> const & Point)
