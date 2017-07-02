@@ -21,7 +21,6 @@
     <Link>
       <AdditionalDependencies>
         ;ionCore.lib;
-        ;ionFramework.lib;
         ;ionWindow.lib;
         ;ionGraphics.lib;
         ;ionGraphicsGL.lib;
