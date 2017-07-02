@@ -35,18 +35,4 @@ namespace Catch
 	}
 
 }
-#else
-namespace Catch
-{
-	std::ostream & cout()
-	{
-		return std::cout;
-	}
-
-	std::ostream & cerr()
-	{
-		return std::cerr;
-	}
-
-}
 #endif
