@@ -20,6 +20,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(VisualStudioDir)\SDKs\Catch\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CATCH_CONFIG_NOSTDOUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
