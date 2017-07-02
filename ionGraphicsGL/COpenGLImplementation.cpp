@@ -279,7 +279,7 @@ namespace ion
 			return IndexBuffer;
 		}
 
-		SharedPointer<Graphics::IDepthBuffer> COpenGLImplementation::CreateDepthBuffer(vec2u const & Size)
+		SharedPointer<Graphics::IDepthBuffer> COpenGLImplementation::CreateDepthBuffer(vec2i const & Size)
 		{
 			SharedPointer<GL::CDepthBuffer> DepthBuffer = SharedFromNew(new GL::CDepthBuffer(Size));
 			return DepthBuffer;
@@ -290,7 +290,7 @@ namespace ion
 			return new Graphics::GL::CDrawContext();
 		}
 
-		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
 
@@ -337,7 +337,7 @@ namespace ion
 			return Texture2D;
 		}
 
-		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
 
@@ -383,7 +383,7 @@ namespace ion
 			return Texture3D;
 		}
 
-		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTexture2DArray> Texture2DArray = SharedFromNew(new GL::CTexture2DArray());
 
@@ -429,7 +429,7 @@ namespace ion
 			return Texture2DArray;
 		}
 
-		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
 			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = SharedFromNew(new GL::CTextureCubeMap());
 

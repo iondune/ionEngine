@@ -14,13 +14,13 @@ namespace ion
 
 		static CImage * Load(std::string const & FileName);
 
-		CImage(ion::byte * const Data, vec2u const Size, int const Channels);
+		CImage(ion::byte * const Data, vec2i const Size, int const Channels);
 		CImage(color4f const & Color, bool const Alpha = false);
 		~CImage();
 
 		int GetWidth() const;
 		int GetHeight() const;
-		vec2u GetSize() const;
+		vec2i GetSize() const;
 		int GetStride() const;
 		int GetChannels() const;
 
@@ -40,7 +40,7 @@ namespace ion
 	protected:
 
 		byte * Data;
-		vec2u Size;
+		vec2i Size;
 		int Channels;
 
 	};

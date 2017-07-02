@@ -21,13 +21,13 @@ namespace ion
 			return 0;
 		}
 
-		CImage * Image = new CImage(data, vec2u(x, y), n);
+		CImage * Image = new CImage(data, vec2i(x, y), n);
 		Image->FlipY();
 
 		return Image;
 	}
 
-	CImage::CImage(byte * const Data, vec2u const Size, int const Channels)
+	CImage::CImage(byte * const Data, vec2i const Size, int const Channels)
 	{
 		this->Data = Data;
 		this->Size = Size;
@@ -36,14 +36,14 @@ namespace ion
 
 	CImage::CImage(color4f const & Color, bool const Alpha)
 	{
-		this->Size = vec2u(2);
+		this->Size = vec2i(2);
 		this->Channels = (Alpha ? 4 : 3);
 
-		uint Stride = GetStride();
+		int Stride = GetStride();
 		Data = new ion::byte[Size.X * Size.Y * Stride];
 
-		for (uint i = 0; i < Size.X * Size.Y; ++ i)
-			for (uint j = 0; j < Stride; ++ j)
+		for (int i = 0; i < Size.X * Size.Y; ++ i)
+			for (int j = 0; j < Stride; ++ j)
 				Data[i*Stride + j] = (ion::byte) (255.f * Color[j]);
 	}
 
@@ -62,7 +62,7 @@ namespace ion
 		return Size.Y;
 	}
 
-	vec2u CImage::GetSize() const
+	vec2i CImage::GetSize() const
 	{
 		return Size;
 	}
@@ -119,13 +119,13 @@ namespace ion
 
 	void CImage::FlipY()
 	{
-		uint Stride = GetStride();
+		int const Stride = GetStride();
 
-		for (uint x = 0; x < Size.X; ++ x)
+		for (int x = 0; x < Size.X; ++ x)
 		{
-			for (uint y = 0; y < Size.Y / 2; ++ y)
+			for (int y = 0; y < Size.Y / 2; ++ y)
 			{
-				for (uint j = 0; j < Stride; ++ j)
+				for (int j = 0; j < Stride; ++ j)
 				{
 					std::swap(Data[x * Stride + y * Size.X * Stride + j], Data[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
 				}

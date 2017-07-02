@@ -564,6 +564,5 @@ namespace ion
 	typedef vec2<float> vec2f;
 	typedef vec2<double> vec2d;
 	typedef vec2<int> vec2i;
-	typedef vec2<ion::uint> vec2u;
 
 }

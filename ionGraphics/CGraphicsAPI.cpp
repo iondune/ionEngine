@@ -187,7 +187,7 @@ namespace ion
 		return IndexBuffer;
 	}
 
-	SharedPointer<Graphics::IDepthBuffer> CGraphicsAPI::CreateDepthBuffer(vec2u const & Size)
+	SharedPointer<Graphics::IDepthBuffer> CGraphicsAPI::CreateDepthBuffer(vec2i const & Size)
 	{
 		SharedPointer<Graphics::IDepthBuffer> DepthBuffer;
 
@@ -219,7 +219,7 @@ namespace ion
 		return DrawContext;
 	}
 
-	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	SharedPointer<Graphics::ITexture2D> CGraphicsAPI::CreateTexture2D(vec2i const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture2D> Texture;
 
@@ -269,7 +269,7 @@ namespace ion
 		return Texture;
 	}
 
-	SharedPointer<Graphics::ITexture3D> CGraphicsAPI::CreateTexture3D(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	SharedPointer<Graphics::ITexture3D> CGraphicsAPI::CreateTexture3D(vec3i const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture3D> Texture;
 
@@ -285,7 +285,7 @@ namespace ion
 		return Texture;
 	}
 
-	SharedPointer<Graphics::ITexture2DArray> CGraphicsAPI::CreateTexture2DArray(vec3u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	SharedPointer<Graphics::ITexture2DArray> CGraphicsAPI::CreateTexture2DArray(vec3i const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITexture2DArray> Texture;
 
@@ -301,7 +301,7 @@ namespace ion
 		return Texture;
 	}
 
-	SharedPointer<Graphics::ITextureCubeMap> CGraphicsAPI::CreateTextureCubeMap(vec2u const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
+	SharedPointer<Graphics::ITextureCubeMap> CGraphicsAPI::CreateTextureCubeMap(vec2i const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type)
 	{
 		SharedPointer<Graphics::ITextureCubeMap> Texture;
 

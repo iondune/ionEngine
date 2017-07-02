@@ -176,7 +176,7 @@ namespace ion
 			// Texture2D //
 			///////////////
 
-			void CTexture2D::Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture2D::Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
 				{
@@ -184,10 +184,10 @@ namespace ion
 					Log::Error("Handle is %u", Handle);
 				}
 
-				UploadSubRegion(Data, vec2u(0, 0), Size, Components, Type);
+				UploadSubRegion(Data, vec2i(0, 0), Size, Components, Type);
 			}
 
-			void CTexture2D::UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture2D::UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
 				CheckExistingErrors(CTexture2D::SubImage);
@@ -210,7 +210,7 @@ namespace ion
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
-			void CTexture2D::GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
 				CheckExistingErrors(CTexture2D::GetData);
@@ -247,7 +247,7 @@ namespace ion
 			// Texture2DArray //
 			////////////////////
 
-			void CTexture2DArray::Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture2DArray::Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
 				{
@@ -255,10 +255,10 @@ namespace ion
 					Log::Error("Handle is %u", Handle);
 				}
 
-				UploadSubRegion(Data, vec3u(0, 0, 0), Size, Components, Type);
+				UploadSubRegion(Data, vec3i(0, 0, 0), Size, Components, Type);
 			}
 
-			void CTexture2DArray::UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture2DArray::UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, Handle));
 				CheckExistingErrors(CTexture2DArray::SubImage);
@@ -296,7 +296,7 @@ namespace ion
 			// Texture3D //
 			///////////////
 
-			void CTexture3D::Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture3D::Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
 				{
@@ -304,10 +304,10 @@ namespace ion
 					Log::Error("Handle is %u", Handle);
 				}
 
-				UploadSubRegion(Data, vec3u(0, 0, 0), Size, Components, Type);
+				UploadSubRegion(Data, vec3i(0, 0, 0), Size, Components, Type);
 			}
 
-			void CTexture3D::UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTexture3D::UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
 				CheckExistingErrors(CTexture3D::SubImage);
@@ -345,7 +345,7 @@ namespace ion
 			// TextureCubeMap //
 			////////////////////
 
-			void CTextureCubeMap::Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTextureCubeMap::Upload(EFace const Face, void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
 				{
@@ -353,10 +353,10 @@ namespace ion
 					Log::Error("Handle is %u", Handle);
 				}
 
-				UploadSubRegion(Face, Data, vec2u(0, 0), Size, Components, Type);
+				UploadSubRegion(Face, Data, vec2i(0, 0), Size, Components, Type);
 			}
 
-			void CTextureCubeMap::UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type)
+			void CTextureCubeMap::UploadSubRegion(EFace const Face, void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, Handle));
 				CheckExistingErrors(Texture2D::SubImage);

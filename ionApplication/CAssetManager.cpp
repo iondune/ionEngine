@@ -211,7 +211,7 @@ namespace ion
 			return nullptr;
 		}
 		std::vector<CImage *> ImgArr;
-		vec2u setSize(0, 0);
+		vec2i setSize(0, 0);
 
 
 		for (string FileName : FileNames)
@@ -259,7 +259,7 @@ namespace ion
 			Format = Graphics::ITexture::EFormatComponents::RGBA;
 			break;
 		}
-		vec3u size3D(setSize[0], setSize[1], (uint) ImgArr.size());
+		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 
 		SharedPointer<Graphics::ITexture3D> Texture3D = GraphicsAPI->CreateTexture3D(size3D, MipMaps, Format, Graphics::ITexture::EInternalFormatType::Fix8);
@@ -268,8 +268,8 @@ namespace ion
 			CImage * ImagePtr = ImgArr[i];
 			Texture3D->UploadSubRegion(
 				ImagePtr->GetData(),
-				vec3u(0, 0, i),
-				vec3u(setSize[0], setSize[1], 1),
+				vec3i(0, 0, i),
+				vec3i(setSize[0], setSize[1], 1),
 				Format,
 				Graphics::EScalarType::UnsignedInt8);
 		}
@@ -284,7 +284,7 @@ namespace ion
 			return nullptr;
 		}
 		std::vector<CImage *> ImgArr;
-		vec2u setSize(0, 0);
+		vec2i setSize(0, 0);
 
 
 		for (string FileName : FileNames)
@@ -332,7 +332,7 @@ namespace ion
 			Format = Graphics::ITexture::EFormatComponents::RGBA;
 			break;
 		}
-		vec3u size3D(setSize[0], setSize[1], (uint) ImgArr.size());
+		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 
 		SharedPointer<Graphics::ITexture2DArray> Texture3D = GraphicsAPI->CreateTexture2DArray(size3D, MipMaps, Format, Graphics::ITexture::EInternalFormatType::Fix8);
@@ -341,8 +341,8 @@ namespace ion
 			CImage * ImagePtr = ImgArr[i];
 			Texture3D->UploadSubRegion(
 				ImagePtr->GetData(),
-				vec3u(0, 0, i),
-				vec3u(setSize[0], setSize[1], 1),
+				vec3i(0, 0, i),
+				vec3i(setSize[0], setSize[1], 1),
 				Format,
 				Graphics::EScalarType::UnsignedInt8);
 		}

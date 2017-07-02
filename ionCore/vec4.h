@@ -658,6 +658,5 @@ namespace ion
 	typedef vec4<float> vec4f;
 	typedef vec4<double> vec4d;
 	typedef vec4<int> vec4i;
-	typedef vec4<ion::uint> vec4u;
 
 }

@@ -95,10 +95,10 @@ namespace ion
 
 		public:
 
-			virtual void Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
-			virtual void UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
-			virtual void GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
 		};
 
@@ -108,8 +108,8 @@ namespace ion
 
 		public:
 
-			virtual void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
-			virtual void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
 		};
 
@@ -119,8 +119,8 @@ namespace ion
 
 		public:
 
-			virtual void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
-			virtual void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
 		};
 
@@ -140,8 +140,8 @@ namespace ion
 				NegativeZ = 5
 			};
 
-			virtual void Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
-			virtual void UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void Upload(EFace const Face, void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
+			virtual void UploadSubRegion(EFace const Face, void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type) = 0;
 
 		};
 
