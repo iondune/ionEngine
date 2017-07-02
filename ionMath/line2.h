@@ -55,12 +55,12 @@ namespace ion
 
 		float GetDistanceFrom(vec2<T> const & Point)
 		{
-			return Length(Point, ClosestPointTo(Point));
+			return Distance(Point, ClosestPointTo(Point));
 		}
 
 		float GetDistanceSqFrom(vec2<T> const & Point)
 		{
-			return LengthSq(Point, ClosestPointTo(Point));
+			return DistanceSq(Point, ClosestPointTo(Point));
 		}
 
 	};
