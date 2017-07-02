@@ -5,7 +5,6 @@ target_link_libraries(Demo05-Application ionScene)
 target_link_libraries(Demo05-Application ionGraphicsGL)
 target_link_libraries(Demo05-Application ionGraphics)
 target_link_libraries(Demo05-Application ionWindow)
-target_link_libraries(Demo05-Application ionFramework)
 target_link_libraries(Demo05-Application ionCore)
 ExecutableDependencies(Demo05-Application)
 add_custom_command(

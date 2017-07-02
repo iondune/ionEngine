@@ -3,7 +3,6 @@
 
 #include <ionCore.h>
 #include <ionMath.h>
-#include <ionFramework.h>
 
 #include "Enums.h"
 #include "IShaderProgram.h"

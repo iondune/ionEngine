@@ -2,8 +2,6 @@
 #pragma once
 
 #include <ionCore.h>
-#include <ionMath.h>
-#include <ionFramework.h>
 #include <ionWindow.h>
 
 #include <simpleini/SimpleIni.h>

@@ -2,7 +2,6 @@
 #pragma once
 
 #include <ionCore.h>
-#include "IEventListener.h"
 
 
 class IState : public IEventListener

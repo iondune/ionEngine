@@ -77,6 +77,15 @@
     <ClInclude Include="ionMathFunctions.h">
       <Filter>Core Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="CImage.h">
+      <Filter>Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="IEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IEventListener.h">
+      <Filter>Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ionUtils.cpp">
@@ -97,6 +106,12 @@
     <ClCompile Include="Color.cpp">
       <Filter>Vector</Filter>
     </ClCompile>
+    <ClCompile Include="CImage.cpp">
+      <Filter>Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="ionSTB.cpp">
+      <Filter>STB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core Utilities">
@@ -110,6 +125,15 @@
     </Filter>
     <Filter Include="Vector">
       <UniqueIdentifier>{66f568ba-eb1b-4ea7-9788-8c59efbbf4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{d5d2d4a4-7f61-4fbd-b08d-637783861f9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="STB">
+      <UniqueIdentifier>{3102e85c-07e5-471a-a676-2f82e0f87e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{06984b8d-6a5f-49c6-a08a-326ad68b6e13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

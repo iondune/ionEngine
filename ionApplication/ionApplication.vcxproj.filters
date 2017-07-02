@@ -5,10 +5,24 @@
     <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="ionApplication.h" />
     <ClInclude Include="CDefaultApplication.h" />
+    <ClInclude Include="CStateManager.h">
+      <Filter>State System</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>State System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraController.cpp" />
     <ClCompile Include="CAssetManager.cpp" />
     <ClCompile Include="CDefaultApplication.cpp" />
+    <ClCompile Include="CStateManager.cpp">
+      <Filter>State System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="State System">
+      <UniqueIdentifier>{17c157f7-ca62-459b-b7ff-79d220cba346}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

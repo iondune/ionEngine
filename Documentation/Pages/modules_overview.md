@@ -17,9 +17,8 @@ digraph deps {
    ionGraphicsGL [URL="\ref ionGraphicsGL"];
 
    ionCore -> ionMath            [dir="back"];
-   ionMath -> ionFramework       [dir="back"];
-   ionFramework -> ionGraphics   [dir="back"];
-   ionFramework -> ionAnimation  [dir="back"];
+   ionMath -> ionGraphics        [dir="back"];
+   ionMath -> ionAnimation       [dir="back"];
    ionGraphics -> ionWindow      [dir="back"];
    ionWindow -> ionGraphicsGL    [dir="back"];
    ionWindow -> ionGUI           [dir="back"];
@@ -37,8 +36,6 @@ Overview
 [ionCore](@ref ionCore) is the basis for all other modules, a set of boilerplate functions, classes, and templates.
 
 [ionMath](@ref ionCore) provides geometric primitives.
-
-ionFramework provides basic application structures including event listeners.
 
 ionAnimation provides animation utilities such as spline classes.
 

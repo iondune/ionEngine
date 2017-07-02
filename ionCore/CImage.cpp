@@ -1,9 +1,8 @@
 
 #include "CImage.h"
+#include "ionLogger.h"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
 
 
@@ -17,7 +16,7 @@ namespace ion
 
 		if (! data)
 		{
-			std::cerr << "Failed to load image from file '" << FileName << "', reason: " << stbi_failure_reason() << std::endl;
+			Log::Error("Failed to load image from file '%s', reason: %s", FileName, stbi_failure_reason());
 			return 0;
 		}
 

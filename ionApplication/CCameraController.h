@@ -2,7 +2,6 @@
 #pragma once
 
 #include <ionCore.h>
-#include <ionFramework.h>
 #include <ionWindow.h>
 #include <ionScene.h>
 

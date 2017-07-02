@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <ionCore.h>
+#include "IMultiTreeNode.h"
 #include "IEvent.h"
 
 

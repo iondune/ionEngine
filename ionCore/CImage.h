@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include <ionMath.h>
+#include "vec2.h"
+#include "color4.h"
 
 
 namespace ion

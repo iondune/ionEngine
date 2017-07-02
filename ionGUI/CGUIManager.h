@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <ionMath.h>
-#include <ionFramework.h>
+#include <ionCore.h>
 #include <ionWindow.h>
 #include <ionGraphics.h>
 

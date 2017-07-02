@@ -34,6 +34,11 @@
 #include "color4.h"
 #include "Color.h"
 
+#include "CImage.h"
+
+#include "IEvent.h"
+#include "IEventListener.h"
+
 
 //! \defgroup ionCore ionCore
 //!
