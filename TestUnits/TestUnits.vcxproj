@@ -35,8 +35,8 @@
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
     <ClCompile Include="ray3.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
-    <ClCompile Include="SVector2.cpp" />
-    <ClCompile Include="SVector3.cpp" />
+    <ClCompile Include="vec2.cpp" />
+    <ClCompile Include="vec3.cpp" />
     <ClCompile Include="TestFile.cpp" />
     <ClCompile Include="TestString.cpp" />
     <ClCompile Include="UnitTests.cpp" />

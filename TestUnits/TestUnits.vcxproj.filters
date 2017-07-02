@@ -8,9 +8,6 @@
     <ClCompile Include="ionComparison.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
-    <ClCompile Include="SVector2.cpp">
-      <Filter>ionMath</Filter>
-    </ClCompile>
     <ClCompile Include="ionComponent.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
@@ -19,9 +16,6 @@
     </ClCompile>
     <ClCompile Include="Interpolation.cpp">
       <Filter>ionScience</Filter>
-    </ClCompile>
-    <ClCompile Include="SVector3.cpp">
-      <Filter>ionMath</Filter>
     </ClCompile>
     <ClCompile Include="SBoundingBox3.cpp">
       <Filter>ionMath</Filter>
@@ -49,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="SRect2.cpp">
       <Filter>ionMath</Filter>
+    </ClCompile>
+    <ClCompile Include="vec2.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
+    <ClCompile Include="vec3.cpp">
+      <Filter>ionCore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
