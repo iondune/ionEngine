@@ -31,6 +31,7 @@ namespace ion
 				void SetMagFilter(EFilter const MagFilter);
 				void SetMipMapFilter(EFilter const MipMapFilter);
 				void SetWrapMode(EWrapMode const WrapMode);
+				void SetBorderColor(color4f const & BorderColor);
 				void SetAnisotropy(float const Anisotropy);
 
 				EFilter GetMinFilter();
@@ -49,6 +50,7 @@ namespace ion
 				EFilter MagFilter = EFilter::Linear;
 				EFilter MipMapFilter = EFilter::Linear;
 				EWrapMode WrapMode = EWrapMode::Repeat;
+				color4f BorderColor;
 
 				//! Anisotrophic filtering value
 				//! A value < 0 indicates that the max anisotrophy value should be used

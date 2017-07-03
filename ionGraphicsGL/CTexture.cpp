@@ -29,9 +29,9 @@ namespace ion
 					GL_NEAREST, GL_LINEAR
 				};
 
-				static uint const WrapLookup[3] =
+				static uint const WrapLookup[4] =
 				{
-					GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT
+					GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT, GL_CLAMP_TO_BORDER
 				};
 
 				int MipMapMode;
@@ -49,6 +49,14 @@ namespace ion
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_S, WrapLookup[(int) WrapMode]));
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_T, WrapLookup[(int) WrapMode]));
 				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
+				float BorderColorValues[4] = 
+				{
+					BorderColor.Red,
+					BorderColor.Green,
+					BorderColor.Blue,
+					BorderColor.Alpha,
+				};
+				CheckedGLCall(glTexParameterfv(GetGLBindTextureTarget(), GL_TEXTURE_BORDER_COLOR, BorderColorValues));
 
 				float LargestAnisotropy = 2.f;
 				CheckedGLCall(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
@@ -79,6 +87,12 @@ namespace ion
 			void CTexture::SetWrapMode(EWrapMode const WrapMode)
 			{
 				this->WrapMode = WrapMode;
+				ApplyParams();
+			}
+
+			void CTexture::SetBorderColor(color4f const & BorderColor)
+			{
+				this->BorderColor = BorderColor;
 				ApplyParams();
 			}
 

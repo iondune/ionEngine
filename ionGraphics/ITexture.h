@@ -30,6 +30,7 @@ namespace ion
 				Clamp = 0,
 				Mirror = 1,
 				Repeat = 2,
+				Border = 3
 			};
 
 			enum class EFormatComponents
@@ -75,6 +76,10 @@ namespace ion
 			//! Sets the wrap mode for this texture
 			//! Default is EWrapMode::Repeat
 			virtual void SetWrapMode(EWrapMode const WrapMode) = 0;
+
+			//! Sets the border color for this texture
+			//! Used when WrapMode is set to EWrapMode::Border
+			virtual void SetBorderColor(color4f const & BorderColor) = 0;
 
 			//! Sets the anisotropy filtering value for this texture
 			//! A value < 0 indicates that the max anisotrophy value should be used
