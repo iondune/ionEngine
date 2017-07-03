@@ -35,6 +35,12 @@ TEST_CASE("line2 intersect")
 
 	CHECK(! c.IntersectsWith(d, Out));
 	CHECK(! d.IntersectsWith(c, Out));
+
+	line2f e(vec2f(92.31f, 19.6f), vec2f(92.3f, 20.59f));
+	line2f f(vec2f(92.48f, 19.68f), vec2f(19.76f, 21.51f));
+
+	CHECK(e.IntersectsWith(f, Out));
+	CHECK(f.IntersectsWith(e, Out));
 }
 
 TEST_CASE("line2 distance from line2")
