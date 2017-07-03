@@ -63,6 +63,42 @@ namespace ion
 			return DistanceSq(Point, ClosestPointTo(Point));
 		}
 
+		bool IntersectsWith(line2<T> const & Other, vec2<T> & Intersection)
+		{
+			// Implementation adapted from Paul Bourke's intersection code
+			// http://paulbourke.net/geometry/pointlineplane/
+			// http://paulbourke.net/geometry/pointlineplane/pdb.c
+
+			T const denom =  (Other.End.Y - Other.Start.Y) * (End.X   - Start.X)       - (Other.End.X - Other.Start.X) * (End.Y   - Start.Y);
+			T const numera = (Other.End.X - Other.Start.X) * (Start.Y - Other.Start.Y) - (Other.End.Y - Other.Start.Y) * (Start.X - Other.Start.X);
+			T const numerb = (End.X       - Start.X)       * (Start.Y - Other.Start.Y) - (End.Y       - Start.Y)       * (Start.X - Other.Start.X);
+
+			// Are the line coincident?
+			if (Equals(numera, (T) 0) && Equals(numerb, (T) 0) && Equals(denom, (T) 0))
+			{
+				Intersection = (Start + End) / 2;
+				return true;
+			}
+
+			// Are the lines parallel?
+			if (Equals(denom, (T) 0))
+			{
+				return false;
+			}
+
+			// Is the intersection along the the segments?
+			T const mua = numera / denom;
+			T const mub = numerb / denom;
+
+			if (mua < 0 || mua > 1 || mub < 0 || mub > 1)
+			{
+				return false;
+			}
+
+			Intersection = Start + mua * (End - Start);
+			return true;
+		}
+
 	};
 
 	typedef line2<float> line2f;
