@@ -42,7 +42,7 @@ namespace ion
 			return Distance(Line.Start, Line.End);
 		}
 
-		vec2<T> const ClosestPointTo(vec2<T> const & Point)
+		vec2<T> const ClosestPointTo(vec2<T> const & Point) const
 		{
 			if (End == Start)
 			{
@@ -53,17 +53,17 @@ namespace ion
 			return Start + t * (End - Start);
 		}
 
-		float GetDistanceFrom(vec2<T> const & Point)
+		float GetDistanceFrom(vec2<T> const & Point) const
 		{
 			return Distance(Point, ClosestPointTo(Point));
 		}
 
-		float GetDistanceSqFrom(vec2<T> const & Point)
+		float GetDistanceSqFrom(vec2<T> const & Point) const
 		{
 			return DistanceSq(Point, ClosestPointTo(Point));
 		}
 
-		bool IntersectsWith(line2<T> const & Other, vec2<T> & Intersection)
+		bool IntersectsWith(line2<T> const & Other, vec2<T> & Intersection) const
 		{
 			// Implementation adapted from Paul Bourke's intersection code
 			// http://paulbourke.net/geometry/pointlineplane/
