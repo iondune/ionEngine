@@ -99,6 +99,30 @@ namespace ion
 			return true;
 		}
 
+		float GetDistanceFrom(line2<T> const & Other) const
+		{
+			vec2<T> Intersect;
+
+			if (IntersectsWith(Other, Intersect))
+			{
+				return 0.f;
+			}
+
+			return Min(GetDistanceFrom(Other.Start), GetDistanceFrom(Other.End), Other.GetDistanceFrom(Start), Other.GetDistanceFrom(End));
+		}
+
+		float GetDistanceSqFrom(line2<T> const & Other) const
+		{
+			vec2<T> Intersect;
+
+			if (IntersectsWith(Other, Intersect))
+			{
+				return 0.f;
+			}
+
+			return Min(GetDistanceSqFrom(Other.Start), GetDistanceSqFrom(Other.End), Other.GetDistanceSqFrom(Start), Other.GetDistanceSqFrom(End));
+		}
+
 	};
 
 	typedef line2<float> line2f;
