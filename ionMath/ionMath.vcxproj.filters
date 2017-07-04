@@ -34,5 +34,8 @@
     <ClInclude Include="line2.h">
       <Filter>Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="box2.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
 #include "SLine3.h"
 #include "ray3.h"
 
+#include "box2.h"
 #include "SRect2.h"
 #include "STriangle2.h"
 

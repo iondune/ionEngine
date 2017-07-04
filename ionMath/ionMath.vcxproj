@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Utility.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="box2.h" />
     <ClInclude Include="ionMath.h" />
     <ClInclude Include="line2.h" />
     <ClInclude Include="ray3.h" />
