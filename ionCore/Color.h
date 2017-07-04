@@ -51,6 +51,17 @@ namespace ion
 			return Color;
 		}
 
+		//! \brief Unacks a color from 24 bits
+		//! \ingroup ionCore
+		static color3i Hex(uint const Value)
+		{
+			color3i Color;
+			Color.Red = (Value >> 16) & 0xFF;
+			Color.Green = (Value >> 8) & 0xFF;
+			Color.Blue = Value & 0xFF;
+			return Color;
+		}
+
 	}
 
 }
