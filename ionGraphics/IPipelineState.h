@@ -31,7 +31,9 @@ namespace ion
 		{
 			None = 0,
 			Alpha = 1,
-			Additive = 2
+			Additive = 2,
+			Min = 3,
+			Max = 4
 		};
 
 		//! \ingroup ionGraphics

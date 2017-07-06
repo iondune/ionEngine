@@ -242,11 +242,21 @@ namespace ion
 					CheckedGLCall(glEnable(GL_BLEND));
 					if (PipelineState->BlendMode == EBlendMode::Alpha)
 					{
+						CheckedGLCall(glBlendEquation(GL_FUNC_ADD));
 						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 					}
 					else if (PipelineState->BlendMode == EBlendMode::Additive)
 					{
+						CheckedGLCall(glBlendEquation(GL_FUNC_ADD));
 						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
+					}
+					else if (PipelineState->BlendMode == EBlendMode::Min)
+					{
+						CheckedGLCall(glBlendEquation(GL_MIN));
+					}
+					else if (PipelineState->BlendMode == EBlendMode::Max)
+					{
+						CheckedGLCall(glBlendEquation(GL_MAX));
 					}
 				}
 			}
