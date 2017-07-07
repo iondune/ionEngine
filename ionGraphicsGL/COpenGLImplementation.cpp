@@ -313,6 +313,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture2D->IsInteger = true;
+				Texture2D->MinFilter = ITexture::EFilter::Nearest;
+				Texture2D->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -360,6 +362,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture3D->IsInteger = true;
+				Texture3D->MinFilter = ITexture::EFilter::Nearest;
+				Texture3D->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -406,6 +410,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture2DArray->IsInteger = true;
+				Texture2DArray->MinFilter = ITexture::EFilter::Nearest;
+				Texture2DArray->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -452,6 +458,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				TextureCubeMap->IsInteger = true;
+				TextureCubeMap->MinFilter = ITexture::EFilter::Nearest;
+				TextureCubeMap->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 

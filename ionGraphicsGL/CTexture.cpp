@@ -36,9 +36,13 @@ namespace ion
 
 				int MipMapMode;
 				if (MipMaps)
+				{
 					MipMapMode = 1 + (int) MipMapFilter;
+				}
 				else
+				{
 					MipMapMode = 0;
+				}
 
 				int PreviouslyBoundTexture;
 				CheckedGLCall(glGetIntegerv(GetGLTextureBindingEnum(), & PreviouslyBoundTexture));
@@ -68,20 +72,44 @@ namespace ion
 
 			void CTexture::SetMinFilter(EFilter const MinFilter)
 			{
-				this->MinFilter = MinFilter;
-				ApplyParams();
+				if (IsInteger && MinFilter != EFilter::Nearest)
+				{
+					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
+					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
+				}
+				else
+				{
+					this->MinFilter = MinFilter;
+					ApplyParams();
+				}
 			}
 
 			void CTexture::SetMagFilter(EFilter const MagFilter)
 			{
-				this->MagFilter = MagFilter;
-				ApplyParams();
+				if (IsInteger && MagFilter != EFilter::Nearest)
+				{
+					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
+					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
+				}
+				else
+				{
+					this->MagFilter = MagFilter;
+					ApplyParams();
+				}
 			}
 
 			void CTexture::SetMipMapFilter(EFilter const MipMapFilter)
 			{
-				this->MipMapFilter = MipMapFilter;
-				ApplyParams();
+				if (IsInteger && MipMapFilter != EFilter::Nearest)
+				{
+					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
+					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
+				}
+				else
+				{
+					this->MipMapFilter = MipMapFilter;
+					ApplyParams();
+				}
 			}
 
 			void CTexture::SetWrapMode(EWrapMode const WrapMode)
