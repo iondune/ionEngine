@@ -24,11 +24,11 @@ namespace ion
 			void PreWindowCreationSetup();
 			void PostWindowCreationSetup();
 
-			SharedPointer<IVertexShader> CreateVertexShaderFromSource(string const & Source);
-			SharedPointer<IGeometryShader> CreateGeometryShaderFromSource(string const & Source);
-			SharedPointer<IPixelShader> CreatePixelShaderFromSource(string const & Source);
+			SharedPointer<IVertexStage> CreateVertexShaderFromSource(string const & Source);
+			SharedPointer<IGeometryStage> CreateGeometryShaderFromSource(string const & Source);
+			SharedPointer<IPixelStage> CreatePixelShaderFromSource(string const & Source);
 
-			SharedPointer<IShaderProgram> CreateShaderProgram();
+			SharedPointer<IShader> CreateShaderProgram();
 
 			SharedPointer<IVertexBuffer> CreateVertexBuffer();
 			SharedPointer<IIndexBuffer> CreateIndexBuffer();

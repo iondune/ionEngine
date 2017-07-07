@@ -105,8 +105,8 @@ int main()
 		}
 	)SHADER";
 
-	SharedPointer<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromSource(VertexShaderSource);
-	SharedPointer<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromSource(FragmentShaderSource);
+	SharedPointer<IVertexStage> VertexShader = GraphicsAPI->CreateVertexStageFromSource(VertexShaderSource);
+	SharedPointer<IPixelStage> PixelShader = GraphicsAPI->CreatePixelStageFromSource(FragmentShaderSource);
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
@@ -114,7 +114,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	SharedPointer<IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPointer<IShader> ShaderProgram = GraphicsAPI->CreateShaderProgram();
 	ShaderProgram->SetVertexStage(VertexShader);
 	ShaderProgram->SetPixelStage(PixelShader);
 	
@@ -126,7 +126,7 @@ int main()
 	SharedPointer<IPipelineState> PipelineState = Context->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
-	PipelineState->SetProgram(ShaderProgram);
+	PipelineState->SetShader(ShaderProgram);
 
 	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);

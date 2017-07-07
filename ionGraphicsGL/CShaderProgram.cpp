@@ -33,31 +33,31 @@ namespace ion
 		namespace GL
 		{
 			
-			void CShaderProgram::SetVertexStage(SharedPointer<IVertexShader> VertexShader)
+			void CShader::SetVertexStage(SharedPointer<IVertexStage> VertexShader)
 			{
 				if (VertexShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexShader>(VertexShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexStage>(VertexShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader)
+			void CShader::SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader)
 			{
 				if (GeometryShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CGeometryShader>(GeometryShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CGeometryStage>(GeometryShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::SetPixelStage(SharedPointer<IPixelShader> PixelShader)
+			void CShader::SetPixelStage(SharedPointer<IPixelStage> PixelShader)
 			{
 				if (PixelShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CPixelShader>(PixelShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CPixelStage>(PixelShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::Link()
+			void CShader::Link()
 			{
 				CheckedGLCall(glBindFragDataLocation(Handle, 0, "outColor"));
 				CheckedGLCall(glLinkProgram(Handle));

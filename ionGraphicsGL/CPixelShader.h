@@ -13,7 +13,7 @@ namespace ion
 		namespace GL
 		{
 
-			class CPixelShader : public IPixelShader
+			class CPixelStage : public IPixelStage
 			{
 
 			public:

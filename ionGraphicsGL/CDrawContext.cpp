@@ -57,25 +57,25 @@ namespace ion
 				this->PrimitiveType = GL_TRIANGLES;
 			}
 
-			void CDrawContext::SetProgram(SharedPointer<IShaderProgram> inShaderProgram)
+			void CDrawContext::SetShader(SharedPointer<IShader> inShader)
 			{
-				if (inShaderProgram)
+				if (inShader)
 				{
-					ShaderProgram = std::dynamic_pointer_cast<CShaderProgram>(inShaderProgram);
-					if (! ShaderProgram->Linked)
+					Shader = std::dynamic_pointer_cast<CShader>(inShader);
+					if (! Shader->Linked)
 					{
-						ShaderProgram->Link();
+						Shader->Link();
 
-						if (! ShaderProgram->Linked)
+						if (! Shader->Linked)
 						{
 							Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
-							ShaderProgram = nullptr;
+							Shader = nullptr;
 							return;
 						}
 					}
 
-					RequiredUniforms = KeySet(ShaderProgram->Uniforms);
-					UnboundAttributes = KeySet(ShaderProgram->Attributes);
+					RequiredUniforms = KeySet(Shader->Uniforms);
+					UnboundAttributes = KeySet(Shader->Attributes);
 					UnboundAttributes.erase("gl_VertexID");
 
 					for (CDrawConfig * Config : Configs)
@@ -361,7 +361,7 @@ namespace ion
 					for (string const & RequiredUniform : Config->RequiredUniforms)
 					{
 						uint Handle = 0;
-						assert(TryMapAccess(ShaderProgram->Uniforms, RequiredUniform, Handle));
+						assert(TryMapAccess(Shader->Uniforms, RequiredUniform, Handle));
 
 						SharedPointer<IUniform const> Uniform;
 						SharedPointer<ITexture const> Texture;
@@ -410,7 +410,7 @@ namespace ion
 				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
 				{
 					pair<uint, uint> AttributeInfo;
-					if (TryMapAccess(ShaderProgram->Attributes, InputLayoutElement.Name, AttributeInfo))
+					if (TryMapAccess(Shader->Attributes, InputLayoutElement.Name, AttributeInfo))
 					{
 						uint const AttributeLocation = AttributeInfo.first;
 						uint const AttributeType = AttributeInfo.second;
@@ -618,13 +618,13 @@ namespace ion
 
 			bool CDrawContext::InternalDrawSetup()
 			{
-				if (! ShaderProgram)
+				if (! Shader)
 				{
 					Log::Error("Cannot draw pipeline state with no shader program.");
 					return false;
 				}
 
-				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
+				CheckedGLCall(glUseProgram(Shader->Handle));
 
 				// Draw Features
 				if (DrawWireframe)

@@ -21,12 +21,12 @@ namespace ion
 			virtual void Load(CRenderPass * RenderPass);
 			virtual void Draw(CRenderPass * RenderPass);
 
-			virtual void SetShader(SharedPointer<Graphics::IShaderProgram> Shader);
+			virtual void SetShader(SharedPointer<Graphics::IShader> Shader);
 
 		protected:
 
 			SharedPointer<Graphics::IPipelineState> PipelineState;
-			SharedPointer<Graphics::IShaderProgram> Shader;
+			SharedPointer<Graphics::IShader> Shader;
 
 			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
 			SharedPointer<Graphics::IVertexBuffer> VertexBuffers;

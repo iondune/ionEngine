@@ -78,7 +78,7 @@ namespace ion
 	void CAssetManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
-	SharedPointer<Graphics::IShaderProgram> CAssetManager::LoadShader(string const & Name)
+	SharedPointer<Graphics::IShader> CAssetManager::LoadShader(string const & Name)
 	{
 		if (! GraphicsAPI)
 		{
@@ -98,11 +98,11 @@ namespace ion
 				continue;
 			}
 
-			SharedPointer<Graphics::IVertexShader> VertexShader;
-			SharedPointer<Graphics::IGeometryShader> GeometryShader;
-			SharedPointer<Graphics::IPixelShader> PixelShader;
+			SharedPointer<Graphics::IVertexStage> VertexShader;
+			SharedPointer<Graphics::IGeometryStage> GeometryShader;
+			SharedPointer<Graphics::IPixelStage> PixelShader;
 
-			VertexShader = GraphicsAPI->CreateVertexShaderFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
+			VertexShader = GraphicsAPI->CreateVertexStageFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
 			if (! VertexShader)
 			{
 				Log::Error("Failed to compile vertex shader '%s': '%s'", Name, VertexPath);
@@ -111,7 +111,7 @@ namespace ion
 
 			if (File::Exists(GeometryPath))
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryShaderFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
+				GeometryShader = GraphicsAPI->CreateGeometryStageFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
 
 				if (! GeometryShader)
 				{
@@ -122,7 +122,7 @@ namespace ion
 
 			if (File::Exists(PixelPath))
 			{
-				PixelShader = GraphicsAPI->CreatePixelShaderFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
+				PixelShader = GraphicsAPI->CreatePixelStageFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
 				if (! PixelShader)
 				{
 					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, PixelPath);
@@ -135,16 +135,16 @@ namespace ion
 				return nullptr;
 			}
 
-			SharedPointer<Graphics::IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
-			ShaderProgram->SetVertexStage(VertexShader);
-			ShaderProgram->SetPixelStage(PixelShader);
+			SharedPointer<Graphics::IShader> Shader = GraphicsAPI->CreateShaderProgram();
+			Shader->SetVertexStage(VertexShader);
+			Shader->SetPixelStage(PixelShader);
 
 			if (GeometryShader)
 			{
-				ShaderProgram->SetGeometryStage(GeometryShader);
+				Shader->SetGeometryStage(GeometryShader);
 			}
 
-			return ShaderProgram;
+			return Shader;
 		}
 
 		Log::Error("Cannot find shader file in any asset directory: '%s'", Name);

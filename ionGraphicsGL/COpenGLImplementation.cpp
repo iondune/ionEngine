@@ -197,9 +197,9 @@ namespace ion
 			SafeGLCall(glEnable, (GL_TEXTURE_CUBE_MAP_SEAMLESS));
 		}
 
-		SharedPointer<IVertexShader> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
+		SharedPointer<IVertexStage> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CVertexShader> VertexShader = std::make_shared<GL::CVertexShader>();
+			SharedPointer<GL::CVertexStage> VertexShader = std::make_shared<GL::CVertexStage>();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -217,9 +217,9 @@ namespace ion
 			return VertexShader;
 		}
 
-		SharedPointer<IGeometryShader> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
+		SharedPointer<IGeometryStage> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CGeometryShader> GeometryShader = std::make_shared<GL::CGeometryShader>();
+			SharedPointer<GL::CGeometryStage> GeometryShader = std::make_shared<GL::CGeometryStage>();
 			GeometryShader->Handle = glCreateShader(GL_GEOMETRY_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -237,9 +237,9 @@ namespace ion
 			return GeometryShader;
 		}
 
-		SharedPointer<IPixelShader> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
+		SharedPointer<IPixelStage> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
+			SharedPointer<GL::CPixelStage> PixelShader = std::make_shared<GL::CPixelStage>();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -257,9 +257,9 @@ namespace ion
 			return PixelShader;
 		}
 
-		SharedPointer<IShaderProgram> COpenGLImplementation::CreateShaderProgram()
+		SharedPointer<IShader> COpenGLImplementation::CreateShaderProgram()
 		{
-			SharedPointer<GL::CShaderProgram> ShaderProgram = std::make_shared<GL::CShaderProgram>();
+			SharedPointer<GL::CShader> ShaderProgram = std::make_shared<GL::CShader>();
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;

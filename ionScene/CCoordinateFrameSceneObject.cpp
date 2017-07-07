@@ -49,7 +49,7 @@ namespace ion
 			VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 
 			PipelineState = RenderPass->GetGraphicsContext()->CreatePipelineState();
-			PipelineState->SetProgram(Shader);
+			PipelineState->SetShader(Shader);
 			PipelineState->SetIndexBuffer(IndexBuffer);
 			PipelineState->SetVertexBuffer(0, VertexBuffer);
 			PipelineState->SetPrimitiveType(EPrimitiveType::Line);
@@ -63,7 +63,7 @@ namespace ion
 			RenderPass->SubmitPipelineStateForRendering(PipelineState, this);
 		}
 
-		void CCoordinateFrameSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
+		void CCoordinateFrameSceneObject::SetShader(SharedPointer<Graphics::IShader> Shader)
 		{
 			this->Shader = Shader;
 			TriggerReload();

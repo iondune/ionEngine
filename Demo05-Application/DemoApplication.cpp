@@ -49,10 +49,10 @@ int main()
 	CSimpleMesh * SkyBoxMesh = CGeometryCreator::CreateCube();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
-	SharedPointer<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
-	SharedPointer<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
-	SharedPointer<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
-	SharedPointer<IShaderProgram> SkyBoxShader = AssetManager->LoadShader("SkyBox");
+	SharedPointer<IShader> DiffuseShader = AssetManager->LoadShader("Diffuse");
+	SharedPointer<IShader> SimpleShader = AssetManager->LoadShader("Simple");
+	SharedPointer<IShader> SpecularShader = AssetManager->LoadShader("Specular");
+	SharedPointer<IShader> SkyBoxShader = AssetManager->LoadShader("SkyBox");
 
 	SharedPointer<ITextureCubeMap> SkyBoxTexture = AssetManager->LoadCubeMapTexture(
 		"DarkStormyLeft2048.png",

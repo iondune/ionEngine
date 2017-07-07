@@ -39,7 +39,7 @@ namespace ion
 			virtual ~IDrawContext()
 			{}
 
-			virtual void SetProgram(SharedPointer<IShaderProgram> ShaderProgram) = 0;
+			virtual void SetShader(SharedPointer<IShader> ShaderProgram) = 0;
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer) = 0;
 			virtual void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer) = 0;
 			virtual void SetUniform(string const & Name, SharedPointer<IUniform> Uniform) = 0;

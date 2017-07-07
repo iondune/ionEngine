@@ -27,11 +27,11 @@ namespace ion
 		virtual void PreWindowCreationSetup() = 0;
 		virtual void PostWindowCreationSetup() = 0;
 
-		virtual SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromSource(string const & Source) = 0;
-		virtual SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromSource(string const & Source) = 0;
-		virtual SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromSource(string const & Source) = 0;
+		virtual SharedPointer<Graphics::IVertexStage> CreateVertexShaderFromSource(string const & Source) = 0;
+		virtual SharedPointer<Graphics::IGeometryStage> CreateGeometryShaderFromSource(string const & Source) = 0;
+		virtual SharedPointer<Graphics::IPixelStage> CreatePixelShaderFromSource(string const & Source) = 0;
 
-		virtual SharedPointer<Graphics::IShaderProgram> CreateShaderProgram() = 0;
+		virtual SharedPointer<Graphics::IShader> CreateShaderProgram() = 0;
 
 		virtual SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer() = 0;
 		virtual SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer() = 0;
@@ -60,15 +60,15 @@ namespace ion
 		void PreWindowCreationSetup();
 		void PostWindowCreationSetup();
 
-		SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromFile(string const & FileName);
-		SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromFile(string const & FileName);
-		SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromFile(string const & FileName);
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName);
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName);
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromFile(string const & FileName);
 
-		SharedPointer<Graphics::IVertexShader> CreateVertexShaderFromSource(string const & Source);
-		SharedPointer<Graphics::IGeometryShader> CreateGeometryShaderFromSource(string const & Source);
-		SharedPointer<Graphics::IPixelShader> CreatePixelShaderFromSource(string const & Source);
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromSource(string const & Source);
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromSource(string const & Source);
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromSource(string const & Source);
 
-		SharedPointer<Graphics::IShaderProgram> CreateShaderProgram();
+		SharedPointer<Graphics::IShader> CreateShaderProgram();
 
 		SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
 		SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();

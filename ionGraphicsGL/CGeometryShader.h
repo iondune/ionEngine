@@ -13,7 +13,7 @@ namespace ion
 		namespace GL
 		{
 
-			class CGeometryShader : public IGeometryShader
+			class CGeometryStage : public IGeometryStage
 			{
 
 			public:

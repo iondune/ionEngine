@@ -22,7 +22,7 @@ namespace ion
 
 			virtual void SetIndexBuffer(SharedPointer<Graphics::IIndexBuffer> IndexBuffer);
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<Graphics::IVertexBuffer> VertexBuffer);
-			virtual void SetShader(SharedPointer<Graphics::IShaderProgram> Shader);
+			virtual void SetShader(SharedPointer<Graphics::IShader> Shader);
 			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
 			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
 			virtual void SetFeatureEnabled(Graphics::EDrawFeature const Feature, bool const Enabled);
@@ -39,7 +39,7 @@ namespace ion
 		protected:
 
 			map<CRenderPass *, SharedPointer<Graphics::IPipelineState>> PipelineStates;
-			SharedPointer<Graphics::IShaderProgram> Shader;
+			SharedPointer<Graphics::IShader> Shader;
 
 			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
 			vector<SharedPointer<Graphics::IVertexBuffer>> VertexBuffers;
