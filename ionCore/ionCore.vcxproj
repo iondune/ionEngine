@@ -54,6 +54,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Directory.cpp" />
+    <ClCompile Include="ionLogger.cpp" />
     <ClCompile Include="ionSTB.cpp" />
     <ClCompile Include="ionUtils.cpp" />
     <ClCompile Include="String.cpp" />

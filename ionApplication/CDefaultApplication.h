@@ -5,11 +5,11 @@
 #include <ionWindow.h>
 
 #include <simpleini/SimpleIni.h>
+#undef CreateWindow
 
 
 namespace ion
 {
-
 
 	class CDefaultApplication : public IEventListener
 	{
