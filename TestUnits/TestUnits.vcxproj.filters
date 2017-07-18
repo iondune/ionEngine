@@ -53,6 +53,9 @@
     <ClCompile Include="line2.cpp">
       <Filter>ionMath</Filter>
     </ClCompile>
+    <ClCompile Include="TestColor.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
