@@ -559,6 +559,16 @@ namespace ion
 			return ArcTan(Y, X);
 		}
 
+		vec2<T> Rotate90CW() const
+		{
+			return vec2<T>(Y, -X);
+		}
+
+		vec2<T> Rotate90CCW() const
+		{
+			return vec2<T>(-Y, X);
+		}
+
 	};
 
 	typedef vec2<float> vec2f;
