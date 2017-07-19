@@ -36,7 +36,7 @@ namespace ion
 
 		public:
 
-			virtual void Write(string const & Message) = 0;
+			virtual void Write(ELogChannel const Channel, string const & Message) = 0;
 
 		};
 
@@ -46,7 +46,7 @@ namespace ion
 		public:
 
 			StandardOutput(std::ostream & Stream);
-			virtual void Write(string const & Message);
+			virtual void Write(ELogChannel const Channel, string const & Message);
 
 		private:
 
@@ -59,7 +59,7 @@ namespace ion
 
 		public:
 
-			virtual void Write(string const & Message);
+			virtual void Write(ELogChannel const Channel, string const & Message);
 
 		};
 
@@ -106,13 +106,14 @@ namespace ion
 
 		public:
 
+			ELogChannel const Which;
 			string Label;
 			vector<Output *> WriteTo;
 			vector<string> Messages;
 			vector<pair<string, int>> MessagesDetail;
 			unordered_map<string, int> MessageMap;
 
-			Channel(string const & Label);
+			Channel(ELogChannel const Which, string const & Label);
 
 			//! \return true if this is a new message, false if not
 			bool WriteMessage(string const & ToWrite);
