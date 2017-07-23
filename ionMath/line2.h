@@ -32,6 +32,11 @@ namespace ion
 			return End - Start;
 		}
 
+		vec2<T> GetNormal() const
+		{
+			return (End - Start).Rotate90CW().GetNormalized();
+		}
+
 		T Length() const
 		{
 			return Distance(Start, End);
