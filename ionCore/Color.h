@@ -32,35 +32,19 @@ namespace ion
 
 		//! \brief Packs a color into 24 bits
 		//! \ingroup ionCore
-		static uint PackBits24(color3i const & Color)
-		{
-			uint const Red = Color.Red;
-			uint const Green = Color.Green;
-			uint const Blue = Color.Blue;
-			return (Red << 16) | (Green << 8) | (Blue);
-		}
+		uint PackBits24(color3i const & Color);
 
-		//! \brief Unacks a color from 24 bits
+		//! \brief Unpacks a color from 24 bits
 		//! \ingroup ionCore
-		static color3i UnpackBits24(uint const Value)
-		{
-			color3i Color;
-			Color.Red = (Value >> 16) & 0xFF;
-			Color.Green = (Value >> 8) & 0xFF;
-			Color.Blue = Value & 0xFF;
-			return Color;
-		}
+		color3i UnpackBits24(uint const Value);
 
-		//! \brief Unacks a color from 24 bits
+		//! \brief Unpacks a color from 24 bits
 		//! \ingroup ionCore
-		static color3i Hex(uint const Value)
-		{
-			color3i Color;
-			Color.Red = (Value >> 16) & 0xFF;
-			Color.Green = (Value >> 8) & 0xFF;
-			Color.Blue = Value & 0xFF;
-			return Color;
-		}
+		color3i Hex(uint const Value);
+
+		//! \brief Compute RGB color from HSV
+		//! \ingroup ionCore
+		color3f HSV(float const H, float const S, float const V);
 
 	}
 
