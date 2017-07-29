@@ -46,22 +46,40 @@ namespace ion
 			: X(v.x), Y(v.y), Z(v.z), W(v.w)
 		{}
 
-		//! Generic vec4 constructor
+		//! Generic constructor
 		template <typename U>
 		vec4(vec4<U> const & vec)
 			: X((T) vec.X), Y((T) vec.Y), Z((T) vec.Z), W((T) vec.W)
 		{}
 
-		//! Generic vec3 constructor
-		template <typename U>
-		vec4(vec3<U> const & vec)
-			: X((T) vec.X), Y((T) vec.Y), Z((T) vec.Z), W(0)
+		//! vec3 constructor (vec3, w)
+		vec4(vec3<T> const & vec, T const w = 0)
+			: X(vec.X), Y(vec.Y), Z(vec.Z), W(w)
 		{}
 
-		//! Generic vec2 constructor
-		template <typename U>
-		vec4(vec2<U> const & vec)
-			: X((T) vec.X), Y((T) vec.Y), Z(0), W(0)
+		//! vec3 constructor (x, vec3)
+		vec4(T const x, vec3<T> const & vecYZW)
+			: X(x), Y(vecYZW.X), Z(vecYZW.Y), W(vecYZW.Z)
+		{}
+
+		//! vec2 constructor (vec2, z, w)
+		vec4(vec2<T> const & vec, T const z = 0, T const w = 0)
+			: X(vec.X), Y(vec.Y), Z(z), W(w)
+		{}
+
+		//! vec2 constructor (x, vec2, w)
+		vec4(T const x, vec2<T> const & vecYZ, T const w)
+			: X(x), Y(vecYZ.X), Z(vecYZ.Y), W(w)
+		{}
+
+		//! vec2 constructor (x, y, vec2)
+		vec4(T const x, T const y, vec2<T> const & vecZW)
+			: X(x), Y(y), Z(vecZW.X), W(vecZW.Y)
+		{}
+
+		//! vec2 constructor (vec2, vec2)
+		vec4(vec2<T> const & vecXY, vec2<T> const & vecZW)
+			: X(vecXY.X), Y(vecXY.Y), Z(vecZW.X), W(vecZW.Y)
 		{}
 
 

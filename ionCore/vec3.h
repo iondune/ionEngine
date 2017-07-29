@@ -44,16 +44,20 @@ namespace ion
 			: X(v.x), Y(v.y), Z(v.z)
 		{}
 
-		//! Generic vec3 constructor
+		//! Generic constructor
 		template <typename U>
 		vec3(vec3<U> const & vec)
 			: X((T) vec.X), Y((T) vec.Y), Z((T) vec.Z)
 		{}
 
-		//! Generic vec2 constructor
-		template <typename U>
-		vec3(vec2<U> const & vec)
-			: X((T) vec.X), Y((T) vec.Y), Z(0)
+		//! vec2 constructor (vec2, z)
+		vec3(vec2<T> const & vec, T const z = 0)
+			: X(vec.X), Y(vec.Y), Z(z)
+		{}
+
+		//! vec2 constructor (x, vec2)
+		vec3(T const x, vec2<T> const & vecYZ)
+			: X(x), Y(vecYZ.X), Z(vecYZ.Y)
 		{}
 
 

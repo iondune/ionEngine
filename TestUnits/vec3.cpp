@@ -1,5 +1,5 @@
 
-#include <ionMath.h>
+#include <ionCore.h>
 #include <catch.hpp>
 
 using namespace ion;
@@ -9,8 +9,8 @@ TEST_CASE("vec3::vec3")
 {
 	vec3f v1 = vec3f();
 	CHECK(v1.X == 0);
-	CHECK(v1.X == 0);
-	CHECK(v1.X == 0);
+	CHECK(v1.Y == 0);
+	CHECK(v1.Z == 0);
 
 	vec3f v2 = vec3f(2);
 	CHECK(v2.X == 2);
@@ -21,6 +21,21 @@ TEST_CASE("vec3::vec3")
 	CHECK(v3.X == 3);
 	CHECK(v3.Y == 4);
 	CHECK(v3.Z == 5);
+}
+
+TEST_CASE("vec3 swizzle constructors")
+{
+	vec3i v;
+
+	v = vec3i(vec2i(1, 2), 3);
+	CHECK(v.X == 1);
+	CHECK(v.Y == 2);
+	CHECK(v.Z == 3);
+
+	v = vec3i(4, vec2i(5, 6));
+	CHECK(v.X == 4);
+	CHECK(v.Y == 5);
+	CHECK(v.Z == 6);
 }
 
 TEST_CASE("SVector3::operator <", "")

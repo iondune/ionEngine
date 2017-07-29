@@ -1,5 +1,5 @@
 
-#include <ionMath.h>
+#include <ionCore.h>
 #include <catch.hpp>
 
 using namespace ion;

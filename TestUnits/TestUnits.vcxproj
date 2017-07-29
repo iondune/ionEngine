@@ -46,6 +46,7 @@
     <ClCompile Include="TestFile.cpp" />
     <ClCompile Include="TestString.cpp" />
     <ClCompile Include="UnitTests.cpp" />
+    <ClCompile Include="vec4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

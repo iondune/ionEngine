@@ -56,6 +56,9 @@
     <ClCompile Include="TestColor.cpp">
       <Filter>ionCore</Filter>
     </ClCompile>
+    <ClCompile Include="vec4.cpp">
+      <Filter>ionCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ionCore">
