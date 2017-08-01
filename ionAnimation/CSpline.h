@@ -26,7 +26,7 @@ namespace ion
 			float MuIncrement = 0;
 			bool Looping = true;
 
-			mutable SharedPointer<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
+			mutable SharedPointer<ISplineInterpolator<TSplineNode>> DefaultInterpolator = std::make_shared<CLinearSplineInterpolator<TSplineNode>>();
 
 		public:
 

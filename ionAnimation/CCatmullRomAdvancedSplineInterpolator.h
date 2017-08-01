@@ -22,7 +22,7 @@ namespace ion
 				Chordal = 2
 			};
 
-			EMode Mode;
+			EMode Mode = EMode::Uniform;
 
 			virtual T Interpolate(ISpline<T> const & Path, int const Index, float const Mu);
 
@@ -48,9 +48,9 @@ namespace ion
 				Alpha = 1;
 
 			float const t0 = 0;
-			float const t1 = pow((P1 - P0).GetLength(), Alpha) + t0;
-			float const t2 = pow((P2 - P1).GetLength(), Alpha) + t1;
-			float const t3 = pow((P3 - P2).GetLength(), Alpha) + t2;
+			float const t1 = pow((P1 - P0).Length(), Alpha) + t0;
+			float const t2 = pow((P2 - P1).Length(), Alpha) + t1;
+			float const t3 = pow((P3 - P2).Length(), Alpha) + t2;
 
 			float const t = Mu * (t2 - t1) + t1;
 
