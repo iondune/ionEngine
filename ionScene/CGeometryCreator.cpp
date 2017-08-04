@@ -56,17 +56,17 @@ namespace ion
 			float const Half = 0.5f;
 
 			// Front
-			AddFace(vec3f(-Half, -Half, Half), vec3f(1, 0, 0), vec3f(0, 1, 0));
+			AddFace(vec3f(-Half, -Half,  Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 1, 0) * Size);
 			// Back
-			AddFace(vec3f(Half, -Half, -Half), vec3f(-1, 0, 0), vec3f(0, 1, 0));
+			AddFace(vec3f( Half, -Half, -Half) * Size, vec3f(-1, 0, 0) * Size, vec3f(0, 1, 0) * Size);
 			// Left
-			AddFace(vec3f(-Half, -Half, -Half), vec3f(0, 0, 1), vec3f(0, 1, 0));
+			AddFace(vec3f(-Half, -Half, -Half) * Size, vec3f(0, 0,  1) * Size, vec3f(0, 1, 0) * Size);
 			// Right
-			AddFace(vec3f(Half, -Half, Half), vec3f(0, 0, -1), vec3f(0, 1, 0));
+			AddFace(vec3f( Half, -Half,  Half) * Size, vec3f(0, 0, -1) * Size, vec3f(0, 1, 0) * Size);
 			// Top
-			AddFace(vec3f(-Half, Half, Half), vec3f(1, 0, 0), vec3f(0, 0, -1));
+			AddFace(vec3f(-Half,  Half,  Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 0, -1) * Size);
 			// Bottoms
-			AddFace(vec3f(-Half, -Half, -Half), vec3f(1, 0, 0), vec3f(0, 0, 1));
+			AddFace(vec3f(-Half, -Half, -Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 0,  1) * Size);
 
 			return Mesh;
 		}
