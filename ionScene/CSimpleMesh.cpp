@@ -153,6 +153,30 @@ namespace ion
 			return this;
 		}
 
+		CSimpleMesh * CSimpleMesh::Intersect(CSimpleMesh const * Other, vec3f const & Offset)
+		{
+			Vertices.reserve(Vertices.size() + Other->Vertices.size());
+			Triangles.reserve(Triangles.size() + Other->Triangles.size());
+
+			uint const BStartIndex = (uint) Vertices.size();
+
+			for (auto const & Vertex : Other->Vertices)
+			{
+				Vertices.push_back(Vertex);
+				Vertices.back().Position += Offset;
+			}
+
+			for (auto const & Triangle : Other->Triangles)
+			{
+				Triangles.push_back(Triangle);
+				Triangles.back().Indices[0] += BStartIndex;
+				Triangles.back().Indices[1] += BStartIndex;
+				Triangles.back().Indices[2] += BStartIndex;
+			}
+
+			return this;
+		}
+
 		void CSimpleMesh::ReverseFaces()
 		{
 			std::for_each(Triangles.begin(), Triangles.end(), [](STriangle & Triangle)

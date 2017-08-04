@@ -80,6 +80,7 @@ namespace ion
 			CSimpleMesh * ApplyScaleFactor(vec3f const & Scale);
 			CSimpleMesh * ApplyOffset(vec3f const & Offset);
 			CSimpleMesh * ApplyTransformation(glm::mat4 const & Transform);
+			CSimpleMesh * Intersect(CSimpleMesh const * Other, vec3f const & Offset = 0);
 			void ReverseFaces();
 			void SeparateTriangles();
 			void CalculateNormalsPerFace();
