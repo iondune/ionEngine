@@ -14,3 +14,11 @@ add_custom_command(
 	TARGET Demo04-Scene POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy
 	${CMAKE_CURRENT_SOURCE_DIR}/Diffuse.frag $<TARGET_FILE_DIR:Demo04-Scene>)
+add_custom_command(
+	TARGET Demo04-Scene POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy
+	${CMAKE_CURRENT_SOURCE_DIR}/Axis.vert $<TARGET_FILE_DIR:Demo04-Scene>)
+add_custom_command(
+	TARGET Demo04-Scene POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy
+	${CMAKE_CURRENT_SOURCE_DIR}/Axis.frag $<TARGET_FILE_DIR:Demo04-Scene>)
