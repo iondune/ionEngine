@@ -1,6 +1,11 @@
+
+set(ION_ENGINE_VERSION 0.4.2)
+
 # CMake
-cmake_minimum_required(VERSION 2.6)
-project(ionEngine)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+project(ionEngine VERSION ${ION_VERSION} LANGUAGES CXX)
+
+include(GNUInstallDirs)
 
 # Output Directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
