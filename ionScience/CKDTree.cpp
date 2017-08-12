@@ -58,20 +58,27 @@ namespace ion
 
 	void CKDTreeNode::Split(vec3f * Elements, int const Count, int const Axis)
 	{
-		static std::function<bool(vec3f, vec3f)> Comparators[] =
+		struct Sorter
 		{
-			[](vec3f a, vec3f b) -> bool
+			static bool ByX(vec3f const & a, vec3f const & b)
 			{
 				return a.X < b.X;
-			},
-			[](vec3f a, vec3f b) -> bool
+			}
+			static bool ByY(vec3f const & a, vec3f const & b)
 			{
 				return a.Y < b.Y;
-			},
-			[](vec3f a, vec3f b) -> bool
+			}
+			static bool ByZ(vec3f const & a, vec3f const & b)
 			{
 				return a.Z < b.Z;
 			}
+		};
+
+		bool (*Comparators[3])(vec3f const &, vec3f const &) =
+		{
+			Sorter::ByX,
+			Sorter::ByY,
+			Sorter::ByZ
 		};
 
 		SplitAxis = Axis;
