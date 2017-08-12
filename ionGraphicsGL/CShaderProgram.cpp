@@ -32,7 +32,7 @@ namespace ion
 	{
 		namespace GL
 		{
-			
+
 			void CShader::SetVertexStage(SharedPointer<IVertexStage> VertexShader)
 			{
 				if (VertexShader)
@@ -98,7 +98,7 @@ namespace ion
 
 						CheckedGLCall(glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name));
 						Attributes[Name] = std::make_pair(glGetAttribLocation(Handle, Name), DataType);
-						delete Name;
+						delete[] Name;
 					}
 				}
 				else
