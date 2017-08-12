@@ -140,4 +140,15 @@ namespace ion
 		Count
 	};
 
+	struct EKeyModifier
+	{
+		enum
+		{
+			Shift   = 0x1,
+			Control = 0x2,
+			Alt     = 0x4,
+			Super   = 0x8
+		};
+	};
+
 }

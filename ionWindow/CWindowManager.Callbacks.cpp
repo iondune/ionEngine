@@ -17,6 +17,7 @@ namespace ion
 		KeyEvent.Window = Window;
 		KeyEvent.Pressed = action != GLFW_RELEASE;
 		KeyEvent.Key = ConvertGLFWKeyCode(key);
+		KeyEvent.Modifiers = mods;
 
 		Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
 		Window->TriggerEvent(KeyEvent);

@@ -14,6 +14,7 @@ namespace ion
 	{
 		bool Pressed = false;
 		EKey Key = EKey::Unknown;
+		int Modifiers = 0x0;
 		CWindow * Window = nullptr;
 	};
 
