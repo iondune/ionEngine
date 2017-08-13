@@ -76,9 +76,12 @@ namespace ion
 		return Channels;
 	}
 
-	color4i CImage::GetPixel(int const x, int const y) const
+	color4i CImage::GetPixel(int const i, int const j) const
 	{
 		int const Stride = GetStride();
+
+		int const x = Clamp(i, 0, Size.X - 1);
+		int const y = Clamp(j, 0, Size.Y - 1);
 
 		return color4i(
 			Data[x * Stride + y * Size.X * Stride + 0],
