@@ -34,18 +34,34 @@ namespace ion
 
 		virtual void SetActive(bool const Active);
 
+		virtual bool GetUseWASD() const;
+		virtual bool GetUseArrowKeys() const;
+		virtual bool GetUseScrollWheel() const;
+
+		virtual void SetUseWASD(bool const UseWASD);
+		virtual void SetUseArrowKeys(bool const UseArrowKeys);
+		virtual void SetUseScrollWheel(bool const UseScrollWheel);
+
 	protected:
 
-		enum class ECommand
+		bool UseWASD = true;
+		bool UseArrowKeys = true;
+		bool UseScrollWheel = true;
+
+		struct ECommand
 		{
-			Forward = 0,
-			Back = 1,
-			Left = 2,
-			Right = 3,
-			Count = 4
+			enum
+			{
+				Forward = 0,
+				Back = 1,
+				Left = 2,
+				Right = 3,
+				Count = 4
+			};
 		};
 
-		bool Commands[(int) ECommand::Count];
+		bool WASDCommands[(int) ECommand::Count];
+		bool ArrowCommands[(int) ECommand::Count];
 
 		float MoveSpeed, LookSpeed, FocalLengthDelta, MaxAngleEpsilon;
 		bool Tracking;

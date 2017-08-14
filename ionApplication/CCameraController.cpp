@@ -20,7 +20,7 @@ namespace ion
 		this->MaxAngleEpsilon = 0.01f;
 
 		for (int i = 0; i < (int) ECommand::Count; ++ i)
-			this->Commands[i] = false;
+			this->WASDCommands[i] = this->ArrowCommands[i] = false;
 	}
 
 	void CCameraController::OnEvent(IEvent & Event)
@@ -46,7 +46,7 @@ namespace ion
 			if (MouseEvent.Type == SMouseEvent::EType::Scroll && Active)
 			{
 				Scene::CPerspectiveCamera * PerspectiveCamera = nullptr;
-				if ((PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
+				if (UseScrollWheel && (PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
 				{
 					float FocalLength = PerspectiveCamera->GetFocalLength();
 
@@ -66,14 +66,29 @@ namespace ion
 		{
 			SKeyboardEvent & KeyboardEvent = As<SKeyboardEvent>(Event);
 
-			if (KeyboardEvent.Key == EKey::W || KeyboardEvent.Key == EKey::Up)
-				Commands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::S || KeyboardEvent.Key == EKey::Down)
-				Commands[(int) ECommand::Back] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::A || KeyboardEvent.Key == EKey::Left)
-				Commands[(int) ECommand::Left] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::D || KeyboardEvent.Key == EKey::Right)
-				Commands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+			if (UseWASD)
+			{
+				if (KeyboardEvent.Key == EKey::W)
+					WASDCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::S)
+					WASDCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::A)
+					WASDCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::D)
+					WASDCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+			}
+
+			if (UseArrowKeys)
+			{
+				if (KeyboardEvent.Key == EKey::Up)
+					ArrowCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::Down)
+					ArrowCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::Left)
+					ArrowCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				if (KeyboardEvent.Key == EKey::Right)
+					ArrowCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+			}
 
 			if (! KeyboardEvent.Pressed)
 			{
@@ -121,16 +136,16 @@ namespace ion
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
 		vec3f Translation;
-		if (Commands[(int) ECommand::Forward])
+		if (WASDCommands[(int) ECommand::Forward] || ArrowCommands[(int) ECommand::Forward])
 			Translation += LookDirection * MoveSpeed;
 
-		if (Commands[(int) ECommand::Left])
+		if (WASDCommands[(int) ECommand::Left] || ArrowCommands[(int) ECommand::Left])
 			Translation += V * MoveSpeed;
 
-		if (Commands[(int) ECommand::Right])
+		if (WASDCommands[(int) ECommand::Right] || ArrowCommands[(int) ECommand::Right])
 			Translation -= V * MoveSpeed;
 
-		if (Commands[(int) ECommand::Back])
+		if (WASDCommands[(int) ECommand::Back] || ArrowCommands[(int) ECommand::Back])
 			Translation -= LookDirection * MoveSpeed;
 
 		CurrentSpeed = Translation;
@@ -196,6 +211,39 @@ namespace ion
 	{
 		this->Active = Active;
 	}
+
+
+	bool CCameraController::GetUseWASD() const
+	{
+		return UseWASD;
+	}
+
+	bool CCameraController::GetUseArrowKeys() const
+	{
+		return UseArrowKeys;
+	}
+
+	bool CCameraController::GetUseScrollWheel() const
+	{
+		return UseScrollWheel;
+	}
+
+
+	void CCameraController::SetUseWASD(bool const UseWASD)
+	{
+		this->UseWASD = UseWASD;
+	}
+
+	void CCameraController::SetUseArrowKeys(bool const UseArrowKeys)
+	{
+		this->UseArrowKeys = UseArrowKeys;
+	}
+
+	void CCameraController::SetUseScrollWheel(bool const UseScrollWheel)
+	{
+		this->UseScrollWheel = UseScrollWheel;
+	}
+
 
 
 	//////////////////////////////
