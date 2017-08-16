@@ -66,28 +66,33 @@ namespace ion
 		{
 			SKeyboardEvent & KeyboardEvent = As<SKeyboardEvent>(Event);
 
-			if (UseWASD)
+			switch (KeyboardEvent.Key)
 			{
-				if (KeyboardEvent.Key == EKey::W)
-					WASDCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::S)
-					WASDCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::A)
-					WASDCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::D)
-					WASDCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
-			}
+			case EKey::W:
+				WASDCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				break;
+			case EKey::S:
+				WASDCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				break;
+			case EKey::A:
+				WASDCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				break;
+			case EKey::D:
+				WASDCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+				break;
 
-			if (UseArrowKeys)
-			{
-				if (KeyboardEvent.Key == EKey::Up)
-					ArrowCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::Down)
-					ArrowCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::Left)
-					ArrowCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
-				if (KeyboardEvent.Key == EKey::Right)
-					ArrowCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+			case EKey::Up:
+				ArrowCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Down:
+				ArrowCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Left:
+				ArrowCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Right:
+				ArrowCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+				break;
 			}
 
 			if (! KeyboardEvent.Pressed)
@@ -136,17 +141,52 @@ namespace ion
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
 		vec3f Translation;
-		if (WASDCommands[(int) ECommand::Forward] || ArrowCommands[(int) ECommand::Forward])
-			Translation += LookDirection * MoveSpeed;
 
-		if (WASDCommands[(int) ECommand::Left] || ArrowCommands[(int) ECommand::Left])
-			Translation += V * MoveSpeed;
+		if (UseWASD)
+		{
+			if (WASDCommands[(int) ECommand::Forward])
+			{
+				Translation += LookDirection * MoveSpeed;
+			}
 
-		if (WASDCommands[(int) ECommand::Right] || ArrowCommands[(int) ECommand::Right])
-			Translation -= V * MoveSpeed;
+			if (WASDCommands[(int) ECommand::Left])
+			{
+				Translation += V * MoveSpeed;
+			}
 
-		if (WASDCommands[(int) ECommand::Back] || ArrowCommands[(int) ECommand::Back])
-			Translation -= LookDirection * MoveSpeed;
+			if (WASDCommands[(int) ECommand::Right])
+			{
+				Translation -= V * MoveSpeed;
+			}
+
+			if (WASDCommands[(int) ECommand::Back])
+			{
+				Translation -= LookDirection * MoveSpeed;
+			}
+		}
+
+		if (UseArrowKeys)
+		{
+			if (ArrowCommands[(int) ECommand::Forward])
+			{
+				Translation += LookDirection * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Left])
+			{
+				Translation += V * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Right])
+			{
+				Translation -= V * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Back])
+			{
+				Translation -= LookDirection * MoveSpeed;
+			}
+		}
 
 		CurrentSpeed = Translation;
 
