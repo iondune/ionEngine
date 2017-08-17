@@ -547,9 +547,9 @@ namespace ion
 			delete B;
 		}
 
-		vector<CSimpleMesh*> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
+		vector<pair<string, CSimpleMesh *>> CGeometryCreator::LoadOBJFileWithNames(string const & FileName, string const & Path)
 		{
-			vector<CSimpleMesh *> Meshes;
+			vector<pair<string, CSimpleMesh *>> Meshes;
 
 			vector<tinyobj::shape_t> shapes;
 			vector<tinyobj::material_t> materials;
@@ -613,8 +613,21 @@ namespace ion
 						Mesh->Material = Materials[shape.mesh.material_ids.front()];
 					}
 
-					Meshes.push_back(Mesh);
+					Meshes.push_back(std::make_pair(shape.name, Mesh));
 				}
+			}
+
+			return Meshes;
+		}
+
+		vector<CSimpleMesh *> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
+		{
+			vector<CSimpleMesh *> Meshes;
+
+			vector<pair<string, CSimpleMesh *>> const Pairs = LoadOBJFileWithNames(FileName, Path);
+			for (auto Pair : Pairs)
+			{
+				Meshes.push_back(Pair.second);
 			}
 
 			return Meshes;

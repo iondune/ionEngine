@@ -55,6 +55,7 @@ namespace ion
 
 			static void IntersectAndDelete(CSimpleMesh * A, CSimpleMesh const * B, vec3f const & BOffset = 0);
 
+			static vector<pair<string, CSimpleMesh *>> LoadOBJFileWithNames(string const & FileName, string const & Path = "");
 			static vector<CSimpleMesh *> LoadOBJFile(string const & FileName, string const & Path = "");
 
 		};
