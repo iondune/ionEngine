@@ -20,6 +20,7 @@ namespace ImGui
 	bool DragVec3(const char* label, ion::vec3f & v, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* display_format = "%.3f", float power = 1.0f);
 
 	bool Combo(const char* label, int* current_item, std::initializer_list<char const *> const & items, int height_in_items = -1);
+	bool Combo(const char* label, int* current_item, std::vector<ion::string> const & items, int height_in_items = -1);
 
 	class scoped_id
 	{

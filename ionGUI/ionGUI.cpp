@@ -60,6 +60,17 @@ namespace ImGui
 		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
 	}
 
+	bool Combo(const char * label, int * current_item, std::vector<string> const & items, int height_in_items)
+	{
+		vector<char const *> items_vec;
+		for (string const & item : items)
+		{
+			items_vec.push_back(item.c_str());
+		}
+
+		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
+	}
+
 	scoped_id::scoped_id(char const * const str_id)
 	{
 		ImGui::PushID(str_id);
