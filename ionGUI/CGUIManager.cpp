@@ -112,6 +112,15 @@ namespace ion
 		{
 			SKeyboardEvent KeyboardEvent = As<SKeyboardEvent>(Event);
 			io.KeysDown[(int) KeyboardEvent.Key] = KeyboardEvent.Pressed;
+
+			// Hack/workaround to make KP enter work like enter
+			// Will cause problems if regular Enter and KP Enter are pressed simultaneously
+			// Don't do that
+			if (KeyboardEvent.Key == EKey::KeyPadEnter)
+			{
+				io.KeysDown[(int) EKey::Enter] = KeyboardEvent.Pressed;
+			}
+
 			io.KeyCtrl = Window->IsKeyDown(EKey::LeftControl) || Window->IsKeyDown(EKey::RightControl);
 			io.KeyShift = Window->IsKeyDown(EKey::LeftShift) || Window->IsKeyDown(EKey::RightShift);
 			io.KeyAlt = Window->IsKeyDown(EKey::LeftAlt) || Window->IsKeyDown(EKey::RightAlt);
