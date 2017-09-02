@@ -46,6 +46,10 @@ namespace ion
 		//! \ingroup ionCore
 		color3f HSV(float const H, float const S, float const V);
 
+		//! \brief Compute RGB color from HSV
+		//! \ingroup ionCore
+		vec3f ToHSV(color3f const & Color);
+
 	}
 
 }
