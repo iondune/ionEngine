@@ -32,6 +32,17 @@ namespace ImGui
 		return false;
 	}
 
+	bool DragVec2(const char * label, ion::vec2i & v, float v_speed, int v_min, int v_max, const char * display_format)
+	{
+		int vals[2] = { v.X, v.Y };
+		if (ImGui::DragInt2(label, vals,  v_speed, v_min, v_max, display_format))
+		{
+			v = vec2i(vals[0], vals[1]);
+			return true;
+		}
+		return false;
+	}
+
 	bool DragVec2(const char * label, vec2f & v, float v_speed, float v_min, float v_max, const char * display_format, float power)
 	{
 		float vals[2] = { v.X, v.Y };

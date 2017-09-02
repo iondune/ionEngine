@@ -143,4 +143,16 @@ namespace ImGui
 		return false;
 	}
 
+	bool ColorPicker3(ion::color3i & col)
+	{
+		color3f cf = color3f(col);
+		if (ColorPicker3(cf))
+		{
+			col = cf;
+			return true;
+		}
+
+		return false;
+	}
+
 }
