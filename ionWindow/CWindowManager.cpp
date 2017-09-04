@@ -52,6 +52,7 @@ namespace ion
 				glfwSetCursorPosCallback(WindowHandle, CWindowManager::MouseCursorCallback);
 				glfwSetScrollCallback(WindowHandle, CWindowManager::MouseScrollCallback);
 				glfwSetCharCallback(WindowHandle, CWindowManager::CharCallback);
+				glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
 
 				Window->AddListener(this);
 				Window->MakeContextCurrent();

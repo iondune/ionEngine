@@ -6,7 +6,6 @@
 
 #include "SKeyboardEvent.h"
 #include "SMouseEvent.h"
-#include "SWindowResizedEvent.h"
 
 
 struct GLFWwindow;

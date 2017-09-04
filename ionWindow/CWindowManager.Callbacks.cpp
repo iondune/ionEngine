@@ -95,4 +95,17 @@ namespace ion
 		Window->TriggerEvent(Event);
 	}
 
+	void CWindowManager::DropCallback(GLFWwindow* window, int count, const char** paths)
+	{
+		CWindowManager & WindowManager = Get();
+		CWindow * Window = WindowManager.Windows[window];
+
+		SFileDroppedEvent Event;
+		for (int i = 0; i < count; ++ i)
+		{
+			Event.Paths.push_back(paths[i]);
+		}
+		Window->TriggerEvent(Event);
+	}
+
 }

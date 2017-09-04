@@ -33,6 +33,7 @@
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="EKey.h" />
     <ClInclude Include="ionWindow.h" />
+    <ClInclude Include="SFileDroppedEvent.h" />
     <ClInclude Include="SKeyboardEvent.h" />
     <ClInclude Include="SMouseEvent.h" />
     <ClInclude Include="SWindowResizedEvent.h" />

@@ -5,6 +5,8 @@
 #include <ionGraphics.h>
 
 #include "CWindow.h"
+#include "SWindowResizedEvent.h"
+#include "SFileDroppedEvent.h"
 
 
 namespace ion
@@ -41,6 +43,7 @@ namespace ion
 		static void MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset);
 		static void MouseCursorCallback(GLFWwindow * window, double xpos, double ypos);
 		static void CharCallback(GLFWwindow * window, unsigned int c);
+		static void DropCallback(GLFWwindow* window, int count, const char** paths);
 
 	private:
 
