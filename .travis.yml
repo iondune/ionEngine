@@ -16,8 +16,7 @@ env:
 
 install:
   # Necessary packages
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ContinuousIntegration && InstallGLFW.bash
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ..
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ContinuousIntegration && ./InstallGLFW.bash; cd ..; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glfw3; fi
 
   # Pull github dependencies
