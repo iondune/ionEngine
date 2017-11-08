@@ -24,6 +24,8 @@ namespace ImGui
 	bool Combo(const char* label, int* current_item, std::initializer_list<char const *> const & items, int height_in_items = -1);
 	bool Combo(const char* label, int* current_item, std::vector<ion::string> const & items, int height_in_items = -1);
 
+	bool InputText(const char* label, ion::string & buf, ImGuiInputTextFlags flags = 0, ImGuiTextEditCallback callback = nullptr, void* user_data = nullptr);
+
 	class scoped_id
 	{
 

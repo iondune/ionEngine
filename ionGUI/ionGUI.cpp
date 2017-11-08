@@ -82,6 +82,27 @@ namespace ImGui
 		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
 	}
 
+	bool InputText(const char * label, string & buf, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
+	{
+		static vector<char> buffer_copy;
+		static int const ReserveSpace = 32;
+
+		if (buffer_copy.size() < buf.size() + ReserveSpace)
+		{
+			buffer_copy.resize(buf.size() + ReserveSpace);
+		}
+
+		strcpy(buffer_copy.data(), buf.c_str());
+
+		if (ImGui::InputText(label, buffer_copy.data(), buffer_copy.size(), flags, callback, user_data))
+		{
+			buf = buffer_copy.data();
+			return true;
+		}
+
+		return false;
+	}
+
 	scoped_id::scoped_id(char const * const str_id)
 	{
 		ImGui::PushID(str_id);
