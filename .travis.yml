@@ -18,7 +18,7 @@ install:
   # Necessary packages
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install xorg-dev libglu1-mesa-dev; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ContinuousIntegration && ./InstallGLFW.bash; cd ..; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install glfw3; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cd ContinuousIntegration && ./InstallGLFW.bash; cd ..; fi
 
   # Pull github dependencies
   - ./Dependencies/Clone.bash
