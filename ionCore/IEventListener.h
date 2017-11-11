@@ -23,10 +23,6 @@ public:
 		IMultiTreeNode<IEventListener>::RemoveChild(Listener);
 	}
 
-protected:
-
-	using IMultiTreeNode<IEventListener>::Children;
-
 	void TriggerEvent(IEvent & Event)
 	{
 		OnEvent(Event);
@@ -35,5 +31,9 @@ protected:
 				(* it)->TriggerEvent(Event);
 		Event.Unblock();
 	}
+
+protected:
+
+	using IMultiTreeNode<IEventListener>::Children;
 
 };
