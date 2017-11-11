@@ -111,6 +111,12 @@ namespace ion
 		if (InstanceOf<SKeyboardEvent>(Event))
 		{
 			SKeyboardEvent KeyboardEvent = As<SKeyboardEvent>(Event);
+
+			if (IO.WantCaptureKeyboard)
+			{
+				Event.Block();
+			}
+
 			io.KeysDown[(int) KeyboardEvent.Key] = KeyboardEvent.Pressed;
 
 			// Hack/workaround to make KP enter work like enter
@@ -128,23 +134,21 @@ namespace ion
 		else if (InstanceOf<SMouseEvent>(Event))
 		{
 			SMouseEvent MouseEvent = As<SMouseEvent>(Event);
+
+			if (IO.WantCaptureMouse)
+			{
+				Event.Block();
+			}
+
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
-				if (IO.WantCaptureMouse)
-				{
-					Event.Block();
-				}
 				MousePressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
 				break;
 			case SMouseEvent::EType::Move:
 				break;
 			case SMouseEvent::EType::Scroll:
 				MouseWheel += MouseEvent.Movement.Y;
-				if (IO.WantCaptureMouse)
-				{
-					Event.Block();
-				}
 				break;
 			}
 		}
