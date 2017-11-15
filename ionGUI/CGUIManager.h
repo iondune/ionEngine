@@ -45,7 +45,8 @@ namespace ion
 
 		CWindow * Window = nullptr;
 		double Time = 0;
-		bool MousePressed[3];
+		bool MouseWasPressed[3];
+		bool MouseHeld[3];
 		float MouseWheel = 0;
 		uint FontTexture = 0;
 		int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;

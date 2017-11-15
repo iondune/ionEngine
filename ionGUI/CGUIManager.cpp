@@ -143,7 +143,11 @@ namespace ion
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
-				MousePressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
+				MouseHeld[(int) MouseEvent.Button] = MouseEvent.Pressed;
+				if (MouseEvent.Pressed)
+				{
+					MouseWasPressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
+				}
 				break;
 			case SMouseEvent::EType::Move:
 				break;
@@ -389,8 +393,8 @@ namespace ion
 
 		for (int i = 0; i < 3; i++)
 		{
-			io.MouseDown[i] = MousePressed[i] || Window->IsMouseDown((SMouseEvent::EButton) i);    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
-			MousePressed[i] = false;
+			io.MouseDown[i] = MouseWasPressed[i] || MouseHeld[i];    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
+			MouseWasPressed[i] = false;
 		}
 
 		io.MouseWheel = MouseWheel;
@@ -436,7 +440,10 @@ void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color,
 	CGUIManager::CGUIManager()
 	{
 		for (int i = 0; i < 3; ++ i)
-			MousePressed[i] = false;
+		{
+			MouseWasPressed[i] = false;
+			MouseHeld[i] = false;
+		}
 	}
 
 }
