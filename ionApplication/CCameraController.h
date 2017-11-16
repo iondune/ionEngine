@@ -26,6 +26,8 @@ namespace ion
 		virtual Scene::ICamera const * GetCamera() const;
 		virtual Scene::ICamera * GetCamera();
 
+		virtual void CalculateInitialAngles();
+
 		virtual vec3f GetCurrentSpeed() const;
 
 		virtual void SetVelocity(float const Velocity);

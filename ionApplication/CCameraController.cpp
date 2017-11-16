@@ -21,6 +21,8 @@ namespace ion
 
 		for (int i = 0; i < (int) ECommand::Count; ++ i)
 			this->WASDCommands[i] = this->ArrowCommands[i] = false;
+
+		CalculateInitialAngles();
 	}
 
 	void CCameraController::OnEvent(IEvent & Event)
@@ -210,6 +212,17 @@ namespace ion
 	Scene::ICamera * CCameraController::GetCamera()
 	{
 		return Camera;
+	}
+
+	void CCameraController::CalculateInitialAngles()
+	{
+		vec3f const Up = Camera->GetUpVector();
+		vec3f const Direction = Normalize(Camera->GetLookDirecton());
+		vec3f const Right = Cross(Direction, Up);
+		vec3f const Flat = Normalize(Cross(Up, Right));
+
+		Phi = asin(Direction.Y);
+		Theta = acos(Flat.X);
 	}
 
 	vec3f CCameraController::GetCurrentSpeed() const
