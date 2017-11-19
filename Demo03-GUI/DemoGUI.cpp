@@ -22,7 +22,6 @@ int main()
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 	GUIManager->Init(Window);
-	GUIManager->AddFontFromFile("OpenSans.ttf", 18.f);
 	Window->AddListener(GUIManager);
 
 	while (WindowManager->Run())

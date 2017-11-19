@@ -294,7 +294,7 @@ namespace ion
 		ImGUIManager->Window->SetClipboardText(text);
 	}
 
-	bool CGUIManager::Init(CWindow* window)
+	bool CGUIManager::Init(CWindow* window, float const DefaultFontSize)
 	{
 		Window = window;
 
@@ -322,6 +322,8 @@ namespace ion
 		io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 
 		io.IniFilename = nullptr;
+
+		io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
 
 		return true;
 	}
