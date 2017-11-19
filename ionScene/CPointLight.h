@@ -26,7 +26,7 @@ namespace ion
 
 		protected:
 
-			Graphics::CUniform<color3f> Color = Colors::White;
+			Graphics::CUniform<color3f> Color = color3f(1.f);
 			Graphics::CUniform<float> Radius = 20.f;
 
 		};

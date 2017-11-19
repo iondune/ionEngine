@@ -21,12 +21,15 @@
     <ClInclude Include="CDefaultApplication.h" />
     <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="CCameraController.h" />
+    <ClInclude Include="CStateManager.h" />
     <ClInclude Include="ionApplication.h" />
+    <ClInclude Include="IState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDefaultApplication.cpp" />
     <ClCompile Include="CAssetManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />
+    <ClCompile Include="CStateManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

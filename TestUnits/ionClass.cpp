@@ -2,6 +2,8 @@
 #include <ionCore.h>
 #include <catch.hpp>
 
+using namespace ion;
+
 
 class A
 {};

@@ -1,2 +1,3 @@
 add_executable(TestDeployment DeploymentTest.cpp glad.cpp)
+target_link_libraries(TestDeployment ionCore)
 ExecutableDependencies(TestDeployment)

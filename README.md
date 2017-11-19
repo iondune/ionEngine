@@ -3,10 +3,13 @@
 ionEngine
 =========
 
+| Branch | Status |
+|--------|--------------|
+| [![release](https://img.shields.io/badge/branch-release-38C7B6.svg)](https://github.com/iondune/ionEngine/releases) | [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=release)](https://travis-ci.org/iondune/ionEngine) [![GitHub release](https://img.shields.io/github/release/iondune/ionEngine.svg)](https://github.com/iondune/ionEngine/releases) |
+| [![master](https://img.shields.io/badge/branch-master-B2A0EB.svg)](https://github.com/iondune/ionEngine) | [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x?svg=true)](https://ci.appveyor.com/project/iondune/ionengine) [![GitHub](https://img.shields.io/badge/pre--release-v0.4.4-blue.svg)](https://github.com/iondune/ionEngine/commits/master) |
+
 Overview
 --------
-
-[![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine)
 
 ionEngine is a C++ application framework designed to aid in the creation of high-performance rendering applications.
 It is modular and generic, designed for use in both game engines and scientific data visualization.
@@ -14,13 +17,13 @@ The primary goal of ionEngine is to improve the DX (Developer Experience) of wri
 
 ionEngine includes many modular components, including:
 
-* ionCore: basic typedefs and boilerplate, some string and file helpers, standard library helpers
-* ionMath: vector classes for 2, 3, and 4 dimensions. A custom “color” class that encapsulates a vec3 or vec4 with implicit conversions between float and byte colors.
+* **ionCore**: basic typedefs and boilerplate, some string and file helpers, standard library helpers
+* **ionMath**: vector classes for 2, 3, and 4 dimensions. A custom “color” class that encapsulates a vec3 or vec4 with implicit conversions between float and byte colors.
   Other geometric primitives including rays, lines, boxes, triangles, etc.
-* ionWindow: generic interface and helpers for operating system utilities, in particular window/context creation
-* ionGraphics: generic and modular interface for any rendering API, in particular for OpenGL
-* ionScene: scene interface that provides basic mesh loading, encapsulated renderable objects, and extensibility to add multipass rendering and other advanced functionality
-* ionScience: algorithm implementations useful for various scientific applications, including long/lat classes, marching cubes, ear clipping, volumetric data rendering
+* **ionWindow**: generic interface and helpers for operating system utilities, in particular window/context creation
+* **ionGraphics**: generic and modular interface for any rendering API, in particular for OpenGL
+* **ionScene**: scene interface that provides basic mesh loading, encapsulated renderable objects, and extensibility to add multipass rendering and other advanced functionality
+* **ionScience**: algorithm implementations useful for various scientific applications, including long/lat classes, marching cubes, ear clipping, volumetric data rendering
 
 
 :pencil: Features

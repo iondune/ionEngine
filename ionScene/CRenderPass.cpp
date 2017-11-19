@@ -243,7 +243,7 @@ namespace ion
 						string const CountName = it.first + "Count";
 						if (Name == CountName)
 						{
-							PipelineState->SetUniform(Name, SharedFromNew(new Graphics::CUniformValue<int>((int) it.second.size())));
+							PipelineState->SetUniform(Name, std::make_shared<Graphics::CUniformValue<int>>((int) it.second.size()));
 						}
 					}
 

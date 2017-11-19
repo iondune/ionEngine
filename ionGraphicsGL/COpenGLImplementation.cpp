@@ -30,9 +30,9 @@ static void PrintShaderInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetShaderInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		Log::Error("--- Shader Info Log: -------------------------------");
-		Log::Error("%s", InfoLog);
-		Log::Error("----------------------------------------------------");
+		ion::Log::Error("--- Shader Info Log: -------------------------------");
+		ion::Log::Error("%s", InfoLog);
+		ion::Log::Error("----------------------------------------------------");
 		delete[] InfoLog;
 	}
 }
@@ -197,9 +197,9 @@ namespace ion
 			SafeGLCall(glEnable, (GL_TEXTURE_CUBE_MAP_SEAMLESS));
 		}
 
-		SharedPointer<IVertexShader> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
+		SharedPointer<IVertexStage> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CVertexShader> VertexShader = std::make_shared<GL::CVertexShader>();
+			SharedPointer<GL::CVertexStage> VertexShader = std::make_shared<GL::CVertexStage>();
 			VertexShader->Handle = glCreateShader(GL_VERTEX_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -217,9 +217,9 @@ namespace ion
 			return VertexShader;
 		}
 
-		SharedPointer<IGeometryShader> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
+		SharedPointer<IGeometryStage> COpenGLImplementation::CreateGeometryShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CGeometryShader> GeometryShader = std::make_shared<GL::CGeometryShader>();
+			SharedPointer<GL::CGeometryStage> GeometryShader = std::make_shared<GL::CGeometryStage>();
 			GeometryShader->Handle = glCreateShader(GL_GEOMETRY_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -237,9 +237,9 @@ namespace ion
 			return GeometryShader;
 		}
 
-		SharedPointer<IPixelShader> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
+		SharedPointer<IPixelStage> COpenGLImplementation::CreatePixelShaderFromSource(string const & Source)
 		{
-			SharedPointer<GL::CPixelShader> PixelShader = std::make_shared<GL::CPixelShader>();
+			SharedPointer<GL::CPixelStage> PixelShader = std::make_shared<GL::CPixelStage>();
 			PixelShader->Handle = glCreateShader(GL_FRAGMENT_SHADER);
 
 			char const * SourcePointer = Source.c_str();
@@ -257,9 +257,9 @@ namespace ion
 			return PixelShader;
 		}
 
-		SharedPointer<IShaderProgram> COpenGLImplementation::CreateShaderProgram()
+		SharedPointer<IShader> COpenGLImplementation::CreateShaderProgram()
 		{
-			SharedPointer<GL::CShaderProgram> ShaderProgram = SharedFromNew(new GL::CShaderProgram());
+			SharedPointer<GL::CShader> ShaderProgram = std::make_shared<GL::CShader>();
 			CheckedGLCall(ShaderProgram->Handle = glCreateProgram());
 
 			return ShaderProgram;
@@ -267,21 +267,21 @@ namespace ion
 
 		SharedPointer<IVertexBuffer> COpenGLImplementation::CreateVertexBuffer()
 		{
-			SharedPointer<GL::CVertexBuffer> VertexBuffer = SharedFromNew(new GL::CVertexBuffer());
+			SharedPointer<GL::CVertexBuffer> VertexBuffer = std::make_shared<GL::CVertexBuffer>();
 			CheckedGLCall(glGenBuffers(1, & VertexBuffer->Handle));
 			return VertexBuffer;
 		}
 
 		SharedPointer<IIndexBuffer> COpenGLImplementation::CreateIndexBuffer()
 		{
-			SharedPointer<GL::CIndexBuffer> IndexBuffer = SharedFromNew(new GL::CIndexBuffer());
+			SharedPointer<GL::CIndexBuffer> IndexBuffer = std::make_shared<GL::CIndexBuffer>();
 			CheckedGLCall(glGenBuffers(1, & IndexBuffer->Handle));
 			return IndexBuffer;
 		}
 
-		SharedPointer<Graphics::IDepthBuffer> COpenGLImplementation::CreateDepthBuffer(vec2u const & Size)
+		SharedPointer<Graphics::IDepthBuffer> COpenGLImplementation::CreateDepthBuffer(vec2i const & Size)
 		{
-			SharedPointer<GL::CDepthBuffer> DepthBuffer = SharedFromNew(new GL::CDepthBuffer(Size));
+			SharedPointer<GL::CDepthBuffer> DepthBuffer = std::make_shared<GL::CDepthBuffer>(Size);
 			return DepthBuffer;
 		}
 
@@ -290,9 +290,9 @@ namespace ion
 			return new Graphics::GL::CDrawContext();
 		}
 
-		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture2D> COpenGLImplementation::CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture2D> Texture2D = SharedFromNew(new GL::CTexture2D());
+			SharedPointer<GL::CTexture2D> Texture2D = std::make_shared<GL::CTexture2D>();
 
 			Texture2D->TextureSize = Size;
 			Texture2D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -313,6 +313,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture2D->IsInteger = true;
+				Texture2D->MinFilter = ITexture::EFilter::Nearest;
+				Texture2D->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -320,7 +322,7 @@ namespace ion
 
 			if (Texture2D->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture2D->Handle));
@@ -337,9 +339,9 @@ namespace ion
 			return Texture2D;
 		}
 
-		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture3D> COpenGLImplementation::CreateTexture3D(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture3D> Texture3D = SharedFromNew(new GL::CTexture3D());
+			SharedPointer<GL::CTexture3D> Texture3D = std::make_shared<GL::CTexture3D>();
 
 			Texture3D->TextureSize = Size;
 			Texture3D->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -360,6 +362,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture3D->IsInteger = true;
+				Texture3D->MinFilter = ITexture::EFilter::Nearest;
+				Texture3D->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -367,7 +371,7 @@ namespace ion
 
 			if (Texture3D->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y, Size.Z)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture3D->Handle));
@@ -383,9 +387,9 @@ namespace ion
 			return Texture3D;
 		}
 
-		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITexture2DArray> COpenGLImplementation::CreateTexture2DArray(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTexture2DArray> Texture2DArray = SharedFromNew(new GL::CTexture2DArray());
+			SharedPointer<GL::CTexture2DArray> Texture2DArray = std::make_shared<GL::CTexture2DArray>();
 
 			Texture2DArray->TextureSize = Size;
 			Texture2DArray->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -406,6 +410,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				Texture2DArray->IsInteger = true;
+				Texture2DArray->MinFilter = ITexture::EFilter::Nearest;
+				Texture2DArray->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -413,7 +419,7 @@ namespace ion
 
 			if (Texture2DArray->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y, Size.Z)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y, Size.Z)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & Texture2DArray->Handle));
@@ -429,9 +435,9 @@ namespace ion
 			return Texture2DArray;
 		}
 
-		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2u const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+		SharedPointer<ITextureCubeMap> COpenGLImplementation::CreateTextureCubeMap(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 		{
-			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = SharedFromNew(new GL::CTextureCubeMap());
+			SharedPointer<GL::CTextureCubeMap> TextureCubeMap = std::make_shared<GL::CTextureCubeMap>();
 
 			TextureCubeMap->TextureSize = Size;
 			TextureCubeMap->MipMaps = (MipMaps == ITexture::EMipMaps::True);
@@ -452,6 +458,8 @@ namespace ion
 			case ITexture::EInternalFormatType::UnsignedInt16:
 			case ITexture::EInternalFormatType::UnsignedInt32:
 				TextureCubeMap->IsInteger = true;
+				TextureCubeMap->MinFilter = ITexture::EFilter::Nearest;
+				TextureCubeMap->MipMapFilter = ITexture::EFilter::Nearest;
 				break;
 			}
 
@@ -459,7 +467,7 @@ namespace ion
 
 			if (TextureCubeMap->MipMaps)
 			{
-				Levels = (int) floor(log2(Max<f64>(Size.X, Size.Y)));
+				Levels = (int) floor(log2((double) Max(Size.X, Size.Y)));
 			}
 
 			CheckedGLCall(glGenTextures(1, & TextureCubeMap->Handle));

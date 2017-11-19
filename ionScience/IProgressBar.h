@@ -4,46 +4,51 @@
 #include <ionCore.h>
 
 
-class IProgressBar
+namespace ion
 {
 
-public:
-
-	class CTask
+	class IProgressBar
 	{
-
-		friend class IProgressBar;
 
 	public:
 
-		void Update(f32 const progress);
-		void Update(f64 const progress);
+		class CTask
+		{
+
+			friend class IProgressBar;
+
+		public:
+
+			void Update(float const progress);
+			void Update(double const progress);
+
+		protected:
+
+			CTask(IProgressBar * ProgressBar, float const value, float const start);
+
+			IProgressBar * ProgressBar = nullptr;
+			float Value, Start, Progress;
+
+		};
+
+		void BeginProgress();
+		void SetProgress(float const progress);
+		void SetProgress(double const progress);
+		void EndProgress();
+
+		CTask * NewTask(float const value);
 
 	protected:
 
-		CTask(IProgressBar * ProgressBar, f32 const value, f32 const start);
+		IProgressBar();
 
-		IProgressBar * ProgressBar = nullptr;
-		f32 Value, Start, Progress;
+		virtual void Start() = 0;
+		virtual void Render() = 0;
+		virtual void Finish() = 0;
+
+		float Progress;
+		bool Started;
 
 	};
 
-	void BeginProgress();
-	void SetProgress(f32 const progress);
-	void SetProgress(f64 const progress);
-	void EndProgress();
-
-	CTask * NewTask(f32 const value);
-
-protected:
-
-	IProgressBar();
-
-	virtual void Start() = 0;
-	virtual void Render() = 0;
-	virtual void Finish() = 0;
-
-	f32 Progress;
-	bool Started;
-
-};
+}

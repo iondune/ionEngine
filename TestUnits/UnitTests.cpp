@@ -1,15 +1,38 @@
 
-#define CATCH_CONFIG_RUNNER
+#define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
+#include <ionConfig.h>
 
-int main(int argc, char * const argv[])
+
+#ifdef ION_CONFIG_WINDOWS
+class DebugOutBuffer : public std::stringbuf
 {
-	int result = Catch::Session().run(argc, argv);
 
-#ifdef WIN32
-	system("PAUSE");
-#endif
+public:
 
-	return result;
+	virtual int sync()
+	{
+		OutputDebugString(str().c_str());
+		str("");
+		return 0;
+	}
+
+};
+
+namespace Catch
+{
+	std::ostream buffer(new DebugOutBuffer());
+
+	std::ostream & cout()
+	{
+		return buffer;
+	}
+
+	std::ostream & cerr()
+	{
+		return buffer;
+	}
+
 }
+#endif

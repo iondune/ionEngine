@@ -111,7 +111,22 @@ namespace ion
 		if (InstanceOf<SKeyboardEvent>(Event))
 		{
 			SKeyboardEvent KeyboardEvent = As<SKeyboardEvent>(Event);
+
+			if (IO.WantCaptureKeyboard)
+			{
+				Event.Block();
+			}
+
 			io.KeysDown[(int) KeyboardEvent.Key] = KeyboardEvent.Pressed;
+
+			// Hack/workaround to make KP enter work like enter
+			// Will cause problems if regular Enter and KP Enter are pressed simultaneously
+			// Don't do that
+			if (KeyboardEvent.Key == EKey::KeyPadEnter)
+			{
+				io.KeysDown[(int) EKey::Enter] = KeyboardEvent.Pressed;
+			}
+
 			io.KeyCtrl = Window->IsKeyDown(EKey::LeftControl) || Window->IsKeyDown(EKey::RightControl);
 			io.KeyShift = Window->IsKeyDown(EKey::LeftShift) || Window->IsKeyDown(EKey::RightShift);
 			io.KeyAlt = Window->IsKeyDown(EKey::LeftAlt) || Window->IsKeyDown(EKey::RightAlt);
@@ -119,23 +134,25 @@ namespace ion
 		else if (InstanceOf<SMouseEvent>(Event))
 		{
 			SMouseEvent MouseEvent = As<SMouseEvent>(Event);
+
+			if (IO.WantCaptureMouse)
+			{
+				Event.Block();
+			}
+
 			switch (MouseEvent.Type)
 			{
 			case SMouseEvent::EType::Click:
-				if (IO.WantCaptureMouse)
+				MouseHeld[(int) MouseEvent.Button] = MouseEvent.Pressed;
+				if (MouseEvent.Pressed)
 				{
-					Event.Block();
+					MouseWasPressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
 				}
-				MousePressed[(int) MouseEvent.Button] = MouseEvent.Pressed;
 				break;
 			case SMouseEvent::EType::Move:
 				break;
 			case SMouseEvent::EType::Scroll:
 				MouseWheel += MouseEvent.Movement.Y;
-				if (IO.WantCaptureMouse)
-				{
-					Event.Block();
-				}
 				break;
 			}
 		}
@@ -259,16 +276,6 @@ namespace ion
 		return true;
 	}
 
-	ImVec2 ToImGui(vec2f const & v)
-	{
-		return ImVec2(v.X, v.Y);
-	}
-
-	vec2f ToIon(ImVec2 const & v)
-	{
-		return vec2f(v.x, v.y);
-	}
-
 	void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData * draw_data)
 	{
 		SingletonPointer<CGUIManager> ImGUIManager;
@@ -386,8 +393,8 @@ namespace ion
 
 		for (int i = 0; i < 3; i++)
 		{
-			io.MouseDown[i] = MousePressed[i] || Window->IsMouseDown((SMouseEvent::EButton) i);    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
-			MousePressed[i] = false;
+			io.MouseDown[i] = MouseWasPressed[i] || MouseHeld[i];    // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
+			MouseWasPressed[i] = false;
 		}
 
 		io.MouseWheel = MouseWheel;
@@ -433,7 +440,10 @@ void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color,
 	CGUIManager::CGUIManager()
 	{
 		for (int i = 0; i < 3; ++ i)
-			MousePressed[i] = false;
+		{
+			MouseWasPressed[i] = false;
+			MouseHeld[i] = false;
+		}
 	}
 
 }

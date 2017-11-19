@@ -20,19 +20,19 @@ namespace ion
 			{
 			}
 
-			void CPipelineState::SetProgram(SharedPointer<IShaderProgram> inShaderProgram)
+			void CPipelineState::SetShader(SharedPointer<IShader> inShader)
 			{
-				if (inShaderProgram)
+				if (inShader)
 				{
-					ShaderProgram = std::dynamic_pointer_cast<CShaderProgram>(inShaderProgram);
-					if (! ShaderProgram->Linked)
+					Shader = std::dynamic_pointer_cast<CShader>(inShader);
+					if (! Shader->Linked)
 					{
-						ShaderProgram->Link();
+						Shader->Link();
 
-						if (! ShaderProgram->Linked)
+						if (! Shader->Linked)
 						{
 							Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
-							ShaderProgram = nullptr;
+							Shader = nullptr;
 							return;
 						}
 					}
@@ -40,8 +40,8 @@ namespace ion
 					Textures.clear();
 					Uniforms.clear();
 
-					UnboundUniforms = KeySet(ShaderProgram->Uniforms);
-					UnboundAttributes = KeySet(ShaderProgram->Attributes);
+					UnboundUniforms = KeySet(Shader->Uniforms);
+					UnboundAttributes = KeySet(Shader->Attributes);
 					UnboundAttributes.erase("gl_VertexID");
 
 					Loaded = false;
@@ -72,7 +72,7 @@ namespace ion
 
 			void CPipelineState::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
-				if (! ShaderProgram)
+				if (! Shader)
 				{
 					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
 					return;
@@ -105,7 +105,7 @@ namespace ion
 
 			void CPipelineState::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
-				if (! ShaderProgram)
+				if (! Shader)
 				{
 					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
 					return;
@@ -197,7 +197,7 @@ namespace ion
 
 			void CPipelineState::OfferUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
-				if (! ShaderProgram)
+				if (! Shader)
 				{
 					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
 					return;
@@ -218,7 +218,7 @@ namespace ion
 
 			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
-				if (! ShaderProgram)
+				if (! Shader)
 				{
 					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
 					return;
@@ -249,14 +249,14 @@ namespace ion
 
 			void CPipelineState::Load()
 			{
-				if (! ShaderProgram || VertexBuffers.empty() || ! IndexBuffer)
+				if (! Shader || VertexBuffers.empty() || ! IndexBuffer)
 				{
 					Log::Error("Attempting to load an invalid PipelineState");
 					return;
 				}
 
 				Window->MakeContextCurrent();
-				CheckedGLCall(glUseProgram(ShaderProgram->Handle));
+				CheckedGLCall(glUseProgram(Shader->Handle));
 				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
 
 				for (auto & VertexBuffer : VertexBuffers)
@@ -279,7 +279,7 @@ namespace ion
 					for (auto & InputLayoutElement : VertexBuffer->InputLayout)
 					{
 						pair<uint, uint> AttributeInfo;
-						if (TryMapAccess(ShaderProgram->Attributes, InputLayoutElement.Name, AttributeInfo))
+						if (TryMapAccess(Shader->Attributes, InputLayoutElement.Name, AttributeInfo))
 						{
 							uint const AttributeLocation = AttributeInfo.first;
 							uint const AttributeType = AttributeInfo.second;
@@ -397,7 +397,7 @@ namespace ion
 				for (auto const & it : Uniforms)
 				{
 					uint Handle = 0;
-					if (TryMapAccess(ShaderProgram->Uniforms, it.first, Handle))
+					if (TryMapAccess(Shader->Uniforms, it.first, Handle))
 					{
 						BoundUniforms[Handle] = it.second;
 					}
@@ -406,7 +406,7 @@ namespace ion
 				for (auto const & it : Textures)
 				{
 					uint Handle = 0;
-					if (TryMapAccess(ShaderProgram->Uniforms, it.first, Handle))
+					if (TryMapAccess(Shader->Uniforms, it.first, Handle))
 					{
 						BoundTextures[Handle] = it.second;
 					}

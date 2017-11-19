@@ -33,10 +33,10 @@ namespace ion
 			virtual void SetViewMatrix(glm::mat4 const & viewMatrix);
 			virtual void SetProjectionMatrix(glm::mat4 const & projectionMatrix);
 
-			virtual f32 GetNearPlane() const;
-			virtual f32 GetFarPlane() const;
-			virtual void SetNearPlane(f32 const nearPlane);
-			virtual void SetFarPlane(f32 const farPlane);
+			virtual float GetNearPlane() const;
+			virtual float GetFarPlane() const;
+			virtual void SetNearPlane(float const nearPlane);
+			virtual void SetFarPlane(float const farPlane);
 
 			virtual vec2i GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize, bool * InFront = nullptr);
 			virtual ray3f GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize);
@@ -49,7 +49,7 @@ namespace ion
 
 			glm::mat4 ViewMatrix;
 			glm::mat4 ProjectionMatrix;
-			f32 NearPlane, FarPlane;
+			float NearPlane, FarPlane;
 
 		};
 

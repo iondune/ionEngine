@@ -1,12 +1,11 @@
 
 #pragma once
 
-#include <ionFramework.h>
+#include <ionCore.h>
 #include <ionGraphics.h>
 
 #include "SKeyboardEvent.h"
 #include "SMouseEvent.h"
-#include "SWindowResizedEvent.h"
 
 
 struct GLFWwindow;
@@ -28,7 +27,7 @@ namespace ion
 		vec2i const & GetSize() const;
 		vec2i const & GetFrameBufferSize() const;
 
-		f32 GetAspectRatio() const;
+		float GetAspectRatio() const;
 		void SwapBuffers();
 
 		vec2i GetPosition() const;

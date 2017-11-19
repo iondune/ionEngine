@@ -42,7 +42,7 @@ namespace ion
 				map<string, SharedPointer<ITexture const>> Textures;
 
 				map<uint, SharedPointer<IUniform const>> BoundUniforms;
-				map<u32, SharedPointer<ITexture const>> BoundTextures;
+				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> RequiredUniforms;
 				set<string> UnboundAttributes;
@@ -65,7 +65,7 @@ namespace ion
 
 				CDrawContext();
 
-				virtual void SetProgram(SharedPointer<IShaderProgram> ShaderProgram);
+				virtual void SetShader(SharedPointer<IShader> Shader);
 				virtual void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer);
 				virtual void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer);
 				virtual void SetUniform(string const & Name, SharedPointer<IUniform> Uniform);
@@ -85,7 +85,7 @@ namespace ion
 
 			protected:
 
-				SharedPointer<CShaderProgram> ShaderProgram;
+				SharedPointer<CShader> Shader;
 
 				vector<SharedPointer<CVertexBuffer>> VertexBuffers;
 				SharedPointer<CIndexBuffer> IndexBuffer;
@@ -94,7 +94,7 @@ namespace ion
 				map<string, SharedPointer<ITexture const>> Textures;
 
 				map<uint, SharedPointer<IUniform const>> BoundUniforms;
-				map<u32, SharedPointer<ITexture const>> BoundTextures;
+				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> RequiredUniforms;
 				set<string> UnboundAttributes;

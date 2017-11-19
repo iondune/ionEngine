@@ -14,24 +14,24 @@ namespace ion
 
 		public:
 
-			COrthographicCamera(f32 const left, f32 const right, f32 const bottom, f32 const top);
+			COrthographicCamera(float const left, float const right, float const bottom, float const top);
 
-			f32 GetTop() const;
-			f32 GetBottom() const;
-			f32 GetLeft() const;
-			f32 GetRight() const;
+			float GetTop() const;
+			float GetBottom() const;
+			float GetLeft() const;
+			float GetRight() const;
 
-			void SetTop(f32 const top);
-			void SetBottom(f32 const bottom);
-			void SetLeft(f32 const left);
-			void SetRight(f32 const right);
+			void SetTop(float const top);
+			void SetBottom(float const bottom);
+			void SetLeft(float const left);
+			void SetRight(float const right);
 
 			void RecalculateProjectionMatrix();
 			void Update();
 
 		protected:
 
-			f32 Top, Bottom, Left, Right;
+			float Top, Bottom, Left, Right;
 
 		};
 

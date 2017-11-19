@@ -20,7 +20,7 @@ namespace ion
 			Graphics::CUniform<color3f> Ambient;
 			Graphics::CUniform<color3f> Diffuse;
 			Graphics::CUniform<color3f> Specular;
-			Graphics::CUniform<f32> Shininess;
+			Graphics::CUniform<float> Shininess;
 
 			CImage * DiffuseImage = nullptr;
 			CImage * AmbientImage = nullptr;
@@ -69,9 +69,9 @@ namespace ion
 			SSimpleMaterial Material;
 
 			static CSimpleMesh * FromAttributes(vector<uint> Indices,
-				vector<f32> const & Positions,
-				vector<f32> const & Normals = vector<f32>(),
-				vector<f32> const & TexCoords = vector<f32>());
+				vector<float> const & Positions,
+				vector<float> const & Normals = vector<float>(),
+				vector<float> const & TexCoords = vector<float>());
 
 			SBoundingBox3f GetBoundingBox() const;
 
@@ -80,10 +80,11 @@ namespace ion
 			CSimpleMesh * ApplyScaleFactor(vec3f const & Scale);
 			CSimpleMesh * ApplyOffset(vec3f const & Offset);
 			CSimpleMesh * ApplyTransformation(glm::mat4 const & Transform);
+			CSimpleMesh * Intersect(CSimpleMesh const * Other, vec3f const & Offset = 0);
 			void ReverseFaces();
 			void SeparateTriangles();
 			void CalculateNormalsPerFace();
-			void CalculateNormalsPerVertex(bool CombineNear = true, f32 const NearTolerance = 0.0001f);
+			void CalculateNormalsPerVertex(bool CombineNear = true, float const NearTolerance = 0.0001f);
 
 			void WriteOBJ(string const & FileName) const;
 

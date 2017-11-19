@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <ionMath.h>
-#include <ionFramework.h>
+#include <ionCore.h>
 #include <ionWindow.h>
 #include <ionGraphics.h>
 
@@ -11,9 +10,6 @@
 
 namespace ion
 {
-
-	ImVec2 ToImGui(vec2f const & v);
-	vec2f ToIon(ImVec2 const & v);
 
 	class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 	{
@@ -49,7 +45,8 @@ namespace ion
 
 		CWindow * Window = nullptr;
 		double Time = 0;
-		bool MousePressed[3];
+		bool MouseWasPressed[3];
+		bool MouseHeld[3];
 		float MouseWheel = 0;
 		uint FontTexture = 0;
 		int ShaderHandle = 0, VertHandle = 0, FragHandle = 0;

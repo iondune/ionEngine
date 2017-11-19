@@ -13,13 +13,13 @@ namespace ion
 		namespace GL
 		{
 
-			class CShaderProgram : public IShaderProgram
+			class CShader : public IShader
 			{
 			public:
 
-				void SetVertexStage(SharedPointer<IVertexShader> VertexShader);
-				void SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader);
-				void SetPixelStage(SharedPointer<IPixelShader> PixelShader);
+				void SetVertexStage(SharedPointer<IVertexStage> VertexShader);
+				void SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader);
+				void SetPixelStage(SharedPointer<IPixelStage> PixelShader);
 
 				void Link();
 

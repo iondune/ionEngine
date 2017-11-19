@@ -39,9 +39,9 @@ namespace ion
 		return FrameBufferSize;
 	}
 
-	f32 CWindow::GetAspectRatio() const
+	float CWindow::GetAspectRatio() const
 	{
-		return (f32) Size.X / (f32) Size.Y;
+		return (float) Size.X / (float) Size.Y;
 	}
 
 	void CWindow::SwapBuffers()

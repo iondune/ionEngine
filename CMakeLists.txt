@@ -1,6 +1,11 @@
+
+set(ION_ENGINE_VERSION 0.4.2)
+
 # CMake
-cmake_minimum_required(VERSION 2.6)
-project(ionEngine)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+project(ionEngine VERSION ${ION_VERSION} LANGUAGES CXX)
+
+include(GNUInstallDirs)
 
 # Output Directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -10,7 +15,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/Include")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
-add_definitions(-DION_PROJECT_BASE_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Dependencies
 include_directories("${PROJECT_SOURCE_DIR}/Dependencies")
@@ -41,7 +45,7 @@ endfunction(ExecutableDependencies)
 #########
 
 # Libraries
-add_subdirectory("ionFramework")
+add_subdirectory("ionCore")
 add_subdirectory("ionWindow")
 add_subdirectory("ionGraphics")
 add_subdirectory("ionGraphicsGL")

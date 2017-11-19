@@ -2,16 +2,14 @@
 #pragma once
 
 #include <ionCore.h>
-#include <ionMath.h>
-#include <ionFramework.h>
 #include <ionWindow.h>
 
 #include <simpleini/SimpleIni.h>
+#undef CreateWindow
 
 
 namespace ion
 {
-
 
 	class CDefaultApplication : public IEventListener
 	{

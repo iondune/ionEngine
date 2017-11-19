@@ -49,10 +49,10 @@ int main()
 	CSimpleMesh * SkyBoxMesh = CGeometryCreator::CreateCube();
 	CSimpleMesh * PlaneMesh = CGeometryCreator::CreatePlane(vec2f(100.f));
 
-	SharedPointer<IShaderProgram> DiffuseShader = AssetManager->LoadShader("Diffuse");
-	SharedPointer<IShaderProgram> SimpleShader = AssetManager->LoadShader("Simple");
-	SharedPointer<IShaderProgram> SpecularShader = AssetManager->LoadShader("Specular");
-	SharedPointer<IShaderProgram> SkyBoxShader = AssetManager->LoadShader("SkyBox");
+	SharedPointer<IShader> DiffuseShader = AssetManager->LoadShader("Diffuse");
+	SharedPointer<IShader> SimpleShader = AssetManager->LoadShader("Simple");
+	SharedPointer<IShader> SpecularShader = AssetManager->LoadShader("Specular");
+	SharedPointer<IShader> SkyBoxShader = AssetManager->LoadShader("SkyBox");
 
 	SharedPointer<ITextureCubeMap> SkyBoxTexture = AssetManager->LoadCubeMapTexture(
 		"DarkStormyLeft2048.png",
@@ -135,17 +135,17 @@ int main()
 
 	CPointLight * Light1 = new CPointLight();
 	Light1->SetPosition(vec3f(0, 1, 0));
-	Light1->SetColor(Colors::Red);
+	Light1->SetColor(Color::Basic::Red);
 	RenderPass->AddLight(Light1);
 
 	CPointLight * Light2 = new CPointLight();
 	Light2->SetPosition(vec3f(4, 2, 0));
-	Light2->SetColor(Colors::Green);
+	Light2->SetColor(Color::Basic::Green);
 	RenderPass->AddLight(Light2);
 
 	CPointLight * Light3 = new CPointLight();
 	Light3->SetPosition(vec3f(12, 3, 0));
-	Light3->SetColor(Colors::Blue);
+	Light3->SetColor(Color::Basic::Blue);
 	RenderPass->AddLight(Light3);
 
 

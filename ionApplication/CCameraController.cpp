@@ -20,7 +20,9 @@ namespace ion
 		this->MaxAngleEpsilon = 0.01f;
 
 		for (int i = 0; i < (int) ECommand::Count; ++ i)
-			this->Commands[i] = false;
+			this->WASDCommands[i] = this->ArrowCommands[i] = false;
+
+		CalculateInitialAngles();
 	}
 
 	void CCameraController::OnEvent(IEvent & Event)
@@ -46,11 +48,11 @@ namespace ion
 			if (MouseEvent.Type == SMouseEvent::EType::Scroll && Active)
 			{
 				Scene::CPerspectiveCamera * PerspectiveCamera = nullptr;
-				if ((PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
+				if (UseScrollWheel && (PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
 				{
-					f32 FocalLength = PerspectiveCamera->GetFocalLength();
+					float FocalLength = PerspectiveCamera->GetFocalLength();
 
-					s32 ticks = (s32) MouseEvent.Movement.Y;
+					int ticks = (int) MouseEvent.Movement.Y;
 					if (ticks > 0)
 						while (ticks-- > 0)
 							FocalLength *= FocalLengthDelta;
@@ -66,14 +68,34 @@ namespace ion
 		{
 			SKeyboardEvent & KeyboardEvent = As<SKeyboardEvent>(Event);
 
-			if (KeyboardEvent.Key == EKey::W || KeyboardEvent.Key == EKey::Up)
-				Commands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::S || KeyboardEvent.Key == EKey::Down)
-				Commands[(int) ECommand::Back] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::A || KeyboardEvent.Key == EKey::Left)
-				Commands[(int) ECommand::Left] = KeyboardEvent.Pressed;
-			if (KeyboardEvent.Key == EKey::D || KeyboardEvent.Key == EKey::Right)
-				Commands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+			switch (KeyboardEvent.Key)
+			{
+			case EKey::W:
+				WASDCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				break;
+			case EKey::S:
+				WASDCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				break;
+			case EKey::A:
+				WASDCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				break;
+			case EKey::D:
+				WASDCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+				break;
+
+			case EKey::Up:
+				ArrowCommands[(int) ECommand::Forward] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Down:
+				ArrowCommands[(int) ECommand::Back] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Left:
+				ArrowCommands[(int) ECommand::Left] = KeyboardEvent.Pressed;
+				break;
+			case EKey::Right:
+				ArrowCommands[(int) ECommand::Right] = KeyboardEvent.Pressed;
+				break;
+			}
 
 			if (! KeyboardEvent.Pressed)
 			{
@@ -106,7 +128,7 @@ namespace ion
 		}
 	}
 
-	void CCameraController::Update(f64 const TickTime)
+	void CCameraController::Update(double const TickTime)
 	{
 		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
 			Phi = Constants32::Pi / 2 - MaxAngleEpsilon;
@@ -121,23 +143,58 @@ namespace ion
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
 		vec3f Translation;
-		if (Commands[(int) ECommand::Forward])
-			Translation += LookDirection * MoveSpeed;
 
-		if (Commands[(int) ECommand::Left])
-			Translation += V * MoveSpeed;
+		if (UseWASD)
+		{
+			if (WASDCommands[(int) ECommand::Forward])
+			{
+				Translation += LookDirection * MoveSpeed;
+			}
 
-		if (Commands[(int) ECommand::Right])
-			Translation -= V * MoveSpeed;
+			if (WASDCommands[(int) ECommand::Left])
+			{
+				Translation += V * MoveSpeed;
+			}
 
-		if (Commands[(int) ECommand::Back])
-			Translation -= LookDirection * MoveSpeed;
+			if (WASDCommands[(int) ECommand::Right])
+			{
+				Translation -= V * MoveSpeed;
+			}
+
+			if (WASDCommands[(int) ECommand::Back])
+			{
+				Translation -= LookDirection * MoveSpeed;
+			}
+		}
+
+		if (UseArrowKeys)
+		{
+			if (ArrowCommands[(int) ECommand::Forward])
+			{
+				Translation += LookDirection * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Left])
+			{
+				Translation += V * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Right])
+			{
+				Translation -= V * MoveSpeed;
+			}
+
+			if (ArrowCommands[(int) ECommand::Back])
+			{
+				Translation -= LookDirection * MoveSpeed;
+			}
+		}
 
 		CurrentSpeed = Translation;
 
 		if (Active)
 		{
-			Camera->SetPosition(Camera->GetPosition() + Translation * (f32) TickTime);
+			Camera->SetPosition(Camera->GetPosition() + Translation * (float) TickTime);
 		}
 		Camera->SetLookDirection(LookDirection);
 	}
@@ -157,12 +214,23 @@ namespace ion
 		return Camera;
 	}
 
+	void CCameraController::CalculateInitialAngles()
+	{
+		vec3f const Up = Camera->GetUpVector();
+		vec3f const Direction = Normalize(Camera->GetLookDirecton());
+		vec3f const Right = Cross(Direction, Up);
+		vec3f const Flat = Normalize(Cross(Up, Right));
+
+		Phi = asin(Direction.Y);
+		Theta = acos(Flat.X);
+	}
+
 	vec3f CCameraController::GetCurrentSpeed() const
 	{
 		return CurrentSpeed;
 	}
 
-	f32 CCameraController::GetVelocity() const
+	float CCameraController::GetVelocity() const
 	{
 		return MoveSpeed;
 	}
@@ -172,22 +240,22 @@ namespace ion
 		MoveSpeed = velocity;
 	}
 
-	f32 CCameraController::GetPhi() const
+	float CCameraController::GetPhi() const
 	{
 		return Phi;
 	}
 
-	void CCameraController::SetPhi(f32 const Phi)
+	void CCameraController::SetPhi(float const Phi)
 	{
 		this->Phi = Phi;
 	}
 
-	f32 CCameraController::GetTheta() const
+	float CCameraController::GetTheta() const
 	{
 		return Theta;
 	}
 
-	void CCameraController::SetTheta(f32 const Theta)
+	void CCameraController::SetTheta(float const Theta)
 	{
 		this->Theta = Theta;
 	}
@@ -198,6 +266,39 @@ namespace ion
 	}
 
 
+	bool CCameraController::GetUseWASD() const
+	{
+		return UseWASD;
+	}
+
+	bool CCameraController::GetUseArrowKeys() const
+	{
+		return UseArrowKeys;
+	}
+
+	bool CCameraController::GetUseScrollWheel() const
+	{
+		return UseScrollWheel;
+	}
+
+
+	void CCameraController::SetUseWASD(bool const UseWASD)
+	{
+		this->UseWASD = UseWASD;
+	}
+
+	void CCameraController::SetUseArrowKeys(bool const UseArrowKeys)
+	{
+		this->UseArrowKeys = UseArrowKeys;
+	}
+
+	void CCameraController::SetUseScrollWheel(bool const UseScrollWheel)
+	{
+		this->UseScrollWheel = UseScrollWheel;
+	}
+
+
+
 	//////////////////////////////
 	// CGamePadCameraController //
 	//////////////////////////////
@@ -206,19 +307,19 @@ namespace ion
 		: CCameraController(Camera)
 	{}
 
-	void CGamePadCameraController::Update(f64 const TickTime)
+	void CGamePadCameraController::Update(double const TickTime)
 	{
 		GamePad->UpdateState();
 
-		f32 const RightMod = (1.f + 5.f * (GamePad->IsButtonPressed(EGamePadButton::RightShoulder) ? 1.f : 0.f));
-		f32 const LeftMod = (1.f / (1.f + 10.f * (GamePad->IsButtonPressed(EGamePadButton::LeftShoulder) ? 1.f : 0.f)));
+		float const RightMod = (1.f + 5.f * (GamePad->IsButtonPressed(EGamePadButton::RightShoulder) ? 1.f : 0.f));
+		float const LeftMod = (1.f / (1.f + 10.f * (GamePad->IsButtonPressed(EGamePadButton::LeftShoulder) ? 1.f : 0.f)));
 
 		// Look - Right Axis
-		f32 const LookMod = 512.f * LeftMod;
+		float const LookMod = 512.f * LeftMod;
 		if (Active)
 		{
-			Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (f32) TickTime;
-			Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (f32) TickTime;
+			Theta += (GamePad->GetRightStick().X) * LookMod * LookSpeed * (float) TickTime;
+			Phi += (GamePad->GetRightStick().Y) * LookMod * LookSpeed * (float) TickTime;
 		}
 
 		if (Phi > Constants32::Pi / 2 - MaxAngleEpsilon)
@@ -235,7 +336,7 @@ namespace ion
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
 		// Movement - Left Axis
-		f32 const MoveDelta = MoveSpeed * (f32) TickTime * RightMod * LeftMod;
+		float const MoveDelta = MoveSpeed * (float) TickTime * RightMod * LeftMod;
 		Translation += LookDirection * MoveDelta * GamePad->GetLeftStick().Y;
 		Translation -= V * MoveDelta * GamePad->GetLeftStick().X;
 		Translation.Y -= MoveDelta * GamePad->GetLeftTrigger();
@@ -246,23 +347,23 @@ namespace ion
 		}
 
 		// Camera Speed
-		f32 const AccelerateSpeed = 32.f;
+		float const AccelerateSpeed = 32.f;
 		if (GamePad->IsButtonPressed(EGamePadButton::DPadRight))
-			MoveSpeed += AccelerateSpeed * (f32) TickTime;
+			MoveSpeed += AccelerateSpeed * (float) TickTime;
 		if (GamePad->IsButtonPressed(EGamePadButton::DPadLeft))
-			MoveSpeed = Max(0.f, MoveSpeed - AccelerateSpeed * (f32) TickTime);
+			MoveSpeed = Max(0.f, MoveSpeed - AccelerateSpeed * (float) TickTime);
 
 		// Focal Length - DPad
-		f32 const ZoomSpeed = 100.f;
-		f32 const ZoomMod = 1.01f;
+		float const ZoomSpeed = 100.f;
+		float const ZoomMod = 1.01f;
 		Scene::CPerspectiveCamera * PerspectiveCamera = nullptr;
 		if ((PerspectiveCamera = As<Scene::CPerspectiveCamera>(Camera)))
 		{
-			f32 FocalLength = PerspectiveCamera->GetFocalLength();
+			float FocalLength = PerspectiveCamera->GetFocalLength();
 			if (GamePad->IsButtonPressed(EGamePadButton::DPadUp))
-				FocalLengthAccumulator += ZoomSpeed * (f32) TickTime;
+				FocalLengthAccumulator += ZoomSpeed * (float) TickTime;
 			if (GamePad->IsButtonPressed(EGamePadButton::DPadDown))
-				FocalLengthAccumulator -= ZoomSpeed * (f32) TickTime;
+				FocalLengthAccumulator -= ZoomSpeed * (float) TickTime;
 			if (FocalLengthAccumulator > 1)
 			{
 				while (FocalLengthAccumulator > 1)

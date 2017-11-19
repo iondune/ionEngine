@@ -10,44 +10,44 @@ namespace ion
 	{
 
 		//! \ingroup ionGraphics
-		class IVertexShader
+		class IVertexStage
 		{
 
 		public:
 
-			virtual ~IVertexShader() {}
+			virtual ~IVertexStage() {}
 
 		};
 
 		//! \ingroup ionGraphics
-		class IGeometryShader
+		class IGeometryStage
 		{
 
 		public:
 
-			virtual ~IGeometryShader() {}
+			virtual ~IGeometryStage() {}
 
 		};
 
 		//! \ingroup ionGraphics
-		class IPixelShader
+		class IPixelStage
 		{
 
 		public:
 
-			virtual ~IPixelShader() {}
+			virtual ~IPixelStage() {}
 
 		};
 
 		//! \ingroup ionGraphics
-		class IShaderProgram
+		class IShader
 		{
 
 		public:
 
-			virtual void SetVertexStage(SharedPointer<IVertexShader> VertexShader) = 0;
-			virtual void SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader) = 0;
-			virtual void SetPixelStage(SharedPointer<IPixelShader> PixelShader) = 0;
+			virtual void SetVertexStage(SharedPointer<IVertexStage> VertexShader) = 0;
+			virtual void SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader) = 0;
+			virtual void SetPixelStage(SharedPointer<IPixelStage> PixelShader) = 0;
 
 		};
 

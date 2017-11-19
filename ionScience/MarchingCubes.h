@@ -5,23 +5,28 @@
 #include "SVolume.h"
 
 
-struct SMarchingCubesPoint
+namespace ion
 {
-	f32 Value = 0;
-	vec3f Gradient;
 
-	SMarchingCubesPoint()
-	{}
+	struct SMarchingCubesPoint
+	{
+		float Value = 0;
+		vec3f Gradient;
 
-	SMarchingCubesPoint(f32 const & value)
-		: Value(value)
-	{}
-};
+		SMarchingCubesPoint()
+		{}
 
-typedef SVolume<SMarchingCubesPoint> SMarchingCubesVolume;
+		SMarchingCubesPoint(float const & value)
+			: Value(value)
+		{}
+	};
 
-void CalculateGradient(SMarchingCubesVolume & Volume);
-ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume);
+	typedef SVolume<SMarchingCubesPoint> SMarchingCubesVolume;
 
-extern s32 const TriTable[256][16];
-extern u32 const EdgeTable[256];
+	void CalculateGradient(SMarchingCubesVolume & Volume);
+	ion::Scene::CSimpleMesh * MarchingCubes(SMarchingCubesVolume & Volume);
+
+	extern int const TriTable[256][16];
+	extern uint const EdgeTable[256];
+
+}

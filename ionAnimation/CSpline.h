@@ -26,7 +26,7 @@ namespace ion
 			float MuIncrement = 0;
 			bool Looping = true;
 
-			mutable SharedPointer<ISplineInterpolator<TSplineNode>> DefaultInterpolator = SharedFromNew(new CLinearSplineInterpolator<TSplineNode>());
+			mutable SharedPointer<ISplineInterpolator<TSplineNode>> DefaultInterpolator = std::make_shared<CLinearSplineInterpolator<TSplineNode>>();
 
 		public:
 
@@ -167,12 +167,12 @@ namespace ion
 				if (Mu > Max)
 				{
 					TSplineNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Max)), fmodf(Max, 1.f));
-					DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
+					DistanceTable.push_back((Current - Last).Length() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 					break;
 				}
 
 				TSplineNode Current = Interpolator->Interpolate(* this, SanitizeIndex(IntermediateToIndex(Mu)), fmodf(Mu, 1.f));
-				DistanceTable.push_back((Current - Last).GetLength() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
+				DistanceTable.push_back((Current - Last).Length() + (DistanceTable.size() ? DistanceTable.back() : 0.f));
 				Last = Current;
 			}
 

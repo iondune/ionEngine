@@ -1,38 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Vector">
-      <UniqueIdentifier>{b145132d-b249-4a34-b70c-a9e2721e836f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vector\Base">
-      <UniqueIdentifier>{0133fa8b-ba60-4ead-b84a-0630b57a1e63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vector\Implementations">
-      <UniqueIdentifier>{4b3689d5-3e37-4e95-a6d1-65ef7fe87c2a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Geometry">
       <UniqueIdentifier>{a0561f46-6721-4922-ad23-0eb06d9a9546}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SVector.h">
-      <Filter>Vector\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="SColor.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
-    <ClInclude Include="SVector2.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
-    <ClInclude Include="SVector3.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
     <ClInclude Include="ionMath.h" />
-    <ClInclude Include="SVector4.h">
-      <Filter>Vector\Implementations</Filter>
-    </ClInclude>
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Constants.h" />
     <ClInclude Include="SBoundingBox3.h">
       <Filter>Geometry</Filter>
     </ClInclude>
@@ -55,6 +29,12 @@
       <Filter>Geometry</Filter>
     </ClInclude>
     <ClInclude Include="ray3.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="line2.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="box2.h">
       <Filter>Geometry</Filter>
     </ClInclude>
   </ItemGroup>

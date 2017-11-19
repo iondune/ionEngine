@@ -2,6 +2,8 @@
 #include <ionCore.h>
 #include <catch.hpp>
 
+using namespace ion;
+
 
 TEST_CASE("ionComparison::RoundingError", "rounding error constants")
 {

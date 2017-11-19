@@ -37,8 +37,8 @@ int main()
 	// Create Shader //
 	///////////////////
 
-	SharedPointer<IVertexShader> VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Diffuse.vert");
-	SharedPointer<IPixelShader> PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Diffuse.frag");
+	SharedPointer<IVertexStage> VertexShader = GraphicsAPI->CreateVertexStageFromFile("Diffuse.vert");
+	SharedPointer<IPixelStage> PixelShader = GraphicsAPI->CreatePixelStageFromFile("Diffuse.frag");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile diffuse vertex shader!" << std::endl;
@@ -46,12 +46,12 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile diffuse pixel shader!" << std::endl;
 
-	SharedPointer<IShaderProgram> DiffuseProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPointer<IShader> DiffuseProgram = GraphicsAPI->CreateShaderProgram();
 	DiffuseProgram->SetVertexStage(VertexShader);
 	DiffuseProgram->SetPixelStage(PixelShader);
 
-	VertexShader = GraphicsAPI->CreateVertexShaderFromFile("Axis.vert");
-	PixelShader = GraphicsAPI->CreatePixelShaderFromFile("Axis.frag");
+	VertexShader = GraphicsAPI->CreateVertexStageFromFile("Axis.vert");
+	PixelShader = GraphicsAPI->CreatePixelStageFromFile("Axis.frag");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile axis vertex shader!" << std::endl;
@@ -59,7 +59,7 @@ int main()
 	if (! PixelShader)
 		std::cerr << "Failed to compile axis pixel shader!" << std::endl;
 
-	SharedPointer<IShaderProgram> AxisProgram = GraphicsAPI->CreateShaderProgram();
+	SharedPointer<IShader> AxisProgram = GraphicsAPI->CreateShaderProgram();
 	AxisProgram->SetVertexStage(VertexShader);
 	AxisProgram->SetPixelStage(PixelShader);
 

@@ -78,7 +78,7 @@ namespace ion
 	void CAssetManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
-	SharedPointer<Graphics::IShaderProgram> CAssetManager::LoadShader(string const & Name)
+	SharedPointer<Graphics::IShader> CAssetManager::LoadShader(string const & Name)
 	{
 		if (! GraphicsAPI)
 		{
@@ -98,11 +98,11 @@ namespace ion
 				continue;
 			}
 
-			SharedPointer<Graphics::IVertexShader> VertexShader;
-			SharedPointer<Graphics::IGeometryShader> GeometryShader;
-			SharedPointer<Graphics::IPixelShader> PixelShader;
+			SharedPointer<Graphics::IVertexStage> VertexShader;
+			SharedPointer<Graphics::IGeometryStage> GeometryShader;
+			SharedPointer<Graphics::IPixelStage> PixelShader;
 
-			VertexShader = GraphicsAPI->CreateVertexShaderFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
+			VertexShader = GraphicsAPI->CreateVertexStageFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
 			if (! VertexShader)
 			{
 				Log::Error("Failed to compile vertex shader '%s': '%s'", Name, VertexPath);
@@ -111,7 +111,7 @@ namespace ion
 
 			if (File::Exists(GeometryPath))
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryShaderFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
+				GeometryShader = GraphicsAPI->CreateGeometryStageFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
 
 				if (! GeometryShader)
 				{
@@ -122,7 +122,7 @@ namespace ion
 
 			if (File::Exists(PixelPath))
 			{
-				PixelShader = GraphicsAPI->CreatePixelShaderFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
+				PixelShader = GraphicsAPI->CreatePixelStageFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
 				if (! PixelShader)
 				{
 					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, PixelPath);
@@ -135,16 +135,16 @@ namespace ion
 				return nullptr;
 			}
 
-			SharedPointer<Graphics::IShaderProgram> ShaderProgram = GraphicsAPI->CreateShaderProgram();
-			ShaderProgram->SetVertexStage(VertexShader);
-			ShaderProgram->SetPixelStage(PixelShader);
+			SharedPointer<Graphics::IShader> Shader = GraphicsAPI->CreateShaderProgram();
+			Shader->SetVertexStage(VertexShader);
+			Shader->SetPixelStage(PixelShader);
 
 			if (GeometryShader)
 			{
-				ShaderProgram->SetGeometryStage(GeometryShader);
+				Shader->SetGeometryStage(GeometryShader);
 			}
 
-			return ShaderProgram;
+			return Shader;
 		}
 
 		Log::Error("Cannot find shader file in any asset directory: '%s'", Name);
@@ -211,7 +211,7 @@ namespace ion
 			return nullptr;
 		}
 		std::vector<CImage *> ImgArr;
-		vec2u setSize(0, 0);
+		vec2i setSize(0, 0);
 
 
 		for (string FileName : FileNames)
@@ -259,7 +259,7 @@ namespace ion
 			Format = Graphics::ITexture::EFormatComponents::RGBA;
 			break;
 		}
-		vec3u size3D(setSize[0], setSize[1], (uint) ImgArr.size());
+		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 
 		SharedPointer<Graphics::ITexture3D> Texture3D = GraphicsAPI->CreateTexture3D(size3D, MipMaps, Format, Graphics::ITexture::EInternalFormatType::Fix8);
@@ -268,8 +268,8 @@ namespace ion
 			CImage * ImagePtr = ImgArr[i];
 			Texture3D->UploadSubRegion(
 				ImagePtr->GetData(),
-				vec3u(0, 0, i),
-				vec3u(setSize[0], setSize[1], 1),
+				vec3i(0, 0, i),
+				vec3i(setSize[0], setSize[1], 1),
 				Format,
 				Graphics::EScalarType::UnsignedInt8);
 		}
@@ -284,7 +284,7 @@ namespace ion
 			return nullptr;
 		}
 		std::vector<CImage *> ImgArr;
-		vec2u setSize(0, 0);
+		vec2i setSize(0, 0);
 
 
 		for (string FileName : FileNames)
@@ -332,7 +332,7 @@ namespace ion
 			Format = Graphics::ITexture::EFormatComponents::RGBA;
 			break;
 		}
-		vec3u size3D(setSize[0], setSize[1], (uint) ImgArr.size());
+		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 
 		SharedPointer<Graphics::ITexture2DArray> Texture3D = GraphicsAPI->CreateTexture2DArray(size3D, MipMaps, Format, Graphics::ITexture::EInternalFormatType::Fix8);
@@ -341,8 +341,8 @@ namespace ion
 			CImage * ImagePtr = ImgArr[i];
 			Texture3D->UploadSubRegion(
 				ImagePtr->GetData(),
-				vec3u(0, 0, i),
-				vec3u(setSize[0], setSize[1], 1),
+				vec3i(0, 0, i),
+				vec3i(setSize[0], setSize[1], 1),
 				Format,
 				Graphics::EScalarType::UnsignedInt8);
 		}

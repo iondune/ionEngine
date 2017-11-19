@@ -1,6 +1,8 @@
 
 #include "ionGUI.h"
 
+using namespace ion;
+
 
 namespace ImGui
 {
@@ -25,6 +27,95 @@ namespace ImGui
 		if (ImGui::ColorEdit3(label, c))
 		{
 			Color = color3f(c[0], c[1], c[2]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorEdit3(const char * label, color3i & Color)
+	{
+		color3f c = Color;
+		if (ColorEdit3(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorEdit4(const char * label, color4f & Color)
+	{
+		float c[4] = { Color.Red, Color.Green, Color.Blue, Color.Alpha };
+		if (ImGui::ColorEdit4(label, c))
+		{
+			Color = color4f(c[0], c[1], c[2], c[3]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorEdit4(const char * label, color4i & Color)
+	{
+		color4f c = Color;
+		if (ColorEdit4(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker3(const char* label, ion::color3f & Color)
+	{
+		float c[3] = { Color.Red, Color.Green, Color.Blue };
+		if (ImGui::ColorPicker3(label, c))
+		{
+			Color = color3f(c[0], c[1], c[2]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker3(const char* label, ion::color3i & Color)
+	{
+		color3f c = Color;
+		if (ColorPicker3(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker4(const char* label, ion::color4f & Color)
+	{
+		float c[4] = { Color.Red, Color.Green, Color.Blue, Color.Alpha };
+		if (ImGui::ColorPicker4(label, c))
+		{
+			Color = color4f(c[0], c[1], c[2], c[3]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker4(const char* label, ion::color4i & Color)
+	{
+		color4f c = Color;
+		if (ColorPicker4(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+
+	bool DragVec2(const char * label, ion::vec2i & v, float v_speed, int v_min, int v_max, const char * display_format)
+	{
+		int vals[2] = { v.X, v.Y };
+		if (ImGui::DragInt2(label, vals,  v_speed, v_min, v_max, display_format))
+		{
+			v = vec2i(vals[0], vals[1]);
 			return true;
 		}
 		return false;
@@ -56,6 +147,38 @@ namespace ImGui
 	{
 		vector<char const *> items_vec = items;
 		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
+	}
+
+	bool Combo(const char * label, int * current_item, std::vector<string> const & items, int height_in_items)
+	{
+		vector<char const *> items_vec;
+		for (string const & item : items)
+		{
+			items_vec.push_back(item.c_str());
+		}
+
+		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
+	}
+
+	bool InputText(const char * label, string & buf, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
+	{
+		static vector<char> buffer_copy;
+		static int const ReserveSpace = 32;
+
+		if (buffer_copy.size() < buf.size() + ReserveSpace)
+		{
+			buffer_copy.resize(buf.size() + ReserveSpace);
+		}
+
+		strcpy(buffer_copy.data(), buf.c_str());
+
+		if (ImGui::InputText(label, buffer_copy.data(), buffer_copy.size(), flags, callback, user_data))
+		{
+			buf = buffer_copy.data();
+			return true;
+		}
+
+		return false;
 	}
 
 	scoped_id::scoped_id(char const * const str_id)

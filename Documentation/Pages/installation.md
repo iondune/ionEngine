@@ -21,7 +21,7 @@ Make sure that you have `git` in your path.
 
 Next we need to get `glfw`, the only binary dependency.
 The easiest way to do this is using [vcpkg](https://github.com/Microsoft/vcpkg>).
-Install that, then install the `glfw:x64-windows` triplet.
+Install that, then install the `glfw3:x64-windows` triplet.
 
 
 

@@ -65,7 +65,7 @@ namespace ion
 				uint Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 				if (OpenGLError())
 				{
-					cerr << "Error occured during glCheckFramebufferStatus: " << GetOpenGLError() << endl;
+					Log::Error("Error occured during glCheckFramebufferStatus: %s", GetOpenGLError());
 				}
 
 				if (Status == GL_FRAMEBUFFER_COMPLETE)
@@ -113,7 +113,7 @@ namespace ion
 					break;
 				}
 
-				cerr << "Problem with framebuffer: " << Problem << endl;
+				Log::Error("Problem with framebuffer: %s", Problem);
 				return false;
 			}
 

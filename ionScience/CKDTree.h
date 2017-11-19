@@ -1,59 +1,54 @@
 
-#if 0
-
 #pragma once
 
 #include <ionMath.h>
 
 
-struct CKDTreeNeighborSet
-{
-	u32 const K;
-	vec3f const Goal;
-
-	std::vector<std::pair<vec3f, f32> > Set;
-
-	CKDTreeNeighborSet(u32 const k, vec3f const & goal);
-
-	void ConsiderPoint(vec3f const & Point);
-	f32 GetWorstDistance() const;
-	bool Filled() const;
-};
-
-class CKDTreeNode
+namespace ion
 {
 
-public:
+	struct CKDTreeNeighborSet
+	{
+		int const K;
+		vec3f const Goal;
 
-	CKDTreeNode()
-		: LeftSide(), RightSide()
-	{}
+		std::vector<std::pair<vec3f, float> > Set;
 
-	CKDTreeNode * LeftSide, * RightSide;
-	s32 SplitAxis;
-	vec3f Position;
+		CKDTreeNeighborSet(int const k, vec3f const & goal);
 
-	void Split(vec3f * Elements, u32 const Count, s32 const Axis);
-	vec3f NearestNeighbor(vec3f const & Point) const;
-	void NearestKNeighbors(CKDTreeNeighborSet & Set) const;
+		void ConsiderPoint(vec3f const & Point);
+		float GetWorstDistance() const;
+		bool Filled() const;
+	};
 
-};
+	class CKDTreeNode
+	{
 
-class CKDTree
-{
+	public:
 
-public:
+		CKDTreeNode * LeftSide = nullptr;
+		CKDTreeNode * RightSide = nullptr;
 
-	CKDTree()
-		: Root()
-	{}
+		int SplitAxis = -1;
+		vec3f Position;
 
-	void Build(vec3f * Elements, u32 const Count);
-	vec3f NearestNeighbor(vec3f const & Point) const;
-	CKDTreeNeighborSet NearestKNeighbors(vec3f const & Point, u32 const K) const;
+		void Split(vec3f * Elements, int const Count, int const Axis);
+		vec3f NearestNeighbor(vec3f const & Point) const;
+		void NearestKNeighbors(CKDTreeNeighborSet & Set) const;
 
-	CKDTreeNode * Root;
+	};
 
-};
+	class CKDTree
+	{
 
-#endif
+	public:
+
+		void Build(vec3f * Elements, int const Count);
+		vec3f NearestNeighbor(vec3f const & Point) const;
+		CKDTreeNeighborSet NearestKNeighbors(vec3f const & Point, int const K) const;
+
+		CKDTreeNode * Root = nullptr;
+
+	};
+
+}

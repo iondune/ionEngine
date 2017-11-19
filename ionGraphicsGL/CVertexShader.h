@@ -13,7 +13,7 @@ namespace ion
 		namespace GL
 		{
 
-			class CVertexShader : public IVertexShader
+			class CVertexStage : public IVertexStage
 			{
 
 			public:

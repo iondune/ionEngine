@@ -20,24 +20,33 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(VisualStudioDir)\SDKs\Catch\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CATCH_CONFIG_NOSTDOUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>IF EXIST "$(TargetDir)$(TargetName).ipdb" ( DEL "$(TargetDir)$(TargetName).ipdb" )</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
-    <ClCompile Include="ionBitwise.cpp" />
+    <ClCompile Include="line2.cpp" />
+    <ClCompile Include="SRect2.cpp" />
+    <ClCompile Include="TestBitwise.cpp" />
     <ClCompile Include="ionClass.cpp" />
     <ClCompile Include="ionComparison.cpp" />
     <ClCompile Include="ionComponent.cpp" />
     <ClCompile Include="ionLogger.cpp" />
-    <ClCompile Include="ionSmartPtr.cpp" />
-    <ClCompile Include="ionStandardLibrary.cpp" />
-    <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="ionContainer.cpp" />
+    <ClCompile Include="TestColor.cpp" />
+    <ClCompile Include="TestionUtils.cpp" />
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
     <ClCompile Include="ray3.cpp" />
     <ClCompile Include="SBoundingBox3.cpp" />
-    <ClCompile Include="SVector2.cpp" />
-    <ClCompile Include="SVector3.cpp" />
+    <ClCompile Include="vec2.cpp" />
+    <ClCompile Include="vec3.cpp" />
+    <ClCompile Include="TestFile.cpp" />
+    <ClCompile Include="TestString.cpp" />
     <ClCompile Include="UnitTests.cpp" />
+    <ClCompile Include="vec4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

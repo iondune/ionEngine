@@ -21,7 +21,7 @@ static void PrintProgramInfoLog(GLint const Shader)
 	{
 		GLchar * InfoLog = new GLchar[InfoLogLength];
 		glGetProgramInfoLog(Shader, InfoLogLength, & CharsWritten, InfoLog);
-		Log::Error("Program Info Log: %s", InfoLog);
+		ion::Log::Error("Program Info Log: %s", InfoLog);
 		delete[] InfoLog;
 	}
 }
@@ -32,32 +32,32 @@ namespace ion
 	{
 		namespace GL
 		{
-			
-			void CShaderProgram::SetVertexStage(SharedPointer<IVertexShader> VertexShader)
+
+			void CShader::SetVertexStage(SharedPointer<IVertexStage> VertexShader)
 			{
 				if (VertexShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexShader>(VertexShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CVertexStage>(VertexShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::SetGeometryStage(SharedPointer<IGeometryShader> GeometryShader)
+			void CShader::SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader)
 			{
 				if (GeometryShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CGeometryShader>(GeometryShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CGeometryStage>(GeometryShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::SetPixelStage(SharedPointer<IPixelShader> PixelShader)
+			void CShader::SetPixelStage(SharedPointer<IPixelStage> PixelShader)
 			{
 				if (PixelShader)
 				{
-					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CPixelShader>(PixelShader)->Handle));
+					CheckedGLCall(glAttachShader(Handle, std::dynamic_pointer_cast<CPixelStage>(PixelShader)->Handle));
 				}
 			}
 
-			void CShaderProgram::Link()
+			void CShader::Link()
 			{
 				CheckedGLCall(glBindFragDataLocation(Handle, 0, "outColor"));
 				CheckedGLCall(glLinkProgram(Handle));
@@ -97,8 +97,8 @@ namespace ion
 						char * Name = new char[ActiveAttributeMaxLength + 1];
 
 						CheckedGLCall(glGetActiveAttrib(Handle, i, ActiveAttributeMaxLength, & Length, & Size, & DataType, Name));
-						Attributes[Name] = make_pair(glGetAttribLocation(Handle, Name), DataType);
-						delete Name;
+						Attributes[Name] = std::make_pair(glGetAttribLocation(Handle, Name), DataType);
+						delete[] Name;
 					}
 				}
 				else

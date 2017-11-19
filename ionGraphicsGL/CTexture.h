@@ -20,8 +20,8 @@ namespace ion
 
 			public:
 				
-				static u32 const InternalFormatMatrix[4][10];
-				static u32 const FormatMatrix[4][2];
+				static uint const InternalFormatMatrix[4][10];
+				static uint const FormatMatrix[4][2];
 
 				static string const InternalFormatStringMatrix[4][10];
 				static string const FormatStringMatrix[4];
@@ -31,13 +31,14 @@ namespace ion
 				void SetMagFilter(EFilter const MagFilter);
 				void SetMipMapFilter(EFilter const MipMapFilter);
 				void SetWrapMode(EWrapMode const WrapMode);
-				void SetAnisotropy(f32 const Anisotropy);
+				void SetBorderColor(color4f const & BorderColor);
+				void SetAnisotropy(float const Anisotropy);
 
 				EFilter GetMinFilter();
 				EFilter GetMagFilter();
 				EFilter GetMipMapFilter();
 				EWrapMode GetWrapMode();
-				f32 GetAnisotropy();
+				float GetAnisotropy();
 				
 				void ApplyParams();
 				virtual uint GetGLBindTextureTarget() const = 0;
@@ -49,10 +50,11 @@ namespace ion
 				EFilter MagFilter = EFilter::Linear;
 				EFilter MipMapFilter = EFilter::Linear;
 				EWrapMode WrapMode = EWrapMode::Repeat;
+				color4f BorderColor;
 
 				//! Anisotrophic filtering value
 				//! A value < 0 indicates that the max anisotrophy value should be used
-				f32 Anisotropy = -1;
+				float Anisotropy = -1;
 
 				bool MipMaps = true;
 				bool IsInteger = false;
@@ -64,10 +66,10 @@ namespace ion
 
 			public:
 
-				void Upload(void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
-				void UploadSubRegion(void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
 
-				void GetData(void * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
 
 				using CTexture::SetMinFilter;
 				using CTexture::SetMagFilter;
@@ -83,7 +85,7 @@ namespace ion
 				uint GetGLBindTextureTarget() const;
 				uint GetGLTextureBindingEnum() const;
 
-				vec2u TextureSize;
+				vec2i TextureSize;
 
 #pragma warning(suppress: 4250)
 			};
@@ -93,8 +95,8 @@ namespace ion
 
 			public:
 
-				void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
-				void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type);
 
 				using CTexture::SetMinFilter;
 				using CTexture::SetMagFilter;
@@ -110,7 +112,7 @@ namespace ion
 				uint GetGLBindTextureTarget() const;
 				uint GetGLTextureBindingEnum() const;
 
-				vec3u TextureSize;
+				vec3i TextureSize;
 
 #pragma warning(suppress: 4250)
 			};
@@ -120,8 +122,8 @@ namespace ion
 
 			public:
 
-				void Upload(void const * const Data, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
-				void UploadSubRegion(void const * const Data, vec3u const & Offset, vec3u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void Upload(void const * const Data, vec3i const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type);
 
 				using CTexture::SetMinFilter;
 				using CTexture::SetMagFilter;
@@ -137,7 +139,7 @@ namespace ion
 				uint GetGLBindTextureTarget() const;
 				uint GetGLTextureBindingEnum() const;
 
-				vec3u TextureSize;
+				vec3i TextureSize;
 
 #pragma warning(suppress: 4250)
 			};
@@ -147,8 +149,8 @@ namespace ion
 
 			public:
 
-				void Upload(EFace const Face, void const * const Data, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
-				void UploadSubRegion(EFace const Face, void const * const Data, vec2u const & Offset, vec2u const & Size, EFormatComponents const Components, EScalarType const Type);
+				void Upload(EFace const Face, void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
+				void UploadSubRegion(EFace const Face, void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
 
 				using CTexture::SetMinFilter;
 				using CTexture::SetMagFilter;
@@ -164,7 +166,7 @@ namespace ion
 				uint GetGLBindTextureTarget() const;
 				uint GetGLTextureBindingEnum() const;
 
-				vec2u TextureSize;
+				vec2i TextureSize;
 
 #pragma warning(suppress: 4250)
 			};

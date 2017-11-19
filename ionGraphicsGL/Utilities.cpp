@@ -64,7 +64,7 @@ namespace ion
 				glGetError();
 			}
 
-			c8 const * glErrorString(GLenum const Error)
+			char const * glErrorString(GLenum const Error)
 			{
 				switch (Error)
 				{
@@ -105,7 +105,7 @@ namespace ion
 					GLenum Error = glGetError();
 					if (Error != GL_NO_ERROR)
 					{
-						c8 const * const ErrorString = glErrorString(Error);
+						char const * const ErrorString = glErrorString(Error);
 						if (Before)
 						{
 							Log::Error("OpenGL error before '%s': '%s'", Before, ErrorString);
@@ -118,7 +118,7 @@ namespace ion
 				}
 			}
 
-			void PrintOpenGLErrors(c8 const * const Function, c8 const * const File, s32 const Line)
+			void PrintOpenGLErrors(char const * const Function, char const * const File, int const Line)
 			{
 				bool Succeeded = true;
 
@@ -127,7 +127,7 @@ namespace ion
 					GLenum Error = glGetError();
 					if (Error != GL_NO_ERROR)
 					{
-						c8 const * const ErrorString = glErrorString(Error);
+						char const * const ErrorString = glErrorString(Error);
 						Log::Error("OpenGL error in file '%s' at line %d calling function '%s': '%s' '%d 0x%X'", File, Line, Function, ErrorString, Error, Error);
 					}
 				}
@@ -144,7 +144,7 @@ namespace ion
 				return true;
 			}
 
-			u32 const Util::ScalarTypeMatrix[9] =
+			uint const Util::ScalarTypeMatrix[9] =
 			{
 				// Error = 0,
 				// Float = 1,
@@ -167,17 +167,6 @@ namespace ion
 				GL_UNSIGNED_INT,
 			};
 
-			u64 const Util::SizeMatrix[7] =
-			{
-				sizeof(u8),
-				sizeof(u16),
-				sizeof(u32),
-				sizeof(c8),
-				sizeof(s16),
-				sizeof(s32),
-				sizeof(f32)
-			};
-
 			string const Util::ScalarTypeStringMatrix[9] =
 			{
 				"GL_FALSE",
@@ -189,17 +178,6 @@ namespace ion
 				"GL_UNSIGNED_BYTE",
 				"GL_UNSIGNED_SHORT",
 				"GL_UNSIGNED_INT",
-			};
-
-			string const Util::SizeStringMatrix[7] =
-			{
-				"sizeof(u8)",
-				"sizeof(u16)",
-				"sizeof(u32)",
-				"sizeof(c8)",
-				"sizeof(s16)",
-				"sizeof(s32)",
-				"sizeof(f32)"
 			};
 
 		}

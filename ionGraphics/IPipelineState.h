@@ -31,7 +31,9 @@ namespace ion
 		{
 			None = 0,
 			Alpha = 1,
-			Additive = 2
+			Additive = 2,
+			Min = 3,
+			Max = 4
 		};
 
 		//! \ingroup ionGraphics
@@ -52,7 +54,7 @@ namespace ion
 			virtual ~IPipelineState()
 			{}
 
-			virtual void SetProgram(SharedPointer<IShaderProgram> ShaderProgram) = 0;
+			virtual void SetShader(SharedPointer<IShader> ShaderProgram) = 0;
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer) = 0;
 			virtual void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer) = 0;
 			virtual void SetUniform(string const & Name, SharedPointer<IUniform> Uniform) = 0;

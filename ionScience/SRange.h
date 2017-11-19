@@ -1,62 +1,67 @@
 
 #pragma once
 
-#include <ionCore/ionTypes.h>
+#include <ionCore.h>
 
 
-template <typename T>
-struct SRange
+namespace ion
 {
-	static SRange const Full;
-	static SRange const Empty;
 
-	bool Contains(T const value) const
+	template <typename T>
+	struct SRange
 	{
-		return value >= Minimum && value <= Maximum;
-	}
+		static SRange const Full;
+		static SRange const Empty;
 
-	bool IsEmpty() const
-	{
-		return Minimum > Maximum;
-	}
+		bool Contains(T const value) const
+		{
+			return value >= Minimum && value <= Maximum;
+		}
 
-	bool IsSingular() const
-	{
-		return Equals(Minimum, Maximum);
-	}
+		bool IsEmpty() const
+		{
+			return Minimum > Maximum;
+		}
 
-	T Normalize(T const value) const
-	{
-		return (value - Minimum) / (Maximum - Minimum);
-	}
+		bool IsSingular() const
+		{
+			return Equals(Minimum, Maximum);
+		}
 
-	T Size() const
-	{
-		return Maximum - Minimum;
-	}
+		T Normalize(T const value) const
+		{
+			return (value - Minimum) / (Maximum - Minimum);
+		}
 
-	SRange()
-	{
-		* this = Empty;
-	}
+		T Size() const
+		{
+			return Maximum - Minimum;
+		}
 
-	SRange(T const minimum, T const maximum)
-		: Minimum(minimum), Maximum(maximum)
-	{}
+		SRange()
+		{
+			* this = Empty;
+		}
 
-	SRange & operator = (SRange const & Other)
-	{
-		Minimum = Other.Minimum;
-		Maximum = Other.Maximum;
-		return * this;
-	}
+		SRange(T const minimum, T const maximum)
+			: Minimum(minimum), Maximum(maximum)
+		{}
 
-	T Minimum;
-	T Maximum;
-};
+		SRange & operator = (SRange const & Other)
+		{
+			Minimum = Other.Minimum;
+			Maximum = Other.Maximum;
+			return * this;
+		}
 
-template <typename T>
-SRange<T> const SRange<T>::Full = SRange<T>(-std::numeric_limits<T>::max(), std::numeric_limits<T>::max());
+		T Minimum;
+		T Maximum;
+	};
 
-template <typename T>
-SRange<T> const SRange<T>::Empty = SRange<T>(std::numeric_limits<T>::max(), -std::numeric_limits<T>::max());
+	template <typename T>
+	SRange<T> const SRange<T>::Full = SRange<T>(-std::numeric_limits<T>::max(), std::numeric_limits<T>::max());
+
+	template <typename T>
+	SRange<T> const SRange<T>::Empty = SRange<T>(std::numeric_limits<T>::max(), -std::numeric_limits<T>::max());
+
+}

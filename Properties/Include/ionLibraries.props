@@ -4,7 +4,7 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
-        ;ionFramework.lib;
+        ;ionCore.lib;
         ;ionGraphics.lib;
         ;ionWindow.lib;
         ;ionGraphicsGL.lib;

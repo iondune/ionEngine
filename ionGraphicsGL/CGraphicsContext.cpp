@@ -123,10 +123,10 @@ namespace ion
 				}
 				case EUniformType::Float4:
 					CheckedGLCall(glUniform4f(Handle,
-						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[0],
-						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[1],
-						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[2],
-						static_cast<SVectorBase<float, 4> const *>(Uniform->GetData())->Values[3]));
+						static_cast<vec4f const *>(Uniform->GetData())->X,
+						static_cast<vec4f const *>(Uniform->GetData())->Y,
+						static_cast<vec4f const *>(Uniform->GetData())->Z,
+						static_cast<vec4f const *>(Uniform->GetData())->W));
 					break;
 				case EUniformType::Matrix4x4:
 					CheckedGLCall(glUniformMatrix4fv(Handle, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData()))));
@@ -160,10 +160,10 @@ namespace ion
 					break;
 				case EUniformType::Int4:
 					CheckedGLCall(glUniform4i(Handle,
-						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[0],
-						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[1],
-						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[2],
-						static_cast<SVectorBase<int, 4> const *>(Uniform->GetData())->Values[3]));
+						static_cast<vec4i const *>(Uniform->GetData())->X,
+						static_cast<vec4i const *>(Uniform->GetData())->Y,
+						static_cast<vec4i const *>(Uniform->GetData())->Z,
+						static_cast<vec4i const *>(Uniform->GetData())->W));
 					break;
 				default:
 					Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
@@ -181,13 +181,13 @@ namespace ion
 					PipelineState->Load();
 				}
 
-				if (! PipelineState->ShaderProgram)
+				if (! PipelineState->Shader)
 				{
 					Log::Error("Cannot draw pipeline state with no shader program.");
 					return;
 				}
 
-				CheckedGLCall(glUseProgram(PipelineState->ShaderProgram->Handle));
+				CheckedGLCall(glUseProgram(PipelineState->Shader->Handle));
 				CheckedGLCall(glBindVertexArray(PipelineState->VertexArrayHandle));
 
 				// Uniforms
@@ -242,11 +242,21 @@ namespace ion
 					CheckedGLCall(glEnable(GL_BLEND));
 					if (PipelineState->BlendMode == EBlendMode::Alpha)
 					{
+						CheckedGLCall(glBlendEquation(GL_FUNC_ADD));
 						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 					}
 					else if (PipelineState->BlendMode == EBlendMode::Additive)
 					{
+						CheckedGLCall(glBlendEquation(GL_FUNC_ADD));
 						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
+					}
+					else if (PipelineState->BlendMode == EBlendMode::Min)
+					{
+						CheckedGLCall(glBlendEquation(GL_MIN));
+					}
+					else if (PipelineState->BlendMode == EBlendMode::Max)
+					{
+						CheckedGLCall(glBlendEquation(GL_MAX));
 					}
 				}
 			}

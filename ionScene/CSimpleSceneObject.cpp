@@ -32,7 +32,7 @@ namespace ion
 
 			Material.LoadTextures();
 
-			PipelineState->SetProgram(Shader);
+			PipelineState->SetShader(Shader);
 
 			std::for_each(Textures.begin(), Textures.end(), [this, PipelineState](pair<string, SharedPointer<Graphics::ITexture>> const & Iterator)
 			{
@@ -91,7 +91,7 @@ namespace ion
 			TriggerReload();
 		}
 
-		void CSimpleSceneObject::SetShader(SharedPointer<Graphics::IShaderProgram> Shader)
+		void CSimpleSceneObject::SetShader(SharedPointer<Graphics::IShader> Shader)
 		{
 			this->Shader = Shader;
 			TriggerReload();

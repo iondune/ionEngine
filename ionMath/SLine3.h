@@ -1,51 +1,56 @@
 
 #pragma once
 
-#include "SVector3.h"
+#include <ionCore.h>
 
 
-//! \brief 3D line segment
-//! \ingroup ionMath
-template <typename T, typename Vector = vec3<T> >
-class SLine3
+namespace ion
 {
 
-	typedef SLine3<T, Vector> Type;
-
-public:
-
-	Vector Start, End;
-
-	SLine3(Vector const & start, Vector const & end)
-		: Start(start), End(end)
-	{}
-
-	Vector GetMiddle() const
+	//! \brief 3D line segment
+	//! \ingroup ionMath
+	template <typename T, typename Vector = vec3<T> >
+	class SLine3
 	{
-		return (Start + End) / 2;
-	}
 
-	Vector GetVector() const
-	{
-		return Start - End;
-	}
+		typedef SLine3<T, Vector> Type;
 
-	T Length() const
-	{
-		return GetVector().Length();
-	}
+	public:
 
-	friend T Length(Type const & Line)
-	{
-		return Line.GetVector().Length();
-	}
+		Vector Start, End;
 
-};
+		SLine3(Vector const & start, Vector const & end)
+			: Start(start), End(end)
+		{}
 
-typedef SLine3<f32> SLine3f;
-typedef SLine3<f64> SLine3d;
-typedef SLine3<s32> SLine3i;
+		Vector GetMiddle() const
+		{
+			return (Start + End) / 2;
+		}
 
-typedef SLine3<f32> line3f;
-typedef SLine3<f64> line3d;
-typedef SLine3<s32> line3i;
+		Vector GetVector() const
+		{
+			return Start - End;
+		}
+
+		T Length() const
+		{
+			return GetVector().Length();
+		}
+
+		friend T Length(Type const & Line)
+		{
+			return Line.GetVector().Length();
+		}
+
+	};
+
+	typedef SLine3<float> SLine3f;
+	typedef SLine3<double> SLine3d;
+	typedef SLine3<int> SLine3i;
+
+	typedef SLine3<float> line3f;
+	typedef SLine3<double> line3d;
+	typedef SLine3<int> line3i;
+
+}

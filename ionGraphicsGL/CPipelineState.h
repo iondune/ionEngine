@@ -25,7 +25,7 @@ namespace ion
 				CPipelineState(CWindow * Window);
 				~CPipelineState();
 
-				void SetProgram(SharedPointer<IShaderProgram> ShaderProgram);
+				void SetShader(SharedPointer<IShader> Shader);
 				void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer);
 				void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer);
 				void SetUniform(string const & Name, SharedPointer<IUniform> Uniform);
@@ -47,7 +47,7 @@ namespace ion
 
 				CWindow * Window = nullptr;
 
-				SharedPointer<CShaderProgram> ShaderProgram;
+				SharedPointer<CShader> Shader;
 				vector<SharedPointer<CVertexBuffer>> VertexBuffers;
 				SharedPointer<CIndexBuffer> IndexBuffer;
 
@@ -58,7 +58,7 @@ namespace ion
 				map<uint, SharedPointer<IUniform const>> BoundUniforms;
 
 				map<string, SharedPointer<ITexture const>> Textures;
-				map<u32, SharedPointer<ITexture const>> BoundTextures;
+				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;

@@ -5,6 +5,8 @@
 #include <ionGraphics.h>
 
 #include "CWindow.h"
+#include "SWindowResizedEvent.h"
+#include "SFileDroppedEvent.h"
 
 
 namespace ion
@@ -26,7 +28,6 @@ namespace ion
 		bool ShouldClose() const;
 		bool Run();
 
-#undef CreateWindow
 		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
 		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title);
 
@@ -42,6 +43,7 @@ namespace ion
 		static void MouseScrollCallback(GLFWwindow * window, double xoffset, double yoffset);
 		static void MouseCursorCallback(GLFWwindow * window, double xpos, double ypos);
 		static void CharCallback(GLFWwindow * window, unsigned int c);
+		static void DropCallback(GLFWwindow* window, int count, const char** paths);
 
 	private:
 

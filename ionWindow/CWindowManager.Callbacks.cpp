@@ -17,6 +17,7 @@ namespace ion
 		KeyEvent.Window = Window;
 		KeyEvent.Pressed = action != GLFW_RELEASE;
 		KeyEvent.Key = ConvertGLFWKeyCode(key);
+		KeyEvent.Modifiers = mods;
 
 		Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
 		Window->TriggerEvent(KeyEvent);
@@ -91,6 +92,19 @@ namespace ion
 
 		SCharacterEvent Event;
 		Event.C = c;
+		Window->TriggerEvent(Event);
+	}
+
+	void CWindowManager::DropCallback(GLFWwindow* window, int count, const char** paths)
+	{
+		CWindowManager & WindowManager = Get();
+		CWindow * Window = WindowManager.Windows[window];
+
+		SFileDroppedEvent Event;
+		for (int i = 0; i < count; ++ i)
+		{
+			Event.Paths.push_back(paths[i]);
+		}
 		Window->TriggerEvent(Event);
 	}
 

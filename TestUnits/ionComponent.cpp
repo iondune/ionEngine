@@ -2,6 +2,8 @@
 #include <ionCore.h>
 #include <catch.hpp>
 
+using namespace ion;
+
 
 class Component
 {};
@@ -70,7 +72,7 @@ TEST_CASE("IEntity::GetComponentCount")
 }
 
 template <typename TComponent>
-bool CheckRangeEquals(pair<typename multimap<Type, TComponent *>::iterator, typename multimap<Type, TComponent *>::iterator> const Iterators, std::initializer_list<TComponent *> const & List)
+bool CheckRangeEquals(pair<typename std::multimap<Type, TComponent *>::iterator, typename std::multimap<Type, TComponent *>::iterator > const Iterators, std::initializer_list<TComponent *> const & List)
 {
 	auto it = Iterators.first;
 	auto jt = List.begin();

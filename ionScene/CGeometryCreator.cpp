@@ -56,30 +56,30 @@ namespace ion
 			float const Half = 0.5f;
 
 			// Front
-			AddFace(vec3f(-Half, -Half, Half), vec3f(1, 0, 0), vec3f(0, 1, 0));
+			AddFace(vec3f(-Half, -Half,  Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 1, 0) * Size);
 			// Back
-			AddFace(vec3f(Half, -Half, -Half), vec3f(-1, 0, 0), vec3f(0, 1, 0));
+			AddFace(vec3f( Half, -Half, -Half) * Size, vec3f(-1, 0, 0) * Size, vec3f(0, 1, 0) * Size);
 			// Left
-			AddFace(vec3f(-Half, -Half, -Half), vec3f(0, 0, 1), vec3f(0, 1, 0));
+			AddFace(vec3f(-Half, -Half, -Half) * Size, vec3f(0, 0,  1) * Size, vec3f(0, 1, 0) * Size);
 			// Right
-			AddFace(vec3f(Half, -Half, Half), vec3f(0, 0, -1), vec3f(0, 1, 0));
+			AddFace(vec3f( Half, -Half,  Half) * Size, vec3f(0, 0, -1) * Size, vec3f(0, 1, 0) * Size);
 			// Top
-			AddFace(vec3f(-Half, Half, Half), vec3f(1, 0, 0), vec3f(0, 0, -1));
+			AddFace(vec3f(-Half,  Half,  Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 0, -1) * Size);
 			// Bottoms
-			AddFace(vec3f(-Half, -Half, -Half), vec3f(1, 0, 0), vec3f(0, 0, 1));
+			AddFace(vec3f(-Half, -Half, -Half) * Size, vec3f( 1, 0, 0) * Size, vec3f(0, 0,  1) * Size);
 
 			return Mesh;
 		}
 
 		CSimpleMesh * CGeometryCreator::CreateCylinder(
-			f32 const baseRadius,
-			f32 const topRadius,
-			f32 const height,
+			float const baseRadius,
+			float const topRadius,
+			float const height,
 			uint const slices,
 			uint const stacks)
 		{
-			std::vector<f32> Positions, Normals;
-			std::vector<u32> Indices;
+			std::vector<float> Positions, Normals;
+			std::vector<uint> Indices;
 
 			// Make bottom disc
 			if (baseRadius > 0.f)
@@ -92,9 +92,9 @@ namespace ion
 
 				for (uint i = 1; i <= slices; ++ i)
 				{
-					f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
-					Positions.push_back(Cos<f32>(Angle)*baseRadius);
-					Positions.push_back(Sin<f32>(Angle)*baseRadius);
+					float const Angle = (float) i * 2.f * 3.14159f / (slices);
+					Positions.push_back(Cos(Angle)*baseRadius);
+					Positions.push_back(Sin(Angle)*baseRadius);
 					Positions.push_back(0.f);
 					Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
 					Indices.push_back(0);
@@ -115,9 +115,9 @@ namespace ion
 
 				for (uint i = 1; i <= slices; ++ i)
 				{
-					f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
-					Positions.push_back(Cos<f32>(Angle)*topRadius);
-					Positions.push_back(Sin<f32>(Angle)*topRadius);
+					float const Angle = (float) i * 2.f * 3.14159f / slices;
+					Positions.push_back(Cos(Angle)*topRadius);
+					Positions.push_back(Sin(Angle)*topRadius);
 					Positions.push_back(height);
 					Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 					Indices.push_back(TopStart);
@@ -130,17 +130,17 @@ namespace ion
 			uint SideStart1 = 0, SideStart2 = 0;
 			for (uint j = 0; j <= stacks; ++ j)
 			{
-				f32 Interpolation = (f32) j / stacks;
-				f32 Radius = Interpolation * topRadius + (1.f - Interpolation) * baseRadius;
+				float Interpolation = (float) j / stacks;
+				float Radius = Interpolation * topRadius + (1.f - Interpolation) * baseRadius;
 
 				SideStart2 = (uint) Positions.size() / 3;
 				for (uint k = 0; k <= slices; ++ k)
 				{
-					f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
-					Positions.push_back(Cos<f32>(Angle)*Radius);
-					Positions.push_back(Sin<f32>(Angle)*Radius);
+					float const Angle = (float) k * 2.f * 3.14159f / slices;
+					Positions.push_back(Cos(Angle)*Radius);
+					Positions.push_back(Sin(Angle)*Radius);
 					Positions.push_back(Interpolation * height);
-					Normals.push_back(Cos<f32>(Angle)); Normals.push_back(Sin<f32>(Angle)); Normals.push_back(0.f);
+					Normals.push_back(Cos(Angle)); Normals.push_back(Sin(Angle)); Normals.push_back(0.f);
 				}
 
 				if (j)
@@ -163,14 +163,14 @@ namespace ion
 		}
 
 		CSimpleMesh * CGeometryCreator::CreateDisc(
-			f32 const innerRadius,
-			f32 const outerRadius,
-			f32 const height,
+			float const innerRadius,
+			float const outerRadius,
+			float const height,
 			uint const slices,
 			uint const stacks)
 		{
-			std::vector<f32> Positions, Normals;
-			std::vector<u32> Indices;
+			std::vector<float> Positions, Normals;
+			std::vector<uint> Indices;
 
 			// Make bottom disc
 			Positions.push_back(innerRadius); Positions.push_back(0.f); Positions.push_back(0.f);
@@ -181,13 +181,13 @@ namespace ion
 
 			for (uint i = 1; i <= slices; ++ i)
 			{
-				f32 const Angle = (f32) i * 2.f * 3.14159f / (slices);
+				float const Angle = (float) i * 2.f * 3.14159f / (slices);
 				uint const Current = (uint) Positions.size() / 3;
-				Positions.push_back(Cos<f32>(Angle)*innerRadius);
-				Positions.push_back(Sin<f32>(Angle)*innerRadius);
+				Positions.push_back(Cos(Angle)*innerRadius);
+				Positions.push_back(Sin(Angle)*innerRadius);
 				Positions.push_back(0.f);
-				Positions.push_back(Cos<f32>(Angle)*outerRadius);
-				Positions.push_back(Sin<f32>(Angle)*outerRadius);
+				Positions.push_back(Cos(Angle)*outerRadius);
+				Positions.push_back(Sin(Angle)*outerRadius);
 				Positions.push_back(0.f);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(-1.f);
@@ -208,13 +208,13 @@ namespace ion
 
 			for (uint i = 1; i <= slices; ++ i)
 			{
-				f32 const Angle = (f32) i * 2.f * 3.14159f / slices;
+				float const Angle = (float) i * 2.f * 3.14159f / slices;
 				uint const Current = (uint) Positions.size() / 3;
-				Positions.push_back(Cos<f32>(Angle)*innerRadius);
-				Positions.push_back(Sin<f32>(Angle)*innerRadius);
+				Positions.push_back(Cos(Angle)*innerRadius);
+				Positions.push_back(Sin(Angle)*innerRadius);
 				Positions.push_back(height);
-				Positions.push_back(Cos<f32>(Angle)*outerRadius);
-				Positions.push_back(Sin<f32>(Angle)*outerRadius);
+				Positions.push_back(Cos(Angle)*outerRadius);
+				Positions.push_back(Sin(Angle)*outerRadius);
 				Positions.push_back(height);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
 				Normals.push_back(0.f); Normals.push_back(0.f); Normals.push_back(1.f);
@@ -230,16 +230,16 @@ namespace ion
 			uint SideStart1 = 0, SideStart2 = 0;
 			for (uint j = 0; j <= stacks; ++ j)
 			{
-				f32 Interpolation = (f32) j / stacks;
+				float Interpolation = (float) j / stacks;
 
 				SideStart2 = (uint) Positions.size() / 3;
 				for (uint k = 0; k <= slices; ++ k)
 				{
-					f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
-					Positions.push_back(Cos<f32>(Angle)*outerRadius);
-					Positions.push_back(Sin<f32>(Angle)*outerRadius);
+					float const Angle = (float) k * 2.f * 3.14159f / slices;
+					Positions.push_back(Cos(Angle)*outerRadius);
+					Positions.push_back(Sin(Angle)*outerRadius);
 					Positions.push_back(Interpolation * height);
-					Normals.push_back(Cos<f32>(Angle)); Normals.push_back(Sin<f32>(Angle)); Normals.push_back(0.f);
+					Normals.push_back(Cos(Angle)); Normals.push_back(Sin(Angle)); Normals.push_back(0.f);
 				}
 
 				if (j)
@@ -262,16 +262,16 @@ namespace ion
 			SideStart1 = 0, SideStart2 = 0;
 			for (uint j = 0; j <= stacks; ++ j)
 			{
-				f32 Interpolation = (f32) j / stacks;
+				float Interpolation = (float) j / stacks;
 
 				SideStart2 = (uint) Positions.size() / 3;
 				for (uint k = 0; k <= slices; ++ k)
 				{
-					f32 const Angle = (f32) k * 2.f * 3.14159f / slices;
-					Positions.push_back(Cos<f32>(Angle)*innerRadius);
-					Positions.push_back(Sin<f32>(Angle)*innerRadius);
+					float const Angle = (float) k * 2.f * 3.14159f / slices;
+					Positions.push_back(Cos(Angle)*innerRadius);
+					Positions.push_back(Sin(Angle)*innerRadius);
 					Positions.push_back(Interpolation * height);
-					Normals.push_back(-Cos<f32>(Angle)); Normals.push_back(-Sin<f32>(Angle)); Normals.push_back(0.f);
+					Normals.push_back(-Cos(Angle)); Normals.push_back(-Sin(Angle)); Normals.push_back(0.f);
 				}
 
 				if (j)
@@ -293,25 +293,25 @@ namespace ion
 			return CSimpleMesh::FromAttributes(Indices, Positions, Normals);
 		}
 
-		CSimpleMesh * CGeometryCreator::CreateTorus(f32 const centralRadius, f32 const innerRadius, uint const slices, uint const stacks)
+		CSimpleMesh * CGeometryCreator::CreateTorus(float const centralRadius, float const innerRadius, uint const slices, uint const stacks)
 		{
-			std::vector<f32> Positions, Normals;
-			std::vector<u32> Indices;
+			std::vector<float> Positions, Normals;
+			std::vector<uint> Indices;
 
 			// Make sides
 			uint SideStart1 = 0, SideStart2 = 0;
 			for (uint j = 0; j <= stacks; ++ j)
 			{
-				f32 const Theta = (f32) j * 2.f * 3.14159f / stacks;
+				float const Theta = (float) j * 2.f * 3.14159f / stacks;
 
 				SideStart2 = (uint) Positions.size() / 3;
 				for (uint k = 0; k <= slices; ++ k)
 				{
-					f32 const Phi = (f32) k * 2.f * 3.14159f / slices;
-					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Cos<f32>(Phi));
-					Positions.push_back(innerRadius * Sin<f32>(Theta));
-					Positions.push_back((centralRadius + innerRadius * Cos<f32>(Theta))*Sin<f32>(Phi));
-					Normals.push_back(Cos<f32>(Theta) * Cos<f32>(Phi)); Normals.push_back(Cos<f32>(Theta) * Sin<f32>(Phi)); Normals.push_back(Sin<f32>(Theta));
+					float const Phi = (float) k * 2.f * 3.14159f / slices;
+					Positions.push_back((centralRadius + innerRadius * Cos(Theta))*Cos(Phi));
+					Positions.push_back(innerRadius * Sin(Theta));
+					Positions.push_back((centralRadius + innerRadius * Cos(Theta))*Sin(Phi));
+					Normals.push_back(Cos(Theta) * Cos(Phi)); Normals.push_back(Cos(Theta) * Sin(Phi)); Normals.push_back(Sin(Theta));
 				}
 
 				if (j)
@@ -335,8 +335,8 @@ namespace ion
 
 		CSimpleMesh * CGeometryCreator::CreateSphere(vec3f const & Radii, uint const Slices, uint const Stacks)
 		{
-			std::vector<f32> Positions, Normals, TexCoords;
-			std::vector<u32> Indices;
+			std::vector<float> Positions, Normals, TexCoords;
+			std::vector<uint> Indices;
 
 			// Make top and bottom points
 			Positions.push_back(0.f); Positions.push_back(Radii.Y); Positions.push_back(0.f);
@@ -349,20 +349,20 @@ namespace ion
 
 			for (uint i = 0; i <= Stacks; ++ i)
 			{
-				f32 const AngleV = (f32) i * 3.14159f / Stacks;
+				float const AngleV = (float) i * 3.14159f / Stacks;
 				for (uint j = 0; j <= Slices; ++ j)
 				{
-					f32 const AngleH = (f32) j * 2.f * 3.14159f / Slices;
+					float const AngleH = (float) j * 2.f * 3.14159f / Slices;
 					vec3f Radial = vec3f(
-						Cos<f32>(AngleH)*Sin<f32>(AngleV),
-						Cos<f32>(AngleV),
-						Sin<f32>(AngleH)*Sin<f32>(AngleV));
+						Cos(AngleH)*Sin(AngleV),
+						Cos(AngleV),
+						Sin(AngleH)*Sin(AngleV));
 					uint const Start = (uint) Positions.size() / 3;
 					Positions.push_back(Radial.X*Radii.X);
 					Positions.push_back(Radial.Y*Radii.Y);
 					Positions.push_back(Radial.Z*Radii.Z);
 					Normals.push_back(Radial.X); Normals.push_back(Radial.Y); Normals.push_back(Radial.Z);
-					TexCoords.push_back(j / (f32) Slices); TexCoords.push_back((Stacks - i + 1) / (f32) (Stacks + 1));
+					TexCoords.push_back(j / (float) Slices); TexCoords.push_back((Stacks - i + 1) / (float) (Stacks + 1));
 
 					if (j && i > 0)
 					{
@@ -441,7 +441,7 @@ namespace ion
 			return Mesh;
 		}
 
-		CSimpleMesh * CGeometryCreator::CreateWafer(f32 const radius, uint const Slices)
+		CSimpleMesh * CGeometryCreator::CreateWafer(float const radius, uint const Slices)
 		{
 			CSimpleMesh * Mesh = new CSimpleMesh();
 
@@ -547,9 +547,9 @@ namespace ion
 			delete B;
 		}
 
-		vector<CSimpleMesh*> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
+		vector<pair<string, CSimpleMesh *>> CGeometryCreator::LoadOBJFileWithNames(string const & FileName, string const & Path)
 		{
-			vector<CSimpleMesh *> Meshes;
+			vector<pair<string, CSimpleMesh *>> Meshes;
 
 			vector<tinyobj::shape_t> shapes;
 			vector<tinyobj::material_t> materials;
@@ -613,8 +613,21 @@ namespace ion
 						Mesh->Material = Materials[shape.mesh.material_ids.front()];
 					}
 
-					Meshes.push_back(Mesh);
+					Meshes.push_back(std::make_pair(shape.name, Mesh));
 				}
+			}
+
+			return Meshes;
+		}
+
+		vector<CSimpleMesh *> CGeometryCreator::LoadOBJFile(string const & FileName, string const & Path)
+		{
+			vector<CSimpleMesh *> Meshes;
+
+			vector<pair<string, CSimpleMesh *>> const Pairs = LoadOBJFileWithNames(FileName, Path);
+			for (auto Pair : Pairs)
+			{
+				Meshes.push_back(Pair.second);
 			}
 
 			return Meshes;

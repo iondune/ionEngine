@@ -11,6 +11,9 @@ void ErrorCallback(int ErrorCode, char const * Description)
 	std::cerr << "Error description: " << Description << std::endl;
 }
 
+using namespace ion;
+
+
 int main()
 {
 	std::cout <<
