@@ -21,7 +21,6 @@
     <ClCompile Include="CGUIManager.cpp" />
     <ClCompile Include="CWindowWidget.cpp" />
     <ClCompile Include="imGUI.cpp" />
-    <ClCompile Include="imgui_color_picker.cpp" />
     <ClCompile Include="ionGUI.cpp" />
   </ItemGroup>
   <ItemGroup>

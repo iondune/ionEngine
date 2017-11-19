@@ -32,6 +32,84 @@ namespace ImGui
 		return false;
 	}
 
+	bool ColorEdit3(const char * label, color3i & Color)
+	{
+		color3f c = Color;
+		if (ColorEdit3(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorEdit4(const char * label, color4f & Color)
+	{
+		float c[4] = { Color.Red, Color.Green, Color.Blue, Color.Alpha };
+		if (ImGui::ColorEdit4(label, c))
+		{
+			Color = color4f(c[0], c[1], c[2], c[3]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorEdit4(const char * label, color4i & Color)
+	{
+		color4f c = Color;
+		if (ColorEdit4(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker3(const char* label, ion::color3f & Color)
+	{
+		float c[3] = { Color.Red, Color.Green, Color.Blue };
+		if (ImGui::ColorPicker3(label, c))
+		{
+			Color = color3f(c[0], c[1], c[2]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker3(const char* label, ion::color3i & Color)
+	{
+		color3f c = Color;
+		if (ColorPicker3(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker4(const char* label, ion::color4f & Color)
+	{
+		float c[4] = { Color.Red, Color.Green, Color.Blue, Color.Alpha };
+		if (ImGui::ColorPicker4(label, c))
+		{
+			Color = color4f(c[0], c[1], c[2], c[3]);
+			return true;
+		}
+		return false;
+	}
+
+	bool ColorPicker4(const char* label, ion::color4i & Color)
+	{
+		color4f c = Color;
+		if (ColorPicker4(label, c))
+		{
+			Color = c;
+			return true;
+		}
+		return false;
+	}
+
+
 	bool DragVec2(const char * label, ion::vec2i & v, float v_speed, int v_min, int v_max, const char * display_format)
 	{
 		int vals[2] = { v.X, v.Y };
