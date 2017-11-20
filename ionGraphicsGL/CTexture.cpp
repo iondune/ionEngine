@@ -155,6 +155,15 @@ namespace ion
 				return Anisotropy;
 			}
 
+			void CTexture::GenerateMipMaps()
+			{
+				if (MipMaps)
+				{
+					CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), Handle));
+					CheckedGLCall(glGenerateMipmap(GetGLBindTextureTarget()));
+				}
+			}
+
 			////////////
 			// Lookup //
 			////////////

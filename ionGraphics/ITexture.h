@@ -92,6 +92,8 @@ namespace ion
 			virtual EWrapMode GetWrapMode() = 0;
 			virtual float GetAnisotropy() = 0;
 
+			virtual void GenerateMipMaps() = 0;
+
 		};
 
 		//! \ingroup ionGraphics

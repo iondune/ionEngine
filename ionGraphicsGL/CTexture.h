@@ -39,7 +39,9 @@ namespace ion
 				EFilter GetMipMapFilter();
 				EWrapMode GetWrapMode();
 				float GetAnisotropy();
-				
+
+				void GenerateMipMaps();
+
 				void ApplyParams();
 				virtual uint GetGLBindTextureTarget() const = 0;
 				virtual uint GetGLTextureBindingEnum() const = 0;
