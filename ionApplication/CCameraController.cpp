@@ -216,13 +216,10 @@ namespace ion
 
 	void CCameraController::CalculateInitialAngles()
 	{
-		vec3f const Up = Camera->GetUpVector();
 		vec3f const Direction = Normalize(Camera->GetLookDirecton());
-		vec3f const Right = Cross(Direction, Up);
-		vec3f const Flat = Normalize(Cross(Up, Right));
 
 		Phi = asin(Direction.Y);
-		Theta = acos(Flat.X);
+		Theta = ArcTan(Direction.Z / Cos(Phi), Direction.X / Cos(Phi));
 	}
 
 	vec3f CCameraController::GetCurrentSpeed() const
