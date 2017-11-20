@@ -132,6 +132,17 @@ namespace ImGui
 		return false;
 	}
 
+	bool DragVec3(const char * label, ion::vec3i & v, float v_speed, int v_min, int v_max, const char* display_format)
+	{
+		int vals[3] = { v.X, v.Y, v.Z };
+		if (ImGui::DragInt3(label, vals, v_speed, v_min, v_max, display_format))
+		{
+			v = vec3i(vals[0], vals[1], vals[2]);
+			return true;
+		}
+		return false;
+	}
+
 	bool DragVec3(const char * label, vec3f & v, float v_speed, float v_min, float v_max, const char * display_format, float power)
 	{
 		float vals[3] = { v.X, v.Y, v.Z };
