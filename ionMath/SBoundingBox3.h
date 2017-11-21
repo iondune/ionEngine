@@ -27,6 +27,11 @@ namespace ion
 			: MinCorner(min), MaxCorner(max)
 		{}
 
+		static Type PositionSize(Vector const & position, Vector const & size)
+		{
+			return SBoundingBox3(position - size / 2, position + size / 2);
+		}
+
 		explicit SBoundingBox3(Vector const & v)
 			: MinCorner(v), MaxCorner(v)
 		{}
