@@ -27,5 +27,5 @@ script:
   - mkdir Build && cd Build
   - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
   - make
-  - ./TestConfig/TestConfig
-  - ./TestUnits/TestUnits
+  - ./bin/TestConfig
+  - ./bin/TestUnits

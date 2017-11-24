@@ -1,11 +1,9 @@
-add_executable(Demo02-GL DemoGL.cpp)
+set(TARGET_NAME Demo02-GL)
+add_executable(${TARGET_NAME} DemoGL.cpp)
+BuildProperties(${TARGET_NAME})
+ExecutableProperties(${TARGET_NAME})
 
-target_link_libraries(Demo02-GL ionGraphicsGL)
-target_link_libraries(Demo02-GL ionGraphics)
-target_link_libraries(Demo02-GL ionWindow)
-target_link_libraries(Demo02-GL ionCore)
-ExecutableDependencies(Demo02-GL)
-add_custom_command(
-	TARGET Demo02-GL POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/Image.jpg $<TARGET_FILE_DIR:Demo02-GL>)
+target_link_libraries(${TARGET_NAME} ionGraphicsGL)
+target_link_libraries(${TARGET_NAME} ionGraphics)
+target_link_libraries(${TARGET_NAME} ionWindow)
+target_link_libraries(${TARGET_NAME} ionCore)
