@@ -1,5 +1,5 @@
 
-set(ION_ENGINE_VERSION 0.4.2)
+set(ION_ENGINE_VERSION 0.4.5)
 
 # CMake
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
