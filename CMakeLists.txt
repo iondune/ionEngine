@@ -48,7 +48,7 @@ function(ExecutableProperties TargetName)
 	# GLFW
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
-	include_directories(${GLFW_INCLUDE_DIRS})
+	target_include_directories(${TargetName} PRIVATE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(${TargetName} ${GLFW_LIBRARIES})
 	target_link_libraries(${TargetName} ${GLFW_STATIC_LIBRARIES})
 
