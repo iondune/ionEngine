@@ -6,6 +6,10 @@
 
 
 #ifdef ION_CONFIG_WINDOWS
+
+#include <Windows.h>
+
+
 class DebugOutBuffer : public std::stringbuf
 {
 
@@ -34,5 +38,11 @@ namespace Catch
 		return buffer;
 	}
 
+	std::ostream & clog()
+	{
+		return buffer;
+	}
+
 }
+
 #endif

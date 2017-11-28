@@ -28,7 +28,7 @@ function(BuildProperties TargetName)
 	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/tinyformat")
 	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/glm")
 	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/imgui")
-	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/Catch/include")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/Catch/single_include")
 	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/glad/include")
 
 	# Definitions
