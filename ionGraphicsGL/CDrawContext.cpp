@@ -231,19 +231,22 @@ namespace ion
 					if (CurrentContext)
 					{
 						CurrentContext->InternalDrawTeardown();
+						CurrentContext = nullptr;
 					}
-					if (InternalDrawSetup())
-					{
-						CurrentContext = this;
-					}
+				}
+
+				if (DrawConfig->NeedsToBeLoaded)
+				{
+					LoadConfig(DrawConfig);
+				}
+
+				if (! CurrentContext && InternalDrawSetup())
+				{
+					CurrentContext = this;
 				}
 
 				if (CurrentContext)
 				{
-					if (DrawConfig->NeedsToBeLoaded)
-					{
-						LoadConfig(DrawConfig);
-					}
 
 					if (DrawConfig->LoadedSuccessfully)
 					{
@@ -259,7 +262,7 @@ namespace ion
 						}
 
 						// Textures
-						int TextureIndex = 0;
+						int TextureIndex = StartTextures;
 						for (auto const & it : DrawConfig->TextureBindings)
 						{
 							if (it->Handle >= 0)
@@ -281,7 +284,7 @@ namespace ion
 							CheckedGLCall(glDrawElements(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0));
 						}
 
-						TextureIndex = 0;
+						TextureIndex = StartTextures;
 						for (auto const & it : DrawConfig->TextureBindings)
 						{
 							CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
@@ -710,11 +713,11 @@ namespace ion
 				}
 
 				// Textures
-				int TextureIndex = 0;
+				StartTextures = 0;
 				for (auto const & it : BoundTextures)
 				{
-					CheckedGLCall(glUniform1i(it.first, TextureIndex));
-					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+					CheckedGLCall(glUniform1i(it.first, StartTextures));
+					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + StartTextures++));
 
 					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
 					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));

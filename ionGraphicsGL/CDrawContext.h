@@ -124,6 +124,8 @@ namespace ion
 
 				vector<CDrawConfig *> Configs;
 
+				int StartTextures = 0;
+
 				void LoadConfig(CDrawConfig * DrawConfig);
 				void LoadVertexBuffer(CDrawConfig * DrawConfig, SharedPointer<CVertexBuffer> VertexBuffer);
 
