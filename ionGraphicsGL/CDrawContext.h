@@ -38,11 +38,25 @@ namespace ion
 				SharedPointer<CIndexBuffer> IndexBuffer;
 				SharedPointer<CIndexBuffer> UsedIndexBuffer;
 
-				map<string, SharedPointer<IUniform const>> Uniforms;
-				map<string, SharedPointer<ITexture const>> Textures;
+				struct SUniformBinding
+				{
+					string Name;
+					int Handle = -1;
+					SharedPointer<IUniform const> Uniform;
+				};
 
-				map<uint, SharedPointer<IUniform const>> BoundUniforms;
-				map<uint, SharedPointer<ITexture const>> BoundTextures;
+				struct STextureBinding
+				{
+					string Name;
+					int Handle = -1;
+					SharedPointer<ITexture const> Texture;
+				};
+
+				map<string, SUniformBinding *> ProvidedUniforms;
+				map<string, STextureBinding *> ProvidedTextures;
+
+				vector<SUniformBinding *> UniformBindings;
+				vector<STextureBinding *> TextureBindings;
 
 				set<string> RequiredUniforms;
 				set<string> UnboundAttributes;
