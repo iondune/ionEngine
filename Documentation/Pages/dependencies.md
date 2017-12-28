@@ -25,7 +25,7 @@ Header Only
   - [imgui](https://github.com/ocornut/imgui)
 
     - GUI components
-    - [v1.52](https://github.com/ocornut/imgui/releases/tag/v1.52)
+    - [v1.53](https://github.com/ocornut/imgui/releases/tag/v1.53)
 
   - [Catch](https://github.com/philsquared/Catch)
 
