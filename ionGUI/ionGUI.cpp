@@ -154,6 +154,50 @@ namespace ImGui
 		return false;
 	}
 
+	bool SliderVec2(const char * label, ion::vec2i & v, int v_min, int v_max, const char * display_format)
+	{
+		int vals[2] = { v.X, v.Y };
+		if (ImGui::SliderInt2(label, vals, v_min, v_max, display_format))
+		{
+			v = vec2i(vals[0], vals[1]);
+			return true;
+		}
+		return false;
+	}
+
+	bool SliderVec2(const char * label, ion::vec2f & v, float v_min, float v_max, const char * display_format, float power)
+	{
+		float vals[2] = { v.X, v.Y };
+		if (ImGui::SliderFloat2(label, vals, v_min, v_max, display_format, power))
+		{
+			v = vec2f(vals[0], vals[1]);
+			return true;
+		}
+		return false;
+	}
+
+	bool SliderVec3(const char * label, ion::vec3i & v, int v_min, int v_max, const char * display_format)
+	{
+		int vals[3] = { v.X, v.Y, v.Z };
+		if (ImGui::SliderInt3(label, vals, v_min, v_max, display_format))
+		{
+			v = vec3i(vals[0], vals[1], vals[2]);
+			return true;
+		}
+		return false;
+	}
+
+	bool SliderVec3(const char * label, ion::vec3f & v, float v_min, float v_max, const char * display_format, float power)
+	{
+		float vals[3] = { v.X, v.Y, v.Z };
+		if (ImGui::SliderFloat3(label, vals, v_min, v_max, display_format, power))
+		{
+			v = vec3f(vals[0], vals[1], vals[2]);
+			return true;
+		}
+		return false;
+	}
+
 	bool Combo(const char * label, int * current_item, std::initializer_list<char const *> const & items, int height_in_items)
 	{
 		vector<char const *> items_vec = items;
