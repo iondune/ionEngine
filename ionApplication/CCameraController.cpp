@@ -62,6 +62,37 @@ namespace ion
 
 					PerspectiveCamera->SetFocalLength(FocalLength);
 				}
+
+				Scene::COrthographicCamera * OrthographicCamera = nullptr;
+				if (UseScrollWheel && (OrthographicCamera = As<Scene::COrthographicCamera>(Camera)))
+				{
+					float Top = OrthographicCamera->GetTop();
+					float Bottom = OrthographicCamera->GetTop();
+					float Left = OrthographicCamera->GetTop();
+					float Right = OrthographicCamera->GetTop();
+
+					float const Speed = 1.1f;
+
+					if (MouseEvent.Movement.Y > 0)
+					{
+						Top /= 1.1f;
+						Bottom /= 1.1f;
+						Left /= 1.1f;
+						Right /= 1.1f;
+					}
+					else if (MouseEvent.Movement.Y < 0)
+					{
+						Top *= 1.1f;
+						Bottom *= 1.1f;
+						Left *= 1.1f;
+						Right *= 1.1f;
+					}
+
+					OrthographicCamera->SetLeft(Left);
+					OrthographicCamera->SetBottom(Bottom);
+					OrthographicCamera->SetRight(Right);
+					OrthographicCamera->SetTop(Top);
+				}
 			}
 		}
 		else if (InstanceOf<SKeyboardEvent>(Event))
@@ -142,28 +173,36 @@ namespace ion
 		vec3f const V = UpVector.CrossProduct(LookDirection).GetNormalized();
 		vec3f const U = V.CrossProduct(W).GetNormalized()*-1;
 
+		vec3f Forward = LookDirection;
+		vec3f Left = V;
+
+		if (As<Scene::COrthographicCamera>(Camera))
+		{
+			Forward = UpVector;
+		}
+
 		vec3f Translation;
 
 		if (UseWASD)
 		{
 			if (WASDCommands[(int) ECommand::Forward])
 			{
-				Translation += LookDirection * MoveSpeed;
+				Translation += Forward * MoveSpeed;
 			}
 
 			if (WASDCommands[(int) ECommand::Left])
 			{
-				Translation += V * MoveSpeed;
+				Translation += Left * MoveSpeed;
 			}
 
 			if (WASDCommands[(int) ECommand::Right])
 			{
-				Translation -= V * MoveSpeed;
+				Translation -= Left * MoveSpeed;
 			}
 
 			if (WASDCommands[(int) ECommand::Back])
 			{
-				Translation -= LookDirection * MoveSpeed;
+				Translation -= Forward * MoveSpeed;
 			}
 		}
 
@@ -171,22 +210,22 @@ namespace ion
 		{
 			if (ArrowCommands[(int) ECommand::Forward])
 			{
-				Translation += LookDirection * MoveSpeed;
+				Translation += Forward * MoveSpeed;
 			}
 
 			if (ArrowCommands[(int) ECommand::Left])
 			{
-				Translation += V * MoveSpeed;
+				Translation += Left * MoveSpeed;
 			}
 
 			if (ArrowCommands[(int) ECommand::Right])
 			{
-				Translation -= V * MoveSpeed;
+				Translation -= Left * MoveSpeed;
 			}
 
 			if (ArrowCommands[(int) ECommand::Back])
 			{
-				Translation -= LookDirection * MoveSpeed;
+				Translation -= Forward * MoveSpeed;
 			}
 		}
 
