@@ -7,6 +7,14 @@ namespace ion
 	namespace Scene
 	{
 
+		COrthographicCamera::COrthographicCamera(float const Size, float const AspectRatio)
+		{
+			Left = -Size / 2 * AspectRatio;
+			Right = Size / 2 * AspectRatio;
+			Top = Size / 2;
+			Bottom = -Size / 2;
+		}
+
 		COrthographicCamera::COrthographicCamera(float const left, float const right, float const bottom, float const top)
 			: Left(left), Right(right), Bottom(bottom), Top(top)
 		{}

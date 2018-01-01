@@ -14,6 +14,7 @@ namespace ion
 
 		public:
 
+			COrthographicCamera(float const Size, float const AspectRatio);
 			COrthographicCamera(float const left, float const right, float const bottom, float const top);
 
 			float GetTop() const;
