@@ -31,6 +31,24 @@ namespace ion
 		bool Fullscreen = ConfigFile.GetBoolValue("window", "fullscreen", false);
 		ApplicationSettings.WindowType = (Fullscreen ? EWindowType::Fullscreen : EWindowType::Windowed);
 
+		string VsynnModeString = ConfigFile.GetValue("window", "vsync", "");
+		if (VsynnModeString == "default")
+		{
+			ApplicationSettings.VsyncMode = EVsyncMode::Default;
+		}
+		else if (VsynnModeString == "default")
+		{
+			ApplicationSettings.VsyncMode = EVsyncMode::Off;
+		}
+		else if (VsynnModeString == "default")
+		{
+			ApplicationSettings.VsyncMode = EVsyncMode::On;
+		}
+		else if (VsynnModeString.length())
+		{
+			Log::Error("Unknown vsycn mode string: %s", VsynnModeString);
+		}
+
 		LoadAdditionalSettings(&ConfigFile);
 	}
 
@@ -41,11 +59,11 @@ namespace ion
 
 		if (ApplicationSettings.WindowMonitor >= 0)
 		{
-			Window = WindowManager->CreateWindowOnMonitor(ApplicationSettings.WindowMonitor, Title);
+			Window = WindowManager->CreateWindowOnMonitor(ApplicationSettings.WindowMonitor, Title, ApplicationSettings.VsyncMode);
 		}
 		else
 		{
-			Window = WindowManager->CreateWindow(ApplicationSettings.WindowSize, Title, ApplicationSettings.WindowType);
+			Window = WindowManager->CreateWindow(ApplicationSettings.WindowSize, Title, ApplicationSettings.WindowType, ApplicationSettings.VsyncMode);
 			Window->SetPosition(ApplicationSettings.WindowPosition);
 		}
 
