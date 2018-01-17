@@ -38,7 +38,14 @@ namespace ion
 
 		static int Between(int const Min, int const Max)
 		{
-			return std::rand() % (Max - Min) + Min;
+			if (Min == Max)
+			{
+				return Min;
+			}
+			else
+			{
+				return std::rand() % (Max - Min) + Min;
+			}
 		}
 
 	};
