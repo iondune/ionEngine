@@ -36,6 +36,15 @@ namespace ImGui
 
 	bool InputText(const char* label, ion::string & buf, ImGuiInputTextFlags flags = 0, ImGuiTextEditCallback callback = nullptr, void* user_data = nullptr);
 
+
+	template <typename... Args>
+	static void PushIDString(char const * const Format, Args const &... args)
+	{
+		string Buffer;
+		Buffer = String::Build(Format, args...);
+		ImGui::PushID(Buffer.c_str(), Buffer.c_str() + Buffer.length());
+	}
+
 	class scoped_id
 	{
 
