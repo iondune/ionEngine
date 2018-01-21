@@ -40,8 +40,8 @@ namespace ImGui
 	template <typename... Args>
 	static void PushIDString(char const * const Format, Args const &... args)
 	{
-		string Buffer;
-		Buffer = String::Build(Format, args...);
+		ion::string Buffer;
+		Buffer = ion::String::Build(Format, args...);
 		ImGui::PushID(Buffer.c_str(), Buffer.c_str() + Buffer.length());
 	}
 
