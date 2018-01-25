@@ -23,6 +23,7 @@
     <ClInclude Include="CCoordinateFrameSceneObject.h" />
     <ClInclude Include="CDirectionalLight.h" />
     <ClInclude Include="CGeometryCreator.h" />
+    <ClInclude Include="CLineSceneObject.h" />
     <ClInclude Include="CSimpleMesh.h" />
     <ClInclude Include="CSimpleMeshSceneObject.h" />
     <ClInclude Include="CSimpleSceneObject.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="CCoordinateFrameSceneObject.cpp" />
     <ClCompile Include="CDirectionalLight.cpp" />
     <ClCompile Include="CGeometryCreator.cpp" />
+    <ClCompile Include="CLineSceneObject.cpp" />
     <ClCompile Include="CSimpleMesh.cpp" />
     <ClCompile Include="CSimpleMeshSceneObject.cpp" />
     <ClCompile Include="CSimpleSceneObject.cpp" />

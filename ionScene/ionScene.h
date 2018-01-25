@@ -22,6 +22,7 @@
 #include "CGeometryCreator.h"
 #include "CSimpleSceneObject.h"
 #include "CSimpleMeshSceneObject.h"
+#include "CLineSceneObject.h"
 #include "CCoordinateFrameSceneObject.h"
 
 
