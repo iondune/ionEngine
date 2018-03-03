@@ -53,6 +53,8 @@ namespace ion
 			PipelineState->SetIndexBuffer(IndexBuffer);
 			PipelineState->SetVertexBuffer(0, VertexBuffer);
 			PipelineState->SetPrimitiveType(EPrimitiveType::Line);
+			PipelineState->SetPolygonOffsetAmount(1.f);
+			PipelineState->SetFeatureEnabled(EDrawFeature::PolygonOffset, true);
 
 			RenderPass->PreparePipelineStateForRendering(PipelineState, this);
 			Loaded[RenderPass] = true;
