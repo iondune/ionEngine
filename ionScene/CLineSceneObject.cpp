@@ -104,6 +104,18 @@ namespace ion
 			Indices.push_back((uint) IndexCounter++);
 		}
 
+		void CLineSceneObject::AddStar(vec3f const & P, float const R, color3f const & Color)
+		{
+			AddLine(P - vec3f(R, 0, 0), P + vec3f(R, 0, 0), Color);
+			AddLine(P - vec3f(0, R, 0), P + vec3f(0, R, 0), Color);
+			AddLine(P - vec3f(0, 0, R), P + vec3f(0, 0, R), Color);
+		
+			AddLine(P + vec3f(-R, -R, R), P + vec3f(R, R, -R), Color);
+			AddLine(P + vec3f(R, -R, -R), P + vec3f(-R, R, R), Color);
+			AddLine(P + vec3f(-R, -R, -R), P + vec3f(R, R, R), Color);
+			AddLine(P + vec3f(R, -R, R), P + vec3f(-R, R, -R), Color);
+		}
+
 	}
 
 }
