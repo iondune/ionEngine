@@ -168,7 +168,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			uint const CTexture::InternalFormatMatrix[4][10] =
+			uint const CTexture::InternalFormatMatrix[4][11] =
 			{
 
 				// Components
@@ -181,20 +181,21 @@ namespace ion
 				// Type
 				// ----
 				// Fix8 = 0,
-				// Float16 = 1,
-				// Float32 = 2,
-				// SignedInt8 = 3,
-				// SignedInt16 = 4,
-				// SignedInt24 = 5,
-				// UnsignedInt8 = 6,
-				// UnsignedInt16 = 7,
-				// UnsignedInt24 = 8,
-				// Depth = 9,
+				// Fix16 = 1,
+				// Float16 = 2,
+				// Float32 = 3,
+				// SignedInt8 = 4,
+				// SignedInt16 = 5,
+				// SignedInt24 = 6,
+				// UnsignedInt8 = 7,
+				// UnsignedInt16 = 8,
+				// UnsignedInt24 = 9,
+				// Depth = 10,
 
-				{ GL_R8,    GL_R16F,    GL_R32F,    GL_R8I,    GL_R16I,    GL_R32I,    GL_R8UI,    GL_R16UI,    GL_R32UI,    GL_DEPTH_COMPONENT32 },
-				{ GL_RG8,   GL_RG16F,   GL_RG32F,   GL_RG8I,   GL_RG16I,   GL_RG32I,   GL_RG8UI,   GL_RG16UI,   GL_RG32UI,   GL_DEPTH_COMPONENT32 },
-				{ GL_RGB8,  GL_RGB16F,  GL_RGB32F,  GL_RGB8I,  GL_RGB16I,  GL_RGB32I,  GL_RGB8UI,  GL_RGB16UI,  GL_RGB32UI,  GL_DEPTH_COMPONENT32 },
-				{ GL_RGBA8, GL_RGBA16F, GL_RGBA32F, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA8UI, GL_RGBA16UI, GL_RGBA32UI, GL_DEPTH_COMPONENT32 },
+				{ GL_R8,    GL_R16,    GL_R16F,    GL_R32F,    GL_R8I,    GL_R16I,    GL_R32I,    GL_R8UI,    GL_R16UI,    GL_R32UI,    GL_DEPTH_COMPONENT32 },
+				{ GL_RG8,   GL_RG16,   GL_RG16F,   GL_RG32F,   GL_RG8I,   GL_RG16I,   GL_RG32I,   GL_RG8UI,   GL_RG16UI,   GL_RG32UI,   GL_DEPTH_COMPONENT32 },
+				{ GL_RGB8,  GL_RGB16,  GL_RGB16F,  GL_RGB32F,  GL_RGB8I,  GL_RGB16I,  GL_RGB32I,  GL_RGB8UI,  GL_RGB16UI,  GL_RGB32UI,  GL_DEPTH_COMPONENT32 },
+				{ GL_RGBA8, GL_RGBA16, GL_RGBA16F, GL_RGBA32F, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA8UI, GL_RGBA16UI, GL_RGBA32UI, GL_DEPTH_COMPONENT32 },
 			};
 
 			uint const CTexture::FormatMatrix[4][2] =
