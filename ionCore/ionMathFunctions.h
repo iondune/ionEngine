@@ -35,9 +35,23 @@ namespace ion
 
 	//! \ingroup ionCore
 	template <typename T>
+	T ArcSin(T const value)
+	{
+		return asin(value);
+	}
+
+	//! \ingroup ionCore
+	template <typename T>
 	T Cos(T const value)
 	{
 		return cos(value);
+	}
+
+	//! \ingroup ionCore
+	template <typename T>
+	T ArcCos(T const value)
+	{
+		return acos(value);
 	}
 
 	//! \ingroup ionCore
