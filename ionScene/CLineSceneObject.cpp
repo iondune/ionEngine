@@ -116,6 +116,24 @@ namespace ion
 			AddLine(P + vec3f(R, -R, R), P + vec3f(-R, R, -R), Color);
 		}
 
+		void CLineSceneObject::AddBox(vec3f const & Center, vec3f const HalfExtent, color3f const & Color)
+		{
+			AddLine(Center + HalfExtent * vec3f(-1, -1, -1), Center + HalfExtent * vec3f(-1, -1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f(-1, -1,  1), Center + HalfExtent * vec3f( 1, -1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1, -1,  1), Center + HalfExtent * vec3f( 1, -1, -1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1, -1, -1), Center + HalfExtent * vec3f(-1, -1, -1), Color);
+
+			AddLine(Center + HalfExtent * vec3f(-1,  1, -1), Center + HalfExtent * vec3f(-1,  1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f(-1,  1,  1), Center + HalfExtent * vec3f( 1,  1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1,  1,  1), Center + HalfExtent * vec3f( 1,  1, -1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1,  1, -1), Center + HalfExtent * vec3f(-1,  1, -1), Color);
+
+			AddLine(Center + HalfExtent * vec3f(-1, -1, -1), Center + HalfExtent * vec3f(-1,  1, -1), Color);
+			AddLine(Center + HalfExtent * vec3f(-1, -1,  1), Center + HalfExtent * vec3f(-1,  1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1, -1,  1), Center + HalfExtent * vec3f( 1,  1,  1), Color);
+			AddLine(Center + HalfExtent * vec3f( 1, -1, -1), Center + HalfExtent * vec3f( 1,  1, -1), Color);
+		}
+
 	}
 
 }

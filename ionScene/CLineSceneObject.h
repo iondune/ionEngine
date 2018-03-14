@@ -28,6 +28,7 @@ namespace ion
 			void ResetLines();
 			void AddLine(vec3f const & A, vec3f const & B, color3f const & Color);
 			void AddStar(vec3f const & P, float const R, color3f const & Color);
+			void AddBox(vec3f const & Center, vec3f const HalfExtent, color3f const & Color);
 
 		protected:
 
