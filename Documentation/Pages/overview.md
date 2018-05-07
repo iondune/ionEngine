@@ -1,20 +1,25 @@
 
-Modules Overview               {#modules_overview}
-================
+Overview {#overview}
+========
 
-Hierarchy
----------
+Module Hierarchy
+================
 
 The following graph shows the dependency hierarchy for ionEngine's default modules.
 
 @dot
 digraph deps {
    bgcolor=transparent;
-   node [shape=box];
-   ionCore [URL="\ref ionCore"];
-   ionMath [URL="\ref ionMath"];
-   ionGraphics [URL="\ref ionGraphics"];
-   ionGraphicsGL [URL="\ref ionGraphicsGL"];
+   node [shape=box,fontname="Roboto-bold", penwidth=2];
+
+   subgraph documented {
+      node [style="filled", fontcolor=white, fillcolor="#005580", color="#004466"];
+
+      ionCore [URL="\ref ionCore"];
+      ionMath [URL="\ref ionMath"];
+      ionGraphics [URL="\ref ionGraphics"];
+      ionGraphicsGL [URL="\ref ionGraphicsGL"];
+   }
 
    ionCore -> ionMath            [dir="back"];
    ionMath -> ionGraphics        [dir="back"];
@@ -30,8 +35,8 @@ digraph deps {
 @enddot
 
 
-Overview
---------
+Module List
+===========
 
 [ionCore](@ref ionCore) is the basis for all other modules, a set of boilerplate functions, classes, and templates.
 

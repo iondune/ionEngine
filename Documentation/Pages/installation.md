@@ -2,9 +2,10 @@
 Installation                   {#installation}
 ============
 
+[TOC]
 
-Windows
--------
+Windows  {#install_windows}
+=======
 
 First you need to get all of the "header only" dependencies, which are:
 
@@ -25,8 +26,8 @@ Install that, then install the `glfw3:x64-windows` triplet.
 
 
 
-Linux
------
+Linux   {#install_linux}
+=====
 
 These instructions are tailored for Ubuntu but the same principles should apply to most Linux distros (in terms of using your flavor of package manager to install binary deps, and using bash/cmake for the rest).
 
@@ -42,15 +43,30 @@ You'll also need to install GLFW3 and X.Org development packages.
 On older distros a sufficiently recent version of GLFW is not available as a native package, so this is where instructions diverge depending on version.
 
 
-### Ubuntu 16.04
+Ubuntu 16.04 {#install_ubuntu1604}
+------------
 
 Simply install the packages `xorg-dev` and `libglfw3-dev`.
 
    > sudo apt-get -y install xorg-dev libglfw3-dev
 
+Next, install the header-only dependencies by running `Clone.bash` in the `Dependencies/` folder.
+
+   > ./Clone.bash
+
+With that we are ready to build ionEngine.
+Make a directory called `build` and `cd` to it.
+From that directory, run `cmake`.
+
+   > mkdir build
+   > cd build
+   > cmake ..
+   > make
 
 
-### Ubuntu 14.04
+
+Ubuntu 14.04  {#install_ubuntu1404}
+------------
 
 The Ubuntu GLFW package is prohibitively out of date so we need to install a ppa to provide an up-to-date version.
 
@@ -76,8 +92,8 @@ From that directory, run `cmake`.
 
 
 
-OS X
-----
+Mac OS {#install_mac}
+======
 
 These instructions are for OS X 10.9.5 but should hopefully apply pretty universally.
 

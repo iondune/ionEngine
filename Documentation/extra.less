@@ -28,7 +28,7 @@
 
 
 // Default text color for page contents
-@default-text-color: hsl(0,0%,30%);
+@default-text-color: hsl(0,0%,20%);
 
 // Page header, footer, table rows, inline codes and definition lists
 @header-footer-background-color: hsl(0,0%,95%);
@@ -43,7 +43,7 @@
 @content-background-color: hsl(0,0%,100%);
 
 // Bold, italic, h1, h2, ... and table of contents
-@heading-color: hsl(0,0%,10%);
+@heading-color: hsl(0,0%,30%);
 
 // Function, enum and macro definition separator
 @def-separator-color: @header-footer-background-color;
@@ -95,13 +95,13 @@
 }
 
 .sm-dox,.sm-dox a,.sm-dox a:focus,.sm-dox a:active,.sm-dox a:hover,.sm-dox a.highlighted,.sm-dox ul a:hover {
-    background:none;
-    text-shadow:none;
+	background:none;
+	text-shadow:none;
 }
 
 .sm-dox ul a:hover {
-    background:@header-footer-link-color;
-    text-shadow:none;
+	background:@header-footer-link-color;
+	text-shadow:none;
 }
 
 #main-nav,#navrow1,#navrow2,#navrow3,#navrow4,.tablist a,.tablist a:visited,.tablist a:hover,.tablist li,.tablist li.current a,.memdoc,dl.reflist dd,div.toc li,.ah,span.lineno,span.lineno a,span.lineno a:hover,.note code,.pre code,.post code,.invariant code,.warning code,.attention code,.deprecated code,.bug code,.todo code,.test code,.doxtable code {
@@ -132,33 +132,70 @@ html,#titlearea,.footer,tr.even,.directory tr.even,.doxtable tr:nth-child(even),
 	background:@header-footer-background-color;
 }
 
+body, table, div, p, dl {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	font-family: "Roboto", sans-serif;
+}
+
+table.directory {
+	font-weight: 400;
+	font-size: 16px;
+	font-family: "Roboto", sans-serif;
+}
+
+.title {
+	color: @heading-color;
+	font-weight: bold;
+	font-size: 32px;
+	font-family: "Roboto", sans-serif;
+	margin: 10px 2px;
+}
+
 body {
-	color:@default-text-color;
+	color: @default-text-color;
 }
 
 h1,h2,h2.groupheader,h3,div.toc h3,h4,h5,h6,strong,em {
-	color:@heading-color;
+	color: @heading-color;
 	border-bottom:none;
 }
 
+h2.groupheader:after {
+	content: ' ';
+	display: block;
+	color: @default-link-color;
+	border: 1px solid @default-link-color;
+	margin-top: 6px;
+}
+
 h1 {
-  padding-top:0.5em;
-  font-size:180%;
+	padding-top:0.5em;
+	font-size:180%;
+}
+
+h1:after {
+	content: ' ';
+	display: block;
+	color: @heading-color;
+	border: 2px solid @heading-color;
+	margin-top: 5px;
 }
 
 h2 {
-  padding-top:0.5em;
-  margin-bottom:0;
-  font-size:140%;
+	padding-top:0.5em;
+	margin-bottom:0;
+	font-size:140%;
 }
 
 h3 {
-  padding-top:0.5em;
-  margin-bottom:0;
-  font-size:110%;
+	padding-top:0.5em;
+	margin-bottom:0;
+	font-size:110%;
 }
 
-.glfwheader {
+.topheader {
 	font-size:16px;
 	height:64px;
 	max-width:920px;
@@ -167,32 +204,31 @@ h3 {
 	margin:0 auto;
 }
 
-#glfwhome {
+#tophome {
 	line-height:64px;
 	padding-right:48px;
 	color:@header-footer-link-color;
 	font-size:2.5em;
-	// background:url("http://www.glfw.org/css/arrow.png") no-repeat right;
 }
 
-.glfwnavbar {
+.topnavbar {
 	list-style-type:none;
 	margin:0 auto;
 	float:right;
 }
 
-#glfwhome,.glfwnavbar li {
+#tophome,.topnavbar li {
 	float:left;
 }
 
-.glfwnavbar a,.glfwnavbar a:visited {
+.topnavbar a,.topnavbar a:visited {
 	line-height:64px;
 	margin-left:2em;
 	display:block;
 	color:@header-footer-link-color;
 }
 
-#glfwhome,.glfwnavbar a,.glfwnavbar a:visited {
+#tophome,.topnavbar a,.topnavbar a:visited {
 	transition:.35s ease;
 }
 
@@ -225,12 +261,12 @@ address.footer {
 }
 
 .memtitle {
-    display:none;
+	display:none;
 }
 
 .memproto,.memname {
-    font-weight:bold;
-    text-shadow:none;
+	font-weight:bold;
+	text-shadow:none;
 }
 
 .tablist {
@@ -328,7 +364,7 @@ table.doxtable {
 	border-radius:4px;
 }
 
-a,a:hover,a:visited,a:visited:hover,.contents a:visited,.el,a.el:visited,#glfwhome:hover,.tablist a:hover,span.lineno a:hover {
+a,a:hover,a:visited,a:visited:hover,.contents a:visited,.el,a.el:visited,#tophome:hover,.tablist a:hover,span.lineno a:hover {
 	color:@default-link-color;
 	text-decoration:none;
 }

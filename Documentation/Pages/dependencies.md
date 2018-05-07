@@ -1,11 +1,11 @@
 
-Dependencies                   {#dependencies}
+Dependencies {#dependencies}
 ============
 
 ionEngine depends on the following external libraries:
 
 Header Only
------------
+===========
 
   - [stb](https://github.com/nothings/stb)
 
@@ -53,7 +53,7 @@ Header Only
     - Latest commit as of 11/28/2017: [94ff8bd](https://github.com/tronkko/dirent/commit/94ff8bdbb4e11eea5fba17b92edfcdc4b4ece769)
 
 Binary
-------
+======
 
   - [GLFW](http://www.glfw.org/)
     - Windowing and other OS functions
