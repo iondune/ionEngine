@@ -17,71 +17,79 @@ namespace ion
 		}
 	}
 
-	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type)
+	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync)
 	{
-		CWindow * Window = nullptr;
-
-		if (nullptr == GraphicsAPI)
+		if (GraphicsAPI == nullptr)
 		{
 			Log::Error("Using WindowManager before initialization!");
+			return nullptr;
 		}
-		else
+		
+		if (PrimaryWindow == nullptr)
 		{
-			if (nullptr == PrimaryWindow)
-			{
-				GraphicsAPI->PreWindowCreationSetup();
-			}
+			GraphicsAPI->PreWindowCreationSetup();
+		}
 
-			glfwWindowHint(GLFW_RESIZABLE, false);
-			GLFWwindow * WindowHandle = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr);
+		glfwWindowHint(GLFW_RESIZABLE, false);
+		GLFWwindow * WindowHandle = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr);
 
-			if (nullptr == WindowHandle)
+		if (WindowHandle == nullptr)
+		{
+			std::cerr << "Error opening glfw window!" << std::endl;
+			return nullptr;
+		}
+		
+		CWindow * Window = new CWindow(WindowHandle);
+		glfwGetWindowSize(WindowHandle, &Window->Size.X, &Window->Size.Y);
+		glfwGetFramebufferSize(WindowHandle, &Window->FrameBufferSize.X, &Window->FrameBufferSize.Y);
+		Windows[WindowHandle] = Window;
+
+		glfwSetKeyCallback(WindowHandle, CWindowManager::KeyCallback);
+		glfwSetMouseButtonCallback(WindowHandle, CWindowManager::MouseButtonCallback);
+		glfwSetCursorPosCallback(WindowHandle, CWindowManager::MouseCursorCallback);
+		glfwSetScrollCallback(WindowHandle, CWindowManager::MouseScrollCallback);
+		glfwSetCharCallback(WindowHandle, CWindowManager::CharCallback);
+		glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
+
+		Window->AddListener(this);
+		Window->MakeContextCurrent();
+
+		switch (Vsync)
+		{
+		case EVsyncMode::Default:
+			if (Type == EWindowType::Fullscreen)
 			{
-				std::cerr << "Error opening glfw window! " << std::endl;
+				glfwSwapInterval(1);
 			}
 			else
 			{
-
-				Window = new CWindow(WindowHandle);
-				glfwGetWindowSize(WindowHandle, &Window->Size.X, &Window->Size.Y);
-				glfwGetFramebufferSize(WindowHandle, &Window->FrameBufferSize.X, &Window->FrameBufferSize.Y);
-				Windows[WindowHandle] = Window;
-
-				glfwSetKeyCallback(WindowHandle, CWindowManager::KeyCallback);
-				glfwSetMouseButtonCallback(WindowHandle, CWindowManager::MouseButtonCallback);
-				glfwSetCursorPosCallback(WindowHandle, CWindowManager::MouseCursorCallback);
-				glfwSetScrollCallback(WindowHandle, CWindowManager::MouseScrollCallback);
-				glfwSetCharCallback(WindowHandle, CWindowManager::CharCallback);
-				glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
-
-				Window->AddListener(this);
-				Window->MakeContextCurrent();
-				if (Type == EWindowType::Fullscreen)
-				{
-					glfwSwapInterval(1);
-				}
-				else
-				{
-					glfwSwapInterval(0);
-				}
-
-				if (nullptr == PrimaryWindow)
-				{
-					GraphicsAPI->PostWindowCreationSetup();
-				}
-
-				if (! PrimaryWindow)
-				{
-					PrimaryWindow = Window;
-				}
+				glfwSwapInterval(0);
 			}
+			break;
 
+		case EVsyncMode::On:
+			glfwSwapInterval(1);
+			break;
+
+		case EVsyncMode::Off:
+			glfwSwapInterval(0);
+			break;
+		}
+
+		if (PrimaryWindow == nullptr)
+		{
+			GraphicsAPI->PostWindowCreationSetup();
+		}
+
+		if (PrimaryWindow == nullptr)
+		{
+			PrimaryWindow = Window;
 		}
 
 		return Window;
 	}
 
-	CWindow * CWindowManager::CreateWindowOnMonitor(int const Monitor, std::string const & Title)
+	CWindow * CWindowManager::CreateWindowOnMonitor(int const Monitor, std::string const & Title, EVsyncMode const Vsync)
 	{
 		CWindow * Window = nullptr;
 
@@ -112,7 +120,7 @@ namespace ion
 		GLFWvidmode const * modes = glfwGetVideoModes(monitors[monitor], &mode_count);
 			
 		vec2i const MonitorSize = vec2i(modes[mode_count - 1].width, modes[mode_count - 1].height);
-		Window = CreateWindow(MonitorSize - vec2i(100), Title, EWindowType::Windowed);
+		Window = CreateWindow(MonitorSize - vec2i(100), Title, EWindowType::Windowed, Vsync);
 
 		int xpos, ypos;
 		glfwGetMonitorPos(monitors[monitor], &xpos, &ypos);

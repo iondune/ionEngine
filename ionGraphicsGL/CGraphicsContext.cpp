@@ -248,7 +248,7 @@ namespace ion
 					else if (PipelineState->BlendMode == EBlendMode::Additive)
 					{
 						CheckedGLCall(glBlendEquation(GL_FUNC_ADD));
-						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
+						CheckedGLCall(glBlendFunc(GL_ONE, GL_SRC_ALPHA));
 					}
 					else if (PipelineState->BlendMode == EBlendMode::Min)
 					{

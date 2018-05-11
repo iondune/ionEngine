@@ -20,7 +20,7 @@ namespace ion
 
 			public:
 				
-				static uint const InternalFormatMatrix[4][10];
+				static uint const InternalFormatMatrix[4][11];
 				static uint const FormatMatrix[4][2];
 
 				static string const InternalFormatStringMatrix[4][10];
@@ -39,7 +39,9 @@ namespace ion
 				EFilter GetMipMapFilter();
 				EWrapMode GetWrapMode();
 				float GetAnisotropy();
-				
+
+				void GenerateMipMaps();
+
 				void ApplyParams();
 				virtual uint GetGLBindTextureTarget() const = 0;
 				virtual uint GetGLTextureBindingEnum() const = 0;

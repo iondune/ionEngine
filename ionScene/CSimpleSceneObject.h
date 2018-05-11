@@ -32,6 +32,12 @@ namespace ion
 			virtual void SetRenderCategory(uint const Category);
 			virtual void SetInstanceCount(uint const InstanceCount);
 
+			template <typename T>
+			void SetUniformValue(string const & Name, T const & Value)
+			{
+				SetUniform(Name, Graphics::CUniform<T>(Value));
+			}
+
 			virtual SSimpleMaterial & GetMaterial();
 			virtual SSimpleMaterial const & GetMaterial() const;
 			virtual void SetMaterial(SSimpleMaterial const & Material);

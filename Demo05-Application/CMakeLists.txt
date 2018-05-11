@@ -1,13 +1,11 @@
-add_executable(Demo05-Application DemoApplication.cpp)
+set(TARGET_NAME Demo05-Application)
+add_executable(${TARGET_NAME} DemoApplication.cpp)
 
-target_link_libraries(Demo05-Application ionApplication)
-target_link_libraries(Demo05-Application ionScene)
-target_link_libraries(Demo05-Application ionGraphicsGL)
-target_link_libraries(Demo05-Application ionGraphics)
-target_link_libraries(Demo05-Application ionWindow)
-target_link_libraries(Demo05-Application ionCore)
-ExecutableDependencies(Demo05-Application)
-add_custom_command(
-	TARGET Demo05-Application POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-	${CMAKE_CURRENT_SOURCE_DIR}/Assets $<TARGET_FILE_DIR:Demo05-Application>/Assets)
+BuildProperties(${TARGET_NAME})
+target_link_libraries(${TARGET_NAME} ionApplication)
+target_link_libraries(${TARGET_NAME} ionScene)
+target_link_libraries(${TARGET_NAME} ionGraphicsGL)
+target_link_libraries(${TARGET_NAME} ionGraphics)
+target_link_libraries(${TARGET_NAME} ionWindow)
+target_link_libraries(${TARGET_NAME} ionCore)
+ExecutableProperties(${TARGET_NAME})

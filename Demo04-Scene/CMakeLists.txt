@@ -1,24 +1,10 @@
-add_executable(Demo04-Scene DemoScene.cpp)
+set(TARGET_NAME Demo04-Scene)
+add_executable(${TARGET_NAME} DemoScene.cpp)
 
-target_link_libraries(Demo04-Scene ionScene)
-target_link_libraries(Demo04-Scene ionGraphicsGL)
-target_link_libraries(Demo04-Scene ionGraphics)
-target_link_libraries(Demo04-Scene ionWindow)
-target_link_libraries(Demo04-Scene ionCore)
-ExecutableDependencies(Demo04-Scene)
-add_custom_command(
-	TARGET Demo04-Scene POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/Diffuse.vert $<TARGET_FILE_DIR:Demo04-Scene>)
-add_custom_command(
-	TARGET Demo04-Scene POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/Diffuse.frag $<TARGET_FILE_DIR:Demo04-Scene>)
-add_custom_command(
-	TARGET Demo04-Scene POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/Axis.vert $<TARGET_FILE_DIR:Demo04-Scene>)
-add_custom_command(
-	TARGET Demo04-Scene POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/Axis.frag $<TARGET_FILE_DIR:Demo04-Scene>)
+BuildProperties(${TARGET_NAME})
+target_link_libraries(${TARGET_NAME} ionScene)
+target_link_libraries(${TARGET_NAME} ionGraphicsGL)
+target_link_libraries(${TARGET_NAME} ionGraphics)
+target_link_libraries(${TARGET_NAME} ionWindow)
+target_link_libraries(${TARGET_NAME} ionCore)
+ExecutableProperties(${TARGET_NAME})

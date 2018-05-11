@@ -129,7 +129,7 @@ namespace ion
 				(Position == other.Position && Size < other.Size);
 		}
 
-		bool operator ==(SRect2<T> const & other)
+		bool operator ==(SRect2<T> const & other) const
 		{
 			return other.Position == Position && other.Size == Size;
 		}

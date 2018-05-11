@@ -1,3 +1,4 @@
+set(TARGET_NAME ionApplication)
 file(GLOB SOURCES *.cpp)
-add_library(ionApplication ${SOURCES})
-target_compile_definitions(ionApplication PRIVATE -DION_PROJECT_BASE_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/")
+add_library(${TARGET_NAME} ${SOURCES})
+BuildProperties(${TARGET_NAME})

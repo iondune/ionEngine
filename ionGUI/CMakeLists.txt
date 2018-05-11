@@ -1,2 +1,4 @@
+set(TARGET_NAME ionGUI)
 file(GLOB SOURCES *.cpp)
-add_library(ionGUI ${SOURCES})
+add_library(${TARGET_NAME} ${SOURCES})
+BuildProperties(${TARGET_NAME})

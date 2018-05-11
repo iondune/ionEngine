@@ -18,6 +18,13 @@ namespace ion
 		Windowed
 	};
 
+	enum class EVsyncMode
+	{
+		Default,
+		Off,
+		On
+	};
+
 	class CWindowManager : public Singleton<CWindowManager>, public IEventListener
 	{
 
@@ -28,8 +35,8 @@ namespace ion
 		bool ShouldClose() const;
 		bool Run();
 
-		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type);
-		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title);
+		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync = EVsyncMode::Default);
+		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title, EVsyncMode const Vsync = EVsyncMode::Default);
 
 	protected:
 

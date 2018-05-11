@@ -1,3 +1,6 @@
-add_executable(TestDeployment DeploymentTest.cpp glad.cpp)
-target_link_libraries(TestDeployment ionCore)
-ExecutableDependencies(TestDeployment)
+set(TARGET_NAME TestDeployment)
+add_executable(${TARGET_NAME} DeploymentTest.cpp glad.cpp)
+BuildProperties(TestDeployment)
+ExecutableProperties(TestDeployment)
+
+target_link_libraries(${TARGET_NAME} ionCore)

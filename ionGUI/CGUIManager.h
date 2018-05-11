@@ -16,7 +16,7 @@ namespace ion
 
 	public:
 
-		bool Init(CWindow * Window);
+		bool Init(CWindow * Window, float const DefaultFontSize = 18.f);
 		void Shutdown();
 		void NewFrame();
 		void Draw();
@@ -30,12 +30,13 @@ namespace ion
 		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
 
 		void OnEvent(IEvent & Event);
-		void AddFontFromFile(string const & FileName, float const Size);
 		static ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		ImGuiIO & IO = ImGui::GetIO();
 
 	protected:
+
+		void AddFontFromFile(string const & FileName, float const Size);
 
 		void DrawCallback(ImDrawData* draw_data);
 		void CreateFontsTexture();

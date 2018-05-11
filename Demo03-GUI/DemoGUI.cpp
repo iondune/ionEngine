@@ -22,7 +22,6 @@ int main()
 	RenderTarget->SetClearColor(color3f(0.3f));
 
 	GUIManager->Init(Window);
-	GUIManager->AddFontFromFile("OpenSans.ttf", 18.f);
 	Window->AddListener(GUIManager);
 
 	while (WindowManager->Run())
@@ -32,17 +31,17 @@ int main()
 		GUIManager->NewFrame();
 		{
 			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
-			ImGui::ShowTestWindow();
+			ImGui::ShowDemoWindow();
 		}
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 100), Color::Basic::White, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 120), Color::Basic::Red, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 140), Color::Basic::Orange, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 160), Color::Basic::Yellow, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 180), Color::Basic::Green, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 200), Color::Basic::Cyan, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 220), Color::Basic::Blue, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 240), Color::Basic::Magenta, "Hello, world!");
-		GUIManager->Text(vec2i(Window->GetCursorLocation()) + vec2i(100, 260), Color::Basic::Black, "Hello, world!");
+		GUIManager->Text(vec2i(100, 100), Color::Basic::White, "Hello, world!");
+		GUIManager->Text(vec2i(100, 120), Color::Basic::Red, "Hello, world!");
+		GUIManager->Text(vec2i(100, 140), Color::Basic::Orange, "Hello, world!");
+		GUIManager->Text(vec2i(100, 160), Color::Basic::Yellow, "Hello, world!");
+		GUIManager->Text(vec2i(100, 180), Color::Basic::Green, "Hello, world!");
+		GUIManager->Text(vec2i(100, 200), Color::Basic::Cyan, "Hello, world!");
+		GUIManager->Text(vec2i(100, 220), Color::Basic::Blue, "Hello, world!");
+		GUIManager->Text(vec2i(100, 240), Color::Basic::Magenta, "Hello, world!");
+		GUIManager->Text(vec2i(100, 260), Color::Basic::Black, "Hello, world!");
 		GUIManager->Draw();
 
 		Window->SwapBuffers();

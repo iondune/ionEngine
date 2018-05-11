@@ -1,6 +1,6 @@
 
 docs: extra.css
-	doxygen > /dev/null
+	doxygen
 
 clean:
 	rm -rf html extra.css

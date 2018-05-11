@@ -44,15 +44,16 @@ namespace ion
 			enum class EInternalFormatType
 			{
 				Fix8 = 0,
-				Float16 = 1,
-				Float32 = 2,
-				SignedInt8 = 3,
-				SignedInt16 = 4,
-				SignedInt32 = 5,
-				UnsignedInt8 = 6,
-				UnsignedInt16 = 7,
-				UnsignedInt32 = 8,
-				Depth = 9,
+				Fix16 = 1,
+				Float16 = 2,
+				Float32 = 3,
+				SignedInt8 = 4,
+				SignedInt16 = 5,
+				SignedInt32 = 6,
+				UnsignedInt8 = 7,
+				UnsignedInt16 = 8,
+				UnsignedInt32 = 9,
+				Depth = 10,
 			};
 
 			enum class EMipMaps
@@ -91,6 +92,8 @@ namespace ion
 			virtual EFilter GetMipMapFilter() = 0;
 			virtual EWrapMode GetWrapMode() = 0;
 			virtual float GetAnisotropy() = 0;
+
+			virtual void GenerateMipMaps() = 0;
 
 		};
 

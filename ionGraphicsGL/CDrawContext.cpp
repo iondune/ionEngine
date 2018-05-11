@@ -35,16 +35,40 @@ namespace ion
 
 			void CDrawConfig::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
-				Uniforms[Name] = Uniform;
+				auto it = ProvidedUniforms.find(Name);
+				if (it != ProvidedUniforms.end())
+				{
+					it->second->Uniform = Uniform;
+				}
+				else
+				{
+					SUniformBinding * Binding = new SUniformBinding();
+					Binding->Name = Name;
+					Binding->Uniform = Uniform;
 
-				NeedsToBeLoaded = true;
+					ProvidedUniforms[Name] = Binding;
+					UniformBindings.push_back(Binding);
+					NeedsToBeLoaded = true;
+				}
 			}
 
 			void CDrawConfig::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
-				Textures[Name] = Texture;
+				auto it = ProvidedTextures.find(Name);
+				if (it != ProvidedTextures.end())
+				{
+					it->second->Texture = Texture;
+				}
+				else
+				{
+					STextureBinding * Binding = new STextureBinding();
+					Binding->Name = Name;
+					Binding->Texture = Texture;
 
-				NeedsToBeLoaded = true;
+					ProvidedTextures[Name] = Binding;
+					TextureBindings.push_back(Binding);
+					NeedsToBeLoaded = true;
+				}
 			}
 
 			void CDrawConfig::SetInstanceCount(uint const Count)
@@ -207,39 +231,48 @@ namespace ion
 					if (CurrentContext)
 					{
 						CurrentContext->InternalDrawTeardown();
+						CurrentContext = nullptr;
 					}
-					if (InternalDrawSetup())
-					{
-						CurrentContext = this;
-					}
+				}
+
+				if (DrawConfig->NeedsToBeLoaded)
+				{
+					LoadConfig(DrawConfig);
+				}
+
+				if (! CurrentContext && InternalDrawSetup())
+				{
+					CurrentContext = this;
 				}
 
 				if (CurrentContext)
 				{
-					if (DrawConfig->NeedsToBeLoaded)
-					{
-						LoadConfig(DrawConfig);
-					}
 
 					if (DrawConfig->LoadedSuccessfully)
 					{
 						CheckedGLCall(glBindVertexArray(DrawConfig->VertexArrayHandle));
 
 						// Uniforms
-						for (auto const & it : DrawConfig->BoundUniforms)
+						for (auto const & it : DrawConfig->UniformBindings)
 						{
-							InternalBindUniform(it.first, it.second);
+							if (it->Handle >= 0)
+							{
+								InternalBindUniform(it->Handle, it->Uniform);
+							}
 						}
 
 						// Textures
-						int TextureIndex = 0;
-						for (auto const & it : DrawConfig->BoundTextures)
+						int TextureIndex = StartTextures;
+						for (auto const & it : DrawConfig->TextureBindings)
 						{
-							CheckedGLCall(glUniform1i(it.first, TextureIndex));
-							CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+							if (it->Handle >= 0)
+							{
+								CheckedGLCall(glUniform1i(it->Handle, TextureIndex));
+								CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 
-							SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
-							CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
+								SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
+								CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
+							}
 						}
 
 						if (UseInstancing)
@@ -251,11 +284,11 @@ namespace ion
 							CheckedGLCall(glDrawElements(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0));
 						}
 
-						TextureIndex = 0;
-						for (auto const & it : DrawConfig->BoundTextures)
+						TextureIndex = StartTextures;
+						for (auto const & it : DrawConfig->TextureBindings)
 						{
 							CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-							SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
+							SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
 							CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
 						}
 
@@ -358,6 +391,14 @@ namespace ion
 
 					BoundUniforms.clear();
 					BoundTextures.clear();
+					for (auto Binding : Config->UniformBindings)
+					{
+						Binding->Handle = -1;
+					}
+					for (auto Binding : Config->TextureBindings)
+					{
+						Binding->Handle = -1;
+					}
 					for (string const & RequiredUniform : Config->RequiredUniforms)
 					{
 						uint Handle = 0;
@@ -365,6 +406,9 @@ namespace ion
 
 						SharedPointer<IUniform const> Uniform;
 						SharedPointer<ITexture const> Texture;
+
+						CDrawConfig::SUniformBinding * UniformBinding = nullptr;
+						CDrawConfig::STextureBinding * TextureBinding = nullptr;
 						if (TryMapAccess(Uniforms, RequiredUniform, Uniform))
 						{
 							BoundUniforms[Handle] = Uniform;
@@ -373,13 +417,13 @@ namespace ion
 						{
 							BoundTextures[Handle] = Texture;
 						}
-						else if (TryMapAccess(Config->Uniforms, RequiredUniform, Uniform))
+						else if (TryMapAccess(Config->ProvidedUniforms, RequiredUniform, UniformBinding))
 						{
-							Config->BoundUniforms[Handle] = Uniform;
+							UniformBinding->Handle = Handle;
 						}
-						else if (TryMapAccess(Config->Textures, RequiredUniform, Texture))
+						else if (TryMapAccess(Config->ProvidedTextures, RequiredUniform, TextureBinding))
 						{
-							Config->BoundTextures[Handle] = Texture;
+							TextureBinding->Handle = Handle;
 						}
 						else
 						{
@@ -669,11 +713,11 @@ namespace ion
 				}
 
 				// Textures
-				int TextureIndex = 0;
+				StartTextures = 0;
 				for (auto const & it : BoundTextures)
 				{
-					CheckedGLCall(glUniform1i(it.first, TextureIndex));
-					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+					CheckedGLCall(glUniform1i(it.first, StartTextures));
+					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + StartTextures++));
 
 					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
 					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));

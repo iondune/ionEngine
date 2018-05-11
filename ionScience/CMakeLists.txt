@@ -1,2 +1,4 @@
+set(TARGET_NAME ionScience)
 file(GLOB SOURCES *.cpp)
-add_library(ionScience ${SOURCES})
+add_library(${TARGET_NAME} ${SOURCES})
+BuildProperties(${TARGET_NAME})

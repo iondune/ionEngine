@@ -1,16 +1,16 @@
 
 @ECHO off
 
-CALL :Clone stb             https://github.com/nothings/stb.git          c7110588a4d24c4bb5155c184fbb77dd90b3116e
+CALL :Clone stb             https://github.com/nothings/stb.git          9d9f75eb682dd98b34de08bb5c489c6c561c9fa6
 CALL :Clone tinyformat      https://github.com/c42f/tinyformat.git       3a33bbf65442432277eee079e83d3e8fac51730c
-CALL :Clone glm             https://github.com/g-truc/glm.git            5dcc56489e1b66dfd5bca751fa9b8dc68059e008
-CALL :Clone imgui           https://github.com/ocornut/imgui.git         9f200d10d569270995a8bb5893557196258fd997
-CALL :Clone Catch           https://github.com/philsquared/Catch.git     a0ada2e935324db5c951571c52c9b07307ea422f
+CALL :Clone glm             https://github.com/g-truc/glm.git            6fa203eeb7fbcbb6f620501fad40359c8a456049
+CALL :Clone imgui           https://github.com/ocornut/imgui.git         e916310b2e1f9cacbb2b9ce192a3dfb359e4b509
+CALL :Clone Catch           https://github.com/philsquared/Catch.git     19ab2117c5bac2f376f8da4a4b25e183137bcec0
 CALL :Clone glad            https://github.com/iondune/glad.git          11f33ab7625ada108f836a83cd8abc405bd870e9
 CALL :Clone tinyobjloader   https://github.com/syoyo/tinyobjloader.git   51d13700d880d2d5fdaf5bd3547100bafcae7932
-CALL :Clone simpleini       https://github.com/iondune/simpleini         b04314f8dd525e8dccc28541d1ca601260064351
+CALL :Clone simpleini       https://github.com/iondune/simpleini         2af65fcc504f8242752755e836709762ef7ce062
 
-CALL :Clone dirent          https://github.com/tronkko/dirent.git        8b1db5092479a73d47eafd3de739b27e876e6bf3
+CALL :Clone dirent          https://github.com/tronkko/dirent.git        94ff8bdbb4e11eea5fba17b92edfcdc4b4ece769
 
 EXIT /B 0
 

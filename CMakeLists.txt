@@ -1,5 +1,5 @@
 
-set(ION_ENGINE_VERSION 0.4.2)
+set(ION_ENGINE_VERSION 0.4.5)
 
 # CMake
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
@@ -10,22 +10,35 @@ include(GNUInstallDirs)
 # Output Directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(ION_ENGINE_DIRECTORY "${PROJECT_SOURCE_DIR}")
 
-# Compiler Settings
-include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("${PROJECT_SOURCE_DIR}/Include")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
+# Build Properties
+function(BuildProperties TargetName)
 
-# Dependencies
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/stb")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/tinyformat")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glm")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/imgui")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/Catch/include")
-include_directories("${PROJECT_SOURCE_DIR}/Dependencies/glad/include")
+	# Compiler Settings
+	target_compile_options(${TargetName} PUBLIC "-std=c++1y")
 
-function(ExecutableDependencies TargetName)
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Include")
+
+	# Dependencies
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/stb")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/tinyformat")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/glm")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/imgui")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/Catch/single_include")
+	target_include_directories(${TargetName} PUBLIC "${ION_ENGINE_DIRECTORY}/Dependencies/glad/include")
+
+	# Definitions
+	target_compile_definitions(${TargetName} PRIVATE -DION_PROJECT_BASE_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/")
+
+endfunction(BuildProperties)
+
+# Executable Properties
+function(ExecutableProperties TargetName)
+
 	# OpenGL
 	find_package(OpenGL REQUIRED)
 	if (OPENGL_FOUND)
@@ -35,10 +48,12 @@ function(ExecutableDependencies TargetName)
 	# GLFW
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
-	include_directories(${GLFW_INCLUDE_DIRS})
+	target_include_directories(${TargetName} PRIVATE ${GLFW_INCLUDE_DIRS})
 	target_link_libraries(${TargetName} ${GLFW_LIBRARIES})
 	target_link_libraries(${TargetName} ${GLFW_STATIC_LIBRARIES})
-endfunction(ExecutableDependencies)
+
+endfunction(ExecutableProperties)
+
 
 #########
 # Build #

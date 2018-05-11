@@ -47,6 +47,9 @@
     <ClInclude Include="CCoordinateFrameSceneObject.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="CLineSceneObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -89,6 +92,9 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="CCoordinateFrameSceneObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineSceneObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
