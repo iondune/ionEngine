@@ -40,6 +40,7 @@ namespace ion
 		}
 		
 		CWindow * Window = new CWindow(WindowHandle);
+		Window->GraphicsAPI = GraphicsAPI;
 		glfwGetWindowSize(WindowHandle, &Window->Size.X, &Window->Size.Y);
 		glfwGetFramebufferSize(WindowHandle, &Window->FrameBufferSize.X, &Window->FrameBufferSize.Y);
 		Windows[WindowHandle] = Window;
@@ -78,7 +79,7 @@ namespace ion
 
 		if (PrimaryWindow == nullptr)
 		{
-			GraphicsAPI->PostWindowCreationSetup();
+			GraphicsAPI->PostWindowCreationSetup(Window);
 		}
 
 		if (PrimaryWindow == nullptr)

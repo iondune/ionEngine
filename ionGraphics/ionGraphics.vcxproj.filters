@@ -13,6 +13,7 @@
     <ClInclude Include="IGraphicsContext.h" />
     <ClInclude Include="CGraphicsAPI.h" />
     <ClInclude Include="IDrawContext.h" />
+    <ClInclude Include="IGraphicsImplementation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />

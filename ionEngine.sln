@@ -12,7 +12,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo01-WindowManager", "Dem
 		{A24BACED-451D-4120-A386-136A963C3C72} = {A24BACED-451D-4120-A386-136A963C3C72}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo02-GL", "Demo02-GL\Demo02-GL.vcxproj", "{6F837E71-5954-4D08-B1BE-598C8FDF021E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo02-Graphics", "Demo02-Graphics\Demo02-Graphics.vcxproj", "{6F837E71-5954-4D08-B1BE-598C8FDF021E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
@@ -115,6 +115,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{A69E
 	ProjectSection(SolutionItems) = preProject
 		Include\ionConfig.h = Include\ionConfig.h
 		Include\ionEngine.h = Include\ionEngine.h
+		Include\ionGraphicsD3D11.h = Include\ionGraphicsD3D11.h
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{EAB41B6E-7AAE-4A64-A98E-A0ACE574E0A1}"
@@ -162,6 +163,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo05-Application", "Demo0
 		{21F131D8-D333-4188-A27B-3E75425D6F7F} = {21F131D8-D333-4188-A27B-3E75425D6F7F}
 		{A24BACED-451D-4120-A386-136A963C3C72} = {A24BACED-451D-4120-A386-136A963C3C72}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ionGraphicsD3D11", "ionGraphicsD3D11\ionGraphicsD3D11.vcxproj", "{C9ED1AE0-F707-4409-8E91-445928718990}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -237,8 +240,15 @@ Global
 		{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}.Debug|x64.Build.0 = Debug|x64
 		{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}.Release|x64.ActiveCfg = Release|x64
 		{8B3851E1-6FEE-4A00-87D8-94A9BB15A209}.Release|x64.Build.0 = Release|x64
+		{C9ED1AE0-F707-4409-8E91-445928718990}.Debug|x64.ActiveCfg = Debug|x64
+		{C9ED1AE0-F707-4409-8E91-445928718990}.Debug|x64.Build.0 = Debug|x64
+		{C9ED1AE0-F707-4409-8E91-445928718990}.Release|x64.ActiveCfg = Release|x64
+		{C9ED1AE0-F707-4409-8E91-445928718990}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EEBF4134-B191-44E6-93AD-F57C217BF013}
 	EndGlobalSection
 EndGlobal

@@ -22,7 +22,7 @@ namespace ion
 		}
 	}
 
-	void CGraphicsAPI::PostWindowCreationSetup()
+	void CGraphicsAPI::PostWindowCreationSetup(CWindow * Window)
 	{
 		if (nullptr == Implementation)
 		{
@@ -30,7 +30,20 @@ namespace ion
 		}
 		else
 		{
-			Implementation->PostWindowCreationSetup();
+			Implementation->PostWindowCreationSetup(Window);
+		}
+	}
+
+	bool CGraphicsAPI::OnWindowSwap(CWindow * Window)
+	{
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+			return false;
+		}
+		else
+		{
+			return Implementation->OnWindowSwap(Window);
 		}
 	}
 

@@ -46,7 +46,10 @@ namespace ion
 
 	void CWindow::SwapBuffers()
 	{
-		glfwSwapBuffers(WindowHandle);
+		if (GraphicsAPI->OnWindowSwap(this))
+		{
+			glfwSwapBuffers(WindowHandle);
+		}
 	}
 
 	vec2i CWindow::GetPosition() const

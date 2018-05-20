@@ -6,23 +6,24 @@
 #include <ionGraphics.h>
 
 
+struct IDXGISwapChain;
+struct ID3D11Device;
+struct ID3D11DeviceContext;
+struct ID3D11Debug;
+
 namespace ion
 {
 	namespace Graphics
 	{
 
-		class COpenGLImplementation : public IGraphicsImplementation
+		class CD3D11Implementation : public IGraphicsImplementation
 		{
 
 		public:
 
-			COpenGLImplementation();
-
-			void UseReverseDepth(bool const ReverseDepth = true);
-			bool IsReverseDepth();
-
 			void PreWindowCreationSetup();
 			void PostWindowCreationSetup(CWindow * Window);
+			bool OnWindowSwap(CWindow * Window);
 
 			SharedPointer<IVertexStage> CreateVertexShaderFromSource(string const & Source);
 			SharedPointer<IGeometryStage> CreateGeometryShaderFromSource(string const & Source);
@@ -33,9 +34,9 @@ namespace ion
 			SharedPointer<IVertexBuffer> CreateVertexBuffer();
 			SharedPointer<IIndexBuffer> CreateIndexBuffer();
 
-			SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2i const & Size);
+			SharedPointer<IDepthBuffer> CreateDepthBuffer(vec2i const & Size);
 
-			Graphics::IDrawContext * CreateDrawContext();
+			IDrawContext * CreateDrawContext();
 
 			SharedPointer<ITexture2D> CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 			SharedPointer<ITexture3D> CreateTexture3D(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
@@ -47,6 +48,11 @@ namespace ion
 		protected:
 
 			bool ReverseDepth = false;
+
+			IDXGISwapChain * SwapChain = nullptr;
+			ID3D11Device * Device = nullptr;
+			ID3D11DeviceContext * ImmediateContext = nullptr;
+			ID3D11Debug * DebugDevice = nullptr;
 
 		};
 	}

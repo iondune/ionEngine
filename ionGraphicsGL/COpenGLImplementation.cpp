@@ -171,7 +171,7 @@ namespace ion
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		}
 
-		void COpenGLImplementation::PostWindowCreationSetup()
+		void COpenGLImplementation::PostWindowCreationSetup(CWindow * Window)
 		{
 			if (! gladLoadGL())
 			{

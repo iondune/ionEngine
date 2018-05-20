@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClInclude Include="IDrawContext.h" />
     <ClInclude Include="IGraphicsContext.h" />
+    <ClInclude Include="IGraphicsImplementation.h" />
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="CGraphicsAPI.h" />

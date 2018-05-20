@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9ED1AE0-F707-4409-8E91-445928718990}</ProjectGuid>
+    <RootNamespace>ionGraphicsD3D11</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
+  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="CDrawContext.h" />
+    <ClInclude Include="CGeometryStage.h" />
+    <ClInclude Include="CGraphicsContext.h" />
+    <ClInclude Include="CPipelineState.h" />
+    <ClInclude Include="CRenderTarget.h" />
+    <ClInclude Include="CShaderStage.h" />
+    <ClInclude Include="CVertexBuffer.h" />
+    <ClInclude Include="CIndexBuffer.h" />
+    <ClInclude Include="CD3D11Implementation.h" />
+    <ClInclude Include="CVertexStage.h" />
+    <ClInclude Include="CFrameBuffer.h" />
+    <ClInclude Include="CShaderProgram.h" />
+    <ClInclude Include="CDepthBuffer.h" />
+    <ClInclude Include="CPixelStage.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="ionGraphicsD3D11.h" />
+    <ClInclude Include="Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDrawContext.cpp" />
+    <ClCompile Include="CGeometryStage.cpp" />
+    <ClCompile Include="CGraphicsContext.cpp" />
+    <ClCompile Include="CIndexBuffer.cpp" />
+    <ClCompile Include="CD3D11Implementation.cpp" />
+    <ClCompile Include="CPipelineState.cpp" />
+    <ClCompile Include="CPixelStage.cpp" />
+    <ClCompile Include="CRenderTarget.cpp" />
+    <ClCompile Include="CShaderStage.cpp" />
+    <ClCompile Include="CVertexBuffer.cpp" />
+    <ClCompile Include="CFrameBuffer.cpp" />
+    <ClCompile Include="CShaderProgram.cpp" />
+    <ClCompile Include="CDepthBuffer.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CVertexStage.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

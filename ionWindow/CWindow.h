@@ -54,6 +54,7 @@ namespace ion
 
 	protected:
 
+		CGraphicsAPI * GraphicsAPI = nullptr;
 		GLFWwindow * const WindowHandle;
 
 		bool KeyStates[(int) EKey::Count];

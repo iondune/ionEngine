@@ -1,7 +1,7 @@
 
 #include <ionWindow.h>
 #include <ionGraphics.h>
-#include <ionGraphicsGL.h>
+#include <ionGraphicsD3D11.h>
 
 
 using namespace ion;
@@ -20,11 +20,11 @@ int main()
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CTimeManager> TimeManager;
 
-	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	GraphicsAPI->Init(new Graphics::CD3D11Implementation());
 	WindowManager->Init(GraphicsAPI);
 	TimeManager->Init(WindowManager);
 
-	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "TestGL", EWindowType::Windowed);
+	CWindow * Window = WindowManager->CreateWindow(vec2i(640, 480), "DemoGraphics", EWindowType::Windowed);
 
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
@@ -66,57 +66,18 @@ int main()
 	// Shader Setup //
 	//////////////////
 
-	string const VertexShaderSource = R"SHADER(
-		#version 330
+	SharedPointer<IVertexStage> VertexStage = GraphicsAPI->CreateVertexStageFromFile("Shader.hlsl");
+	SharedPointer<IPixelStage> PixelStage = GraphicsAPI->CreatePixelStageFromFile("Shader.hlsl");
 
-		in vec2 vPosition;
-		in vec2 vTexCoords;
-		in vec3 vColor;
-
-		out vec2 fTexCoords;
-		out vec3 fColor;
-
-		void main()
-		{
-			gl_Position = vec4(vPosition, 0.0, 1.0);
-			fTexCoords = vTexCoords;
-			fColor = vColor;
-		}
-	)SHADER";
-
-	string const FragmentShaderSource = R"SHADER(
-		#version 330
-
-		in vec2 fTexCoords;
-		in vec3 fColor;
-		uniform float uCurrentTime; 
-		uniform sampler2D uTexture;
-		out vec4 outColor;
-
-		void main()
-		{
-			const float Pi = 3.1415926535897932384626433832795;
-
-			float Alpha = (cos(uCurrentTime * 3.0) + 1.0) / 2.0;
-			float Visibility = sin(uCurrentTime * 1.5 + Pi / 2.0);
-			outColor = vec4(fColor * Alpha, 1.0);
-			if (Visibility < 0.0)
-				outColor.rgb *= texture(uTexture, fTexCoords).rgb;
-		}
-	)SHADER";
-
-	SharedPointer<IVertexStage> VertexShader = GraphicsAPI->CreateVertexStageFromSource(VertexShaderSource);
-	SharedPointer<IPixelStage> PixelShader = GraphicsAPI->CreatePixelStageFromSource(FragmentShaderSource);
-
-	if (! VertexShader)
+	if (! VertexStage)
 		std::cerr << "Failed to compile vertex shader!" << std::endl;
 
-	if (! PixelShader)
+	if (! PixelStage)
 		std::cerr << "Failed to compile pixel shader!" << std::endl;
 
-	SharedPointer<IShader> ShaderProgram = GraphicsAPI->CreateShaderProgram();
-	ShaderProgram->SetVertexStage(VertexShader);
-	ShaderProgram->SetPixelStage(PixelShader);
+	SharedPointer<IShader> Shader = GraphicsAPI->CreateShaderProgram();
+	Shader->SetVertexStage(VertexStage);
+	Shader->SetPixelStage(PixelStage);
 	
 
 	///////////////
@@ -126,15 +87,15 @@ int main()
 	SharedPointer<IPipelineState> PipelineState = Context->CreatePipelineState();
 	PipelineState->SetIndexBuffer(IndexBuffer);
 	PipelineState->SetVertexBuffer(0, VertexBuffer);
-	PipelineState->SetShader(ShaderProgram);
+	PipelineState->SetShader(Shader);
 
 	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
-	CImage * Image = CImage::Load("Image.jpg");
-	SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
-	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
-	PipelineState->SetTexture("uTexture", Texture);
+	//CImage * Image = CImage::Load("Image.jpg");
+	//SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
+	//Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
+	//PipelineState->SetTexture("uTexture", Texture);
 
 	PipelineState->Load();
 
