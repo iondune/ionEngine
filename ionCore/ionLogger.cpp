@@ -43,8 +43,13 @@ namespace ion
 	void Log::WindowsLogOutput::Write(ELogChannel const Channel, string const & Message)
 	{
 #ifdef ION_CONFIG_WINDOWS
-		OutputDebugString(Message.c_str());
-		OutputDebugString("\n");
+		int wcharsCount =  MultiByteToWideChar(CP_UTF8 , 0 , Message.c_str() , -1, NULL, 0);
+		wchar_t * wstr = new wchar_t[wcharsCount];
+		MultiByteToWideChar(CP_UTF8, 0, Message.c_str(), -1, wstr, wcharsCount);
+		OutputDebugString(wstr);
+		delete[] wstr;
+
+		OutputDebugString(L"\n");
 #endif
 	}
 
