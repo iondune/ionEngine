@@ -24,16 +24,31 @@ namespace ion
 
 					ConstantBuffers.clear();
 
-					if (Shader->VertexStage->Reflector)
+					std::vector<ID3D11ShaderReflection *> Reflectors;
+
+					if (Shader->VertexStage && Shader->VertexStage->Reflector)
+					{
+						Reflectors.push_back(Shader->VertexStage->Reflector);
+					}
+					if (Shader->GeometryStage && Shader->GeometryStage->Reflector)
+					{
+						Reflectors.push_back(Shader->GeometryStage->Reflector);
+					}
+					if (Shader->PixelStage && Shader->PixelStage->Reflector)
+					{
+						Reflectors.push_back(Shader->PixelStage->Reflector);
+					}
+
+					for (auto Reflector : Reflectors)
 					{
 						D3D11_SHADER_DESC ShaderDesc;
-						Shader->VertexStage->Reflector->GetDesc(& ShaderDesc);
+						Reflector->GetDesc(& ShaderDesc);
 
 						for (int c = 0; c < (int) ShaderDesc.ConstantBuffers; ++ c)
 						{
 							SConstantBufferBinding Binding;
 
-							auto ConstantBuffer = Shader->VertexStage->Reflector->GetConstantBufferByIndex(c);
+							auto ConstantBuffer = Reflector->GetConstantBufferByIndex(c);
 
 							D3D11_SHADER_BUFFER_DESC BufferDesc;
 							ConstantBuffer->GetDesc(& BufferDesc);
