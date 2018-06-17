@@ -1,5 +1,5 @@
 set(TARGET_NAME Demo02-GL)
-add_executable(${TARGET_NAME} DemoGL.cpp)
+add_executable(${TARGET_NAME} DemoGraphics.cpp)
 
 BuildProperties(${TARGET_NAME})
 target_link_libraries(${TARGET_NAME} ionGraphicsGL)
