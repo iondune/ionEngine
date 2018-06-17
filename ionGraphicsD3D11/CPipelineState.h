@@ -8,6 +8,7 @@
 #include "CShaderProgram.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
+#include "CTexture.h"
 
 
 namespace ion
@@ -69,12 +70,20 @@ namespace ion
 					int Size = 0;
 				};
 
+				struct STextureBinding
+				{
+					string Name;
+					int ResourceSlot = 0;
+					int SamplerSlot = 0;
+					EShaderType RequiredBy;
+					SharedPointer<CTexture const> Texture;
+				};
+
 				vector<SConstantBufferBinding> ConstantBuffers; 
 				map<string, SharedPointer<IUniform const>> Uniform;
 
-
+				vector<STextureBinding> TextureBindings;
 				map<string, SharedPointer<ITexture const>> Textures;
-				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
 				set<string> UnboundAttributes;
 

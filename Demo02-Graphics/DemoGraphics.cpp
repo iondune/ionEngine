@@ -93,10 +93,10 @@ int main()
 	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
-	//CImage * Image = CImage::Load("Image.jpg");
-	//SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGB, ITexture::EInternalFormatType::Fix8);
-	//Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGB, EScalarType::UnsignedInt8);
-	//PipelineState->SetTexture("uTexture", Texture);
+	CImage * Image = CImage::Load("Image.jpg");
+	SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGBA, ITexture::EInternalFormatType::Fix8);
+	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGBA, EScalarType::UnsignedInt8);
+	PipelineState->SetTexture("uTexture", Texture);
 
 	PipelineState->Load();
 

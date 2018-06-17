@@ -1,5 +1,7 @@
 
 #include "CPipelineState.h"
+#include "Utilities.h"
+
 #include <ionWindow.h>
 
 
@@ -68,10 +70,26 @@ namespace ion
 							CBDesc.Usage = D3D11_USAGE_DEFAULT;
 							CBDesc.ByteWidth = BufferDesc.Size;
 							CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-							assert(S_OK == Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer));
+							CheckedDXCall( Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer) );
 							Binding.Size = BufferDesc.Size;
 
 							ConstantBuffers.push_back(Binding);
+						}
+
+						for (int t = 0; t < (int) ShaderDesc.BoundResources; ++ t)
+						{
+							D3D11_SHADER_INPUT_BIND_DESC Desc;
+							CheckedDXCall( Reflector->GetResourceBindingDesc(t, & Desc) );
+
+							if (Desc.Type == D3D_SIT_TEXTURE)
+							{
+								STextureBinding Binding;
+								Binding.Name = Desc.Name;
+								Binding.ResourceSlot = 0;
+								Binding.SamplerSlot = 0;
+
+								TextureBindings.push_back(Binding);
+							}
 						}
 					}
 
@@ -141,33 +159,23 @@ namespace ion
 					return;
 				}
 
-				//if (Texture)
-				//{
-				//	if (UnboundUniforms.count(Name) == 1)
-				//	{
-				//		Textures[Name] = Texture;
-				//		UnboundUniforms.erase(Name);
-				//	}
-				//	else if (Textures.find(Name) != Textures.end())
-				//	{
-				//		Textures[Name] = Texture;
-				//	}
-				//	else
-				//	{
-				//		Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
-				//	}
-				//}
-				//else
-				//{
-				//	if (Textures.erase(Name) == 1)
-				//	{
-				//		UnboundUniforms.insert(Name);
-				//	}
-				//	else
-				//	{
-				//		Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
-				//	}
-				//}
+				for (auto & TextureBinding : TextureBindings)
+				{
+					if (TextureBinding.Name == Name)
+					{
+						TextureBinding.Texture = std::dynamic_pointer_cast<CTexture>(Texture);
+						return;
+					}
+				}
+
+				if (Texture)
+				{
+					Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
+				}
+				else
+				{
+					Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
+				}
 			}
 
 			void CPipelineState::SetPrimitiveType(EPrimitiveType const PrimitiveType)
@@ -296,6 +304,12 @@ namespace ion
 					ImmediateContext->PSSetConstantBuffers(Slot, 1, &ConstantBuffer.ConstantBuffer);
 
 					Slot ++;
+				}
+
+				for (auto & TextureBinding : TextureBindings)
+				{
+					ImmediateContext->PSSetShaderResources(0, 1, & TextureBinding.Texture->ShaderResourceView);
+					ImmediateContext->PSSetSamplers(0, 1, & TextureBinding.Texture->SamplerState);
 				}
 
 				ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);

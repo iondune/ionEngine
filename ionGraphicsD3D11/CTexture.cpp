@@ -8,7 +8,7 @@ namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 
 			////////////
@@ -17,95 +17,61 @@ namespace ion
 
 			void CTexture::ApplyParams()
 			{
-				static uint const FilterMatrix[3][2] =
+				//static uint const FilterMatrix[2][2][2] =
+				//{
+				//	{ D3D11_FILTER_MIN_MAG_MIP_POINT, GL_LINEAR },
+				//	{ GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST },
+				//	{ GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR },
+				//};
+
+				static D3D11_FILTER const FilterLookup[2] =
 				{
-					{GL_NEAREST, GL_LINEAR},
-					{GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_NEAREST},
-					{GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_LINEAR},
+					D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_FILTER_MIN_MAG_MIP_LINEAR
 				};
 
-				static uint const FilterLookup[2] =
+				static D3D11_TEXTURE_ADDRESS_MODE const WrapLookup[4] =
 				{
-					GL_NEAREST, GL_LINEAR
+					D3D11_TEXTURE_ADDRESS_CLAMP, D3D11_TEXTURE_ADDRESS_MIRROR, D3D11_TEXTURE_ADDRESS_WRAP, D3D11_TEXTURE_ADDRESS_BORDER
 				};
 
-				static uint const WrapLookup[4] =
-				{
-					GL_CLAMP_TO_EDGE, GL_MIRRORED_REPEAT, GL_REPEAT, GL_CLAMP_TO_BORDER
-				};
 
-				int MipMapMode;
-				if (MipMaps)
-				{
-					MipMapMode = 1 + (int) MipMapFilter;
-				}
-				else
-				{
-					MipMapMode = 0;
-				}
+				D3D11_SAMPLER_DESC SamplerDesc;
+				SamplerDesc.Filter = Anisotropy > 0 ? D3D11_FILTER_ANISOTROPIC : FilterLookup[(int) MagFilter];
+				SamplerDesc.MaxAnisotropy = Anisotropy;
+				SamplerDesc.AddressU = SamplerDesc.AddressV = SamplerDesc.AddressW = WrapLookup[(int) WrapMode];
+				SamplerDesc.MipLODBias = 0.f;
+				SamplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+				SamplerDesc.BorderColor[0] = BorderColor.Red;
+				SamplerDesc.BorderColor[1] = BorderColor.Green;
+				SamplerDesc.BorderColor[2] = BorderColor.Blue;
+				SamplerDesc.BorderColor[3] = BorderColor.Alpha;
+				SamplerDesc.MinLOD = 0;
+				SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MIN_FILTER, FilterMatrix[MipMapMode][(int) MinFilter]));
-				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MAG_FILTER, FilterLookup[(int) MagFilter]));
+				CheckedDXCall( Device->CreateSamplerState(& SamplerDesc, & SamplerState) );
+			}
 
-				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_S, WrapLookup[(int) WrapMode]));
-				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_T, WrapLookup[(int) WrapMode]));
-				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
-				float BorderColorValues[4] = 
-				{
-					BorderColor.Red,
-					BorderColor.Green,
-					BorderColor.Blue,
-					BorderColor.Alpha,
-				};
-				//(glTexParameterfv(GetGLBindTextureTarget(), GL_TEXTURE_BORDER_COLOR, BorderColorValues));
-
-				float LargestAnisotropy = 2.f;
-				//(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
-				if (Anisotropy < 0.f)
-					Anisotropy = LargestAnisotropy;
-				//(glTexParameterf(GetGLBindTextureTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Anisotropy, 0.f, LargestAnisotropy)));
+			CTexture::CTexture(ID3D11Device * Device)
+			{
+				this->Device = Device;
 			}
 
 			void CTexture::SetMinFilter(EFilter const MinFilter)
 			{
-				if (IsInteger && MinFilter != EFilter::Nearest)
-				{
-					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
-					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
-				}
-				else
-				{
-					this->MinFilter = MinFilter;
-					ApplyParams();
-				}
+				this->MinFilter = MinFilter;
+				ApplyParams();
 			}
 
 			void CTexture::SetMagFilter(EFilter const MagFilter)
 			{
-				if (IsInteger && MagFilter != EFilter::Nearest)
-				{
-					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
-					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
-				}
-				else
-				{
-					this->MagFilter = MagFilter;
-					ApplyParams();
-				}
+				this->MagFilter = MagFilter;
+				ApplyParams();
 			}
 
 			void CTexture::SetMipMapFilter(EFilter const MipMapFilter)
 			{
-				if (IsInteger && MipMapFilter != EFilter::Nearest)
-				{
-					// See https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_texture_integer.txt
-					Log::Error("Cannot use filter mode other than Nearest on an Integer texture");
-				}
-				else
-				{
-					this->MipMapFilter = MipMapFilter;
-					ApplyParams();
-				}
+				this->MipMapFilter = MipMapFilter;
+				ApplyParams();
 			}
 
 			void CTexture::SetWrapMode(EWrapMode const WrapMode)
@@ -122,7 +88,7 @@ namespace ion
 
 			void CTexture::SetAnisotropy(float const Anisotropy)
 			{
-				this->Anisotropy = Anisotropy;
+				this->Anisotropy = (int) Anisotropy;
 				ApplyParams();
 			}
 
@@ -148,7 +114,7 @@ namespace ion
 
 			float CTexture::GetAnisotropy()
 			{
-				return Anisotropy;
+				return (float) Anisotropy;
 			}
 
 			void CTexture::GenerateMipMaps()
@@ -164,7 +130,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			uint const CTexture::InternalFormatMatrix[4][11] =
+			DXGI_FORMAT const CTexture::InternalFormatMatrix[4][11] =
 			{
 
 				// Components
@@ -188,35 +154,58 @@ namespace ion
 				// UnsignedInt24 = 9,
 				// Depth = 10,
 
-				{ GL_R8,    GL_R16,    GL_R16F,    GL_R32F,    GL_R8I,    GL_R16I,    GL_R32I,    GL_R8UI,    GL_R16UI,    GL_R32UI,    GL_DEPTH_COMPONENT32 },
-				{ GL_RG8,   GL_RG16,   GL_RG16F,   GL_RG32F,   GL_RG8I,   GL_RG16I,   GL_RG32I,   GL_RG8UI,   GL_RG16UI,   GL_RG32UI,   GL_DEPTH_COMPONENT32 },
-				{ GL_RGB8,  GL_RGB16,  GL_RGB16F,  GL_RGB32F,  GL_RGB8I,  GL_RGB16I,  GL_RGB32I,  GL_RGB8UI,  GL_RGB16UI,  GL_RGB32UI,  GL_DEPTH_COMPONENT32 },
-				{ GL_RGBA8, GL_RGBA16, GL_RGBA16F, GL_RGBA32F, GL_RGBA8I, GL_RGBA16I, GL_RGBA32I, GL_RGBA8UI, GL_RGBA16UI, GL_RGBA32UI, GL_DEPTH_COMPONENT32 },
-			};
-
-			uint const CTexture::FormatMatrix[4][2] =
-			{
-				GL_RED,  GL_RED_INTEGER,
-				GL_RG,   GL_RG_INTEGER,
-				GL_RGB,  GL_RGB_INTEGER,
-				GL_RGBA, GL_RGBA_INTEGER,
-			};
-
-
-			string const CTexture::InternalFormatStringMatrix[4][10] =
-			{
-				{ "GL_R8", "GL_R16F", "GL_R32F", "GL_R8I", "GL_R16I", "GL_R32I", "GL_R8UI", "GL_R16UI", "GL_R32UI", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RG8", "GL_RG16F", "GL_RG32F", "GL_RG8I", "GL_RG16I", "GL_RG32I", "GL_RG8UI", "GL_RG16UI", "GL_RG32UI", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RGB8", "GL_RGB16F", "GL_RGB32F", "GL_RGB8I", "GL_RGB16I", "GL_RGB32I", "GL_RGB8UI", "GL_RGB16UI", "GL_RGB32UI", "GL_DEPTH_COMPONENT32" },
-				{ "GL_RGBA8", "GL_RGBA16F", "GL_RGBA32F", "GL_RGBA8I", "GL_RGBA16I", "GL_RGBA32I", "GL_RGBA8UI", "GL_RGBA16UI", "GL_RGBA32UI", "GL_DEPTH_COMPONENT32" },
-			};
-
-			string const CTexture::FormatStringMatrix[4] =
-			{
-				"GL_RED",
-				"GL_RG",
-				"GL_RGB",
-				"GL_RGBA"
+				{
+					DXGI_FORMAT_R8_UNORM,
+					DXGI_FORMAT_R16_UNORM,
+					DXGI_FORMAT_R16_FLOAT,
+					DXGI_FORMAT_R32_FLOAT,
+					DXGI_FORMAT_R8_SINT,
+					DXGI_FORMAT_R16_SINT,
+					DXGI_FORMAT_R32_SINT,
+					DXGI_FORMAT_R8_UINT,
+					DXGI_FORMAT_R16_UINT,
+					DXGI_FORMAT_R32_UINT,
+					DXGI_FORMAT_D32_FLOAT
+				},
+				{
+					DXGI_FORMAT_R8G8_UNORM,
+					DXGI_FORMAT_R16G16_UNORM,
+					DXGI_FORMAT_R16G16_FLOAT,
+					DXGI_FORMAT_R32G32_FLOAT,
+					DXGI_FORMAT_R8G8_SINT,
+					DXGI_FORMAT_R16G16_SINT,
+					DXGI_FORMAT_R32G32_SINT,
+					DXGI_FORMAT_R8G8_UINT,
+					DXGI_FORMAT_R16G16_UINT,
+					DXGI_FORMAT_R32G32_UINT,
+					DXGI_FORMAT_D32_FLOAT
+				},
+				{
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_R32G32B32_FLOAT,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_R32G32B32_SINT,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_UNKNOWN,
+					DXGI_FORMAT_R32G32B32_UINT,
+					DXGI_FORMAT_D32_FLOAT
+				},
+				{
+					DXGI_FORMAT_R8G8B8A8_UNORM,
+					DXGI_FORMAT_R16G16B16A16_UNORM,
+					DXGI_FORMAT_R16G16B16A16_FLOAT,
+					DXGI_FORMAT_R32G32B32A32_FLOAT,
+					DXGI_FORMAT_R8G8B8A8_SINT,
+					DXGI_FORMAT_R16G16B16A16_SINT,
+					DXGI_FORMAT_R32G32B32A32_SINT,
+					DXGI_FORMAT_R8G8B8A8_UINT,
+					DXGI_FORMAT_R16G16B16A16_UINT,
+					DXGI_FORMAT_R32G32B32A32_UINT,
+					DXGI_FORMAT_D32_FLOAT
+				}
 			};
 
 
@@ -224,12 +213,45 @@ namespace ion
 			// Texture2D //
 			///////////////
 
+			CTexture2D::CTexture2D(
+				ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext,
+				vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+				: CTexture(Device)
+			{
+				this->ImmediateContext = ImmediateContext;
+				this->TextureSize = Size;
+
+				D3D11_TEXTURE2D_DESC TexDesc;
+				TexDesc.Width = Size.X;
+				TexDesc.Height = Size.Y;
+				TexDesc.MipLevels = (MipMaps == ITexture::EMipMaps::True ? 0 : 1);
+				TexDesc.ArraySize = 1;
+				TexDesc.Format = InternalFormatMatrix[(int) Components][(int) Type];
+				TexDesc.SampleDesc.Count = 1;
+				TexDesc.SampleDesc.Quality = 0;
+				TexDesc.Usage = D3D11_USAGE_DEFAULT;
+				TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+				TexDesc.CPUAccessFlags = 0;
+				TexDesc.MiscFlags = 0;
+
+				Device->CreateTexture2D(& TexDesc, NULL, & Texture2D);
+
+				D3D11_SHADER_RESOURCE_VIEW_DESC ResourceDesc;
+				ResourceDesc.Format = TexDesc.Format;
+				ResourceDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+				ResourceDesc.Texture2D.MostDetailedMip = 0;
+				ResourceDesc.Texture2D.MipLevels = -1;
+
+				Device->CreateShaderResourceView(Texture2D, & ResourceDesc, & ShaderResourceView);
+
+				ApplyParams();
+			}
+
 			void CTexture2D::Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
 				if (Size != TextureSize)
 				{
-					Log::Error("GL::Texture2D upload size does not match storage size.");
-					Log::Error("Handle is %u", Handle);
+					Log::Error("D3D11::Texture2D upload size does not match storage size.");
 				}
 
 				UploadSubRegion(Data, vec2i(0, 0), Size, Components, Type);
@@ -237,6 +259,19 @@ namespace ion
 
 			void CTexture2D::UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
+				UINT const DataSize = ((int) Components + 1);
+				UINT const RowPitch = DataSize * Size.X;
+				UINT const DepthPitch = DataSize * Size.X * Size.Y;
+
+				D3D11_BOX Box;
+				Box.left = 0;
+				Box.right = Size.X;
+				Box.top = 0;
+				Box.bottom = Size.Y;
+				Box.front = 0;
+				Box.back = 1;
+
+				ImmediateContext->UpdateSubresource(Texture2D, 0, & Box, Data, RowPitch, DepthPitch);
 			}
 
 			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
@@ -263,7 +298,6 @@ namespace ion
 				if (Size != TextureSize)
 				{
 					Log::Error("GL::Texture3D upload size does not match storage size.");
-					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Data, vec3i(0, 0, 0), Size, Components, Type);
@@ -293,7 +327,6 @@ namespace ion
 				if (Size != TextureSize)
 				{
 					Log::Error("GL::Texture3D upload size does not match storage size.");
-					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Data, vec3i(0, 0, 0), Size, Components, Type);
@@ -323,7 +356,6 @@ namespace ion
 				if (Size != TextureSize)
 				{
 					Log::Error("GL::Texture3D upload size does not match storage size.");
-					Log::Error("Handle is %u", Handle);
 				}
 
 				UploadSubRegion(Face, Data, vec2i(0, 0), Size, Components, Type);

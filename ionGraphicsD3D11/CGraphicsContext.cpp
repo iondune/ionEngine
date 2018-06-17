@@ -7,9 +7,6 @@
 #include "CTexture.h"
 #include "CDrawContext.h"
 
-#include <glad/glad.h>
-#include <glm/gtc/type_ptr.hpp>
-
 
 namespace ion
 {

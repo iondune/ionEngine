@@ -76,7 +76,7 @@ namespace ion
 				byte * buffer = new byte[Width * Height * BytesPerPixel]();
 
 
-				CImage * Image = new CImage(buffer, Window->GetSize(), BytesPerPixel);
+				CImage * Image = new CImage(buffer, Window->GetSize());
 				Image->FlipY();
 				return Image;
 			}

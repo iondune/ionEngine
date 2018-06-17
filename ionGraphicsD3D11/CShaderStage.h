@@ -15,17 +15,18 @@ namespace ion
 		namespace D3D11
 		{
 
+			enum EShaderType
+			{
+				Pixel,
+				Vertex,
+				Geometry
+			};
+
 			class CShaderStage
 			{
 
 			public:
 
-				enum EShaderType
-				{
-					Pixel,
-					Vertex,
-					Geometry
-				};
 
 				ID3DBlob * CompileShaderBlob(string const & Source, EShaderType const & ShaderType);
 				

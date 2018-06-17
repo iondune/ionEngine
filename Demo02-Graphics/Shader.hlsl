@@ -27,8 +27,10 @@ PS_INPUT vertex(VS_INPUT input)
 cbuffer ConstantBuffer : register(b0)
 {
 	float uCurrentTime;
-	// sampler2D uTexture;
 }
+
+Texture2D uTexture : register(t0);
+SamplerState uTextureSampler : register(s0);
 
 float4 pixel(PS_INPUT Input) : SV_Target
 {
@@ -39,8 +41,8 @@ float4 pixel(PS_INPUT Input) : SV_Target
 
 	float4 outColor = float4(Input.fColor * Alpha, 1.0);
 
-	// if (Visibility < 0.0)
-	// 	outColor.rgb *= texture(uTexture, Input.fTexCoords).rgb;
+	 if (Visibility < 0.0)
+	 	outColor.rgb *= uTexture.Sample(uTextureSampler, Input.fTexCoords).rgb;
 
 	return outColor;
 }

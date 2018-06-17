@@ -7,12 +7,14 @@
 
 #include "Utilities.h"
 
+#include <D3D11.h>
+
 
 namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 
 			class CTexture : public virtual ITexture
@@ -20,12 +22,9 @@ namespace ion
 
 			public:
 				
-				static uint const InternalFormatMatrix[4][11];
-				static uint const FormatMatrix[4][2];
+				static DXGI_FORMAT const InternalFormatMatrix[4][11];
 
-				static string const InternalFormatStringMatrix[4][10];
-				static string const FormatStringMatrix[4];
-
+				CTexture(ID3D11Device * Device);
 
 				void SetMinFilter(EFilter const MinFilter);
 				void SetMagFilter(EFilter const MagFilter);
@@ -46,7 +45,9 @@ namespace ion
 				virtual uint GetGLBindTextureTarget() const = 0;
 				virtual uint GetGLTextureBindingEnum() const = 0;
 
-				uint Handle = 0;
+				ID3D11Device * Device = nullptr;
+				ID3D11SamplerState * SamplerState = nullptr;
+				ID3D11ShaderResourceView * ShaderResourceView = nullptr;
 
 				EFilter MinFilter = EFilter::Linear;
 				EFilter MagFilter = EFilter::Linear;
@@ -55,8 +56,7 @@ namespace ion
 				color4f BorderColor;
 
 				//! Anisotrophic filtering value
-				//! A value < 0 indicates that the max anisotrophy value should be used
-				float Anisotropy = -1;
+				int Anisotropy = 16;
 
 				bool MipMaps = true;
 				bool IsInteger = false;
@@ -67,6 +67,10 @@ namespace ion
 			{
 
 			public:
+
+				CTexture2D(
+					ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext,
+					vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
 				void Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
 				void UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
@@ -88,6 +92,10 @@ namespace ion
 				uint GetGLTextureBindingEnum() const;
 
 				vec2i TextureSize;
+
+				ID3D11DeviceContext * ImmediateContext = nullptr;
+
+				ID3D11Texture2D * Texture2D = nullptr;
 
 #pragma warning(suppress: 4250)
 			};
