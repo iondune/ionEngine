@@ -43,7 +43,7 @@ namespace ion
 		{
 			DXGI_SWAP_CHAIN_DESC SwapChainDesc = {};
 			SwapChainDesc.BufferDesc.Width = Window->GetSize().X;
-			SwapChainDesc.BufferDesc.Height = Window->GetSize().X;
+			SwapChainDesc.BufferDesc.Height = Window->GetSize().Y;
 			SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 			SwapChainDesc.SampleDesc.Count = 1;
 			SwapChainDesc.SampleDesc.Quality = 0;
