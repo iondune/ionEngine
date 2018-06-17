@@ -32,6 +32,9 @@ namespace ion
 	int MakeEven(int const i);
 
 	//! \ingroup ionCore
+	int RoundUp(int const x, int const multiple);
+
+	//! \ingroup ionCore
 	bool ToggleBool(bool & Condition);
 
 	//! \ingroup ionCore

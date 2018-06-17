@@ -37,6 +37,21 @@ namespace ion
 		return (i % 2) ? (i - 1) : (i);
 	}
 
+	int RoundUp(int const x, int const multiple)
+	{
+		// from:
+		// https://stackoverflow.com/a/3407254/1390945
+
+		if (multiple == 0)
+			return x;
+
+		int const remainder = x % multiple;
+		if (remainder == 0)
+			return x;
+
+		return x + multiple - remainder;
+	}
+
 	bool ToggleBool(bool & Condition)
 	{
 		return Condition = ! Condition;
