@@ -56,7 +56,7 @@ namespace ion
 
 				Bind();
 				CheckedGLCall(glReadPixels(0, 0, Width, Height, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
-				CImage * Image = new CImage(buffer, Window->GetSize(), BytesPerPixel);
+				CImage * Image = new CImage(buffer, Window->GetSize());
 				Image->FlipY();
 				return Image;
 			}

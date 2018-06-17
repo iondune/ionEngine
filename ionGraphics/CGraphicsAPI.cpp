@@ -256,19 +256,8 @@ namespace ion
 			return nullptr;
 		}
 
-		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
-		switch (Image->GetChannels())
-		{
-		case 2:
-			Format = Graphics::ITexture::EFormatComponents::RG;
-			break;
-		case 3:
-			Format = Graphics::ITexture::EFormatComponents::RGB;
-			break;
-		case 4:
-			Format = Graphics::ITexture::EFormatComponents::RGBA;
-			break;
-		}
+		Graphics::ITexture::EFormatComponents const Format = Graphics::ITexture::EFormatComponents::RGBA;
+
 		SharedPointer<Graphics::ITexture2D> Texture = CreateTexture2D(
 			Image->GetSize(),
 			MipMaps,
@@ -338,19 +327,7 @@ namespace ion
 			return nullptr;
 		}
 
-		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
-		switch (Images[0]->GetChannels())
-		{
-		case 2:
-			Format = Graphics::ITexture::EFormatComponents::RG;
-			break;
-		case 3:
-			Format = Graphics::ITexture::EFormatComponents::RGB;
-			break;
-		case 4:
-			Format = Graphics::ITexture::EFormatComponents::RGBA;
-			break;
-		}
+		Graphics::ITexture::EFormatComponents const Format = Graphics::ITexture::EFormatComponents::RGBA;
 
 		SharedPointer<Graphics::ITextureCubeMap> Texture = CreateTextureCubeMap(
 			Images[0]->GetSize(),
@@ -360,12 +337,6 @@ namespace ion
 
 		for (int i = 0; i < 6; ++ i)
 		{
-			if (Images[0]->GetChannels() != Images[i]->GetChannels())
-			{
-				Log::Error("Attempting to create cube map texture from images with mismatched channel count.");
-				return nullptr;
-			}
-
 			if (Images[0]->GetSize() != Images[i]->GetSize())
 			{
 				Log::Error("Attempting to create cube map texture from images with mismatched size.");

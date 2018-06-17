@@ -245,20 +245,8 @@ namespace ion
 				}
 			}
 		}
-		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+		Graphics::ITexture::EFormatComponents const Format = Graphics::ITexture::EFormatComponents::RGBA;
 
-		switch (ImgArr[0]->GetChannels())
-		{
-		case 2:
-			Format = Graphics::ITexture::EFormatComponents::RG;
-			break;
-		case 3:
-			Format = Graphics::ITexture::EFormatComponents::RGB;
-			break;
-		case 4:
-			Format = Graphics::ITexture::EFormatComponents::RGBA;
-			break;
-		}
 		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 
@@ -318,20 +306,8 @@ namespace ion
 				}
 			}
 		}
-		Graphics::ITexture::EFormatComponents Format = Graphics::ITexture::EFormatComponents::R;
+		Graphics::ITexture::EFormatComponents const Format = Graphics::ITexture::EFormatComponents::RGBA;
 
-		switch (ImgArr[0]->GetChannels())
-		{
-		case 2:
-			Format = Graphics::ITexture::EFormatComponents::RG;
-			break;
-		case 3:
-			Format = Graphics::ITexture::EFormatComponents::RGB;
-			break;
-		case 4:
-			Format = Graphics::ITexture::EFormatComponents::RGBA;
-			break;
-		}
 		vec3i size3D(setSize[0], setSize[1], (uint) ImgArr.size());
 		//Load and combine data
 

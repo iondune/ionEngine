@@ -12,7 +12,7 @@ namespace ion
 	CImage * CImage::Load(std::string const & FileName)
 	{
 		int x, y, n;
-		byte * data = stbi_load(FileName.c_str(), & x, & y, & n, 0);
+		byte * data = stbi_load(FileName.c_str(), & x, & y, & n, 4);
 
 		if (! data)
 		{
@@ -20,25 +20,23 @@ namespace ion
 			return 0;
 		}
 
-		CImage * Image = new CImage(data, vec2i(x, y), n);
+		CImage * Image = new CImage(data, vec2i(x, y));
 		Image->FlipY();
 
 		return Image;
 	}
 
-	CImage::CImage(byte * const Data, vec2i const Size, int const Channels)
+	CImage::CImage(byte * const Data, vec2i const Size)
 	{
 		this->Data = Data;
 		this->Size = Size;
-		this->Channels = Channels;
 	}
 
-	CImage::CImage(color4f const & Color, bool const Alpha)
+	CImage::CImage(color4f const & Color)
 	{
 		this->Size = vec2i(2);
-		this->Channels = (Alpha ? 4 : 3);
 
-		int Stride = GetStride();
+		int const Stride = 4;
 		Data = new ion::byte[Size.X * Size.Y * Stride];
 
 		for (int i = 0; i < Size.X * Size.Y; ++ i)
@@ -66,19 +64,9 @@ namespace ion
 		return Size;
 	}
 
-	int CImage::GetStride() const
-	{
-		return Channels;
-	}
-
-	int CImage::GetChannels() const
-	{
-		return Channels;
-	}
-
 	color4i CImage::GetPixel(int const i, int const j) const
 	{
-		int const Stride = GetStride();
+		int const Stride = 4;
 
 		int const x = Clamp(i, 0, Size.X - 1);
 		int const y = Clamp(j, 0, Size.Y - 1);
@@ -92,7 +80,7 @@ namespace ion
 
 	void CImage::SetPixel(int const x, int const y, color4i const color)
 	{
-		int const Stride = GetStride();
+		int const Stride = 4;
 
 		for (int i = 0; i < Stride; ++ i)
 			Data[x * Stride + y * Size.X * Stride + i] = color[i];
@@ -108,20 +96,15 @@ namespace ion
 		return Data;
 	}
 
-	bool CImage::HasAlpha() const
-	{
-		return Channels == 4;
-	}
-
 	void CImage::Write(std::string const & FileName)
 	{
-		uint Stride = GetStride();
+		int const Stride = 4;
 		stbi_write_png(FileName.c_str(), Size.X, Size.Y, Stride, Data, Size.X * Stride);
 	}
 
 	void CImage::FlipY()
 	{
-		int const Stride = GetStride();
+		int const Stride = 4;
 
 		for (int x = 0; x < Size.X; ++ x)
 		{
@@ -137,7 +120,7 @@ namespace ion
 
 	void CImage::Crop(vec2i const & Position, vec2i const & NewSize)
 	{
-		uint const Stride = GetStride();
+		int const Stride = 4;
 
 		byte * NewData = new ion::byte[NewSize.X * NewSize.Y * Stride];
 
