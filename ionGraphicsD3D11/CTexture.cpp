@@ -230,9 +230,9 @@ namespace ion
 				TexDesc.SampleDesc.Count = 1;
 				TexDesc.SampleDesc.Quality = 0;
 				TexDesc.Usage = D3D11_USAGE_DEFAULT;
-				TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+				TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 				TexDesc.CPUAccessFlags = 0;
-				TexDesc.MiscFlags = 0;
+				TexDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
 				Device->CreateTexture2D(& TexDesc, NULL, & Texture2D);
 
@@ -272,6 +272,7 @@ namespace ion
 				Box.back = 1;
 
 				ImmediateContext->UpdateSubresource(Texture2D, 0, & Box, Data, RowPitch, DepthPitch);
+				ImmediateContext->GenerateMips(ShaderResourceView);
 			}
 
 			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
