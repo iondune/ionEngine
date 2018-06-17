@@ -86,6 +86,14 @@ namespace ion
 				if (CurrentlyBound != this)
 				{
 					ImmediateContext->OMSetRenderTargets(1, & RenderTargetView, DepthStencilView);
+
+					D3D11_VIEWPORT Viewport = {};
+					Viewport.Width = (FLOAT) Window->GetSize().X;
+					Viewport.Height = (FLOAT) Window->GetSize().Y;
+					Viewport.MinDepth = 0.0f;
+					Viewport.MaxDepth = 1.0f;
+					ImmediateContext->RSSetViewports(1, &Viewport);
+
 					CurrentlyBound = this;
 				}
 			}
