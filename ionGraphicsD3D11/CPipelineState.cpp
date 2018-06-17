@@ -66,7 +66,7 @@ namespace ion
 
 							D3D11_BUFFER_DESC CBDesc = {};
 							CBDesc.Usage = D3D11_USAGE_DEFAULT;
-							CBDesc.ByteWidth = sizeof(BufferDesc.Size);
+							CBDesc.ByteWidth = BufferDesc.Size;
 							CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 							assert(S_OK == Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer));
 							Binding.Size = BufferDesc.Size;
