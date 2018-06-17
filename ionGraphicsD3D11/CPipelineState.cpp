@@ -294,7 +294,14 @@ namespace ion
 					int Offset = 0;
 					for (auto & Variable : ConstantBuffer.Variables)
 					{
-						std::memcpy(ConstantBufferData + Offset, Variable.second.Uniform->GetData(), Variable.second.Uniform->GetSize());
+						if (Variable.second.Uniform)
+						{
+							std::memcpy(ConstantBufferData + Offset, Variable.second.Uniform->GetData(), Variable.second.Uniform->GetSize());
+						}
+						else
+						{
+							Log::Error("Uniform expected but not provided: '%s'", Variable.first);
+						}
 					}
 
 					ImmediateContext->UpdateSubresource(ConstantBuffer.ConstantBuffer, 0, nullptr, ConstantBufferData, 0, 0);
