@@ -265,7 +265,20 @@ namespace ion
 
 			set<string> CPipelineState::GetUnboundUniforms() const
 			{
-				return set<string>();
+				set<string> UnboundUniforms;
+
+				for (auto & ConstantBuffer : ConstantBuffers)
+				{
+					for (auto & Variable : ConstantBuffer.Variables)
+					{
+						if (! Variable.second.Uniform)
+						{
+							UnboundUniforms.insert(Variable.first);
+						}
+					}
+				}
+
+				return UnboundUniforms;
 			}
 
 			void CPipelineState::Draw()
