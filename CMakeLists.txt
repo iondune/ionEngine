@@ -77,7 +77,7 @@ add_subdirectory("TestUnits")
 
 # Demos
 add_subdirectory("Demo01-WindowManager")
-add_subdirectory("Demo02-GL")
+add_subdirectory("Demo02-Graphics")
 add_subdirectory("Demo03-GUI")
 add_subdirectory("Demo04-Scene")
 add_subdirectory("Demo05-Application")
