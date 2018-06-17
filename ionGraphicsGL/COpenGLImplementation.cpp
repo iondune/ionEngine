@@ -197,6 +197,11 @@ namespace ion
 			SafeGLCall(glEnable, (GL_TEXTURE_CUBE_MAP_SEAMLESS));
 		}
 
+		bool COpenGLImplementation::OnWindowSwap(CWindow * Window)
+		{
+			return true;
+		}
+
 		SharedPointer<IVertexStage> COpenGLImplementation::CreateVertexShaderFromSource(string const & Source)
 		{
 			SharedPointer<GL::CVertexStage> VertexShader = std::make_shared<GL::CVertexStage>();
