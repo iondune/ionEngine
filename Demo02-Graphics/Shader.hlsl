@@ -1,9 +1,9 @@
 
 struct VS_INPUT
 {
-	float2 vPosition : POSITION;
-	float2 vTexCoords : TEXCOORD;
-	float3 vColor : COLOR;
+	float2 vPosition : vPosition;
+	float2 vTexCoords : vTexCoord;
+	float3 vColor : vColor;
 };
 
 struct PS_INPUT

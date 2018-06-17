@@ -36,7 +36,7 @@ int main()
 
 	vector<float> const Vertices
 	{
-		// Position    // Tex  // Color
+		// Position     // Tex  // Color
 		 0.5f,  0.5f,   1, 1,   1, 0, 0,
 		 0.5f, -0.5f,   1, 0,   0, 1, 0,
 		-0.5f, -0.5f,   0, 0,   0, 0, 1,
@@ -56,9 +56,9 @@ int main()
 	VertexBuffer->UploadData(Vertices);
 	SInputLayoutElement InputLayout[] =
 	{
-		{ "POSITION",  2, EAttributeType::Float },
-		{ "TEXCOORD",  2, EAttributeType::Float },
-		{ "COLOR",     3, EAttributeType::Float },
+		{ "vPosition", 2, EAttributeType::Float },
+		{ "vTexCoord", 2, EAttributeType::Float },
+		{ "vColor",    3, EAttributeType::Float },
 	};
 	VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
