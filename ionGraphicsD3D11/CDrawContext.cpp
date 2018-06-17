@@ -10,7 +10,7 @@ namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 
 			void CDrawConfig::SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer)
@@ -85,29 +85,29 @@ namespace ion
 			{
 				if (inShader)
 				{
-					Shader = std::dynamic_pointer_cast<CShader>(inShader);
-					if (! Shader->Linked)
-					{
-						Shader->Link();
+					//Shader = std::dynamic_pointer_cast<CShader>(inShader);
+					//if (! Shader->Linked)
+					//{
+					//	Shader->Link();
 
-						if (! Shader->Linked)
-						{
-							Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
-							Shader = nullptr;
-							return;
-						}
-					}
+					//	if (! Shader->Linked)
+					//	{
+					//		Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
+					//		Shader = nullptr;
+					//		return;
+					//	}
+					//}
 
-					RequiredUniforms = KeySet(Shader->Uniforms);
-					UnboundAttributes = KeySet(Shader->Attributes);
-					UnboundAttributes.erase("gl_VertexID");
+					//RequiredUniforms = KeySet(Shader->Uniforms);
+					//UnboundAttributes = KeySet(Shader->Attributes);
+					//UnboundAttributes.erase("gl_VertexID");
 
-					for (CDrawConfig * Config : Configs)
-					{
-						Config->RequiredUniforms = RequiredUniforms;
-						Config->UnboundAttributes = UnboundAttributes;
-						Config->NeedsToBeLoaded = true;
-					}
+					//for (CDrawConfig * Config : Configs)
+					//{
+					//	Config->RequiredUniforms = RequiredUniforms;
+					//	Config->UnboundAttributes = UnboundAttributes;
+					//	Config->NeedsToBeLoaded = true;
+					//}
 				}
 			}
 
@@ -250,7 +250,7 @@ namespace ion
 
 					if (DrawConfig->LoadedSuccessfully)
 					{
-						CheckedGLCall(glBindVertexArray(DrawConfig->VertexArrayHandle));
+						//CheckedGLCall(glBindVertexArray(DrawConfig->VertexArrayHandle));
 
 						// Uniforms
 						for (auto const & it : DrawConfig->UniformBindings)
@@ -267,32 +267,32 @@ namespace ion
 						{
 							if (it->Handle >= 0)
 							{
-								CheckedGLCall(glUniform1i(it->Handle, TextureIndex));
-								CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+								//CheckedGLCall(glUniform1i(it->Handle, TextureIndex));
+								//CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
 
-								SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
-								CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
+								//SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
+								//CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
 							}
 						}
 
 						if (UseInstancing)
 						{
-							CheckedGLCall(glDrawElementsInstanced(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0, DrawConfig->InstanceCount));
+							//CheckedGLCall(glDrawElementsInstanced(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0, DrawConfig->InstanceCount));
 						}
 						else
 						{
-							CheckedGLCall(glDrawElements(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0));
+							//CheckedGLCall(glDrawElements(PrimitiveType, (int) DrawConfig->UsedIndexBuffer->Size, GL_UNSIGNED_INT, 0));
 						}
 
 						TextureIndex = StartTextures;
 						for (auto const & it : DrawConfig->TextureBindings)
 						{
-							CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-							SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
-							CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
+							//CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+							//SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it->Texture);
+							//CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
 						}
 
-						CheckedGLCall(glBindVertexArray(0));
+						//CheckedGLCall(glBindVertexArray(0));
 					}
 				}
 			}
@@ -303,7 +303,7 @@ namespace ion
 				Config->Container = this;
 				Config->RequiredUniforms = RequiredUniforms;
 				Config->UnboundAttributes = UnboundAttributes;
-				SafeGLCall(glGenVertexArrays, (1, & Config->VertexArrayHandle));
+				//SafeGLCall(glGenVertexArrays, (1, & Config->VertexArrayHandle));
 
 				Configs.push_back(Config);
 				return Config;
@@ -335,18 +335,18 @@ namespace ion
 						Log::Error("Neither draw config nor draw context provided an IBO.");
 						return;
 					}
-					SafeGLCall(glBindVertexArray, (Config->VertexArrayHandle));
+					//SafeGLCall(glBindVertexArray, (Config->VertexArrayHandle));
 
-					if (IndexBuffer)
-					{
-						SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
-						Config->UsedIndexBuffer = IndexBuffer;
-					}
-					else
-					{
-						SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, Config->IndexBuffer->Handle));
-						Config->UsedIndexBuffer = Config->IndexBuffer;
-					}
+					//if (IndexBuffer)
+					//{
+					//	SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
+					//	Config->UsedIndexBuffer = IndexBuffer;
+					//}
+					//else
+					//{
+					//	SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, Config->IndexBuffer->Handle));
+					//	Config->UsedIndexBuffer = Config->IndexBuffer;
+					//}
 
 
 					//////////////////////////////
@@ -382,7 +382,7 @@ namespace ion
 						Log::Error("Attribute expected by shader but not provided by VBO: %s", Attribuite);
 					});
 
-					SafeGLCall(glBindVertexArray, (0));
+					//SafeGLCall(glBindVertexArray, (0));
 
 
 					/////////////////////
@@ -402,7 +402,7 @@ namespace ion
 					for (string const & RequiredUniform : Config->RequiredUniforms)
 					{
 						uint Handle = 0;
-						assert(TryMapAccess(Shader->Uniforms, RequiredUniform, Handle));
+						//assert(TryMapAccess(Shader->Uniforms, RequiredUniform, Handle));
 
 						SharedPointer<IUniform const> Uniform;
 						SharedPointer<ITexture const> Texture;
@@ -437,329 +437,329 @@ namespace ion
 
 			void CDrawContext::LoadVertexBuffer(CDrawConfig * Config, SharedPointer<CVertexBuffer> VertexBuffer)
 			{
-				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
+				//CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
 
 				//////////////////////////////
 				// Set up VBOs (attributes) //
 				//////////////////////////////
 
 				// Calculate stride of VBO data
-				size_t TotalStride = 0;
-				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
-				{
-					TotalStride += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
-				}
+				//size_t TotalStride = 0;
+				//for (auto & InputLayoutElement : VertexBuffer->InputLayout)
+				//{
+				//	TotalStride += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+				//}
 
-				size_t CurrentOffset = 0;
-				for (auto & InputLayoutElement : VertexBuffer->InputLayout)
-				{
-					pair<uint, uint> AttributeInfo;
-					if (TryMapAccess(Shader->Attributes, InputLayoutElement.Name, AttributeInfo))
-					{
-						uint const AttributeLocation = AttributeInfo.first;
-						uint const AttributeType = AttributeInfo.second;
+				//size_t CurrentOffset = 0;
+				//for (auto & InputLayoutElement : VertexBuffer->InputLayout)
+				//{
+				//	pair<uint, uint> AttributeInfo;
+				//	if (TryMapAccess(Shader->Attributes, InputLayoutElement.Name, AttributeInfo))
+				//	{
+				//		uint const AttributeLocation = AttributeInfo.first;
+				//		uint const AttributeType = AttributeInfo.second;
 
-						// Validate Attribute Type (does the VBO layout match what the shader wants?)
-						{
-							bool IsAttributeTypeCorrect = false;
-							string ShaderAttributeTypeString = "Unknown";
-							switch (AttributeType)
-							{
-							default:
-								Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
-								break;
-							case GL_FLOAT:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 1);
-								ShaderAttributeTypeString = "GL_FLOAT";
-								break;
-							case GL_FLOAT_VEC2:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC2";
-								break;
-							case GL_FLOAT_VEC3:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC3";
-								break;
-							case GL_FLOAT_VEC4:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
-								ShaderAttributeTypeString = "GL_FLOAT_VEC4";
-								break;
-							case GL_INT:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 1);
-								ShaderAttributeTypeString = "GL_INT";
-								break;
-							case GL_INT_VEC2:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 2);
-								ShaderAttributeTypeString = "GL_INT_VEC2";
-								break;
-							case GL_INT_VEC3:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 3);
-								ShaderAttributeTypeString = "GL_INT_VEC3";
-								break;
-							case GL_INT_VEC4:
-								IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 4);
-								ShaderAttributeTypeString = "GL_INT_VEC4";
-								break;
-							}
+				//		// Validate Attribute Type (does the VBO layout match what the shader wants?)
+				//		{
+				//			bool IsAttributeTypeCorrect = false;
+				//			string ShaderAttributeTypeString = "Unknown";
+				//			switch (AttributeType)
+				//			{
+				//			default:
+				//				Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
+				//				break;
+				//			case GL_FLOAT:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 1);
+				//				ShaderAttributeTypeString = "GL_FLOAT";
+				//				break;
+				//			case GL_FLOAT_VEC2:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
+				//				ShaderAttributeTypeString = "GL_FLOAT_VEC2";
+				//				break;
+				//			case GL_FLOAT_VEC3:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
+				//				ShaderAttributeTypeString = "GL_FLOAT_VEC3";
+				//				break;
+				//			case GL_FLOAT_VEC4:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
+				//				ShaderAttributeTypeString = "GL_FLOAT_VEC4";
+				//				break;
+				//			case GL_INT:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 1);
+				//				ShaderAttributeTypeString = "GL_INT";
+				//				break;
+				//			case GL_INT_VEC2:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 2);
+				//				ShaderAttributeTypeString = "GL_INT_VEC2";
+				//				break;
+				//			case GL_INT_VEC3:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 3);
+				//				ShaderAttributeTypeString = "GL_INT_VEC3";
+				//				break;
+				//			case GL_INT_VEC4:
+				//				IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 4);
+				//				ShaderAttributeTypeString = "GL_INT_VEC4";
+				//				break;
+				//			}
 
-							if (! IsAttributeTypeCorrect)
-							{
-								Log::Error("Mistmatch for attribute type '%s': VBO supplied %d components of type %s but shader expected '%s'",
-									InputLayoutElement.Name,
-									InputLayoutElement.Components,
-									GetAttributeTypeString(InputLayoutElement.Type),
-									ShaderAttributeTypeString);
-							}
-						}
+				//			if (! IsAttributeTypeCorrect)
+				//			{
+				//				Log::Error("Mistmatch for attribute type '%s': VBO supplied %d components of type %s but shader expected '%s'",
+				//					InputLayoutElement.Name,
+				//					InputLayoutElement.Components,
+				//					GetAttributeTypeString(InputLayoutElement.Type),
+				//					ShaderAttributeTypeString);
+				//			}
+				//		}
 
-						CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
+				//		CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
 
-						switch (AttributeType)
-						{
-						case GL_FLOAT:
-						case GL_FLOAT_VEC2:
-						case GL_FLOAT_VEC3:
-						case GL_FLOAT_VEC4:
-							CheckedGLCall(glVertexAttribPointer(
-								AttributeLocation,
-								InputLayoutElement.Components,
-								GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-								GL_FALSE,
-								(int) TotalStride,
-								(void *) CurrentOffset));
-							break;
-						case GL_INT:
-						case GL_INT_VEC2:
-						case GL_INT_VEC3:
-						case GL_INT_VEC4:
-							CheckedGLCall(glVertexAttribIPointer(
-								AttributeLocation,
-								InputLayoutElement.Components,
-								GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-								(int) TotalStride,
-								(void *) CurrentOffset));
-							break;
-						}
+				//		switch (AttributeType)
+				//		{
+				//		case GL_FLOAT:
+				//		case GL_FLOAT_VEC2:
+				//		case GL_FLOAT_VEC3:
+				//		case GL_FLOAT_VEC4:
+				//			CheckedGLCall(glVertexAttribPointer(
+				//				AttributeLocation,
+				//				InputLayoutElement.Components,
+				//				GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
+				//				GL_FALSE,
+				//				(int) TotalStride,
+				//				(void *) CurrentOffset));
+				//			break;
+				//		case GL_INT:
+				//		case GL_INT_VEC2:
+				//		case GL_INT_VEC3:
+				//		case GL_INT_VEC4:
+				//			CheckedGLCall(glVertexAttribIPointer(
+				//				AttributeLocation,
+				//				InputLayoutElement.Components,
+				//				GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
+				//				(int) TotalStride,
+				//				(void *) CurrentOffset));
+				//			break;
+				//		}
 
-						if (VertexBuffer->Instancing)
-						{
-							CheckedGLCall(glVertexAttribDivisor(AttributeLocation, 1));
-						}
+				//		if (VertexBuffer->Instancing)
+				//		{
+				//			CheckedGLCall(glVertexAttribDivisor(AttributeLocation, 1));
+				//		}
 
-						Config->UnboundAttributes.erase(InputLayoutElement.Name);
-					}
+				//		Config->UnboundAttributes.erase(InputLayoutElement.Name);
+				//	}
 
-					CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
-				}
+				//	CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+				//}
 
-				CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's why we never leave them set in the VAO)
+				//CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's why we never leave them set in the VAO)
 			}
 
 			void CDrawContext::InternalBindUniform(uint const Handle, SharedPointer<IUniform const> const Uniform)
 			{
-				switch (Uniform->GetType())
-				{
-				case EUniformType::Float:
-					CheckedGLCall(glUniform1f(Handle, * static_cast<float const *>(Uniform->GetData())));
-					break;
-				case EUniformType::FloatArray:
-					CheckedGLCall(glUniform1fv(Handle,
-						(GLsizei) static_cast<vector<float> const *>(Uniform->GetData())->size(),
-						static_cast<vector<float> const *>(Uniform->GetData())->data()
-					));
-					break;
-				case EUniformType::Float2:
-					CheckedGLCall(glUniform2f(Handle,
-						static_cast<vec2f const *>(Uniform->GetData())->X,
-						static_cast<vec2f const *>(Uniform->GetData())->Y));
-					break;
-				case EUniformType::Float2Array:
-				{
-					vector<float> CompactedData;
-					for (auto const & Vector : *static_cast<vector<vec2f> const *>(Uniform->GetData()))
-					{
-						CompactedData.push_back(Vector.X);
-						CompactedData.push_back(Vector.Y);
-					}
-					CheckedGLCall(glUniform2fv(Handle,
-						(GLsizei) CompactedData.size() / 2,
-						CompactedData.data()
-					));
+				//switch (Uniform->GetType())
+				//{
+				//case EUniformType::Float:
+				//	CheckedGLCall(glUniform1f(Handle, * static_cast<float const *>(Uniform->GetData())));
+				//	break;
+				//case EUniformType::FloatArray:
+				//	CheckedGLCall(glUniform1fv(Handle,
+				//		(GLsizei) static_cast<vector<float> const *>(Uniform->GetData())->size(),
+				//		static_cast<vector<float> const *>(Uniform->GetData())->data()
+				//	));
+				//	break;
+				//case EUniformType::Float2:
+				//	CheckedGLCall(glUniform2f(Handle,
+				//		static_cast<vec2f const *>(Uniform->GetData())->X,
+				//		static_cast<vec2f const *>(Uniform->GetData())->Y));
+				//	break;
+				//case EUniformType::Float2Array:
+				//{
+				//	vector<float> CompactedData;
+				//	for (auto const & Vector : *static_cast<vector<vec2f> const *>(Uniform->GetData()))
+				//	{
+				//		CompactedData.push_back(Vector.X);
+				//		CompactedData.push_back(Vector.Y);
+				//	}
+				//	CheckedGLCall(glUniform2fv(Handle,
+				//		(GLsizei) CompactedData.size() / 2,
+				//		CompactedData.data()
+				//	));
 
-					break;
-				}
-				case EUniformType::Float3:
-					CheckedGLCall(glUniform3f(Handle,
-						static_cast<vec3f const *>(Uniform->GetData())->X,
-						static_cast<vec3f const *>(Uniform->GetData())->Y,
-						static_cast<vec3f const *>(Uniform->GetData())->Z));
-					break;
-				case EUniformType::Float3Array:
-				{
-					vector<float> CompactedData;
-					for (auto const & Vector : *static_cast<vector<vec3f> const *>(Uniform->GetData()))
-					{
-						CompactedData.push_back(Vector.X);
-						CompactedData.push_back(Vector.Y);
-						CompactedData.push_back(Vector.Z);
-					}
-					CheckedGLCall(glUniform3fv(Handle,
-						(GLsizei) CompactedData.size() / 3,
-						CompactedData.data()
-					));
+				//	break;
+				//}
+				//case EUniformType::Float3:
+				//	CheckedGLCall(glUniform3f(Handle,
+				//		static_cast<vec3f const *>(Uniform->GetData())->X,
+				//		static_cast<vec3f const *>(Uniform->GetData())->Y,
+				//		static_cast<vec3f const *>(Uniform->GetData())->Z));
+				//	break;
+				//case EUniformType::Float3Array:
+				//{
+				//	vector<float> CompactedData;
+				//	for (auto const & Vector : *static_cast<vector<vec3f> const *>(Uniform->GetData()))
+				//	{
+				//		CompactedData.push_back(Vector.X);
+				//		CompactedData.push_back(Vector.Y);
+				//		CompactedData.push_back(Vector.Z);
+				//	}
+				//	CheckedGLCall(glUniform3fv(Handle,
+				//		(GLsizei) CompactedData.size() / 3,
+				//		CompactedData.data()
+				//	));
 
-					break;
-				}
-				case EUniformType::Float4:
-					CheckedGLCall(glUniform4f(Handle,
-						static_cast<vec4f const *>(Uniform->GetData())->X,
-						static_cast<vec4f const *>(Uniform->GetData())->Y,
-						static_cast<vec4f const *>(Uniform->GetData())->Z,
-						static_cast<vec4f const *>(Uniform->GetData())->W));
-					break;
-				case EUniformType::Matrix4x4:
-					CheckedGLCall(glUniformMatrix4fv(Handle, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData()))));
-					break;
-				case EUniformType::Matrix4x4Array:
-				{
-					vector<float> CompactedData;
-					for (auto const & Matrix : *static_cast<vector<glm::mat4> const *>(Uniform->GetData()))
-					{
-						CompactedData.insert(CompactedData.end(), glm::value_ptr(Matrix), glm::value_ptr(Matrix) + 16);
-					}
-					CheckedGLCall(glUniformMatrix4fv(Handle, (GLsizei) CompactedData.size() / 16, GL_FALSE, CompactedData.data()));
-					break;
-				}
-				case EUniformType::Int:
-					CheckedGLCall(glUniform1i(Handle, * static_cast<uint const *>(Uniform->GetData())));
-					break;
-				case EUniformType::Bool:
-					CheckedGLCall(glUniform1i(Handle, (*static_cast<bool const *>(Uniform->GetData())) ? 1 : 0));
-					break;
-				case EUniformType::Int2:
-					CheckedGLCall(glUniform2i(Handle,
-						static_cast<vec2i const *>(Uniform->GetData())->X,
-						static_cast<vec2i const *>(Uniform->GetData())->Y));
-					break;
-				case EUniformType::Int3:
-					CheckedGLCall(glUniform3i(Handle,
-						static_cast<vec3i const *>(Uniform->GetData())->X,
-						static_cast<vec3i const *>(Uniform->GetData())->Y,
-						static_cast<vec3i const *>(Uniform->GetData())->Z));
-					break;
-				case EUniformType::Int4:
-					CheckedGLCall(glUniform4i(Handle,
-						static_cast<vec4i const *>(Uniform->GetData())->X,
-						static_cast<vec4i const *>(Uniform->GetData())->Y,
-						static_cast<vec4i const *>(Uniform->GetData())->Z,
-						static_cast<vec4i const *>(Uniform->GetData())->W));
-					break;
-				default:
-					Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
-					break;
-				}
+				//	break;
+				//}
+				//case EUniformType::Float4:
+				//	CheckedGLCall(glUniform4f(Handle,
+				//		static_cast<vec4f const *>(Uniform->GetData())->X,
+				//		static_cast<vec4f const *>(Uniform->GetData())->Y,
+				//		static_cast<vec4f const *>(Uniform->GetData())->Z,
+				//		static_cast<vec4f const *>(Uniform->GetData())->W));
+				//	break;
+				//case EUniformType::Matrix4x4:
+				//	CheckedGLCall(glUniformMatrix4fv(Handle, 1, GL_FALSE, glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData()))));
+				//	break;
+				//case EUniformType::Matrix4x4Array:
+				//{
+				//	vector<float> CompactedData;
+				//	for (auto const & Matrix : *static_cast<vector<glm::mat4> const *>(Uniform->GetData()))
+				//	{
+				//		CompactedData.insert(CompactedData.end(), glm::value_ptr(Matrix), glm::value_ptr(Matrix) + 16);
+				//	}
+				//	CheckedGLCall(glUniformMatrix4fv(Handle, (GLsizei) CompactedData.size() / 16, GL_FALSE, CompactedData.data()));
+				//	break;
+				//}
+				//case EUniformType::Int:
+				//	CheckedGLCall(glUniform1i(Handle, * static_cast<uint const *>(Uniform->GetData())));
+				//	break;
+				//case EUniformType::Bool:
+				//	CheckedGLCall(glUniform1i(Handle, (*static_cast<bool const *>(Uniform->GetData())) ? 1 : 0));
+				//	break;
+				//case EUniformType::Int2:
+				//	CheckedGLCall(glUniform2i(Handle,
+				//		static_cast<vec2i const *>(Uniform->GetData())->X,
+				//		static_cast<vec2i const *>(Uniform->GetData())->Y));
+				//	break;
+				//case EUniformType::Int3:
+				//	CheckedGLCall(glUniform3i(Handle,
+				//		static_cast<vec3i const *>(Uniform->GetData())->X,
+				//		static_cast<vec3i const *>(Uniform->GetData())->Y,
+				//		static_cast<vec3i const *>(Uniform->GetData())->Z));
+				//	break;
+				//case EUniformType::Int4:
+				//	CheckedGLCall(glUniform4i(Handle,
+				//		static_cast<vec4i const *>(Uniform->GetData())->X,
+				//		static_cast<vec4i const *>(Uniform->GetData())->Y,
+				//		static_cast<vec4i const *>(Uniform->GetData())->Z,
+				//		static_cast<vec4i const *>(Uniform->GetData())->W));
+				//	break;
+				//default:
+				//	Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
+				//	break;
+				//}
 			}
 
 			bool CDrawContext::InternalDrawSetup()
 			{
-				if (! Shader)
-				{
-					Log::Error("Cannot draw pipeline state with no shader program.");
-					return false;
-				}
+				//if (! Shader)
+				//{
+				//	Log::Error("Cannot draw pipeline state with no shader program.");
+				//	return false;
+				//}
 
-				CheckedGLCall(glUseProgram(Shader->Handle));
+				//CheckedGLCall(glUseProgram(Shader->Handle));
 
-				// Draw Features
-				if (DrawWireframe)
-				{
-					CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
-				}
-				if (CullFront || CullBack)
-				{
-					glEnable(GL_CULL_FACE);
-					if (! CullFront)
-						CheckedGLCall(glCullFace(GL_BACK));
-					else if (! CullBack)
-						CheckedGLCall(glCullFace(GL_FRONT));
-					else
-						CheckedGLCall(glCullFace(GL_FRONT_AND_BACK));
-				}
-				if (DisableDepthTest)
-				{
-					CheckedGLCall(glDisable(GL_DEPTH_TEST));
-				}
-				if (DisableDepthWrite)
-				{
-					CheckedGLCall(glDepthMask(GL_FALSE));
-				}
-				if (BlendMode != EBlendMode::None)
-				{
-					CheckedGLCall(glEnable(GL_BLEND));
-					if (BlendMode == EBlendMode::Alpha)
-					{
-						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-					}
-					else if (BlendMode == EBlendMode::Additive)
-					{
-						CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
-					}
-				}
+				//// Draw Features
+				//if (DrawWireframe)
+				//{
+				//	CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+				//}
+				//if (CullFront || CullBack)
+				//{
+				//	glEnable(GL_CULL_FACE);
+				//	if (! CullFront)
+				//		CheckedGLCall(glCullFace(GL_BACK));
+				//	else if (! CullBack)
+				//		CheckedGLCall(glCullFace(GL_FRONT));
+				//	else
+				//		CheckedGLCall(glCullFace(GL_FRONT_AND_BACK));
+				//}
+				//if (DisableDepthTest)
+				//{
+				//	CheckedGLCall(glDisable(GL_DEPTH_TEST));
+				//}
+				//if (DisableDepthWrite)
+				//{
+				//	CheckedGLCall(glDepthMask(GL_FALSE));
+				//}
+				//if (BlendMode != EBlendMode::None)
+				//{
+				//	CheckedGLCall(glEnable(GL_BLEND));
+				//	if (BlendMode == EBlendMode::Alpha)
+				//	{
+				//		CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+				//	}
+				//	else if (BlendMode == EBlendMode::Additive)
+				//	{
+				//		CheckedGLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
+				//	}
+				//}
 
-				// Uniforms
-				for (auto const & it : BoundUniforms)
-				{
-					InternalBindUniform(it.first, it.second);
-				}
+				//// Uniforms
+				//for (auto const & it : BoundUniforms)
+				//{
+				//	InternalBindUniform(it.first, it.second);
+				//}
 
-				// Textures
-				StartTextures = 0;
-				for (auto const & it : BoundTextures)
-				{
-					CheckedGLCall(glUniform1i(it.first, StartTextures));
-					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + StartTextures++));
+				//// Textures
+				//StartTextures = 0;
+				//for (auto const & it : BoundTextures)
+				//{
+				//	CheckedGLCall(glUniform1i(it.first, StartTextures));
+				//	CheckedGLCall(glActiveTexture(GL_TEXTURE0 + StartTextures++));
 
-					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
-					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
-				}
+				//	SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
+				//	CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), Texture->Handle));
+				//}
 
 				return true;
 			}
 
 			void CDrawContext::InternalDrawTeardown()
 			{
-				if (DrawWireframe)
-				{
-					CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
-				}
-				if (CullFront || CullBack)
-				{
-					CheckedGLCall(glDisable(GL_CULL_FACE));
-					CheckedGLCall(glCullFace(GL_BACK)); // Default value
-				}
-				if (DisableDepthTest)
-				{
-					CheckedGLCall(glEnable(GL_DEPTH_TEST));
-				}
-				if (DisableDepthWrite)
-				{
-					CheckedGLCall(glDepthMask(GL_TRUE));
-				}
-				if (BlendMode != EBlendMode::None)
-				{
-					CheckedGLCall(glDisable(GL_BLEND));
-				}
+				//if (DrawWireframe)
+				//{
+				//	CheckedGLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+				//}
+				//if (CullFront || CullBack)
+				//{
+				//	CheckedGLCall(glDisable(GL_CULL_FACE));
+				//	CheckedGLCall(glCullFace(GL_BACK)); // Default value
+				//}
+				//if (DisableDepthTest)
+				//{
+				//	CheckedGLCall(glEnable(GL_DEPTH_TEST));
+				//}
+				//if (DisableDepthWrite)
+				//{
+				//	CheckedGLCall(glDepthMask(GL_TRUE));
+				//}
+				//if (BlendMode != EBlendMode::None)
+				//{
+				//	CheckedGLCall(glDisable(GL_BLEND));
+				//}
 
-				int TextureIndex = 0;
-				for (auto const & it : BoundTextures)
-				{
-					CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
-					SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
-					CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
-				}
+				//int TextureIndex = 0;
+				//for (auto const & it : BoundTextures)
+				//{
+				//	CheckedGLCall(glActiveTexture(GL_TEXTURE0 + TextureIndex++));
+				//	SharedPointer<CTexture const> Texture = std::dynamic_pointer_cast<CTexture const>(it.second);
+				//	CheckedGLCall(glBindTexture(Texture->GetGLBindTextureTarget(), 0));
+				//}
 
-				CheckedGLCall(glBindVertexArray(0));
-				CheckedGLCall(glUseProgram(0));
+				//CheckedGLCall(glBindVertexArray(0));
+				//CheckedGLCall(glUseProgram(0));
 			}
 
 			CDrawContext * CDrawContext::CurrentContext = nullptr;

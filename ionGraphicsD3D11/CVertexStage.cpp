@@ -14,10 +14,14 @@ namespace ion
 
 			CVertexStage::CVertexStage(ID3D11Device * Device, string const & Source)
 			{
-				ID3DBlob * ShaderBlob = CompileShaderBlob(Source, "vertex");
-				CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &VertexShader) );
-				CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &Reflector) );
-				ShaderBlob->Release();
+				ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Vertex);
+
+				if (ShaderBlob)
+				{
+					CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &VertexShader) );
+					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &Reflector) );
+					ShaderBlob->Release();
+				}
 			}
 
 			CVertexStage::~CVertexStage()

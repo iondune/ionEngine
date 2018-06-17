@@ -30,6 +30,7 @@ namespace ion
 
 			bool CFrameBuffer::CheckCorrectness()
 			{
+				return false;
 			}
 
 			void CFrameBuffer::Bind()

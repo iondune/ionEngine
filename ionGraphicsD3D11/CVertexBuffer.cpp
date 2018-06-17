@@ -41,6 +41,8 @@ namespace ion
 					}
 
 					Source += " field" + std::to_string(Count) + " : " + Element.Name + ";\n";
+
+					Count ++;
 				}
 
 				Source += "};\n";
@@ -58,7 +60,7 @@ namespace ion
 				CheckedDXCall( D3DCompile(
 					Source.c_str(), Source.length(),
 					NULL, NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-					"main", "cs_5_0",
+					"main", "vs_5_0",
 					CompileFlags, 0, &ShaderBlob, &ErrorBlob) );
 
 				if (ErrorBlob)
@@ -66,6 +68,10 @@ namespace ion
 					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
 					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
 					Log::Error("%s", MessageData);
+					Log::Error("Shader source:");
+					Log::Error("---");
+					Log::Error("%s", Source);
+					Log::Error("---");
 					ErrorBlob->Release();
 				}
 
@@ -73,9 +79,18 @@ namespace ion
 
 				int ByteAlignment = 0;
 
+				//vector<std::wstring> SemanticNames;
+
+				//for (SInputLayoutElement const & Element : LayoutElements)
+				//{
+				//	SemanticNames.push_back(utf8_decode(Element.Name));
+				//}
+
+				//int i = 0;
 				for (SInputLayoutElement const & Element : LayoutElements)
 				{
 					D3D11_INPUT_ELEMENT_DESC Desc;
+					Desc.SemanticName = Element.Name.c_str();// SemanticNames[i++].c_str();
 					Desc.SemanticIndex = 0;
 					Desc.InputSlot = 0;
 					Desc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -102,7 +117,12 @@ namespace ion
 					Layout.push_back(Desc);
 				}
 
-				CheckedDXCall(Device->CreateInputLayout(Layout.data(), Layout.size(), ShaderBlob->GetBufferPointer(), (unsigned int) ShaderBlob->GetBufferSize(), &InputLayout));
+				CheckedDXCall( Device->CreateInputLayout(
+					Layout.data(),
+					(UINT) Layout.size(),
+					ShaderBlob->GetBufferPointer(),
+					(unsigned int) ShaderBlob->GetBufferSize(),
+					&InputLayout) );
 				ShaderBlob->Release();
 			}
 
@@ -156,6 +176,23 @@ namespace ion
 				InputLayoutElements.insert(InputLayoutElements.begin(), InputLayoutArray, InputLayoutArray + NumElements);
 
 				InputLayout = new CInputLayout(Device, InputLayoutElements);
+
+				LayoutSize = 0;
+
+				for (SInputLayoutElement const & Element : InputLayoutElements)
+				{
+					switch (Element.Type)
+					{
+					case EAttributeType::Double:
+						LayoutSize += 8 * Element.Components;
+						break;
+					case EAttributeType::Float:
+					case EAttributeType::Int:
+					case EAttributeType::UnsignedInt:
+						LayoutSize += 4 * Element.Components;
+						break;
+					}
+				}
 			}
 
 			void CVertexBuffer::SetInstancingEnabled(bool const Enabled)

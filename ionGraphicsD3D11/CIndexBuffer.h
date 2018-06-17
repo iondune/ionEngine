@@ -25,7 +25,7 @@ namespace ion
 
 				void UploadData(void const * Data, size_t const Elements, EValueType const ValueType);
 
-				size_t Size = 0;
+				int Size = 0;
 
 				ID3D11Device * Device = nullptr;
 				ID3D11Buffer * IndexBuffer = nullptr;

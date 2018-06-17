@@ -14,14 +14,35 @@ namespace ion
 		namespace D3D11
 		{
 
-			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, string const & EntryPoint)
+			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, EShaderType const & ShaderType)
 			{
 				UINT CompileFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 			#ifdef ION_CONFIG_DEBUG
 				CompileFlags |= D3DCOMPILE_DEBUG;
 			#endif
 
-				LPCSTR const Profile = "cs_5_0";
+				LPCSTR Profile = "none";
+				LPCSTR EntryPoint = "none";
+
+				switch (ShaderType)
+				{
+
+				case EShaderType::Pixel:
+					Profile = "ps_5_0";
+					EntryPoint = "pixel";
+					break;
+
+				case EShaderType::Vertex:
+					Profile = "vs_5_0";
+					EntryPoint = "vertex";
+					break;
+
+				case EShaderType::Geometry:
+					Profile = "gs_5_0";
+					EntryPoint = "geometry";
+					break;
+
+				}
 
 				D3D_SHADER_MACRO const defines[] =
 				{
@@ -34,7 +55,7 @@ namespace ion
 				CheckedDXCall( D3DCompile(
 					Source.c_str(), Source.length(),
 					NULL, defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-					EntryPoint.c_str(), Profile,
+					EntryPoint, Profile,
 					CompileFlags, 0, &ShaderBlob, &ErrorBlob) );
 
 				if (ErrorBlob)

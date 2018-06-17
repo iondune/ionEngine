@@ -14,7 +14,7 @@ namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 
 			class CDrawContext;

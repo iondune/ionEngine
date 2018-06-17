@@ -20,7 +20,14 @@ namespace ion
 
 			public:
 
-				ID3DBlob * CompileShaderBlob(string const & Source, string const & EntryPoint);
+				enum EShaderType
+				{
+					Pixel,
+					Vertex,
+					Geometry
+				};
+
+				ID3DBlob * CompileShaderBlob(string const & Source, EShaderType const & ShaderType);
 				
 			};
 

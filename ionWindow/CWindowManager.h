@@ -8,6 +8,8 @@
 #include "SWindowResizedEvent.h"
 #include "SFileDroppedEvent.h"
 
+#undef CreateWindow
+
 
 namespace ion
 {

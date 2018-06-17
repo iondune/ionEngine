@@ -28,6 +28,7 @@ int main()
 
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
+	RenderTarget->SetClearColor(color3f(0.3f));
 
 	//////////////////
 	// Buffer Setup //

@@ -80,6 +80,7 @@ namespace ion
 		bool CD3D11Implementation::OnWindowSwap(CWindow * Window)
 		{
 			SwapChain->Present(0, 0);
+			return false;
 		}
 
 		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source)
@@ -106,13 +107,13 @@ namespace ion
 
 		SharedPointer<IVertexBuffer> CD3D11Implementation::CreateVertexBuffer()
 		{
-			SharedPointer<D3D11::CVertexBuffer> VertexBuffer = std::make_shared<D3D11::CVertexBuffer>();
+			SharedPointer<D3D11::CVertexBuffer> VertexBuffer = std::make_shared<D3D11::CVertexBuffer>(Device);
 			return VertexBuffer;
 		}
 
 		SharedPointer<IIndexBuffer> CD3D11Implementation::CreateIndexBuffer()
 		{
-			SharedPointer<D3D11::CIndexBuffer> IndexBuffer = std::make_shared<D3D11::CIndexBuffer>();
+			SharedPointer<D3D11::CIndexBuffer> IndexBuffer = std::make_shared<D3D11::CIndexBuffer>(Device);
 			return IndexBuffer;
 		}
 
@@ -124,7 +125,7 @@ namespace ion
 
 		Graphics::IDrawContext * CD3D11Implementation::CreateDrawContext()
 		{
-			return new Graphics::GL::CDrawContext();
+			return new Graphics::D3D11::CDrawContext();
 		}
 
 		SharedPointer<ITexture2D> CD3D11Implementation::CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
@@ -297,7 +298,7 @@ namespace ion
 
 		SharedPointer<IGraphicsContext> CD3D11Implementation::GetWindowContext(CWindow * Window)
 		{
-			return MakeShared<GL::CGraphicsContext>(Window);
+			return std::make_shared<D3D11::CGraphicsContext>(Device, ImmediateContext, SwapChain, Window);
 		}
 
 	}

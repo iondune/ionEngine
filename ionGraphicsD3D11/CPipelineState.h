@@ -14,7 +14,7 @@ namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 			
 			class CPipelineState : public IPipelineState
@@ -22,8 +22,7 @@ namespace ion
 
 			public:
 
-				CPipelineState(CWindow * Window);
-				~CPipelineState();
+				CPipelineState(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext);
 
 				void SetShader(SharedPointer<IShader> Shader);
 				void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer);
@@ -43,9 +42,11 @@ namespace ion
 
 				set<string> GetUnboundUniforms() const;
 
-				void Load();
+				void Load() {}
+				void Draw();
 
-				CWindow * Window = nullptr;
+				ID3D11Device * Device = nullptr;
+				ID3D11DeviceContext * ImmediateContext = nullptr;
 
 				SharedPointer<CShader> Shader;
 				vector<SharedPointer<CVertexBuffer>> VertexBuffers;
@@ -54,13 +55,27 @@ namespace ion
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;
 
-				map<string, SharedPointer<IUniform const>> Uniforms;
-				map<uint, SharedPointer<IUniform const>> BoundUniforms;
+
+				struct SUniformBinding
+				{
+					int Offset = 0;
+					SharedPointer<IUniform const> Uniform;
+				};
+
+				struct SConstantBufferBinding
+				{
+					map<string, SUniformBinding> Variables;
+					ID3D11Buffer * ConstantBuffer = nullptr;
+					int Size = 0;
+				};
+
+				vector<SConstantBufferBinding> ConstantBuffers; 
+				map<string, SharedPointer<IUniform const>> Uniform;
+
 
 				map<string, SharedPointer<ITexture const>> Textures;
 				map<uint, SharedPointer<ITexture const>> BoundTextures;
 
-				set<string> UnboundUniforms;
 				set<string> UnboundAttributes;
 
 				bool DrawWireframe = false;
@@ -71,7 +86,7 @@ namespace ion
 				bool PolygonOffset = false;
 				float PolygonOffsetAmount = 1.f;
 				EBlendMode BlendMode = EBlendMode::None;
-				uint PrimitiveType;
+				D3D_PRIMITIVE_TOPOLOGY PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 			};
 

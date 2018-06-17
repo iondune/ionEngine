@@ -12,6 +12,9 @@ namespace ion
 	{
 		namespace D3D11
 		{
+			std::string utf8_encode(const std::wstring &wstr);
+			std::wstring utf8_decode(const std::string &str);
+
 			void PrintHRESULT(int const hr, char const * const Function, char const * const File, int const Line);
 
 #ifdef ION_CONFIG_DEBUG

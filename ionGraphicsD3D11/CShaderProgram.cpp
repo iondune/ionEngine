@@ -17,12 +17,12 @@ namespace ion
 
 			void CShader::SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader)
 			{
-				GeometryStage = std::dynamic_pointer_cast<CVertexStage>(GeometryShader);
+				GeometryStage = std::dynamic_pointer_cast<CGeometryStage>(GeometryShader);
 			}
 
 			void CShader::SetPixelStage(SharedPointer<IPixelStage> PixelShader)
 			{
-				PixelStage = std::dynamic_pointer_cast<CVertexStage>(PixelShader);
+				PixelStage = std::dynamic_pointer_cast<CPixelStage>(PixelShader);
 			}
 
 			void CShader::Link()

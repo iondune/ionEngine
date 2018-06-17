@@ -44,6 +44,7 @@ namespace ion
 				ID3D11Device * Device = nullptr;
 				ID3D11Buffer * VertexBuffer = nullptr;
 				vector<SInputLayoutElement> InputLayoutElements;
+				int LayoutSize = 0;
 
 				CInputLayout * InputLayout = nullptr;
 

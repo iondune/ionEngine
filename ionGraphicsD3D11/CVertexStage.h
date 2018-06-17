@@ -7,6 +7,9 @@
 
 #include "CShaderStage.h"
 
+#include <D3D11.h>
+#include <D3DCompiler.h>
+
 
 namespace ion
 {

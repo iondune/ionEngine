@@ -14,10 +14,14 @@ namespace ion
 
 			CPixelStage::CPixelStage(ID3D11Device * Device, string const & Source)
 			{
-				ID3DBlob * ShaderBlob = CompileShaderBlob(Source, "pixel");
-				CheckedDXCall( Device->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &PixelShader) );
-				CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &Reflector) );
-				ShaderBlob->Release();
+				ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Pixel);
+
+				if (ShaderBlob)
+				{
+					CheckedDXCall( Device->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &PixelShader) );
+					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &Reflector) );
+					ShaderBlob->Release();
+				}
 			}
 
 			CPixelStage::~CPixelStage()

@@ -14,7 +14,7 @@ namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
 
 			class CGraphicsContext : public IGraphicsContext
@@ -22,7 +22,7 @@ namespace ion
 
 			public:
 
-				CGraphicsContext(CWindow * Window);
+				CGraphicsContext(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext, IDXGISwapChain * SwapChain, CWindow * Window);
 
 				SharedPointer<IRenderTarget> GetBackBuffer();
 
@@ -32,14 +32,12 @@ namespace ion
 				void Draw(SharedPointer<IPipelineState> State);
 				void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount);
 
+				ID3D11Device * Device = nullptr;
+				IDXGISwapChain * SwapChain = nullptr;
+				ID3D11DeviceContext * ImmediateContext = nullptr;
 				CWindow * Window = nullptr;
 
 			protected:
-
-				void InternalBindUniform(uint const Handle, SharedPointer<IUniform const> const Uniform);
-
-				void InternalDrawSetup(SharedPointer<IPipelineState> State);
-				void InternalDrawTeardown(SharedPointer<IPipelineState> State);
 
 			};
 

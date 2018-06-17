@@ -44,15 +44,12 @@ namespace ion
 					MipMapMode = 0;
 				}
 
-				int PreviouslyBoundTexture;
-				CheckedGLCall(glGetIntegerv(GetGLTextureBindingEnum(), & PreviouslyBoundTexture));
-				CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), Handle));
-				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MIN_FILTER, FilterMatrix[MipMapMode][(int) MinFilter]));
-				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MAG_FILTER, FilterLookup[(int) MagFilter]));
+				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MIN_FILTER, FilterMatrix[MipMapMode][(int) MinFilter]));
+				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_MAG_FILTER, FilterLookup[(int) MagFilter]));
 
-				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_S, WrapLookup[(int) WrapMode]));
-				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_T, WrapLookup[(int) WrapMode]));
-				CheckedGLCall(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
+				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_S, WrapLookup[(int) WrapMode]));
+				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_T, WrapLookup[(int) WrapMode]));
+				//(glTexParameteri(GetGLBindTextureTarget(), GL_TEXTURE_WRAP_R, WrapLookup[(int) WrapMode]));
 				float BorderColorValues[4] = 
 				{
 					BorderColor.Red,
@@ -60,14 +57,13 @@ namespace ion
 					BorderColor.Blue,
 					BorderColor.Alpha,
 				};
-				CheckedGLCall(glTexParameterfv(GetGLBindTextureTarget(), GL_TEXTURE_BORDER_COLOR, BorderColorValues));
+				//(glTexParameterfv(GetGLBindTextureTarget(), GL_TEXTURE_BORDER_COLOR, BorderColorValues));
 
 				float LargestAnisotropy = 2.f;
-				CheckedGLCall(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
+				//(glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, & LargestAnisotropy));
 				if (Anisotropy < 0.f)
 					Anisotropy = LargestAnisotropy;
-				CheckedGLCall(glTexParameterf(GetGLBindTextureTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Anisotropy, 0.f, LargestAnisotropy)));
-				CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), PreviouslyBoundTexture));
+				//(glTexParameterf(GetGLBindTextureTarget(), GL_TEXTURE_MAX_ANISOTROPY_EXT, Clamp(Anisotropy, 0.f, LargestAnisotropy)));
 			}
 
 			void CTexture::SetMinFilter(EFilter const MinFilter)
@@ -159,8 +155,8 @@ namespace ion
 			{
 				if (MipMaps)
 				{
-					CheckedGLCall(glBindTexture(GetGLBindTextureTarget(), Handle));
-					CheckedGLCall(glGenerateMipmap(GetGLBindTextureTarget()));
+					//(glBindTexture(GetGLBindTextureTarget(), Handle));
+					//(glGenerateMipmap(GetGLBindTextureTarget()));
 				}
 			}
 
@@ -241,47 +237,10 @@ namespace ion
 
 			void CTexture2D::UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
-				CheckExistingErrors(CTexture2D::SubImage);
-				glTexSubImage2D(GL_TEXTURE_2D, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
-				if (OpenGLError())
-				{
-					Log::Error("Error occured during glTexSubImage2D: %s", GetOpenGLError());
-					Log::Error("Handle is %u", Handle);
-					Log::Error("Offset is %s", Offset);
-					Log::Error("Size is %s", Size);
-					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
-					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
-				}
-				else
-				{
-					if (MipMaps)
-						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D));
-					ApplyParams();
-				}
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
 			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, Handle));
-				CheckExistingErrors(CTexture2D::GetData);
-				glGetTexImage(GL_TEXTURE_2D, 0, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
-				if (OpenGLError())
-				{
-					Log::Error("Error occured during glGetTexImage: %s", GetOpenGLError());
-					Log::Error("Handle is %u", Handle);
-					Log::Error("Size is %s", Size);
-					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
-					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
-				}
-				else
-				{
-					if (MipMaps)
-						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D));
-					ApplyParams();
-				}
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D, 0));
 			}
 
 			uint CTexture2D::GetGLBindTextureTarget() const
@@ -312,25 +271,6 @@ namespace ion
 
 			void CTexture2DArray::UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, Handle));
-				CheckExistingErrors(CTexture2DArray::SubImage);
-				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
-				if (OpenGLError())
-				{
-					Log::Error("Error occured during glTexSubImage3D: %s", GetOpenGLError());
-					Log::Error("Handle is %u", Handle);
-					Log::Error("Offset is %s", Offset);
-					Log::Error("Size is %s", Size);
-					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
-					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
-				}
-				else
-				{
-					if (MipMaps)
-						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_2D_ARRAY));
-					ApplyParams();
-				}
-				CheckedGLCall(glBindTexture(GL_TEXTURE_2D_ARRAY, 0));
 			}
 
 			uint CTexture2DArray::GetGLBindTextureTarget() const
@@ -361,25 +301,6 @@ namespace ion
 
 			void CTexture3D::UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, Handle));
-				CheckExistingErrors(CTexture3D::SubImage);
-				glTexSubImage3D(GL_TEXTURE_3D, 0, Offset.X, Offset.Y, Offset.Z, Size.X, Size.Y, Size.Z, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
-				if (OpenGLError())
-				{
-					Log::Error("Error occured during glTexSubImage3D: %s", GetOpenGLError());
-					Log::Error("Handle is %u", Handle);
-					Log::Error("Offset is %s", Offset);
-					Log::Error("Size is %s", Size);
-					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
-					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
-				}
-				else
-				{
-					if (MipMaps)
-						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_3D));
-					ApplyParams();
-				}
-				CheckedGLCall(glBindTexture(GL_TEXTURE_3D, 0));
 			}
 
 			uint CTexture3D::GetGLBindTextureTarget() const
@@ -410,25 +331,6 @@ namespace ion
 
 			void CTextureCubeMap::UploadSubRegion(EFace const Face, void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, Handle));
-				CheckExistingErrors(Texture2D::SubImage);
-				glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + (int) Face, 0, Offset.X, Offset.Y, Size.X, Size.Y, FormatMatrix[(int) Components][IsInteger ? 1 : 0], Util::ScalarTypeMatrix[(int) Type], Data);
-				if (OpenGLError())
-				{
-					Log::Error("Error occured during glTexSubImage2D for CTextureCubeMap: %s", GetOpenGLError());
-					Log::Error("Handle is %u", Handle);
-					Log::Error("Offset is %s", Offset);
-					Log::Error("Size is %s", Size);
-					Log::Error("Format is %s", FormatStringMatrix[(int) Components]);
-					Log::Error("Type is %s", Util::ScalarTypeStringMatrix[(int) Type]);
-				}
-				else
-				{
-					if (MipMaps)
-						CheckedGLCall(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
-					ApplyParams();
-				}
-				CheckedGLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
 			}
 
 			uint CTextureCubeMap::GetGLBindTextureTarget() const

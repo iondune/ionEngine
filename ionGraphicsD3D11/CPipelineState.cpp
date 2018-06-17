@@ -1,23 +1,19 @@
 
 #include "CPipelineState.h"
 #include <ionWindow.h>
-#include <glad/glad.h>
 
 
 namespace ion
 {
 	namespace Graphics
 	{
-		namespace GL
+		namespace D3D11
 		{
-			CPipelineState::CPipelineState(CWindow * Window)
-			{
-				this->Window = Window;
-				this->PrimitiveType = GL_TRIANGLES;
-			}
 
-			CPipelineState::~CPipelineState()
+			CPipelineState::CPipelineState(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext)
 			{
+				this->Device = Device;
+				this->ImmediateContext = ImmediateContext;
 			}
 
 			void CPipelineState::SetShader(SharedPointer<IShader> inShader)
@@ -25,24 +21,50 @@ namespace ion
 				if (inShader)
 				{
 					Shader = std::dynamic_pointer_cast<CShader>(inShader);
-					if (! Shader->Linked)
-					{
-						Shader->Link();
 
-						if (! Shader->Linked)
+					ConstantBuffers.clear();
+
+					if (Shader->VertexStage->Reflector)
+					{
+						D3D11_SHADER_DESC ShaderDesc;
+						Shader->VertexStage->Reflector->GetDesc(& ShaderDesc);
+
+						for (int c = 0; c < (int) ShaderDesc.ConstantBuffers; ++ c)
 						{
-							Log::Error("Failed to link shader prograg in PipelineState creation, unsetting shader.");
-							Shader = nullptr;
-							return;
+							SConstantBufferBinding Binding;
+
+							auto ConstantBuffer = Shader->VertexStage->Reflector->GetConstantBufferByIndex(c);
+
+							D3D11_SHADER_BUFFER_DESC BufferDesc;
+							ConstantBuffer->GetDesc(& BufferDesc);
+
+							for (int v = 0; v < (int) BufferDesc.Variables; ++ v)
+							{
+								auto Variable = ConstantBuffer->GetVariableByIndex(v);
+								D3D11_SHADER_VARIABLE_DESC VariableDesc;
+								Variable->GetDesc(& VariableDesc);
+
+								SUniformBinding Uniform;
+								Uniform.Offset = VariableDesc.StartOffset;
+								Binding.Variables[VariableDesc.Name] = Uniform;
+							}
+
+							D3D11_BUFFER_DESC CBDesc = {};
+							CBDesc.Usage = D3D11_USAGE_DEFAULT;
+							CBDesc.ByteWidth = sizeof(BufferDesc.Size);
+							CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+							assert(S_OK == Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer));
+							Binding.Size = BufferDesc.Size;
+
+							ConstantBuffers.push_back(Binding);
 						}
 					}
 
-					Textures.clear();
-					Uniforms.clear();
 
-					UnboundUniforms = KeySet(Shader->Uniforms);
-					UnboundAttributes = KeySet(Shader->Attributes);
-					UnboundAttributes.erase("gl_VertexID");
+					//Textures.clear();
+
+					//UnboundAttributes = KeySet(Shader->Attributes);
+					//UnboundAttributes.erase("gl_VertexID");
 
 					Loaded = false;
 				}
@@ -64,10 +86,6 @@ namespace ion
 			void CPipelineState::SetIndexBuffer(SharedPointer<IIndexBuffer> inIndexBuffer)
 			{
 				IndexBuffer = std::dynamic_pointer_cast<CIndexBuffer>(inIndexBuffer);
-				Window->MakeContextCurrent();
-				SafeGLCall(glBindVertexArray, (VertexArrayHandle));
-				SafeGLCall(glBindBuffer, (GL_ELEMENT_ARRAY_BUFFER, IndexBuffer->Handle));
-				SafeGLCall(glBindVertexArray, (0));
 			}
 
 			void CPipelineState::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
@@ -78,28 +96,25 @@ namespace ion
 					return;
 				}
 
+				for (auto & Buffer : ConstantBuffers)
+				{
+					for (auto & Variable : Buffer.Variables)
+					{
+						if (Variable.first == Name)
+						{
+							Variable.second.Uniform = Uniform;
+							return;
+						}
+					}
+				}
+
 				if (Uniform)
 				{
-					if (UnboundUniforms.count(Name) == 1)
-					{
-						Uniforms[Name] = Uniform;
-						UnboundUniforms.erase(Name);
-					}
-					else
-					{
-						Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
-					}
+					Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
 				}
 				else
 				{
-					if (Uniforms.erase(Name) == 1)
-					{
-						UnboundUniforms.insert(Name);
-					}
-					else
-					{
-						Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
-					}
+					Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
 				}
 			}
 
@@ -111,33 +126,33 @@ namespace ion
 					return;
 				}
 
-				if (Texture)
-				{
-					if (UnboundUniforms.count(Name) == 1)
-					{
-						Textures[Name] = Texture;
-						UnboundUniforms.erase(Name);
-					}
-					else if (Textures.find(Name) != Textures.end())
-					{
-						Textures[Name] = Texture;
-					}
-					else
-					{
-						Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
-					}
-				}
-				else
-				{
-					if (Textures.erase(Name) == 1)
-					{
-						UnboundUniforms.insert(Name);
-					}
-					else
-					{
-						Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
-					}
-				}
+				//if (Texture)
+				//{
+				//	if (UnboundUniforms.count(Name) == 1)
+				//	{
+				//		Textures[Name] = Texture;
+				//		UnboundUniforms.erase(Name);
+				//	}
+				//	else if (Textures.find(Name) != Textures.end())
+				//	{
+				//		Textures[Name] = Texture;
+				//	}
+				//	else
+				//	{
+				//		Log::Warn("Attempting to set uniform or texture '%s' that is not required by shader, ignoring.", Name);
+				//	}
+				//}
+				//else
+				//{
+				//	if (Textures.erase(Name) == 1)
+				//	{
+				//		UnboundUniforms.insert(Name);
+				//	}
+				//	else
+				//	{
+				//		Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
+				//	}
+				//}
 			}
 
 			void CPipelineState::SetPrimitiveType(EPrimitiveType const PrimitiveType)
@@ -146,16 +161,16 @@ namespace ion
 				{
 				default:
 				case EPrimitiveType::Triangle:
-					this->PrimitiveType = GL_TRIANGLES;
+					this->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 					break;
 				case EPrimitiveType::Point:
-					this->PrimitiveType = GL_POINTS;
+					this->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_POINTLIST;
 					break;
 				case EPrimitiveType::Line:
-					this->PrimitiveType = GL_LINES;
+					this->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
 					break;
 				case EPrimitiveType::LineStrip:
-					this->PrimitiveType = GL_LINE_STRIP;
+					this->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP;
 					break;
 				}
 			}
@@ -197,23 +212,7 @@ namespace ion
 
 			void CPipelineState::OfferUniform(string const & Name, SharedPointer<IUniform> Uniform)
 			{
-				if (! Shader)
-				{
-					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
-					return;
-				}
-
-				if (! Uniform)
-				{
-					Log::Error("Invalid paramter to CPipelineState::OfferUniform: expected non-null Uniform");
-					return;
-				}
-
-				if (UnboundUniforms.count(Name) == 1)
-				{
-					Uniforms[Name] = Uniform;
-					UnboundUniforms.erase(Name);
-				}
+				SetUniform(Name, Uniform);
 			}
 
 			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
@@ -230,194 +229,61 @@ namespace ion
 					return;
 				}
 
-				if (UnboundUniforms.count(Name) == 1)
-				{
-					Textures[Name] = Texture;
-					UnboundUniforms.erase(Name);
-				}
+				//if (UnboundUniforms.count(Name) == 1)
+				//{
+				//	Textures[Name] = Texture;
+				//	UnboundUniforms.erase(Name);
+				//}
 			}
 
 			void CPipelineState::IgnoreUniform(string const & Name)
 			{
-				UnboundUniforms.erase(Name);
 			}
 
 			set<string> CPipelineState::GetUnboundUniforms() const
 			{
-				return UnboundUniforms;
+				return set<string>();
 			}
 
-			void CPipelineState::Load()
+			void CPipelineState::Draw()
 			{
-				if (! Shader || VertexBuffers.empty() || ! IndexBuffer)
+				if (! Shader || VertexBuffers.empty() || ! IndexBuffer || ! Shader->VertexStage->VertexShader || ! Shader->PixelStage->PixelShader)
 				{
-					Log::Error("Attempting to load an invalid PipelineState");
+					Log::Error("Attempting to draw an invalid PipelineState");
 					return;
 				}
 
-				Window->MakeContextCurrent();
-				CheckedGLCall(glUseProgram(Shader->Handle));
-				CheckedGLCall(glBindVertexArray(VertexArrayHandle));
+				UINT Stride = VertexBuffers[0]->LayoutSize;
+				UINT Offset = 0;
+				ImmediateContext->IASetVertexBuffers(0, 1, &VertexBuffers[0]->VertexBuffer, &Stride, &Offset);
+				ImmediateContext->IASetIndexBuffer(IndexBuffer->IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+				ImmediateContext->IASetInputLayout(VertexBuffers[0]->InputLayout->InputLayout);
+				ImmediateContext->IASetPrimitiveTopology(PrimitiveType);
 
-				for (auto & VertexBuffer : VertexBuffers)
+				ImmediateContext->VSSetShader(Shader->VertexStage->VertexShader, nullptr, 0);
+				ImmediateContext->PSSetShader(Shader->PixelStage->PixelShader, nullptr, 0);
+
+				int Slot = 0;
+				for (auto & ConstantBuffer : ConstantBuffers)
 				{
+					byte * ConstantBufferData = new byte[ConstantBuffer.Size]();
 
-					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer->Handle));
-
-					//////////////////////////////
-					// Set up VBOs (attributes) //
-					//////////////////////////////
-
-					// Calculate stride of VBO data
-					size_t TotalStride = 0;
-					for (auto & InputLayoutElement : VertexBuffer->InputLayout)
+					int Offset = 0;
+					for (auto & Variable : ConstantBuffer.Variables)
 					{
-						TotalStride += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
+						std::memcpy(ConstantBufferData + Offset, Variable.second.Uniform->GetData(), Variable.second.Uniform->GetSize());
 					}
 
-					size_t CurrentOffset = 0;
-					for (auto & InputLayoutElement : VertexBuffer->InputLayout)
-					{
-						pair<uint, uint> AttributeInfo;
-						if (TryMapAccess(Shader->Attributes, InputLayoutElement.Name, AttributeInfo))
-						{
-							uint const AttributeLocation = AttributeInfo.first;
-							uint const AttributeType = AttributeInfo.second;
+					ImmediateContext->UpdateSubresource(ConstantBuffer.ConstantBuffer, 0, nullptr, ConstantBufferData, 0, 0);
+					delete[] ConstantBufferData;
 
-							// Validate Attribute Type (does the VBO layout match what the shader wants?)
-							{
-								bool IsAttributeTypeCorrect = false;
-								string ShaderAttributeTypeString = "Unknown";
-								switch (AttributeType)
-								{
-								default:
-									Log::Error("Unexpected type for attribute %s: %u", InputLayoutElement.Name, AttributeType);
-									break;
-								case GL_FLOAT:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 1);
-									ShaderAttributeTypeString = "GL_FLOAT";
-									break;
-								case GL_FLOAT_VEC2:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 2);
-									ShaderAttributeTypeString = "GL_FLOAT_VEC2";
-									break;
-								case GL_FLOAT_VEC3:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 3);
-									ShaderAttributeTypeString = "GL_FLOAT_VEC3";
-									break;
-								case GL_FLOAT_VEC4:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Float && InputLayoutElement.Components == 4);
-									ShaderAttributeTypeString = "GL_FLOAT_VEC4";
-									break;
-								case GL_INT:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 1);
-									ShaderAttributeTypeString = "GL_INT";
-									break;
-								case GL_INT_VEC2:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 2);
-									ShaderAttributeTypeString = "GL_INT_VEC2";
-									break;
-								case GL_INT_VEC3:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 3);
-									ShaderAttributeTypeString = "GL_INT_VEC3";
-									break;
-								case GL_INT_VEC4:
-									IsAttributeTypeCorrect = (InputLayoutElement.Type == EAttributeType::Int && InputLayoutElement.Components == 4);
-									ShaderAttributeTypeString = "GL_INT_VEC4";
-									break;
-								}
+					ImmediateContext->VSSetConstantBuffers(Slot, 1, &ConstantBuffer.ConstantBuffer);
+					ImmediateContext->PSSetConstantBuffers(Slot, 1, &ConstantBuffer.ConstantBuffer);
 
-								if (! IsAttributeTypeCorrect)
-								{
-									Log::Error("Mistmatch for attribute type '%s': VBO supplied %d components of type %s but shader expected '%s'",
-										InputLayoutElement.Name,
-										InputLayoutElement.Components,
-										GetAttributeTypeString(InputLayoutElement.Type),
-										ShaderAttributeTypeString);
-								}
-							}
-
-							CheckedGLCall(glEnableVertexAttribArray(AttributeLocation));
-
-							switch (AttributeType)
-							{
-							case GL_FLOAT:
-							case GL_FLOAT_VEC2:
-							case GL_FLOAT_VEC3:
-							case GL_FLOAT_VEC4:
-								CheckedGLCall(glVertexAttribPointer(
-									AttributeLocation,
-									InputLayoutElement.Components,
-									GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-									GL_FALSE,
-									(int) TotalStride,
-									(void *) CurrentOffset));
-								break;
-							case GL_INT:
-							case GL_INT_VEC2:
-							case GL_INT_VEC3:
-							case GL_INT_VEC4:
-								CheckedGLCall(glVertexAttribIPointer(
-									AttributeLocation,
-									InputLayoutElement.Components,
-									GetAttributeTypeOpenGLEnum(InputLayoutElement.Type),
-									(int) TotalStride,
-									(void *) CurrentOffset));
-								break;
-							}
-
-							if (VertexBuffer->Instancing)
-							{
-								CheckedGLCall(glVertexAttribDivisor(AttributeLocation, 1));
-							}
-
-							UnboundAttributes.erase(InputLayoutElement.Name);
-						}
-
-						CurrentOffset += GetAttributeTypeSize(InputLayoutElement.Type) * InputLayoutElement.Components;
-					}
-
-					CheckedGLCall(glBindBuffer(GL_ARRAY_BUFFER, 0)); // Remember, VBOs are not part of VAO state (that's why we never leave them set in the VAO)
+					Slot ++;
 				}
 
-				std::for_each(UnboundAttributes.begin(), UnboundAttributes.end(), [](string const & Attribuite)
-				{
-					Log::Error("Attribute expected by shader but not provided by VBO: %s", Attribuite);
-				});
-
-				CheckedGLCall(glBindVertexArray(0));
-				CheckedGLCall(glUseProgram(0));
-
-
-				/////////////////////
-				// Set up Uniforms //
-				/////////////////////
-
-				BoundUniforms.clear();
-				for (auto const & it : Uniforms)
-				{
-					uint Handle = 0;
-					if (TryMapAccess(Shader->Uniforms, it.first, Handle))
-					{
-						BoundUniforms[Handle] = it.second;
-					}
-				}
-				BoundTextures.clear();
-				for (auto const & it : Textures)
-				{
-					uint Handle = 0;
-					if (TryMapAccess(Shader->Uniforms, it.first, Handle))
-					{
-						BoundTextures[Handle] = it.second;
-					}
-				}
-
-				std::for_each(UnboundUniforms.begin(), UnboundUniforms.end(), [](string const & Uniform)
-				{
-					Log::Error("Uniform expected by shader but not provided by PSO: %s", Uniform);
-				});
-
-				Loaded = true;
+				ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
 			}
 
 		}
