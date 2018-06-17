@@ -40,14 +40,14 @@ namespace ion
 						Source += std::to_string(Element.Components);
 					}
 
-					Source += " field" + std::to_string(Count) + " : " + Element.Name + ";\n";
+					Source += " field" + std::to_string(Count) + " : " + Element.Name + "0;\n";
 
 					Count ++;
 				}
 
 				Source += "};\n";
 				Source += "\n";
-				Source += "void main() {}\n";
+				Source += "void main(VS_INPUT input) {}\n";
 				Source += "\n";
 
 				UINT CompileFlags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -99,8 +99,8 @@ namespace ion
 					static DXGI_FORMAT const Lookup[4][4] =
 					{
 						{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
-						{ DXGI_FORMAT_R32_SINT,  DXGI_FORMAT_R32G32_SINT,  DXGI_FORMAT_R32G32B32_SINT,  DXGI_FORMAT_R32G32B32A32_SINT},
-						{ DXGI_FORMAT_R32_UINT,  DXGI_FORMAT_R32G32_UINT,  DXGI_FORMAT_R32G32B32_UINT,  DXGI_FORMAT_R32G32B32A32_UINT},
+						{ DXGI_FORMAT_R32_SINT,  DXGI_FORMAT_R32G32_SINT,  DXGI_FORMAT_R32G32B32_SINT,  DXGI_FORMAT_R32G32B32A32_SINT  },
+						{ DXGI_FORMAT_R32_UINT,  DXGI_FORMAT_R32G32_UINT,  DXGI_FORMAT_R32G32B32_UINT,  DXGI_FORMAT_R32G32B32A32_UINT  },
 						{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
 					};
 
@@ -109,7 +109,7 @@ namespace ion
 						Log::Warn("InputLayout double types not supported.");
 					}
 
-					Desc.Format = Lookup[(int) Element.Type][Element.Components];
+					Desc.Format = Lookup[(int) Element.Type][Element.Components - 1];
 					Desc.AlignedByteOffset = ByteAlignment;
 
 					ByteAlignment += 4 * Element.Components;
