@@ -56,9 +56,9 @@ int main()
 	VertexBuffer->UploadData(Vertices);
 	SInputLayoutElement InputLayout[] =
 	{
-		{ "vPosition", 2, EAttributeType::Float },
-		{ "vTexCoords", 2, EAttributeType::Float },
-		{ "vColor", 3, EAttributeType::Float },
+		{ "POSITION",  2, EAttributeType::Float },
+		{ "TEXCOORD",  2, EAttributeType::Float },
+		{ "COLOR",     3, EAttributeType::Float },
 	};
 	VertexBuffer->SetInputLayout(InputLayout, ION_ARRAYSIZE(InputLayout));
 	
@@ -105,6 +105,7 @@ int main()
 		TimeManager->Update();
 		uCurrentTime = (float) TimeManager->GetRunTime();
 
+		RenderTarget->Bind();
 		RenderTarget->ClearColorAndDepth();
 		Context->Draw(PipelineState);
 		Window->SwapBuffers();
