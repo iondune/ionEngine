@@ -111,7 +111,6 @@ int main()
 		uCurrentTime = t;
 		uModelMatrix = glm::translate(glm::mat4(1.f), glm::vec3(Cos(t) * 0.5f, Sin(t) * 0.5f, 0));
 
-		RenderTarget->Bind();
 		RenderTarget->ClearColorAndDepth();
 		Context->Draw(PipelineState);
 		Window->SwapBuffers();

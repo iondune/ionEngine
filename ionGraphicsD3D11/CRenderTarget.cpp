@@ -49,11 +49,15 @@ namespace ion
 				ClearColor[2] = Color.Blue;
 				ClearColor[3] = Color.Alpha;
 				ImmediateContext->ClearRenderTargetView(RenderTargetView, ClearColor);
+
+				Bind();
 			}
 
 			void CRenderTarget::ClearDepth()
 			{
 				ImmediateContext->ClearDepthStencilView(DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+				Bind();
 			}
 
 			void CRenderTarget::ClearColorAndDepth()
