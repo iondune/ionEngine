@@ -23,10 +23,7 @@ PS_INPUT vertex(VS_INPUT input)
 {
 	PS_INPUT output;
 
-	output.fPosition = float4(input.vPosition, 1.0);
-	output.fPosition = mul(uModelMatrix, output.fPosition);
-	output.fPosition = mul(uViewMatrix, output.fPosition);
-	output.fPosition = mul(uProjectionMatrix, output.fPosition);
+	output.fPosition = mul(uProjectionMatrix, mul(uViewMatrix, mul(uModelMatrix, float4(input.vPosition, 1.0))));
 
 	float4 Normal = mul(uNormalMatrix, float4(input.vNormal, 1.0));
 	output.fColor = normalize(Normal.xyz) / 2.0 + float3(0.5, 0.5, 0.5);
