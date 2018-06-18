@@ -623,6 +623,22 @@ namespace ion
 			return vec2<T>(X, Z);
 		}
 
+		T const * ValuePointer() const
+		{
+			if (&X + 1 == &Y && &Y + 1 == &Z)
+			{
+				return &X;
+			}
+			else
+			{
+				static T Values[3];
+				Values[0] = X;
+				Values[1] = Y;
+				Values[2] = Z;
+				return Values;
+			}
+		}
+
 
 		////////////////
 		// Formatting //

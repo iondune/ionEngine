@@ -660,6 +660,23 @@ namespace ion
 			return vec3<T>(X, Y, Z);
 		}
 
+		T const * ValuePointer() const
+		{
+			if (&X + 1 == &Y && &Y + 1 == &Z && &Z + 1 == &W)
+			{
+				return &X;
+			}
+			else
+			{
+				static T Values[4];
+				Values[0] = X;
+				Values[1] = Y;
+				Values[2] = Z;
+				Values[3] = W;
+				return Values;
+			}
+		}
+
 
 		////////////////
 		// Formatting //
