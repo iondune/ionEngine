@@ -8,7 +8,7 @@ CALL :Clone imgui           https://github.com/ocornut/imgui.git         e916310
 CALL :Clone Catch           https://github.com/philsquared/Catch.git     19ab2117c5bac2f376f8da4a4b25e183137bcec0
 CALL :Clone glad            https://github.com/iondune/glad.git          11f33ab7625ada108f836a83cd8abc405bd870e9
 CALL :Clone tinyobjloader   https://github.com/syoyo/tinyobjloader.git   51d13700d880d2d5fdaf5bd3547100bafcae7932
-CALL :Clone simpleini       https://github.com/iondune/simpleini         2af65fcc504f8242752755e836709762ef7ce062
+CALL :Clone simpleini       https://github.com/brofield/simpleini        2af65fcc504f8242752755e836709762ef7ce062
 
 CALL :Clone dirent          https://github.com/tronkko/dirent.git        94ff8bdbb4e11eea5fba17b92edfcdc4b4ece769
 
