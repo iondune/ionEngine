@@ -13,20 +13,22 @@ struct PS_INPUT
 	float3 fColor : COLOR;
 };
 
+cbuffer ConstantBuffer : register(b0)
+{
+	float4x4 uModelMatrix;
+	float uCurrentTime;
+};
+
 PS_INPUT vertex(VS_INPUT input)
 {
 	PS_INPUT output = (PS_INPUT) 0;
 
 	output.fPosition  = float4(input.vPosition, 0.0, 1.0);
+	output.fPosition = mul(uModelMatrix, output.fPosition);
 	output.fTexCoords = input.vTexCoords;
 	output.fColor     = input.vColor;
 
 	return output;
-}
-
-cbuffer ConstantBuffer : register(b0)
-{
-	float uCurrentTime;
 }
 
 Texture2D uTexture : register(t0);

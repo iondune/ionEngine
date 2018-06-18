@@ -93,6 +93,9 @@ int main()
 	CUniform<float> uCurrentTime;
 	PipelineState->SetUniform("uCurrentTime", uCurrentTime);
 
+	CUniform<glm::mat4> uModelMatrix;
+	PipelineState->SetUniform("uModelMatrix", uModelMatrix);
+
 	CImage * Image = CImage::Load("Image.jpg");
 	SharedPointer<ITexture2D> Texture = GraphicsAPI->CreateTexture2D(Image->GetSize(), ITexture::EMipMaps::True, ITexture::EFormatComponents::RGBA, ITexture::EInternalFormatType::Fix8);
 	Texture->Upload(Image->GetData(), Image->GetSize(), ITexture::EFormatComponents::RGBA, EScalarType::UnsignedInt8);
@@ -103,7 +106,10 @@ int main()
 	while (WindowManager->Run())
 	{
 		TimeManager->Update();
-		uCurrentTime = (float) TimeManager->GetRunTime();
+		float const t = (float) TimeManager->GetRunTime();
+
+		uCurrentTime = t;
+		uModelMatrix = glm::translate(glm::mat4(1.f), glm::vec3(Cos(t) * 0.5f, Sin(t) * 0.5f, 0));
 
 		RenderTarget->Bind();
 		RenderTarget->ClearColorAndDepth();
