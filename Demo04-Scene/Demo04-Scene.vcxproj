@@ -32,5 +32,13 @@
   <ItemGroup>
     <ClCompile Include="DemoScene.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Axis.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Diffuse.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

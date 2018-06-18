@@ -23,7 +23,11 @@ PS_INPUT vertex(VS_INPUT input)
 {
 	PS_INPUT output;
 
-	output.fPosition = mul(uProjectionMatrix, mul(uViewMatrix, mul(uModelMatrix, float4(input.vPosition, 1.0))));
+	output.fPosition = float4(input.vPosition, 1.0);
+	output.fPosition = mul(uModelMatrix, output.fPosition);
+	output.fPosition = mul(uViewMatrix, output.fPosition);
+	output.fPosition = mul(uProjectionMatrix, output.fPosition);
+
 	output.fColor = input.vColor;
 
 	return output;

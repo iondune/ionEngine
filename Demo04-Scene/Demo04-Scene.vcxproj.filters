@@ -3,4 +3,8 @@
   <ItemGroup>
     <ClCompile Include="DemoScene.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Axis.hlsl" />
+    <None Include="Diffuse.hlsl" />
+  </ItemGroup>
 </Project>
