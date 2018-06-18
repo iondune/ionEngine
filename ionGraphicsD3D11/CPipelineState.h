@@ -79,7 +79,7 @@ namespace ion
 					SharedPointer<CTexture const> Texture;
 				};
 
-				vector<SConstantBufferBinding> ConstantBuffers; 
+				map<string, SConstantBufferBinding> ConstantBuffers; 
 				map<string, SharedPointer<IUniform const>> Uniform;
 
 				vector<STextureBinding> TextureBindings;

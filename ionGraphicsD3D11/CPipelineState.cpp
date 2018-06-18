@@ -57,6 +57,11 @@ namespace ion
 							D3D11_SHADER_BUFFER_DESC BufferDesc;
 							ConstantBuffer->GetDesc(& BufferDesc);
 
+							if (ConstantBuffers.find(BufferDesc.Name) != ConstantBuffers.end())
+							{
+								continue;
+							}
+
 							for (int v = 0; v < (int) BufferDesc.Variables; ++ v)
 							{
 								auto Variable = ConstantBuffer->GetVariableByIndex(v);
@@ -75,7 +80,7 @@ namespace ion
 							CheckedDXCall( Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer) );
 							Binding.Size = BufferDesc.Size;
 
-							ConstantBuffers.push_back(Binding);
+							ConstantBuffers[BufferDesc.Name] = Binding;
 						}
 
 						for (int t = 0; t < (int) ShaderDesc.BoundResources; ++ t)
@@ -133,7 +138,7 @@ namespace ion
 
 				for (auto & Buffer : ConstantBuffers)
 				{
-					for (auto & Variable : Buffer.Variables)
+					for (auto & Variable : Buffer.second.Variables)
 					{
 						if (Variable.first == Name)
 						{
@@ -271,7 +276,7 @@ namespace ion
 
 				for (auto & ConstantBuffer : ConstantBuffers)
 				{
-					for (auto & Variable : ConstantBuffer.Variables)
+					for (auto & Variable : ConstantBuffer.second.Variables)
 					{
 						if (! Variable.second.Uniform)
 						{
@@ -304,10 +309,9 @@ namespace ion
 				int Slot = 0;
 				for (auto & ConstantBuffer : ConstantBuffers)
 				{
-					byte * ConstantBufferData = new byte[ConstantBuffer.Size]();
+					byte * ConstantBufferData = new byte[ConstantBuffer.second.Size]();
 
-					int Offset = 0;
-					for (auto & Variable : ConstantBuffer.Variables)
+					for (auto & Variable : ConstantBuffer.second.Variables)
 					{
 						if (Variable.second.Uniform)
 						{
@@ -405,11 +409,11 @@ namespace ion
 						}
 					}
 
-					ImmediateContext->UpdateSubresource(ConstantBuffer.ConstantBuffer, 0, nullptr, ConstantBufferData, 0, 0);
+					ImmediateContext->UpdateSubresource(ConstantBuffer.second.ConstantBuffer, 0, nullptr, ConstantBufferData, 0, 0);
 					delete[] ConstantBufferData;
 
-					ImmediateContext->VSSetConstantBuffers(Slot, 1, &ConstantBuffer.ConstantBuffer);
-					ImmediateContext->PSSetConstantBuffers(Slot, 1, &ConstantBuffer.ConstantBuffer);
+					ImmediateContext->VSSetConstantBuffers(Slot, 1, &ConstantBuffer.second.ConstantBuffer);
+					ImmediateContext->PSSetConstantBuffers(Slot, 1, &ConstantBuffer.second.ConstantBuffer);
 
 					Slot ++;
 				}
