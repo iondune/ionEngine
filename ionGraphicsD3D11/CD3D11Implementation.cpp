@@ -61,7 +61,7 @@ namespace ion
 			CreateDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-			D3D11CreateDeviceAndSwapChain(
+			CheckedDXCall( D3D11CreateDeviceAndSwapChain(
 				nullptr, D3D_DRIVER_TYPE_HARDWARE,
 				NULL, CreateDeviceFlags,
 				NULL, 0,
@@ -70,11 +70,26 @@ namespace ion
 				& SwapChain,
 				& Device,
 				NULL,
-				& ImmediateContext);
+				& ImmediateContext) );
 
 			DebugDevice = nullptr;
 			Device->QueryInterface(IID_PPV_ARGS(&DebugDevice));
 
+			D3D11_RASTERIZER_DESC RasterizerDesc = {};
+			RasterizerDesc.FillMode = D3D11_FILL_SOLID;
+			RasterizerDesc.CullMode = D3D11_CULL_NONE;
+			RasterizerDesc.FrontCounterClockwise = true;
+			RasterizerDesc.DepthBias = 0;
+			RasterizerDesc.SlopeScaledDepthBias = 0.f;
+			RasterizerDesc.DepthBiasClamp = 0.f;
+			RasterizerDesc.DepthClipEnable = true;
+			RasterizerDesc.ScissorEnable = false;
+			RasterizerDesc.MultisampleEnable = false;
+			RasterizerDesc.AntialiasedLineEnable = false;
+
+			ID3D11RasterizerState * RasterizerState = nullptr;
+			CheckedDXCall( Device->CreateRasterizerState(& RasterizerDesc, & RasterizerState) );
+			ImmediateContext->RSSetState(RasterizerState);
 		}
 
 		bool CD3D11Implementation::OnWindowSwap(CWindow * Window)
