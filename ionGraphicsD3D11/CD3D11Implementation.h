@@ -45,6 +45,11 @@ namespace ion
 
 			SharedPointer<IGraphicsContext> GetWindowContext(CWindow * Window);
 
+			IDXGISwapChain * GetSwapChain();
+			ID3D11Device * GetDevice();
+			ID3D11DeviceContext * GetImmediateContext();
+			ID3D11Debug * GetDebugDevice();
+
 		protected:
 
 			bool ReverseDepth = false;

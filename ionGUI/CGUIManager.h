@@ -10,15 +10,21 @@
 
 namespace ion
 {
+	namespace Graphics
+	{
+		class CD3D11Implementation;
+	}
 
 	class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 	{
 
 	public:
 
-		bool Init(CWindow * Window, float const DefaultFontSize = 18.f);
+		bool Init(CWindow * Window, Graphics::CD3D11Implementation * GraphicsImplementation, float const DefaultFontSize = 18.f);
 		void Shutdown();
 		void NewFrame();
+		void RenderDrawData(ImDrawData* draw_data);
+
 		void Draw();
 
 		template <typename... Args>
@@ -30,17 +36,15 @@ namespace ion
 		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
 
 		void OnEvent(IEvent & Event);
-		static ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
-
-		ImGuiIO & IO = ImGui::GetIO();
 
 	protected:
 
 		void AddFontFromFile(string const & FileName, float const Size);
+		ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
-		void DrawCallback(ImDrawData* draw_data);
 		void CreateFontsTexture();
 		bool CreateDeviceObjects();
+		void InvalidateDeviceObjects();
 
 		size_t const StartVboMaxSize = 20000;
 
@@ -70,7 +74,6 @@ namespace ion
 
 		CGUIManager();
 
-		friend void ImGui_ImplGlfwGL3_RenderDrawLists(ImDrawData* draw_data);
 		friend char const * ImGui_ImplGlfwGL3_GetClipboardText(void * user_data);
 		friend void ImGui_ImplGlfwGL3_SetClipboardText(void * user_data, char const * text);
 

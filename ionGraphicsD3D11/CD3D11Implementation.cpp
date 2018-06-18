@@ -168,5 +168,25 @@ namespace ion
 			return std::make_shared<D3D11::CGraphicsContext>(Device, ImmediateContext, SwapChain, Window);
 		}
 
+		IDXGISwapChain * CD3D11Implementation::GetSwapChain()
+		{
+			return SwapChain;
+		}
+
+		ID3D11Device * CD3D11Implementation::GetDevice()
+		{
+			return Device;
+		}
+
+		ID3D11DeviceContext * CD3D11Implementation::GetImmediateContext()
+		{
+			return ImmediateContext;
+		}
+
+		ID3D11Debug * CD3D11Implementation::GetDebugDevice()
+		{
+			return DebugDevice;
+		}
+
 	}
 }

@@ -23,7 +23,7 @@
         ;ionCore.lib;
         ;ionWindow.lib;
         ;ionGraphics.lib;
-        ;ionGraphicsGL.lib;
+        ;ionGraphicsD3D11.lib;
         ;ionGUI.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>

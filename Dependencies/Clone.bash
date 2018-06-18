@@ -22,7 +22,7 @@ function CloneGithubDependency {
 CloneGithubDependency 'stb'            'https://github.com/nothings/stb.git'         '9d9f75eb682dd98b34de08bb5c489c6c561c9fa6'
 CloneGithubDependency 'tinyformat'     'https://github.com/c42f/tinyformat.git'      '3a33bbf65442432277eee079e83d3e8fac51730c'
 CloneGithubDependency 'glm'            'https://github.com/g-truc/glm.git'           '6fa203eeb7fbcbb6f620501fad40359c8a456049'
-CloneGithubDependency 'imgui'          'https://github.com/ocornut/imgui.git'        'e916310b2e1f9cacbb2b9ce192a3dfb359e4b509'
+CloneGithubDependency 'imgui'          'https://github.com/ocornut/imgui.git'        '78b28d545f79c5c5ed3e0ebae4099e44bdc6c5a6'
 CloneGithubDependency 'Catch'          'https://github.com/philsquared/Catch.git'    '19ab2117c5bac2f376f8da4a4b25e183137bcec0'
 CloneGithubDependency 'glad'           'https://github.com/iondune/glad.git'         '11f33ab7625ada108f836a83cd8abc405bd870e9'
 CloneGithubDependency 'tinyobjloader'  'https://github.com/syoyo/tinyobjloader.git'  '51d13700d880d2d5fdaf5bd3547100bafcae7932'

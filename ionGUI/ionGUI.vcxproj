@@ -19,6 +19,8 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="CGUIManager.Draw.cpp" />
+    <ClCompile Include="CGUIManager.Input.cpp" />
     <ClCompile Include="CWindowWidget.cpp" />
     <ClCompile Include="imGUI.cpp" />
     <ClCompile Include="ionGUI.cpp" />
