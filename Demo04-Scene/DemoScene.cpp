@@ -1,7 +1,7 @@
 
 #include <ionWindow.h>
 #include <ionGraphics.h>
-#include <ionGraphicsGL.h>
+#include <ionGraphicsD3D11.h>
 #include <ionScene.h>
 
 using namespace ion;
@@ -22,7 +22,7 @@ int main()
 	SingletonPointer<CSceneManager> SceneManager;
 	SingletonPointer<CTimeManager> TimeManager;
 
-	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	GraphicsAPI->Init(new Graphics::CD3D11Implementation());
 	WindowManager->Init(GraphicsAPI);
 	TimeManager->Init(WindowManager);
 	SceneManager->Init(GraphicsAPI);
@@ -37,8 +37,8 @@ int main()
 	// Create Shader //
 	///////////////////
 
-	SharedPointer<IVertexStage> VertexShader = GraphicsAPI->CreateVertexStageFromFile("Diffuse.vert");
-	SharedPointer<IPixelStage> PixelShader = GraphicsAPI->CreatePixelStageFromFile("Diffuse.frag");
+	SharedPointer<IVertexStage> VertexShader = GraphicsAPI->CreateVertexStageFromFile("Diffuse.hlsl");
+	SharedPointer<IPixelStage> PixelShader = GraphicsAPI->CreatePixelStageFromFile("Diffuse.hlsl");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile diffuse vertex shader!" << std::endl;
@@ -50,8 +50,8 @@ int main()
 	DiffuseProgram->SetVertexStage(VertexShader);
 	DiffuseProgram->SetPixelStage(PixelShader);
 
-	VertexShader = GraphicsAPI->CreateVertexStageFromFile("Axis.vert");
-	PixelShader = GraphicsAPI->CreatePixelStageFromFile("Axis.frag");
+	VertexShader = GraphicsAPI->CreateVertexStageFromFile("Axis.hlsl");
+	PixelShader = GraphicsAPI->CreatePixelStageFromFile("Axis.hlsl");
 
 	if (! VertexShader)
 		std::cerr << "Failed to compile axis vertex shader!" << std::endl;
