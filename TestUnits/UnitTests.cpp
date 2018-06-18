@@ -17,7 +17,13 @@ public:
 
 	virtual int sync()
 	{
-		OutputDebugString(str().c_str());
+		char const * message = str().c_str();
+		int wcharsCount =  MultiByteToWideChar(CP_UTF8, 0, message, -1, NULL, 0);
+		wchar_t * wstr = new wchar_t[wcharsCount];
+		MultiByteToWideChar                   (CP_UTF8, 0, message, -1, wstr, wcharsCount);
+		OutputDebugString(wstr);
+		delete[] wstr;
+
 		str("");
 		return 0;
 	}
