@@ -315,63 +315,53 @@ namespace ion
 					{
 						if (Variable.second.Uniform)
 						{
-							std::memcpy(ConstantBufferData + Offset, Variable.second.Uniform->GetData(), Variable.second.Uniform->GetSize());
-
 							auto Uniform = Variable.second.Uniform;
+							byte * Address = ConstantBufferData + Variable.second.Offset;
 
 							switch (Uniform->GetType())
 							{
 							case EUniformType::Float:
 							case EUniformType::Int:
-								std::memcpy(ConstantBufferData + Offset, Uniform->GetData(), Uniform->GetSize());
-								Offset += Uniform->GetSize();
+								std::memcpy(Address, Uniform->GetData(), Uniform->GetSize());
 								break;
 
 							case EUniformType::Float2:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec2f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 2);
-								Offset += sizeof(float) * 2;
+								std::memcpy(Address, static_cast<vec2f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 2);
 								break;
 
 							case EUniformType::Float3:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec3f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 3);
-								Offset += sizeof(float) * 3;
+								std::memcpy(Address, static_cast<vec3f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 3);
 								break;
 
 							case EUniformType::Float4:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec4f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 4);
-								Offset += sizeof(float) * 4;
+								std::memcpy(Address, static_cast<vec4f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 4);
 								break;
 
 							case EUniformType::Int2:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec2i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 2);
-								Offset += sizeof(int) * 2;
+								std::memcpy(Address, static_cast<vec2i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 2);
 								break;
 
 							case EUniformType::Int3:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec3i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 3);
-								Offset += sizeof(int) * 3;
+								std::memcpy(Address, static_cast<vec3i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 3);
 								break;
 
 							case EUniformType::Int4:
-								std::memcpy(ConstantBufferData + Offset, static_cast<vec4i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 4);
-								Offset += sizeof(int) * 4;
+								std::memcpy(Address, static_cast<vec4i const *>(Uniform->GetData())->ValuePointer(), sizeof(int) * 4);
 								break;
 
 							case EUniformType::Matrix4x4:
 								std::memcpy(
-									ConstantBufferData + Offset,
+									Address,
 									glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData())),
 									sizeof(float) * 16);
-								Offset += sizeof(float) * 16;
 								break;
 
 
 							case EUniformType::FloatArray:
 								std::memcpy(
-									ConstantBufferData + Offset,
+									Address,
 									static_cast<vector<float> const *>(Uniform->GetData())->data(),
 									static_cast<vector<float> const *>(Uniform->GetData())->size() * sizeof(float));
-								Offset += static_cast<vector<float> const *>(Uniform->GetData())->size() * sizeof(float);
 								break;
 
 							case EUniformType::Float2Array:
@@ -383,10 +373,9 @@ namespace ion
 									CompactedData.push_back(Vector.Y);
 								}
 								std::memcpy(
-									ConstantBufferData + Offset,
+									Address,
 									CompactedData.data(),
 									CompactedData.size() * sizeof(float));
-								Offset += CompactedData.size() * sizeof(float);
 
 								break;
 							}
