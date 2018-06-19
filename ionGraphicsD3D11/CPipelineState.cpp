@@ -65,12 +65,83 @@ namespace ion
 							for (int v = 0; v < (int) BufferDesc.Variables; ++ v)
 							{
 								auto Variable = ConstantBuffer->GetVariableByIndex(v);
-								D3D11_SHADER_VARIABLE_DESC VariableDesc;
-								Variable->GetDesc(& VariableDesc);
 
-								SUniformBinding Uniform;
-								Uniform.Offset = VariableDesc.StartOffset;
-								Binding.Variables[VariableDesc.Name] = Uniform;
+								D3D11_SHADER_VARIABLE_DESC VariableDesc;
+								D3D11_SHADER_TYPE_DESC TypeDesc;
+
+								Variable->GetDesc(& VariableDesc);
+								auto Type = Variable->GetType();
+								Type->GetDesc(& TypeDesc);
+
+								if (TypeDesc.Members)
+								{
+									if (TypeDesc.Elements)
+									{
+										// Array of Structs
+										int ArrayOffset = 0;
+
+										for (int j = 0; j < TypeDesc.Elements; ++ j)
+										{
+											for (int i = 0; i < TypeDesc.Members; ++ i)
+											{
+												auto Field = Type->GetMemberTypeByIndex(i);
+												D3D11_SHADER_TYPE_DESC FieldDesc;
+												Field->GetDesc(& FieldDesc);
+												std::cout << "Struct array member: " << Type->GetMemberTypeName(i) << " at offset " << FieldDesc.Offset + ArrayOffset << std::endl;
+
+
+												SUniformBinding Uniform;
+												Uniform.Offset = VariableDesc.StartOffset + ArrayOffset + FieldDesc.Offset;
+												Binding.Variables[string(VariableDesc.Name) + "[" + std::to_string(j) + "]" + "." + Type->GetMemberTypeName(i)] = Uniform;
+											}
+
+											ArrayOffset += VariableDesc.Size / TypeDesc.Elements;
+										}
+									}
+									else
+									{
+										// Struct
+										for (int i = 0; i < TypeDesc.Members; ++ i)
+										{
+											auto Field = Type->GetMemberTypeByIndex(i);
+											D3D11_SHADER_TYPE_DESC FieldDesc;
+											Field->GetDesc(& FieldDesc);
+											std::cout << "Struct member: " << Type->GetMemberTypeName(i) << " at offset " << FieldDesc.Offset << std::endl;
+
+											SUniformBinding Uniform;
+											Uniform.Offset = VariableDesc.StartOffset + FieldDesc.Offset;
+											Binding.Variables[string(VariableDesc.Name) + "." + Type->GetMemberTypeName(i)] = Uniform;
+										}
+									}
+								}
+								else
+								{
+
+									if (TypeDesc.Elements)
+									{
+										// Array of POD
+										int ArrayOffset = 0;
+
+										for (int j = 0; j < TypeDesc.Elements; ++ j)
+										{
+											std::cout << "Array element at offset " << ArrayOffset << std::endl;
+
+
+											SUniformBinding Uniform;
+											Uniform.Offset = VariableDesc.StartOffset + ArrayOffset;
+											Binding.Variables[string(VariableDesc.Name) + "[" + std::to_string(j) + "]"] = Uniform;
+
+											ArrayOffset += VariableDesc.Size / TypeDesc.Elements;
+										}
+									}
+									else
+									{
+										// POD
+										SUniformBinding Uniform;
+										Uniform.Offset = VariableDesc.StartOffset;
+										Binding.Variables[VariableDesc.Name] = Uniform;
+									}
+								}
 							}
 
 							D3D11_BUFFER_DESC CBDesc = {};
@@ -126,6 +197,27 @@ namespace ion
 			void CPipelineState::SetIndexBuffer(SharedPointer<IIndexBuffer> inIndexBuffer)
 			{
 				IndexBuffer = std::dynamic_pointer_cast<CIndexBuffer>(inIndexBuffer);
+			}
+
+			void CPipelineState::OfferUniform(string const & Name, SharedPointer<IUniform> Uniform)
+			{
+				if (! Shader)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				for (auto & Buffer : ConstantBuffers)
+				{
+					for (auto & Variable : Buffer.second.Variables)
+					{
+						if (Variable.first == Name)
+						{
+							Variable.second.Uniform = Uniform;
+							return;
+						}
+					}
+				}
 			}
 
 			void CPipelineState::SetUniform(string const & Name, SharedPointer<IUniform> Uniform)
@@ -238,11 +330,6 @@ namespace ion
 			void CPipelineState::SetBlendMode(EBlendMode const BlendMode)
 			{
 				this->BlendMode = BlendMode;
-			}
-
-			void CPipelineState::OfferUniform(string const & Name, SharedPointer<IUniform> Uniform)
-			{
-				SetUniform(Name, Uniform);
 			}
 
 			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
