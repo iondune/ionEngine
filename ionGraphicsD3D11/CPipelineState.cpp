@@ -250,6 +250,29 @@ namespace ion
 				}
 			}
 
+			void CPipelineState::IgnoreUniform(string const & Name)
+			{
+				if (! Shader)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				for (auto & Buffer : ConstantBuffers)
+				{
+					for (auto & Variable : Buffer.second.Variables)
+					{
+						if (Variable.first == Name)
+						{
+							Variable.second.Ignored = true;
+							return;
+						}
+					}
+				}
+
+				Log::Error("Attempting to ignore uniform or texture '%s' that was never specified, ignoring.", Name);
+			}
+
 			void CPipelineState::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
 				if (! Shader)
@@ -351,10 +374,6 @@ namespace ion
 				//	Textures[Name] = Texture;
 				//	UnboundUniforms.erase(Name);
 				//}
-			}
-
-			void CPipelineState::IgnoreUniform(string const & Name)
-			{
 			}
 
 			set<string> CPipelineState::GetUnboundUniforms() const
@@ -479,7 +498,7 @@ namespace ion
 							}
 
 						}
-						else
+						else if (! Variable.second.Ignored)
 						{
 							Log::Error("Uniform expected but not provided: '%s'", Variable.first);
 						}

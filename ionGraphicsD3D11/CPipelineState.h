@@ -61,6 +61,7 @@ namespace ion
 				{
 					int Offset = 0;
 					SharedPointer<IUniform const> Uniform;
+					bool Ignored = false;
 				};
 
 				struct SConstantBufferBinding
