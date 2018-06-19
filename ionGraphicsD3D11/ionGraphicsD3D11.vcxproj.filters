@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CDrawContext.cpp" />
     <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CD3D11Implementation.cpp" />
-    <ClCompile Include="CPipelineState.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="CShaderProgram.cpp">
       <Filter>Shaders</Filter>
@@ -39,11 +37,15 @@
     <ClCompile Include="CGeometryStage.cpp">
       <Filter>Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="CDrawContext.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="CPipelineState.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CDrawContext.h" />
     <ClInclude Include="CGraphicsContext.h" />
-    <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="CD3D11Implementation.h" />
     <ClInclude Include="ionGraphicsD3D11.h" />
     <ClInclude Include="Utilities.h" />
@@ -80,6 +82,12 @@
     <ClInclude Include="CShaderStage.h">
       <Filter>Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="CDrawContext.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="CPipelineState.h">
+      <Filter>Draw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shaders">
@@ -93,6 +101,9 @@
     </Filter>
     <Filter Include="Render Targets">
       <UniqueIdentifier>{5a7b1a53-0d51-4290-99aa-7ad1884dbe90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Draw">
+      <UniqueIdentifier>{2eb21a0f-5655-4c21-91f3-f2bb4f2573ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
