@@ -52,18 +52,28 @@ namespace ion
 				ID3DBlob * ShaderBlob = nullptr;
 				ID3DBlob * ErrorBlob = nullptr;
 
-				CheckedDXCall( D3DCompile(
+				HRESULT result = D3DCompile(
 					Source.c_str(), Source.length(),
 					NULL, defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 					EntryPoint, Profile,
-					CompileFlags, 0, &ShaderBlob, &ErrorBlob) );
+					CompileFlags, 0, &ShaderBlob, &ErrorBlob);
 
-				if (ErrorBlob)
+				if (result != S_OK)
 				{
-					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
-					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
-					Log::Error("%s", MessageData);
-					ErrorBlob->Release();
+					Log::Error("Shader failed to compile.");
+					if (ErrorBlob)
+					{
+						char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
+						std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
+						Log::Error("%s", MessageData);
+						ErrorBlob->Release();
+					}
+
+					if (ShaderBlob)
+					{
+						ShaderBlob->Release();
+						ShaderBlob = nullptr;
+					}
 				}
 
 				return ShaderBlob;

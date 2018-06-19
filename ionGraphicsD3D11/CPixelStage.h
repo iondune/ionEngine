@@ -23,11 +23,15 @@ namespace ion
 
 			public:
 
-				CPixelStage(ID3D11Device * Device, string const & Source);
+				static CPixelStage * Compile(ID3D11Device * Device, string const & Source);
 				~CPixelStage();
 
 				ID3D11PixelShader * PixelShader = nullptr;
 				ID3D11ShaderReflection * Reflector = nullptr;
+
+			protected:
+
+				CPixelStage() = default;
 
 			};
 

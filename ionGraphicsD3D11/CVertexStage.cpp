@@ -12,16 +12,19 @@ namespace ion
 		namespace D3D11
 		{
 
-			CVertexStage::CVertexStage(ID3D11Device * Device, string const & Source)
+			CVertexStage * CVertexStage::Compile(ID3D11Device * Device, string const & Source)
 			{
-				ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Vertex);
+				CVertexStage * Stage = nullptr;
 
-				if (ShaderBlob)
+				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Vertex))
 				{
-					CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &VertexShader) );
-					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &Reflector) );
+					Stage = new CVertexStage();
+					CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->VertexShader) );
+					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) & Stage->Reflector) );
 					ShaderBlob->Release();
 				}
+
+				return Stage;
 			}
 
 			CVertexStage::~CVertexStage()

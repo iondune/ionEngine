@@ -23,11 +23,15 @@ namespace ion
 
 			public:
 
-				CGeometryStage(ID3D11Device * Device, string const & Source);
+				static CGeometryStage * Compile(ID3D11Device * Device, string const & Source);
 				~CGeometryStage();
 
 				ID3D11GeometryShader * GeometryShader = nullptr;
 				ID3D11ShaderReflection * Reflector = nullptr;
+
+			protected:
+
+				CGeometryStage() = default;
 
 			};
 

@@ -100,17 +100,17 @@ namespace ion
 
 		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source)
 		{
-			return std::make_shared<D3D11::CVertexStage>(Device, Source);
+			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source));
 		}
 
 		SharedPointer<IGeometryStage> CD3D11Implementation::CreateGeometryShaderFromSource(string const & Source)
 		{
-			return std::make_shared<D3D11::CGeometryStage>(Device, Source);
+			return std::shared_ptr<D3D11::CGeometryStage>(D3D11::CGeometryStage::Compile(Device, Source));
 		}
 
 		SharedPointer<IPixelStage> CD3D11Implementation::CreatePixelShaderFromSource(string const & Source)
 		{
-			return std::make_shared<D3D11::CPixelStage>(Device, Source);
+			return std::shared_ptr<D3D11::CPixelStage>(D3D11::CPixelStage::Compile(Device, Source));
 		}
 
 		SharedPointer<IShader> CD3D11Implementation::CreateShaderProgram()
