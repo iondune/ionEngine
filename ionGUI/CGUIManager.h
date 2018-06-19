@@ -10,22 +10,21 @@
 
 namespace ion
 {
-	namespace Graphics
-	{
-		class CD3D11Implementation;
-	}
 
 	class CGUIManager : public Singleton<CGUIManager>, public IEventListener
 	{
 
 	public:
 
-		bool Init(CWindow * Window, Graphics::CD3D11Implementation * GraphicsImplementation, float const DefaultFontSize = 18.f);
+		bool Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize = 18.f);
 		void Shutdown();
 		void NewFrame();
 		void RenderDrawData(ImDrawData* draw_data);
 
 		void Draw();
+		void OnEvent(IEvent & Event);
+
+		ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		template <typename... Args>
 		void Text(vec2i const & Position, color3i const & Color, char const * const Format, Args const &... args)
@@ -35,12 +34,9 @@ namespace ion
 
 		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
 
-		void OnEvent(IEvent & Event);
-
 	protected:
 
 		void AddFontFromFile(string const & FileName, float const Size);
-		ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		void CreateFontsTexture();
 		bool CreateDeviceObjects();

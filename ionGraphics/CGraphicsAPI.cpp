@@ -370,4 +370,9 @@ namespace ion
 		return GraphicsContext;
 	}
 
+	IGraphicsImplementation * CGraphicsAPI::GetImplementation()
+	{
+		return Implementation;
+	}
+
 }

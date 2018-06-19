@@ -54,6 +54,7 @@ namespace ion
 		SharedPointer<Graphics::ITextureCubeMap> CreateTextureCubeMap(vector<CImage *> const & Images, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 
 		SharedPointer<Graphics::IGraphicsContext> GetWindowContext(CWindow * Window);
+		IGraphicsImplementation * GetImplementation();
 
 	protected:
 

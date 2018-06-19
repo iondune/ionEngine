@@ -50,6 +50,8 @@ namespace ion
 			ID3D11DeviceContext * GetImmediateContext();
 			ID3D11Debug * GetDebugDevice();
 
+			void UseReverseDepth() {}
+
 		protected:
 
 			bool ReverseDepth = false;

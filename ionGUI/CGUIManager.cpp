@@ -29,13 +29,15 @@ namespace ion
 		return  (void *) TextureImplementation->Texture2D;
 	}
 
-	bool CGUIManager::Init(CWindow * Window, Graphics::CD3D11Implementation * GraphicsImplementation, float const DefaultFontSize)
+	bool CGUIManager::Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)
 	{
 		this->Window = Window;
 
+		Graphics::CD3D11Implementation * D3D11 = dynamic_cast<Graphics::CD3D11Implementation *>(GraphicsImplementation);
+
 		g_hWnd = glfwGetWin32Window(Window->GetHandle());;
-		g_pd3dDevice = GraphicsImplementation->GetDevice();
-		g_pd3dDeviceContext = GraphicsImplementation->GetImmediateContext();
+		g_pd3dDevice = D3D11->GetDevice();
+		g_pd3dDeviceContext = D3D11->GetImmediateContext();
 
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();
