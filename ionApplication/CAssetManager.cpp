@@ -5,80 +5,10 @@
 namespace ion
 {
 
-
-	string CAssetManager::ParseShaderSource(string const & FileName, string const & RelativeDirectory)
-	{
-		// To Do : Prevent infinite recursion
-
-		std::string FileSource = File::ReadAsString(FileName);
-
-		std::istringstream Stream(FileSource);
-		std::ostringstream Output;
-
-		int LineNumber = 0;
-		while (Stream.good() && ! Stream.eof())
-		{
-			std::string Line;
-			std::getline(Stream, Line);
-
-			if (Line.substr(0, 10) == std::string("#include \""))
-			{
-				std::string IncludeFile = Line.substr(10);
-				size_t EndPath = IncludeFile.find_last_of('"');
-				IncludeFile = IncludeFile.substr(0, EndPath);
-
-				bool FoundFile = false;
-
-				if (File::Exists(RelativeDirectory + IncludeFile))
-				{
-					Output << ParseShaderSource(RelativeDirectory + IncludeFile, RelativeDirectory) << std::endl;
-					FoundFile = true;
-				}
-				else
-				{
-					for (string AssetPath : AssetPaths)
-					{
-						string const IncludePath = AssetPath + ShaderPath + IncludeFile;
-
-						if (File::Exists(IncludePath))
-						{
-							Output << ParseShaderSource(IncludePath, AssetPath + ShaderPath) << std::endl;
-							FoundFile = true;
-							break;
-						}
-					}
-				}
-
-				if (! FoundFile)
-				{
-					Log::Error("Could not find file to include at line %d in '%s: '%s'", LineNumber, FileName, IncludeFile);
-				}
-			}
-			else
-			{
-				Output << Line << std::endl;
-			}
-
-			LineNumber ++;
-		}
-
-		static bool const WriteDebugIntermediate = false;
-		if (WriteDebugIntermediate)
-		{
-			string const IntermediateFileName = FileName + ".intermediate";
-
-			std::ofstream IntermediateFile(IntermediateFileName);
-			IntermediateFile << Output.str();
-			IntermediateFile.close();
-		}
-
-		return Output.str();
-	}
-
 	void CAssetManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
-	SharedPointer<Graphics::IShader> CAssetManager::LoadShader(string const & Name)
+	SharedPointer<Graphics::IShader> CAssetManager::LoadShader(string const & Name, int const Stages)
 	{
 		if (! GraphicsAPI)
 		{
@@ -88,11 +18,9 @@ namespace ion
 
 		for (string AssetPath : AssetPaths)
 		{
-			string const VertexPath = AssetPath + ShaderPath + Name + ".vert";
-			string const GeometryPath = AssetPath + ShaderPath + Name + ".geom";
-			string const PixelPath = AssetPath + ShaderPath + Name + ".frag";
+			string const FilePath = AssetPath + ShaderPath + Name + ".hlsl";
 
-			if (! File::Exists(VertexPath))
+			if (! File::Exists(FilePath))
 			{
 				// Check other asset paths
 				continue;
@@ -102,46 +30,50 @@ namespace ion
 			SharedPointer<Graphics::IGeometryStage> GeometryShader;
 			SharedPointer<Graphics::IPixelStage> PixelShader;
 
-			VertexShader = GraphicsAPI->CreateVertexStageFromSource(ParseShaderSource(VertexPath, AssetPath + ShaderPath));
-			if (! VertexShader)
+			if (Stages & Graphics::EShaderType::Vertex)
 			{
-				Log::Error("Failed to compile vertex shader '%s': '%s'", Name, VertexPath);
-				return nullptr;
+				VertexShader = GraphicsAPI->CreateVertexStageFromFile(FilePath);
+				if (! VertexShader)
+				{
+					Log::Error("Failed to compile vertex shader '%s': '%s'", Name, FilePath);
+					return nullptr;
+				}
 			}
 
-			if (File::Exists(GeometryPath))
+			if (Stages & Graphics::EShaderType::Geometry)
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryStageFromSource(ParseShaderSource(GeometryPath, AssetPath + ShaderPath));
+				GeometryShader = GraphicsAPI->CreateGeometryStageFromFile(FilePath);
 
 				if (! GeometryShader)
 				{
-					Log::Error("Failed to compile geometry shader '%s': '%s'", Name, GeometryPath);
+					Log::Error("Failed to compile geometry shader '%s': '%s'", Name, FilePath);
 					return nullptr;
 				}
 			}
 
-			if (File::Exists(PixelPath))
+			if (Stages & Graphics::EShaderType::Pixel)
 			{
-				PixelShader = GraphicsAPI->CreatePixelStageFromSource(ParseShaderSource(PixelPath, AssetPath + ShaderPath));
+				PixelShader = GraphicsAPI->CreatePixelStageFromFile(FilePath);
 				if (! PixelShader)
 				{
-					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, PixelPath);
+					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, FilePath);
 					return nullptr;
 				}
-			}
-			else
-			{
-				Log::Error("Could not find pixel shader (*.frag) for '%s'", Name);
-				return nullptr;
 			}
 
 			SharedPointer<Graphics::IShader> Shader = GraphicsAPI->CreateShaderProgram();
-			Shader->SetVertexStage(VertexShader);
-			Shader->SetPixelStage(PixelShader);
 
+			if (VertexShader)
+			{
+				Shader->SetVertexStage(VertexShader);
+			}
 			if (GeometryShader)
 			{
 				Shader->SetGeometryStage(GeometryShader);
+			}
+			if (PixelShader)
+			{
+				Shader->SetPixelStage(PixelShader);
 			}
 
 			return Shader;

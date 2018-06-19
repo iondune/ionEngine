@@ -9,6 +9,16 @@ namespace ion
 	namespace Graphics
 	{
 
+		struct EShaderType
+		{
+			enum
+			{
+				Vertex   = 0x001,
+				Geometry = 0x002,
+				Pixel    = 0x004,
+			};
+		};
+
 		//! \ingroup ionGraphics
 		class IVertexStage
 		{

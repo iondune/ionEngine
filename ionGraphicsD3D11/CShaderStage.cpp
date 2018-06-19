@@ -14,7 +14,7 @@ namespace ion
 		namespace D3D11
 		{
 
-			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, EShaderType const & ShaderType)
+			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, int const ShaderType)
 			{
 				UINT CompileFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 			#ifdef ION_CONFIG_DEBUG
