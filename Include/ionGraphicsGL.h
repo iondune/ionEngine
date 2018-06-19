@@ -1,4 +1,4 @@
 
 #pragma once
 
-#include "../ionGraphicsGL/ionGraphicsGL.h"
+#error "GraphicsGL is deprecated"
