@@ -26,7 +26,7 @@ struct VS_INPUT
 	float3 vNormal : vNormal;
 };
 
-cbuffer ConstantBuffer : register(b0)
+cbuffer Scene
 {
 	float4x4 uModelMatrix;
 	float4x4 uViewMatrix;
@@ -35,6 +35,10 @@ cbuffer ConstantBuffer : register(b0)
 
 	int uPointLightsCount;
 	SLight uPointLights[LIGHT_MAX];
+};
+
+cbuffer Material
+{
 	SMaterial uMaterial;
 };
 

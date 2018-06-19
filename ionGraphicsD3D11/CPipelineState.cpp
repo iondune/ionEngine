@@ -150,6 +150,7 @@ namespace ion
 							CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 							CheckedDXCall( Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer) );
 							Binding.Size = BufferDesc.Size;
+							Binding.Slot = c;
 
 							ConstantBuffers[BufferDesc.Name] = Binding;
 						}
@@ -507,8 +508,8 @@ namespace ion
 					ImmediateContext->UpdateSubresource(ConstantBuffer.second.ConstantBuffer, 0, nullptr, ConstantBufferData, 0, 0);
 					delete[] ConstantBufferData;
 
-					ImmediateContext->VSSetConstantBuffers(Slot, 1, &ConstantBuffer.second.ConstantBuffer);
-					ImmediateContext->PSSetConstantBuffers(Slot, 1, &ConstantBuffer.second.ConstantBuffer);
+					ImmediateContext->VSSetConstantBuffers(ConstantBuffer.second.Slot, 1, &ConstantBuffer.second.ConstantBuffer);
+					ImmediateContext->PSSetConstantBuffers(ConstantBuffer.second.Slot, 1, &ConstantBuffer.second.ConstantBuffer);
 
 					Slot ++;
 				}

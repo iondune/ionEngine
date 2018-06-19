@@ -69,6 +69,7 @@ namespace ion
 					map<string, SUniformBinding> Variables;
 					ID3D11Buffer * ConstantBuffer = nullptr;
 					int Size = 0;
+					int Slot = 0;
 				};
 
 				struct STextureBinding
