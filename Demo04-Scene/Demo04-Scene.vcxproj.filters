@@ -4,7 +4,16 @@
     <ClCompile Include="DemoScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Axis.hlsl" />
-    <None Include="Diffuse.hlsl" />
+    <None Include="Diffuse.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Axis.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{fac33543-6bdb-4d26-8ddf-6d609260693f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

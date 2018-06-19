@@ -7,7 +7,7 @@
         ;ionCore.lib;
         ;ionGraphics.lib;
         ;ionWindow.lib;
-        ;ionGraphicsGL.lib;
+        ;ionGraphicsD3D11.lib;
         ;ionGUI.lib;
         ;ionScene.lib;
         ;ionApplication.lib;

@@ -1,7 +1,7 @@
 
 #include <ionWindow.h>
 #include <ionGraphics.h>
-#include <ionGraphicsGL.h>
+#include <ionGraphicsD3D11.h>
 #include <ionScene.h>
 #include <ionApplication.h>
 
@@ -24,7 +24,7 @@ int main()
 	SingletonPointer<CSceneManager> SceneManager;
 	SingletonPointer<CAssetManager> AssetManager;
 
-	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	GraphicsAPI->Init(new Graphics::CD3D11Implementation());
 	WindowManager->Init(GraphicsAPI);
 	TimeManager->Init(WindowManager);
 	SceneManager->Init(GraphicsAPI);

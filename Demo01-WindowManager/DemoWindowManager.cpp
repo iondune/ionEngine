@@ -1,6 +1,6 @@
 
 #include <ionWindow.h>
-#include <ionGraphicsGL.h>
+#include <ionGraphicsD3D11.h>
 
 using namespace ion;
 
@@ -16,9 +16,9 @@ int main()
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
-	GraphicsAPI->Init(new Graphics::COpenGLImplementation());
+	GraphicsAPI->Init(new Graphics::CD3D11Implementation());
 	WindowManager->Init(GraphicsAPI);
-	WindowManager->CreateWindow(vec2i(640, 480), "TestWindowManager", EWindowType::Windowed);
+	WindowManager->CreateWindow(vec2i(640, 480), "DemoWindowManager", EWindowType::Windowed);
 
 	while (! WindowManager->ShouldClose())
 	{
