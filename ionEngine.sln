@@ -8,6 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo01-WindowManager", "Dem
 		{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7} = {4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}
 		{62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62} = {62BCAA9D-AC23-4C67-ADD3-BFF802DC4B62}
 		{21F131D8-D333-4188-A27B-3E75425D6F7F} = {21F131D8-D333-4188-A27B-3E75425D6F7F}
+		{C9ED1AE0-F707-4409-8E91-445928718990} = {C9ED1AE0-F707-4409-8E91-445928718990}
 		{A24BACED-451D-4120-A386-136A963C3C72} = {A24BACED-451D-4120-A386-136A963C3C72}
 	EndProjectSection
 EndProject
@@ -102,7 +103,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Include", "Include", "{A69E
 	ProjectSection(SolutionItems) = preProject
 		Include\ionConfig.h = Include\ionConfig.h
 		Include\ionEngine.h = Include\ionEngine.h
-		Include\ionGraphicsD3D11.h = Include\ionGraphicsD3D11.h
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{EAB41B6E-7AAE-4A64-A98E-A0ACE574E0A1}"
@@ -112,6 +112,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 		Include\ionBootstrap.h = Include\ionBootstrap.h
 		Include\ionCore.h = Include\ionCore.h
 		Include\ionGraphics.h = Include\ionGraphics.h
+		Include\ionGraphicsD3D11.h = Include\ionGraphicsD3D11.h
 		Include\ionGraphicsGL.h = Include\ionGraphicsGL.h
 		Include\ionGUI.h = Include\ionGUI.h
 		Include\ionMath.h = Include\ionMath.h
