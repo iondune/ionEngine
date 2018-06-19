@@ -38,7 +38,7 @@ int main()
 
 	SharedPointer<IGraphicsContext> Context = GraphicsAPI->GetWindowContext(Window);
 	SharedPointer<IRenderTarget> RenderTarget = Context->GetBackBuffer();
-	RenderTarget->SetClearColor(color3f(0.3f));
+	RenderTarget->SetClearColor(color3f(0.1f, 0.2f, 0.3f));
 
 
 	/////////////////
@@ -52,15 +52,6 @@ int main()
 	SharedPointer<IShader> DiffuseShader = AssetManager->LoadShader("Diffuse");
 	SharedPointer<IShader> SimpleShader = AssetManager->LoadShader("Simple");
 	SharedPointer<IShader> SpecularShader = AssetManager->LoadShader("Specular");
-	SharedPointer<IShader> SkyBoxShader = AssetManager->LoadShader("SkyBox");
-
-	SharedPointer<ITextureCubeMap> SkyBoxTexture = AssetManager->LoadCubeMapTexture(
-		"DarkStormyLeft2048.png",
-		"DarkStormyRight2048.png",
-		"DarkStormyUp2048.png",
-		"DarkStormyDown2048.png",
-		"DarkStormyFront2048.png",
-		"DarkStormyBack2048.png");
 
 
 	////////////////////
@@ -118,21 +109,6 @@ int main()
 	PlaneObject->GetMaterial().Ambient = vec3f(0.05f, 0.05f, 0.1f);
 	RenderPass->AddSceneObject(PlaneObject);
 
-	CSimpleMeshSceneObject * PlaneObject2 = new CSimpleMeshSceneObject();
-	PlaneObject2->SetMesh(PlaneMesh);
-	PlaneObject2->SetShader(DiffuseShader);
-	PlaneObject2->SetScale(0.5f);
-	PlaneObject2->GetMaterial().Ambient = vec3f(0.05f);
-	PlaneObject2->SetFeatureEnabled(Graphics::EDrawFeature::PolygonOffset, true);
-	PlaneObject2->SetPolygonOffsetAmount(-1.f);
-	RenderPass->AddSceneObject(PlaneObject2);
-
-	CSimpleMeshSceneObject * SkySphereObject = new CSimpleMeshSceneObject();
-	SkySphereObject->SetMesh(SkyBoxMesh);
-	SkySphereObject->SetShader(SkyBoxShader);
-	SkySphereObject->SetTexture("uTexture", SkyBoxTexture);
-	RenderPass->AddSceneObject(SkySphereObject);
-
 	CPointLight * Light1 = new CPointLight();
 	Light1->SetPosition(vec3f(0, 1, 0));
 	Light1->SetColor(Color::Basic::Red);
@@ -174,8 +150,6 @@ int main()
 		LightSphere1->SetScale(Brightness);
 		LightSphere2->SetScale(Brightness);
 		LightSphere3->SetScale(Brightness);
-
-		SkySphereObject->SetPosition(Camera->GetPosition());
 
 		RenderTarget->ClearColorAndDepth();
 		SceneManager->DrawAll();

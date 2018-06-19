@@ -3,4 +3,20 @@
   <ItemGroup>
     <ClCompile Include="DemoApplication.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{5be329c7-75a7-4882-bf93-03abb50c8113}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Diffuse.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\Simple.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\Specular.hlsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
 </Project>
