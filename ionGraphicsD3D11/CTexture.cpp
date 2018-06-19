@@ -130,7 +130,7 @@ namespace ion
 			// Lookup //
 			////////////
 
-			DXGI_FORMAT const CTexture::InternalFormatMatrix[4][11] =
+			DXGI_FORMAT const CTexture::InternalFormatMatrix[4][12] =
 			{
 
 				// Components
@@ -152,7 +152,8 @@ namespace ion
 				// UnsignedInt8 = 7,
 				// UnsignedInt16 = 8,
 				// UnsignedInt24 = 9,
-				// Depth = 10,
+				// DepthStencil = 10,
+				// Depth32 = 11
 
 				{
 					DXGI_FORMAT_R8_UNORM,
@@ -165,7 +166,8 @@ namespace ion
 					DXGI_FORMAT_R8_UINT,
 					DXGI_FORMAT_R16_UINT,
 					DXGI_FORMAT_R32_UINT,
-					DXGI_FORMAT_D32_FLOAT
+					DXGI_FORMAT_R24G8_TYPELESS,
+					DXGI_FORMAT_R32_TYPELESS,
 				},
 				{
 					DXGI_FORMAT_R8G8_UNORM,
@@ -178,7 +180,8 @@ namespace ion
 					DXGI_FORMAT_R8G8_UINT,
 					DXGI_FORMAT_R16G16_UINT,
 					DXGI_FORMAT_R32G32_UINT,
-					DXGI_FORMAT_D32_FLOAT
+					DXGI_FORMAT_R24G8_TYPELESS,
+					DXGI_FORMAT_R32_TYPELESS,
 				},
 				{
 					DXGI_FORMAT_UNKNOWN,
@@ -191,7 +194,8 @@ namespace ion
 					DXGI_FORMAT_UNKNOWN,
 					DXGI_FORMAT_UNKNOWN,
 					DXGI_FORMAT_R32G32B32_UINT,
-					DXGI_FORMAT_D32_FLOAT
+					DXGI_FORMAT_R24G8_TYPELESS,
+					DXGI_FORMAT_R32_TYPELESS,
 				},
 				{
 					DXGI_FORMAT_R8G8B8A8_UNORM,
@@ -204,7 +208,8 @@ namespace ion
 					DXGI_FORMAT_R8G8B8A8_UINT,
 					DXGI_FORMAT_R16G16B16A16_UINT,
 					DXGI_FORMAT_R32G32B32A32_UINT,
-					DXGI_FORMAT_D32_FLOAT
+					DXGI_FORMAT_R24G8_TYPELESS,
+					DXGI_FORMAT_R32_TYPELESS,
 				}
 			};
 
@@ -231,18 +236,37 @@ namespace ion
 				TexDesc.SampleDesc.Quality = 0;
 				TexDesc.Usage = D3D11_USAGE_DEFAULT;
 				TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+				if (Type == EInternalFormatType::DepthStencil || Type == EInternalFormatType::Depth32)
+				{
+					if (Components != EFormatComponents::R)
+					{
+						Log::Warn("Cannot create a DepthStencil texture with more than a single channel");
+					}
+					TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
+				}
 				TexDesc.CPUAccessFlags = 0;
-				TexDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
+				TexDesc.MiscFlags = (MipMaps == ITexture::EMipMaps::True ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
 
-				Device->CreateTexture2D(& TexDesc, NULL, & Texture2D);
+				if (TexDesc.Format == DXGI_FORMAT_UNKNOWN)
+				{
+					Log::Error("Attempting to create texture with unsupported RGB format - use RGBA");
+				}
+
+				CheckedDXCall( Device->CreateTexture2D(& TexDesc, NULL, & Texture2D) );
 
 				D3D11_SHADER_RESOURCE_VIEW_DESC ResourceDesc;
 				ResourceDesc.Format = TexDesc.Format;
+
+				if (Type == EInternalFormatType::DepthStencil)
+				{
+					ResourceDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+				}
+
 				ResourceDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 				ResourceDesc.Texture2D.MostDetailedMip = 0;
 				ResourceDesc.Texture2D.MipLevels = -1;
 
-				Device->CreateShaderResourceView(Texture2D, & ResourceDesc, & ShaderResourceView);
+				CheckedDXCall( Device->CreateShaderResourceView(Texture2D, & ResourceDesc, & ShaderResourceView) );
 
 				ApplyParams();
 			}

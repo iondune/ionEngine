@@ -25,12 +25,12 @@ namespace ion
 
 			SharedPointer<IRenderTarget> CGraphicsContext::GetBackBuffer()
 			{
-				return std::make_shared<CRenderTarget>(Device, SwapChain, Window);
+				return std::make_shared<CRenderTarget>(Device, SwapChain, Window->GetSize());
 			}
 
 			SharedPointer<IFrameBuffer> CGraphicsContext::CreateFrameBuffer()
 			{
-				return nullptr;// std::make_shared<CFrameBuffer>();
+				return std::make_shared<CFrameBuffer>(Device);
 			}
 
 			SharedPointer<IPipelineState> CGraphicsContext::CreatePipelineState()

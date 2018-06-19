@@ -19,6 +19,7 @@ namespace ion
 			{
 			public:
 
+				CFrameBuffer(ID3D11Device * Device);
 				~CFrameBuffer();
 
 				void AttachColorTexture(SharedPointer<ITexture2D> Texture, uint const Attachment);
@@ -26,12 +27,6 @@ namespace ion
 				void AttachDepthBuffer(SharedPointer<IDepthBuffer> DepthBuffer);
 
 				bool CheckCorrectness();
-
-				virtual void Bind();
-
-				uint Handle = 0;
-
-				vec2i Size;
 
 #pragma warning(suppress: 4250)
 			};

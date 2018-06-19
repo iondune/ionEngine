@@ -10,21 +10,32 @@ namespace ion
 		namespace D3D11
 		{
 
-			CRenderTarget::CRenderTarget(ID3D11Device * Device, IDXGISwapChain * SwapChain, CWindow * Window)
+			CRenderTarget::CRenderTarget(ID3D11Device * Device)
 			{
 				this->Device = Device;
-				this->Window = Window;
+				Device->GetImmediateContext(& ImmediateContext);
+			}
+
+			CRenderTarget::CRenderTarget(ID3D11Device * Device, IDXGISwapChain * SwapChain, vec2i const & Size)
+			{
+				this->Device = Device;
+				this->Size = Size;
+
 				Device->GetImmediateContext(& ImmediateContext);
 
 				ID3D11Texture2D * RenderTexture = nullptr;
 				CheckedDXCall( SwapChain->GetBuffer(0, IID_PPV_ARGS(&RenderTexture)) );
+
+				ID3D11RenderTargetView * RenderTargetView = nullptr;
 				CheckedDXCall( Device->CreateRenderTargetView(RenderTexture, nullptr, &RenderTargetView) );
 				RenderTexture->Release();
 
+				RenderTargetViews.push_back(RenderTargetView);
+
 				ID3D11Texture2D * DepthStencilTexture = nullptr;
 				D3D11_TEXTURE2D_DESC DepthDesc = {};
-				DepthDesc.Width = Window->GetSize().X;
-				DepthDesc.Height = Window->GetSize().Y;
+				DepthDesc.Width = Size.X;
+				DepthDesc.Height = Size.Y;
 				DepthDesc.MipLevels = 1;
 				DepthDesc.ArraySize = 1;
 				DepthDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -48,7 +59,11 @@ namespace ion
 				ClearColor[1] = Color.Green;
 				ClearColor[2] = Color.Blue;
 				ClearColor[3] = Color.Alpha;
-				ImmediateContext->ClearRenderTargetView(RenderTargetView, ClearColor);
+
+				for (auto RenderTargetView : RenderTargetViews)
+				{
+					ImmediateContext->ClearRenderTargetView(RenderTargetView, ClearColor);
+				}
 
 				Bind();
 			}
@@ -73,14 +88,14 @@ namespace ion
 
 			CImage * CRenderTarget::ReadImage()
 			{
-				int const Width = Window->GetSize().X;
-				int const Height = Window->GetSize().Y;
+				int const Width = Size.X;
+				int const Height = Size.Y;
 				int const BytesPerPixel = 4;
 
 				byte * buffer = new byte[Width * Height * BytesPerPixel]();
 
 
-				CImage * Image = new CImage(buffer, Window->GetSize());
+				CImage * Image = new CImage(buffer, Size);
 				Image->FlipY();
 				return Image;
 			}
@@ -89,14 +104,28 @@ namespace ion
 			{
 				if (CurrentlyBound != this)
 				{
-					ImmediateContext->OMSetRenderTargets(1, & RenderTargetView, DepthStencilView);
+					ImmediateContext->OMSetRenderTargets((UINT) RenderTargetViews.size(), RenderTargetViews.data(), DepthStencilView);
 
-					D3D11_VIEWPORT Viewport = {};
-					Viewport.Width = (FLOAT) Window->GetSize().X;
-					Viewport.Height = (FLOAT) Window->GetSize().Y;
-					Viewport.MinDepth = 0.0f;
-					Viewport.MaxDepth = 1.0f;
-					ImmediateContext->RSSetViewports(1, &Viewport);
+					if (SpecifiedViewport)
+					{
+						D3D11_VIEWPORT Viewport = {};
+						Viewport.Width = (FLOAT) (ViewportMax.X - ViewportMin.X);
+						Viewport.Height = (FLOAT) (ViewportMax.Y - ViewportMin.Y);
+						Viewport.TopLeftX = (FLOAT) ViewportMin.X;
+						Viewport.TopLeftY = (FLOAT) ViewportMin.Y;
+						Viewport.MinDepth = 0.0f;
+						Viewport.MaxDepth = 1.0f;
+						ImmediateContext->RSSetViewports(1, &Viewport);
+					}
+					else
+					{
+						D3D11_VIEWPORT Viewport = {};
+						Viewport.Width = (FLOAT) Size.X;
+						Viewport.Height = (FLOAT) Size.Y;
+						Viewport.MinDepth = 0.0f;
+						Viewport.MaxDepth = 1.0f;
+						ImmediateContext->RSSetViewports(1, &Viewport);
+					}
 
 					CurrentlyBound = this;
 				}
@@ -112,14 +141,36 @@ namespace ion
 				ViewportMin = Min;
 				ViewportMax = Max;
 				SpecifiedViewport = true;
+
+				if (CurrentlyBound == this)
+				{
+					D3D11_VIEWPORT Viewport = {};
+					Viewport.Width = (FLOAT) (ViewportMax.X - ViewportMin.X);
+					Viewport.Height = (FLOAT) (ViewportMax.Y - ViewportMin.Y);
+					Viewport.TopLeftX = (FLOAT) ViewportMin.X;
+					Viewport.TopLeftY = (FLOAT) ViewportMin.Y;
+					Viewport.MinDepth = 0.0f;
+					Viewport.MaxDepth = 1.0f;
+					ImmediateContext->RSSetViewports(1, &Viewport);
+				}
 			}
 
 			void CRenderTarget::ClearViewport()
 			{
 				SpecifiedViewport = false;
+
+				if (CurrentlyBound == this)
+				{
+					D3D11_VIEWPORT Viewport = {};
+					Viewport.Width = (FLOAT) Size.X;
+					Viewport.Height = (FLOAT) Size.Y;
+					Viewport.MinDepth = 0.0f;
+					Viewport.MaxDepth = 1.0f;
+					ImmediateContext->RSSetViewports(1, &Viewport);
+				}
 			}
 
-			CRenderTarget * CRenderTarget::CurrentlyBound = nullptr;;
+			CRenderTarget * CRenderTarget::CurrentlyBound = nullptr;
 
 		}
 	}

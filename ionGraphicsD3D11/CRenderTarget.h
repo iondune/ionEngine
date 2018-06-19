@@ -22,7 +22,8 @@ namespace ion
 
 			public:
 
-				CRenderTarget(ID3D11Device * Device, IDXGISwapChain * SwapChain, CWindow * Window);
+				CRenderTarget(ID3D11Device * Device);
+				CRenderTarget(ID3D11Device * Device, IDXGISwapChain * SwapChain, vec2i const & Size);
 
 				void ClearColor();
 				void ClearDepth();
@@ -35,7 +36,7 @@ namespace ion
 				virtual void Bind();
 				virtual IRenderTarget * GetCurrentlyBound();
 
-				CWindow * Window = nullptr;
+				vec2i Size;
 				color4f Color;
 				vec2i ViewportMin;
 				vec2i ViewportMax;
@@ -48,7 +49,8 @@ namespace ion
 
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;
-				ID3D11RenderTargetView * RenderTargetView = nullptr;
+
+				vector<ID3D11RenderTargetView *> RenderTargetViews;
 				ID3D11DepthStencilView * DepthStencilView = nullptr;
 
 			};

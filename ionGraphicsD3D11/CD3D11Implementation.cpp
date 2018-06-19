@@ -116,7 +116,6 @@ namespace ion
 		SharedPointer<IShader> CD3D11Implementation::CreateShaderProgram()
 		{
 			SharedPointer<D3D11::CShader> ShaderProgram = std::make_shared<D3D11::CShader>();
-
 			return ShaderProgram;
 		}
 
@@ -134,7 +133,7 @@ namespace ion
 
 		SharedPointer<Graphics::IDepthBuffer> CD3D11Implementation::CreateDepthBuffer(vec2i const & Size)
 		{
-			SharedPointer<D3D11::CDepthBuffer> DepthBuffer = std::make_shared<D3D11::CDepthBuffer>(Size);
+			SharedPointer<D3D11::CDepthBuffer> DepthBuffer = std::make_shared<D3D11::CDepthBuffer>(Device, Size);
 			return DepthBuffer;
 		}
 

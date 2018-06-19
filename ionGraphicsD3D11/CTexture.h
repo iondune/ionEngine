@@ -22,7 +22,7 @@ namespace ion
 
 			public:
 				
-				static DXGI_FORMAT const InternalFormatMatrix[4][11];
+				static DXGI_FORMAT const InternalFormatMatrix[4][12];
 
 				CTexture(ID3D11Device * Device);
 
