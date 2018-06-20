@@ -80,9 +80,9 @@ namespace ion
 										// Array of Structs
 										int ArrayOffset = 0;
 
-										for (int j = 0; j < TypeDesc.Elements; ++ j)
+										for (UINT j = 0; j < TypeDesc.Elements; ++ j)
 										{
-											for (int i = 0; i < TypeDesc.Members; ++ i)
+											for (UINT i = 0; i < TypeDesc.Members; ++ i)
 											{
 												auto Field = Type->GetMemberTypeByIndex(i);
 												D3D11_SHADER_TYPE_DESC FieldDesc;
@@ -101,7 +101,7 @@ namespace ion
 									else
 									{
 										// Struct
-										for (int i = 0; i < TypeDesc.Members; ++ i)
+										for (UINT i = 0; i < TypeDesc.Members; ++ i)
 										{
 											auto Field = Type->GetMemberTypeByIndex(i);
 											D3D11_SHADER_TYPE_DESC FieldDesc;
@@ -122,7 +122,7 @@ namespace ion
 										// Array of POD
 										int ArrayOffset = 0;
 
-										for (int j = 0; j < TypeDesc.Elements; ++ j)
+										for (UINT j = 0; j < TypeDesc.Elements; ++ j)
 										{
 											std::cout << "Array element at offset " << ArrayOffset << std::endl;
 
