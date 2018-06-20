@@ -61,19 +61,14 @@ namespace ion
 				if (result != S_OK)
 				{
 					Log::Error("Shader failed to compile.");
-					if (ErrorBlob)
-					{
-						char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
-						std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
-						Log::Error("%s", MessageData);
-						ErrorBlob->Release();
-					}
+				}
 
-					if (ShaderBlob)
-					{
-						ShaderBlob->Release();
-						ShaderBlob = nullptr;
-					}
+				if (ErrorBlob)
+				{
+					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
+					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
+					Log::Error("%s", MessageData);
+					ErrorBlob->Release();
 				}
 
 				return ShaderBlob;
