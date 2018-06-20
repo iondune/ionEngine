@@ -25,18 +25,21 @@ namespace ion
 			{
 				SharedPointer<ion::Graphics::D3D11::CTexture2D> D3DTexture = std::dynamic_pointer_cast<ion::Graphics::D3D11::CTexture2D>(Texture);
 
-				ID3D11RenderTargetView * RenderTargetView = nullptr;
-				CheckedDXCall( Device->CreateRenderTargetView(D3DTexture->Texture2D, nullptr, &RenderTargetView) );
-
-				if (Attachment >= RenderTargetViews.size())
+				if (D3DTexture && D3DTexture->Texture2D)
 				{
-					RenderTargetViews.resize(Attachment + 1, nullptr);
+					ID3D11RenderTargetView * RenderTargetView = nullptr;
+					CheckedDXCall( Device->CreateRenderTargetView(D3DTexture->Texture2D, nullptr, &RenderTargetView) );
+
+					if (Attachment >= RenderTargetViews.size())
+					{
+						RenderTargetViews.resize(Attachment + 1, nullptr);
+					}
+
+					RenderTargetViews[Attachment] = RenderTargetView;
+
+					Size.X = Max(Size.X, D3DTexture->TextureSize.X);
+					Size.Y = Max(Size.Y, D3DTexture->TextureSize.Y);
 				}
-
-				RenderTargetViews[Attachment] = RenderTargetView;
-
-				Size.X = Max(Size.X, D3DTexture->TextureSize.X);
-				Size.Y = Max(Size.Y, D3DTexture->TextureSize.Y);
 			}
 
 			void CFrameBuffer::AttachDepthTexture(SharedPointer<ITexture2D> Texture)
