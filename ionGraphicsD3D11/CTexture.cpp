@@ -220,16 +220,18 @@ namespace ion
 
 			CTexture2D::CTexture2D(
 				ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext,
-				vec2i const & Size, ITexture::EMipMaps const MipMaps,
+				vec2i const & Size, ITexture::EMipMaps const MipMapsMode,
 				ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
 				: CTexture(Device, ImmediateContext)
 			{
 				this->TextureSize = Size;
 
+				MipMaps = (MipMapsMode == ITexture::EMipMaps::True);
+
 				D3D11_TEXTURE2D_DESC TexDesc;
 				TexDesc.Width = Size.X;
 				TexDesc.Height = Size.Y;
-				TexDesc.MipLevels = (MipMaps == ITexture::EMipMaps::True ? 0 : 1);
+				TexDesc.MipLevels = (MipMaps ? 0 : 1);
 				TexDesc.ArraySize = 1;
 				TexDesc.Format = InternalFormatMatrix[(int) Components][(int) Type];
 				TexDesc.SampleDesc.Count = 1;
@@ -245,7 +247,7 @@ namespace ion
 					TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
 				}
 				TexDesc.CPUAccessFlags = 0;
-				TexDesc.MiscFlags = (MipMaps == ITexture::EMipMaps::True ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
+				TexDesc.MiscFlags = (MipMaps ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
 
 				if (TexDesc.Format == DXGI_FORMAT_UNKNOWN)
 				{
@@ -300,7 +302,11 @@ namespace ion
 				Box.back = 1;
 
 				ImmediateContext->UpdateSubresource(Texture2D, 0, & Box, Data, RowPitch, DepthPitch);
-				ImmediateContext->GenerateMips(ShaderResourceView);
+
+				if (MipMaps)
+				{
+					ImmediateContext->GenerateMips(ShaderResourceView);
+				}
 			}
 
 			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
