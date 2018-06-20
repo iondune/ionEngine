@@ -26,7 +26,7 @@ namespace ion
 	ImTextureID CGUIManager::GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture)
 	{
 		SharedPointer<Graphics::D3D11::CTexture2D const> TextureImplementation = std::dynamic_pointer_cast<Graphics::D3D11::CTexture2D const>(Texture);
-		return  (void *) TextureImplementation->Texture2D;
+		return  (void *) TextureImplementation->ShaderResourceView;
 	}
 
 	bool CGUIManager::Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)
