@@ -39,6 +39,8 @@ namespace ion
 
 					Size.X = Max(Size.X, D3DTexture->TextureSize.X);
 					Size.Y = Max(Size.Y, D3DTexture->TextureSize.Y);
+
+					Rebind();
 				}
 			}
 
@@ -59,6 +61,8 @@ namespace ion
 
 				Size.X = Max(Size.X, D3DTexture->TextureSize.X);
 				Size.Y = Max(Size.Y, D3DTexture->TextureSize.Y);
+
+				Rebind();
 			}
 
 			void CFrameBuffer::AttachDepthBuffer(SharedPointer<IDepthBuffer> DepthBuffer)
@@ -78,6 +82,8 @@ namespace ion
 
 				Size.X = Max(Size.X, D3DTexture->TextureSize.X);
 				Size.Y = Max(Size.Y, D3DTexture->TextureSize.Y);
+
+				Rebind();
 			}
 
 			bool CFrameBuffer::CheckCorrectness()

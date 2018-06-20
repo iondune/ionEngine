@@ -131,6 +131,15 @@ namespace ion
 				}
 			}
 
+			void CRenderTarget::Rebind()
+			{
+				if (CurrentlyBound == this)
+				{
+					CurrentlyBound = nullptr;
+					Bind();
+				}
+			}
+
 			IRenderTarget * CRenderTarget::GetCurrentlyBound()
 			{
 				return CurrentlyBound;
