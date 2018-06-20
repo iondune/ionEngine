@@ -522,8 +522,11 @@ namespace ion
 
 				for (auto & TextureBinding : TextureBindings)
 				{
-					ImmediateContext->PSSetShaderResources(0, 1, & TextureBinding.Texture->ShaderResourceView);
-					ImmediateContext->PSSetSamplers(0, 1, & TextureBinding.Texture->SamplerState);
+					if (TextureBinding.Texture)
+					{
+						ImmediateContext->PSSetShaderResources(0, 1, & TextureBinding.Texture->ShaderResourceView);
+						ImmediateContext->PSSetSamplers(0, 1, & TextureBinding.Texture->SamplerState);
+					}
 				}
 
 				ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
