@@ -51,7 +51,7 @@ namespace ion
 			PipelineState->OfferUniform("uMaterial.Shininess", Material.Shininess);
 			if (Material.DiffuseTexture)
 			{
-				PipelineState->OfferTexture("uMaterial.DiffuseTexture", Material.DiffuseTexture);
+				PipelineState->OfferTexture("uMaterialDiffuseTexture", Material.DiffuseTexture);
 			}
 
 			for (auto Pair : DrawFeatures)
