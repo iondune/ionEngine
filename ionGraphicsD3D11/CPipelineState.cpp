@@ -167,7 +167,7 @@ namespace ion
 								Binding.ResourceSlot = 0;
 								Binding.SamplerSlot = 0;
 
-								TextureBindings.push_back(Binding);
+								TextureBindings[Desc.Name] = (Binding);
 							}
 						}
 					}
@@ -274,7 +274,7 @@ namespace ion
 				Log::Error("Attempting to ignore uniform or texture '%s' that was never specified, ignoring.", Name);
 			}
 
-			void CPipelineState::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
+			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
 			{
 				if (! Shader)
 				{
@@ -283,6 +283,24 @@ namespace ion
 				}
 
 				for (auto & TextureBinding : TextureBindings)
+				{
+					if (TextureBinding.second.Name == Name)
+					{
+						TextureBinding.second.Texture = std::dynamic_pointer_cast<CTexture>(Texture);
+						return;
+					}
+				}
+			}
+
+			void CPipelineState::SetTexture(string const & Name, SharedPointer<ITexture> Texture)
+			{
+				if (! Shader)
+				{
+					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
+					return;
+				}
+
+				for (auto & [Key, TextureBinding] : TextureBindings)
 				{
 					if (TextureBinding.Name == Name)
 					{
@@ -300,6 +318,7 @@ namespace ion
 					Log::Error("Attempting to remove uniform or texture '%s' that was never specified, ignoring.", Name);
 				}
 			}
+
 
 			void CPipelineState::SetPrimitiveType(EPrimitiveType const PrimitiveType)
 			{
@@ -354,27 +373,6 @@ namespace ion
 			void CPipelineState::SetBlendMode(EBlendMode const BlendMode)
 			{
 				this->BlendMode = BlendMode;
-			}
-
-			void CPipelineState::OfferTexture(string const & Name, SharedPointer<ITexture> Texture)
-			{
-				if (! Shader)
-				{
-					Log::Error("Cannot set uniforms or textures on a PipelineState with no specified shader program.");
-					return;
-				}
-
-				if (! Texture)
-				{
-					Log::Error("Invalid paramter to CPipelineState::OfferTexture: expected non-null Texture");
-					return;
-				}
-
-				//if (UnboundUniforms.count(Name) == 1)
-				//{
-				//	Textures[Name] = Texture;
-				//	UnboundUniforms.erase(Name);
-				//}
 			}
 
 			set<string> CPipelineState::GetUnboundUniforms() const
@@ -520,12 +518,16 @@ namespace ion
 					Slot ++;
 				}
 
-				for (auto & TextureBinding : TextureBindings)
+				for (auto & [Key, TextureBinding] : TextureBindings)
 				{
 					if (TextureBinding.Texture)
 					{
 						ImmediateContext->PSSetShaderResources(0, 1, & TextureBinding.Texture->ShaderResourceView);
 						ImmediateContext->PSSetSamplers(0, 1, & TextureBinding.Texture->SamplerState);
+					}
+					else
+					{
+						Log::Error("Required texture is not bound: '%s'", TextureBinding.Name);
 					}
 				}
 

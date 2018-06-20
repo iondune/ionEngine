@@ -84,7 +84,7 @@ namespace ion
 				map<string, SConstantBufferBinding> ConstantBuffers; 
 				map<string, SharedPointer<IUniform const>> Uniform;
 
-				vector<STextureBinding> TextureBindings;
+				map<string, STextureBinding> TextureBindings;
 				map<string, SharedPointer<ITexture const>> Textures;
 
 				set<string> UnboundAttributes;
