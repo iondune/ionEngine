@@ -529,7 +529,55 @@ namespace ion
 					}
 				}
 
+
+				if (BlendMode != EBlendMode::None)
+				{
+					D3D11_BLEND_DESC BlendDesc = {};
+
+					BlendDesc.RenderTarget[0].BlendEnable = true;
+					BlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+					if (BlendMode == EBlendMode::Alpha)
+					{
+						BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+						BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+						BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+					}
+					else if (BlendMode == EBlendMode::Additive)
+					{
+						BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+						BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+						BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_SRC_ALPHA;
+					}
+					else if (BlendMode == EBlendMode::Min)
+					{
+						BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_MIN;
+						BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+						BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+					}
+					else if (BlendMode == EBlendMode::Max)
+					{
+						BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_MAX;
+						BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+						BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_SRC_ALPHA;
+					}
+
+					BlendDesc.RenderTarget[0].BlendOpAlpha = BlendDesc.RenderTarget[0].BlendOp;
+					BlendDesc.RenderTarget[0].SrcBlendAlpha = BlendDesc.RenderTarget[0].SrcBlend;
+					BlendDesc.RenderTarget[0].DestBlendAlpha = BlendDesc.RenderTarget[0].DestBlend;
+
+					ID3D11BlendState * BlendState = nullptr;
+					Device->CreateBlendState(& BlendDesc, & BlendState);
+					ImmediateContext->OMSetBlendState(BlendState, NULL, 0xffffffff);
+					BlendState->Release();
+				}
+
 				ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
+
+				if (BlendMode != EBlendMode::None)
+				{
+					ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
+				}
 			}
 
 		}
