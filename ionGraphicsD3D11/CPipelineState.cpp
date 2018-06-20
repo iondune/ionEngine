@@ -432,6 +432,13 @@ namespace ion
 								std::memcpy(Address, Uniform->GetData(), Uniform->GetSize());
 								break;
 
+							case EUniformType::Bool:
+							{
+								BOOL b = * (bool *) Uniform->GetData();
+								std::memcpy(Address, & b, sizeof(BOOL));
+								break;
+							}
+
 							case EUniformType::Float2:
 								std::memcpy(Address, static_cast<vec2f const *>(Uniform->GetData())->ValuePointer(), sizeof(float) * 2);
 								break;
@@ -489,7 +496,6 @@ namespace ion
 
 							case EUniformType::Float3Array:
 							case EUniformType::Matrix4x4Array:
-							case EUniformType::Bool:
 								Log::Error("Unsupported uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
 								break;
 
