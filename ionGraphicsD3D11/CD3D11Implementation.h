@@ -10,6 +10,7 @@ struct IDXGISwapChain;
 struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct ID3D11Debug;
+struct IDXGraphicsAnalysis;
 
 namespace ion
 {
@@ -51,6 +52,8 @@ namespace ion
 			ID3D11Debug * GetDebugDevice();
 
 			void UseReverseDepth(bool const reverseDepth = true) {}
+			void DiagnosticCaptureBegin();
+			void DiagnosticCaptureEnd();
 
 		protected:
 
@@ -61,6 +64,7 @@ namespace ion
 			ID3D11DeviceContext * ImmediateContext = nullptr;
 			ID3D11Debug * DebugDevice = nullptr;
 
+			IDXGraphicsAnalysis * GraphicsAnalysis;
 		};
 	}
 }

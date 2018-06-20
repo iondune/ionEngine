@@ -48,6 +48,9 @@ namespace ion
 
 		virtual SharedPointer<Graphics::IGraphicsContext> GetWindowContext(CWindow * Window) = 0;
 
+		virtual void DiagnosticCaptureBegin() = 0;
+		virtual void DiagnosticCaptureEnd() = 0;
+
 	};
 
 }

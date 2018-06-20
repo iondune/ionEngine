@@ -354,6 +354,30 @@ namespace ion
 		return Texture;
 	}
 
+	void CGraphicsAPI::DiagnosticCaptureBegin()
+	{
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			Implementation->DiagnosticCaptureBegin();
+		}
+	}
+
+	void CGraphicsAPI::DiagnosticCaptureEnd()
+	{
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			Implementation->DiagnosticCaptureEnd();
+		}
+	}
+
 	SharedPointer<Graphics::IGraphicsContext> CGraphicsAPI::GetWindowContext(CWindow * Window)
 	{
 		SharedPointer<Graphics::IGraphicsContext> GraphicsContext;

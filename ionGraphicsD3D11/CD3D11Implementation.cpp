@@ -24,6 +24,11 @@
 #include <dxgi.h>
 #include <d3dcompiler.h>
 
+#include <DXGItype.h>  
+#include <dxgi1_2.h>  
+#include <dxgi1_3.h>  
+#include <DXProgrammableCapture.h>  
+
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
@@ -74,6 +79,8 @@ namespace ion
 
 			DebugDevice = nullptr;
 			Device->QueryInterface(IID_PPV_ARGS(&DebugDevice));
+
+			DXGIGetDebugInterface1(0, IID_PPV_ARGS(& GraphicsAnalysis));
 
 			// Rasterizer Settings
 
@@ -209,6 +216,22 @@ namespace ion
 		ID3D11Debug * CD3D11Implementation::GetDebugDevice()
 		{
 			return DebugDevice;
+		}
+
+		void CD3D11Implementation::DiagnosticCaptureBegin()
+		{
+			if (GraphicsAnalysis)
+			{
+				GraphicsAnalysis->BeginCapture();
+			}
+		}
+
+		void CD3D11Implementation::DiagnosticCaptureEnd()
+		{
+			if (GraphicsAnalysis)
+			{
+				GraphicsAnalysis->EndCapture();
+			}
 		}
 
 	}

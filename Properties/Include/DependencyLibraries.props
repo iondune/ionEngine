@@ -8,6 +8,7 @@
         ;d3d11.lib;
         ;d3dcompiler.lib;
         ;dxguid.lib;
+        ;DXGI.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>
     </Link>
