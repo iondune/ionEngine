@@ -75,6 +75,8 @@ namespace ion
 			DebugDevice = nullptr;
 			Device->QueryInterface(IID_PPV_ARGS(&DebugDevice));
 
+			// Rasterizer Settings
+
 			D3D11_RASTERIZER_DESC RasterizerDesc = {};
 			RasterizerDesc.FillMode = D3D11_FILL_SOLID;
 			RasterizerDesc.CullMode = D3D11_CULL_NONE;
@@ -90,6 +92,28 @@ namespace ion
 			ID3D11RasterizerState * RasterizerState = nullptr;
 			CheckedDXCall( Device->CreateRasterizerState(& RasterizerDesc, & RasterizerState) );
 			ImmediateContext->RSSetState(RasterizerState);
+
+			// Depth Settings
+
+			D3D11_DEPTH_STENCIL_DESC DepthDesc;
+			DepthDesc.DepthEnable                  = true;
+			DepthDesc.DepthWriteMask               = D3D11_DEPTH_WRITE_MASK_ALL;
+			DepthDesc.DepthFunc                    = D3D11_COMPARISON_LESS_EQUAL;
+			DepthDesc.StencilEnable                = true;
+			DepthDesc.StencilReadMask              = D3D11_DEFAULT_STENCIL_READ_MASK;
+			DepthDesc.StencilWriteMask             = D3D11_DEFAULT_STENCIL_WRITE_MASK;
+			DepthDesc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;
+			DepthDesc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
+			DepthDesc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;
+			DepthDesc.BackFace.StencilFailOp       = D3D11_STENCIL_OP_KEEP;
+			DepthDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+			DepthDesc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_KEEP;
+			DepthDesc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;
+			DepthDesc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
+
+			ID3D11DepthStencilState * DepthStencilState = nullptr;
+			CheckedDXCall( Device->CreateDepthStencilState(& DepthDesc, & DepthStencilState) );
+			ImmediateContext->OMSetDepthStencilState(DepthStencilState, 1);
 		}
 
 		bool CD3D11Implementation::OnWindowSwap(CWindow * Window)
