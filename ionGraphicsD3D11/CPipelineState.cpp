@@ -87,8 +87,6 @@ namespace ion
 												auto Field = Type->GetMemberTypeByIndex(i);
 												D3D11_SHADER_TYPE_DESC FieldDesc;
 												Field->GetDesc(& FieldDesc);
-												std::cout << "Struct array member: " << Type->GetMemberTypeName(i) << " at offset " << FieldDesc.Offset + ArrayOffset << std::endl;
-
 
 												SUniformBinding Uniform;
 												Uniform.Offset = VariableDesc.StartOffset + ArrayOffset + FieldDesc.Offset;
@@ -106,7 +104,6 @@ namespace ion
 											auto Field = Type->GetMemberTypeByIndex(i);
 											D3D11_SHADER_TYPE_DESC FieldDesc;
 											Field->GetDesc(& FieldDesc);
-											std::cout << "Struct member: " << Type->GetMemberTypeName(i) << " at offset " << FieldDesc.Offset << std::endl;
 
 											SUniformBinding Uniform;
 											Uniform.Offset = VariableDesc.StartOffset + FieldDesc.Offset;
@@ -124,9 +121,6 @@ namespace ion
 
 										for (UINT j = 0; j < TypeDesc.Elements; ++ j)
 										{
-											std::cout << "Array element at offset " << ArrayOffset << std::endl;
-
-
 											SUniformBinding Uniform;
 											Uniform.Offset = VariableDesc.StartOffset + ArrayOffset;
 											Binding.Variables[string(VariableDesc.Name) + "[" + std::to_string(j) + "]"] = Uniform;
