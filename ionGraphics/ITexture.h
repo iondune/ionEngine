@@ -54,7 +54,7 @@ namespace ion
 				UnsignedInt16 = 8,
 				UnsignedInt32 = 9,
 				DepthStencil = 10,
-				Depth32 = 11
+				//Depth32 = 11, // presently unsupported
 			};
 
 			enum class EMipMaps

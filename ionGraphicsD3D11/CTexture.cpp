@@ -236,7 +236,7 @@ namespace ion
 				TexDesc.SampleDesc.Quality = 0;
 				TexDesc.Usage = D3D11_USAGE_DEFAULT;
 				TexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
-				if (Type == EInternalFormatType::DepthStencil || Type == EInternalFormatType::Depth32)
+				if (Type == EInternalFormatType::DepthStencil)// || Type == EInternalFormatType::Depth32)
 				{
 					if (Components != EFormatComponents::R)
 					{
@@ -261,6 +261,10 @@ namespace ion
 				{
 					ResourceDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
 				}
+				//if (Type == EInternalFormatType::Depth32)
+				//{
+				//	ResourceDesc.Format = DXGI_FORMAT_R32_FLOAT;
+				//}
 
 				ResourceDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 				ResourceDesc.Texture2D.MostDetailedMip = 0;
