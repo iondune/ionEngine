@@ -51,9 +51,10 @@ namespace ion
 				CheckedDXCall( Device->CreateSamplerState(& SamplerDesc, & SamplerState) );
 			}
 
-			CTexture::CTexture(ID3D11Device * Device)
+			CTexture::CTexture(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext)
 			{
 				this->Device = Device;
+				this->ImmediateContext = ImmediateContext;
 			}
 
 			void CTexture::SetMinFilter(EFilter const MinFilter)
@@ -121,8 +122,7 @@ namespace ion
 			{
 				if (MipMaps)
 				{
-					//(glBindTexture(GetGLBindTextureTarget(), Handle));
-					//(glGenerateMipmap(GetGLBindTextureTarget()));
+					ImmediateContext->GenerateMips(ShaderResourceView);
 				}
 			}
 
@@ -220,10 +220,10 @@ namespace ion
 
 			CTexture2D::CTexture2D(
 				ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext,
-				vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
-				: CTexture(Device)
+				vec2i const & Size, ITexture::EMipMaps const MipMaps,
+				ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)
+				: CTexture(Device, ImmediateContext)
 			{
-				this->ImmediateContext = ImmediateContext;
 				this->TextureSize = Size;
 
 				D3D11_TEXTURE2D_DESC TexDesc;

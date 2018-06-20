@@ -24,7 +24,7 @@ namespace ion
 				
 				static DXGI_FORMAT const InternalFormatMatrix[4][12];
 
-				CTexture(ID3D11Device * Device);
+				CTexture(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext);
 
 				void SetMinFilter(EFilter const MinFilter);
 				void SetMagFilter(EFilter const MagFilter);
@@ -46,6 +46,7 @@ namespace ion
 				virtual uint GetGLTextureBindingEnum() const = 0;
 
 				ID3D11Device * Device = nullptr;
+				ID3D11DeviceContext * ImmediateContext = nullptr;
 				ID3D11SamplerState * SamplerState = nullptr;
 				ID3D11ShaderResourceView * ShaderResourceView = nullptr;
 
@@ -70,7 +71,8 @@ namespace ion
 
 				CTexture2D(
 					ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext,
-					vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
+					vec2i const & Size, ITexture::EMipMaps const MipMaps,
+					ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 
 				void Upload(void const * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
 				void UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type);
@@ -92,8 +94,6 @@ namespace ion
 				uint GetGLTextureBindingEnum() const;
 
 				vec2i TextureSize;
-
-				ID3D11DeviceContext * ImmediateContext = nullptr;
 
 				ID3D11Texture2D * Texture2D = nullptr;
 
