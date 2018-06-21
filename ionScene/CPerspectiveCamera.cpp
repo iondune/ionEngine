@@ -25,11 +25,11 @@ namespace ion
 			switch (ProjectionType)
 			{
 			case EProjectionType::Standard:
+			case EProjectionType::ReverseZeroToOne:
 			{
 				ProjectionMatrix = glm::perspective<float>(viewAngleVertical, AspectRatio, NearPlane, FarPlane);
 				break;
 			}
-			case EProjectionType::ReverseZeroToOne:
 			{
 				glm::mat4 projectionMatrix =
 				{
