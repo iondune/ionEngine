@@ -38,9 +38,12 @@ namespace ion
 				IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 				IndexBufferDesc.CPUAccessFlags = 0;
 
-				D3D11_SUBRESOURCE_DATA InitData = {};
-				InitData.pSysMem = Data;
-				CheckedDXCall(Device->CreateBuffer(&IndexBufferDesc, &InitData, &IndexBuffer));
+				if (IndexBufferDesc.ByteWidth)
+				{
+					D3D11_SUBRESOURCE_DATA InitData = {};
+					InitData.pSysMem = Data;
+					CheckedDXCall(Device->CreateBuffer(&IndexBufferDesc, &InitData, &IndexBuffer));
+				}
 
 				Size = (int) NumElements;
 			}

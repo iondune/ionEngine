@@ -148,9 +148,12 @@ namespace ion
 				VertexBufferDesc.ByteWidth = (unsigned int) (DataSize * NumberOfElements);
 				VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
-				D3D11_SUBRESOURCE_DATA InitData = {};
-				InitData.pSysMem = Data;
-				CheckedDXCall(Device->CreateBuffer(&VertexBufferDesc, &InitData, &VertexBuffer));
+				if (VertexBufferDesc.ByteWidth)
+				{
+					D3D11_SUBRESOURCE_DATA InitData = {};
+					InitData.pSysMem = Data;
+					CheckedDXCall(Device->CreateBuffer(&VertexBufferDesc, &InitData, &VertexBuffer));
+				}
 			}
 
 			void CVertexBuffer::UploadSubData(void const * const Data, size_t const DataSize, size_t const Offset, size_t const NumberOfElements)
