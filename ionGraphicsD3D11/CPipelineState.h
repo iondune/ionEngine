@@ -44,7 +44,7 @@ namespace ion
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
-				void Draw();
+				void Draw(bool const Instancing, int const InstanceCount = 0);
 
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;

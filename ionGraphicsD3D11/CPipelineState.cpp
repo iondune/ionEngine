@@ -447,11 +447,11 @@ namespace ion
 				for (SInputLayoutElement const & InputElement : Shader->InputElements)
 				{
 					bool FoundMatch = false;
+					int Slot = 0;
 
 					for (std::shared_ptr<CVertexBuffer> VertexBuffer : VertexBuffers)
 					{
 						int Offset = 0;
-						int Slot = 0;
 
 						for (SInputLayoutElement const & VertexElement : VertexBuffer->InputLayoutElements)
 						{
@@ -478,9 +478,9 @@ namespace ion
 								D3D11_INPUT_ELEMENT_DESC Desc;
 								Desc.SemanticName = VertexElement.Name.c_str();
 								Desc.SemanticIndex = 0;
-								Desc.InputSlot = 0;
+								Desc.InputSlot = Slot;
 								Desc.InputSlotClass = (VertexBuffer->Instancing ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA);
-								Desc.InstanceDataStepRate = 0;
+								Desc.InstanceDataStepRate = (VertexBuffer->Instancing ? 1 : 0);
 
 								static DXGI_FORMAT const Lookup[4][4] =
 								{
@@ -499,8 +499,9 @@ namespace ion
 							}
 
 							Offset += 4 * VertexElement.Components;
-							Slot ++;
 						} // VertexBuffer->InputLayoutElements
+
+						Slot ++;
 
 						if (FoundMatch)
 						{
@@ -524,7 +525,7 @@ namespace ion
 				Loaded = true;
 			}
 
-			void CPipelineState::Draw()
+			void CPipelineState::Draw(bool const Instancing, int const InstanceCount)
 			{
 				if (! Loaded)
 				{
@@ -713,7 +714,14 @@ namespace ion
 					BlendState->Release();
 				}
 
-				ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
+				if (Instancing)
+				{
+					ImmediateContext->DrawIndexedInstanced(IndexBuffer->Size, InstanceCount, 0, 0, 0);
+				}
+				else
+				{
+					ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
+				}
 
 				if (BlendMode != EBlendMode::None)
 				{
