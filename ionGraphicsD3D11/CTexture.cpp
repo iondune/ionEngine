@@ -252,6 +252,7 @@ namespace ion
 				if (TexDesc.Format == DXGI_FORMAT_UNKNOWN)
 				{
 					Log::Error("Attempting to create texture with unsupported RGB format - use RGBA");
+					TexDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 				}
 
 				CheckedDXCall( Device->CreateTexture2D(& TexDesc, NULL, & Texture2D) );
