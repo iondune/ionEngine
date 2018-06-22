@@ -61,6 +61,10 @@ namespace ion
 		//! \ingroup ionGraphics
 		string GetValueTypeString(EValueType const ValueType);
 
+		//! \brief Gets the sizeof() for a given type
+		//! \ingroup ionGraphics
+		size_t GetScalarTypeSize(EScalarType const ScalarType);
+
 		//! \brief Gets the sizeof() for a given attribute type
 		//! \ingroup ionGraphics
 		size_t GetAttributeTypeSize(EAttributeType const AttributeType);

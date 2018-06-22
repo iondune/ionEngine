@@ -289,7 +289,7 @@ namespace ion
 
 			void CTexture2D::UploadSubRegion(void const * const Data, vec2i const & Offset, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-				UINT const DataSize = ((int) Components + 1);
+				UINT const DataSize = ((UINT) Components + 1) * (UINT) GetScalarTypeSize(Type);
 				UINT const RowPitch = DataSize * Size.X;
 				UINT const DepthPitch = DataSize * Size.X * Size.Y;
 

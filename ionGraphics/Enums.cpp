@@ -73,6 +73,31 @@ namespace ion
 			}
 		}
 
+		size_t GetScalarTypeSize(EScalarType const ScalarType)
+		{
+			switch (ScalarType)
+			{
+			case EScalarType::Float:
+				return sizeof(float);
+			case EScalarType::Double:
+				return sizeof(double);
+			case EScalarType::SignedInt8:
+				return sizeof(Int8);
+			case EScalarType::SignedInt16:
+				return sizeof(Int16);
+			case EScalarType::SignedInt32:
+				return sizeof(Int32);
+			case EScalarType::UnsignedInt8:
+				return sizeof(Uint8);
+			case EScalarType::UnsignedInt16:
+				return sizeof(Uint16);
+			case EScalarType::UnsignedInt32:
+				return sizeof(Uint32);
+			default:
+				return 0;
+			}
+		}
+
 		size_t GetAttributeTypeSize(EAttributeType const AttributeType)
 		{
 			switch (AttributeType)
