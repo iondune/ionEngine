@@ -295,10 +295,10 @@ namespace ion
 				UINT const DepthPitch = DataSize * Size.X * Size.Y;
 
 				D3D11_BOX Box;
-				Box.left = 0;
-				Box.right = Size.X;
-				Box.top = 0;
-				Box.bottom = Size.Y;
+				Box.left = Offset.X;
+				Box.right = Offset.X + Size.X;
+				Box.top = Offset.Y;
+				Box.bottom = Offset.Y + Size.Y;
 				Box.front = 0;
 				Box.back = 1;
 
