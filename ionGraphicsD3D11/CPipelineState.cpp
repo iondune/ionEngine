@@ -160,8 +160,8 @@ namespace ion
 							{
 								STextureBinding Binding;
 								Binding.Name = Desc.Name;
-								Binding.ResourceSlot = 0;
-								Binding.SamplerSlot = 0;
+								Binding.ResourceSlot = Desc.BindPoint;
+								Binding.SamplerSlot = Desc.BindPoint;
 
 								TextureBindings[Desc.Name] = (Binding);
 							}
@@ -549,6 +549,10 @@ namespace ion
 				ImmediateContext->IASetPrimitiveTopology(PrimitiveType);
 
 				ImmediateContext->VSSetShader(Shader->VertexStage->VertexShader, nullptr, 0);
+				if (Shader->GeometryStage)
+				{
+					ImmediateContext->GSSetShader(Shader->GeometryStage->GeometryShader, nullptr, 0);
+				}
 				ImmediateContext->PSSetShader(Shader->PixelStage->PixelShader, nullptr, 0);
 
 				int Slot = 0;
@@ -653,6 +657,7 @@ namespace ion
 					delete[] ConstantBufferData;
 
 					ImmediateContext->VSSetConstantBuffers(ConstantBuffer.second.Slot, 1, &ConstantBuffer.second.ConstantBuffer);
+					ImmediateContext->GSSetConstantBuffers(ConstantBuffer.second.Slot, 1, &ConstantBuffer.second.ConstantBuffer);
 					ImmediateContext->PSSetConstantBuffers(ConstantBuffer.second.Slot, 1, &ConstantBuffer.second.ConstantBuffer);
 
 					Slot ++;
@@ -662,8 +667,14 @@ namespace ion
 				{
 					if (TextureBinding.Texture)
 					{
-						ImmediateContext->PSSetShaderResources(0, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->PSSetSamplers(0, 1, & TextureBinding.Texture->SamplerState);
+						int const TextureSlot = TextureBinding.ResourceSlot;
+
+						ImmediateContext->VSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+						ImmediateContext->VSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						ImmediateContext->GSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+						ImmediateContext->GSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						ImmediateContext->PSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+						ImmediateContext->PSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
 					}
 					else
 					{
