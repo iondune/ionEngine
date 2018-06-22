@@ -5,7 +5,7 @@
 #include <ionMath.h>
 #include <ionGraphics.h>
 
-#include "CShaderProgram.h"
+#include "CShader.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 #include "CTexture.h"
@@ -43,15 +43,17 @@ namespace ion
 
 				set<string> GetUnboundUniforms() const;
 
-				void Load() {}
+				void Load();
 				void Draw();
 
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;
 
 				SharedPointer<CShader> Shader;
-				vector<SharedPointer<CVertexBuffer>> VertexBuffers;
+				vector<std::shared_ptr<CVertexBuffer>> VertexBuffers;
 				SharedPointer<CIndexBuffer> IndexBuffer;
+
+				ID3D11InputLayout * InputLayout = nullptr;
 
 				uint VertexArrayHandle = 0;
 				bool Loaded = false;

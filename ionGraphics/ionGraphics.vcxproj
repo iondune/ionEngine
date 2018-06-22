@@ -28,7 +28,7 @@
     <ClInclude Include="ionGraphics.h" />
     <ClInclude Include="IPipelineState.h" />
     <ClInclude Include="IRenderTarget.h" />
-    <ClInclude Include="IShaderProgram.h" />
+    <ClInclude Include="IShader.h" />
     <ClInclude Include="ITexture.h" />
     <ClInclude Include="IUniform.h" />
   </ItemGroup>

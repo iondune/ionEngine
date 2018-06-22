@@ -76,6 +76,8 @@ namespace ion
 				Shader->SetPixelStage(PixelShader);
 			}
 
+			Shader->Link();
+
 			return Shader;
 		}
 

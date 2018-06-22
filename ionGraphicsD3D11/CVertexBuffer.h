@@ -20,7 +20,7 @@ namespace ion
 
 			public:
 
-				CInputLayout(ID3D11Device * Device, vector<SInputLayoutElement> const & LayoutElements);
+				CInputLayout(ID3D11Device * Device, vector<SInputLayoutElement> const & LayoutElements, bool const Instancing);
 				~CInputLayout();
 
 				ID3D11InputLayout * InputLayout = nullptr;
@@ -45,8 +45,6 @@ namespace ion
 				ID3D11Buffer * VertexBuffer = nullptr;
 				vector<SInputLayoutElement> InputLayoutElements;
 				int LayoutSize = 0;
-
-				CInputLayout * InputLayout = nullptr;
 
 				bool Instancing = false;
 

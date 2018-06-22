@@ -21,7 +21,7 @@ namespace ion
 					Stage = new CPixelStage();
 					CheckedDXCall( Device->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->PixelShader) );
 					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) & Stage->Reflector) );
-					ShaderBlob->Release();
+					Stage->CompileBlob = ShaderBlob;
 				}
 
 				return Stage;

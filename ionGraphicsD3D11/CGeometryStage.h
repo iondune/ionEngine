@@ -28,6 +28,7 @@ namespace ion
 
 				ID3D11GeometryShader * GeometryShader = nullptr;
 				ID3D11ShaderReflection * Reflector = nullptr;
+				ID3DBlob * CompileBlob = nullptr;
 
 			protected:
 

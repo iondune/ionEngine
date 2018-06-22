@@ -21,7 +21,7 @@ namespace ion
 					Stage = new CVertexStage();
 					CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->VertexShader) );
 					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) & Stage->Reflector) );
-					ShaderBlob->Release();
+					Stage->CompileBlob = ShaderBlob;
 				}
 
 				return Stage;

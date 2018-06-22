@@ -8,7 +8,7 @@
 #include "CVertexStage.h"
 #include "CGeometryStage.h"
 #include "CPixelStage.h"
-#include "CShaderProgram.h"
+#include "CShader.h"
 
 #include "CTexture.h"
 #include "CRenderTarget.h"

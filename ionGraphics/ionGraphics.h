@@ -5,7 +5,7 @@
 #include <ionMath.h>
 
 #include "Enums.h"
-#include "IShaderProgram.h"
+#include "IShader.h"
 #include "IVertexBuffer.h"
 #include "IIndexBuffer.h"
 #include "IUniform.h"

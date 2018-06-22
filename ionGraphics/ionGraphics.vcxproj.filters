@@ -5,7 +5,6 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="IPipelineState.h" />
     <ClInclude Include="IRenderTarget.h" />
-    <ClInclude Include="IShaderProgram.h" />
     <ClInclude Include="IUniform.h" />
     <ClInclude Include="IIndexBuffer.h" />
     <ClInclude Include="IVertexBuffer.h" />
@@ -14,6 +13,7 @@
     <ClInclude Include="CGraphicsAPI.h" />
     <ClInclude Include="IDrawContext.h" />
     <ClInclude Include="IGraphicsImplementation.h" />
+    <ClInclude Include="IShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enums.cpp" />

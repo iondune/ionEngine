@@ -5,7 +5,7 @@
 #include <ionMath.h>
 #include <ionGraphics.h>
 
-#include "CShaderProgram.h"
+#include "CShader.h"
 #include "CVertexBuffer.h"
 #include "CIndexBuffer.h"
 

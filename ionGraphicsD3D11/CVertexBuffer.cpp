@@ -12,7 +12,7 @@ namespace ion
 		namespace D3D11
 		{
 
-			CInputLayout::CInputLayout(ID3D11Device * Device, vector<SInputLayoutElement> const & LayoutElements)
+			CInputLayout::CInputLayout(ID3D11Device * Device, vector<SInputLayoutElement> const & LayoutElements, bool const Instancing)
 			{
 				string Source = "";
 				Source += "struct VS_INPUT\n";
@@ -93,7 +93,7 @@ namespace ion
 					Desc.SemanticName = Element.Name.c_str();// SemanticNames[i++].c_str();
 					Desc.SemanticIndex = 0;
 					Desc.InputSlot = 0;
-					Desc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+					Desc.InputSlotClass = (Instancing ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA);
 					Desc.InstanceDataStepRate = 0;
 					
 					static DXGI_FORMAT const Lookup[4][4] =
@@ -170,15 +170,8 @@ namespace ion
 
 			void CVertexBuffer::SetInputLayout(SInputLayoutElement const * const InputLayoutArray, int const NumElements)
 			{
-				if (InputLayout)
-				{
-					delete InputLayout;
-				}
-
 				InputLayoutElements.clear();
 				InputLayoutElements.insert(InputLayoutElements.begin(), InputLayoutArray, InputLayoutArray + NumElements);
-
-				InputLayout = new CInputLayout(Device, InputLayoutElements);
 
 				LayoutSize = 0;
 

@@ -24,6 +24,8 @@ namespace ion
 			{
 				if (inShader)
 				{
+					Loaded = false;
+
 					Shader = std::dynamic_pointer_cast<CShader>(inShader);
 
 					ConstantBuffers.clear();
@@ -171,8 +173,6 @@ namespace ion
 
 					//UnboundAttributes = KeySet(Shader->Attributes);
 					//UnboundAttributes.erase("gl_VertexID");
-
-					Loaded = false;
 				}
 			}
 
@@ -183,10 +183,9 @@ namespace ion
 					VertexBuffers.resize(Index + 1);
 				}
 
-				VertexBuffers[Index] = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
-				// Bound VBOs are not part of VAO state
-
 				Loaded = false;
+
+				VertexBuffers[Index] = std::dynamic_pointer_cast<CVertexBuffer>(inVertexBuffer);
 			}
 
 			void CPipelineState::SetIndexBuffer(SharedPointer<IIndexBuffer> inIndexBuffer)
@@ -387,19 +386,165 @@ namespace ion
 				return UnboundUniforms;
 			}
 
-			void CPipelineState::Draw()
+			void CPipelineState::Load()
 			{
-				if (! Shader || VertexBuffers.empty() || ! IndexBuffer || ! Shader->VertexStage->VertexShader || ! Shader->PixelStage->PixelShader)
+				if (Loaded)
 				{
-					Log::Error("Attempting to draw an invalid PipelineState");
+					Log::Warn("Attempting to load a PipelineState that's already loaded.");
 					return;
 				}
 
-				UINT Stride = VertexBuffers[0]->LayoutSize;
-				UINT Offset = 0;
-				ImmediateContext->IASetVertexBuffers(0, 1, &VertexBuffers[0]->VertexBuffer, &Stride, &Offset);
+				if (! Shader)
+				{
+					Log::Error("Cannot load an invalid PipelineState - no shader.");
+					return;
+				}
+
+				if (! Shader->Linked)
+				{
+					Shader->Link();
+
+					if (! Shader->Linked)
+					{
+						Log::Error("Cannot load an invalid PipelineState - shader could not be linked.");
+						Shader = nullptr;
+						return;
+					}
+				}
+
+				if (Shader->InputElements.size() == 0)
+				{
+					Log::Error("Cannot load an invalid PipelineState - shader has no input stages.");
+					return;
+				}
+
+				if (! Shader->VertexStage->VertexShader)
+				{
+					Log::Error("Cannot load an invalid PipelineState - shader has no vertex stage.");
+					return;
+				}
+
+				if (! Shader->PixelStage->PixelShader)
+				{
+					Log::Error("Cannot load an invalid PipelineState - shader has no pixel stage.");
+					return;
+				}
+
+				if (VertexBuffers.empty())
+				{
+					Log::Error("Cannot load an invalid PipelineState - no vertex buffers.");
+					return;
+				}
+
+				if (! IndexBuffer)
+				{
+					Log::Error("Cannot load an invalid PipelineState - no index buffer.");
+					return;
+				}
+
+				vector<D3D11_INPUT_ELEMENT_DESC> Layout;
+
+				for (SInputLayoutElement const & InputElement : Shader->InputElements)
+				{
+					bool FoundMatch = false;
+
+					for (std::shared_ptr<CVertexBuffer> VertexBuffer : VertexBuffers)
+					{
+						int Offset = 0;
+						int Slot = 0;
+
+						for (SInputLayoutElement const & VertexElement : VertexBuffer->InputLayoutElements)
+						{
+							if (InputElement.Name == VertexElement.Name)
+							{
+								if (InputElement.Type != VertexElement.Type)
+								{
+									Log::Error("Shader expects input of type '%s', vertex buffer provided '%s' for slot '%s.",
+										GetAttributeTypeString(InputElement.Type),
+										GetAttributeTypeString(VertexElement.Type),
+										InputElement.Name
+									);
+								}
+
+								if (InputElement.Components != VertexElement.Components)
+								{
+									Log::Error("Shader expects input with %d elements, vertex buffer provided %d for slot '%s.",
+										InputElement.Components,
+										VertexElement.Components,
+										InputElement.Name
+									);
+								}
+
+								D3D11_INPUT_ELEMENT_DESC Desc;
+								Desc.SemanticName = VertexElement.Name.c_str();
+								Desc.SemanticIndex = 0;
+								Desc.InputSlot = 0;
+								Desc.InputSlotClass = (VertexBuffer->Instancing ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA);
+								Desc.InstanceDataStepRate = 0;
+
+								static DXGI_FORMAT const Lookup[4][4] =
+								{
+									{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
+									{ DXGI_FORMAT_R32_SINT,  DXGI_FORMAT_R32G32_SINT,  DXGI_FORMAT_R32G32B32_SINT,  DXGI_FORMAT_R32G32B32A32_SINT  },
+									{ DXGI_FORMAT_R32_UINT,  DXGI_FORMAT_R32G32_UINT,  DXGI_FORMAT_R32G32B32_UINT,  DXGI_FORMAT_R32G32B32A32_UINT  },
+									{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
+								};
+
+								Desc.Format = Lookup[(int) VertexElement.Type][VertexElement.Components - 1];
+								Desc.AlignedByteOffset = Offset;
+
+								Layout.push_back(Desc);
+								FoundMatch = true;
+								break;
+							}
+
+							Offset += 4 * VertexElement.Components;
+							Slot ++;
+						} // VertexBuffer->InputLayoutElements
+
+						if (FoundMatch)
+						{
+							break;
+						}
+					} // VertexBuffers
+
+					if (! FoundMatch)
+					{
+						Log::Error("Shader expected layout element '%s', not provided by vertex buffers.", InputElement.Name);
+					}
+				} // Shader->InputElements
+
+				CheckedDXCall( Device->CreateInputLayout(
+					Layout.data(),
+					(UINT) Layout.size(),
+					Shader->VertexStage->CompileBlob->GetBufferPointer(),
+					(SIZE_T) Shader->VertexStage->CompileBlob->GetBufferSize(),
+					& InputLayout) );
+
+				Loaded = true;
+			}
+
+			void CPipelineState::Draw()
+			{
+				if (! Loaded)
+				{
+					return;
+				}
+
+				vector<ID3D11Buffer *> Buffers;
+				vector<UINT> Strides;
+				vector<UINT> Offsets;
+
+				for (auto & VertexBuffer : VertexBuffers)
+				{
+					Buffers.push_back(VertexBuffer->VertexBuffer);
+					Strides.push_back(VertexBuffer->LayoutSize);
+					Offsets.push_back(0);
+				}
+
+				ImmediateContext->IASetVertexBuffers(0, (UINT) VertexBuffers.size(), Buffers.data(), Strides.data(), Offsets.data());
 				ImmediateContext->IASetIndexBuffer(IndexBuffer->IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-				ImmediateContext->IASetInputLayout(VertexBuffers[0]->InputLayout->InputLayout);
+				ImmediateContext->IASetInputLayout(InputLayout);
 				ImmediateContext->IASetPrimitiveTopology(PrimitiveType);
 
 				ImmediateContext->VSSetShader(Shader->VertexStage->VertexShader, nullptr, 0);

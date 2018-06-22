@@ -33,7 +33,7 @@
     <ClInclude Include="CD3D11Implementation.h" />
     <ClInclude Include="CVertexStage.h" />
     <ClInclude Include="CFrameBuffer.h" />
-    <ClInclude Include="CShaderProgram.h" />
+    <ClInclude Include="CShader.h" />
     <ClInclude Include="CDepthBuffer.h" />
     <ClInclude Include="CPixelStage.h" />
     <ClInclude Include="CTexture.h" />
@@ -52,7 +52,7 @@
     <ClCompile Include="CShaderStage.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="CFrameBuffer.cpp" />
-    <ClCompile Include="CShaderProgram.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CDepthBuffer.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CVertexStage.cpp" />

@@ -21,7 +21,7 @@ namespace ion
 					Stage = new CGeometryStage();
 					CheckedDXCall( Device->CreateGeometryShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->GeometryShader) );
 					CheckedDXCall( D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) & Stage->Reflector) );
-					ShaderBlob->Release();
+					Stage->CompileBlob = ShaderBlob;
 				}
 
 				return Stage;
