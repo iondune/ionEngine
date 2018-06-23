@@ -137,7 +137,7 @@ namespace ion
 						D3D11_SHADER_VARIABLE_DESC VariableDesc;
 						Variable->GetDesc(& VariableDesc);
 
-						Description.Size += ReflectConstantBufferVariables(Description.Variables, Variable->GetType(), VariableDesc.Name, VariableDesc.StartOffset);
+						ReflectConstantBufferVariables(Description.Variables, Variable->GetType(), VariableDesc.Name, VariableDesc.StartOffset);
 					}
 					Description.Size = BufferDesc.Size;
 
@@ -186,18 +186,16 @@ namespace ion
 				}
 			}
 
-			int CShader::ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset)
+			void CShader::ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset)
 			{
-				int Size = 0;
-
 				D3D11_SHADER_TYPE_DESC TypeDesc;
 				Type->GetDesc(& TypeDesc);
-
 				if (TypeDesc.Members)
 				{
 					if (TypeDesc.Elements)
 					{
 						// Array of Structs
+						int ArrayOffset = 0;
 
 						for (UINT j = 0; j < TypeDesc.Elements; ++ j)
 						{
@@ -205,137 +203,87 @@ namespace ion
 
 							for (UINT i = 0; i < TypeDesc.Members; ++ i)
 							{
-								StructSize += ReflectConstantBufferVariables(
-									Uniforms,
-									Type->GetMemberTypeByIndex(i),
-									Name + "[" + std::to_string(j) + "]" + "." + Type->GetMemberTypeName(i),
-									Offset + Size);
+								ID3D11ShaderReflectionType * Field = Type->GetMemberTypeByIndex(i);
+								D3D11_SHADER_TYPE_DESC FieldDesc;
+								Field->GetDesc(& FieldDesc);
+
+								SUniform Uniform;
+								Uniform.Offset = Offset + ArrayOffset + FieldDesc.Offset;
+								Uniform.Name = Name + "[" + std::to_string(j) + "]" + "." + Type->GetMemberTypeName(i);
+								Uniforms.push_back(Uniform);
+
+								StructSize = RoundUp(FieldDesc.Offset + 4 * FieldDesc.Columns, 16); 
 							}
 
-							Size += StructSize;
+							ArrayOffset += StructSize;
 						}
 					}
 					else
 					{
 						// Struct
-
 						for (UINT i = 0; i < TypeDesc.Members; ++ i)
 						{
-							Size += ReflectConstantBufferVariables(
-								Uniforms,
-								Type->GetMemberTypeByIndex(i),
-								Name + "." + Type->GetMemberTypeName(i),
-								Offset);
+							ID3D11ShaderReflectionType * Field = Type->GetMemberTypeByIndex(i);
+							D3D11_SHADER_TYPE_DESC FieldDesc;
+							Field->GetDesc(& FieldDesc);
+
+							SUniform Uniform;
+							Uniform.Offset = Offset + FieldDesc.Offset;
+							Uniform.Name = Name + "." + Type->GetMemberTypeName(i);
+							Uniforms.push_back(Uniform);
 						}
 					}
 				}
 				else
 				{
-					if (TypeDesc.Elements)
-					{
-						// Array
+					// POD or Array of POD
 
-						for (UINT j = 0; j < TypeDesc.Elements; ++ j)
-						{
-							Size += ReflectConstantBufferUniform(Uniforms, TypeDesc, Name + "[" + std::to_string(j) + "]", Offset + Size);
-						}
+					SUniform Uniform;
 
-					}
-					else
-					{
-						// Variable
-
-						Size = ReflectConstantBufferUniform(Uniforms, TypeDesc, Name, Offset);
-					}
-				}
-
-				return Size;
-			}
-
-			int CShader::ReflectConstantBufferUniform(vector<SUniform> & Uniforms, D3D11_SHADER_TYPE_DESC const & TypeDesc, string const & Name, int const Offset)
-			{
-				int Size = 0;
-
-				SUniform Uniform;
-				Uniform.Offset = Offset + TypeDesc.Offset;
-				Uniform.Name = Name;
-
-				switch (TypeDesc.Class)
-				{
-				case D3D_SVC_SCALAR:
 					switch (TypeDesc.Type)
 					{
 					case D3D_SVT_INT:
 						Uniform.Type = EUniformType::Int;
-						Size = 4;
 						break;
 					case D3D_SVT_FLOAT:
 						Uniform.Type = EUniformType::Float;
-						Size = 4;
 						break;
 					case D3D_SVT_BOOL:
 						Uniform.Type = EUniformType::Bool;
-						Size = 4;
+						if (TypeDesc.Columns != 1)
+						{
+							Log::Error("Vectors of bools not supported as uniforms");
+						}
 						break;
 					default:
-						Log::Error("Unsupported shader variable scalar type: %d", TypeDesc.Type);
-						break;
-					}
-					break;
-
-				case D3D_SVC_VECTOR:
-					switch (TypeDesc.Type)
-					{
-					case D3D_SVT_INT:
-						Uniform.Type = EUniformType::Int;
-						Size = 4 * 4;
-						break;
-					case D3D_SVT_FLOAT:
-						Uniform.Type = EUniformType::Float;
-						Size = 4 * 4;
-						break;
-					default:
-						Log::Error("Unsupported shader variable vector type: %d", TypeDesc.Type);
+						Log::Error("Unsupported shader variable type: %d", TypeDesc.Type);
 						break;
 					}
 
 					Uniform.Type = (EUniformType) ((int) Uniform.Type + (TypeDesc.Columns - 1));
 
-					break;
-
-				case D3D_SVC_MATRIX_COLUMNS:
-					if (TypeDesc.Type == D3D_SVT_FLOAT)
+					if (TypeDesc.Elements)
 					{
-						if (TypeDesc.Rows != TypeDesc.Columns)
+						// Array of POD
+						int ArrayOffset = 0;
+
+						for (UINT j = 0; j < TypeDesc.Elements; ++ j)
 						{
-							Log::Error("Unsupported shader variable matrix not square: %dx%d", TypeDesc.Rows, TypeDesc.Columns);
-						}
-						else
-						{
-							if (TypeDesc.Rows == 4)
-							{
-								Uniform.Type = EUniformType::Matrix4x4;
-								Size = 16 * 4;
-							}
-							else
-							{
-								Log::Error("Unsupported shader variable matrix size: %dx%d", TypeDesc.Rows, TypeDesc.Columns);
-							}
+							Uniform.Offset = Offset + ArrayOffset;
+							Uniform.Name = Name + "[" + std::to_string(j) + "]";
+							Uniforms.push_back(Uniform);
+
+							ArrayOffset += 4;
 						}
 					}
 					else
 					{
-						Log::Error("Unsupported shader variable matrix type: %d", TypeDesc.Type);
+						// POD
+						Uniform.Offset = Offset;
+						Uniform.Name = Name;
+						Uniforms.push_back(Uniform);
 					}
-					break;
-
-				default:
-					Log::Error("Unsupported shader variable class: %d", TypeDesc.Class);
-					break;
 				}
-
-				Uniforms.push_back(Uniform);
-				return Size;
 			}
 
 		}
