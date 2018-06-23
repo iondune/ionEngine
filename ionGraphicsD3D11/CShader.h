@@ -30,12 +30,45 @@ namespace ion
 
 				void Link();
 
+				struct SUniform
+				{
+					string Name;
+					EUniformType Type;
+					int Offset = 0;
+
+					bool operator == (SUniform const & Other) const
+					{
+						return Name == Other.Name && Type == Other.Type && Offset == Other.Offset;
+					}
+				};
+
+				struct SConstantBuffer
+				{
+					vector<SUniform> Variables;
+					string Name;
+					int Size = 0;
+					int Slot = 0;
+					int Stages = 0;
+
+					bool Equivalent(SConstantBuffer const & Other) const
+					{
+						return Variables == Other.Variables;
+					}
+				};
+
+				void ReflectInputElements();
+				void ReflectConstantBuffers();
+				void ReflectConstantBuffersStage(ID3D11ShaderReflection * Reflector, int const Stage);
+				int ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset);
+				int ReflectConstantBufferUniform(vector<SUniform> & Uniforms, D3D11_SHADER_TYPE_DESC const & TypeDesc, string const & Name, int const Offset);
+
 				SharedPointer<CVertexStage> VertexStage;
 				SharedPointer<CGeometryStage> GeometryStage;
 				SharedPointer<CPixelStage> PixelStage;
 
 				bool Linked = false;
 				vector<SInputLayoutElement> InputElements;
+				vector<SConstantBuffer> ConstantBuffers;
 
 			};
 

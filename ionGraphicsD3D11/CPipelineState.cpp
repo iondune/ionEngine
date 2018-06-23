@@ -30,6 +30,29 @@ namespace ion
 
 					ConstantBuffers.clear();
 
+					for (CShader::SConstantBuffer const & Buffer : Shader->ConstantBuffers)
+					{
+						SConstantBufferBinding BufferBinding;
+
+						D3D11_BUFFER_DESC ConstantBufferDesc = {};
+						ConstantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+						ConstantBufferDesc.ByteWidth = Buffer.Size;
+						ConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+						CheckedDXCall( Device->CreateBuffer(& ConstantBufferDesc, nullptr, & BufferBinding.ConstantBuffer) );
+
+						BufferBinding.Size = Buffer.Size;
+						BufferBinding.Slot = Buffer.Slot;
+
+						for (CShader::SUniform const & Uniform : Buffer.Variables)
+						{
+							SUniformBinding UniformBinding;
+							UniformBinding.Offset = Uniform.Offset;
+							BufferBinding.Variables[Uniform.Name] = UniformBinding;
+						}
+
+						ConstantBuffers[Buffer.Name] = BufferBinding;
+					}
+
 					std::vector<ID3D11ShaderReflection *> Reflectors;
 
 					if (Shader->VertexStage && Shader->VertexStage->Reflector)
@@ -49,107 +72,6 @@ namespace ion
 					{
 						D3D11_SHADER_DESC ShaderDesc;
 						Reflector->GetDesc(& ShaderDesc);
-
-						for (int c = 0; c < (int) ShaderDesc.ConstantBuffers; ++ c)
-						{
-							SConstantBufferBinding Binding;
-
-							auto ConstantBuffer = Reflector->GetConstantBufferByIndex(c);
-
-							D3D11_SHADER_BUFFER_DESC BufferDesc;
-							ConstantBuffer->GetDesc(& BufferDesc);
-
-							if (ConstantBuffers.find(BufferDesc.Name) != ConstantBuffers.end())
-							{
-								continue;
-							}
-
-							for (int v = 0; v < (int) BufferDesc.Variables; ++ v)
-							{
-								auto Variable = ConstantBuffer->GetVariableByIndex(v);
-
-								D3D11_SHADER_VARIABLE_DESC VariableDesc;
-								D3D11_SHADER_TYPE_DESC TypeDesc;
-
-								Variable->GetDesc(& VariableDesc);
-								auto Type = Variable->GetType();
-								Type->GetDesc(& TypeDesc);
-
-								if (TypeDesc.Members)
-								{
-									if (TypeDesc.Elements)
-									{
-										// Array of Structs
-										int ArrayOffset = 0;
-
-										for (UINT j = 0; j < TypeDesc.Elements; ++ j)
-										{
-											for (UINT i = 0; i < TypeDesc.Members; ++ i)
-											{
-												auto Field = Type->GetMemberTypeByIndex(i);
-												D3D11_SHADER_TYPE_DESC FieldDesc;
-												Field->GetDesc(& FieldDesc);
-
-												SUniformBinding Uniform;
-												Uniform.Offset = VariableDesc.StartOffset + ArrayOffset + FieldDesc.Offset;
-												Binding.Variables[string(VariableDesc.Name) + "[" + std::to_string(j) + "]" + "." + Type->GetMemberTypeName(i)] = Uniform;
-											}
-
-											ArrayOffset += VariableDesc.Size / TypeDesc.Elements;
-										}
-									}
-									else
-									{
-										// Struct
-										for (UINT i = 0; i < TypeDesc.Members; ++ i)
-										{
-											auto Field = Type->GetMemberTypeByIndex(i);
-											D3D11_SHADER_TYPE_DESC FieldDesc;
-											Field->GetDesc(& FieldDesc);
-
-											SUniformBinding Uniform;
-											Uniform.Offset = VariableDesc.StartOffset + FieldDesc.Offset;
-											Binding.Variables[string(VariableDesc.Name) + "." + Type->GetMemberTypeName(i)] = Uniform;
-										}
-									}
-								}
-								else
-								{
-
-									if (TypeDesc.Elements)
-									{
-										// Array of POD
-										int ArrayOffset = 0;
-
-										for (UINT j = 0; j < TypeDesc.Elements; ++ j)
-										{
-											SUniformBinding Uniform;
-											Uniform.Offset = VariableDesc.StartOffset + ArrayOffset;
-											Binding.Variables[string(VariableDesc.Name) + "[" + std::to_string(j) + "]"] = Uniform;
-
-											ArrayOffset += VariableDesc.Size / TypeDesc.Elements;
-										}
-									}
-									else
-									{
-										// POD
-										SUniformBinding Uniform;
-										Uniform.Offset = VariableDesc.StartOffset;
-										Binding.Variables[VariableDesc.Name] = Uniform;
-									}
-								}
-							}
-
-							D3D11_BUFFER_DESC CBDesc = {};
-							CBDesc.Usage = D3D11_USAGE_DEFAULT;
-							CBDesc.ByteWidth = BufferDesc.Size;
-							CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-							CheckedDXCall( Device->CreateBuffer(&CBDesc, nullptr, &Binding.ConstantBuffer) );
-							Binding.Size = BufferDesc.Size;
-							Binding.Slot = c;
-
-							ConstantBuffers[BufferDesc.Name] = Binding;
-						}
 
 						for (int t = 0; t < (int) ShaderDesc.BoundResources; ++ t)
 						{
@@ -670,11 +592,11 @@ namespace ion
 						int const TextureSlot = TextureBinding.ResourceSlot;
 
 						ImmediateContext->VSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->VSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						ImmediateContext->VSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
 						ImmediateContext->GSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->GSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						ImmediateContext->GSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
 						ImmediateContext->PSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->PSSetSamplers(TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						ImmediateContext->PSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
 					}
 					else
 					{
