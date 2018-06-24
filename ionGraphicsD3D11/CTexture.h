@@ -57,7 +57,7 @@ namespace ion
 				color4f BorderColor;
 
 				//! Anisotrophic filtering value
-				int Anisotropy = 16;
+				int Anisotropy = 0;
 
 				bool MipMaps = true;
 				bool IsInteger = false;
