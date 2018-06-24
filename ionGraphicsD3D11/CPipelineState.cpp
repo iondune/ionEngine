@@ -28,6 +28,18 @@ namespace ion
 
 					Shader = std::dynamic_pointer_cast<CShader>(inShader);
 
+					if (! Shader->Linked)
+					{
+						Shader->Link();
+
+						if (! Shader->Linked)
+						{
+							Log::Error("Cannot initialize PipelineState - shader could not be linked.");
+							Shader = nullptr;
+							return;
+						}
+					}
+
 					ConstantBuffers.clear();
 
 					for (CShader::SConstantBuffer const & Buffer : Shader->ConstantBuffers)
@@ -89,12 +101,6 @@ namespace ion
 							}
 						}
 					}
-
-
-					//Textures.clear();
-
-					//UnboundAttributes = KeySet(Shader->Attributes);
-					//UnboundAttributes.erase("gl_VertexID");
 				}
 			}
 
@@ -320,18 +326,6 @@ namespace ion
 				{
 					Log::Error("Cannot load an invalid PipelineState - no shader.");
 					return;
-				}
-
-				if (! Shader->Linked)
-				{
-					Shader->Link();
-
-					if (! Shader->Linked)
-					{
-						Log::Error("Cannot load an invalid PipelineState - shader could not be linked.");
-						Shader = nullptr;
-						return;
-					}
 				}
 
 				if (Shader->InputElements.size() == 0)
