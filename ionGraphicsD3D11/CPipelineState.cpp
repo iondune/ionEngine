@@ -470,12 +470,9 @@ namespace ion
 				ImmediateContext->IASetInputLayout(InputLayout);
 				ImmediateContext->IASetPrimitiveTopology(PrimitiveType);
 
-				ImmediateContext->VSSetShader(Shader->VertexStage->VertexShader, nullptr, 0);
-				if (Shader->GeometryStage)
-				{
-					ImmediateContext->GSSetShader(Shader->GeometryStage->GeometryShader, nullptr, 0);
-				}
-				ImmediateContext->PSSetShader(Shader->PixelStage->PixelShader, nullptr, 0);
+				ImmediateContext->VSSetShader(Shader->VertexStage ? Shader->VertexStage->VertexShader : nullptr, nullptr, 0);
+				ImmediateContext->GSSetShader(Shader->GeometryStage ? Shader->GeometryStage->GeometryShader : nullptr, nullptr, 0);
+				ImmediateContext->PSSetShader(Shader->PixelStage ? Shader->PixelStage->PixelShader : nullptr, nullptr, 0);
 
 				int Slot = 0;
 				for (auto & ConstantBuffer : ConstantBuffers)
