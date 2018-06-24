@@ -59,8 +59,7 @@ namespace ion
 				void ReflectInputElements();
 				void ReflectConstantBuffers();
 				void ReflectConstantBuffersStage(ID3D11ShaderReflection * Reflector, int const Stage);
-				int ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset);
-				int ReflectConstantBufferUniform(vector<SUniform> & Uniforms, D3D11_SHADER_TYPE_DESC const & TypeDesc, string const & Name, int const Offset);
+				void ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset);
 
 				SharedPointer<CVertexStage> VertexStage;
 				SharedPointer<CGeometryStage> GeometryStage;
