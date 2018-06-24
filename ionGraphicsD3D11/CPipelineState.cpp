@@ -484,6 +484,7 @@ namespace ion
 							{
 							case EUniformType::Float:
 							case EUniformType::Int:
+							case EUniformType::UnsignedInt:
 								std::memcpy(Address, Uniform->GetData(), Uniform->GetSize());
 								break;
 

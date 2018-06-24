@@ -25,6 +25,8 @@ namespace ion
 				return "Int";
 			case EUniformType::Bool:
 				return "Bool";
+			case EUniformType::UnsignedInt:
+				return "UnsignedInt";
 			case EUniformType::Int2:
 				return "Int2";
 			case EUniformType::Int3:
@@ -106,6 +108,12 @@ namespace ion
 		EUniformType IUniformTyped<int>::GetType() const
 		{
 			return EUniformType::Int;
+		}
+
+		template <>
+		EUniformType IUniformTyped<ion::uint>::GetType() const
+		{
+			return EUniformType::UnsignedInt;
 		}
 
 		template <>

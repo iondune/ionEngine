@@ -30,6 +30,7 @@ namespace ion
 			Float3Array = 11,
 			Matrix4x4Array = 12,
 			Bool = 13,
+			UnsignedInt = 14,
 		};
 
 		//! \brief Converts uniform enum to equivalent string form

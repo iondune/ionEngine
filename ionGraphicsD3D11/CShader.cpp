@@ -255,6 +255,13 @@ namespace ion
 							Log::Error("Vectors of bools not supported as uniforms");
 						}
 						break;
+					case D3D_SVT_UINT:
+						Uniform.Type = EUniformType::UnsignedInt;
+						if (TypeDesc.Columns != 1)
+						{
+							Log::Error("Vectors of unsigned ints not supported as uniforms");
+						}
+						break;
 					default:
 						Log::Error("Unsupported shader variable type: %d", TypeDesc.Type);
 						break;
