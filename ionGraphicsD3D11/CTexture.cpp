@@ -312,6 +312,32 @@ namespace ion
 
 			void CTexture2D::GetData(void * const Data, vec2i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
+				D3D11_TEXTURE2D_DESC TextureDesc;
+				Texture2D->GetDesc(& TextureDesc);
+
+				TextureDesc.Usage = D3D11_USAGE_STAGING;
+				TextureDesc.BindFlags = 0;
+				TextureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				TextureDesc.MiscFlags = 0;
+
+				ID3D11Texture2D * StagingTexture = nullptr;
+				CheckedDXCall( Device->CreateTexture2D(& TextureDesc, nullptr, & StagingTexture) );
+				ImmediateContext->CopyResource(StagingTexture, Texture2D);
+
+				D3D11_MAPPED_SUBRESOURCE ResourceDesc;
+				CheckedDXCall( ImmediateContext->Map(StagingTexture, 0, D3D11_MAP_READ, 0, & ResourceDesc) );
+
+				int const BytesPerPixel = ((int) Components + 1) * GetScalarTypeSize(Type);
+				for (int i = 0; i < Size.Y; ++ i)
+				{
+					std::memcpy(
+						(byte *) Data               + Size.X * BytesPerPixel * i,
+						(byte *) ResourceDesc.pData + ResourceDesc.RowPitch * i,
+						Size.X * BytesPerPixel);
+				}
+
+				ImmediateContext->Unmap(StagingTexture, 0);
+				StagingTexture->Release();
 			}
 
 			uint CTexture2D::GetGLBindTextureTarget() const
