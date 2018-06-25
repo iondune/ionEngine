@@ -318,7 +318,6 @@ namespace ion
 			{
 				if (Loaded)
 				{
-					Log::Warn("Attempting to load a PipelineState that's already loaded.");
 					return;
 				}
 
