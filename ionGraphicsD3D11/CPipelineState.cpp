@@ -648,6 +648,24 @@ namespace ion
 					ImmediateContext->DrawIndexed(IndexBuffer->Size, 0, 0);
 				}
 
+				for (auto & [Key, TextureBinding] : TextureBindings)
+				{
+					if (TextureBinding.Texture)
+					{
+						int const TextureSlot = TextureBinding.ResourceSlot;
+
+						ID3D11ShaderResourceView * ClearTexture = nullptr;
+						ID3D11SamplerState * ClearSampler = nullptr;
+
+						ImmediateContext->VSSetShaderResources(TextureSlot, 1, & ClearTexture);
+						ImmediateContext->VSSetSamplers(       TextureSlot, 1, & ClearSampler);
+						ImmediateContext->GSSetShaderResources(TextureSlot, 1, & ClearTexture);
+						ImmediateContext->GSSetSamplers(       TextureSlot, 1, & ClearSampler);
+						ImmediateContext->PSSetShaderResources(TextureSlot, 1, & ClearTexture);
+						ImmediateContext->PSSetSamplers(       TextureSlot, 1, & ClearSampler);
+					}
+				}
+
 				if (BlendMode != EBlendMode::None)
 				{
 					ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
