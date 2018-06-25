@@ -29,13 +29,13 @@ namespace ion
 		void PostWindowCreationSetup(CWindow * Window);
 		bool OnWindowSwap(CWindow * Window);
 
-		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName);
-		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName);
-		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromFile(string const & FileName);
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
 
-		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromSource(string const & Source);
-		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromSource(string const & Source);
-		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromSource(string const & Source);
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
 
 		SharedPointer<Graphics::IShader> CreateShaderProgram();
 

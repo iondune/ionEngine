@@ -12,11 +12,11 @@ namespace ion
 		namespace D3D11
 		{
 
-			CPixelStage * CPixelStage::Compile(ID3D11Device * Device, string const & Source)
+			CPixelStage * CPixelStage::Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 			{
 				CPixelStage * Stage = nullptr;
 
-				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Pixel))
+				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Pixel, SourceName, IncludeDirectories))
 				{
 					Stage = new CPixelStage();
 					CheckedDXCall( Device->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->PixelShader) );

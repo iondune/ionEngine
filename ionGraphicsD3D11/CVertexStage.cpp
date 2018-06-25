@@ -12,11 +12,11 @@ namespace ion
 		namespace D3D11
 		{
 
-			CVertexStage * CVertexStage::Compile(ID3D11Device * Device, string const & Source)
+			CVertexStage * CVertexStage::Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 			{
 				CVertexStage * Stage = nullptr;
 
-				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Vertex))
+				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Vertex, SourceName, IncludeDirectories))
 				{
 					Stage = new CVertexStage();
 					CheckedDXCall( Device->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->VertexShader) );

@@ -14,7 +14,62 @@ namespace ion
 		namespace D3D11
 		{
 
-			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, int const ShaderType)
+			class CShaderIncludeManager : public ID3DInclude
+			{
+
+				CShaderIncludeManager(CShaderIncludeManager const &) = delete;
+				CShaderIncludeManager & operator = (CShaderIncludeManager const &) = delete;
+
+			public:
+
+				CShaderIncludeManager(vector<string> const & includeDirectories)
+					: IncludeDirectories(includeDirectories)
+				{
+
+				}
+
+				~CShaderIncludeManager()
+				{
+					DeleteAndClear(OpenFiles);
+				}
+
+				vector<string> IncludeDirectories;
+
+				struct SOpenFile
+				{
+					string Contents;
+				};
+
+				vector<SOpenFile *> OpenFiles;
+
+				HRESULT Open(D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID *ppData, UINT *pBytes)
+				{
+					for (string AssetPath : IncludeDirectories)
+					{
+						string const FilePath = AssetPath + pFileName;
+
+						if (File::Exists(FilePath))
+						{
+							SOpenFile * OpenFile = new SOpenFile();
+							OpenFile->Contents = File::ReadAsString(FilePath);
+							OpenFiles.push_back(OpenFile);
+
+							*ppData = OpenFile->Contents.c_str();
+							*pBytes = OpenFile->Contents.length();
+							return S_OK;
+						}
+					}
+
+					return E_FAIL;
+				}
+
+				HRESULT Close(LPCVOID pData)
+				{
+					return S_OK;
+				}
+			};
+
+			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, int const ShaderType, string const & SourceName, vector<string> const & IncludeDirectories)
 			{
 				UINT CompileFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 			#ifdef ION_CONFIG_DEBUG
@@ -52,11 +107,13 @@ namespace ion
 				ID3DBlob * ShaderBlob = nullptr;
 				ID3DBlob * ErrorBlob = nullptr;
 
+				CShaderIncludeManager Include(IncludeDirectories);
+
 				HRESULT result = D3DCompile(
 					Source.c_str(), Source.length(),
-					NULL, defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+					SourceName.length() ? SourceName.c_str() : nullptr, defines, & Include,
 					EntryPoint, Profile,
-					CompileFlags, 0, &ShaderBlob, &ErrorBlob);
+					CompileFlags, 0, & ShaderBlob, & ErrorBlob);
 
 				if (result != S_OK)
 				{

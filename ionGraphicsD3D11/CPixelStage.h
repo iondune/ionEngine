@@ -23,7 +23,7 @@ namespace ion
 
 			public:
 
-				static CPixelStage * Compile(ID3D11Device * Device, string const & Source);
+				static CPixelStage * Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories);
 				~CPixelStage();
 
 				ID3D11PixelShader * PixelShader = nullptr;

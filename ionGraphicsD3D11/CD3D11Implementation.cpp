@@ -78,7 +78,7 @@ namespace ion
 				& ImmediateContext) );
 
 			DebugDevice = nullptr;
-			Device->QueryInterface(IID_PPV_ARGS(&DebugDevice));
+			Device->QueryInterface(IID_PPV_ARGS(& DebugDevice));
 
 			DXGIGetDebugInterface1(0, IID_PPV_ARGS(& GraphicsAnalysis));
 
@@ -129,19 +129,19 @@ namespace ion
 			return false;
 		}
 
-		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source)
+		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 		{
-			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source));
+			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source, SourceName, IncludeDirectories));
 		}
 
-		SharedPointer<IGeometryStage> CD3D11Implementation::CreateGeometryShaderFromSource(string const & Source)
+		SharedPointer<IGeometryStage> CD3D11Implementation::CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 		{
-			return std::shared_ptr<D3D11::CGeometryStage>(D3D11::CGeometryStage::Compile(Device, Source));
+			return std::shared_ptr<D3D11::CGeometryStage>(D3D11::CGeometryStage::Compile(Device, Source, SourceName, IncludeDirectories));
 		}
 
-		SharedPointer<IPixelStage> CD3D11Implementation::CreatePixelShaderFromSource(string const & Source)
+		SharedPointer<IPixelStage> CD3D11Implementation::CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 		{
-			return std::shared_ptr<D3D11::CPixelStage>(D3D11::CPixelStage::Compile(Device, Source));
+			return std::shared_ptr<D3D11::CPixelStage>(D3D11::CPixelStage::Compile(Device, Source, SourceName, IncludeDirectories));
 		}
 
 		SharedPointer<IShader> CD3D11Implementation::CreateShaderProgram()

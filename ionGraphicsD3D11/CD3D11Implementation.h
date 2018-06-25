@@ -26,9 +26,9 @@ namespace ion
 			void PostWindowCreationSetup(CWindow * Window);
 			bool OnWindowSwap(CWindow * Window);
 
-			SharedPointer<IVertexStage> CreateVertexShaderFromSource(string const & Source);
-			SharedPointer<IGeometryStage> CreateGeometryShaderFromSource(string const & Source);
-			SharedPointer<IPixelStage> CreatePixelShaderFromSource(string const & Source);
+			SharedPointer<IVertexStage> CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories);
+			SharedPointer<IGeometryStage> CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories);
+			SharedPointer<IPixelStage> CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories);
 
 			SharedPointer<IShader> CreateShaderProgram();
 

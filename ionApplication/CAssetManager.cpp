@@ -16,9 +16,17 @@ namespace ion
 			return nullptr;
 		}
 
-		for (string AssetPath : AssetPaths)
+		string const FileName =  Name + ".hlsl";
+
+		vector<string> ShaderPaths;
+		for (string const & AssetPath : AssetPaths)
 		{
-			string const FilePath = AssetPath + ShaderPath + Name + ".hlsl";
+			ShaderPaths.push_back(AssetPath + ShaderPath);
+		}
+
+		for (string const & Path : ShaderPaths)
+		{
+			string const FilePath = Path + FileName;
 
 			if (! File::Exists(FilePath))
 			{
@@ -32,7 +40,7 @@ namespace ion
 
 			if (Stages & Graphics::EShaderType::Vertex)
 			{
-				VertexShader = GraphicsAPI->CreateVertexStageFromFile(FilePath);
+				VertexShader = GraphicsAPI->CreateVertexStageFromFile(FilePath, ShaderPaths);
 				if (! VertexShader)
 				{
 					Log::Error("Failed to compile vertex shader '%s': '%s'", Name, FilePath);
@@ -42,7 +50,7 @@ namespace ion
 
 			if (Stages & Graphics::EShaderType::Geometry)
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryStageFromFile(FilePath);
+				GeometryShader = GraphicsAPI->CreateGeometryStageFromFile(FilePath, ShaderPaths);
 
 				if (! GeometryShader)
 				{
@@ -53,7 +61,7 @@ namespace ion
 
 			if (Stages & Graphics::EShaderType::Pixel)
 			{
-				PixelShader = GraphicsAPI->CreatePixelStageFromFile(FilePath);
+				PixelShader = GraphicsAPI->CreatePixelStageFromFile(FilePath, ShaderPaths);
 				if (! PixelShader)
 				{
 					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, FilePath);

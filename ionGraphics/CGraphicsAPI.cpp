@@ -47,7 +47,7 @@ namespace ion
 		}
 	}
 
-	SharedPointer<Graphics::IVertexStage> CGraphicsAPI::CreateVertexStageFromFile(string const & FileName)
+	SharedPointer<Graphics::IVertexStage> CGraphicsAPI::CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IVertexStage> VertexShader;
 		if (! File::Exists(FileName))
@@ -56,7 +56,7 @@ namespace ion
 		}
 		else
 		{
-			VertexShader = CreateVertexStageFromSource(File::ReadAsString(FileName));
+			VertexShader = CreateVertexStageFromSource(File::ReadAsString(FileName), FileName, IncludeDirectories);
 
 			if (! VertexShader)
 			{
@@ -66,7 +66,7 @@ namespace ion
 		return VertexShader;
 	}
 
-	SharedPointer<Graphics::IGeometryStage> CGraphicsAPI::CreateGeometryStageFromFile(string const & FileName)
+	SharedPointer<Graphics::IGeometryStage> CGraphicsAPI::CreateGeometryStageFromFile(string const & FileName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IGeometryStage> GeometryShader;
 		if (! File::Exists(FileName))
@@ -75,7 +75,7 @@ namespace ion
 		}
 		else
 		{
-			GeometryShader = CreateGeometryStageFromSource(File::ReadAsString(FileName));
+			GeometryShader = CreateGeometryStageFromSource(File::ReadAsString(FileName), FileName, IncludeDirectories);
 
 			if (! GeometryShader)
 			{
@@ -85,7 +85,7 @@ namespace ion
 		return GeometryShader;
 	}
 
-	SharedPointer<Graphics::IPixelStage> CGraphicsAPI::CreatePixelStageFromFile(string const & FileName)
+	SharedPointer<Graphics::IPixelStage> CGraphicsAPI::CreatePixelStageFromFile(string const & FileName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IPixelStage> PixelShader;
 		if (! File::Exists(FileName))
@@ -94,7 +94,7 @@ namespace ion
 		}
 		else
 		{
-			PixelShader = CreatePixelStageFromSource(File::ReadAsString(FileName));
+			PixelShader = CreatePixelStageFromSource(File::ReadAsString(FileName), FileName, IncludeDirectories);
 
 			if (! PixelShader)
 			{
@@ -104,7 +104,7 @@ namespace ion
 		return PixelShader;
 	}
 
-	SharedPointer<Graphics::IVertexStage> CGraphicsAPI::CreateVertexStageFromSource(string const & Source)
+	SharedPointer<Graphics::IVertexStage> CGraphicsAPI::CreateVertexStageFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IVertexStage> VertexShader;
 
@@ -114,13 +114,13 @@ namespace ion
 		}
 		else
 		{
-			VertexShader = Implementation->CreateVertexShaderFromSource(Source);
+			VertexShader = Implementation->CreateVertexShaderFromSource(Source, SourceName, IncludeDirectories);
 		}
 
 		return VertexShader;
 	}
 
-	SharedPointer<Graphics::IGeometryStage> CGraphicsAPI::CreateGeometryStageFromSource(string const & Source)
+	SharedPointer<Graphics::IGeometryStage> CGraphicsAPI::CreateGeometryStageFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IGeometryStage> GeometryShader;
 
@@ -130,13 +130,13 @@ namespace ion
 		}
 		else
 		{
-			GeometryShader = Implementation->CreateGeometryShaderFromSource(Source);
+			GeometryShader = Implementation->CreateGeometryShaderFromSource(Source, SourceName, IncludeDirectories);
 		}
 
 		return GeometryShader;
 	}
 
-	SharedPointer<Graphics::IPixelStage> CGraphicsAPI::CreatePixelStageFromSource(string const & Source)
+	SharedPointer<Graphics::IPixelStage> CGraphicsAPI::CreatePixelStageFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IPixelStage> PixelShader;
 
@@ -146,7 +146,7 @@ namespace ion
 		}
 		else
 		{
-			PixelShader = Implementation->CreatePixelShaderFromSource(Source);
+			PixelShader = Implementation->CreatePixelShaderFromSource(Source, SourceName, IncludeDirectories);
 		}
 
 		return PixelShader;

@@ -20,7 +20,7 @@ namespace ion
 
 			public:
 
-				static ID3DBlob * CompileShaderBlob(string const & Source, int const ShaderType);
+				static ID3DBlob * CompileShaderBlob(string const & Source, int const ShaderType, string const & SourceName, vector<string> const & IncludeDirectories);
 				
 			};
 
