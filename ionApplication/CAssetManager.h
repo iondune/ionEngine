@@ -17,7 +17,7 @@ namespace ion
 
 		void Init(CGraphicsAPI * GraphicsAPI);
 
-		SharedPointer<Graphics::IShader> LoadShader(string const & Name, int const Stages = Graphics::EShaderType::Vertex | Graphics::EShaderType::Pixel);
+		SharedPointer<Graphics::IShader> LoadShader(string const & Name, int const Stages = Graphics::EShaderType::VertexPixel);
 		CImage * LoadImage(string const & FileName);
 		SharedPointer<Graphics::ITexture2D> LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);
 		SharedPointer<Graphics::ITexture3D> Load3DTexture(const std::vector<std::string> & fileName, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);

@@ -16,6 +16,9 @@ namespace ion
 				Vertex   = 0x001,
 				Geometry = 0x002,
 				Pixel    = 0x004,
+
+				VertexPixel         = 0x005,
+				VertexGeometryPixel = 0x007,
 			};
 		};
 
