@@ -65,22 +65,22 @@ namespace ion
 						ConstantBuffers[Buffer.Name] = BufferBinding;
 					}
 
-					std::vector<ID3D11ShaderReflection *> Reflectors;
+					std::vector<std::pair<ID3D11ShaderReflection *, int>> Reflectors;
 
 					if (Shader->VertexStage && Shader->VertexStage->Reflector)
 					{
-						Reflectors.push_back(Shader->VertexStage->Reflector);
+						Reflectors.push_back(std::make_pair(Shader->VertexStage->Reflector, EShaderType::Vertex));
 					}
 					if (Shader->GeometryStage && Shader->GeometryStage->Reflector)
 					{
-						Reflectors.push_back(Shader->GeometryStage->Reflector);
+						Reflectors.push_back(std::make_pair(Shader->GeometryStage->Reflector, EShaderType::Geometry));
 					}
 					if (Shader->PixelStage && Shader->PixelStage->Reflector)
 					{
-						Reflectors.push_back(Shader->PixelStage->Reflector);
+						Reflectors.push_back(std::make_pair(Shader->PixelStage->Reflector, EShaderType::Pixel));
 					}
 
-					for (auto Reflector : Reflectors)
+					for (auto & [Reflector, Stage] : Reflectors)
 					{
 						D3D11_SHADER_DESC ShaderDesc;
 						Reflector->GetDesc(& ShaderDesc);
@@ -92,12 +92,21 @@ namespace ion
 
 							if (Desc.Type == D3D_SIT_TEXTURE)
 							{
-								STextureBinding Binding;
-								Binding.Name = Desc.Name;
-								Binding.ResourceSlot = Desc.BindPoint;
-								Binding.SamplerSlot = Desc.BindPoint;
+								auto it = TextureBindings.find(Desc.Name);
+								if (it != TextureBindings.end())
+								{
+									it->second.Stages |= Stage;
+								}
+								else
+								{
+									STextureBinding Binding;
+									Binding.Name = Desc.Name;
+									Binding.ResourceSlot = Desc.BindPoint;
+									Binding.SamplerSlot = Desc.BindPoint;
+									Binding.Stages |= Stage;
 
-								TextureBindings[Desc.Name] = (Binding);
+									TextureBindings[Desc.Name] = Binding;
+								}
 							}
 						}
 					}
@@ -582,12 +591,21 @@ namespace ion
 					{
 						int const TextureSlot = TextureBinding.ResourceSlot;
 
-						ImmediateContext->VSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->VSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
-						ImmediateContext->GSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->GSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
-						ImmediateContext->PSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
-						ImmediateContext->PSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						if (TextureBinding.Stages & EShaderType::Vertex)
+						{
+							ImmediateContext->VSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+							ImmediateContext->VSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						}
+						if (TextureBinding.Stages & EShaderType::Geometry)
+						{
+							ImmediateContext->GSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+							ImmediateContext->GSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						}
+						if (TextureBinding.Stages & EShaderType::Pixel)
+						{
+							ImmediateContext->PSSetShaderResources(TextureSlot, 1, & TextureBinding.Texture->ShaderResourceView);
+							ImmediateContext->PSSetSamplers(       TextureSlot, 1, & TextureBinding.Texture->SamplerState);
+						}
 					}
 					else
 					{

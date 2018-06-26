@@ -79,7 +79,7 @@ namespace ion
 					string Name;
 					int ResourceSlot = 0;
 					int SamplerSlot = 0;
-					EShaderType RequiredBy;
+					int Stages = 0;
 					SharedPointer<CTexture const> Texture;
 				};
 
