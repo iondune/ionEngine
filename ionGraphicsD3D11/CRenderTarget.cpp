@@ -70,7 +70,10 @@ namespace ion
 
 			void CRenderTarget::ClearDepth()
 			{
-				ImmediateContext->ClearDepthStencilView(DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+				if (DepthStencilView)
+				{
+					ImmediateContext->ClearDepthStencilView(DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+				}
 
 				Bind();
 			}
