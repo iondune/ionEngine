@@ -27,6 +27,7 @@ namespace ion
 
 				void SetShader(SharedPointer<IShader> Shader);
 				void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer);
+				void SetInstanceBuffer(uint const Index, SharedPointer<IInstanceBuffer> InstanceBuffer);
 				void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer);
 				void SetUniform(string const & Name, SharedPointer<IUniform> Uniform);
 				void SetTexture(string const & Name, SharedPointer<ITexture> Texture);
@@ -44,13 +45,14 @@ namespace ion
 				set<string> GetUnboundUniforms() const;
 
 				void Load();
-				void Draw(bool const Instancing, int const InstanceCount = 0);
+				void Draw();
 
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;
 
 				SharedPointer<CShader> Shader;
 				vector<std::shared_ptr<CVertexBuffer>> VertexBuffers;
+				vector<std::shared_ptr<CInstanceBuffer>> InstanceBuffers;
 				SharedPointer<CIndexBuffer> IndexBuffer;
 
 				ID3D11InputLayout * InputLayout = nullptr;

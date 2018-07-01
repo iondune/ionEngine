@@ -30,7 +30,6 @@ namespace ion
 				SharedPointer<IPipelineState> CreatePipelineState();
 
 				void Draw(SharedPointer<IPipelineState> State);
-				void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount);
 
 				ID3D11Device * Device = nullptr;
 				IDXGISwapChain * SwapChain = nullptr;

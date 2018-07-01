@@ -53,7 +53,7 @@ namespace ion
 				DataNeedsUpload = false;
 			}
 
-			RenderPass->SubmitPipelineStateForRendering(PipelineState, this, 1, RenderCategory);
+			RenderPass->SubmitPipelineStateForRendering(PipelineState, this, RenderCategory);
 		}
 
 		void CLineSceneObject::SetShader(SharedPointer<Graphics::IShader> Shader)

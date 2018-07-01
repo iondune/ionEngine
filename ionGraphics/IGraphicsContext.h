@@ -24,7 +24,6 @@ namespace ion
 			virtual SharedPointer<IPipelineState> CreatePipelineState() = 0;
 
 			virtual void Draw(SharedPointer<IPipelineState> State) = 0;
-			virtual void DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount) = 0;
 
 		};
 

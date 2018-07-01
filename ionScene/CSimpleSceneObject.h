@@ -22,6 +22,7 @@ namespace ion
 
 			virtual void SetIndexBuffer(SharedPointer<Graphics::IIndexBuffer> IndexBuffer);
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<Graphics::IVertexBuffer> VertexBuffer);
+			virtual void SetInstanceBuffer(uint const Index, SharedPointer<Graphics::IInstanceBuffer> InstanceBuffer);
 			virtual void SetShader(SharedPointer<Graphics::IShader> Shader);
 			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
 			virtual void SetUniform(string const & Name, SharedPointer<Graphics::IUniform> Uniform);
@@ -30,7 +31,6 @@ namespace ion
 			virtual void SetBlendMode(Graphics::EBlendMode const BlendMode);
 			virtual void SetPrimitiveType(Graphics::EPrimitiveType const PrimitiveType);
 			virtual void SetRenderCategory(uint const Category);
-			virtual void SetInstanceCount(uint const InstanceCount);
 
 			template <typename T>
 			void SetUniformValue(string const & Name, T const & Value)
@@ -49,6 +49,7 @@ namespace ion
 
 			SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
 			vector<SharedPointer<Graphics::IVertexBuffer>> VertexBuffers;
+			vector<SharedPointer<Graphics::IInstanceBuffer>> InstanceBuffers;
 			SSimpleMaterial Material;
 
 			map<string, SharedPointer<Graphics::ITexture>> Textures;
@@ -58,7 +59,6 @@ namespace ion
 			Graphics::EBlendMode BlendMode = Graphics::EBlendMode::None;
 			Graphics::EPrimitiveType PrimitiveType = Graphics::EPrimitiveType::Triangle;
 			uint RenderCategory = 0;
-			uint InstanceCount = 1;
 
 		};
 

@@ -35,6 +35,7 @@ namespace ion
 		virtual SharedPointer<Graphics::IShader> CreateShaderProgram() = 0;
 
 		virtual SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer() = 0;
+		virtual SharedPointer<Graphics::IInstanceBuffer> CreateInstanceBuffer() = 0;
 		virtual SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer() = 0;
 
 		virtual SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2i const & Size) = 0;

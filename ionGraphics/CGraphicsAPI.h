@@ -40,6 +40,7 @@ namespace ion
 		SharedPointer<Graphics::IShader> CreateShaderProgram();
 
 		SharedPointer<Graphics::IVertexBuffer> CreateVertexBuffer();
+		SharedPointer<Graphics::IInstanceBuffer> CreateInstanceBuffer();
 		SharedPointer<Graphics::IIndexBuffer> CreateIndexBuffer();
 
 		SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2i const & Size);

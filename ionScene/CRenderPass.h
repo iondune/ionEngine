@@ -43,7 +43,7 @@ namespace ion
 			virtual void ReloadAll();
 
 			virtual void PreparePipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject);
-			virtual void SubmitPipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const InstanceCount = 1, uint const RenderCategory = 0);
+			virtual void SubmitPipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const RenderCategory = 0);
 
 		protected:
 
@@ -54,7 +54,7 @@ namespace ion
 			map<string, SharedPointer<Graphics::IUniform>> Uniforms;
 			map<string, SharedPointer<Graphics::ITexture>> Textures;
 
-			vector<vector<std::tuple<ISceneObject *, SharedPointer<Graphics::IPipelineState>, uint>>> RenderQueue;
+			vector<vector<std::tuple<ISceneObject *, SharedPointer<Graphics::IPipelineState>>>> RenderQueue;
 			string Name;
 
 			SingletonPointer<CGraphicsAPI> GraphicsAPI;

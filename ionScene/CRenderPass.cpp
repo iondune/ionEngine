@@ -125,19 +125,11 @@ namespace ion
 				{
 					ISceneObject * SceneObject = std::get<0>(Element);
 					SharedPointer<Graphics::IPipelineState> PipelineState = std::get<1>(Element);
-					uint const InstanceCount = std::get<2>(Element);
 
 					uModelMatrix = SceneObject->GetTransformation();
 					uNormalMatrix = glm::inverse(glm::transpose((glm::mat4) uModelMatrix));
 
-					if (1 == InstanceCount)
-					{
-						GraphicsContext->Draw(PipelineState);
-					}
-					else
-					{
-						GraphicsContext->DrawInstanced(PipelineState, InstanceCount);
-					}
+					GraphicsContext->Draw(PipelineState);
 				}
 
 				Category.clear();
@@ -278,7 +270,7 @@ namespace ion
 			PipelineState->Load();
 		}
 
-		void CRenderPass::SubmitPipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const InstanceCount, uint const RenderCategory)
+		void CRenderPass::SubmitPipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject, uint const RenderCategory)
 		{
 			if (! PipelineState)
 			{
@@ -289,7 +281,7 @@ namespace ion
 			{
 				RenderQueue.resize(RenderCategory + 1);
 			}
-			RenderQueue[RenderCategory].push_back(std::make_tuple(SceneObject, PipelineState, InstanceCount));
+			RenderQueue[RenderCategory].push_back(std::make_tuple(SceneObject, PipelineState));
 		}
 
 	}

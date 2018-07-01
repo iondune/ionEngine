@@ -38,7 +38,6 @@ namespace ion
 				void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements);
 				void UploadSubData(void const * const Data, size_t const DataSize, size_t const Offset, size_t const NumberOfElements);
 				void SetInputLayout(SInputLayoutElement const * const InputLayoutArray, int const NumElements);
-				void SetInstancingEnabled(bool const Enabled);
 
 
 				ID3D11Device * Device = nullptr;
@@ -46,7 +45,28 @@ namespace ion
 				vector<SInputLayoutElement> InputLayoutElements;
 				int LayoutSize = 0;
 
-				bool Instancing = false;
+			};
+
+			class CInstanceBuffer : public IInstanceBuffer
+			{
+
+			public:
+
+				CInstanceBuffer(ID3D11Device * Device);
+				~CInstanceBuffer();
+
+				void UploadData(void const * const Data, size_t const DataSize, size_t const NumberOfElements);
+				void UploadSubData(void const * const Data, size_t const DataSize, size_t const Offset, size_t const NumberOfElements);
+				void SetInputLayout(SInputLayoutElement const * const InputLayoutArray, int const NumElements);
+				void SetInstanceCount(int const InstanceCount);
+
+
+				ID3D11Device * Device = nullptr;
+				ID3D11Buffer * Buffer = nullptr;
+				vector<SInputLayoutElement> InputLayoutElements;
+				int LayoutSize = 0;
+
+				int InstanceCount = 0;
 
 			};
 

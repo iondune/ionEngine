@@ -152,20 +152,22 @@ namespace ion
 
 		SharedPointer<IVertexBuffer> CD3D11Implementation::CreateVertexBuffer()
 		{
-			SharedPointer<D3D11::CVertexBuffer> VertexBuffer = std::make_shared<D3D11::CVertexBuffer>(Device);
-			return VertexBuffer;
+			return std::make_shared<D3D11::CVertexBuffer>(Device);
+		}
+
+		SharedPointer<IInstanceBuffer> CD3D11Implementation::CreateInstanceBuffer()
+		{
+			return std::make_shared<D3D11::CInstanceBuffer>(Device);
 		}
 
 		SharedPointer<IIndexBuffer> CD3D11Implementation::CreateIndexBuffer()
 		{
-			SharedPointer<D3D11::CIndexBuffer> IndexBuffer = std::make_shared<D3D11::CIndexBuffer>(Device);
-			return IndexBuffer;
+			return std::make_shared<D3D11::CIndexBuffer>(Device);
 		}
 
 		SharedPointer<Graphics::IDepthBuffer> CD3D11Implementation::CreateDepthBuffer(vec2i const & Size)
 		{
-			SharedPointer<D3D11::CDepthBuffer> DepthBuffer = std::make_shared<D3D11::CDepthBuffer>(Device, Size);
-			return DepthBuffer;
+			return std::make_shared<D3D11::CDepthBuffer>(Device, Size);
 		}
 
 		Graphics::IDrawContext * CD3D11Implementation::CreateDrawContext()

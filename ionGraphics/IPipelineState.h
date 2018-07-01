@@ -56,6 +56,7 @@ namespace ion
 
 			virtual void SetShader(SharedPointer<IShader> ShaderProgram) = 0;
 			virtual void SetVertexBuffer(uint const Index, SharedPointer<IVertexBuffer> VertexBuffer) = 0;
+			virtual void SetInstanceBuffer(uint const Index, SharedPointer<IInstanceBuffer> InstanceBuffer) = 0;
 			virtual void SetIndexBuffer(SharedPointer<IIndexBuffer> IndexBuffer) = 0;
 			virtual void SetUniform(string const & Name, SharedPointer<IUniform> Uniform) = 0;
 			virtual void SetTexture(string const & Name, SharedPointer<ITexture> Texture) = 0;

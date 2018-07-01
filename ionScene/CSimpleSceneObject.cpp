@@ -29,6 +29,10 @@ namespace ion
 			{
 				PipelineState->SetVertexBuffer(i, VertexBuffers[i]);
 			}
+			for (uint i = 0; i < InstanceBuffers.size(); ++ i)
+			{
+				PipelineState->SetInstanceBuffer(i, InstanceBuffers[i]);
+			}
 
 			Material.LoadTextures();
 
@@ -71,7 +75,7 @@ namespace ion
 			SharedPointer<Graphics::IPipelineState> PipelineState;
 			if (TryMapAccess(PipelineStates, RenderPass, PipelineState))
 			{
-				RenderPass->SubmitPipelineStateForRendering(PipelineState, this, InstanceCount, RenderCategory);
+				RenderPass->SubmitPipelineStateForRendering(PipelineState, this, RenderCategory);
 			}
 		}
 
@@ -88,6 +92,16 @@ namespace ion
 				VertexBuffers.resize(Index + 1);
 			}
 			VertexBuffers[Index] = VertexBuffer;
+			TriggerReload();
+		}
+
+		void CSimpleSceneObject::SetInstanceBuffer(uint const Index, SharedPointer<Graphics::IInstanceBuffer> InstanceBuffer)
+		{
+			if (InstanceBuffers.size() <= Index)
+			{
+				InstanceBuffers.resize(Index + 1);
+			}
+			InstanceBuffers[Index] = InstanceBuffer;
 			TriggerReload();
 		}
 
@@ -166,11 +180,6 @@ namespace ion
 		void CSimpleSceneObject::SetRenderCategory(uint const Category)
 		{
 			this->RenderCategory = Category;
-		}
-
-		void CSimpleSceneObject::SetInstanceCount(uint const InstanceCount)
-		{
-			this->InstanceCount = InstanceCount;
 		}
 
 		SSimpleMaterial & CSimpleSceneObject::GetMaterial()

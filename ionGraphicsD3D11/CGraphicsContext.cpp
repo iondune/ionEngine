@@ -41,13 +41,7 @@ namespace ion
 			void CGraphicsContext::Draw(SharedPointer<IPipelineState> State)
 			{
 				SharedPointer<CPipelineState> PipelineState = std::dynamic_pointer_cast<CPipelineState>(State);
-				PipelineState->Draw(false);
-			}
-
-			void CGraphicsContext::DrawInstanced(SharedPointer<IPipelineState> State, uint const InstanceCount)
-			{
-				SharedPointer<CPipelineState> PipelineState = std::dynamic_pointer_cast<CPipelineState>(State);
-				PipelineState->Draw(true, InstanceCount);
+				PipelineState->Draw();
 			}
 
 		}

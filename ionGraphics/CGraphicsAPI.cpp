@@ -184,6 +184,22 @@ namespace ion
 		return VertexBuffer;
 	}
 
+	SharedPointer<Graphics::IInstanceBuffer> CGraphicsAPI::CreateInstanceBuffer()
+	{
+		SharedPointer<Graphics::IInstanceBuffer> InstanceBuffer;
+
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			InstanceBuffer = Implementation->CreateInstanceBuffer();
+		}
+
+		return InstanceBuffer;
+	}
+
 	SharedPointer<Graphics::IIndexBuffer> CGraphicsAPI::CreateIndexBuffer()
 	{
 		SharedPointer<Graphics::IIndexBuffer> IndexBuffer;
