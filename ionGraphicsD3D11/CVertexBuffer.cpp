@@ -68,6 +68,8 @@ namespace ion
 					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
 					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
 					Log::Error("%s", MessageData);
+					delete[] MessageData;
+
 					Log::Error("Shader source:");
 					Log::Error("---");
 					Log::Error("%s", Source);
