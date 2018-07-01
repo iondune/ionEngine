@@ -327,7 +327,7 @@ namespace ion
 				D3D11_MAPPED_SUBRESOURCE ResourceDesc;
 				CheckedDXCall( ImmediateContext->Map(StagingTexture, 0, D3D11_MAP_READ, 0, & ResourceDesc) );
 
-				int const BytesPerPixel = ((int) Components + 1) * GetScalarTypeSize(Type);
+				int const BytesPerPixel = ((int) Components + 1) * (int) GetScalarTypeSize(Type);
 				for (int i = 0; i < Size.Y; ++ i)
 				{
 					std::memcpy(

@@ -55,7 +55,7 @@ namespace ion
 							OpenFiles.push_back(OpenFile);
 
 							*ppData = OpenFile->Contents.c_str();
-							*pBytes = OpenFile->Contents.length();
+							*pBytes = (UINT) OpenFile->Contents.length();
 							return S_OK;
 						}
 					}
