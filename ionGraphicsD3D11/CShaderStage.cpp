@@ -124,7 +124,14 @@ namespace ion
 				{
 					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
 					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
-					Log::Error("%s", MessageData);
+					if (ShaderBlob)
+					{
+						Log::Warn("%s", MessageData);
+					}
+					else
+					{
+						Log::Error("%s", MessageData);
+					}
 					ErrorBlob->Release();
 				}
 
