@@ -17,6 +17,11 @@ namespace ion
 	namespace Graphics
 	{
 
+		namespace D3D11
+		{
+			class CDrawContext;
+		}
+
 		class CD3D11Implementation : public IGraphicsImplementation
 		{
 
@@ -38,7 +43,7 @@ namespace ion
 
 			SharedPointer<IDepthBuffer> CreateDepthBuffer(vec2i const & Size);
 
-			IDrawContext * CreateDrawContext();
+			IDrawContext * GetDrawContext();
 
 			SharedPointer<ITexture2D> CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
 			SharedPointer<ITexture3D> CreateTexture3D(vec3i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type);
@@ -66,6 +71,9 @@ namespace ion
 			ID3D11Debug * DebugDevice = nullptr;
 
 			IDXGraphicsAnalysis * GraphicsAnalysis;
+
+			D3D11::CDrawContext * DrawContext = nullptr;
+
 		};
 	}
 }

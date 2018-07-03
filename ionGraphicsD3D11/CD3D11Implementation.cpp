@@ -146,7 +146,7 @@ namespace ion
 
 		SharedPointer<IShader> CD3D11Implementation::CreateShaderProgram()
 		{
-			SharedPointer<D3D11::CShader> ShaderProgram = std::make_shared<D3D11::CShader>();
+			SharedPointer<D3D11::CShader> ShaderProgram = std::make_shared<D3D11::CShader>(Device, ImmediateContext);
 			return ShaderProgram;
 		}
 
@@ -170,9 +170,14 @@ namespace ion
 			return std::make_shared<D3D11::CDepthBuffer>(Device, Size);
 		}
 
-		Graphics::IDrawContext * CD3D11Implementation::CreateDrawContext()
+		Graphics::IDrawContext * CD3D11Implementation::GetDrawContext()
 		{
-			return new Graphics::D3D11::CDrawContext();
+			if (DrawContext == nullptr)
+			{
+				DrawContext = new D3D11::CDrawContext(Device, ImmediateContext);
+			}
+
+			return DrawContext;
 		}
 
 		SharedPointer<ITexture2D> CD3D11Implementation::CreateTexture2D(vec2i const & Size, ITexture::EMipMaps const MipMaps, ITexture::EFormatComponents const Components, ITexture::EInternalFormatType const Type)

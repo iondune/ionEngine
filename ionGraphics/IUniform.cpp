@@ -33,8 +33,9 @@ namespace ion
 				return "Int3";
 			case EUniformType::Int4:
 				return "Int4";
+			case EUniformType::Unknown:
 			default:
-				return "Unknown";
+				return string("Unknown (") + std::to_string((int) UniformType) + ")";
 			}
 		}
 

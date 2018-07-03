@@ -18,9 +18,11 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="IConstantBuffer.h" />
     <ClInclude Include="IDrawContext.h" />
     <ClInclude Include="IGraphicsContext.h" />
     <ClInclude Include="IGraphicsImplementation.h" />
+    <ClInclude Include="IInputLayout.h" />
     <ClInclude Include="IVertexBuffer.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="CGraphicsAPI.h" />

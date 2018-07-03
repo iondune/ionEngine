@@ -43,6 +43,12 @@
     <ClCompile Include="CShader.cpp">
       <Filter>Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="CInputLayout.cpp">
+      <Filter>Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstantBuffer.cpp">
+      <Filter>Buffers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGraphicsContext.h" />
@@ -87,6 +93,12 @@
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstantBuffer.h">
+      <Filter>Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="CInputLayout.h">
+      <Filter>Draw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

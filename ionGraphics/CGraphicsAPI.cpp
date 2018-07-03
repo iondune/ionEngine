@@ -232,7 +232,7 @@ namespace ion
 		return DepthBuffer;
 	}
 
-	Graphics::IDrawContext * CGraphicsAPI::CreateDrawContext()
+	Graphics::IDrawContext * CGraphicsAPI::GetDrawContext()
 	{
 		Graphics::IDrawContext * DrawContext = nullptr;
 
@@ -242,7 +242,7 @@ namespace ion
 		}
 		else
 		{
-			DrawContext = Implementation->CreateDrawContext();
+			DrawContext = Implementation->GetDrawContext();
 		}
 
 		return DrawContext;

@@ -3,6 +3,9 @@
 
 #include <ionCore.h>
 
+#include "IConstantBuffer.h"
+#include "IInputLayout.h"
+
 
 namespace ion
 {
@@ -28,7 +31,7 @@ namespace ion
 
 		public:
 
-			virtual ~IVertexStage() {}
+			virtual ~IVertexStage() = default;
 
 		};
 
@@ -38,7 +41,7 @@ namespace ion
 
 		public:
 
-			virtual ~IGeometryStage() {}
+			virtual ~IGeometryStage() = default;
 
 		};
 
@@ -48,7 +51,7 @@ namespace ion
 
 		public:
 
-			virtual ~IPixelStage() {}
+			virtual ~IPixelStage() = default;
 
 		};
 
@@ -58,9 +61,14 @@ namespace ion
 
 		public:
 
+			virtual ~IShader() = default;
+
 			virtual void SetVertexStage(SharedPointer<IVertexStage> VertexShader) = 0;
 			virtual void SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader) = 0;
 			virtual void SetPixelStage(SharedPointer<IPixelStage> PixelShader) = 0;
+
+			virtual IConstantBuffer * GetConstantBuffer(string const & Name) = 0;
+			virtual IInputLayout * CreateInputLayout(vector<SInputBufferLayout> const & Buffers) = 0;
 
 			virtual void Link() = 0;
 

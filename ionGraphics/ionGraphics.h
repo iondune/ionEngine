@@ -8,9 +8,12 @@
 #include "IShader.h"
 #include "IVertexBuffer.h"
 #include "IIndexBuffer.h"
+#include "IConstantBuffer.h"
 #include "IUniform.h"
 #include "ITexture.h"
 #include "IPipelineState.h"
+#include "IDrawContext.h"
+#include "IInputLayout.h"
 #include "IRenderTarget.h"
 #include "CGraphicsAPI.h"
 

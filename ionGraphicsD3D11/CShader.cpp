@@ -1,5 +1,7 @@
 
 #include "CShader.h"
+#include "CInputLayout.h"
+#include "CConstantBuffer.h"
 #include "Utilities.h"
 
 
@@ -9,6 +11,12 @@ namespace ion
 	{
 		namespace D3D11
 		{
+
+			CShader::CShader(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext)
+			{
+				this->Device = Device;
+				this->ImmediateContext = ImmediateContext;
+			}
 
 			void CShader::SetVertexStage(SharedPointer<IVertexStage> VertexShader)
 			{
@@ -23,6 +31,79 @@ namespace ion
 			void CShader::SetPixelStage(SharedPointer<IPixelStage> PixelShader)
 			{
 				PixelStage = std::dynamic_pointer_cast<CPixelStage>(PixelShader);
+			}
+
+			IConstantBuffer * CShader::GetConstantBuffer(string const & Name)
+			{
+				IConstantBuffer * ConstantBuffer = nullptr;
+
+				if (! Linked)
+				{
+					Link();
+				}
+
+				for (SConstantBuffer const & Desc : ConstantBuffers)
+				{
+					if (Desc.Name == Name)
+					{
+						ConstantBuffer = new CConstantBuffer(Device, ImmediateContext, Desc);
+						break;
+					}
+				}
+
+				return ConstantBuffer;
+			}
+
+			IInputLayout * CShader::CreateInputLayout(vector<SInputBufferLayout> const & Buffers)
+			{
+				CInputLayout * InputLayout = new CInputLayout();
+
+				vector<D3D11_INPUT_ELEMENT_DESC> Layout;
+				D3D11_INPUT_ELEMENT_DESC Desc;
+
+				for (SInputBufferLayout const & Buffer : Buffers)
+				{
+					Desc.InputSlot = Buffer.Slot;
+					Desc.InputSlotClass = (Buffer.Instanced ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA);
+
+					int ByteAlignment = 0;
+
+					for (SInputLayoutElement const & Element : Buffer.LayoutElements)
+					{
+						Desc.SemanticName = Element.Name.c_str();
+						Desc.SemanticIndex = 0;
+						Desc.InstanceDataStepRate = 0;
+
+						static DXGI_FORMAT const Lookup[4][4] =
+						{
+							{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
+							{ DXGI_FORMAT_R32_SINT,  DXGI_FORMAT_R32G32_SINT,  DXGI_FORMAT_R32G32B32_SINT,  DXGI_FORMAT_R32G32B32A32_SINT  },
+							{ DXGI_FORMAT_R32_UINT,  DXGI_FORMAT_R32G32_UINT,  DXGI_FORMAT_R32G32B32_UINT,  DXGI_FORMAT_R32G32B32A32_UINT  },
+							{ DXGI_FORMAT_R32_FLOAT, DXGI_FORMAT_R32G32_FLOAT, DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32A32_FLOAT },
+						};
+
+						if (Element.Type == EAttributeType::Double)
+						{
+							Log::Warn("InputLayout double types not supported.");
+						}
+
+						Desc.Format = Lookup[(int) Element.Type][Element.Components - 1];
+						Desc.AlignedByteOffset = ByteAlignment;
+
+						ByteAlignment += 4 * Element.Components;
+
+						Layout.push_back(Desc);
+					} // Element : Buffer.LayoutElements
+				} // Buffer : Buffers
+
+				CheckedDXCall( Device->CreateInputLayout(
+					Layout.data(),
+					(UINT) Layout.size(),
+					VertexStage->CompileBlob->GetBufferPointer(),
+					VertexStage->CompileBlob->GetBufferSize(),
+					& InputLayout->InputLayout) );
+				
+				return InputLayout;
 			}
 
 			void CShader::Link()
@@ -190,6 +271,7 @@ namespace ion
 			{
 				D3D11_SHADER_TYPE_DESC TypeDesc;
 				Type->GetDesc(& TypeDesc);
+
 				if (TypeDesc.Members)
 				{
 					if (TypeDesc.Elements)
@@ -208,6 +290,7 @@ namespace ion
 								Field->GetDesc(& FieldDesc);
 
 								SUniform Uniform;
+								Uniform.Type = GetUniformType(FieldDesc);
 								Uniform.Offset = Offset + ArrayOffset + FieldDesc.Offset;
 								Uniform.Name = Name + "[" + std::to_string(j) + "]" + "." + Type->GetMemberTypeName(i);
 								Uniforms.push_back(Uniform);
@@ -228,6 +311,7 @@ namespace ion
 							Field->GetDesc(& FieldDesc);
 
 							SUniform Uniform;
+							Uniform.Type = GetUniformType(FieldDesc);
 							Uniform.Offset = Offset + FieldDesc.Offset;
 							Uniform.Name = Name + "." + Type->GetMemberTypeName(i);
 							Uniforms.push_back(Uniform);
@@ -239,35 +323,7 @@ namespace ion
 					// POD or Array of POD
 
 					SUniform Uniform;
-
-					switch (TypeDesc.Type)
-					{
-					case D3D_SVT_INT:
-						Uniform.Type = EUniformType::Int;
-						break;
-					case D3D_SVT_FLOAT:
-						Uniform.Type = EUniformType::Float;
-						break;
-					case D3D_SVT_BOOL:
-						Uniform.Type = EUniformType::Bool;
-						if (TypeDesc.Columns != 1)
-						{
-							Log::Error("Vectors of bools not supported as uniforms");
-						}
-						break;
-					case D3D_SVT_UINT:
-						Uniform.Type = EUniformType::UnsignedInt;
-						if (TypeDesc.Columns != 1)
-						{
-							Log::Error("Vectors of unsigned ints not supported as uniforms");
-						}
-						break;
-					default:
-						Log::Error("Unsupported shader variable type: %d", TypeDesc.Type);
-						break;
-					}
-
-					Uniform.Type = (EUniformType) ((int) Uniform.Type + (TypeDesc.Columns - 1));
+					Uniform.Type = GetUniformType(TypeDesc);
 
 					if (TypeDesc.Elements)
 					{
@@ -291,6 +347,65 @@ namespace ion
 						Uniforms.push_back(Uniform);
 					}
 				}
+			}
+
+			EUniformType CShader::GetUniformType(D3D11_SHADER_TYPE_DESC const & TypeDesc)
+			{
+				EUniformType UniformType = EUniformType::Unknown;
+
+				switch (TypeDesc.Type)
+				{
+				case D3D_SVT_INT:
+					UniformType = (EUniformType) ((int) EUniformType::Int + (TypeDesc.Columns - 1));
+					break;
+				case D3D_SVT_FLOAT:
+					if (TypeDesc.Rows == 4)
+					{
+						if (TypeDesc.Columns == 4)
+						{
+							UniformType = EUniformType::Matrix4x4;
+						}
+						else
+						{
+							Log::Error("Found matrix uniform with other than 4x4 size: %dx%d", TypeDesc.Rows, TypeDesc.Columns);
+						}
+					}
+					else if (TypeDesc.Rows == 1)
+					{
+						if (TypeDesc.Columns <= 4)
+						{
+							UniformType = (EUniformType) ((int) EUniformType::Float + (TypeDesc.Columns - 1));
+						}
+						else
+						{
+							Log::Error("Found float vector uniform with unexpected size: %dx%d", TypeDesc.Rows, TypeDesc.Columns);
+						}
+					}
+					else
+					{
+						Log::Error("Found float uniform with unexpected size: %dx%d", TypeDesc.Rows, TypeDesc.Columns);
+					}
+					break;
+				case D3D_SVT_BOOL:
+					UniformType = EUniformType::Bool;
+					if (TypeDesc.Columns != 1)
+					{
+						Log::Error("Vectors of bools not supported as uniforms");
+					}
+					break;
+				case D3D_SVT_UINT:
+					UniformType = EUniformType::UnsignedInt;
+					if (TypeDesc.Columns != 1)
+					{
+						Log::Error("Vectors of unsigned ints not supported as uniforms");
+					}
+					break;
+				default:
+					Log::Error("Unsupported shader variable type: %d", TypeDesc.Type);
+					break;
+				}
+
+				return UniformType;
 			}
 
 		}

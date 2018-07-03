@@ -15,18 +15,6 @@ namespace ion
 		namespace D3D11
 		{
 
-			class CInputLayout
-			{
-
-			public:
-
-				CInputLayout(ID3D11Device * Device, vector<SInputLayoutElement> const & LayoutElements, bool const Instancing);
-				~CInputLayout();
-
-				ID3D11InputLayout * InputLayout = nullptr;
-
-			};
-
 			class CVertexBuffer : public IVertexBuffer
 			{
 

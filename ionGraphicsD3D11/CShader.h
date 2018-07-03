@@ -24,9 +24,14 @@ namespace ion
 			{
 			public:
 
+				CShader(ID3D11Device * Device, ID3D11DeviceContext * ImmediateContext);
+
 				void SetVertexStage(SharedPointer<IVertexStage> VertexShader);
 				void SetGeometryStage(SharedPointer<IGeometryStage> GeometryShader);
 				void SetPixelStage(SharedPointer<IPixelStage> PixelShader);
+
+				IConstantBuffer * GetConstantBuffer(string const & Name);
+				IInputLayout * CreateInputLayout(vector<SInputBufferLayout> const & Buffers);
 
 				void Link();
 
@@ -60,6 +65,11 @@ namespace ion
 				void ReflectConstantBuffers();
 				void ReflectConstantBuffersStage(ID3D11ShaderReflection * Reflector, int const Stage);
 				void ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset);
+
+				static EUniformType GetUniformType(D3D11_SHADER_TYPE_DESC const & TypeDesc);
+
+				ID3D11Device * Device = nullptr;
+				ID3D11DeviceContext * ImmediateContext = nullptr;
 
 				SharedPointer<CVertexStage> VertexStage;
 				SharedPointer<CGeometryStage> GeometryStage;

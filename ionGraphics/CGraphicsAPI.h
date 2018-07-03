@@ -45,7 +45,7 @@ namespace ion
 
 		SharedPointer<Graphics::IDepthBuffer> CreateDepthBuffer(vec2i const & Size);
 
-		Graphics::IDrawContext * CreateDrawContext();
+		Graphics::IDrawContext * GetDrawContext();
 
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(vec2i const & Size, Graphics::ITexture::EMipMaps const MipMaps, Graphics::ITexture::EFormatComponents const Components, Graphics::ITexture::EInternalFormatType const Type);
 		SharedPointer<Graphics::ITexture2D> CreateTexture2D(CImage * Image, Graphics::ITexture::EMipMaps const MipMaps = Graphics::ITexture::EMipMaps::True);

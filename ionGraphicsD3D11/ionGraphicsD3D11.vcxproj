@@ -22,9 +22,11 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CConstantBuffer.h" />
     <ClInclude Include="CDrawContext.h" />
     <ClInclude Include="CGeometryStage.h" />
     <ClInclude Include="CGraphicsContext.h" />
+    <ClInclude Include="CInputLayout.h" />
     <ClInclude Include="CPipelineState.h" />
     <ClInclude Include="CRenderTarget.h" />
     <ClInclude Include="CShaderStage.h" />
@@ -41,11 +43,13 @@
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CConstantBuffer.cpp" />
     <ClCompile Include="CDrawContext.cpp" />
     <ClCompile Include="CGeometryStage.cpp" />
     <ClCompile Include="CGraphicsContext.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
     <ClCompile Include="CD3D11Implementation.cpp" />
+    <ClCompile Include="CInputLayout.cpp" />
     <ClCompile Include="CPipelineState.cpp" />
     <ClCompile Include="CPixelStage.cpp" />
     <ClCompile Include="CRenderTarget.cpp" />
