@@ -62,9 +62,7 @@ namespace ion
 			ImmediateContext = nullptr;
 
 			UINT CreateDeviceFlags = 0;
-#ifdef ION_CONFIG_DEBUG
 			CreateDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
 
 			CheckedDXCall( D3D11CreateDeviceAndSwapChain(
 				nullptr, D3D_DRIVER_TYPE_HARDWARE,
