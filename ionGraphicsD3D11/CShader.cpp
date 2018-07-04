@@ -65,6 +65,7 @@ namespace ion
 				{
 					Desc.InputSlot = Buffer.Slot;
 					Desc.InputSlotClass = (Buffer.Instanced ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA);
+					Desc.InstanceDataStepRate = (Buffer.Instanced ? 1 : 0);
 
 					int ByteAlignment = 0;
 
@@ -72,7 +73,6 @@ namespace ion
 					{
 						Desc.SemanticName = Element.Name.c_str();
 						Desc.SemanticIndex = 0;
-						Desc.InstanceDataStepRate = 0;
 
 						static DXGI_FORMAT const Lookup[4][4] =
 						{
