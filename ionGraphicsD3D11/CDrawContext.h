@@ -46,6 +46,8 @@ namespace ion
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;
 
+				bool HasInputLayout = false;
+				int NumConstantBuffers = 0;
 
 				struct STextureBinding
 				{

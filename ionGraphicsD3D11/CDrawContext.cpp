@@ -93,8 +93,8 @@ namespace ion
 			void CDrawContext::SetInputLayout(IInputLayout * inInputLayout)
 			{
 				CInputLayout * InputLayout = dynamic_cast<CInputLayout *>(inInputLayout);
-
 				ImmediateContext->IASetInputLayout(InputLayout->InputLayout);
+				HasInputLayout = true;
 			}
 
 			void CDrawContext::SetVertexBuffer(SharedPointer<IVertexBuffer> inVertexBuffer)
@@ -239,6 +239,11 @@ namespace ion
 
 			void CDrawContext::Draw()
 			{
+				if (! HasInputLayout)
+				{
+					Log::Warn("Drawing context has no bound input layout.");
+				}
+
 				if (InstanceBuffer)
 				{
 					ImmediateContext->DrawIndexedInstanced(IndexBuffer->Size, InstanceBuffer->InstanceCount, 0, 0, 0);
@@ -258,6 +263,20 @@ namespace ion
 
 				ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
 				ImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+				ID3D11Buffer ** Buffers = new ID3D11Buffer *[NumConstantBuffers]();
+				ImmediateContext->VSSetConstantBuffers(0, NumConstantBuffers, Buffers);
+				ImmediateContext->GSSetConstantBuffers(0, NumConstantBuffers, Buffers);
+				ImmediateContext->PSSetConstantBuffers(0, NumConstantBuffers, Buffers);
+				delete Buffers;
+
+				UINT const Zeros[2] = {0, 0};
+				ID3D11Buffer * Nulls[2] = {nullptr, nullptr};
+				ImmediateContext->IASetVertexBuffers(0, 2, Nulls, Zeros, Zeros);
+				ImmediateContext->IASetIndexBuffer(nullptr, DXGI_FORMAT_R32_UINT, 0);
+
+				HasInputLayout = false;
+				NumConstantBuffers = 0;
 			}
 
 		} // D3D11
