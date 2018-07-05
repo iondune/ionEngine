@@ -1,5 +1,6 @@
 
 #include "CPipelineState.h"
+#include "CDrawContext.h"
 #include "Utilities.h"
 
 #include <ionWindow.h>
@@ -479,6 +480,9 @@ namespace ion
 				{
 					return;
 				}
+
+				SingletonPointer<CGraphicsAPI> GraphicsAPI;
+				dynamic_cast<CDrawContext *>(GraphicsAPI->GetDrawContext())->Invalidate();
 
 				vector<ID3D11Buffer *> Buffers;
 				vector<UINT> Strides;
