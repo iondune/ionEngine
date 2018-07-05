@@ -688,7 +688,10 @@ namespace ion
 
 				if (InstanceBuffers.size())
 				{
-					ImmediateContext->DrawIndexedInstanced(IndexBuffer->Size, InstanceBuffers[0]->InstanceCount, 0, 0, 0);
+					if (InstanceBuffers[0]->InstanceCount)
+					{
+						ImmediateContext->DrawIndexedInstanced(IndexBuffer->Size, InstanceBuffers[0]->InstanceCount, 0, 0, 0);
+					}
 				}
 				else
 				{
