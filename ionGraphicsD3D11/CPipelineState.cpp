@@ -497,7 +497,7 @@ namespace ion
 					Offsets.push_back(0);
 				}
 
-				ImmediateContext->IASetVertexBuffers(0, (UINT) VertexBuffers.size(), Buffers.data(), Strides.data(), Offsets.data());
+				ImmediateContext->IASetVertexBuffers(0, (UINT) Buffers.size(), Buffers.data(), Strides.data(), Offsets.data());
 				ImmediateContext->IASetIndexBuffer(IndexBuffer->IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 				ImmediateContext->IASetInputLayout(InputLayout);
 				ImmediateContext->IASetPrimitiveTopology(PrimitiveType);
