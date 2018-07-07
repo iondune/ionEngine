@@ -1,6 +1,10 @@
 
+
+#pragma warning(push)
+#pragma warning(disable: 4996)
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
+#pragma warning(pop)
 
 #include <ionConfig.h>
 
