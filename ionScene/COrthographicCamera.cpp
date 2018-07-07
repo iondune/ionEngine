@@ -21,7 +21,14 @@ namespace ion
 
 		void COrthographicCamera::RecalculateProjectionMatrix()
 		{
-			ProjectionMatrix = glm::ortho<float>(Left, Right, Bottom, Top, NearPlane, FarPlane);
+			ProjectionMatrix = glm::mat4(1.f);
+			ProjectionMatrix[0][0] = (2.f) / (Right - Left);
+			ProjectionMatrix[1][1] = (2.f) / (Top - Bottom);
+			ProjectionMatrix[3][0] = - (Right + Left) / (Right - Left);
+			ProjectionMatrix[3][1] = - (Top + Bottom) / (Top - Bottom);
+
+			ProjectionMatrix[2][2] = 1.f / (NearPlane - FarPlane);
+			ProjectionMatrix[3][2] = (NearPlane) / (NearPlane - FarPlane);
 		}
 
 		void COrthographicCamera::Update()
