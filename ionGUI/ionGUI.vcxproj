@@ -19,14 +19,20 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="CGUIManager.cpp" />
+    <ClCompile Include="CGUIPlatform.cpp" />
+    <ClCompile Include="CGUIRenderer.cpp" />
     <ClCompile Include="CWindowWidget.cpp" />
     <ClCompile Include="imGUI.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
     <ClCompile Include="ionGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGUIManager.h" />
+    <ClInclude Include="CGUIPlatform.h" />
+    <ClInclude Include="CGUIRenderer.h" />
     <ClInclude Include="CWindowWidget.h" />
     <ClInclude Include="imGUI.h" />
+    <ClInclude Include="imgui_impl_opengl3.h" />
     <ClInclude Include="ionGUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
