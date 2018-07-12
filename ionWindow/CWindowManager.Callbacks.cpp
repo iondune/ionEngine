@@ -15,7 +15,19 @@ namespace ion
 
 		SKeyboardEvent KeyEvent;
 		KeyEvent.Window = Window;
-		KeyEvent.Pressed = action != GLFW_RELEASE;
+		KeyEvent.Pressed = (action != GLFW_RELEASE);
+		switch (action)
+		{
+		case GLFW_RELEASE:
+			KeyEvent.Type = EKeyboardEventType::Release;
+			break;
+		case GLFW_PRESS:
+			KeyEvent.Type = EKeyboardEventType::Press;
+			break;
+		case GLFW_REPEAT:
+			KeyEvent.Type = EKeyboardEventType::Repeat;
+			break;
+		}
 		KeyEvent.Key = ConvertGLFWKeyCode(key);
 		KeyEvent.Modifiers = mods;
 
