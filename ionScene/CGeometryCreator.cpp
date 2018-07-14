@@ -1,7 +1,11 @@
 
 #include "CGeometryCreator.h"
+
+#pragma warning(push)
+#pragma warning(disable: 5033)
 #define TINYOBJLOADER_IMPLEMENTATION
 #include <tinyobjloader/tiny_obj_loader.h>
+#pragma warning(pop)
 
 
 namespace ion
