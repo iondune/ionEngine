@@ -690,6 +690,33 @@ namespace ion
 					BlendState->Release();
 				}
 
+				if (DisableDepthTest)
+				{
+					// TODO : Cache these?
+
+					D3D11_RASTERIZER_DESC RasterDesc = {};
+					RasterDesc.FillMode = D3D11_FILL_SOLID;
+					RasterDesc.CullMode = D3D11_CULL_NONE;
+					RasterDesc.FrontCounterClockwise = true;
+					RasterDesc.DepthBias = 0;
+					RasterDesc.SlopeScaledDepthBias = 0.f;
+					RasterDesc.DepthBiasClamp = 0.f;
+					RasterDesc.DepthClipEnable = true;
+					RasterDesc.ScissorEnable = false;
+					RasterDesc.MultisampleEnable = false;
+					RasterDesc.AntialiasedLineEnable = false;
+
+					if (DisableDepthTest)
+					{
+						RasterDesc.DepthClipEnable = false;
+					}
+
+					ID3D11RasterizerState * RasterState = nullptr;
+					Device->CreateRasterizerState(& RasterDesc, & RasterState);
+					ImmediateContext->RSSetState(RasterState);
+					RasterState->Release();
+				}
+
 				if (InstanceBuffers.size())
 				{
 					if (InstanceBuffers[0]->InstanceCount)
@@ -723,6 +750,28 @@ namespace ion
 				if (BlendMode != EBlendMode::None)
 				{
 					ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
+				}
+
+				if (DisableDepthTest)
+				{
+					// TODO : Save the original rasterizer desc and use it
+
+					D3D11_RASTERIZER_DESC RasterDesc = {};
+					RasterDesc.FillMode = D3D11_FILL_SOLID;
+					RasterDesc.CullMode = D3D11_CULL_NONE;
+					RasterDesc.FrontCounterClockwise = true;
+					RasterDesc.DepthBias = 0;
+					RasterDesc.SlopeScaledDepthBias = 0.f;
+					RasterDesc.DepthBiasClamp = 0.f;
+					RasterDesc.DepthClipEnable = true;
+					RasterDesc.ScissorEnable = false;
+					RasterDesc.MultisampleEnable = false;
+					RasterDesc.AntialiasedLineEnable = false;
+
+					ID3D11RasterizerState * RasterState = nullptr;
+					Device->CreateRasterizerState(& RasterDesc, & RasterState);
+					ImmediateContext->RSSetState(RasterState);
+					RasterState->Release();
 				}
 			}
 
