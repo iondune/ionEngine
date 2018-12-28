@@ -2,8 +2,8 @@
 #pragma once
 
 #include "ionConfig.h"
-#include "ionCore.h"
 
+#include "ionCore.h"
 #include "ionAnimation.h"
 #include "ionApplication.h"
 #include "ionGraphics.h"

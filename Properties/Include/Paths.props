@@ -3,9 +3,9 @@
 
   <PropertyGroup>
     <IncludePath>
-      ;$(VisualStudioDir)\Projects\ionEngine;
+      ;$(VisualStudioDir)\Projects\ionEngine\Libraries;
       ;$(VisualStudioDir)\Projects\ionEngine\Include;
-      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\;
+      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\stb;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\tinyformat;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glm;
