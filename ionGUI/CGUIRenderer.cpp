@@ -13,8 +13,8 @@ namespace ion
 	{
 		Graphics::CD3D11Implementation * D3D11 = dynamic_cast<Graphics::CD3D11Implementation *>(GraphicsImplementation);
 
-		auto Device = D3D11->GetDevice();
-		auto DeviceContext = D3D11->GetImmediateContext();
+		ID3D11Device * Device = D3D11->GetDevice();
+		ID3D11DeviceContext * DeviceContext = D3D11->GetImmediateContext();
 
 		return ImGui_ImplDX11_Init(Device, DeviceContext);
 	}
