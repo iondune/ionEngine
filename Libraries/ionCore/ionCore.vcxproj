@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4D2A1D18-B056-4CD5-B5D7-DB3B699F19B7}</ProjectGuid>
+    <RootNamespace>ionCore</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
+  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="Bitwise.h" />
+    <ClInclude Include="CImage.h" />
+    <ClInclude Include="color3.h" />
+    <ClInclude Include="color4.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="IEvent.h" />
+    <ClInclude Include="IEventListener.h" />
+    <ClInclude Include="IMultiTreeNode.h" />
+    <ClInclude Include="ionClass.h" />
+    <ClInclude Include="IEntity.h" />
+    <ClInclude Include="ionConstants.h" />
+    <ClInclude Include="ionCore.h" />
+    <ClInclude Include="ionComparison.h" />
+    <ClInclude Include="Directory.h" />
+    <ClInclude Include="ionLogger.h" />
+    <ClInclude Include="ionContainer.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="ionSmartPointer.h" />
+    <ClInclude Include="ITreeNode.h" />
+    <ClInclude Include="ionTypes.h" />
+    <ClInclude Include="ionUtils.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SingletonPointer.h" />
+    <ClInclude Include="String.h" />
+    <ClInclude Include="ionMathFunctions.h" />
+    <ClInclude Include="vec2.h" />
+    <ClInclude Include="vec3.h" />
+    <ClInclude Include="vec4.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bitwise.cpp" />
+    <ClCompile Include="CImage.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="Directory.cpp" />
+    <ClCompile Include="ionLogger.cpp" />
+    <ClCompile Include="ionSTB.cpp" />
+    <ClCompile Include="ionUtils.cpp" />
+    <ClCompile Include="String.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

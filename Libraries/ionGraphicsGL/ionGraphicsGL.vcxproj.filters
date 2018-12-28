@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="ionGraphicsGL.h" />
+    <ClInclude Include="CShaderProgram.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CPixelShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndexBuffer.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexBuffer.h">
+      <Filter>Buffer Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderTarget.h">
+      <Filter>Render Target</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="COpenGLImplementation.h" />
+    <ClInclude Include="CGraphicsContext.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="CPipelineState.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>General</Filter>
+    </ClInclude>
+    <ClInclude Include="CFrameBuffer.h">
+      <Filter>Render Target</Filter>
+    </ClInclude>
+    <ClInclude Include="CDepthBuffer.h">
+      <Filter>Render Target</Filter>
+    </ClInclude>
+    <ClInclude Include="CGeometryShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CDrawContext.h">
+      <Filter>General</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CShaderProgram.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderTarget.cpp">
+      <Filter>Render Target</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CVertexBuffer.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CIndexBuffer.cpp">
+      <Filter>Buffer Object</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.cpp">
+      <Filter>glad</Filter>
+    </ClCompile>
+    <ClCompile Include="COpenGLImplementation.cpp" />
+    <ClCompile Include="CGraphicsContext.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="CPipelineState.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="CFrameBuffer.cpp">
+      <Filter>Render Target</Filter>
+    </ClCompile>
+    <ClCompile Include="CDepthBuffer.cpp">
+      <Filter>Render Target</Filter>
+    </ClCompile>
+    <ClCompile Include="CDrawContext.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{f23c82dc-62fc-4059-9631-6e06587d7220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="General">
+      <UniqueIdentifier>{61f5b0fb-d4df-4338-bffc-bcb14d391733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{842203ca-65c9-4ce6-a3fb-d4911ae764cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glad">
+      <UniqueIdentifier>{f732c71a-d044-4660-8e6e-3508c5d05538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render Target">
+      <UniqueIdentifier>{78d70acd-6c7d-496c-be89-09664524ecf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer Object">
+      <UniqueIdentifier>{0e5fd2ac-7107-4f47-a667-e0481414da4a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BAE6EFD0-1A10-4F38-AB8D-7ACB3570200A}</ProjectGuid>
+    <RootNamespace>ionGraphicsGL</RootNamespace>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)\Properties\Library.props" />
+  </ImportGroup>
+  <ItemGroup>
+    <ClInclude Include="CDrawContext.h" />
+    <ClInclude Include="CGeometryShader.h" />
+    <ClInclude Include="CGraphicsContext.h" />
+    <ClInclude Include="CPipelineState.h" />
+    <ClInclude Include="CRenderTarget.h" />
+    <ClInclude Include="CVertexBuffer.h" />
+    <ClInclude Include="CIndexBuffer.h" />
+    <ClInclude Include="COpenGLImplementation.h" />
+    <ClInclude Include="CVertexShader.h" />
+    <ClInclude Include="CFrameBuffer.h" />
+    <ClInclude Include="ionGraphicsGL.h" />
+    <ClInclude Include="CShaderProgram.h" />
+    <ClInclude Include="CDepthBuffer.h" />
+    <ClInclude Include="CPixelShader.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDrawContext.cpp" />
+    <ClCompile Include="CGraphicsContext.cpp" />
+    <ClCompile Include="CIndexBuffer.cpp" />
+    <ClCompile Include="COpenGLImplementation.cpp" />
+    <ClCompile Include="CPipelineState.cpp" />
+    <ClCompile Include="CRenderTarget.cpp" />
+    <ClCompile Include="CVertexBuffer.cpp" />
+    <ClCompile Include="CFrameBuffer.cpp" />
+    <ClCompile Include="CShaderProgram.cpp" />
+    <ClCompile Include="glad.cpp" />
+    <ClCompile Include="CDepthBuffer.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
