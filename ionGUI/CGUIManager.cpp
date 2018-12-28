@@ -1,26 +1,18 @@
 
 #include "CGUIManager.h"
-#include <ionGraphicsD3D11/CD3D11Implementation.h>
 #include <ionGraphicsD3D11/CTexture.h>
 
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
-
-// Window data
-extern HWND                     g_hWnd;
-extern ID3D11Device*            g_pd3dDevice;
-extern ID3D11DeviceContext*     g_pd3dDeviceContext;
-
-
 namespace ion
 {
 
 	void CGUIManager::AddFontFromFile(string const & FileName, float const Size)
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		ImFont* my_font = io.Fonts->AddFontFromFileTTF(FileName.c_str(), Size);
+		ImGuiIO & io = ImGui::GetIO();
+		ImFont * my_font = io.Fonts->AddFontFromFileTTF(FileName.c_str(), Size);
 	}
 
 	ImTextureID CGUIManager::GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture)
@@ -29,52 +21,41 @@ namespace ion
 		return  (void *) TextureImplementation->ShaderResourceView;
 	}
 
-	bool CGUIManager::Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)
+	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)
 	{
-		this->Window = Window;
-
-		Graphics::CD3D11Implementation * D3D11 = dynamic_cast<Graphics::CD3D11Implementation *>(GraphicsImplementation);
-
-		g_hWnd = glfwGetWin32Window(Window->GetHandle());;
-		g_pd3dDevice = D3D11->GetDevice();
-		g_pd3dDeviceContext = D3D11->GetImmediateContext();
-
+		bool Success = true;
+		
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO();
-
-		// Setup back-end capabilities flags
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;   // We can honor GetMouseCursor() values (optional)
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;    // We can honor io.WantSetMousePos requests (optional, rarely used)
-
-		io.KeyMap[ImGuiKey_Tab] = (int) EKey::Tab;
-		io.KeyMap[ImGuiKey_LeftArrow] = (int) EKey::Left;
-		io.KeyMap[ImGuiKey_RightArrow] = (int) EKey::Right;
-		io.KeyMap[ImGuiKey_UpArrow] = (int) EKey::Up;
-		io.KeyMap[ImGuiKey_DownArrow] = (int) EKey::Down;
-		io.KeyMap[ImGuiKey_Home] = (int) EKey::Home;
-		io.KeyMap[ImGuiKey_End] = (int) EKey::End;
-		io.KeyMap[ImGuiKey_Delete] = (int) EKey::Delete;
-		io.KeyMap[ImGuiKey_Backspace] = (int) EKey::Backspace;
-		io.KeyMap[ImGuiKey_Enter] = (int) EKey::Enter;
-		io.KeyMap[ImGuiKey_Escape] = (int) EKey::Escape;
-		io.KeyMap[ImGuiKey_A] = (int) EKey::A;
-		io.KeyMap[ImGuiKey_C] = (int) EKey::C;
-		io.KeyMap[ImGuiKey_V] = (int) EKey::V;
-		io.KeyMap[ImGuiKey_X] = (int) EKey::X;
-		io.KeyMap[ImGuiKey_Y] = (int) EKey::Y;
-		io.KeyMap[ImGuiKey_Z] = (int) EKey::Z;
-
-		io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
-		io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
-
-		io.ImeWindowHandle = g_hWnd;
-		io.IniFilename = nullptr;
-
-		io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
-
 		ImGui::StyleColorsDark();
 
-		return true;
+		Success &= PlatformImplementation->Init(window);
+		Success &= RendererImplementation->Init(window, GraphicsImplementation);
+
+		AddListener(PlatformImplementation.Get());
+		AddListener(RendererImplementation.Get());
+
+		ImGuiIO & io = ImGui::GetIO();
+		io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
+
+		return Success;
+	}
+
+	void CGUIManager::Shutdown()
+	{
+		PlatformImplementation->Shutdown();
+		RendererImplementation->Shutdown();
+
+		ImGui::DestroyContext();
+	}
+
+	void CGUIManager::NewFrame()
+	{
+		PlatformImplementation->NewFrame();
+		RendererImplementation->NewFrame();
+
+		// Start the frame
+		ImGui::NewFrame();
 	}
 
 	void CGUIManager::Draw()
@@ -97,8 +78,9 @@ namespace ion
 
 			ImGui::End();
 		}
+
 		ImGui::Render();
-		RenderDrawData(ImGui::GetDrawData());
+		RendererImplementation->Draw(ImGui::GetDrawData());
 	}
 
 	void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text)
@@ -109,15 +91,6 @@ namespace ion
 		Draw.Color = Color;
 
 		TextQueue.push_back(Draw);
-	}
-
-	CGUIManager::CGUIManager()
-	{
-		for (int i = 0; i < 3; ++ i)
-		{
-			MouseWasPressed[i] = false;
-			MouseHeld[i] = false;
-		}
 	}
 
 }

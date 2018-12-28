@@ -3,19 +3,15 @@
 ionEngine
 =========
 
-| Branch | Status |
-|--------|--------------|
-| [![release](https://img.shields.io/badge/branch-release-38C7B6.svg)](https://github.com/iondune/ionEngine/releases) | [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=release)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x/branch/release?svg=true)](https://ci.appveyor.com/project/iondune/ionengine/branch/release) [![GitHub release](https://img.shields.io/github/release/iondune/ionEngine.svg)](https://github.com/iondune/ionEngine/releases) |
-| [![master](https://img.shields.io/badge/branch-master-B2A0EB.svg)](https://github.com/iondune/ionEngine) | [![Build Status](https://travis-ci.org/iondune/ionEngine.svg?branch=master)](https://travis-ci.org/iondune/ionEngine) [![Build status](https://ci.appveyor.com/api/projects/status/p8wakf96tk3qrm2x?svg=true)](https://ci.appveyor.com/project/iondune/ionengine) [![GitHub](https://img.shields.io/badge/pre--release-v0.4.5-blue.svg)](https://github.com/iondune/ionEngine/commits/master) |
+ionEngine is a C++ rendering engine that I wrote while a student at Cal Poly.
+It was used for my [master's thesis](http://relicengine.com/) as well as some scientific visualization work.
+Development of ionEngine has been discontinued.
+I'm working on a Direct3D 11 port that is closed-source for the time being.
 
 Overview
 --------
 
-ionEngine is a C++ application framework designed to aid in the creation of high-performance rendering applications.
-It is modular and generic, designed for use in both game engines and scientific data visualization.
-The primary goal of ionEngine is to improve the DX (Developer Experience) of writing graphics programs, from small educational examples to full production game engines.
-
-ionEngine includes many modular components, including:
+ionEngine is made up of several libraries:
 
 * **ionCore**: basic typedefs and boilerplate, some string and file helpers, standard library helpers
 * **ionMath**: vector classes for 2, 3, and 4 dimensions. A custom “color” class that encapsulates a vec3 or vec4 with implicit conversions between float and byte colors.
@@ -26,7 +22,7 @@ ionEngine includes many modular components, including:
 * **ionScience**: algorithm implementations useful for various scientific applications, including long/lat classes, marching cubes, ear clipping, volumetric data rendering
 
 
-:pencil: Features
+Features
 --------
 
 ionEngine provides features through a large number of optional modules so
@@ -42,17 +38,17 @@ Features included in ionEngine or additional modules are:
 * Windowing and input provided through [GLFW](http://www.glfw.org/)
 
 
-:package: Distribution
+Distribution
 ------------
 
-Source code distributions are available at [Bitbucket](https://bitbucket.org/iondune/ionengine) and [GitHub](https://github.com/iondune/ionEngine)
+Source code is available on [GitHub](https://github.com/iondune/ionEngine)
 
 Further information can be found at [ionengine.io](http://ionengine.io/).
 
-Documentation can be found at [docs.ionengine.io](http://docs.ionengine.io/).
+Documentation (generated with [Doxygen](http://www.doxygen.nl/)) can be found at [docs.ionengine.io](http://docs.ionengine.io/).
 
 
-:hammer: License
+License
 -------
 
-The ionEngine is licensed under the [MIT license](http://opensource.org/licenses/MIT)
+ionEngine is licensed under the [MIT license](http://opensource.org/licenses/MIT)
