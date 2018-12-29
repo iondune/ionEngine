@@ -127,6 +127,16 @@ namespace ion
 			return false;
 		}
 
+		void CD3D11Implementation::OnShutdown()
+		{
+			if (DebugDevice)
+			{
+				DebugDevice->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+				DebugDevice->Release();
+				DebugDevice = nullptr;
+			}
+		}
+
 		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
 		{
 			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source, SourceName, IncludeDirectories));

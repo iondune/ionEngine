@@ -102,6 +102,7 @@ namespace ion
 					VertexStage->CompileBlob->GetBufferPointer(),
 					VertexStage->CompileBlob->GetBufferSize(),
 					& InputLayout->InputLayout) );
+				InputLayout->InputLayout->SetPrivateData(WKPDID_D3DDebugObjectName, 26, "Shader-Created.InputLayout");
 				
 				return InputLayout;
 			}

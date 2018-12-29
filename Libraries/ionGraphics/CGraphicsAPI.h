@@ -28,6 +28,7 @@ namespace ion
 		void PreWindowCreationSetup();
 		void PostWindowCreationSetup(CWindow * Window);
 		bool OnWindowSwap(CWindow * Window);
+		void OnShutdown();
 
 		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
 		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});

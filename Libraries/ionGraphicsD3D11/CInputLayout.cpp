@@ -125,6 +125,7 @@ namespace ion
 					ShaderBlob->GetBufferPointer(),
 					(unsigned int) ShaderBlob->GetBufferSize(),
 					&InputLayout) );
+				InputLayout->SetPrivateData(WKPDID_D3DDebugObjectName, 28, "Explicit-Created.InputLayout");
 				ShaderBlob->Release();
 			}
 

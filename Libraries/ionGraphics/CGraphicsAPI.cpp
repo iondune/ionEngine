@@ -47,6 +47,18 @@ namespace ion
 		}
 	}
 
+	void CGraphicsAPI::OnShutdown()
+	{
+		if (nullptr == Implementation)
+		{
+			Log::Error("GraphicsAPI used without being initialized!");
+		}
+		else
+		{
+			return Implementation->OnShutdown();
+		}
+	}
+
 	SharedPointer<Graphics::IVertexStage> CGraphicsAPI::CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories)
 	{
 		SharedPointer<Graphics::IVertexStage> VertexShader;
