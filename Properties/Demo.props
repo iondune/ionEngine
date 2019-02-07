@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
+    <Import Project="Include\WindowsSDK.props" />
     <Import Project="Include\Build.props" />
     <Import Project="Include\DependencyLibraries.props" />
     <Import Project="Include\Deploy.props" />
