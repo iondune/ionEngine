@@ -464,6 +464,12 @@ namespace ion
 					}
 				} // Shader->InputElements
 
+				if (InputLayout)
+				{
+					InputLayout->Release();
+					InputLayout = nullptr;
+				}
+
 				CheckedDXCall( Device->CreateInputLayout(
 					Layout.data(),
 					(UINT) Layout.size(),
