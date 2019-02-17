@@ -47,6 +47,25 @@ namespace ion
 			return Color;
 		}
 
+		color3i Hex(string const & value)
+		{
+			color3i color;
+
+			if (value.length() == 3)
+			{
+				uint color4bpp = stoi(value, nullptr, 16);
+				color.Red   = ((color4bpp >> 8) & 0xF) * 16;
+				color.Green = ((color4bpp >> 4) & 0xF) * 16;
+				color.Blue  = ( color4bpp       & 0xF) * 16;
+			}
+			else
+			{
+				color = Hex(stoi(value, nullptr, 16));
+			}
+
+			return color;
+		}
+
 		color3f HSV(float const H, float const S, float const V)
 		{
 			// Convert hsv floats ([0-1],[0-1],[0-1]) to rgb floats ([0-1],[0-1],[0-1]), from Foley & van Dam p593

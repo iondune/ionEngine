@@ -42,6 +42,10 @@ namespace ion
 		//! \ingroup ionCore
 		color3i Hex(uint const Value);
 
+		//! \brief Unpacks a color from an HTML-style hex string
+		//! \ingroup ionCore
+		color3i Hex(string const & Value);
+
 		//! \brief Compute RGB color from HSV
 		//! \ingroup ionCore
 		color3f HSV(float const H, float const S, float const V);
