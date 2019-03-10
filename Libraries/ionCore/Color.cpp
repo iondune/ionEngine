@@ -49,6 +49,11 @@ namespace ion
 
 		color3i Hex(string const & value)
 		{
+			if (value.length() && value[0] == '#')
+			{
+				return Hex(value.substr(1));
+			}
+
 			color3i color;
 
 			if (value.length() == 3)
