@@ -15,7 +15,9 @@ namespace ion
 	void CControlPanel::Display()
 	{
 		if (! IsVisible)
+		{
 			return;
+		}
 
 		ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiSetCond_Once);
 		if (ImGui::Begin("ionEngine"))

@@ -42,9 +42,10 @@ namespace ion
 
 		virtual void LoadAdditionalSettings(CSimpleIniA * ConfigFile);
 
+		SingletonPointer<CControlPanel> ControlPanel;
+
 	private:
 
-		SingletonPointer<CControlPanel> ControlPanel;
 		SingletonPointer<CAssetManager> AssetManager;
 
 	};

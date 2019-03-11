@@ -480,20 +480,57 @@ namespace ion
 		i = 0;
 		for (SShaderInfo const & info : ShaderInfos)
 		{
-			ImGui::Text("Shader[%d] = '%s'", i, info.Name.c_str());
-			ImGui::Text("  Stages: %c%c%c",
-				(info.Stages | Graphics::EShaderType::Vertex   ? 'V' : ' '),
-				(info.Stages | Graphics::EShaderType::Geometry ? 'G' : ' '),
-				(info.Stages | Graphics::EShaderType::Pixel    ? 'P' : ' ')
-				);
-			ImGui::Text("  Found In: '%s'", info.FoundIn.c_str());
-			ImGui::Text("  Compiled?: '%s'", BoolToString(info.Compiled));
+			string label = String::Build("Shader[%d] = '%s'", i, info.Name);
 
-			int j = 0;
-			for (string error : info.ErrorsAndWarnings)
+			color4f color = Color::Hex("#070");
+
+			if (! info.Compiled)
 			{
-				ImGui::Text("  Error/Warning [%d] = %s", j, error.c_str());
+				if (info.FoundIn.size())
+				{
+					label += " [FAILED]";
+					color = Color::Hex("#700");
+				}
+				else
+				{
+					label += " [NOT FOUND]";
+					color = Color::Hex("#333");
+				}
 			}
+
+			if (info.Compiled && info.ErrorsAndWarnings.size())
+			{
+				label += " [WARNINGS]";
+				color = Color::Hex("#770");
+			}
+
+			ImGui::PushID(i);
+			ImGui::PushStyleColor(ImGuiCol_Header, color);
+
+			if (ImGui::CollapsingHeader(label.c_str()))
+			{
+				ImGui::Text("  Stages: %c%c%c",
+					(info.Stages | Graphics::EShaderType::Vertex   ? 'V' : ' '),
+					(info.Stages | Graphics::EShaderType::Geometry ? 'G' : ' '),
+					(info.Stages | Graphics::EShaderType::Pixel    ? 'P' : ' ')
+					);
+				ImGui::Text("  Found In: '%s'", info.FoundIn.c_str());
+				ImGui::TextColored(
+					color4f(info.Compiled ? Color::Hex("#0f0") : Color::Hex("#f00")),
+					"  Compiled?: %s", BoolToString(info.Compiled));
+
+				int j = 0;
+				for (string error : info.ErrorsAndWarnings)
+				{
+					ImGui::Text("  Error/Warning [%d] = %s", j, error.c_str());
+					j ++;
+				}
+			}
+
+			ImGui::PopStyleColor(1);
+			ImGui::PopID();
+
+			i ++;
 		}
 	}
 
