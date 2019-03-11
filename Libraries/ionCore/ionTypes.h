@@ -27,6 +27,8 @@
 namespace ion
 {
 
+	using namespace std::string_literals;
+
 	// STL imports
 	using std::string;
 	using std::vector;
