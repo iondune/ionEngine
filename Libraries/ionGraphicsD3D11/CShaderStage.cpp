@@ -127,7 +127,7 @@ namespace ion
 
 					if (outErrorsAndWarnings)
 					{
-						outErrorsAndWarnings->push_back(MessageData);
+						AddAtEnd(* outErrorsAndWarnings, String::Explode(MessageData, '\n'));
 					}
 
 					if (ShaderBlob)
