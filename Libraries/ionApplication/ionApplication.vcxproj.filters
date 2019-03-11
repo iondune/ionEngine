@@ -11,6 +11,7 @@
     <ClInclude Include="IState.h">
       <Filter>State System</Filter>
     </ClInclude>
+    <ClInclude Include="CControlPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCameraController.cpp" />
@@ -19,6 +20,7 @@
     <ClCompile Include="CStateManager.cpp">
       <Filter>State System</Filter>
     </ClCompile>
+    <ClCompile Include="CControlPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="State System">

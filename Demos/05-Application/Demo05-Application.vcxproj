@@ -25,6 +25,7 @@
         ;ionGraphics.lib;
         ;ionGraphicsD3D11.lib;
         ;ionScene.lib;
+        ;ionGUI.lib;
         ;ionApplication.lib;
         ;%(AdditionalDependencies);
       </AdditionalDependencies>

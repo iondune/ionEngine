@@ -18,6 +18,7 @@
     <Import Project="$(SolutionDir)\Properties\Library.props" />
   </ImportGroup>
   <ItemGroup>
+    <ClInclude Include="CControlPanel.h" />
     <ClInclude Include="CDefaultApplication.h" />
     <ClInclude Include="CAssetManager.h" />
     <ClInclude Include="CCameraController.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="IState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CControlPanel.cpp" />
     <ClCompile Include="CDefaultApplication.cpp" />
     <ClCompile Include="CAssetManager.cpp" />
     <ClCompile Include="CCameraController.cpp" />

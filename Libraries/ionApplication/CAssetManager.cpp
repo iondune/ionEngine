@@ -1,6 +1,8 @@
 
 #include "CAssetManager.h"
 
+#include <ionGUI.h>
+
 
 namespace ion
 {
@@ -15,6 +17,12 @@ namespace ion
 			Log::Error("CAssetManager being used without being initialized, Shader '%s' will not be loaded.", Name);
 			return nullptr;
 		}
+
+		ShaderInfos.push_back(SShaderInfo());
+		SShaderInfo & info = ShaderInfos.back();
+		info.Name     = Name;
+		info.Stages   = Stages;
+		info.Compiled = false;
 
 		string const FileName =  Name + ".hlsl";
 
@@ -34,13 +42,15 @@ namespace ion
 				continue;
 			}
 
+			info.FoundIn = Path;
+
 			SharedPointer<Graphics::IVertexStage> VertexShader;
 			SharedPointer<Graphics::IGeometryStage> GeometryShader;
 			SharedPointer<Graphics::IPixelStage> PixelShader;
 
 			if (Stages & Graphics::EShaderType::Vertex)
 			{
-				VertexShader = GraphicsAPI->CreateVertexStageFromFile(FilePath, ShaderPaths);
+				VertexShader = GraphicsAPI->CreateVertexStageFromFile(FilePath, ShaderPaths, & info.ErrorsAndWarnings);
 				if (! VertexShader)
 				{
 					Log::Error("Failed to compile vertex shader '%s': '%s'", Name, FilePath);
@@ -50,7 +60,7 @@ namespace ion
 
 			if (Stages & Graphics::EShaderType::Geometry)
 			{
-				GeometryShader = GraphicsAPI->CreateGeometryStageFromFile(FilePath, ShaderPaths);
+				GeometryShader = GraphicsAPI->CreateGeometryStageFromFile(FilePath, ShaderPaths, & info.ErrorsAndWarnings);
 
 				if (! GeometryShader)
 				{
@@ -61,13 +71,14 @@ namespace ion
 
 			if (Stages & Graphics::EShaderType::Pixel)
 			{
-				PixelShader = GraphicsAPI->CreatePixelStageFromFile(FilePath, ShaderPaths);
+				PixelShader = GraphicsAPI->CreatePixelStageFromFile(FilePath, ShaderPaths, & info.ErrorsAndWarnings);
 				if (! PixelShader)
 				{
 					Log::Error("Failed to compile pixel shader '%s': '%s'", Name, FilePath);
 					return nullptr;
 				}
 			}
+
 
 			SharedPointer<Graphics::IShader> Shader = GraphicsAPI->CreateShaderProgram();
 
@@ -85,6 +96,9 @@ namespace ion
 			}
 
 			Shader->Link();
+
+			info.Compiled = true;
+			info.ShaderHandle = Shader;
 
 			return Shader;
 		}
@@ -440,6 +454,47 @@ namespace ion
 	void CAssetManager::SetMeshPath(string const & Path)
 	{
 		MeshPath = Path + "/";
+	}
+
+	string CAssetManager::GetName()
+	{
+		return "Asset Manager"s;
+	}
+
+	void CAssetManager::DrawGUIControls()
+	{
+		ImGui::Text("TexturePath: '%s'", TexturePath.c_str());
+		ImGui::Text("ShaderPath: '%s'",  ShaderPath.c_str());
+		ImGui::Text("MeshPath: '%s'",    MeshPath.c_str());
+		ImGui::Text("AssetPaths (%d)",   static_cast<int>(AssetPaths.size()));
+
+		int i = 0;
+		for (string path : AssetPaths)
+		{
+			ImGui::Text("  AssetPath[%d] = '%s'", i , path.c_str());
+			i ++;
+		}
+
+		ImGui::Separator();
+
+		i = 0;
+		for (SShaderInfo const & info : ShaderInfos)
+		{
+			ImGui::Text("Shader[%d] = '%s'", i, info.Name.c_str());
+			ImGui::Text("  Stages: %c%c%c",
+				(info.Stages | Graphics::EShaderType::Vertex   ? 'V' : ' '),
+				(info.Stages | Graphics::EShaderType::Geometry ? 'G' : ' '),
+				(info.Stages | Graphics::EShaderType::Pixel    ? 'P' : ' ')
+				);
+			ImGui::Text("  Found In: '%s'", info.FoundIn.c_str());
+			ImGui::Text("  Compiled?: '%s'", BoolToString(info.Compiled));
+
+			int j = 0;
+			for (string error : info.ErrorsAndWarnings)
+			{
+				ImGui::Text("  Error/Warning [%d] = %s", j, error.c_str());
+			}
+		}
 	}
 
 }

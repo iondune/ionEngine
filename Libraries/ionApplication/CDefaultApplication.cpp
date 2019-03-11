@@ -1,12 +1,17 @@
 
 #include "CDefaultApplication.h"
 
+#include "CControlPanel.h"
+#include "CAssetManager.h"
+
 
 namespace ion
 {
 
 	void CDefaultApplication::LoadSettings()
 	{
+		ControlPanel->AddComponent(AssetManager.Get());
+
 		CSimpleIniA ConfigFile;
 		if (File::Exists("ionEngine.ini"))
 		{
@@ -73,6 +78,29 @@ namespace ion
 	void CDefaultApplication::LoadAdditionalSettings(CSimpleIniA * ConfigFile)
 	{
 
+	}
+
+	void CDefaultApplication::DrawGUI()
+	{
+		ControlPanel->Display();
+	}
+
+	void CDefaultApplication::OnEvent(IEvent & Event)
+	{
+		if (InstanceOf<SKeyboardEvent>(Event))
+		{
+			SKeyboardEvent KeyboardEvent = As<SKeyboardEvent>(Event);
+
+			if (! KeyboardEvent.Pressed)
+			{
+				switch (KeyboardEvent.Key)
+				{
+				case EKey::Grave:
+					ToggleBool(ControlPanel->IsVisible);
+					break;
+				}
+			}
+		}
 	}
 
 }

@@ -11,6 +11,9 @@
 namespace ion
 {
 
+	class CControlPanel;
+	class CAssetManager;
+
 	class CDefaultApplication : public IEventListener
 	{
 
@@ -30,11 +33,19 @@ namespace ion
 		void LoadSettings();
 		CWindow * CreateWindowFromSettings(string const & Title);
 
+		void DrawGUI();
+		void OnEvent(IEvent & Event);
+
 	protected:
 
 		SSettings ApplicationSettings;
 
 		virtual void LoadAdditionalSettings(CSimpleIniA * ConfigFile);
+
+	private:
+
+		SingletonPointer<CControlPanel> ControlPanel;
+		SingletonPointer<CAssetManager> AssetManager;
 
 	};
 

@@ -6,11 +6,13 @@
 #include <ionWindow.h>
 #include <ionScene.h>
 
+#include "CControlPanel.h"
+
 
 namespace ion
 {
 	
-	class CAssetManager : public Singleton<CAssetManager>
+	class CAssetManager : public Singleton<CAssetManager>, public IControlComponent
 	{
 
 	public:
@@ -39,14 +41,31 @@ namespace ion
 		void SetShaderPath(string const & Path);
 		void SetMeshPath(string const & Path);
 
+		// IControlComponent
+		string GetName();
+		void DrawGUIControls();
+
 	protected:
 
 		SingletonPointer<CGraphicsAPI> GraphicsAPI;
 
 		vector<string> AssetPaths;
 		string TexturePath = "Textures/";
-		string ShaderPath = "Shaders/";
-		string MeshPath = "Meshes/";
+		string ShaderPath  = "Shaders/";
+		string MeshPath    = "Meshes/";
+
+		struct SShaderInfo
+		{
+			string Name;
+			string FoundIn;
+			SharedPointer<Graphics::IShader> ShaderHandle;
+			int Stages = 0;
+
+			bool Compiled = false;
+			vector<string> ErrorsAndWarnings;
+		};
+
+		vector<SShaderInfo> ShaderInfos;
 
 	private:
 
