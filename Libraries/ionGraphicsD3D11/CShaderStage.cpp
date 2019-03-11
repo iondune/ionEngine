@@ -69,7 +69,7 @@ namespace ion
 				}
 			};
 
-			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, int const ShaderType, string const & SourceName, vector<string> const & IncludeDirectories)
+			ID3DBlob * ion::Graphics::D3D11::CShaderStage::CompileShaderBlob(string const & Source, int const ShaderType, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings)
 			{
 				UINT CompileFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 			#ifdef ION_CONFIG_DEBUG
@@ -124,6 +124,12 @@ namespace ion
 				{
 					char * MessageData = new char[ErrorBlob->GetBufferSize() + 1]();
 					std::memcpy(MessageData, ErrorBlob->GetBufferPointer(), ErrorBlob->GetBufferSize());
+
+					if (outErrorsAndWarnings)
+					{
+						outErrorsAndWarnings->push_back(MessageData);
+					}
+
 					if (ShaderBlob)
 					{
 						Log::Warn("%s", MessageData);

@@ -137,19 +137,19 @@ namespace ion
 			}
 		}
 
-		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
+		SharedPointer<IVertexStage> CD3D11Implementation::CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings)
 		{
-			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source, SourceName, IncludeDirectories));
+			return std::shared_ptr<D3D11::CVertexStage>(D3D11::CVertexStage::Compile(Device, Source, SourceName, IncludeDirectories, outErrorsAndWarnings));
 		}
 
-		SharedPointer<IGeometryStage> CD3D11Implementation::CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
+		SharedPointer<IGeometryStage> CD3D11Implementation::CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings)
 		{
-			return std::shared_ptr<D3D11::CGeometryStage>(D3D11::CGeometryStage::Compile(Device, Source, SourceName, IncludeDirectories));
+			return std::shared_ptr<D3D11::CGeometryStage>(D3D11::CGeometryStage::Compile(Device, Source, SourceName, IncludeDirectories, outErrorsAndWarnings));
 		}
 
-		SharedPointer<IPixelStage> CD3D11Implementation::CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
+		SharedPointer<IPixelStage> CD3D11Implementation::CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings)
 		{
-			return std::shared_ptr<D3D11::CPixelStage>(D3D11::CPixelStage::Compile(Device, Source, SourceName, IncludeDirectories));
+			return std::shared_ptr<D3D11::CPixelStage>(D3D11::CPixelStage::Compile(Device, Source, SourceName, IncludeDirectories, outErrorsAndWarnings));
 		}
 
 		SharedPointer<IShader> CD3D11Implementation::CreateShaderProgram()

@@ -23,7 +23,7 @@ namespace ion
 
 			public:
 
-				static CVertexStage * Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories);
+				static CVertexStage * Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings);
 				~CVertexStage();
 
 				ID3D11VertexShader * VertexShader = nullptr;

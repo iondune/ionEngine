@@ -30,13 +30,13 @@ namespace ion
 		bool OnWindowSwap(CWindow * Window);
 		void OnShutdown();
 
-		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
-		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
-		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromFile(string const & FileName, vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
 
-		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
-		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
-		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {});
+		SharedPointer<Graphics::IVertexStage> CreateVertexStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
+		SharedPointer<Graphics::IGeometryStage> CreateGeometryStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
+		SharedPointer<Graphics::IPixelStage> CreatePixelStageFromSource(string const & Source, string const & SourceName = "", vector<string> const & IncludeDirectories = {}, vector<string> * outErrorsAndWarnings = nullptr);
 
 		SharedPointer<Graphics::IShader> CreateShaderProgram();
 

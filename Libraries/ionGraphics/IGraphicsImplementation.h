@@ -29,9 +29,9 @@ namespace ion
 		virtual bool OnWindowSwap(CWindow * Window) = 0;
 		virtual void OnShutdown() = 0;
 
-		virtual SharedPointer<Graphics::IVertexStage> CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories) = 0;
-		virtual SharedPointer<Graphics::IGeometryStage> CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories) = 0;
-		virtual SharedPointer<Graphics::IPixelStage> CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories) = 0;
+		virtual SharedPointer<Graphics::IVertexStage> CreateVertexShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings) = 0;
+		virtual SharedPointer<Graphics::IGeometryStage> CreateGeometryShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings) = 0;
+		virtual SharedPointer<Graphics::IPixelStage> CreatePixelShaderFromSource(string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings) = 0;
 
 		virtual SharedPointer<Graphics::IShader> CreateShaderProgram() = 0;
 

@@ -12,11 +12,11 @@ namespace ion
 		namespace D3D11
 		{
 
-			CGeometryStage * CGeometryStage::Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories)
+			CGeometryStage * CGeometryStage::Compile(ID3D11Device * Device, string const & Source, string const & SourceName, vector<string> const & IncludeDirectories, vector<string> * outErrorsAndWarnings)
 			{
 				CGeometryStage * Stage = nullptr;
 
-				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Geometry, SourceName, IncludeDirectories))
+				if (ID3DBlob * ShaderBlob = CompileShaderBlob(Source, EShaderType::Geometry, SourceName, IncludeDirectories, outErrorsAndWarnings))
 				{
 					Stage = new CGeometryStage();
 					CheckedDXCall( Device->CreateGeometryShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, & Stage->GeometryShader) );
