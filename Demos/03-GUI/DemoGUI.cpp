@@ -9,6 +9,8 @@ using namespace ion;
 
 int main()
 {
+	Log::AddDefaultOutputs();
+
 	SingletonPointer<CGraphicsAPI> GraphicsAPI;
 	SingletonPointer<CWindowManager> WindowManager;
 	SingletonPointer<CGUIManager> GUIManager;
