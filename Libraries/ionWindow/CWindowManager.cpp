@@ -25,11 +25,7 @@ namespace ion
 			return nullptr;
 		}
 		
-		if (PrimaryWindow == nullptr)
-		{
-			GraphicsAPI->PreWindowCreationSetup();
-		}
-
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 		glfwWindowHint(GLFW_RESIZABLE, false);
 		GLFWwindow * WindowHandle = glfwCreateWindow(Size.X, Size.Y, Title.c_str(), (Type == EWindowType::Fullscreen) ? glfwGetPrimaryMonitor() : nullptr, PrimaryWindow ? PrimaryWindow->GetHandle() : nullptr);
 
