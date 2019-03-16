@@ -53,7 +53,6 @@ namespace ion
 		glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
 
 		Window->AddListener(this);
-		Window->MakeContextCurrent();
 
 		switch (Vsync)
 		{
@@ -147,20 +146,10 @@ namespace ion
 	{
 		for (auto it = Windows.begin(); it != Windows.end(); ++ it)
 		{
-			if (Windows.size() > 1)
-			{
-				it->second->MakeContextCurrent();
-			}
-
 			if (it->second->ShouldClose())
 			{
 				return true;
 			}
-		}
-
-		if (Windows.size() > 1)
-		{
-			PrimaryWindow->MakeContextCurrent();
 		}
 
 		return false;

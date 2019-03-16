@@ -8,17 +8,6 @@
 namespace ion
 {
 
-	CWindow * CWindow::CurrentContext = nullptr;
-
-	void CWindow::MakeContextCurrent()
-	{
-		if (this != CurrentContext)
-		{
-			glfwMakeContextCurrent(WindowHandle);
-			CurrentContext = this;
-		}
-	}
-
 	void CWindow::Close()
 	{
 		glfwSetWindowShouldClose(WindowHandle, true);

@@ -20,7 +20,6 @@ namespace ion
 
 	public:
 
-		void MakeContextCurrent();
 		bool ShouldClose() const;
 		void Close();
 
