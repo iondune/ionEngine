@@ -23,7 +23,12 @@ namespace ion
 		bool ShouldClose() const;
 		void Close();
 
+		void Show();
+		void SetTitle(std::string const & title);
+
 		vec2i const & GetSize() const;
+		void SetSize(vec2i const & Position);
+
 		vec2i const & GetFrameBufferSize() const;
 
 		float GetAspectRatio() const;
@@ -49,6 +54,7 @@ namespace ion
 		void SetClipboardText(string const & Text);
 
 		bool IsFocused() const;
+		bool IsMinimized() const;
 
 		SharedPointer<Graphics::IGraphicsContext> GetContext();
 

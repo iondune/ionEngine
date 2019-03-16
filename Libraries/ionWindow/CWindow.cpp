@@ -25,14 +25,29 @@ namespace ion
 		return Size;
 	}
 
+	void CWindow::SetSize(vec2i const & Position)
+	{
+		glfwSetWindowSize(WindowHandle, Position.X, Position.Y);
+	}
+
 	vec2i const & CWindow::GetFrameBufferSize() const
 	{
 		return FrameBufferSize;
 	}
 
+	void CWindow::Show()
+	{
+		glfwShowWindow(WindowHandle);
+	}
+
+	void CWindow::SetTitle(std::string const & title)
+	{
+		glfwSetWindowTitle(WindowHandle, title.c_str());
+	}
+
 	float CWindow::GetAspectRatio() const
 	{
-		return (float) Size.X / (float) Size.Y;
+		return static_cast<float>(Size.X) / static_cast<float>(Size.Y);
 	}
 
 	void CWindow::SwapBuffers()
@@ -132,6 +147,11 @@ namespace ion
 	bool CWindow::IsFocused() const
 	{
 		return glfwGetWindowAttrib(WindowHandle, GLFW_FOCUSED) != 0;
+	}
+
+	bool CWindow::IsMinimized() const
+	{
+		return glfwGetWindowAttrib(WindowHandle, GLFW_ICONIFIED) != 0;
 	}
 
 	SharedPointer<Graphics::IGraphicsContext> CWindow::GetContext()
