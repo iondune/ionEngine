@@ -27,7 +27,7 @@ namespace ion
 		void UpdateMousePosAndButtons();
 		void UpdateMouseCursor();
 
-		CWindow * Window = nullptr;
+		CWindow * PrimaryWindow = nullptr;
 		double Time = 0;
 		bool MouseWasPressed[3];
 		bool MouseHeld[3];

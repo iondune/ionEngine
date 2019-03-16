@@ -8,18 +8,18 @@ namespace ion
 	char const * ImGui_ImplGlfwGL3_GetClipboardText(void * user_data)
 	{
 		SingletonPointer<CGUIPlatform> ImGUIManager;
-		return ImGUIManager->Window->GetClipboardText().c_str();
+		return ImGUIManager->PrimaryWindow->GetClipboardText().c_str();
 	}
 
 	void ImGui_ImplGlfwGL3_SetClipboardText(void * user_data, char const * text)
 	{
 		SingletonPointer<CGUIPlatform> ImGUIManager;
-		ImGUIManager->Window->SetClipboardText(text);
+		ImGUIManager->PrimaryWindow->SetClipboardText(text);
 	}
 
 	bool CGUIPlatform::Init(CWindow * window)
 	{
-		Window = window;
+		PrimaryWindow = window;
 
 		ImGuiIO & io = ImGui::GetIO();
 		io.KeyMap[ImGuiKey_Tab]        = (int) EKey::Tab;
@@ -59,12 +59,12 @@ namespace ion
 		ImGuiIO & io = ImGui::GetIO();
 
 		// Setup display size (every frame to accommodate for window resizing)
-		int const w = Window->GetSize().X;
-		int const h = Window->GetSize().Y;
-		int const display_w = Window->GetFrameBufferSize().X;
-		int const display_h = Window->GetFrameBufferSize().Y;
-		io.DisplaySize = vec2f(Window->GetSize());
-		io.DisplayFramebufferScale = ImVec2(w > 0 ? ((float) display_w / w) : 0, h > 0 ? ((float) display_h / h) : 0);
+		int const w = PrimaryWindow->GetSize().X;
+		int const h = PrimaryWindow->GetSize().Y;
+		int const display_w = PrimaryWindow->GetFrameBufferSize().X;
+		int const display_h = PrimaryWindow->GetFrameBufferSize().Y;
+		io.DisplaySize             = vec2f(PrimaryWindow->GetSize());
+		io.DisplayFramebufferScale = vec2f(w > 0 ? ((float) display_w / w) : 0, h > 0 ? ((float) display_h / h) : 0);
 
 		// Setup time step
 		double current_time = TimeManager->GetRunTime();
@@ -98,9 +98,9 @@ namespace ion
 				io.KeysDown[(int) EKey::Enter] = KeyboardEvent.Pressed;
 			}
 
-			io.KeyCtrl = Window->IsKeyDown(EKey::LeftControl) || Window->IsKeyDown(EKey::RightControl);
-			io.KeyShift = Window->IsKeyDown(EKey::LeftShift) || Window->IsKeyDown(EKey::RightShift);
-			io.KeyAlt = Window->IsKeyDown(EKey::LeftAlt) || Window->IsKeyDown(EKey::RightAlt);
+			io.KeyCtrl  = PrimaryWindow->IsKeyDown(EKey::LeftControl) || PrimaryWindow->IsKeyDown(EKey::RightControl);
+			io.KeyShift = PrimaryWindow->IsKeyDown(EKey::LeftShift)   || PrimaryWindow->IsKeyDown(EKey::RightShift);
+			io.KeyAlt   = PrimaryWindow->IsKeyDown(EKey::LeftAlt)     || PrimaryWindow->IsKeyDown(EKey::RightAlt);
 		}
 		else if (InstanceOf<SMouseEvent>(Event))
 		{
