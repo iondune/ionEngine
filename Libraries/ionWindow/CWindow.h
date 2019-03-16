@@ -43,6 +43,7 @@ namespace ion
 		void SetRelativeCursorLocation(vec2f const & position);
 
 		GLFWwindow * const GetHandle() const;
+		void * GetPlatformHandle();
 
 		string GetClipboardText() const;
 		void SetClipboardText(string const & Text);

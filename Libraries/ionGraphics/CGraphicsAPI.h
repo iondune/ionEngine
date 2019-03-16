@@ -25,7 +25,6 @@ namespace ion
 
 		void Init(IGraphicsImplementation * Implementation);
 
-		void PreWindowCreationSetup();
 		void PostWindowCreationSetup(CWindow * Window);
 		bool OnWindowSwap(CWindow * Window);
 		void OnShutdown();

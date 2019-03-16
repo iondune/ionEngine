@@ -24,7 +24,6 @@ namespace ion
 
 	public:
 
-		virtual void PreWindowCreationSetup() = 0;
 		virtual void PostWindowCreationSetup(CWindow * Window) = 0;
 		virtual bool OnWindowSwap(CWindow * Window) = 0;
 		virtual void OnShutdown() = 0;

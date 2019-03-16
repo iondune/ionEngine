@@ -29,20 +29,11 @@
 #include <dxgi1_3.h>  
 #include <DXProgrammableCapture.h>  
 
-#include <GLFW/glfw3.h>
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <GLFW/glfw3native.h>
-
 
 namespace ion
 {
 	namespace Graphics
 	{
-
-		void CD3D11Implementation::PreWindowCreationSetup()
-		{
-			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		}
 
 		void CD3D11Implementation::PostWindowCreationSetup(CWindow * Window)
 		{
@@ -54,7 +45,7 @@ namespace ion
 			SwapChainDesc.SampleDesc.Quality = 0;
 			SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 			SwapChainDesc.BufferCount = 1;
-			SwapChainDesc.OutputWindow = glfwGetWin32Window(Window->GetHandle());
+			SwapChainDesc.OutputWindow = static_cast<HWND>(Window->GetPlatformHandle());
 			SwapChainDesc.Windowed = true;
 
 			SwapChain = nullptr;
