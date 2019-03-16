@@ -62,10 +62,3 @@ namespace ImGui
 		~scoped_id();
 	};
 }
-
-namespace ion
-{
-
-	char const * BoolToString(bool const B);
-
-}

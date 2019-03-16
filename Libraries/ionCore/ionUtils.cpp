@@ -57,6 +57,11 @@ namespace ion
 		return Condition = ! Condition;
 	}
 
+	char const * BoolToString(bool const B)
+	{
+		return B ? "yes" : "no";
+	}
+
 	float Saturate(float const v)
 	{
 		return ((v > 1.f) ? 1.f : ((v < 0.f) ? 0.f : v));

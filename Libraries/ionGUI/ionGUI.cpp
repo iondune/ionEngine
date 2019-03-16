@@ -251,8 +251,3 @@ namespace ImGui
 		ImGui::PopID();
 	}
 }
-
-char const * ion::BoolToString(bool const B)
-{
-	return B ? "yes" : "no";
-}

@@ -37,6 +37,8 @@ namespace ion
 	//! \ingroup ionCore
 	bool ToggleBool(bool & Condition);
 
+	char const * BoolToString(bool const B);
+
 	//! \ingroup ionCore
 	float Saturate(float const v);
 
