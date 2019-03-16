@@ -113,6 +113,12 @@ namespace ion
 		return Window;
 	}
 
+	void CWindowManager::CloseWindow(CWindow * Window)
+	{
+		Windows.erase(Window->GetHandle());
+		delete Window;
+	}
+
 	CWindowManager::CWindowManager()
 	{}
 
