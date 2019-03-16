@@ -27,6 +27,12 @@ namespace ion
 		On
 	};
 
+	struct SMonitorInfo
+	{
+		vec2i Position;
+		vec2i Size;
+	};
+
 	class CWindowManager : public Singleton<CWindowManager>, public IEventListener
 	{
 
@@ -36,6 +42,8 @@ namespace ion
 		void PollEvents();
 		bool ShouldClose() const;
 		bool Run();
+
+		vector<SMonitorInfo> GetMonitors();
 
 		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync = EVsyncMode::Default);
 		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title, EVsyncMode const Vsync = EVsyncMode::Default);

@@ -162,4 +162,25 @@ namespace ion
 		return ! Done;
 	}
 
+	vector<SMonitorInfo> CWindowManager::GetMonitors()
+	{
+		vector<SMonitorInfo> returnValue;
+
+		int count = -1;
+		GLFWmonitor ** monitors = glfwGetMonitors(& count);
+
+		for (int i = 0; i < count; ++ i)
+		{
+			SMonitorInfo info;
+
+			glfwGetMonitorPos(monitors[i], & info.Position.X, & info.Position.Y);
+			GLFWvidmode const * videoMode = glfwGetVideoMode(monitors[i]);
+			info.Size = vec2i(videoMode->width, videoMode->height);
+
+			returnValue.push_back(info);
+		}
+
+		return returnValue;
+	}
+
 }
