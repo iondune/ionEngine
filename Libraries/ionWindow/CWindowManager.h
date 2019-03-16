@@ -5,7 +5,7 @@
 #include <ionGraphics.h>
 
 #include "CWindow.h"
-#include "SWindowResizedEvent.h"
+#include "SWindowEvents.h"
 #include "SFileDroppedEvent.h"
 
 #undef CreateWindow
@@ -65,6 +65,10 @@ namespace ion
 		static void MouseCursorCallback(GLFWwindow * window, double xpos, double ypos);
 		static void CharCallback(GLFWwindow * window, unsigned int c);
 		static void DropCallback(GLFWwindow* window, int count, const char** paths);
+
+		static void WindowCloseCallback(GLFWwindow * window);
+		static void WindowPosCallback(GLFWwindow * window, int x, int y);
+		static void WindowSizeCallback(GLFWwindow * window, int x, int y);
 
 	private:
 

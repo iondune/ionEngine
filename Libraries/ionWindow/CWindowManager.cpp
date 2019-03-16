@@ -47,11 +47,14 @@ namespace ion
 		glfwGetFramebufferSize(WindowHandle, &Window->FrameBufferSize.X, &Window->FrameBufferSize.Y);
 		Windows[WindowHandle] = Window;
 
-		glfwSetKeyCallback(WindowHandle,         KeyCallback);
 		glfwSetMouseButtonCallback(WindowHandle, MouseButtonCallback);
 		glfwSetCursorPosCallback(WindowHandle,   MouseCursorCallback);
 		glfwSetScrollCallback(WindowHandle,      MouseScrollCallback);
+		glfwSetKeyCallback(WindowHandle,         KeyCallback);
 		glfwSetCharCallback(WindowHandle,        CharCallback);
+		glfwSetWindowCloseCallback(WindowHandle, WindowCloseCallback);
+		glfwSetWindowPosCallback(WindowHandle,   WindowPosCallback);
+		glfwSetWindowSizeCallback(WindowHandle,  WindowSizeCallback);
 		glfwSetDropCallback(WindowHandle,        DropCallback);
 
 		Window->AddListener(this);

@@ -36,7 +36,7 @@
     <ClInclude Include="SFileDroppedEvent.h" />
     <ClInclude Include="SKeyboardEvent.h" />
     <ClInclude Include="SMouseEvent.h" />
-    <ClInclude Include="SWindowResizedEvent.h" />
+    <ClInclude Include="SWindowEvents.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

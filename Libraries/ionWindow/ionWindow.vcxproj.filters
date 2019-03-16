@@ -22,9 +22,6 @@
     <ClInclude Include="SMouseEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="SWindowResizedEvent.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="ConvertGLFWKeyCode.h">
       <Filter>Events</Filter>
     </ClInclude>
@@ -32,6 +29,9 @@
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CGamePad.h" />
     <ClInclude Include="SFileDroppedEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SWindowEvents.h">
       <Filter>Events</Filter>
     </ClInclude>
   </ItemGroup>
