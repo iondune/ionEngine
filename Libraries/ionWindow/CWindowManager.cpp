@@ -43,16 +43,16 @@ namespace ion
 		
 		CWindow * Window = new CWindow(WindowHandle);
 		Window->GraphicsAPI = GraphicsAPI;
-		glfwGetWindowSize(WindowHandle, &Window->Size.X, &Window->Size.Y);
+		glfwGetWindowSize(WindowHandle,      &Window->Size.X,            &Window->Size.Y);
 		glfwGetFramebufferSize(WindowHandle, &Window->FrameBufferSize.X, &Window->FrameBufferSize.Y);
 		Windows[WindowHandle] = Window;
 
-		glfwSetKeyCallback(WindowHandle, CWindowManager::KeyCallback);
-		glfwSetMouseButtonCallback(WindowHandle, CWindowManager::MouseButtonCallback);
-		glfwSetCursorPosCallback(WindowHandle, CWindowManager::MouseCursorCallback);
-		glfwSetScrollCallback(WindowHandle, CWindowManager::MouseScrollCallback);
-		glfwSetCharCallback(WindowHandle, CWindowManager::CharCallback);
-		glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
+		glfwSetKeyCallback(WindowHandle,         KeyCallback);
+		glfwSetMouseButtonCallback(WindowHandle, MouseButtonCallback);
+		glfwSetCursorPosCallback(WindowHandle,   MouseCursorCallback);
+		glfwSetScrollCallback(WindowHandle,      MouseScrollCallback);
+		glfwSetCharCallback(WindowHandle,        CharCallback);
+		glfwSetDropCallback(WindowHandle,        DropCallback);
 
 		Window->AddListener(this);
 
@@ -114,7 +114,6 @@ namespace ion
 	}
 
 	CWindowManager::CWindowManager()
-		: PrimaryWindow()
 	{}
 
 	void CWindowManager::PollEvents()
@@ -124,15 +123,7 @@ namespace ion
 
 	bool CWindowManager::ShouldClose() const
 	{
-		for (auto it = Windows.begin(); it != Windows.end(); ++ it)
-		{
-			if (it->second->ShouldClose())
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return PrimaryWindow->ShouldClose();
 	}
 
 	bool CWindowManager::Run()
@@ -140,6 +131,11 @@ namespace ion
 		bool Done = ShouldClose();
 		PollEvents();
 		return ! Done;
+	}
+
+	CWindow * CWindowManager::GetPrimaryWindow()
+	{
+		return PrimaryWindow;
 	}
 
 	vector<SMonitorInfo> CWindowManager::GetMonitors()

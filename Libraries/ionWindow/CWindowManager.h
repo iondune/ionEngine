@@ -43,10 +43,14 @@ namespace ion
 		bool ShouldClose() const;
 		bool Run();
 
+		CWindow * GetPrimaryWindow();
+
 		vector<SMonitorInfo> GetMonitors();
 
 		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync = EVsyncMode::Default);
 		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title, EVsyncMode const Vsync = EVsyncMode::Default);
+
+		void CloseWindow(CWindow * Window);
 
 	protected:
 

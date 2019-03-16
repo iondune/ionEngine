@@ -124,6 +124,11 @@ namespace ion
 			MouseStates[i] = false;
 	}
 
+	CWindow::~CWindow()
+	{
+		glfwDestroyWindow(WindowHandle);
+	}
+
 	GLFWwindow * const CWindow::GetHandle() const
 	{
 		return WindowHandle;

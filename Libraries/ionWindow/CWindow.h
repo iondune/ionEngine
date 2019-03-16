@@ -73,6 +73,7 @@ namespace ion
 	private:
 
 		CWindow(GLFWwindow * windowHandle);
+		~CWindow();
 
 		static CWindow * CurrentContext;
 
