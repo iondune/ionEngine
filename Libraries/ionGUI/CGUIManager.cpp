@@ -60,24 +60,17 @@ namespace ion
 
 	void CGUIManager::Draw()
 	{
-		ImGui::SetNextWindowPos(ImVec2(-1000, -1000));
-		ImGui::SetNextWindowSize(ImVec2(100000, 100000));
-		if (ImGui::Begin("GlobalScreen", nullptr, ImVec2(0, 0), 0.0f,
-			ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
+		ImDrawList * DrawList = ImGui::GetBackgroundDrawList();
+
+		for (auto Text : TextQueue)
 		{
-			ImDrawList * DrawList = ImGui::GetWindowDrawList();
-
-			for (auto Text : TextQueue)
-			{
-				uint Red = Text.Color.Red;
-				uint Green = Text.Color.Green;
-				uint Blue = Text.Color.Blue;
-				DrawList->AddText(ImVec2((float) Text.Position.X, (float) Text.Position.Y), (0xFF000000) | (Blue << 16) | (Green << 8) | (Red), Text.Text.c_str());
-			}
-			TextQueue.clear();
-
-			ImGui::End();
+			uint const Red         = Text.Color.Red;
+			uint const Green       = Text.Color.Green;
+			uint const Blue        = Text.Color.Blue;
+			vec2f const Position   = Text.Position;
+			DrawList->AddText(Position, (0xFF000000) | (Blue << 16) | (Green << 8) | (Red), Text.Text.c_str());
 		}
+		TextQueue.clear();
 
 		ImGui::Render();
 		RendererImplementation->Draw(ImGui::GetDrawData());
