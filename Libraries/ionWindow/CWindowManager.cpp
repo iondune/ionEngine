@@ -7,10 +7,16 @@
 namespace ion
 {
 
+	void GLFWErrorCallback(int ErrorCode, char const * Description)
+	{
+		Log::Error("GLFW Error! (%d) '%s'", ErrorCode, Description);
+	}
+
 	void CWindowManager::Init(CGraphicsAPI * GraphicsAPI)
 	{
 		this->GraphicsAPI = GraphicsAPI;
 
+		glfwSetErrorCallback(GLFWErrorCallback);
 		if (! glfwInit())
 		{
 			std::cerr << "Error initializing glfw! " << std::endl;
@@ -49,28 +55,6 @@ namespace ion
 		glfwSetDropCallback(WindowHandle, CWindowManager::DropCallback);
 
 		Window->AddListener(this);
-
-		switch (Vsync)
-		{
-		case EVsyncMode::Default:
-			if (Type == EWindowType::Fullscreen)
-			{
-				glfwSwapInterval(1);
-			}
-			else
-			{
-				glfwSwapInterval(0);
-			}
-			break;
-
-		case EVsyncMode::On:
-			glfwSwapInterval(1);
-			break;
-
-		case EVsyncMode::Off:
-			glfwSwapInterval(0);
-			break;
-		}
 
 		if (PrimaryWindow == nullptr)
 		{
