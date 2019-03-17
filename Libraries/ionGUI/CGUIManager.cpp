@@ -7,6 +7,7 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
+
 namespace ion
 {
 
@@ -81,7 +82,7 @@ namespace ion
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 
-		// CurrentlyBound render target no longer accurate after imgui render code with multiple viewports
+		// CurrentlyBound render target no longer correct after imgui render code with multiple viewports
 		Graphics::D3D11::CRenderTarget::InvalidateCurrentlyBound();
 	}
 
