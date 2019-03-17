@@ -34,7 +34,7 @@ namespace ion
 				virtual CImage * ReadImage();
 
 				virtual void Bind();
-				void Rebind();
+				virtual void Rebind();
 				virtual IRenderTarget * GetCurrentlyBound();
 
 				vec2i Size;
