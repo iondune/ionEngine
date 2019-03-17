@@ -45,7 +45,7 @@ int main()
 		GUIManager->Text(vec2i(100, 220), Color::Basic::Blue,    "Hello, world!");
 		GUIManager->Text(vec2i(100, 240), Color::Basic::Magenta, "Hello, world!");
 		GUIManager->Text(vec2i(100, 260), Color::Basic::Black,   "Hello, world!");
-		GUIManager->Draw(RenderTarget);
+		GUIManager->Draw();
 
 		Window->SwapBuffers();
 	}

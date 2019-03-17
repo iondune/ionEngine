@@ -1,6 +1,7 @@
 
 #include "CGUIManager.h"
 #include <ionGraphicsD3D11/CTexture.h>
+#include <ionGraphicsD3D11/CRenderTarget.h>
 
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -60,7 +61,7 @@ namespace ion
 		ImGui::NewFrame();
 	}
 
-	void CGUIManager::Draw(SharedPointer<Graphics::IRenderTarget> RenderTarget)
+	void CGUIManager::Draw()
 	{
 		ImDrawList * DrawList = ImGui::GetBackgroundDrawList();
 
@@ -81,7 +82,7 @@ namespace ion
 		ImGui::RenderPlatformWindowsDefault();
 
 		// CurrentlyBound render target no longer accurate after imgui render code with multiple viewports
-		RenderTarget->Rebind();
+		Graphics::D3D11::CRenderTarget::InvalidateCurrentlyBound();
 	}
 
 	void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text)

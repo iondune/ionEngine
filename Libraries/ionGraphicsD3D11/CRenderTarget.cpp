@@ -182,6 +182,11 @@ namespace ion
 				}
 			}
 
+			void CRenderTarget::InvalidateCurrentlyBound()
+			{
+				CurrentlyBound = nullptr;
+			}
+
 			CRenderTarget * CRenderTarget::CurrentlyBound = nullptr;
 
 		}

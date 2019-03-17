@@ -46,6 +46,8 @@ namespace ion
 				virtual void SetViewport(vec2i const & Min, vec2i const & Max);
 				virtual void ClearViewport();
 
+				static void InvalidateCurrentlyBound();
+
 				static CRenderTarget * CurrentlyBound;
 
 				ID3D11Device * Device = nullptr;
