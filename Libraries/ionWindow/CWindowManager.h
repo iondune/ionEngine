@@ -49,6 +49,7 @@ namespace ion
 
 		CWindow * CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync = EVsyncMode::Default);
 		CWindow * CreateWindowOnMonitor(int const Monitor, std::string const & Title, EVsyncMode const Vsync = EVsyncMode::Default);
+		CWindow * CreateGUIWindow(vec2i const & position, vec2i const & size, bool const noDecoration);
 
 		void CloseWindow(CWindow * Window);
 

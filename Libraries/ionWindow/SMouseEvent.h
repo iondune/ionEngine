@@ -13,10 +13,10 @@ namespace ion
 	{
 		enum class EButton
 		{
-			Left,
-			Right,
-			Middle,
-			Count
+			Left   = 0,
+			Right  = 1,
+			Middle = 2,
+			Count  = 3
 		};
 
 		enum class EType

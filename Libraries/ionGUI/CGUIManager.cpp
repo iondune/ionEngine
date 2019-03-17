@@ -29,13 +29,16 @@ namespace ion
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
+		ImGuiIO & io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
 		Success &= PlatformImplementation->Init(window);
 		Success &= RendererImplementation->Init(window, GraphicsImplementation);
 
 		AddListener(PlatformImplementation.Get());
 		AddListener(RendererImplementation.Get());
 
-		ImGuiIO & io = ImGui::GetIO();
 		io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
 
 		return Success;
@@ -54,26 +57,31 @@ namespace ion
 		PlatformImplementation->NewFrame();
 		RendererImplementation->NewFrame();
 
-		// Start the frame
 		ImGui::NewFrame();
 	}
 
-	void CGUIManager::Draw()
+	void CGUIManager::Draw(SharedPointer<Graphics::IRenderTarget> RenderTarget)
 	{
 		ImDrawList * DrawList = ImGui::GetBackgroundDrawList();
 
 		for (auto Text : TextQueue)
 		{
-			uint const Red         = Text.Color.Red;
-			uint const Green       = Text.Color.Green;
-			uint const Blue        = Text.Color.Blue;
-			vec2f const Position   = Text.Position;
+			uint  const Red        = Text.Color.Red;
+			uint  const Green      = Text.Color.Green;
+			uint  const Blue       = Text.Color.Blue;
+			vec2f const Position   = Text.Position + PlatformImplementation->PrimaryWindow->GetPosition();
 			DrawList->AddText(Position, (0xFF000000) | (Blue << 16) | (Green << 8) | (Red), Text.Text.c_str());
 		}
 		TextQueue.clear();
 
 		ImGui::Render();
 		RendererImplementation->Draw(ImGui::GetDrawData());
+
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+
+		// CurrentlyBound render target no longer accurate after imgui render code with multiple viewports
+		RenderTarget->Rebind();
 	}
 
 	void CGUIManager::TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text)

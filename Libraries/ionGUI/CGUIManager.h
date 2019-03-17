@@ -22,7 +22,7 @@ namespace ion
 		bool Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize = 18.f);
 		void Shutdown();
 		void NewFrame();
-		void Draw();
+		void Draw(SharedPointer<Graphics::IRenderTarget> RenderTarget);
 
 		ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 

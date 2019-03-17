@@ -17,6 +17,30 @@ namespace ion
 		ImGUIManager->PrimaryWindow->SetClipboardText(text);
 	}
 
+	struct ImGuiViewportData
+	{
+		CWindow * Window = nullptr;
+		bool WindowOwned = false;
+
+		ImGuiViewportData() = default;
+		~ImGuiViewportData() { IM_ASSERT(Window == nullptr); }
+	};
+
+	void   ImGui_ImplGlfw_CreateWindow(ImGuiViewport       * vp);
+	void   ImGui_ImplGlfw_DestroyWindow(ImGuiViewport      * vp);
+	void   ImGui_ImplGlfw_ShowWindow(ImGuiViewport         * vp);
+	void   ImGui_ImplGlfw_SetWindowPos(ImGuiViewport       * vp, ImVec2 pos);
+	ImVec2 ImGui_ImplGlfw_GetWindowPos(ImGuiViewport       * vp);
+	void   ImGui_ImplGlfw_SetWindowSize(ImGuiViewport      * vp, ImVec2 size);
+	ImVec2 ImGui_ImplGlfw_GetWindowSize(ImGuiViewport      * vp);
+	void   ImGui_ImplGlfw_SetWindowFocus(ImGuiViewport     * vp);
+	bool   ImGui_ImplGlfw_GetWindowFocus(ImGuiViewport     * vp);
+	bool   ImGui_ImplGlfw_GetWindowMinimized(ImGuiViewport * vp);
+	void   ImGui_ImplGlfw_SetWindowTitle(ImGuiViewport     * vp, const char * title);
+	void   ImGui_ImplGlfw_RenderWindow(ImGuiViewport       * vp, void * render_arg);
+	void   ImGui_ImplGlfw_SwapBuffers(ImGuiViewport        * vp, void * render_arg);
+	void   ImGui_ImplWin32_SetImeInputPos(ImGuiViewport    * vp, ImVec2 pos);
+
 	bool CGUIPlatform::Init(CWindow * window)
 	{
 		PrimaryWindow = window;
@@ -44,6 +68,38 @@ namespace ion
 		io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 
 		io.IniFilename = nullptr;
+
+
+		// Enable Viewports
+
+		io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
+
+		// Register platform interface (will be coupled with a renderer interface)
+		ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+		platform_io.Platform_CreateWindow       = ImGui_ImplGlfw_CreateWindow;
+		platform_io.Platform_DestroyWindow      = ImGui_ImplGlfw_DestroyWindow;
+		platform_io.Platform_ShowWindow         = ImGui_ImplGlfw_ShowWindow;
+		platform_io.Platform_SetWindowPos       = ImGui_ImplGlfw_SetWindowPos;
+		platform_io.Platform_GetWindowPos       = ImGui_ImplGlfw_GetWindowPos;
+		platform_io.Platform_SetWindowSize      = ImGui_ImplGlfw_SetWindowSize;
+		platform_io.Platform_GetWindowSize      = ImGui_ImplGlfw_GetWindowSize;
+		platform_io.Platform_SetWindowFocus     = ImGui_ImplGlfw_SetWindowFocus;
+		platform_io.Platform_GetWindowFocus     = ImGui_ImplGlfw_GetWindowFocus;
+		platform_io.Platform_GetWindowMinimized = ImGui_ImplGlfw_GetWindowMinimized;
+		platform_io.Platform_SetWindowTitle     = ImGui_ImplGlfw_SetWindowTitle;
+		platform_io.Platform_RenderWindow       = ImGui_ImplGlfw_RenderWindow;
+		platform_io.Platform_SwapBuffers        = ImGui_ImplGlfw_SwapBuffers;
+		platform_io.Platform_SetImeInputPos     = ImGui_ImplWin32_SetImeInputPos;
+
+		UpdateMonitors();
+
+
+		ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+		ImGuiViewportData * data = new ImGuiViewportData();
+		data->Window      = PrimaryWindow;
+		data->WindowOwned = false;
+		main_viewport->PlatformUserData = data;
+		main_viewport->PlatformHandle   = static_cast<void *>(PrimaryWindow);
 
 		return true;
 	}
@@ -134,13 +190,49 @@ namespace ion
 			SCharacterEvent CharacterEvent = As<SCharacterEvent>(Event);
 
 			if (CharacterEvent.C > 0 && CharacterEvent.C < 0x10000)
+			{
 				io.AddInputCharacter(CharacterEvent.C);
+			}
+		}
+		else if (InstanceOf<SWindowClosedEvent>(Event))
+		{
+			SWindowClosedEvent WindowEvent = As<SWindowClosedEvent>(Event);
+
+			if (ImGuiViewport * viewport = ImGui::FindViewportByPlatformHandle(WindowEvent.Window))
+			{
+				viewport->PlatformRequestClose = true;
+			}
+		}
+		else if (InstanceOf<SWindowMovedEvent>(Event))
+		{
+			SWindowMovedEvent WindowEvent = As<SWindowMovedEvent>(Event);
+
+			if (ImGuiViewport * viewport = ImGui::FindViewportByPlatformHandle(WindowEvent.Window))
+			{
+				viewport->PlatformRequestMove = true;
+			}
+		}
+		else if (InstanceOf<SWindowResizedEvent>(Event))
+		{
+			SWindowResizedEvent WindowEvent = As<SWindowResizedEvent>(Event);
+
+			if (ImGuiViewport * viewport = ImGui::FindViewportByPlatformHandle(WindowEvent.Window))
+			{
+				viewport->PlatformRequestResize = true;
+			}
 		}
 	}
 
 	void CGUIPlatform::UpdateMousePosAndButtons()
 	{
+		SingletonPointer<CWindowManager> windowManager;
+
 		ImGuiIO & io = ImGui::GetIO();
+
+		if (io.WantSetMousePos)
+		{
+			Log::Info("imgui attempting to set mouse position.");
+		}
 
 		// Update buttons
 		for (int i = 0; i < 3; i++)
@@ -150,16 +242,21 @@ namespace ion
 			MouseWasPressed[i] = false;
 		}
 
+		vector<ion::CWindow *> windows;
+		windows.push_back(windowManager->GetPrimaryWindow());
+
+		AddAtEnd(windows, ViewportWindows);
+
 		// Update mouse position
 		// (we already got mouse wheel, keyboard keys & characters from glfw callbacks polled in glfwPollEvents())
-		if (Window->IsFocused())
+		io.MousePos = ImVec2(-1, -1);
+		for (auto window : windows)
 		{
-			// Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.)
-			io.MousePos = Window->GetCursorLocation();
-		}
-		else
-		{
-			io.MousePos = ImVec2(-1, -1);
+			if (window->IsFocused())
+			{
+				// Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.)
+				io.MousePos = window->GetCursorLocation() + window->GetPosition();
+			}
 		}
 
 		io.MouseWheel = MouseWheel;
@@ -170,6 +267,22 @@ namespace ion
 	{
 	}
 
+	void CGUIPlatform::UpdateMonitors()
+	{
+		SingletonPointer<CWindowManager> windowManager;
+
+		ImGuiPlatformIO & platformIO = ImGui::GetPlatformIO();
+
+		platformIO.Monitors.clear();
+		for (SMonitorInfo const & info : windowManager->GetMonitors())
+		{
+			ImGuiPlatformMonitor monitor;
+			monitor.MainPos  = monitor.WorkPos  = vec2f(info.Position);
+			monitor.MainSize = monitor.WorkSize = vec2f(info.Size);
+			platformIO.Monitors.push_back(monitor);
+		}
+	}
+
 	CGUIPlatform::CGUIPlatform()
 	{
 		for (int i = 0; i < 3; ++ i)
@@ -177,6 +290,120 @@ namespace ion
 			MouseWasPressed[i] = false;
 			MouseHeld[i] = false;
 		}
+	}
+
+
+
+	///////////////
+	// Viewports //
+	///////////////
+
+	void ImGui_ImplGlfw_CreateWindow(ImGuiViewport * viewport)
+	{
+		SingletonPointer<CGUIPlatform> platformManager;
+		SingletonPointer<CWindowManager> windowManager;
+
+		ImGuiViewportData* data = new ImGuiViewportData();
+		viewport->PlatformUserData = data;
+
+		data->Window = windowManager->CreateGUIWindow(
+			vec2f(viewport->Pos),
+			vec2f(viewport->Size),
+			(viewport->Flags & ImGuiViewportFlags_NoDecoration));
+		data->WindowOwned = true;
+		viewport->PlatformHandle = (void *) data->Window;
+
+		data->Window->AddListener(platformManager.Get());
+		platformManager->ViewportWindows.push_back(data->Window);
+	}
+
+	void ImGui_ImplGlfw_DestroyWindow(ImGuiViewport * viewport)
+	{
+		SingletonPointer<CGUIPlatform> platformManager;
+		SingletonPointer<CWindowManager> windowManager;
+
+		if (ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData)
+		{
+			EraseRemove(platformManager->ViewportWindows, data->Window);
+
+			if (data->WindowOwned)
+			{
+				windowManager->CloseWindow(data->Window);
+			}
+			data->Window = nullptr;
+			delete data;
+		}
+
+		viewport->PlatformUserData = viewport->PlatformHandle = nullptr;
+	}
+
+	void ImGui_ImplGlfw_ShowWindow(ImGuiViewport * viewport)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		data->Window->Show();
+	}
+
+	void ImGui_ImplGlfw_SetWindowPos(ImGuiViewport * viewport, ImVec2 pos)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->SetPosition(vec2f(pos));
+	}
+
+	ImVec2 ImGui_ImplGlfw_GetWindowPos(ImGuiViewport * viewport)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->GetPosition();
+	}
+
+	void ImGui_ImplGlfw_SetWindowSize(ImGuiViewport * viewport, ImVec2 size)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->SetSize(vec2f(size));
+	}
+
+	ImVec2 ImGui_ImplGlfw_GetWindowSize(ImGuiViewport * viewport)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->GetSize();
+	}
+
+	void ImGui_ImplGlfw_SetWindowFocus(ImGuiViewport * viewport)
+	{
+		// Do nothing?
+		Log::Info("GLFW attempting to set window focus.");
+	}
+
+	bool ImGui_ImplGlfw_GetWindowFocus(ImGuiViewport * viewport)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->IsFocused();
+	}
+
+	bool ImGui_ImplGlfw_GetWindowMinimized(ImGuiViewport * viewport)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->IsMinimized();
+	}
+
+	void ImGui_ImplGlfw_SetWindowTitle(ImGuiViewport * viewport, const char* title)
+	{
+		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
+		return data->Window->SetTitle(title);
+	}
+
+	void ImGui_ImplGlfw_RenderWindow(ImGuiViewport * viewport, void* render_arg)
+	{
+		// Do nothing
+	}
+
+	void ImGui_ImplGlfw_SwapBuffers(ImGuiViewport * viewport, void* render_arg)
+	{
+		// Do nothing
+	}
+
+	void ImGui_ImplWin32_SetImeInputPos(ImGuiViewport * viewport, ImVec2 pos)
+	{
+		// TODO ??
 	}
 
 }

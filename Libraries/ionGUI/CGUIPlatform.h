@@ -22,16 +22,20 @@ namespace ion
 
 		void OnEvent(IEvent & Event);
 
+		CWindow * PrimaryWindow = nullptr;
+
 	protected:
 
 		void UpdateMousePosAndButtons();
 		void UpdateMouseCursor();
+		void UpdateMonitors();
 
-		CWindow * PrimaryWindow = nullptr;
 		double Time = 0;
 		bool MouseWasPressed[3];
 		bool MouseHeld[3];
 		float MouseWheel = 0;
+
+		vector<ion::CWindow *> ViewportWindows;
 
 	private:
 
@@ -40,6 +44,9 @@ namespace ion
 
 		friend char const * ImGui_ImplGlfwGL3_GetClipboardText(void * user_data);
 		friend void ImGui_ImplGlfwGL3_SetClipboardText(void * user_data, char const * text);
+
+		friend void ImGui_ImplGlfw_CreateWindow(ImGuiViewport * viewport);
+		friend void ImGui_ImplGlfw_DestroyWindow(ImGuiViewport * viewport);
 
 	};
 

@@ -116,6 +116,39 @@ namespace ion
 		return Window;
 	}
 
+	CWindow * CWindowManager::CreateGUIWindow(vec2i const & position, vec2i const & size, bool const noDecoration)
+	{
+		if (nullptr == GraphicsAPI)
+		{
+			Log::Error("Using WindowManager before initialization!");
+			return nullptr;
+		}
+
+		glfwWindowHint(GLFW_VISIBLE, false);
+		glfwWindowHint(GLFW_FOCUSED, false);
+		glfwWindowHint(GLFW_DECORATED, ! noDecoration);
+
+		GLFWwindow * WindowHandle = glfwCreateWindow(size.X, size.Y, "No Title Yet", nullptr, nullptr);
+		glfwSetWindowPos(WindowHandle, position.X, position.Y);
+
+		// Install callbacks for secondary viewports
+		glfwSetMouseButtonCallback(WindowHandle, MouseButtonCallback);
+		glfwSetCursorPosCallback(WindowHandle,   MouseCursorCallback); // reference platform have this?
+		glfwSetScrollCallback(WindowHandle,      MouseScrollCallback);
+		glfwSetKeyCallback(WindowHandle,         KeyCallback);
+		glfwSetCharCallback(WindowHandle,        CharCallback);
+		glfwSetWindowCloseCallback(WindowHandle, WindowCloseCallback);
+		glfwSetWindowPosCallback(WindowHandle,   WindowPosCallback);
+		glfwSetWindowSizeCallback(WindowHandle,  WindowSizeCallback);
+
+		CWindow * Window = new CWindow(WindowHandle);
+		Window->GraphicsAPI = GraphicsAPI;
+		Window->AddListener(this);
+		Windows[WindowHandle] = Window;
+
+		return Window;
+	}
+
 	void CWindowManager::CloseWindow(CWindow * Window)
 	{
 		Windows.erase(Window->GetHandle());
