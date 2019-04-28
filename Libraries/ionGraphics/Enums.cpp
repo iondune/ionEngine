@@ -24,17 +24,17 @@ namespace ion
 			case EValueType::Double:
 				return sizeof(double);
 			case EValueType::SignedInt8:
-				return sizeof(Int8);
+				return sizeof(int8);
 			case EValueType::SignedInt16:
-				return sizeof(Int16);
+				return sizeof(int16);
 			case EValueType::SignedInt32:
-				return sizeof(Int32);
+				return sizeof(int32);
 			case EValueType::UnsignedInt8:
-				return sizeof(Uint8);
+				return sizeof(uint8);
 			case EValueType::UnsignedInt16:
-				return sizeof(Uint16);
+				return sizeof(uint16);
 			case EValueType::UnsignedInt32:
-				return sizeof(Uint32);
+				return sizeof(uint32);
 			default:
 				return 0;
 			}
@@ -82,17 +82,17 @@ namespace ion
 			case EScalarType::Double:
 				return sizeof(double);
 			case EScalarType::SignedInt8:
-				return sizeof(Int8);
+				return sizeof(int8);
 			case EScalarType::SignedInt16:
-				return sizeof(Int16);
+				return sizeof(int16);
 			case EScalarType::SignedInt32:
-				return sizeof(Int32);
+				return sizeof(int32);
 			case EScalarType::UnsignedInt8:
-				return sizeof(Uint8);
+				return sizeof(uint8);
 			case EScalarType::UnsignedInt16:
-				return sizeof(Uint16);
+				return sizeof(uint16);
 			case EScalarType::UnsignedInt32:
-				return sizeof(Uint32);
+				return sizeof(uint32);
 			default:
 				return 0;
 			}

@@ -3,6 +3,8 @@
 
 #include <ionCore.h>
 
+#include "SBoundingBox3.h"
+
 
 namespace ion
 {
