@@ -476,7 +476,10 @@ namespace ion
 					Shader->VertexStage->CompileBlob->GetBufferPointer(),
 					(SIZE_T) Shader->VertexStage->CompileBlob->GetBufferSize(),
 					& InputLayout) );
-				InputLayout->SetPrivateData(WKPDID_D3DDebugObjectName, 25, "PSO-Created.InputLayout");
+				if (InputLayout)
+				{
+					InputLayout->SetPrivateData(WKPDID_D3DDebugObjectName, 25, "PSO-Created.InputLayout");
+				}
 
 				Loaded = true;
 			}
