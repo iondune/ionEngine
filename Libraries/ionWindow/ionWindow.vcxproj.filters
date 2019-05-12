@@ -9,6 +9,7 @@
     </ClCompile>
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CGamePad.cpp" />
+    <ClCompile Include="ionOS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CWindow.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="SWindowEvents.h">
       <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="ionOS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Events">

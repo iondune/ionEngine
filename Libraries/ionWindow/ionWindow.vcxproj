@@ -24,6 +24,7 @@
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="CWindowManager.Callbacks.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
+    <ClCompile Include="ionOS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGamePad.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="EKey.h" />
+    <ClInclude Include="ionOS.h" />
     <ClInclude Include="ionWindow.h" />
     <ClInclude Include="SFileDroppedEvent.h" />
     <ClInclude Include="SKeyboardEvent.h" />
