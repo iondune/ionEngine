@@ -603,9 +603,41 @@ namespace ion
 							}
 
 							case EUniformType::Float3Array:
-							case EUniformType::Matrix4x4Array:
-								Log::Error("Unsupported uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));
+							{
+								vector<float> CompactedData;
+								for (auto const & Vector : *static_cast<vector<vec3f> const *>(Uniform->GetData()))
+								{
+									CompactedData.push_back(Vector.X);
+									CompactedData.push_back(Vector.Y);
+									CompactedData.push_back(Vector.Z);
+								}
+								std::memcpy(
+									Address,
+									CompactedData.data(),
+									CompactedData.size() * sizeof(float));
+
 								break;
+							}
+
+							case EUniformType::Matrix4x4Array:
+							{
+								auto matrices = *static_cast<vector<glm::mat4> const *>(Uniform->GetData());
+
+								vector<float> compactedData;
+								compactedData.resize(matrices.size() * 16);
+
+								int i = 0;
+								for (glm::mat4 const & matrix : matrices)
+								{
+									std::memcpy(
+										Address + sizeof(float) * 16 * i,
+										glm::value_ptr(* static_cast<glm::mat4 const *>(Uniform->GetData())),
+										sizeof(float) * 16);
+									++ i;
+								}
+
+								break;
+							}
 
 							default:
 								Log::Error("Unexpected uniform type during uniform binding: '%s'", GetUniformTypeString(Uniform->GetType()));

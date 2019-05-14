@@ -337,7 +337,10 @@ namespace ion
 							Uniform.Name = Name + "[" + std::to_string(j) + "]";
 							Uniforms.push_back(Uniform);
 
-							ArrayOffset += 4;
+							if (TypeDesc.Class == D3D_SVC_MATRIX_COLUMNS)
+								ArrayOffset += sizeof(float) * TypeDesc.Columns * TypeDesc.Rows;
+							else
+								ArrayOffset += 4;
 						}
 					}
 					else
