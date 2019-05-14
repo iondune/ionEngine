@@ -7,6 +7,8 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
+#include "imgui_impl_dx11.h"
+
 
 namespace ion
 {
@@ -19,8 +21,27 @@ namespace ion
 
 	ImTextureID CGUIManager::GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture)
 	{
-		SharedPointer<Graphics::D3D11::CTexture2D const> TextureImplementation = std::dynamic_pointer_cast<Graphics::D3D11::CTexture2D const>(Texture);
-		return  (void *) TextureImplementation->ShaderResourceView;
+		static std::unordered_map<Graphics::ITexture2D *, GuiTextureState *> textureCache;
+
+		GuiTextureState * state = nullptr;
+
+		auto it = textureCache.find(Texture.get());
+
+		if (it == textureCache.end())
+		{
+			SharedPointer<Graphics::D3D11::CTexture2D const> TextureImplementation = std::dynamic_pointer_cast<Graphics::D3D11::CTexture2D const>(Texture);
+
+			state = new GuiTextureState();
+			state->ShaderResourceView = TextureImplementation->ShaderResourceView;
+			state->SamplerState = TextureImplementation->SamplerState;
+			textureCache[Texture.get()] = state;
+		}
+		else
+		{
+			state = it->second;
+		}
+
+		return state;
 	}
 
 	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)

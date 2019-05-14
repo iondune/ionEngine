@@ -199,7 +199,6 @@ void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data)
     ctx->VSSetShader(g_pVertexShader, NULL, 0);
     ctx->VSSetConstantBuffers(0, 1, &g_pVertexConstantBuffer);
     ctx->PSSetShader(g_pPixelShader, NULL, 0);
-    ctx->PSSetSamplers(0, 1, &g_pFontSampler);
 
     // Setup render state
     const float blend_factor[4] = { 0.f, 0.f, 0.f, 0.f };
@@ -229,9 +228,10 @@ void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data)
                 ctx->RSSetScissorRects(1, &r);
 
                 // Bind texture, Draw
-                ID3D11ShaderResourceView* texture_srv = (ID3D11ShaderResourceView*)pcmd->TextureId;
-                ctx->PSSetShaderResources(0, 1, &texture_srv);
-                ctx->DrawIndexed(pcmd->ElemCount, idx_offset, vtx_offset);
+				GuiTextureState* textureState = (GuiTextureState*)pcmd->TextureId;
+                ctx->PSSetShaderResources(0, 1, &textureState->ShaderResourceView);
+				ctx->PSSetSamplers(0, 1, &textureState->SamplerState);
+				ctx->DrawIndexed(pcmd->ElemCount, idx_offset, vtx_offset);
             }
             idx_offset += pcmd->ElemCount;
         }
@@ -297,9 +297,6 @@ static void ImGui_ImplDX11_CreateFontsTexture()
         pTexture->Release();
     }
 
-    // Store our identifier
-    io.Fonts->TexID = (ImTextureID)g_pFontTextureView;
-
     // Create texture sampler
     {
         D3D11_SAMPLER_DESC desc;
@@ -314,6 +311,13 @@ static void ImGui_ImplDX11_CreateFontsTexture()
         desc.MaxLOD = 0.f;
         g_pd3dDevice->CreateSamplerState(&desc, &g_pFontSampler);
     }
+
+	GuiTextureState * state = new GuiTextureState();
+	state->ShaderResourceView = g_pFontTextureView;
+	state->SamplerState = g_pFontSampler;
+
+	// Store our identifier
+	io.Fonts->TexID = (ImTextureID) state;
 }
 
 bool    ImGui_ImplDX11_CreateDeviceObjects()
