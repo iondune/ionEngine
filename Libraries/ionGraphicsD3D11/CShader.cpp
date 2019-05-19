@@ -268,6 +268,25 @@ namespace ion
 				}
 			}
 
+			int GetD3DVariableTypeWidth(D3D_SHADER_VARIABLE_TYPE const type)
+			{
+				switch (type)
+				{
+				case D3D_SVT_FLOAT:
+				case D3D_SVT_INT:
+				case D3D_SVT_UINT:
+					return 4;
+				case D3D_SVT_DOUBLE:
+					return 8;
+				case D3D_SVT_BOOL:
+				case D3D_SVT_UINT8:
+					return 1;
+				default:
+					Log::Error("Constant buffer variable type unexpected (%d) assuming 4 bytes.", static_cast<int>(type));
+					return 4;
+				}
+			}
+
 			void CShader::ReflectConstantBufferVariables(vector<SUniform> & Uniforms, ID3D11ShaderReflectionType * Type, string const & Name, int const Offset)
 			{
 				D3D11_SHADER_TYPE_DESC TypeDesc;
@@ -337,10 +356,15 @@ namespace ion
 							Uniform.Name = Name + "[" + std::to_string(j) + "]";
 							Uniforms.push_back(Uniform);
 
+							// https://docs.microsoft.com/en-us/windows/desktop/direct3dhlsl/dx-graphics-hlsl-packing-rules
+							// Arrays are not packed in HLSL by default. ... every element in an array is stored in a four-component vector.
+
 							if (TypeDesc.Class == D3D_SVC_MATRIX_COLUMNS)
-								ArrayOffset += sizeof(float) * TypeDesc.Columns * TypeDesc.Rows;
+								ArrayOffset += RoundUp(GetD3DVariableTypeWidth(TypeDesc.Type) * TypeDesc.Columns * TypeDesc.Rows, 16);
+							else if (TypeDesc.Class == D3D_SVC_VECTOR)
+								ArrayOffset += RoundUp(GetD3DVariableTypeWidth(TypeDesc.Type) * TypeDesc.Columns, 16);
 							else
-								ArrayOffset += 4;
+								ArrayOffset += RoundUp(GetD3DVariableTypeWidth(TypeDesc.Type), 16);
 						}
 					}
 					else
