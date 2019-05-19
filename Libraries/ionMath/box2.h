@@ -58,6 +58,16 @@ namespace ion
 			Max.X = Maximum(Max.X, Point.X);
 			Max.Y = Maximum(Max.Y, Point.Y);
 		}
+
+		bool Intersects(box2<T> const & r) const
+		{
+			return
+				Max.Y >= r.Min.Y &&
+				Min.Y <= r.Max.Y &&
+				Max.X >= r.Min.X &&
+				Min.X <= r.Max.X;
+		}
+
 	};
 
 	typedef box2<float> box2f;
