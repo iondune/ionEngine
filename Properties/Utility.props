@@ -5,7 +5,7 @@
 
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
 
   <ImportGroup Label="PropertySheets">
