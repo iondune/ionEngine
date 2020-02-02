@@ -19,7 +19,7 @@ namespace ion
 			return;
 		}
 
-		ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiSetCond_Once);
+		ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Once);
 		if (ImGui::Begin("ionEngine"))
 		{
 			for (IControlComponent * component : Components)
