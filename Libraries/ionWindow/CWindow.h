@@ -40,7 +40,7 @@ namespace ion
 		bool IsKeyDown(EKey const Key);
 		bool IsMouseDown(SMouseEvent::EButton const Button);
 
-		vec2f const & GetCursorLocation() const;
+		vec2f GetCursorLocation() const;
 		void SetCursorLocation(vec2f const & position);
 		void SetCursorVisible(bool const Visible);
 

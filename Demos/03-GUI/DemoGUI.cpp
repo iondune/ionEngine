@@ -33,7 +33,7 @@ int main()
 
 		GUIManager->NewFrame();
 		{
-			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
+			ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 			ImGui::ShowDemoWindow();
 		}
 		GUIManager->Text(vec2i(100, 100), Color::Basic::White,   "Hello, world!");

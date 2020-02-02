@@ -85,9 +85,11 @@ namespace ion
 		return MouseStates[(int) Button];
 	}
 
-	vec2f const & CWindow::GetCursorLocation() const
+	vec2f CWindow::GetCursorLocation() const
 	{
-		return CursorLocation;
+		double x, y;
+		glfwGetCursorPos(WindowHandle, &x, &y);
+		return vec2d(x, y);
 	}
 
 	void CWindow::SetCursorLocation(vec2f const & position)
