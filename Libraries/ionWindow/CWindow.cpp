@@ -94,8 +94,7 @@ namespace ion
 
 	void CWindow::SetCursorLocation(vec2f const & position)
 	{
-		CursorLocation = vec2f(position.X, position.Y);
-		glfwSetCursorPos(WindowHandle, CursorLocation.X, CursorLocation.Y);
+		glfwSetCursorPos(WindowHandle, position.X, position.Y);
 	}
 
 	void CWindow::SetCursorVisible(bool const Visible)
@@ -112,13 +111,13 @@ namespace ion
 
 	vec2f CWindow::GetRelativeCursorLocation() const
 	{
-		return CursorLocation / vec2f(Size);
+		vec2f cursorLocation = GetCursorLocation();
+		return cursorLocation / vec2f(Size);
 	}
 
 	void CWindow::SetRelativeCursorLocation(vec2f const & position)
 	{
-		CursorLocation = vec2f(position.X * Size.X, position.Y * Size.Y);
-		glfwSetCursorPos(WindowHandle, CursorLocation.X, CursorLocation.Y);
+		glfwSetCursorPos(WindowHandle, position.X * Size.X, position.Y * Size.Y);
 	}
 
 	CWindow::CWindow(GLFWwindow * windowHandle)

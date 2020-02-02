@@ -48,7 +48,7 @@ namespace ion
 			SMouseEvent MouseEvent;
 			MouseEvent.Window = Window;
 			MouseEvent.Type = SMouseEvent::EType::Click;
-			MouseEvent.Location = Window->CursorLocation;
+			MouseEvent.Location = Window->GetCursorLocation();
 			MouseEvent.Pressed = action == GLFW_PRESS;
 
 			switch (button)
@@ -102,8 +102,8 @@ namespace ion
 			MouseEvent.Type = SMouseEvent::EType::Move;
 			MouseEvent.Location = vec2d(xpos, ypos);
 
-			MouseEvent.Movement = MouseEvent.Location - Window->CursorLocation;
-			Window->CursorLocation = MouseEvent.Location;
+			MouseEvent.Movement = MouseEvent.Location - Window->LastCursorLocation;
+			Window->LastCursorLocation = MouseEvent.Location;
 
 			Window->TriggerEvent(MouseEvent);
 		}

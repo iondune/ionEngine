@@ -65,7 +65,7 @@ namespace ion
 
 		bool KeyStates[(int) EKey::Count];
 		bool MouseStates[(int) SMouseEvent::EButton::Count];
-		vec2f CursorLocation;
+		vec2f LastCursorLocation;
 
 		vec2i Size;
 		vec2i FrameBufferSize;
