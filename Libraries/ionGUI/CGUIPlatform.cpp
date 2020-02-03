@@ -46,17 +46,18 @@ namespace ion
 		PrimaryWindow = window;
 
 		ImGuiIO & io = ImGui::GetIO();
-		io.KeyMap[ImGuiKey_Tab]        = (int) EKey::Tab;
-		io.KeyMap[ImGuiKey_LeftArrow]  = (int) EKey::Left;
-		io.KeyMap[ImGuiKey_RightArrow] = (int) EKey::Right;
-		io.KeyMap[ImGuiKey_UpArrow]    = (int) EKey::Up;
-		io.KeyMap[ImGuiKey_DownArrow]  = (int) EKey::Down;
-		io.KeyMap[ImGuiKey_Home]       = (int) EKey::Home;
-		io.KeyMap[ImGuiKey_End]        = (int) EKey::End;
-		io.KeyMap[ImGuiKey_Delete]     = (int) EKey::Delete;
-		io.KeyMap[ImGuiKey_Backspace]  = (int) EKey::Backspace;
-		io.KeyMap[ImGuiKey_Enter]      = (int) EKey::Enter;
-		io.KeyMap[ImGuiKey_Escape]     = (int) EKey::Escape;
+		io.KeyMap[ImGuiKey_Tab]         = (int) EKey::Tab;
+		io.KeyMap[ImGuiKey_LeftArrow]   = (int) EKey::Left;
+		io.KeyMap[ImGuiKey_RightArrow]  = (int) EKey::Right;
+		io.KeyMap[ImGuiKey_UpArrow]     = (int) EKey::Up;
+		io.KeyMap[ImGuiKey_DownArrow]   = (int) EKey::Down;
+		io.KeyMap[ImGuiKey_Home]        = (int) EKey::Home;
+		io.KeyMap[ImGuiKey_End]         = (int) EKey::End;
+		io.KeyMap[ImGuiKey_Delete]      = (int) EKey::Delete;
+		io.KeyMap[ImGuiKey_Backspace]   = (int) EKey::Backspace;
+		io.KeyMap[ImGuiKey_Enter]       = (int) EKey::Enter;
+		io.KeyMap[ImGuiKey_KeyPadEnter] = (int) EKey::KeyPadEnter;
+		io.KeyMap[ImGuiKey_Escape]      = (int) EKey::Escape;
 		io.KeyMap[ImGuiKey_A] = (int) EKey::A;
 		io.KeyMap[ImGuiKey_C] = (int) EKey::C;
 		io.KeyMap[ImGuiKey_V] = (int) EKey::V;
@@ -120,7 +121,10 @@ namespace ion
 		int const display_w = PrimaryWindow->GetFrameBufferSize().X;
 		int const display_h = PrimaryWindow->GetFrameBufferSize().Y;
 		io.DisplaySize             = vec2f(PrimaryWindow->GetSize());
-		io.DisplayFramebufferScale = vec2f(w > 0 ? ((float) display_w / w) : 0, h > 0 ? ((float) display_h / h) : 0);
+		if (w > 0 && h > 0)
+		{
+			io.DisplayFramebufferScale = vec2f((float)display_w / w, (float)display_h / h);
+		}
 
 		// Setup time step
 		double current_time = TimeManager->GetRunTime();
@@ -145,14 +149,6 @@ namespace ion
 			}
 
 			io.KeysDown[(int) KeyboardEvent.Key] = KeyboardEvent.Pressed;
-
-			// Hack/workaround to make KP enter work like enter
-			// Will cause problems if regular Enter and KP Enter are pressed simultaneously
-			// Don't do that
-			if (KeyboardEvent.Key == EKey::KeyPadEnter)
-			{
-				io.KeysDown[(int) EKey::Enter] = KeyboardEvent.Pressed;
-			}
 
 			io.KeyCtrl  = PrimaryWindow->IsKeyDown(EKey::LeftControl) || PrimaryWindow->IsKeyDown(EKey::RightControl);
 			io.KeyShift = PrimaryWindow->IsKeyDown(EKey::LeftShift)   || PrimaryWindow->IsKeyDown(EKey::RightShift);
@@ -188,11 +184,7 @@ namespace ion
 		else if (InstanceOf<SCharacterEvent>(Event))
 		{
 			SCharacterEvent CharacterEvent = As<SCharacterEvent>(Event);
-
-			if (CharacterEvent.C > 0 && CharacterEvent.C < 0x10000)
-			{
-				io.AddInputCharacter(CharacterEvent.C);
-			}
+			io.AddInputCharacter(CharacterEvent.C);
 		}
 		else if (InstanceOf<SWindowClosedEvent>(Event))
 		{
@@ -249,7 +241,7 @@ namespace ion
 
 		// Update mouse position
 		// (we already got mouse wheel, keyboard keys & characters from glfw callbacks polled in glfwPollEvents())
-		io.MousePos = ImVec2(-1, -1);
+		io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);
 		for (auto window : windows)
 		{
 			if (window->IsFocused())
@@ -277,8 +269,10 @@ namespace ion
 		for (SMonitorInfo const & info : windowManager->GetMonitors())
 		{
 			ImGuiPlatformMonitor monitor;
-			monitor.MainPos  = monitor.WorkPos  = vec2f(info.Position);
-			monitor.MainSize = monitor.WorkSize = vec2f(info.Size);
+			monitor.MainPos  = vec2f(info.Position);
+			monitor.MainSize = vec2f(info.Size);
+			monitor.WorkPos  = vec2f(info.WorkPosition);
+			monitor.WorkSize = vec2f(info.WorkSize);
 			platformIO.Monitors.push_back(monitor);
 		}
 	}

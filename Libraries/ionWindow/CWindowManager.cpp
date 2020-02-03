@@ -127,6 +127,7 @@ namespace ion
 		glfwWindowHint(GLFW_VISIBLE, false);
 		glfwWindowHint(GLFW_FOCUSED, false);
 		glfwWindowHint(GLFW_DECORATED, ! noDecoration);
+		glfwWindowHint(GLFW_FOCUS_ON_SHOW, false);
 
 		GLFWwindow * WindowHandle = glfwCreateWindow(size.X, size.Y, "No Title Yet", nullptr, nullptr);
 		glfwSetWindowPos(WindowHandle, position.X, position.Y);
@@ -194,6 +195,8 @@ namespace ion
 			glfwGetMonitorPos(monitors[i], & info.Position.X, & info.Position.Y);
 			GLFWvidmode const * videoMode = glfwGetVideoMode(monitors[i]);
 			info.Size = vec2i(videoMode->width, videoMode->height);
+
+			glfwGetMonitorWorkarea(monitors[i], &info.WorkPosition.X, &info.WorkPosition.Y, &info.WorkSize.X, &info.WorkSize.Y);
 
 			returnValue.push_back(info);
 		}

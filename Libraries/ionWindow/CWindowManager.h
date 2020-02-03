@@ -31,6 +31,9 @@ namespace ion
 	{
 		vec2i Position;
 		vec2i Size;
+
+		vec2i WorkPosition;
+		vec2i WorkSize;
 	};
 
 	class CWindowManager : public Singleton<CWindowManager>, public IEventListener

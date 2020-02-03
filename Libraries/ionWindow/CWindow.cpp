@@ -37,12 +37,7 @@ namespace ion
 
 	void CWindow::Show()
 	{
-		// GLFW hack: Hide icon from task bar
-		HWND hwnd = glfwGetWin32Window(WindowHandle);
-
-		::ShowWindow(hwnd, SW_SHOWNA);
-
-		//glfwShowWindow(WindowHandle);
+		glfwShowWindow(WindowHandle);
 	}
 
 	void CWindow::SetTitle(std::string const & title)
