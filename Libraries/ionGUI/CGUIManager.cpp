@@ -44,7 +44,7 @@ namespace ion
 		return state;
 	}
 
-	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize)
+	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize, char const* const iniFileName)
 	{
 		bool Success = true;
 		
@@ -56,7 +56,7 @@ namespace ion
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-		Success &= PlatformImplementation->Init(window);
+		Success &= PlatformImplementation->Init(window, iniFileName);
 		Success &= RendererImplementation->Init(window, GraphicsImplementation);
 
 		AddListener(PlatformImplementation.Get());

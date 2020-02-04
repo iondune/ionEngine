@@ -16,7 +16,7 @@ namespace ion
 
 	public:
 
-		bool Init(CWindow * Window);
+		bool Init(CWindow * Window, char const * const iniFileName = nullptr);
 		void Shutdown();
 		void NewFrame();
 

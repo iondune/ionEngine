@@ -41,7 +41,7 @@ namespace ion
 	void   ImGui_ImplGlfw_SwapBuffers(ImGuiViewport        * vp, void * render_arg);
 	void   ImGui_ImplWin32_SetImeInputPos(ImGuiViewport    * vp, ImVec2 pos);
 
-	bool CGUIPlatform::Init(CWindow * window)
+	bool CGUIPlatform::Init(CWindow * window, char const* const iniFileName)
 	{
 		PrimaryWindow = window;
 
@@ -68,7 +68,7 @@ namespace ion
 		io.SetClipboardTextFn = ImGui_ImplGlfwGL3_SetClipboardText;
 		io.GetClipboardTextFn = ImGui_ImplGlfwGL3_GetClipboardText;
 
-		io.IniFilename = nullptr;
+		io.IniFilename = iniFileName;
 
 
 		// Enable Viewports

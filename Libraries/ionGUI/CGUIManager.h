@@ -19,7 +19,7 @@ namespace ion
 
 	public:
 
-		bool Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize = 18.f);
+		bool Init(CWindow * Window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize = 18.f, char const* const iniFileName = nullptr);
 		void Shutdown();
 		void NewFrame();
 		void Draw();
