@@ -302,7 +302,10 @@ namespace ion
 				Box.front = 0;
 				Box.back = 1;
 
-				ImmediateContext->UpdateSubresource(Texture2D, 0, & Box, Data, RowPitch, DepthPitch);
+				if (Texture2D)
+				{
+					ImmediateContext->UpdateSubresource(Texture2D, 0, & Box, Data, RowPitch, DepthPitch);
+				}
 
 				if (MipMaps)
 				{
