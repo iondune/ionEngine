@@ -33,8 +33,12 @@ namespace ion
 			KeyEvent.Key = ConvertGLFWKeyCode(key);
 			KeyEvent.Modifiers = mods;
 
-			Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
-			Window->TriggerEvent(KeyEvent);
+			// Block "Unknown" key presses (e.g. volume up/down)
+			if (KeyEvent.Key != EKey::Unknown)
+			{
+				Window->KeyStates[(int) KeyEvent.Key] = KeyEvent.Pressed;
+				Window->TriggerEvent(KeyEvent);
+			}
 		}
 	}
 
