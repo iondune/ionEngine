@@ -236,6 +236,23 @@ namespace ImGui
 		return false;
 	}
 
+	void TextBool(const char* label, const bool value)
+	{
+		static constexpr float high = 1.f;
+		static constexpr float low = 0.6f;
+
+		ImGui::TextUnformatted(label);
+		ImGui::SameLine();
+		if (value)
+		{
+			ImGui::TextColored(ImVec4(low,high,low,1.0f), "true");
+		}
+		else
+		{
+			ImGui::TextColored(ImVec4(high,low,low,1.0f), "false");
+		}
+	}
+
 	scoped_id::scoped_id(char const * const str_id)
 	{
 		ImGui::PushID(str_id);

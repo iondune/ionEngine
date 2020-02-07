@@ -36,6 +36,7 @@ namespace ImGui
 
 	bool InputText(const char* label, ion::string & buf, ImGuiInputTextFlags flags = 0, ImGuiTextEditCallback callback = nullptr, void* user_data = nullptr);
 
+	void TextBool(const char* label, const bool value);
 
 	template <typename... Args>
 	static void PushIDString(char const * const Format, Args const &... args)
