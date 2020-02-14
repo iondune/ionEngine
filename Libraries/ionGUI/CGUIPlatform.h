@@ -23,6 +23,7 @@ namespace ion
 		void OnEvent(IEvent & Event);
 
 		CWindow * PrimaryWindow = nullptr;
+		bool IsMouseCaptured = false;
 
 	protected:
 

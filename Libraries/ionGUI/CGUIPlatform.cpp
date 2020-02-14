@@ -133,6 +133,8 @@ namespace ion
 
 		UpdateMousePosAndButtons();
 		UpdateMouseCursor();
+
+		IsMouseCaptured = io.WantCaptureMouse;
 	}
 
 	void CGUIPlatform::OnEvent(IEvent & Event)

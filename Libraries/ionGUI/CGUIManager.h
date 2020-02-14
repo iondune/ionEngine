@@ -34,6 +34,8 @@ namespace ion
 
 		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
 
+		bool IsMouseCaptured() const;
+
 	protected:
 
 		void AddFontFromFile(string const & FileName, float const Size);

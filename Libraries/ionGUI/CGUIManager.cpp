@@ -117,4 +117,9 @@ namespace ion
 		TextQueue.push_back(Draw);
 	}
 
+	bool CGUIManager::IsMouseCaptured() const
+	{
+		return PlatformImplementation->IsMouseCaptured;
+	}
+
 }
