@@ -99,10 +99,9 @@ namespace ion
 			monitor = 0;
 		}
 
-		int mode_count;
-		GLFWvidmode const * modes = glfwGetVideoModes(monitors[monitor], &mode_count);
-			
-		vec2i const MonitorSize = vec2i(modes[mode_count - 1].width, modes[mode_count - 1].height);
+		GLFWvidmode const * mode = glfwGetVideoMode(monitors[monitor]);
+
+		vec2i const MonitorSize = vec2i(mode->width, mode->height);
 		Window = CreateWindow(MonitorSize - vec2i(100), Title, EWindowType::Windowed, Vsync);
 
 		int xpos, ypos;
