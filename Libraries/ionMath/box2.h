@@ -38,6 +38,22 @@ namespace ion
 			}
 		}
 
+		vec2<T> GetCorner(int const i) const
+		{
+			switch (i % 4)
+			{
+			default:
+			case 0:
+				return vec2<T>(Min.X, Min.Y);
+			case 1:
+				return vec2<T>(Min.X, Min.Y);
+			case 2:
+				return vec2<T>(Max.X, Min.Y);
+			case 3:
+				return vec2<T>(Min.X, Max.Y);
+			}
+		}
+
 		bool IsPointInside(vec2<T> const & Point) const
 		{
 			return (Max.Y > Point.Y &&
