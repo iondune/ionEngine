@@ -732,7 +732,7 @@ namespace ion
 					BlendState->Release();
 				}
 
-				if (DisableDepthTest)
+				if (DisableDepthTest || DrawWireframe)
 				{
 					// TODO : Cache these?
 
@@ -751,6 +751,10 @@ namespace ion
 					if (DisableDepthTest)
 					{
 						RasterDesc.DepthClipEnable = false;
+					}
+					if (DrawWireframe)
+					{
+						RasterDesc.FillMode = D3D11_FILL_WIREFRAME;
 					}
 
 					ID3D11RasterizerState * RasterState = nullptr;
@@ -794,7 +798,7 @@ namespace ion
 					ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
 				}
 
-				if (DisableDepthTest)
+				if (DisableDepthTest || DrawWireframe)
 				{
 					// TODO : Save the original rasterizer desc and use it
 
