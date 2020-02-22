@@ -38,6 +38,8 @@ namespace ImGui
 
 	void TextBool(const char* label, const bool value);
 
+	bool HueButton(const char* label, const float hue);
+
 	template <typename... Args>
 	static void PushIDString(char const * const Format, Args const &... args)
 	{
