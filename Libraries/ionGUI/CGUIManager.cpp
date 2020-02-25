@@ -44,6 +44,11 @@ namespace ion
 		return state;
 	}
 
+	ImTextureID CGUIManager::TextureID(SharedPointer<Graphics::ITexture2D> const Texture)
+	{
+		return CGUIManager::Get().GetTextureID(Texture);
+	}
+
 	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize, char const* const iniFileName)
 	{
 		bool Success = true;

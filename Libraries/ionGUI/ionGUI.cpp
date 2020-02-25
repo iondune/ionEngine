@@ -263,6 +263,16 @@ namespace ImGui
 		return pressed;
 	}
 
+	void Image(SharedPointer<Graphics::ITexture2D> texture, const ImVec2& size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& tint_col, const ImVec4& border_col)
+	{
+		ImGui::Image(CGUIManager::TextureID(texture), size, uv0, uv1, tint_col, border_col);
+	}
+
+	bool ImageButton(SharedPointer<Graphics::ITexture2D> texture, const ImVec2& size, const ImVec2& uv0, const ImVec2& uv1, int frame_padding, const ImVec4& bg_col, const ImVec4& tint_col)
+	{
+		return ImGui::ImageButton(CGUIManager::TextureID(texture), size, uv0, uv1, frame_padding, bg_col, tint_col);
+	}
+
 	scoped_id::scoped_id(char const * const str_id)
 	{
 		ImGui::PushID(str_id);

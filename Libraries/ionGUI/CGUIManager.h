@@ -25,6 +25,7 @@ namespace ion
 		void Draw();
 
 		ImTextureID GetTextureID(SharedPointer<Graphics::ITexture2D> const Texture);
+		static ImTextureID TextureID(SharedPointer<Graphics::ITexture2D> const Texture);
 
 		template <typename... Args>
 		void Text(vec2i const & Position, color3i const & Color, char const * const Format, Args const &... args)
@@ -55,8 +56,6 @@ namespace ion
 	private:
 
 		friend class Singleton<CGUIManager>;
-
-
 
 	};
 
