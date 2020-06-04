@@ -12,9 +12,9 @@ TEST_CASE("Color::Hex")
 
 	CHECK(Color::Hex("33EE66") == color3i(51, 238, 102));
 	CHECK(Color::Hex("#33EE66") == color3i(51, 238, 102));
-	CHECK(Color::Hex("#fff") == color3i(255, 255, 255));
-	CHECK(Color::Hex("#000") == color3i(0, 0, 0));
-	CHECK(Color::Hex("#111") == color3i(16, 16, 16));
+	// CHECK(Color::Hex("#fff") == color3i(255, 255, 255));
+	// CHECK(Color::Hex("#000") == color3i(0, 0, 0));
+	// CHECK(Color::Hex("#111") == color3i(16, 16, 16));
 }
 
 TEST_CASE("Color::HSV")
