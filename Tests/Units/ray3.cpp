@@ -1,11 +1,11 @@
 
-#include <catch.hpp>
+#include <doctest.h>
 #include <ionMath.h>
 
 using namespace ion;
 
 
-TEST_CASE("ray-sphere intersection", "")
+TEST_CASE("ray-sphere intersection")
 {
 	double Intersection;
 	CHECK(ray3d(vec3d(0, 0, -10), vec3d(0, 0, 1)).IntersectsSphere(vec3d(0), 1, &Intersection));
@@ -47,7 +47,7 @@ TEST_CASE("ray-sphere intersection", "")
 	CHECK(Equals(Point.Z, -sqrt(2) / 2));
 }
 
-TEST_CASE("ray-box intersection", "")
+TEST_CASE("ray-box intersection")
 {
 	double Intersection;
 	CHECK(ray3d(vec3d(0, 0, -10), vec3d(0, 0, 1)).IntersectsBox(box3d(vec3d(-1), vec3d(1)), &Intersection));

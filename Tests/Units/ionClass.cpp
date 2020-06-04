@@ -1,6 +1,6 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 
@@ -18,7 +18,7 @@ public:
 	{}
 };
 
-TEST_CASE("InstanceOf", "")
+TEST_CASE("InstanceOf")
 {
 	A a;
 	B b;
@@ -49,7 +49,7 @@ public:
 class TestDerived : public TestBase
 {};
 
-TEST_CASE("ionClass::As", "As function converts between objects")
+TEST_CASE("ionClass::As")
 {
 	TestBase a;
 	TestBase const constA;
@@ -67,7 +67,7 @@ TEST_CASE("ionClass::As", "As function converts between objects")
 	CHECK(nullptr == As<TestDerived>(& constA));
 }
 
-TEST_CASE("Type", "[ionClass :: Type]")
+TEST_CASE("Type")
 {
 	Type TypeA(typeid(A));
 	Type TypeB(typeid(B));
@@ -92,7 +92,7 @@ public:
 	SingletonPointer<E> EPtr;
 };
 
-TEST_CASE("Singleton lazy initialization", "[ionClass :: Singleton]")
+TEST_CASE("Singleton lazy initialization")
 {
 	SingletonPointer<E> e;
 	SingletonPointer<E> const constE = SingletonPointer<E>();

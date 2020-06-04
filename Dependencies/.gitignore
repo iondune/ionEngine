@@ -3,6 +3,7 @@ tinyformat
 glm
 imgui
 Catch
+doctest
 glad
 tinyobjloader
 dirent

@@ -1,6 +1,6 @@
 
 #include <ionMath.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 

@@ -1,11 +1,11 @@
 
-#include <catch.hpp>
+#include <doctest.h>
 #include <ionMath.h>
 
 using namespace ion;
 
 
-TEST_CASE("line2 closest point", "")
+TEST_CASE("line2 closest point")
 {
 	line2f l(vec2f(0, 0), vec2f(0, 1));
 
@@ -48,15 +48,15 @@ TEST_CASE("line2 distance from line2")
 	line2f a(vec2f(0, -1), vec2f(0, 1));
 	line2f b(vec2f(-1, 0), vec2f(1, 0));
 
-	CHECK(a.GetDistanceFrom(b) == Approx(0));
+	CHECK(a.GetDistanceFrom(b) == doctest::Approx(0));
 
 	line2f c(vec2f(0, 0), vec2f(0, 2));
 	line2f d(vec2f(1, 1), vec2f(2, 1));
 
-	CHECK(c.GetDistanceFrom(d) == Approx(1));
+	CHECK(c.GetDistanceFrom(d) == doctest::Approx(1));
 
 	line2f e(vec2f(0, 0), vec2f(1, 0));
 	line2f f(vec2f(2, 1), vec2f(2, 2));
 
-	CHECK(e.GetDistanceFrom(f) == Approx(Sqrt(2.f)));
+	CHECK(e.GetDistanceFrom(f) == doctest::Approx(Sqrt(2.f)));
 }

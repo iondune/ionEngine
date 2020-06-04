@@ -1,6 +1,6 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 
@@ -38,7 +38,7 @@ TEST_CASE("vec3 swizzle constructors")
 	CHECK(v.Z == 6);
 }
 
-TEST_CASE("SVector3::operator <", "")
+TEST_CASE("SVector3::operator <")
 {
 	CHECK(vec3i(-1, -1, 0) < vec3i(0, -1, 0));
 	CHECK(! (vec3i(0, 0, 0) < vec3i(0, 0, 0)));

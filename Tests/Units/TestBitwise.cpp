@@ -1,11 +1,11 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 
 
-TEST_CASE("Bitwise::ByteToBits", "")
+TEST_CASE("Bitwise::ByteToBits")
 {
 	CHECK(Bitwise::ByteToBits(0x00) == vector<uint>({}));
 	CHECK(Bitwise::ByteToBits(0x01) == vector<uint>({ 0 }));
@@ -20,7 +20,7 @@ TEST_CASE("Bitwise::ByteToBits", "")
 	CHECK(Bitwise::ByteToBits(0xFF) == vector<uint>({ 0, 1, 2, 3, 4, 5, 6, 7 }));
 }
 
-TEST_CASE("Bitwise::BitsToByte", "")
+TEST_CASE("Bitwise::BitsToByte")
 {
 	CHECK(Bitwise::BitsToByte({}) == 0x00);
 	CHECK(Bitwise::BitsToByte({ 0 }) == 0x01);
@@ -30,7 +30,7 @@ TEST_CASE("Bitwise::BitsToByte", "")
 	CHECK(Bitwise::BitsToByte({ 0, 1, 2, 3, 4, 5, 6, 7 }) == 0xFF);
 }
 
-TEST_CASE("Bitwise::BitCount", "")
+TEST_CASE("Bitwise::BitCount")
 {
 	CHECK(Bitwise::BitCount(0x00) == 0);
 	CHECK(Bitwise::BitCount(0x01) == 1);

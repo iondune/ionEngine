@@ -1,6 +1,6 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 
 TEST_CASE("ionLogger::Messages")

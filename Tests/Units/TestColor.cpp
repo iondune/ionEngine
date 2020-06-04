@@ -1,6 +1,6 @@
 
 #include <ionCore/Color.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 

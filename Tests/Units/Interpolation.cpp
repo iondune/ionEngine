@@ -1,20 +1,20 @@
 
 #include <ionScience.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 #include <array>
 
 using namespace ion;
 
 
-TEST_CASE("Linear interpolation (3) works", "[LinearInterpolation]") {
+TEST_CASE("Linear interpolation (3) works") {
 	CHECK(LinearInterpolate(0.0, 1.0, 0.5) == 0.5);
 	CHECK(LinearInterpolate(-1.0, 1.0, 0.5) == 0.0);
 	CHECK(LinearInterpolate(-1.0, 1.0, 0.25) == -0.5);
 	CHECK(LinearInterpolate(-1.0, 1.0, 0.75) == 0.5);
 }
 
-TEST_CASE("Linear interpolation (2) works", "[LinearInterpolation]") {
+TEST_CASE("Linear interpolation (2) works") {
 	std::array<double, 2> p;
 
 	p = {{0, 1}};
@@ -25,7 +25,7 @@ TEST_CASE("Linear interpolation (2) works", "[LinearInterpolation]") {
 	CHECK(LinearInterpolate(p.data(), 0.75) == 0.5);
 }
 
-TEST_CASE("Bilinear interpolation works", "[BilinearInterpolate]") {
+TEST_CASE("Bilinear interpolation works") {
 	double p[2][2];
 
 	p[0][0] = 1;
@@ -45,7 +45,7 @@ TEST_CASE("Bilinear interpolation works", "[BilinearInterpolate]") {
 	CHECK(BilinearInterpolate(p, 0.5, 0.5) == 2.5);
 }
 
-TEST_CASE("Trilinear interpolation works", "[TrilinearInterpolate]") {
+TEST_CASE("Trilinear interpolation works") {
 	double p[2][2][2];
 
 	p[0][0][0] = 1;
@@ -86,7 +86,7 @@ TEST_CASE("Trilinear interpolation works", "[TrilinearInterpolate]") {
 	CHECK(TrilinearInterpolate(p, 0.5, 0.5, 0.5) == 4.5);
 }
 
-TEST_CASE("Cubic interpolation works", "[CubicInterpolate]") {
+TEST_CASE("Cubic interpolation works") {
 	std::array<double, 4> p;
 
 	p = {{0, 1, 2, 3}};

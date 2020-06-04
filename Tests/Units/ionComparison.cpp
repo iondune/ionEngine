@@ -1,11 +1,11 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 
 
-TEST_CASE("ionComparison::RoundingError", "rounding error constants")
+TEST_CASE("ionComparison::RoundingError")
 {
 	CHECK(RoundingError<int>::Value() == 0);
 	CHECK(RoundingError<uint>::Value() == 0);
@@ -13,7 +13,7 @@ TEST_CASE("ionComparison::RoundingError", "rounding error constants")
 	CHECK(RoundingError<double>::Value() == RoundingError64);
 }
 
-TEST_CASE("ionComparison::Equals<T>", "equality function")
+TEST_CASE("ionComparison::Equals<T>")
 {
 	CHECK(Equals(0, 0));
 	CHECK(Equals(1, 1));
@@ -29,7 +29,7 @@ TEST_CASE("ionComparison::Equals<T>", "equality function")
 	CHECK(! Equals(0.0, 1.5 * RoundingError64));
 }
 
-TEST_CASE("ionComparsion::Minimum2", "minimum of two operands")
+TEST_CASE("ionComparsion::Minimum2")
 {
 	CHECK(Minimum(4, 3) == 3);
 	CHECK(Minimum(3, 3) == 3);
@@ -45,7 +45,7 @@ TEST_CASE("ionComparsion::Minimum2", "minimum of two operands")
 	CHECK(Min(-3, 4) == -3);
 }
 
-TEST_CASE("ionComparsion::Maximum2", "maximum of two operands")
+TEST_CASE("ionComparsion::Maximum2")
 {
 	CHECK(Maximum(4, 3) == 4);
 	CHECK(Maximum(3, 3) == 3);
@@ -61,7 +61,7 @@ TEST_CASE("ionComparsion::Maximum2", "maximum of two operands")
 	CHECK(Max(-3, 4) == 4);
 }
 
-TEST_CASE("ionComparsion::MinMax3", "minimum/maximum of three operands")
+TEST_CASE("ionComparsion::MinMax3")
 {
 	CHECK(Maximum(4, 3, 2) == 4);
 	CHECK(Maximum(3, 3, 2) == 3);
@@ -92,7 +92,7 @@ TEST_CASE("ionComparsion::MinMax3", "minimum/maximum of three operands")
 	CHECK(Min(-3, 2, 4) == -3);
 }
 
-TEST_CASE("ionComparsion::MinMax4", "minimum/maximum of four operands")
+TEST_CASE("ionComparsion::MinMax4")
 {
 	CHECK(Maximum(4, 3, 2, 1) == 4);
 	CHECK(Maximum(3, 3, 2, 1) == 3);

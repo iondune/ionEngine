@@ -1,11 +1,11 @@
 
 #include <ionCore.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 
 
-TEST_CASE("ionUtils::DigitCount", "")
+TEST_CASE("ionUtils::DigitCount")
 {
 	CHECK(DigitCount(0) == 1);
 	CHECK(DigitCount(1) == 1);
@@ -37,7 +37,7 @@ TEST_CASE("ionUtils::DigitCount", "")
 	CHECK(DigitCount(-82093480) == 9);
 }
 
-TEST_CASE("ionUtils::Clamp", "")
+TEST_CASE("ionUtils::Clamp")
 {
 	CHECK(Clamp<int>(0, -1, 1) == 0);
 	CHECK(Clamp<int>(0, 0, 1) == 0);
@@ -45,7 +45,7 @@ TEST_CASE("ionUtils::Clamp", "")
 	CHECK(Clamp<int>(5, 1, 3) == 3);
 }
 
-TEST_CASE("ionUtils::Sq", "")
+TEST_CASE("ionUtils::Sq")
 {
 	CHECK(Sq<int>(0) == 0);
 	CHECK(Sq<int>(1) == 1);
@@ -54,7 +54,7 @@ TEST_CASE("ionUtils::Sq", "")
 	CHECK(Sq<int>(-1) == 1);
 }
 
-TEST_CASE("ionUtils::Average2", "")
+TEST_CASE("ionUtils::Average2")
 {
 	CHECK(Average<int>(2, 4) == 3);
 	CHECK(Average<int>(4, 2) == 3);
@@ -69,7 +69,7 @@ TEST_CASE("ionUtils::Average2", "")
 	CHECK(Average<float>(3, 4) == 3.5);
 }
 
-TEST_CASE("ionUtils::Average3,4", "")
+TEST_CASE("ionUtils::Average3,4")
 {
 	CHECK(Average<int>(2, 4, 6) == 4);
 	CHECK(Average<int>(6, 4, 2) == 4);

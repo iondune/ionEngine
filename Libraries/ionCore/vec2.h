@@ -6,6 +6,7 @@
 #include "ionMathFunctions.h"
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 
 namespace ion

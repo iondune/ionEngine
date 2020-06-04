@@ -1,6 +1,6 @@
 
 #include <ionScene.h>
-#include <catch.hpp>
+#include <doctest.h>
 
 using namespace ion;
 using namespace ion::Scene;
