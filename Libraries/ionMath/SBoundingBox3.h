@@ -92,6 +92,8 @@ namespace ion
 			AddInternalPoint(bb.MinCorner);
 		}
 
+#pragma warning(push)
+#pragma warning(disable: 4723)
 		bool IntersectsWithRay(vec3f const & Origin, vec3f const & Direction, vec3f & coord) const
 		{
 			T tmin = -std::numeric_limits<T>::max();
@@ -145,6 +147,7 @@ namespace ion
 			}
 			return true;
 		}
+#pragma warning(pop)
 
 		T const GetMaximumRadius(Vector const Scale) const
 		{
