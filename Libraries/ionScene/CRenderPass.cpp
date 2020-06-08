@@ -7,7 +7,15 @@ namespace ion
 	namespace Scene
 	{
 
+		CRenderPass::CRenderPass()
+		{}
+
 		CRenderPass::CRenderPass(SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
+		{
+			this->GraphicsContext = GraphicsContext;
+		}
+
+		void CRenderPass::SetGraphicsContext(SharedPointer<Graphics::IGraphicsContext> GraphicsContext)
 		{
 			this->GraphicsContext = GraphicsContext;
 		}
@@ -129,7 +137,10 @@ namespace ion
 					uModelMatrix = SceneObject->GetTransformation();
 					uNormalMatrix = glm::inverse(glm::transpose((glm::mat4) uModelMatrix));
 
-					GraphicsContext->Draw(PipelineState);
+					if (GraphicsContext)
+					{
+						GraphicsContext->Draw(PipelineState);
+					}
 				}
 
 				Category.clear();

@@ -18,7 +18,10 @@ namespace ion
 
 		public:
 
+			CRenderPass();
 			CRenderPass(SharedPointer<Graphics::IGraphicsContext> GraphicsContext);
+
+			virtual void SetGraphicsContext(SharedPointer<Graphics::IGraphicsContext> GraphicsContext);
 			virtual void SetRenderTarget(SharedPointer<Graphics::IRenderTarget> RenderTarget);
 
 			virtual string const & GetName() const;
