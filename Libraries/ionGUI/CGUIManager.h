@@ -34,6 +34,7 @@ namespace ion
 		}
 
 		void TextUnformatted(vec2i const & Position, color3i const & Color, string const & Text);
+		void Image(SharedPointer<Graphics::ITexture2D> const Texture, vec2i const Position, vec2i const Size);
 
 		bool IsMouseCaptured() const;
 
@@ -51,7 +52,15 @@ namespace ion
 			string Text;
 		};
 
+		struct SDrawImage
+		{
+			vec2i Position;
+			vec2i Size;
+			SharedPointer<Graphics::ITexture2D> Texture;
+		};
+
 		vector<SDrawText> TextQueue;
+		vector<SDrawImage> ImageQueue;
 
 	private:
 

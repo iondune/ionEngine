@@ -102,6 +102,14 @@ namespace ion
 		}
 		TextQueue.clear();
 
+		for (auto Image : ImageQueue)
+		{
+			DrawList->AddImage(GetTextureID(Image.Texture),
+				vec2f(Image.Position + PlatformImplementation->PrimaryWindow->GetPosition()),
+					vec2f(Image.Position + Image.Size + PlatformImplementation->PrimaryWindow->GetPosition()));
+		}
+		ImageQueue.clear();
+
 		ImGui::Render();
 		RendererImplementation->Draw(ImGui::GetDrawData());
 
@@ -120,6 +128,16 @@ namespace ion
 		Draw.Color = Color;
 
 		TextQueue.push_back(Draw);
+	}
+
+	void CGUIManager::Image(SharedPointer<Graphics::ITexture2D> const Texture, vec2i const Position, vec2i const Size)
+	{
+		SDrawImage Draw;
+		Draw.Texture = Texture;
+		Draw.Position = Position;
+		Draw.Size = Size;
+
+		ImageQueue.push_back(Draw);
 	}
 
 	bool CGUIManager::IsMouseCaptured() const
