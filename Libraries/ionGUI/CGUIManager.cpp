@@ -49,7 +49,7 @@ namespace ion
 		return CGUIManager::Get().GetTextureID(Texture);
 	}
 
-	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize, char const* const iniFileName)
+	bool CGUIManager::Init(CWindow * window, IGraphicsImplementation * GraphicsImplementation, float const DefaultFontSize, char const* const iniFileName, char const * const fontFilename)
 	{
 		bool Success = true;
 		
@@ -67,7 +67,14 @@ namespace ion
 		AddListener(PlatformImplementation.Get());
 		AddListener(RendererImplementation.Get());
 
-		io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
+		if (fontFilename)
+		{
+			io.Fonts->AddFontFromFileTTF(fontFilename, DefaultFontSize);
+		}
+		else
+		{
+			io.Fonts->AddFontFromFileTTF((string(ION_PROJECT_BASE_DIRECTORY) + "Fonts/Roboto-Regular.ttf").c_str(), DefaultFontSize);
+		}
 
 		return Success;
 	}
