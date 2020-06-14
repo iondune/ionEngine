@@ -38,6 +38,8 @@ namespace ion
 
 		bool IsMouseCaptured() const;
 
+		IEventListener * GetEventRoot();
+
 	protected:
 
 		void AddFontFromFile(string const & FileName, float const Size);
@@ -61,6 +63,8 @@ namespace ion
 
 		vector<SDrawText> TextQueue;
 		vector<SDrawImage> ImageQueue;
+
+		IEventListener * EventRoot = nullptr;
 
 	private:
 

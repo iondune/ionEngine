@@ -66,6 +66,7 @@ namespace ion
 
 		AddListener(PlatformImplementation.Get());
 		AddListener(RendererImplementation.Get());
+		PlatformImplementation->AddListener(EventRoot = new IEventListener());
 
 		if (fontFilename)
 		{
@@ -150,6 +151,11 @@ namespace ion
 	bool CGUIManager::IsMouseCaptured() const
 	{
 		return PlatformImplementation->IsMouseCaptured;
+	}
+
+	IEventListener * CGUIManager::GetEventRoot()
+	{
+		return EventRoot;
 	}
 
 }
