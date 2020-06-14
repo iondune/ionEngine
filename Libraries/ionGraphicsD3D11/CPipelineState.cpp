@@ -732,7 +732,9 @@ namespace ion
 					BlendState->Release();
 				}
 
-				if (DisableDepthTest || DrawWireframe)
+				bool AnyRasterState = DisableDepthTest || DrawWireframe || CullFront;
+
+				if (AnyRasterState)
 				{
 					// TODO : Cache these?
 
@@ -756,6 +758,11 @@ namespace ion
 					{
 						RasterDesc.FillMode = D3D11_FILL_WIREFRAME;
 					}
+					if (CullFront)
+					{
+						RasterDesc.CullMode = D3D11_CULL_FRONT;
+					}
+
 
 					ID3D11RasterizerState * RasterState = nullptr;
 					Device->CreateRasterizerState(& RasterDesc, & RasterState);
@@ -798,7 +805,7 @@ namespace ion
 					ImmediateContext->OMSetBlendState(NULL, NULL, 0xffffffff);
 				}
 
-				if (DisableDepthTest || DrawWireframe)
+				if (AnyRasterState)
 				{
 					// TODO : Save the original rasterizer desc and use it
 
