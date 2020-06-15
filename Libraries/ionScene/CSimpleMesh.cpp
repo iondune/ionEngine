@@ -261,6 +261,45 @@ namespace ion
 			}
 		}
 
+		void CSimpleMesh::AddTriangle(SVertex const & a, SVertex const & b, SVertex const & c, bool const calculateVertexNormals)
+		{
+			size_t const first = Vertices.size();
+			Vertices.push_back(a);
+			Vertices.push_back(b);
+			Vertices.push_back(c);
+			Triangles.push_back(STriangle((uint) first + 0, (uint) first + 1, (uint) first + 2));
+			Triangles.back().Normal = Cross(b.Position - a.Position, c.Position - a.Position);
+
+			if (calculateVertexNormals)
+			{
+				Vertices[first + 0].Normal =
+					Vertices[first + 1].Normal =
+					Vertices[first + 2].Normal =
+					Triangles.back().Normal;
+			}
+		}
+
+		void CSimpleMesh::AddQuad(SVertex const & a, SVertex const & b, SVertex const & c, SVertex const & d, bool const calculateVertexNormals)
+		{
+			size_t const first = Vertices.size();
+			Vertices.push_back(a);
+			Vertices.push_back(b);
+			Vertices.push_back(c);
+			Vertices.push_back(d);
+			Triangles.push_back(STriangle((uint) first + 0, (uint) first + 1, (uint) first + 2));
+			Triangles.back().Normal = Cross(b.Position - a.Position, c.Position - a.Position);
+			Triangles.push_back(STriangle((uint) first + 0, (uint) first + 2, (uint) first + 3));
+			Triangles.back().Normal = Cross(c.Position - a.Position, d.Position - a.Position);
+
+			if (calculateVertexNormals)
+			{
+				Vertices[first + 0].Normal =
+					Vertices[first + 1].Normal =
+					Vertices[first + 2].Normal =
+					Vertices[first + 3].Normal =
+					Triangles.back().Normal;
+			}
+		}
 
 		box3f CSimpleMesh::CalculateBoundingBox() const
 		{

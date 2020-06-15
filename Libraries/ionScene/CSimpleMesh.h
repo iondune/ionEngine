@@ -86,6 +86,9 @@ namespace ion
 			void CalculateNormalsPerFace();
 			void CalculateNormalsPerVertex(bool CombineNear = true, float const NearTolerance = 0.0001f);
 
+			void AddTriangle(SVertex const & a, SVertex const & b, SVertex const & c, bool const calculateVertexNormals = true);
+			void AddQuad(SVertex const & a, SVertex const & b, SVertex const & c, SVertex const & d, bool const calculateVertexNormals = true);
+
 			void WriteOBJ(string const & FileName) const;
 
 			box3f CalculateBoundingBox() const;
