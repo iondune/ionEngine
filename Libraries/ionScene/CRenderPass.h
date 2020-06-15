@@ -24,6 +24,7 @@ namespace ion
 			virtual void SetGraphicsContext(SharedPointer<Graphics::IGraphicsContext> GraphicsContext);
 			virtual void SetRenderTarget(SharedPointer<Graphics::IRenderTarget> RenderTarget);
 
+			virtual void SetName(string const & name);
 			virtual string const & GetName() const;
 			virtual CGraphicsAPI * GetGraphicsAPI();
 			virtual SharedPointer<Graphics::IGraphicsContext> GetGraphicsContext();

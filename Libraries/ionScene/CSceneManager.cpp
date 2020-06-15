@@ -10,11 +10,24 @@ namespace ion
 
 	void CSceneManager::DrawAll()
 	{
-		std::for_each(RenderPasses.begin(), RenderPasses.end(), [](Scene::CRenderPass * RenderPass)
+		SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
+		int i = 0;
+		for (Scene::CRenderPass * pass : RenderPasses)
 		{
-			RenderPass->Load();
-			RenderPass->Draw();
-		});
+			string passName = pass->GetName();
+			if (passName == "")
+			{
+				passName = String::Build("RenderPass%d", i);
+			}
+
+			GraphicsAPI->GetImplementation()->AnnotateBeginEvent(passName);
+			pass->Load();
+			pass->Draw();
+			GraphicsAPI->GetImplementation()->AnnotateEndEvent(passName);
+
+			i ++;
+		}
 	}
 
 	void CSceneManager::AddRenderPass(Scene::CRenderPass * RenderPass)

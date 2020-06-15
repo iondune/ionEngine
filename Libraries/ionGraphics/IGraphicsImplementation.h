@@ -51,6 +51,8 @@ namespace ion
 
 		virtual void DiagnosticCaptureBegin() = 0;
 		virtual void DiagnosticCaptureEnd() = 0;
+		virtual void AnnotateBeginEvent(string const & eventName) = 0;
+		virtual void AnnotateEndEvent(string const & eventName) = 0;
 
 	};
 

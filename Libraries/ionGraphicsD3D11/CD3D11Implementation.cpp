@@ -21,6 +21,7 @@
 #include <ionWindow/CWindow.h>
 
 #include <d3d11.h>
+#include <d3d11_1.h>
 #include <dxgi.h>
 #include <d3dcompiler.h>
 
@@ -88,6 +89,8 @@ namespace ion
 			ID3D11RasterizerState * RasterizerState = nullptr;
 			CheckedDXCall( Device->CreateRasterizerState(& RasterizerDesc, & RasterizerState) );
 			ImmediateContext->RSSetState(RasterizerState);
+
+			CheckedDXCall( ImmediateContext->QueryInterface(IID_PPV_ARGS(& UserDefinedAnnotation)) );
 
 			// Depth Settings
 
@@ -237,6 +240,32 @@ namespace ion
 			if (GraphicsAnalysis)
 			{
 				GraphicsAnalysis->EndCapture();
+			}
+		}
+
+		void CD3D11Implementation::AnnotateBeginEvent(string const & eventName)
+		{
+			if (UserDefinedAnnotation)
+			{
+				std::wstring temp = std::wstring(eventName.begin(), eventName.end());
+				UserDefinedAnnotation->BeginEvent(temp.c_str());
+				EventStack.push_back(eventName);
+			}
+		}
+
+		void CD3D11Implementation::AnnotateEndEvent(string const & eventName)
+		{
+			if (UserDefinedAnnotation)
+			{
+				UserDefinedAnnotation->EndEvent();
+
+				string const stackTop = EventStack.back();
+				EventStack.pop_back();
+
+				if (stackTop != eventName)
+				{
+					Log::Warn("CD3D11Implementation: Popped '%s' from the event stack, but ended '%s' event.");
+				}
 			}
 		}
 

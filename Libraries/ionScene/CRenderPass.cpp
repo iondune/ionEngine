@@ -25,6 +25,11 @@ namespace ion
 			this->RenderTarget = RenderTarget;
 		}
 
+		void CRenderPass::SetName(string const & name)
+		{
+			Name = name;
+		}
+
 		string const & CRenderPass::GetName() const
 		{
 			return Name;

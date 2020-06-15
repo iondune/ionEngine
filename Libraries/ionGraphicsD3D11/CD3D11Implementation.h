@@ -11,6 +11,7 @@ struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct ID3D11Debug;
 struct IDXGraphicsAnalysis;
+struct ID3DUserDefinedAnnotation;
 
 namespace ion
 {
@@ -60,6 +61,8 @@ namespace ion
 			void UseReverseDepth(bool const reverseDepth = true) {}
 			void DiagnosticCaptureBegin();
 			void DiagnosticCaptureEnd();
+			void AnnotateBeginEvent(string const & eventName);
+			void AnnotateEndEvent(string const & eventName);
 
 		protected:
 
@@ -70,7 +73,9 @@ namespace ion
 			ID3D11DeviceContext * ImmediateContext = nullptr;
 			ID3D11Debug * DebugDevice = nullptr;
 
-			IDXGraphicsAnalysis * GraphicsAnalysis;
+			IDXGraphicsAnalysis * GraphicsAnalysis = nullptr;
+			ID3DUserDefinedAnnotation * UserDefinedAnnotation = nullptr;
+			vector<string> EventStack;
 
 			D3D11::CDrawContext * DrawContext = nullptr;
 
