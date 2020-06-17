@@ -114,7 +114,10 @@ namespace ion
 		{
 			DrawList->AddImage(GetTextureID(Image.Texture),
 				vec2f(Image.Position + PlatformImplementation->PrimaryWindow->GetPosition()),
-					vec2f(Image.Position + Image.Size + PlatformImplementation->PrimaryWindow->GetPosition()));
+				vec2f(Image.Position + Image.Size + PlatformImplementation->PrimaryWindow->GetPosition()),
+				vec2f(0, 1),
+				vec2f(1, 0)
+			);
 		}
 		ImageQueue.clear();
 
