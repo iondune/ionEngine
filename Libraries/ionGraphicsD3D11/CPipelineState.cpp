@@ -732,7 +732,7 @@ namespace ion
 					BlendState->Release();
 				}
 
-				bool AnyRasterState = DisableDepthTest || DrawWireframe || CullFront;
+				bool AnyRasterState = DisableDepthTest || DisableDepthWrite || DrawWireframe || CullFront;
 
 				if (AnyRasterState)
 				{
@@ -753,6 +753,28 @@ namespace ion
 					if (DisableDepthTest)
 					{
 						RasterDesc.DepthClipEnable = false;
+					}
+					if (DisableDepthWrite)
+					{
+						D3D11_DEPTH_STENCIL_DESC DepthDesc;
+						DepthDesc.DepthEnable                  = true;
+						DepthDesc.DepthWriteMask               = D3D11_DEPTH_WRITE_MASK_ZERO;
+						DepthDesc.DepthFunc                    = D3D11_COMPARISON_LESS_EQUAL;
+						DepthDesc.StencilEnable                = true;
+						DepthDesc.StencilReadMask              = D3D11_DEFAULT_STENCIL_READ_MASK;
+						DepthDesc.StencilWriteMask             = D3D11_DEFAULT_STENCIL_WRITE_MASK;
+						DepthDesc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;
+						DepthDesc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
+						DepthDesc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilFailOp       = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
+
+						ID3D11DepthStencilState * DepthStencilState = nullptr;
+						Device->CreateDepthStencilState(&DepthDesc, &DepthStencilState);
+						ImmediateContext->OMSetDepthStencilState(DepthStencilState, 1);
 					}
 					if (DrawWireframe)
 					{
@@ -825,6 +847,29 @@ namespace ion
 					Device->CreateRasterizerState(& RasterDesc, & RasterState);
 					ImmediateContext->RSSetState(RasterState);
 					RasterState->Release();
+
+					if (DisableDepthWrite)
+					{
+						D3D11_DEPTH_STENCIL_DESC DepthDesc;
+						DepthDesc.DepthEnable                  = true;
+						DepthDesc.DepthWriteMask               = D3D11_DEPTH_WRITE_MASK_ALL;
+						DepthDesc.DepthFunc                    = D3D11_COMPARISON_LESS_EQUAL;
+						DepthDesc.StencilEnable                = true;
+						DepthDesc.StencilReadMask              = D3D11_DEFAULT_STENCIL_READ_MASK;
+						DepthDesc.StencilWriteMask             = D3D11_DEFAULT_STENCIL_WRITE_MASK;
+						DepthDesc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;
+						DepthDesc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
+						DepthDesc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilFailOp       = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;
+						DepthDesc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
+
+						ID3D11DepthStencilState * DepthStencilState = nullptr;
+						Device->CreateDepthStencilState(&DepthDesc, &DepthStencilState);
+						ImmediateContext->OMSetDepthStencilState(DepthStencilState, 1);
+					}
 				}
 			}
 
