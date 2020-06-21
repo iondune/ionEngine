@@ -5,6 +5,8 @@
 #include <Windows.h>
 #endif
 
+#include <fstream>
+
 
 namespace ion
 {
@@ -38,6 +40,28 @@ namespace ion
 #ifdef ION_CONFIG_WINDOWS
 		SetConsoleTextAttribute(h, wOldColorAttrs);
 #endif
+	}
+
+	Log::FileOutput::FileOutput(std::string const & FileName)
+	{
+		File = new std::ofstream(FileName, std::ios::out);
+	}
+
+	Log::FileOutput::~FileOutput()
+	{
+		if (File)
+		{
+			File->close();
+			delete File;
+		}
+	}
+
+	void Log::FileOutput::Write(ELogChannel const Channel, string const & Message)
+	{
+		if (File && File->is_open())
+		{
+			*File << Message << std::endl;
+		}
 	}
 
 	void Log::WindowsLogOutput::Write(ELogChannel const Channel, string const & Message)
@@ -85,6 +109,8 @@ namespace ion
 		AddOutput(ELogChannel::Error, new StandardOutput(std::cerr));
 		AddOutput(ELogChannel::Warn, new StandardOutput(std::cerr));
 		AddOutput(ELogChannel::Info, new StandardOutput(std::cout));
+		
+		AddOutputToAllChannels(new FileOutput("ionLogger.txt"));
 #ifdef ION_CONFIG_WINDOWS
 		AddOutputToAllChannels(new WindowsLogOutput());
 #endif

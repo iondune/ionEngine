@@ -54,6 +54,21 @@ namespace ion
 
 		};
 
+		class FileOutput : public Output
+		{
+
+		public:
+
+			FileOutput(std::string const & FileName);
+			~FileOutput();
+			virtual void Write(ELogChannel const Channel, string const & Message);
+
+		private:
+
+			std::ofstream * File = nullptr;
+
+		};
+
 		class WindowsLogOutput : public Output
 		{
 
