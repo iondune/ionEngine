@@ -12,15 +12,18 @@ namespace ion
 		Log::Error("GLFW Error! (%d) '%s'", ErrorCode, Description);
 	}
 
-	void CWindowManager::Init(CGraphicsAPI * GraphicsAPI)
+	bool CWindowManager::Init(CGraphicsAPI * GraphicsAPI)
 	{
 		this->GraphicsAPI = GraphicsAPI;
 
 		glfwSetErrorCallback(GLFWErrorCallback);
-		if (! glfwInit())
+		if (GLFW_FALSE == glfwInit())
 		{
-			std::cerr << "Error initializing glfw! " << std::endl;
+			Log::Error("Error initializing glfw!");
+			return false;
 		}
+
+		return true;
 	}
 
 	CWindow * CWindowManager::CreateWindow(vec2i const & Size, std::string const & Title, EWindowType const Type, EVsyncMode const Vsync)
@@ -37,7 +40,7 @@ namespace ion
 
 		if (WindowHandle == nullptr)
 		{
-			std::cerr << "Error opening glfw window!" << std::endl;
+			Log::Error("Error opening glfw window!");
 			return nullptr;
 		}
 		

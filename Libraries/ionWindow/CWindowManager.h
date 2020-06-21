@@ -41,7 +41,7 @@ namespace ion
 
 	public:
 
-		void Init(CGraphicsAPI * GraphicsAPI);
+		bool Init(CGraphicsAPI * GraphicsAPI);
 		void PollEvents();
 		bool ShouldClose() const;
 		bool Run();
