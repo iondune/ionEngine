@@ -36,7 +36,7 @@ namespace ion
 	namespace Graphics
 	{
 
-		void CD3D11Implementation::PostWindowCreationSetup(CWindow * Window)
+		bool CD3D11Implementation::PostWindowCreationSetup(CWindow * Window)
 		{
 			DXGI_SWAP_CHAIN_DESC SwapChainDesc = {};
 			SwapChainDesc.BufferDesc.Width = Window->GetSize().X;
@@ -66,6 +66,11 @@ namespace ion
 				& Device,
 				NULL,
 				& ImmediateContext) );
+
+			if (! Device)
+			{
+				return false;
+			}
 
 			DebugDevice = nullptr;
 			Device->QueryInterface(IID_PPV_ARGS(& DebugDevice));
@@ -113,6 +118,8 @@ namespace ion
 			ID3D11DepthStencilState * DepthStencilState = nullptr;
 			CheckedDXCall( Device->CreateDepthStencilState(& DepthDesc, & DepthStencilState) );
 			ImmediateContext->OMSetDepthStencilState(DepthStencilState, 1);
+
+			return true;
 		}
 
 		bool CD3D11Implementation::OnWindowSwap(CWindow * Window)

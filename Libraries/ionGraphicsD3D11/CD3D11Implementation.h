@@ -28,7 +28,7 @@ namespace ion
 
 		public:
 
-			void PostWindowCreationSetup(CWindow * Window);
+			bool PostWindowCreationSetup(CWindow * Window);
 			bool OnWindowSwap(CWindow * Window);
 			void OnShutdown();
 

@@ -64,7 +64,11 @@ namespace ion
 
 		if (PrimaryWindow == nullptr)
 		{
-			GraphicsAPI->PostWindowCreationSetup(Window);
+			if (! GraphicsAPI->PostWindowCreationSetup(Window))
+			{
+				delete Window;
+				return nullptr;
+			}
 		}
 
 		if (PrimaryWindow == nullptr)

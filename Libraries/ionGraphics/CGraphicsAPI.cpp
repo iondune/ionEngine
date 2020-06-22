@@ -10,15 +10,16 @@ namespace ion
 		this->Implementation = Implementation;
 	}
 
-	void CGraphicsAPI::PostWindowCreationSetup(CWindow * Window)
+	bool CGraphicsAPI::PostWindowCreationSetup(CWindow * Window)
 	{
 		if (nullptr == Implementation)
 		{
 			Log::Error("GraphicsAPI used without being initialized!");
+			return false;
 		}
 		else
 		{
-			Implementation->PostWindowCreationSetup(Window);
+			return Implementation->PostWindowCreationSetup(Window);
 		}
 	}
 
