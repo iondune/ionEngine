@@ -99,7 +99,7 @@ namespace ion
 		template <typename... Args>
 		static void Write(ELogChannel const Channel, char const * const Format, Args const &... args)
 		{
-#ifndef _ION_CONFIG_SUPPRESS_LOG
+#ifndef ION_CONFIG_SUPPRESS_LOG
 			WriteInternal(Channel, tfm::format(Format, args...));
 #endif
 		}

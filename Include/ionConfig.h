@@ -5,7 +5,8 @@
 // Config Options //
 ////////////////////
 
-//#define _ION_CONFIG_SUPPRESS_LOG
+//#define ION_CONFIG_SUPPRESS_LOG
+//#define ION_CONFIG_DISABLE_DIAGNOSTICS
 
 
 ////////////////////////
