@@ -56,7 +56,7 @@ namespace ion
 			UINT CreateDeviceFlags = 0;
 			CreateDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 
-			CheckedDXCall( D3D11CreateDeviceAndSwapChain(
+			HRESULT hr = D3D11CreateDeviceAndSwapChain(
 				nullptr, D3D_DRIVER_TYPE_HARDWARE,
 				NULL, CreateDeviceFlags,
 				NULL, 0,
@@ -65,7 +65,36 @@ namespace ion
 				& SwapChain,
 				& Device,
 				NULL,
-				& ImmediateContext) );
+				& ImmediateContext);
+
+			if (! SUCCEEDED(hr))
+			{
+				switch (hr)
+				{
+				case DXGI_ERROR_SDK_COMPONENT_MISSING:
+				{
+					// Debug support might not be enabled - try to create without
+					CreateDeviceFlags ^= D3D11_CREATE_DEVICE_DEBUG;
+
+					Log::Info("D3D11 Device creation failed due to missing SDK component - trying again without Debug enabled.");
+
+					CheckedDXCall( D3D11CreateDeviceAndSwapChain(
+						nullptr, D3D_DRIVER_TYPE_HARDWARE,
+						NULL, CreateDeviceFlags,
+						NULL, 0,
+						D3D11_SDK_VERSION,
+						& SwapChainDesc,
+						& SwapChain,
+						& Device,
+						NULL,
+						& ImmediateContext) );
+					break;
+				}
+				default:
+					D3D11::PrintHRESULT(hr, "D3D11CreateDeviceAndSwapChain", __FILE__, __LINE__);
+					break;
+				}
+			}
 
 			if (! Device)
 			{
