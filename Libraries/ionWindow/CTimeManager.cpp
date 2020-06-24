@@ -54,7 +54,7 @@ namespace ion
 		LastTime = glfwGetTime();
 	}
 
-	void CTimeManager::Update()
+	double CTimeManager::Update()
 	{
 		double NewTime = glfwGetTime();
 		ElapsedTime = (NewTime - LastTime) * TimeMultiplier;
@@ -63,6 +63,8 @@ namespace ion
 
 		for (auto & UpdateTick : UpdateTicks)
 			UpdateTick->Update(ElapsedTime);
+
+		return ElapsedTime;
 	}
 
 	void CTimeManager::SkipElapsedTime()

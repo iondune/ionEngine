@@ -39,7 +39,7 @@ namespace ion
 		void Init(CWindowManager * WindowManager);
 		void Start();
 
-		void Update();
+		double Update();
 
 		void SkipElapsedTime();
 
