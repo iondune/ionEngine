@@ -82,6 +82,11 @@ namespace ion
 			Alpha = Color::Full<T>::Value();
 		}
 
+		//! color3 constructor
+		color4(color3<T> const & Other, T const alpha)
+			: Red(this->X), Green(this->Y), Blue(this->Z), Alpha(this->W), vec4<T>(Other, alpha)
+		{}
+
 		//! Generic color3 constructor
 		template <typename U>
 		color4(color3<U> const & Other)
