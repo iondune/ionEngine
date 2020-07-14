@@ -58,7 +58,9 @@ namespace ion
 			ID3D11DeviceContext * GetImmediateContext();
 			ID3D11Debug * GetDebugDevice();
 
+			[[deprecated]]
 			void UseReverseDepth(bool const reverseDepth = true) {}
+
 			void DiagnosticCaptureBegin();
 			void DiagnosticCaptureEnd();
 			void AnnotateBeginEvent(string const & eventName);
