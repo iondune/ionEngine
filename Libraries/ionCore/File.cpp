@@ -2,6 +2,7 @@
 #include "File.h"
 
 #include <iterator>
+#include <filesystem>
 
 
 namespace ion
@@ -9,8 +10,21 @@ namespace ion
 
 	bool File::Exists(string const & FileName)
 	{
-		std::ifstream ifile(FileName);
-		return ifile.good();
+		return std::filesystem::exists(FileName);
+	}
+
+	bool File::IsDirectory(string const & FileName)
+	{
+		std::filesystem::path p(FileName);
+		std::filesystem::file_status s = std::filesystem::status(p);
+		return std::filesystem::status_known(s) && s.type() == std::filesystem::file_type::directory;
+	}
+
+	bool File::IsFile(string const & FileName)
+	{
+		std::filesystem::path p(FileName);
+		std::filesystem::file_status s = std::filesystem::status(p);
+		return std::filesystem::status_known(s) && s.type() == std::filesystem::file_type::regular;
 	}
 
 	string File::ReadAsString(string const & FileName)

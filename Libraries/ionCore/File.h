@@ -18,6 +18,9 @@ namespace ion
 
 		static bool Exists(string const & FileName);
 
+		static bool IsDirectory(string const & FileName);
+		static bool IsFile(string const & FileName);
+
 		static string ReadAsString(string const & FileName);
 
 		static string StripExtension(string const & Path);
