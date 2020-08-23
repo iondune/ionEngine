@@ -77,21 +77,6 @@ namespace ion
 #endif
 	}
 
-	vector<string> const & Log::GetMessages()
-	{
-		return AllLoggedMessages();
-	}
-
-	vector<string> const & Log::GetMessages(ELogChannel const Which)
-	{
-		return GetChannel(Which).Messages;
-	}
-
-	vector<pair<string, int>> const & Log::GetMessagesDetail(ELogChannel const Which)
-	{
-		return GetChannel(Which).GetMessagesDetail();
-	}
-
 	void Log::AddOutput(ELogChannel const Which, Output * Out)
 	{
 		GetChannel(Which).WriteTo.push_back(Out);
@@ -116,59 +101,19 @@ namespace ion
 #endif
 	}
 
-	void Log::Clear()
-	{
-		AllLoggedMessages().clear();
-		GetChannel(ELogChannel::Info).Messages.clear();
-		GetChannel(ELogChannel::Info).MessageMap.clear();
-		GetChannel(ELogChannel::Warn).Messages.clear();
-		GetChannel(ELogChannel::Warn).MessageMap.clear();
-		GetChannel(ELogChannel::Error).Messages.clear();
-		GetChannel(ELogChannel::Error).MessageMap.clear();
-	}
-
 	Log::Channel::Channel(ELogChannel const which, string const & Label)
 		: Which(which)
 	{
 		this->Label = Label;
 	}
 
-	bool Log::Channel::WriteMessage(string const & ToWrite)
+	void Log::Channel::WriteMessage(string const & ToWrite)
 	{
-		auto LookUp = MessageMap.find(ToWrite);
-
 		for (Output * Out : WriteTo)
 		{
 			Out->Write(Which, ToWrite);
 		}
-
-		if (LookUp != MessageMap.end())
-		{
-			LookUp->second ++;
-
-			return false;
-		}
-		else
-		{
-			MessageMap[ToWrite] = 1;
-			Messages.push_back(ToWrite);
-
-			return true;
-		}
 	}
-
-	vector<pair<string, int>> const & Log::Channel::GetMessagesDetail()
-	{
-		MessagesDetail.clear();
-
-		for (auto const & Message : Messages)
-		{
-			MessagesDetail.push_back(make_pair(Message, MessageMap[Message]));
-		}
-
-		return MessagesDetail;
-	}
-
 	Log::Channel & Log::GetChannel(ELogChannel const Which)
 	{
 		static Channel Info(ELogChannel::Info, "Info");
@@ -194,15 +139,7 @@ namespace ion
 
 	void Log::WriteInternal(ELogChannel const Which, std::string const & Message)
 	{
-		if (GetChannel(Which).WriteMessage(Message))
-		{
-			AllLoggedMessages().push_back(GetChannelLabel(Which) + ": " + Message);
-		}
+		GetChannel(Which).WriteMessage(Message);
 	}
 
-	vector<string> & Log::AllLoggedMessages()
-	{
-		static vector<string> AllLoggedMessages;
-		return AllLoggedMessages;
-	}
 }

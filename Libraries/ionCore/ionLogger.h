@@ -104,15 +104,9 @@ namespace ion
 #endif
 		}
 
-		static vector<string> const & GetMessages();
-		static vector<string> const & GetMessages(ELogChannel const Which);
-		static vector<pair<string, int>> const & GetMessagesDetail(ELogChannel const Which);
-
 		static void AddOutput(ELogChannel const Which, Output * Out);
 		static void AddOutputToAllChannels(Output * Out);
 		static void AddDefaultOutputs();
-
-		static void Clear();
 
 	protected:
 
@@ -124,16 +118,10 @@ namespace ion
 			ELogChannel const Which;
 			string Label;
 			vector<Output *> WriteTo;
-			vector<string> Messages;
-			vector<pair<string, int>> MessagesDetail;
-			unordered_map<string, int> MessageMap;
 
 			Channel(ELogChannel const Which, string const & Label);
 
-			//! \return true if this is a new message, false if not
-			bool WriteMessage(string const & ToWrite);
-
-			vector<pair<string, int>> const & GetMessagesDetail();
+			void WriteMessage(string const & ToWrite);
 
 		};
 
@@ -141,7 +129,6 @@ namespace ion
 		static string GetChannelLabel(ELogChannel const Which);
 
 		static void WriteInternal(ELogChannel const Which, std::string const & Message);
-		static vector<string> & AllLoggedMessages();
 
 	};
 
