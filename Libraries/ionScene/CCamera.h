@@ -20,7 +20,7 @@ namespace ion
 			virtual void Update();
 
 			virtual vec3f const & GetPosition() const;
-			virtual vec3f const & GetLookDirecton() const;
+			virtual vec3f GetLookDirecton() const;
 			virtual vec3f GetLookAtTarget() const;
 			virtual vec3f const & GetUpVector() const;
 			virtual glm::mat4 GetViewMatrix() const;
@@ -44,12 +44,18 @@ namespace ion
 		protected:
 
 			vec3f Position;
-			vec3f LookDirection;
 			vec3f UpVector;
+
+			bool DirectionMode = true;
 
 			glm::mat4 ViewMatrix;
 			glm::mat4 ProjectionMatrix;
 			float NearPlane, FarPlane;
+
+		private:
+
+			vec3f LookDirection;
+			vec3f LookTarget;
 
 		};
 

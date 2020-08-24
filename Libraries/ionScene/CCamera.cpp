@@ -19,7 +19,7 @@ namespace ion
 
 		void CCamera::RecalculateViewMatrix()
 		{
-			ViewMatrix = glm::translate(glm::lookAt(glm::vec3(), LookDirection.ToGLM(), UpVector.ToGLM()), -GetPosition().ToGLM());
+			ViewMatrix = glm::translate(glm::lookAt(glm::vec3(), GetLookDirecton().ToGLM(), UpVector.ToGLM()), -GetPosition().ToGLM());
 		}
 
 		void CCamera::Update()
@@ -32,14 +32,14 @@ namespace ion
 			return Position;
 		}
 
-		vec3f const & CCamera::GetLookDirecton() const
+		vec3f CCamera::GetLookDirecton() const
 		{
-			return LookDirection;
+			return DirectionMode ? LookDirection : LookTarget - Position;
 		}
 
 		vec3f CCamera::GetLookAtTarget() const
 		{
-			return GetPosition() + LookDirection;
+			return DirectionMode ? Position + LookDirection : LookTarget;
 		}
 
 		vec3f const & CCamera::GetUpVector() const
@@ -55,11 +55,13 @@ namespace ion
 		void CCamera::SetLookDirection(vec3f const & lookDirection)
 		{
 			LookDirection = lookDirection;
+			DirectionMode = true;
 		}
 
 		void CCamera::SetLookAtTarget(vec3f const & lookAtTarget)
 		{
-			SetLookDirection(lookAtTarget - GetPosition());
+			LookTarget = lookAtTarget;
+			DirectionMode = false;
 		}
 
 		void CCamera::SetUpVector(vec3f const & upVector)

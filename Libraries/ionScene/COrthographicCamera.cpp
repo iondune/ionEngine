@@ -7,16 +7,17 @@ namespace ion
 	namespace Scene
 	{
 
-		COrthographicCamera::COrthographicCamera(float const Size, float const AspectRatio)
+		COrthographicCamera::COrthographicCamera(float const size, float const aspectRatio)
 		{
-			Left = -Size / 2 * AspectRatio;
-			Right = Size / 2 * AspectRatio;
-			Top = Size / 2;
-			Bottom = -Size / 2;
+			AspectRatio = aspectRatio;
+			Left = -size / 2 * AspectRatio;
+			Right = size / 2 * AspectRatio;
+			Top = size / 2;
+			Bottom = -size / 2;
 		}
 
 		COrthographicCamera::COrthographicCamera(float const left, float const right, float const bottom, float const top)
-			: Left(left), Right(right), Bottom(bottom), Top(top)
+			: Left(left), Right(right), Bottom(bottom), Top(top), AspectRatio((right - left) / (top - bottom))
 		{}
 
 		void COrthographicCamera::RecalculateProjectionMatrix()
