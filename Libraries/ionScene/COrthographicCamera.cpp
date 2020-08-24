@@ -91,5 +91,21 @@ namespace ion
 			Bottom = bottom;
 		}
 
+		ray3f COrthographicCamera::GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize)
+		{
+			ray3f Ray;
+
+			vec2f const cursor = vec2f(Pixel) / vec2f(WindowSize);
+
+			vec3f const W = -Normalize(GetLookDirecton());
+			vec3f const U = Normalize(Cross(W, GetUpVector()));
+			vec3f const V = Cross(W, U);
+
+			Ray.Origin = Position + -U * (Left + (Right - Left) * cursor.X) + V * (Bottom + (Top - Bottom) * cursor.Y);
+			Ray.Direction = -W;
+
+			return Ray;
+		}
+
 	}
 }

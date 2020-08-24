@@ -104,5 +104,25 @@ namespace ion
 			AspectRatio = aspectRatio;
 		}
 
+		ray3f CPerspectiveCamera::GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize)
+		{
+			ray3f Ray;
+
+			vec2f const NormalizedCursorPosition = (vec2f(Pixel)) / (vec2f(WindowSize) * 0.5f) - 1.f;
+
+			glm::mat4 InverseViewProjection = glm::inverse(ProjectionMatrix * ViewMatrix);
+			glm::vec4 ClipCoordinates = glm::vec4(NormalizedCursorPosition.X, -NormalizedCursorPosition.Y, -1, 1);
+			glm::vec4 EyeCoordinates = glm::inverse(ProjectionMatrix) * ClipCoordinates;
+			EyeCoordinates.z = -1;
+			EyeCoordinates.w = 0;
+			glm::vec4 WorldCoordinates = glm::inverse(ViewMatrix) * EyeCoordinates;
+
+			Ray.Origin = Position;
+			//Ray.Direction = Normalize(Right * Normalized.X - Up * Normalized.Y + View * FocalLength);
+			Ray.Direction = vec3f::FromGLM(glm::vec3(WorldCoordinates)).GetNormalized();
+
+			return Ray;
+		}
+
 	}
 }
