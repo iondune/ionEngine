@@ -14,7 +14,7 @@ namespace ion
 
 		public:
 
-			COrthographicCamera(float const Size, float const AspectRatio);
+			COrthographicCamera(float const size, float const aspectRatio);
 			COrthographicCamera(float const left, float const right, float const bottom, float const top);
 
 			float GetTop() const;
@@ -27,12 +27,16 @@ namespace ion
 			void SetLeft(float const left);
 			void SetRight(float const right);
 
+			float GetSize() const;
+			void SetSize(float const size);
+
 			void RecalculateProjectionMatrix();
 			void Update();
 
 		protected:
 
-			float Top, Bottom, Left, Right;
+			float Top = 1.f, Bottom = -1.f, Left = -1.f, Right = 1.f;
+			float AspectRatio = 1.f;
 
 		};
 

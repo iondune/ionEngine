@@ -63,6 +63,19 @@ namespace ion
 			Right = right;
 		}
 
+		float COrthographicCamera::GetSize() const
+		{
+			return Top - Bottom;
+		}
+
+		void COrthographicCamera::SetSize(float const size)
+		{
+			Left = -size / 2 * AspectRatio;
+			Right = size / 2 * AspectRatio;
+			Top = size / 2;
+			Bottom = -size / 2;
+		}
+
 		void COrthographicCamera::SetLeft(float const left)
 		{
 			Left = left;
