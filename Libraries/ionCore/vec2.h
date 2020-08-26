@@ -42,13 +42,13 @@ namespace ion
 
 		//! GLM constructor
 		template <typename U>
-		vec2(glm::tvec2<U, glm::defaultp> const & v)
+		explicit vec2(glm::tvec2<U, glm::defaultp> const & v)
 			: X(v.x), Y(v.y)
 		{}
 
 		//! Generic vec2 constructor
 		template <typename U>
-		vec2(vec2<U> const & vec)
+		explicit vec2(vec2<U> const & vec)
 			: X((T) vec.X), Y((T) vec.Y)
 		{}
 

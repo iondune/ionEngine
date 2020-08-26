@@ -73,7 +73,7 @@ TEST_CASE("vec2::operator =")
 	CHECK(d.X == 6);
 	CHECK(d.Y == 8);
 
-	e = glm::ivec2(9, 10);
+	e = vec2i(glm::ivec2(9, 10));
 	CHECK(e.X == 9);
 	CHECK(e.Y == 10);
 }

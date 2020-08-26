@@ -84,7 +84,7 @@ namespace ion
 	{
 		double x, y;
 		glfwGetCursorPos(WindowHandle, &x, &y);
-		return vec2d(x, y);
+		return vec2f(vec2d(x, y));
 	}
 
 	void CWindow::SetCursorLocation(vec2f const & position)

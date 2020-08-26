@@ -109,7 +109,7 @@ namespace ion
 			FarPlane = farPlane;
 		}
 
-		vec2i CCamera::GetScreenCoordinates(vec3f const & WorldPosition, vec2f const & WindowSize, bool * InFront)
+		vec2i CCamera::GetScreenCoordinates(vec3f const & WorldPosition, vec2i const & WindowSize, bool * InFront)
 		{
 			vec4f WorldCoords = vec4f(WorldPosition.X, WorldPosition.Y, WorldPosition.Z, 1);
 			WorldCoords.Transform(ViewMatrix);

@@ -104,7 +104,7 @@ namespace ion
 			AspectRatio = aspectRatio;
 		}
 
-		ray3f CPerspectiveCamera::GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize)
+		ray3f CPerspectiveCamera::GetPickingRay(vec2f const & Pixel, vec2i const & WindowSize)
 		{
 			ray3f Ray;
 

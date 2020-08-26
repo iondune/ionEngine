@@ -105,7 +105,7 @@ namespace ion
 			uint  const Red        = Text.Color.Red;
 			uint  const Green      = Text.Color.Green;
 			uint  const Blue       = Text.Color.Blue;
-			vec2f const Position   = Text.Position + PlatformImplementation->PrimaryWindow->GetPosition();
+			vec2f const Position   = vec2f(Text.Position + PlatformImplementation->PrimaryWindow->GetPosition());
 			DrawList->AddText(Position, (0xFF000000) | (Blue << 16) | (Green << 8) | (Red), Text.Text.c_str());
 		}
 		TextQueue.clear();

@@ -249,7 +249,7 @@ namespace ion
 			if (window->IsFocused())
 			{
 				// Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.)
-				io.MousePos = window->GetCursorLocation() + window->GetPosition();
+				io.MousePos = window->GetCursorLocation() + vec2f(window->GetPosition());
 			}
 		}
 
@@ -303,8 +303,8 @@ namespace ion
 		viewport->PlatformUserData = data;
 
 		data->Window = windowManager->CreateGUIWindow(
-			vec2f(viewport->Pos),
-			vec2f(viewport->Size),
+			vec2i(vec2f(viewport->Pos)),
+			vec2i(vec2f(viewport->Size)),
 			(viewport->Flags & ImGuiViewportFlags_NoDecoration));
 		data->WindowOwned = true;
 		viewport->PlatformHandle = (void *) data->Window;
@@ -342,25 +342,25 @@ namespace ion
 	void ImGui_ImplGlfw_SetWindowPos(ImGuiViewport * viewport, ImVec2 pos)
 	{
 		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
-		return data->Window->SetPosition(vec2f(pos));
+		return data->Window->SetPosition(vec2i(vec2f(pos)));
 	}
 
 	ImVec2 ImGui_ImplGlfw_GetWindowPos(ImGuiViewport * viewport)
 	{
 		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
-		return data->Window->GetPosition();
+		return vec2f(data->Window->GetPosition());
 	}
 
 	void ImGui_ImplGlfw_SetWindowSize(ImGuiViewport * viewport, ImVec2 size)
 	{
 		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
-		return data->Window->SetSize(vec2f(size));
+		return data->Window->SetSize(vec2i(vec2f(size)));
 	}
 
 	ImVec2 ImGui_ImplGlfw_GetWindowSize(ImGuiViewport * viewport)
 	{
 		ImGuiViewportData * data = (ImGuiViewportData *) viewport->PlatformUserData;
-		return data->Window->GetSize();
+		return vec2f(data->Window->GetSize());
 	}
 
 	void ImGui_ImplGlfw_SetWindowFocus(ImGuiViewport * viewport)

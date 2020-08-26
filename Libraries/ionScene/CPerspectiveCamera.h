@@ -36,7 +36,7 @@ namespace ion
 
 			EProjectionType GetProjectionType() const;
 			void SetProjectionType(EProjectionType const Type);
-			ray3f GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize);
+			ray3f GetPickingRay(vec2f const & Pixel, vec2i const & WindowSize);
 
 		protected:
 

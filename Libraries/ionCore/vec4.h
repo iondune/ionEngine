@@ -42,13 +42,13 @@ namespace ion
 
 		//! GLM constructor
 		template <typename U>
-		vec4(glm::tvec4<U, glm::defaultp> const & v)
+		explicit vec4(glm::tvec4<U, glm::defaultp> const & v)
 			: X(v.x), Y(v.y), Z(v.z), W(v.w)
 		{}
 
 		//! Generic constructor
 		template <typename U>
-		vec4(vec4<U> const & vec)
+		explicit vec4(vec4<U> const & vec)
 			: X((T) vec.X), Y((T) vec.Y), Z((T) vec.Z), W((T) vec.W)
 		{}
 

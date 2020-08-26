@@ -32,7 +32,7 @@ namespace ion
 
 			void RecalculateProjectionMatrix();
 			void Update();
-			ray3f GetPickingRay(vec2i const & Pixel, vec2f const & WindowSize);
+			ray3f GetPickingRay(vec2f const & Pixel, vec2i const & WindowSize);
 
 		protected:
 
