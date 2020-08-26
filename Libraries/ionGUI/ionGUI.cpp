@@ -7,6 +7,11 @@ using namespace ion;
 namespace ImGui
 {
 
+	ImU32 Color(ion::color4i const & c)
+	{
+		return ((ImU32) c.Alpha << 24) | ((ImU32) c.Blue << 16) | ((ImU32) c.Green << 8) | ((ImU32) c.Red);
+	}
+
 	bool SliderDouble(const char * label, double * v, double v_min, double v_max, const char * display_format, double power)
 	{
 		float temp = (float) *v;
