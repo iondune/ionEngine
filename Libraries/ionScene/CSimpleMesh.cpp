@@ -143,6 +143,21 @@ namespace ion
 			return this;
 		}
 
+		CSimpleMesh * CSimpleMesh::ApplyRotation(float const Angle, vec3f const & Axis)
+		{
+			return ApplyTransformation(glm::rotate(glm::mat4(1.f), Angle, Axis.ToGLM()));
+		}
+
+		CSimpleMesh * CSimpleMesh::ApplyRotationCentered(float const Angle, vec3f const & Axis)
+		{
+			vec3f const center = GetBoundingBox().GetCenter();
+			glm::mat4 t(1.f);
+			t = glm::translate(t, center.ToGLM());
+			t = glm::rotate(t, Angle, glm::vec3(0, 1, 0));
+			t = glm::translate(t, -center.ToGLM());
+			return ApplyTransformation(t);
+		}
+
 		CSimpleMesh * CSimpleMesh::ApplyTransformation(glm::mat4 const & Transform)
 		{
 			std::for_each(Vertices.begin(), Vertices.end(), [Transform](SVertex & Vertex)
