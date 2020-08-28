@@ -36,12 +36,12 @@ namespace ion
 	{
 		this->Size = vec2i(2);
 
-		int const Stride = 4;
-		Data = new ion::byte[Size.X * Size.Y * Stride];
+		size_t const Stride = 4;
+		Data = new ion::byte[(size_t) Size.X * (size_t) Size.Y * Stride];
 
-		for (int i = 0; i < Size.X * Size.Y; ++ i)
-			for (int j = 0; j < Stride; ++ j)
-				Data[i*Stride + j] = (ion::byte) (255.f * Color[j]);
+		for (size_t i = 0; i < (size_t) Size.X * (size_t) Size.Y; ++ i)
+			for (size_t j = 0; j < Stride; ++ j)
+				Data[i*Stride + j] = (ion::byte) (255.f * Color[(int) j]);
 	}
 
 	CImage::~CImage()
@@ -104,34 +104,37 @@ namespace ion
 
 	void CImage::FlipY()
 	{
-		int const Stride = 4;
+		size_t const Stride = 4;
+		size_t const rowSize = Stride * Size.X;
 
-		for (int x = 0; x < Size.X; ++ x)
+		byte * rowTemp = new byte[rowSize];
+
+		for (int y = 0; y < Size.Y / 2; ++ y)
 		{
-			for (int y = 0; y < Size.Y / 2; ++ y)
-			{
-				for (int j = 0; j < Stride; ++ j)
-				{
-					std::swap(Data[x * Stride + y * Size.X * Stride + j], Data[x * Stride + (Size.Y - 1 - y) * Size.X * Stride + j]);
-				}
-			}
+			void * row1 = Data + (y * (size_t) Size.X * Stride);
+			void * row2 = Data + ((size_t) (Size.Y - 1 - y) * (size_t) Size.X * Stride);
+			std::memcpy(rowTemp, row1, rowSize);
+			std::memcpy(row1, row2, rowSize);
+			std::memcpy(row2, rowTemp, rowSize);
 		}
+
+		delete[] rowTemp;
 	}
 
 	void CImage::Crop(vec2i const & Position, vec2i const & NewSize)
 	{
-		int const Stride = 4;
+		size_t const Stride = 4;
 
-		byte * NewData = new ion::byte[NewSize.X * NewSize.Y * Stride];
+		byte * NewData = new ion::byte[(size_t) NewSize.X * (size_t) NewSize.Y * Stride];
 
-		for (int x = Position.X; x < Position.X + NewSize.X; ++ x)
+		for (size_t x = Position.X; x < (size_t) Position.X + NewSize.X; ++ x)
 		{
-			for (int y = Position.Y; y < Position.Y + NewSize.Y; ++ y)
+			for (size_t y = Position.Y; y < (size_t) Position.Y + NewSize.Y; ++ y)
 			{
-				int const newX = x - Position.X;
-				int const newY = y - Position.Y;
+				size_t const newX = x - Position.X;
+				size_t const newY = y - Position.Y;
 
-				for (uint j = 0; j < Stride; ++ j)
+				for (size_t j = 0; j < Stride; ++ j)
 				{
 					NewData[newX * Stride + newY * NewSize.X * Stride + j] = Data[x * Stride + y * Size.X * Stride + j];
 				}

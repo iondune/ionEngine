@@ -37,6 +37,7 @@
     <ClCompile Include="ionLogger.cpp" />
     <ClCompile Include="ionContainer.cpp" />
     <ClCompile Include="TestColor.cpp" />
+    <ClCompile Include="TestImage.cpp" />
     <ClCompile Include="TestionUtils.cpp" />
     <ClCompile Include="IsUniformNameArrayElement.cpp" />
     <ClCompile Include="ray3.cpp" />
