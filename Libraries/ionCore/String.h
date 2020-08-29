@@ -21,6 +21,7 @@ namespace ion
 
 		static vector<string> Explode(string const & str, char delimiter);
 
+		static bool BeginsWith(string const & s, string const & prefix);
 		static bool BeginsWith(string const & s, string const & prefix, string & remainder);
 
 		template <typename... Args>

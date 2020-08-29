@@ -33,6 +33,21 @@ namespace ion
 		return Words;
 	}
 
+	bool String::BeginsWith(string const & s, string const & prefix)
+	{
+		if (s.size() < prefix.size())
+		{
+			return false;
+		}
+
+		if (s.substr(0, prefix.size()) == prefix)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	bool String::BeginsWith(string const & s, string const & prefix, string & remainder)
 	{
 		if (s.size() < prefix.size())
