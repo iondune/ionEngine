@@ -54,7 +54,7 @@ namespace ion
 
 		};
 
-		//! \ingroud ionGraphics
+		//! \ingroup ionGraphics
 		class IInstanceBuffer
 		{
 
