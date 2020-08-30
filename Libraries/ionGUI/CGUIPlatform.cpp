@@ -152,9 +152,9 @@ namespace ion
 
 			io.KeysDown[(int) KeyboardEvent.Key] = KeyboardEvent.Pressed;
 
-			io.KeyCtrl  = PrimaryWindow->IsKeyDown(EKey::LeftControl) || PrimaryWindow->IsKeyDown(EKey::RightControl);
-			io.KeyShift = PrimaryWindow->IsKeyDown(EKey::LeftShift)   || PrimaryWindow->IsKeyDown(EKey::RightShift);
-			io.KeyAlt   = PrimaryWindow->IsKeyDown(EKey::LeftAlt)     || PrimaryWindow->IsKeyDown(EKey::RightAlt);
+			io.KeyCtrl  = KeyboardEvent.Window->IsKeyDown(EKey::LeftControl) || KeyboardEvent.Window->IsKeyDown(EKey::RightControl);
+			io.KeyShift = KeyboardEvent.Window->IsKeyDown(EKey::LeftShift)   || KeyboardEvent.Window->IsKeyDown(EKey::RightShift);
+			io.KeyAlt   = KeyboardEvent.Window->IsKeyDown(EKey::LeftAlt)     || KeyboardEvent.Window->IsKeyDown(EKey::RightAlt);
 		}
 		else if (InstanceOf<SMouseEvent>(Event))
 		{
