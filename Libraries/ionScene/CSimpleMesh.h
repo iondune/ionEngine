@@ -76,6 +76,7 @@ namespace ion
 			SBoundingBox3f GetBoundingBox() const;
 
 			void Clear();
+			CSimpleMesh * Clone();
 			CSimpleMesh * ResizeMesh(vec3f const & Scale);
 			CSimpleMesh * ApplyScaleFactor(vec3f const & Scale);
 			CSimpleMesh * ApplyOffset(vec3f const & Offset);

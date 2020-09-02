@@ -110,6 +110,11 @@ namespace ion
 			Triangles.clear();
 		}
 
+		CSimpleMesh * CSimpleMesh::Clone()
+		{
+			return new CSimpleMesh(* this);
+		}
+
 		CSimpleMesh * CSimpleMesh::ResizeMesh(vec3f const & Scale)
 		{
 			vec3f const Extent = GetBoundingBox().GetExtent();
