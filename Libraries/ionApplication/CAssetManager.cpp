@@ -107,7 +107,7 @@ namespace ion
 		return nullptr;
 	}
 
-	CImage * CAssetManager::LoadImage(string const & FileName)
+	CImage * CAssetManager::LoadImage(string const & FileName, bool const flipY)
 	{
 		if (! GraphicsAPI)
 		{
@@ -122,14 +122,14 @@ namespace ion
 				continue;
 			}
 
-			return CImage::Load(AssetPath + TexturePath + FileName);
+			return CImage::Load(AssetPath + TexturePath + FileName, flipY);
 		}
 
 		Log::Error("Cannot find image file in any asset directory: '%s'", FileName);
 		return nullptr;
 	}
 
-	SharedPointer<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps)
+	SharedPointer<Graphics::ITexture2D> CAssetManager::LoadTexture(string const & FileName, Graphics::ITexture::EMipMaps const MipMaps, bool const flipY)
 	{
 		if (! GraphicsAPI)
 		{
@@ -144,7 +144,7 @@ namespace ion
 				continue;
 			}
 
-			CImage * Image = CImage::Load(AssetPath + TexturePath + FileName);
+			CImage * Image = CImage::Load(AssetPath + TexturePath + FileName, flipY);
 			if (Image)
 			{
 				return GraphicsAPI->CreateTexture2D(Image, MipMaps);

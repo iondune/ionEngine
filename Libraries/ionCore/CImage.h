@@ -13,7 +13,7 @@ namespace ion
 
 	public:
 
-		static CImage * Load(std::string const & FileName);
+		static CImage * Load(std::string const & FileName, bool const flipY = true);
 
 		CImage(ion::byte * const Data, vec2i const Size);
 		CImage(color4f const & Color);

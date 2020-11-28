@@ -9,7 +9,7 @@
 namespace ion
 {
 
-	CImage * CImage::Load(std::string const & FileName)
+	CImage * CImage::Load(std::string const & FileName, bool const flipY)
 	{
 		int x, y, n;
 		byte * data = stbi_load(FileName.c_str(), & x, & y, & n, 4);
@@ -21,7 +21,10 @@ namespace ion
 		}
 
 		CImage * Image = new CImage(data, vec2i(x, y));
-		Image->FlipY();
+		if (flipY)
+		{
+			Image->FlipY();
+		}
 
 		return Image;
 	}
