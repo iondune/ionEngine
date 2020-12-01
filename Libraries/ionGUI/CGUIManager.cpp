@@ -98,7 +98,7 @@ namespace ion
 
 	void CGUIManager::Draw()
 	{
-		ImDrawList * DrawList = ImGui::GetBackgroundDrawList();
+		ImDrawList * DrawList = ImGui::GetBackgroundDrawList(ImGui::GetMainViewport());
 
 		for (auto Text : TextQueue)
 		{
