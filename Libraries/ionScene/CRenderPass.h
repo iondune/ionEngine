@@ -43,7 +43,7 @@ namespace ion
 			virtual void SetTexture(string const & Name, SharedPointer<Graphics::ITexture> Texture);
 
 			virtual void Load();
-			virtual void Draw();
+			virtual int Draw();
 			virtual void ReloadAll();
 
 			virtual void PreparePipelineStateForRendering(SharedPointer<Graphics::IPipelineState> PipelineState, ISceneObject * SceneObject);

@@ -105,7 +105,7 @@ namespace ion
 			});
 		}
 
-		void CRenderPass::Draw()
+		int CRenderPass::Draw()
 		{
 			if (ActiveCamera)
 			{
@@ -132,6 +132,8 @@ namespace ion
 				}
 			});
 
+			int numDraws = 0;
+
 			for (auto & Category : RenderQueue)
 			{
 				for (auto & Element : Category)
@@ -145,11 +147,14 @@ namespace ion
 					if (GraphicsContext)
 					{
 						GraphicsContext->Draw(PipelineState);
+						numDraws += 1;
 					}
 				}
 
 				Category.clear();
 			}
+
+			return numDraws;
 		}
 
 		void CRenderPass::ReloadAll()

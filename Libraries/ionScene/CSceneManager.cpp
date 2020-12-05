@@ -8,9 +8,11 @@ namespace ion
 	void CSceneManager::Init(CGraphicsAPI * GraphicsAPI)
 	{}
 
-	void CSceneManager::DrawAll()
+	int CSceneManager::DrawAll()
 	{
 		SingletonPointer<CGraphicsAPI> GraphicsAPI;
+
+		int numDraws = 0;
 
 		int i = 0;
 		for (Scene::CRenderPass * pass : RenderPasses)
@@ -23,11 +25,13 @@ namespace ion
 
 			GraphicsAPI->GetImplementation()->AnnotateBeginEvent(passName);
 			pass->Load();
-			pass->Draw();
+			numDraws += pass->Draw();
 			GraphicsAPI->GetImplementation()->AnnotateEndEvent(passName);
 
 			i ++;
 		}
+
+		return numDraws;
 	}
 
 	void CSceneManager::AddRenderPass(Scene::CRenderPass * RenderPass)
