@@ -13,17 +13,19 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2D08659B-B706-4A3C-95C0-9294710DC5EE}</ProjectGuid>
     <RootNamespace>TestDeployment</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)\Properties\Include\WindowsSDK.props" />
     <Import Project="$(SolutionDir)\Properties\Include\Build.props" />
     <Import Project="$(SolutionDir)\Properties\Include\Deploy.props" />
   </ImportGroup>
   <ItemDefinitionGroup>
+    <ClCompile>
+    </ClCompile>
     <Link>
       <AdditionalDependencies>
         ;ionCore.lib;
