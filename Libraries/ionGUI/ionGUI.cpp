@@ -220,7 +220,7 @@ namespace ImGui
 		return ImGui::Combo(label, current_item, items_vec.data(), (int) items.size(), height_in_items);
 	}
 
-	bool InputText(const char * label, string & buf, ImGuiInputTextFlags flags, ImGuiTextEditCallback callback, void * user_data)
+	bool InputText(const char * label, string & buf, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void * user_data)
 	{
 		static vector<char> buffer_copy;
 		static int const ReserveSpace = 32;
