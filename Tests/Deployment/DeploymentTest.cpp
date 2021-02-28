@@ -1,6 +1,5 @@
 
 #include <ionCore.h>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 
@@ -89,20 +88,6 @@ int main()
 	std::cout << std::endl;
 	glfwMakeContextCurrent(window);
 
-	std::cout <<
-		"Initializing glad..." << std::endl <<
-		"--------------------" << std::endl;
-	if (! gladLoadGL())
-	{
-		std::cerr << "Error initializing glad! " << std::endl;
-		WaitForUser();
-		exit(35);
-	}
-
-	std::cerr << "OpenGL Version:   " << std::flush << glGetString(GL_VERSION) << std::endl;
-	std::cerr << "GLSL Version:     " << std::flush << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-	std::cerr << "Vender:           " << std::flush << glGetString(GL_VENDOR) << std::endl;
-	std::cerr << "Renderer:         " << std::flush << glGetString(GL_RENDERER) << std::endl << std::endl;
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
@@ -113,19 +98,6 @@ int main()
 	Log::Info("Info log.");
 	Log::Warn("Warning log.");
 	Log::Error("Error log.");
-	std::cout << std::endl;
-
-	std::cout <<
-		"OpenGL Debug Output test..." << std::endl <<
-		"---------------------------" << std::endl;
-	if (glDebugMessageCallback)
-	{
-		std::cout << "Supported." << std::endl;
-	}
-	else
-	{
-		std::cout << "Not supported." << std::endl;
-	}
 	std::cout << std::endl;
 
 	WaitForUser();

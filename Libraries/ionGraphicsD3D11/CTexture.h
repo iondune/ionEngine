@@ -42,8 +42,6 @@ namespace ion
 				void GenerateMipMaps();
 
 				void ApplyParams();
-				virtual uint GetGLBindTextureTarget() const = 0;
-				virtual uint GetGLTextureBindingEnum() const = 0;
 
 				ID3D11Device * Device = nullptr;
 				ID3D11DeviceContext * ImmediateContext = nullptr;
@@ -90,9 +88,6 @@ namespace ion
 				using CTexture::GetWrapMode;
 				using CTexture::GetAnisotropy;
 
-				uint GetGLBindTextureTarget() const;
-				uint GetGLTextureBindingEnum() const;
-
 				vec2i TextureSize;
 
 				ID3D11Texture2D * Texture2D = nullptr;
@@ -119,9 +114,6 @@ namespace ion
 				using CTexture::GetWrapMode;
 				using CTexture::GetAnisotropy;
 
-				uint GetGLBindTextureTarget() const;
-				uint GetGLTextureBindingEnum() const;
-
 				vec3i TextureSize;
 
 #pragma warning(suppress: 4250)
@@ -146,9 +138,6 @@ namespace ion
 				using CTexture::GetWrapMode;
 				using CTexture::GetAnisotropy;
 
-				uint GetGLBindTextureTarget() const;
-				uint GetGLTextureBindingEnum() const;
-
 				vec3i TextureSize;
 
 #pragma warning(suppress: 4250)
@@ -172,9 +161,6 @@ namespace ion
 				using CTexture::GetMipMapFilter;
 				using CTexture::GetWrapMode;
 				using CTexture::GetAnisotropy;
-
-				uint GetGLBindTextureTarget() const;
-				uint GetGLTextureBindingEnum() const;
 
 				vec2i TextureSize;
 

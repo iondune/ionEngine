@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include <glad/glad.h>
-
 #include "SVolume.h"
 #include "IDatabase.h"
 #include "IDataRecord.h"
@@ -104,33 +102,6 @@ namespace ion
 			}
 
 			return SRange<T>(Min, Max);
-		}
-
-		void MakeOpenGLVolume(uint const VolumeHandle, IColorMapper * ColorMapper)
-		{
-			ColorMapper->PreProcessValues(* this);
-
-			byte * const VolumeData = new byte[Dimensions.X * Dimensions.Y * Dimensions.Z * 4];
-
-			for (int k = 0; k < Dimensions.Z; ++ k)
-				for (int j = 0; j < Dimensions.Y; ++ j)
-					for (int i = 0; i < Dimensions.X; ++ i)
-					{
-						int const Index = i + j * Dimensions.X + k * Dimensions.X * Dimensions.Y;
-						color4i const Color = ColorMapper->GetColor(Get(i, j, k));
-
-						for (int t = 0; t < 4; ++ t)
-							VolumeData[Index * 4 + t] = Color[t];
-					}
-
-			glBindTexture(GL_TEXTURE_3D, VolumeHandle);
-			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-			glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, Dimensions.X, Dimensions.Y, Dimensions.Z, 0, GL_RGBA, GL_UNSIGNED_BYTE, VolumeData);
-			glBindTexture(GL_TEXTURE_3D, 0);
 		}
 
 		void WriteToFile(std::ofstream & File)

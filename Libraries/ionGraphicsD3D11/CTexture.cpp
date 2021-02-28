@@ -1,7 +1,6 @@
 
 #include "CTexture.h"
 #include "Utilities.h"
-#include <glad/glad.h>
 
 
 namespace ion
@@ -343,16 +342,6 @@ namespace ion
 				StagingTexture->Release();
 			}
 
-			uint CTexture2D::GetGLBindTextureTarget() const
-			{
-				return GL_TEXTURE_2D;
-			}
-
-			uint CTexture2D::GetGLTextureBindingEnum() const
-			{
-				return GL_TEXTURE_BINDING_2D;
-			}
-
 
 			////////////////////
 			// Texture2DArray //
@@ -370,16 +359,6 @@ namespace ion
 
 			void CTexture2DArray::UploadSubRegion(void const * const Data, vec3i const & Offset, vec3i const & Size, EFormatComponents const Components, EScalarType const Type)
 			{
-			}
-
-			uint CTexture2DArray::GetGLBindTextureTarget() const
-			{
-				return GL_TEXTURE_2D_ARRAY;
-			}
-
-			uint CTexture2DArray::GetGLTextureBindingEnum() const
-			{
-				return GL_TEXTURE_BINDING_2D_ARRAY;
 			}
 
 
@@ -401,16 +380,6 @@ namespace ion
 			{
 			}
 
-			uint CTexture3D::GetGLBindTextureTarget() const
-			{
-				return GL_TEXTURE_3D;
-			}
-
-			uint CTexture3D::GetGLTextureBindingEnum() const
-			{
-				return GL_TEXTURE_BINDING_3D;
-			}
-
 
 			////////////////////
 			// TextureCubeMap //
@@ -430,15 +399,6 @@ namespace ion
 			{
 			}
 
-			uint CTextureCubeMap::GetGLBindTextureTarget() const
-			{
-				return GL_TEXTURE_CUBE_MAP;
-			}
-
-			uint CTextureCubeMap::GetGLTextureBindingEnum() const
-			{
-				return GL_TEXTURE_BINDING_CUBE_MAP;
-			}
 		}
 	}
 }
