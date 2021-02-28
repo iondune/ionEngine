@@ -4,7 +4,6 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>
-        ;OpenGL32.lib;
         ;d3d11.lib;
         ;d3dcompiler.lib;
         ;dxguid.lib;

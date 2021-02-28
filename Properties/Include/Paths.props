@@ -11,7 +11,6 @@
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glm;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\imgui;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\doctest\doctest;
-      ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\glad\include;
       ;$(VisualStudioDir)\Projects\ionEngine\Dependencies\dirent\include;
       ;$(IncludePath);
     </IncludePath>
