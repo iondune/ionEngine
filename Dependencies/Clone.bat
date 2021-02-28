@@ -7,7 +7,7 @@ CALL :Clone glm             https://github.com/g-truc/glm.git            bf71a83
 CALL :Clone imgui           https://github.com/ocornut/imgui.git         4b4be11fd2dabc7a72d749c22a5eeeb3647078bc
 CALL :Clone doctest         https://github.com/onqtam/doctest.git        f0ab4e793fa863d4a5929ff263ddd3bebec8767e
 CALL :Clone tinyobjloader   https://github.com/syoyo/tinyobjloader.git   51d13700d880d2d5fdaf5bd3547100bafcae7932
-CALL :Clone simpleini       https://github.com/brofield/simpleini        2af65fcc504f8242752755e836709762ef7ce062
+CALL :Clone simpleini       https://github.com/brofield/simpleini.git    7bca74f6535a37846162383e52071f380c99a43a
 
 CALL :Clone dirent          https://github.com/tronkko/dirent.git        94ff8bdbb4e11eea5fba17b92edfcdc4b4ece769
 
