@@ -2,7 +2,7 @@
 @ECHO off
 
 CALL :Clone stb             https://github.com/nothings/stb.git          b42009b3b9d4ca35bc703f5310eedc74f584be58
-CALL :Clone tinyformat      https://github.com/c42f/tinyformat.git       3a33bbf65442432277eee079e83d3e8fac51730c
+CALL :Clone tinyformat      https://github.com/c42f/tinyformat.git       705e3f4e1de922069bf715746d35bd2364b1f98f
 CALL :Clone glm             https://github.com/g-truc/glm.git            6fa203eeb7fbcbb6f620501fad40359c8a456049
 CALL :Clone imgui           https://github.com/ocornut/imgui.git         4b4be11fd2dabc7a72d749c22a5eeeb3647078bc
 CALL :Clone doctest         https://github.com/onqtam/doctest.git        d5aa2bfb8f00b6260296a754af3a3a98d93f7b67
