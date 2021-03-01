@@ -17,15 +17,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\Properties\Application.props" />
   </ImportGroup>
-  <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(VisualStudioDir)\SDKs\Catch\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>CATCH_CONFIG_NOSTDOUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <PreBuildEvent>
-      <Command>IF EXIST "$(TargetDir)$(TargetName).ipdb" ( DEL "$(TargetDir)$(TargetName).ipdb" )</Command>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Interpolation.cpp" />
     <ClCompile Include="line2.cpp" />
