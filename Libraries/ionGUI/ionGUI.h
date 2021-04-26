@@ -36,6 +36,32 @@ namespace ImGui
 	bool Combo(const char* label, int* current_item, std::initializer_list<char const *> const & items, int height_in_items = -1);
 	bool Combo(const char* label, int* current_item, std::vector<ion::string> const & items, int height_in_items = -1);
 
+	template <size_t N>
+	bool Combo(const char* label, int* current_item, std::array<ion::string, N> const & items, int height_in_items = -1)
+	{
+		bool valueChanged = false;
+
+		if (ImGui::BeginCombo(label, (*current_item >= 0 && *current_item < items.size() ? items[*current_item].c_str() : ""), ImGuiComboFlags_None))
+		{
+			for (int n = 0; n < items.size(); ++ n)
+			{
+				bool isSelected = (*current_item == n);
+				if (ImGui::Selectable(items[n].c_str(), isSelected))
+				{
+					*current_item = n;
+					valueChanged = true;
+				}
+				if (isSelected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		return valueChanged;
+	}
+
 	bool InputText(const char* label, ion::string & buf, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = nullptr, void* user_data = nullptr);
 
 	void TextBool(const char* label, const bool value);
